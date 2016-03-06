@@ -1,0 +1,24 @@
+{
+  "name": "ack-angular",
+  "version": "1.0.0",
+  "description": "Universal Angular base code suited for any web app",
+  "main": "ack-angular.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AckerApple/ack-angular.git"
+  },
+  "keywords": [
+    "acker",
+    "apple",
+    "directives"
+  ],
+  "author": "Acker Apple",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AckerApple/ack-angular/issues"
+  },
+  "homepage": "https://github.com/AckerApple/ack-angular"
+}
