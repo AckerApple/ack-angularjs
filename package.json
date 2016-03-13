@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "scripts": {
@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/AckerApple/ack-angular/issues"
   },
-  "homepage": "https://github.com/AckerApple/ack-angular"
+  "homepage": "https://github.com/AckerApple/ack-angular",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "jade-loader": "^0.8.0",
+    "style-loader": "^0.13.0"
+  }
 }
+
