@@ -2,7 +2,7 @@
   "name": "ack-angular",
   "version": "1.0.3",
   "description": "Universal Angular base code suited for any web app",
-  "main": "index.js",
+  "main": "ack-angular.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --progress",
