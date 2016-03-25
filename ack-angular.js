@@ -52,7 +52,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//version: 1.0.0
+	//version: 1.0.3
 	angular.module('ackAngular',[])
 	.directive('whiteOutModal',function(){//white-out-modal
 	  return {
@@ -68,10 +68,12 @@
 	    ,link:function($scope, jElm, attrs){
 	      var handler = function(event){
 	        //already showing
-	        if($scope.wom.show && event.srcElement==jElm[0].childNodes[0]){
+	        var jTar = jElm.children().eq(0)
+	        var eTar = event.srcElement || event.toElement || event.target
+	        if($scope.wom.show && eTar==jTar[0]){
 	          $scope.wom.show = null
 	          $scope.$apply()
-	          jElm.children().eq(0).off('click', handler)
+	          jTar.off('click', handler)
 	        }
 	      }
 
@@ -100,7 +102,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div ng-click=\"wom.show=null\" style=\"position:absolute;top:0;right:0;margin-right:18px;margin-top:10px;border:1px solid #DDD;border-radius:50%;\"><div style=\"cursor:pointer;border-radius:50%;background-color:black;height:1.25em;width:1.25em;color:white;text-align:center;font-family:Arial;border:.15em solid white;\">x</div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
+	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div ng-click=\"wom.show=null\" style=\"position:absolute;top:0;right:0;margin-right:18px;margin-top:10px;border:1px solid #DDD;border-radius:50%;\"><div style=\"cursor:pointer;border-radius:50%;background-color:black;height:1.25em;width:1.25em;color:white;text-align:center;font-family:Arial;border:.15em solid white;line-height:1em;\">x</div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
 	}
 
 /***/ },

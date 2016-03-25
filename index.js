@@ -1,4 +1,4 @@
-//version: 1.0.0
+//version: 1.0.3
 angular.module('ackAngular',[])
 .directive('whiteOutModal',function(){//white-out-modal
   return {
@@ -14,10 +14,12 @@ angular.module('ackAngular',[])
     ,link:function($scope, jElm, attrs){
       var handler = function(event){
         //already showing
-        if($scope.wom.show && event.srcElement==jElm[0].childNodes[0]){
+        var jTar = jElm.children().eq(0)
+        var eTar = event.srcElement || event.toElement || event.target
+        if($scope.wom.show && eTar==jTar[0]){
           $scope.wom.show = null
           $scope.$apply()
-          jElm.children().eq(0).off('click', handler)
+          jTar.off('click', handler)
         }
       }
 
