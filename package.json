@@ -2,9 +2,12 @@
   "name": "ack-angular",
   "version": "1.0.1",
   "description": "Universal Angular base code suited for any web app",
-  "main": "ack-angular.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch --progress",
+    "pack": "webpack --progress",
+    "start": "webpack-dev-server --content-base ./"
   },
   "repository": {
     "type": "git",
@@ -22,9 +25,11 @@
   },
   "homepage": "https://github.com/AckerApple/ack-angular",
   "devDependencies": {
+    "jade": "^1.11.0",
     "css-loader": "^0.23.1",
     "jade-loader": "^0.8.0",
-    "style-loader": "^0.13.0"
+    "style-loader": "^0.13.0",
+    "angular": "1.4.6"
   }
 }
 

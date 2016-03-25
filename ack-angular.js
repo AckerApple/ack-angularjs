@@ -100,7 +100,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;opacity:.4;\" onmouseover=\"this.style.opacity=.7\" onmouseout=\"this.style.opacity=.4\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;font-size:190%;position:absolute;top:0;right:0;margin-right:18px;margin-top:10px;line-height:1;\">x</div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
+	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div ng-click=\"wom.show=null\" style=\"position:absolute;top:0;right:0;margin-right:18px;margin-top:10px;border:1px solid #DDD;border-radius:50%;\"><div style=\"cursor:pointer;font-size:170%;border-radius:50%;background-color:black;height:1em;width:1em;line-height:.91em;color:white;text-align:center;font-family:Arial;border:.15em solid white;\">x</div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
 	}
 
 /***/ },
@@ -674,7 +674,6 @@
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
-		var sourceMap = obj.sourceMap;
 
 		if(media) {
 			styleElement.setAttribute("media", media)
@@ -692,7 +691,6 @@
 
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
-		var media = obj.media;
 		var sourceMap = obj.sourceMap;
 
 		if(sourceMap) {
