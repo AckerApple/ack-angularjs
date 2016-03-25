@@ -17,12 +17,12 @@ angular.module('ackAngular',[])
         if($scope.wom.show && event.srcElement==jElm[0].childNodes[0]){
           $scope.wom.show = null
           $scope.$apply()
-          jElm.off('click', handler)
+          jElm.children().eq(0).off('click', handler)
         }
       }
 
       var addHandler = function(){
-        jElm.on('click', handler)
+        jElm.children().eq(0).on('click', handler)
       }
 
       $scope.$watch('wom.show',function(show){
