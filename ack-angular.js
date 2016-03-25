@@ -53,7 +53,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	//version: 1.0.3
-	angular.module('ackAngular',[])
+	angular.module('ackAngular',['ngAnimate'])
 	.directive('whiteOutModal',function(){//white-out-modal
 	  return {
 	    restrict:'E'
@@ -102,7 +102,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div ng-click=\"wom.show=null\" style=\"position:absolute;top:10px;right:10px;border:1px solid #DDD;border-radius:50%;\"><div style=\"cursor:pointer;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial;border:3px solid white;\"><div style=\"line-height:22px;height:25px;width:25px;font-size:23px;\">x</div></div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
+	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div style=\"position:absolute;top:.5em;right:.5em;border:.15em solid #DDD;border-radius:50%;\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;padding:.1em;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial;border:.3em solid white;\"><div style=\"line-height:.575em;font-size:2em;height:.75em;width:.75em;\">x</div></div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
 	}
 
 /***/ },
@@ -676,6 +676,7 @@
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
+		var sourceMap = obj.sourceMap;
 
 		if(media) {
 			styleElement.setAttribute("media", media)
@@ -693,6 +694,7 @@
 
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
+		var media = obj.media;
 		var sourceMap = obj.sourceMap;
 
 		if(sourceMap) {

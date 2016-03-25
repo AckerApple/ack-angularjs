@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "css-loader": "^0.23.1",
     "jade-loader": "^0.8.0",
     "style-loader": "^0.13.0",
-    "angular": "1.4.6"
+    "angular": "^1.5.3",
+    "angular-animate": "^1.5.3"
   }
 }
-

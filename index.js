@@ -1,5 +1,5 @@
 //version: 1.0.3
-angular.module('ackAngular',[])
+angular.module('ackAngular',['ngAnimate'])
 .directive('whiteOutModal',function(){//white-out-modal
   return {
     restrict:'E'
