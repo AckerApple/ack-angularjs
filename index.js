@@ -1,5 +1,6 @@
-//version: 1.0.3
+//version: 1.0.4
 angular.module('ackAngular',['ngAnimate'])
+.service('ackX', require('ackX'))
 .directive('whiteOutModal',function(){//white-out-modal
   return {
     restrict:'E'
