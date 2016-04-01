@@ -15,7 +15,9 @@
   <body ng-init="showModal=true">
     <button type="button" ng-click="showModal=!showModal">hide/show</button>
     <white-out-modal show="showModal">
-      this is my test
+      this is my test on {{(''|ack: 'date').now().mmddyy()}} @ {{(''|ack: 'date').now().hhmmssl()}}
+      <br />
+      this is my test on {{(''|ack: 'date').now().mmddyy()}} @ {{(''|ack: 'date').now().hhmmtt()}}
     </white-out-modal>
   </body>
 </html>

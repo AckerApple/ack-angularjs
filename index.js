@@ -1,6 +1,11 @@
 //version: 1.0.4
 angular.module('ackAngular',['ngAnimate'])
-.service('ackX', require('ackX'))
+.service('ack', function(){return ack})
+.filter('ack', function(){
+  return function(v,type){
+    return ack[type](v)
+  }
+})
 .directive('whiteOutModal',function(){//white-out-modal
   return {
     restrict:'E'
@@ -36,3 +41,5 @@ angular.module('ackAngular',['ngAnimate'])
     }
   }
 })
+
+var ack = require('ack-x')
