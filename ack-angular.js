@@ -52,20 +52,32 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//version: 1.0.4
+	//version: 1.0.5
 	angular.module('ackAngular',['ngAnimate'])
 	.service('ack', function(){return ack})
 	.filter('ack', function(){
-	  return function(v,type){
-	    return ack[type](v)
+	  return function(v,type,call0,call1){
+	    var key, item, rtn = ack[type].call(ack,v)
+
+	    //loop extra arguments as property collectors
+	    for(var x=2; x < arguments.length; ++x){
+	      key = arguments[x]
+	      item = rtn[key];
+
+	      if(item && item.constructor==Function){
+	        rtn = item.call(rtn)
+	      }else{
+	        rtn = item
+	      }
+	    }
+
+	    return rtn
 	  }
 	})
 	.directive('whiteOutModal',function(){//white-out-modal
 	  return {
 	    restrict:'E'
-	    ,scope:{
-	      show:'=', size:'='
-	    }
+	    ,scope:{show:'=', size:'=?'}
 	    ,transclude:true
 	    ,template:__webpack_require__(2)
 	    ,bindToController:true
@@ -487,12 +499,9 @@
 			return new ackInjector($scope)
 		}
 
-		ack.promise = function(thenable, context){
+		ack.promise = function(var0, var1, var2, var3){
 			var promise = ackP.start()
-			if(thenable){
-				promise=promise.then(thenable, context)
-			}
-			return promise
+			return promise.set.apply(promise,arguments)
 		}
 	/* end: hard-coded modules */
 
@@ -1559,9 +1568,9 @@
 	}
 
 	/** all arguments are used to jump start a thenable promise */
-	ackPromise.resolve = function(){
+	ackPromise.resolve = function(v0,v1,v2,v3){
 	  var promise = new ackP()
-	  promise = promise.set()
+	  promise = promise.set.apply(promise,arguments)
 	  return promise
 	}
 
@@ -1630,7 +1639,7 @@
 	    }
 	  }else{
 	    var processCondition = function(args, next, scope){
-	      var result = args[0]==condition
+	      var result = args[0]===condition
 	      next.call(scope, result)
 	    }
 	  }
@@ -1941,6 +1950,9 @@
 	/** alias for compatibility with earlier ECMAScript version */
 	ackP.prototype.caught = ackP.prototype['catch']
 
+	/**
+	  @condition - if condition is not a method, then value must strictly match condition. If condition is method, condition only must return truthy
+	*/
 	ackP.prototype['if'] = function(condition,method,scope){
 	  return ackPromise.createIf(this, condition, scope, function(args, next){
 	    var mr = method.apply(this, args)
@@ -5714,14 +5726,20 @@
 		return Math.ceil((d - new Date(d.getFullYear(), 0, 1)) / 86400000)
 	}
 
-	ackDate.prototype.nextYear = function(y){
+	ackDate.prototype.getNextYear = function(y){
 		y = y==null ? 1 : Number(y)
-		this.setYear( this.year()+y )
+		return this.year()+y
+	}
+	ackDate.prototype.nextYear = function(y){
+		this.setYear( this.getNextYear(y) )
 		return this
 	}
-	ackDate.prototype.priorYear = function(y){
+	ackDate.prototype.getPriorYear = function(y){
 		y = y==null ? 1 : Number(y)
-		this.setYear( this.year()-Math.abs(y) )
+		return this.year()-Math.abs(y)
+	}
+	ackDate.prototype.priorYear = function(y){
+		this.setYear( this.getPriorYear(y) )
 		return this
 	}
 	ackDate.prototype.addYear = ackDate.prototype.nextYear;

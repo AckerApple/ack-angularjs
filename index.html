@@ -13,11 +13,17 @@
     </style>
   </head>
   <body ng-init="showModal=true">
-    <button type="button" ng-click="showModal=!showModal">hide/show</button>
+    <button type="button" ng-click="showModal=!showModal">hide/show white-out-modal</button>
     <white-out-modal show="showModal">
-      this is my test on {{(''|ack: 'date').now().mmddyy()}} @ {{(''|ack: 'date').now().hhmmssl()}}
-      <br />
-      this is my test on {{(''|ack: 'date').now().mmddyy()}} @ {{(''|ack: 'date').now().hhmmtt()}}
+      <div style="border:1px solid black;">
+        this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
+        <br />
+        this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
+        <hr />
+        <div style="text-align:center;">
+          tap outside of here to close
+        </div>
+      </div>
     </white-out-modal>
   </body>
 </html>

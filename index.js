@@ -1,17 +1,29 @@
-//version: 1.0.4
+//version: 1.0.5
 angular.module('ackAngular',['ngAnimate'])
 .service('ack', function(){return ack})
 .filter('ack', function(){
-  return function(v,type){
-    return ack[type](v)
+  return function(v,type,call0,call1){
+    var key, item, rtn = ack[type].call(ack,v)
+
+    //loop extra arguments as property collectors
+    for(var x=2; x < arguments.length; ++x){
+      key = arguments[x]
+      item = rtn[key];
+
+      if(item && item.constructor==Function){
+        rtn = item.call(rtn)
+      }else{
+        rtn = item
+      }
+    }
+
+    return rtn
   }
 })
 .directive('whiteOutModal',function(){//white-out-modal
   return {
     restrict:'E'
-    ,scope:{
-      show:'=', size:'='
-    }
+    ,scope:{show:'=', size:'=?'}
     ,transclude:true
     ,template:require('./white-out-modal.jade')
     ,bindToController:true
