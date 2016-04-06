@@ -1,12 +1,16 @@
+"use strict";
+
+var ack = require('ack-x/index-browser')
+
 //version: 1.0.5
 angular.module('ackAngular',['ngAnimate'])
 .service('ack', function(){return ack})
 .filter('ack', function(){
-  return function(v,type,call0,call1){
-    var key, item, rtn = ack[type].call(ack,v)
+  return function(v,call0,call1,call2){
+    var key, item, rtn = ack(v)
 
     //loop extra arguments as property collectors
-    for(var x=2; x < arguments.length; ++x){
+    for(var x=1; x < arguments.length; ++x){
       key = arguments[x]
       item = rtn[key];
 
@@ -53,5 +57,3 @@ angular.module('ackAngular',['ngAnimate'])
     }
   }
 })
-
-var ack = require('ack-x')
