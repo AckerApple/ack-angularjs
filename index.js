@@ -3,7 +3,7 @@
 var ack = require('ack-x/index-browser')
 
 //version: 1.0.5
-angular.module('ackAngular',['ngAnimate'])
+angular.module('ack-angular',['ngAnimate'])
 .service('ack', function(){return ack})
 .filter('ack', function(){
   return function(v,call0,call1,call2){
