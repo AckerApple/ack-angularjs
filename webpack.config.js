@@ -34,6 +34,16 @@ var dist = {
   module: {loaders:loaders}
 }
 
+var package = {
+  entry: "./entry.js",
+  output: {
+    path: path.join(__dirname),
+    filename: "ack-angular.js"
+    //,publicPath:"dist/"
+  },
+  module: {loaders:loaders}
+}
+
 var distMin = {
   entry: "./entry.js",
   output: {
@@ -49,4 +59,4 @@ var distMin = {
   ]
 }
 
-module.exports = [test,dist,distMin];
+module.exports = [test,dist,distMin,package];
