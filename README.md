@@ -1,5 +1,10 @@
 # ack-angular, the Acker Way of Fullfilling Our Everyday Angular Needs
-Extra special directives, services and filters to aide in completeting everyday interface development needs
+Extra special directives, services and filters to aide in completeting everyday interface development needs.
+
+## May Contain More Functionality Than You Need
+The following packages are pre-bundled into ack-angular
+- angular-animate ^1.5.3
+- ng-fx ^2.0.4
 
 ## This is a Stable Project But is Developing & Maturing
 This code was born out of countless past production projects that were implemented and put together by Acker Apple. This code is used in existing production projects and is still primarly maintained by Acker Apple.

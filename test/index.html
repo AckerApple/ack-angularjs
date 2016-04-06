@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="ackAngular">
+<html lang="en" ng-app="ack-angular">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0" />
     <script src="../node_modules/angular/angular.js" type="text/javascript"></script>
+<!--
     <script src="../node_modules/angular-animate/angular-animate.js" type="text/javascript"></script>
+-->
     <script src="ack-angular.js" type="text/javascript"></script>
     <style>
       html,body{
@@ -13,7 +15,16 @@
     </style>
   </head>
   <body ng-init="showModal=true">
+    <button type="button" ng-click="showFx=!showFx">hide/show ng-fx</button>
     <button type="button" ng-click="showModal=!showModal">hide/show white-out-modal</button>
+    <div style="color:white;">
+      <div ng-show="showFx" class="fx-fade-up">
+        <h2>ng-fx</h2>
+        <hr /><hr /><hr /><hr /><hr /><hr />
+        <h3>Awesomeness</h3>
+      </div>
+    </div>
+
     <white-out-modal show="showModal">
       <div style="border:1px solid black;">
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}

@@ -1,9 +1,11 @@
 "use strict";
 
 var ack = require('ack-x/index-browser')
+require('ng-fx')
+require('angular-animate')
 
-//version: 1.0.5
-angular.module('ack-angular',['ngAnimate'])
+//version: 1.1.0
+angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .filter('ack', function(){
   return function(v,call0,call1,call2){
