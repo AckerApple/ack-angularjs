@@ -5775,9 +5775,15 @@
 		this.prevDay( this.dayOfWeek()-1 );return this
 	}
 
-	ackDate.prototype.gotoMondayOfWeek = function(){
+	ackDate.prototype.gotoMonday = function(){
 		this.gotoFirstDayOfWeek().nextDay();return this
 	}
+	ackDate.prototype.gotoMondayOfWeek = ackDate.prototype.gotoMonday
+
+	ackDate.prototype.gotoFriday = function(){
+		this.gotoFirstDayOfWeek().nextDay(5);return this
+	}
+	ackDate.prototype.gotoFridayOfWeek = ackDate.prototype.gotoFriday
 
 	ackDate.prototype.gotoWeek = function(week){
 		var thisWk = this.week()
