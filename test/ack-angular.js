@@ -6010,15 +6010,37 @@
 		return this.mmdd(sep)+ sep +d.getFullYear()
 	}
 
+	ackDate.prototype.mdyyyy = function(sep){
+		sep = sep==null ? '/' : sep
+		var d = this.date
+		return this.md(sep)+ sep +d.getFullYear()
+	}
+
+	ackDate.prototype.mdyy = function(sep){
+		sep = sep==null ? '/' : sep
+		var d = this.date
+		return this.md(sep)+ sep +this.yy()
+	}
+
 	ackDate.prototype.mmddyy = function(sep){
 		var r = this.mmddyyyy()
 		return r.substring(0,r.length-4)+r.substring(r.length-2,r.length)
+	}
+
+	ackDate.prototype.yy = function(){
+		return this.date.getFullYear().toString().substring(2,4)
 	}
 
 	ackDate.prototype.mmdd = function(sep){
 		sep = sep==null ? '/' : sep
 		var d = this.date
 		return ackDate.twoDigit(d.getMonth()+1)+ sep + ackDate.twoDigit(d.getDate())
+	}
+
+	ackDate.prototype.md = function(sep){
+		sep = sep==null ? '/' : sep
+		var d = this.date
+		return (d.getMonth()+1)+ sep + d.getDate()
 	}
 
 	var eackDate = function(date){
