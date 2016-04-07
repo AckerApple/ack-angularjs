@@ -15,10 +15,10 @@ var loaders = [
 ]
 
 var test = {
-  entry: "./entry.js",
+  entry: "./entry-test.js",
   output: {
     path: path.join(__dirname,'test'),
-    filename: "ack-angular.js"
+    filename: "test.js"
     //,publicPath:"test/"
   },
   module: {loaders:loaders}

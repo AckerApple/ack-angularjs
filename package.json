@@ -1,13 +1,13 @@
 {
   "name": "ack-angular",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --progress",
     "pack": "webpack --progress",
-    "start": "webpack-dev-server --content-base ./"
+    "start": "webpack-dev-server --content-base ./test"
   },
   "repository": {
     "type": "git",
