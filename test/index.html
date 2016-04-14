@@ -38,6 +38,10 @@
         empty-string: "{{null|ack:'date':'hhmmtt'}}"
         <br />
         date-diff: {{0|ack:'date':'now':['addSeconds',60]:'dateSecondDiff'}} == 60
+        <br />
+        time: {{'13:30'|ack:'time':'hhmmtt'}} == 01:30 PM
+        <br />
+        time: {{'1:30 pm'|ack:'time':'hhmmtt'}} == 01:30 PM
         <hr />
         <div style="text-align:center;">
           tap outside of here to close

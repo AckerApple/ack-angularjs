@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(34);
+	__webpack_require__(35);
 
 
 /***/ },
@@ -55,8 +55,8 @@
 	"use strict";
 
 	var ack = __webpack_require__(2)
-	__webpack_require__(28)
 	__webpack_require__(29)
+	__webpack_require__(30)
 
 	//version: 1.1.0
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
@@ -94,7 +94,7 @@
 	    restrict:'E'
 	    ,scope:{show:'=', size:'=?'}
 	    ,transclude:true
-	    ,template:__webpack_require__(31)
+	    ,template:__webpack_require__(32)
 	    ,bindToController:true
 	    ,controllerAs:'wom'
 	    ,controller:function(){}
@@ -144,6 +144,7 @@
 	ack.month = __webpack_require__(25)
 	ack.year = __webpack_require__(27)
 	ack.date = __webpack_require__(26)
+	ack.time = __webpack_require__(28)
 	/*
 	ack.function = require('./js/method')
 	*/
@@ -280,6 +281,7 @@
 	ackExpose.prototype.month = function(){return ack.month(this.$var)}
 	ackExpose.prototype.year = function(){return ack.year(this.$var)}
 	ackExpose.prototype.date = function(){return ack.date(this.$var)}
+	ackExpose.prototype.time = function(){return ack.time(this.$var)}
 
 
 	ackExpose.prototype.getSimpleClone = function(){
@@ -5422,7 +5424,7 @@
 	"use strict";
 
 	/* everything operates on a scale of 1-12 NOT 0-11 OR 1-31 NOT 0-30 ... Weeks are 1-53 */
-	var ackDate = function ackDate(date){
+	function ackDate(date){
 		this.date = ackDate.toDate(date)
 		return this
 	}
@@ -6216,6 +6218,69 @@
 
 /***/ },
 /* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var ackDate = __webpack_require__(26)
+
+	function ackTime(date){
+		this.date = ackTime.toDate(date)
+		return this
+	}
+
+	ackTime.dateObjectBy = function(date){
+		if(date){
+			if(date.constructor == ackTime){
+				return date.date
+			}
+
+			if(date.constructor == Date)
+				return date
+
+			if(date.split){
+				var hour, minute, tt;
+				var tArray = date.split(':');
+				var hour = tArray[0];
+
+				if(tArray.length > 1){
+					minute = tArray[1];
+					minute = minute.split(' ');
+					if(minute.length > 1){
+						tt = minute[1];
+						if(hour<=11 && tt.toLowerCase()=='pm'){
+							hour = Number(hour) + 12;
+						}
+					}
+
+					minute = minute[0];
+				}
+
+				var newDate = new Date().setHours(hour);
+				newDate = new Date(newDate).setMinutes(minute)
+				date = new Date(newDate)
+			}
+
+			return new Date(date)//convert string to date object
+		}
+
+		return date || new Date()
+	}
+
+	ackTime.toDate = function(date){
+		return date!=null ? ackTime.dateObjectBy(date) : null
+	}
+
+	var eackTime = function(date){
+		var date = new ackTime(date).date
+		return ackDate(date)
+	}
+
+	eackTime.Class = ackTime
+	module.exports = eackTime
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -9545,15 +9610,15 @@
 	;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(30);
+	__webpack_require__(31);
 	module.exports = 'ngAnimate';
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/**
@@ -13674,10 +13739,10 @@
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(32);
+	var jade = __webpack_require__(33);
 
 	module.exports = function template(locals) {
 	var buf = [];
@@ -13688,7 +13753,7 @@
 	}
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13908,7 +13973,7 @@
 	    throw err;
 	  }
 	  try {
-	    str = str || __webpack_require__(33).readFileSync(filename, 'utf8')
+	    str = str || __webpack_require__(34).readFileSync(filename, 'utf8')
 	  } catch (ex) {
 	    rethrow(err, null, lineno)
 	  }
@@ -13940,22 +14005,22 @@
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(35);
+	var content = __webpack_require__(36);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(37)(content, {});
+	var update = __webpack_require__(38)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -13972,10 +14037,10 @@
 	}
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(36)();
+	exports = module.exports = __webpack_require__(37)();
 	// imports
 
 
@@ -13986,7 +14051,7 @@
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	/*
@@ -14042,7 +14107,7 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
