@@ -9,15 +9,25 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .filter('ack', function(){
   return function(v,call0,call1,call2){
-    var key, item, rtn = ack(v)
+    var newkey, subargs, key, item, rtn = ack(v)
 
     //loop extra arguments as property collectors
     for(var x=1; x < arguments.length; ++x){
       key = arguments[x]
+      subargs = []
+
+      //array where 1st arg is method and subs are positional arguments
+      if(key.constructor==Array){
+        newkey = key.shift()
+        subargs = key
+        key = newkey
+console.log('key', key, subargs)
+      }
+
       item = rtn[key];
 
       if(item && item.constructor==Function){
-        rtn = item.call(rtn)
+        rtn = item.apply(rtn,subargs)
       }else{
         rtn = item
       }

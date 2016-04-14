@@ -63,15 +63,25 @@
 	.service('ack', function(){return ack})
 	.filter('ack', function(){
 	  return function(v,call0,call1,call2){
-	    var key, item, rtn = ack(v)
+	    var newkey, subargs, key, item, rtn = ack(v)
 
 	    //loop extra arguments as property collectors
 	    for(var x=1; x < arguments.length; ++x){
 	      key = arguments[x]
+	      subargs = []
+
+	      //array where 1st arg is method and subs are positional arguments
+	      if(key.constructor==Array){
+	        newkey = key.shift()
+	        subargs = key
+	        key = newkey
+	console.log('key', key, subargs)
+	      }
+
 	      item = rtn[key];
 
 	      if(item && item.constructor==Function){
-	        rtn = item.call(rtn)
+	        rtn = item.apply(rtn,subargs)
 	      }else{
 	        rtn = item
 	      }
@@ -5454,6 +5464,21 @@
 		return new Date(date.setMilliseconds(999))
 	}
 
+	ackDate.dateObjectBy = function(date){
+		if(date){
+			if(date.constructor == ackDate)
+				return date.date
+
+			if(date.constructor == Date)
+				return date
+
+			//if(['string','number'].indexOf(typeof(date)))
+			return new Date(date)//convert string to date object
+		}
+
+		return date || new Date()
+	}
+
 	ackDate.toDate = function(date){
 		return date!=null ? ackDate.dateObjectBy(date) : null
 	}
@@ -5481,21 +5506,6 @@
 		return ackDate.monthLcaseNameArray.indexOf(mon.toLowerCase())
 	}
 
-	ackDate.dateObjectBy = function(date){
-		if(date){
-			if(date.constructor == ackDate)
-				return date.date
-
-			if(date.constructor == Date)
-				return date
-
-			//if(['string','number'].indexOf(typeof(date)))
-			return new Date(date)//convert string to date object
-		}
-
-		return date || new Date()
-	}
-
 	ackDate.monthNameArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 	ackDate.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 	ackDate.monthAbbrArray = ['Jan','Feb','Mar','Apr','Ma','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
@@ -5513,6 +5523,10 @@
 
 	ackDate.prototype.now = function(){
 		this.date = new Date();return this;
+	}
+
+	ackDate.prototype.param = function(){
+		this.date = this.date||new Date();return this;
 	}
 
 	//returns years.months (32.11 is 32 years and 11 months && 32.1 is 32 years 1 month)
@@ -5739,6 +5753,7 @@
 		this.date = new Date(d)
 		return this
 	}
+	ackDate.prototype.priorDay = ackDate.prototype.prevDay//aka for naming consistency
 
 	ackDate.prototype.getDayName = function(){
 		return ackDate.dayNameArray[ this.date.getDay() ]
@@ -5896,13 +5911,13 @@
 
 	/** alters this.date and return this */
 	ackDate.prototype.addHours = function(n){
-		this.date.setHours( this.date.getHours()+n );
+		if(this.date)this.date.setHours( this.date.getHours()+n );
 		return this
 	}
 
 	/** alters this.date and return this */
 	ackDate.prototype.addMinutes = function(n){
-		this.date = new Date(this.date.getTime() + n*60000)
+		if(this.date)this.date = new Date(this.date.getTime() + n*60000)
 		return this
 	}
 
@@ -5917,29 +5932,44 @@
 
 	/** alters this.date and return this */
 	ackDate.prototype.addMilliseconds = function(n){
-		//this.date.setMilliseconds(this.date.getMilliseconds() + n)
-		this.date = new Date(this.date.getTime() + n)
+		if(this.date)this.date = new Date(this.date.getTime() + n)
 		return this
 	}
 
 	/** returns no negative numbers */
 	ackDate.prototype.dateHourDiff = function(date){
-		return Math.abs(this.date - ackDate.dateObjectBy(date)) / 36e5;
+		return Math.abs(this.date - ackDate.dateObjectBy(date||new Date())) / 36e5;
 	}
+	ackDate.prototype.dateHoursDiff = ackDate.prototype.dateHourDiff//alias
 
-	/** returns no negative numbers */
-	ackDate.prototype.dateSecondDiff = function(date){
-		var dif = this.date.getTime() - ackDate.dateObjectBy(date).getTime()
+	/** Does not return negative numbers.
+		@date - not required, default = new Date()
+		@decimals - not required, default = false (no decimals causes decimal rounding)
+	*/
+	ackDate.prototype.dateSecondDiff = function(date, decimals){
+		date = ackDate.dateObjectBy(date||new Date())
+		var dif = this.date.getTime() - date.getTime()
 		var Seconds_from_T1_to_T2 = dif / 1000;
-		return Math.abs(Seconds_from_T1_to_T2)
+		var rtn = Math.abs(Seconds_from_T1_to_T2)
+
+		if(decimals){
+			decimals = Number(decimals) && !isNaN(decimals) ? decimals:2;
+			rtn = toDecimal(rtn,decimals)
+		}else{
+			rtn = Math.round(rtn)
+		}
+
+		return rtn
 	}
+	ackDate.prototype.dateSecondsDiff = ackDate.prototype.dateSecondDiff//alias
 
 	//no negative numbers
 	ackDate.prototype.dateMinuteDiff = function(date){
-		date = ackDate.toDate(date)
+		date = ackDate.toDate(date||new Date())
 		var diffMs = this.date - date
 		return Math.abs( Math.round(((diffMs % 86400000) % 3600000) / 60000) )
 	}
+	ackDate.prototype.dateMinutesDiff = ackDate.prototype.dateMinuteDiff//alias
 
 
 
@@ -5963,14 +5993,16 @@
 		return h+timeSep+m+timeSep+s+milsecSep+d.getMilliseconds()
 	}
 
-	ackDate.prototype.hhmmsl = function(){
+	ackDate.prototype.hhmmsl = function(timeSep, milsecSep){
 		if(!this.date)return ''
-		var d = this.date
-			,h=d.getHours()
-			,m=d.getMinutes()
+		var	d = this.date,
+				timeSep = timeSep || ':',
+				milsecSep = milsecSep || '.',
+				h=d.getHours(),
+				m=d.getMinutes();
 		m=m<10?'0'+m:m
 		h = ('0'+h).slice(-2)
-		return h+':'+m+':'+d.getSeconds()+'.'+d.getMilliseconds()
+		return h+timeSep+m+timeSep+d.getSeconds()+milsecSep+d.getMilliseconds()
 	}
 
 	ackDate.prototype.hmmtt = function(){
@@ -5985,16 +6017,24 @@
 		return h+':'+m+' '+t
 	}
 
-	ackDate.prototype.hhmmtt = function(){
+	ackDate.prototype.mmddyyyyhhmmtt = function(dateSep, spaceSep, timeSep, ttSep){
 		if(!this.date)return ''
-		var d = this.date
-			,h=d.getHours()
-			,t='AM'
-			,m=d.getMinutes();
+		spaceSep = spaceSep==null?' ':spaceSep;
+		return this.mmddyyyy(dateSep)+ spaceSep + this.hhmmtt(timeSep, ttSep)
+	}
+
+	ackDate.prototype.hhmmtt = function(timeSep, ttSep){
+		if(!this.date)return ''
+		var d = this.date,
+				timeSep = timeSep || ':',
+				ttSep = ttSep==null?' ':ttSep,
+				h=d.getHours(),
+				t='AM',
+				m=d.getMinutes();
 
 		m=m<10?'0'+m:m;
 		h=h>=12?(t='PM',h-12||12):h==0?12:h
-		return ('0'+h).slice(-2)+':'+m+' '+t
+		return ('0'+h).slice(-2) +timeSep+ m+ttSep+t
 	}
 
 	//yyyy-mm-dd hh:nn:ss:l
@@ -6051,6 +6091,8 @@
 	var eackDate = function(date){
 		return new ackDate(date)
 	}
+
+	function toDecimal(n,p){var m=Math.pow(10,p);return (Math.round(n*m)/m).toFixed(p)}
 
 	eackDate.Class = ackDate
 	module.exports = eackDate
