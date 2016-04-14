@@ -21,7 +21,6 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
         newkey = key.shift()
         subargs = key
         key = newkey
-console.log('key', key, subargs)
       }
 
       item = rtn[key];
