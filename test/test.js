@@ -36976,8 +36976,11 @@
 					minute = minute.split(' ');
 					if(minute.length > 1){
 						tt = minute[1];
-						if(hour<=11 && tt.toLowerCase()=='pm'){
+						var isPm = tt.toLowerCase()=='pm'
+						if(hour<=11 && isPm){
 							hour = Number(hour) + 12;
+						}else if(hour==12 && !isPm){
+							hour = 0
 						}
 					}
 
