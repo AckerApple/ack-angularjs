@@ -4,42 +4,7 @@ var ack = require('ack-x/index-browser')
 require('ng-fx')
 require('angular-animate')
 
-function a(name){
-  return function(ack){
-    return invokeRotator( ack[name] )
-  }
-}
-
-function invokeRotator(invoke){
-  return function(v,call0,call1,call2){
-    var newkey, subargs, key, item, rtn = invoke(v)
-
-    //loop extra arguments as property collectors
-    for(var x=1; x < arguments.length; ++x){
-      key = arguments[x]
-      subargs = []
-
-      //array where 1st arg is method and subs are positional arguments
-      if(key.constructor==Array){
-        newkey = key.shift()
-        subargs = key
-        key = newkey
-      }
-
-      item = rtn[key];
-
-      if(item && item.constructor==Function){
-        rtn = item.apply(rtn,subargs)
-      }else{
-        rtn = item
-      }
-    }
-
-    return rtn
-  }
-}
-
-//version: 1.1.0
+//version: 1.1.4
 angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .filter('aDate',a('date'))
@@ -80,3 +45,38 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     }
   }
 })
+
+function a(name){
+  return function(ack){
+    return invokeRotator( ack[name] )
+  }
+}
+
+function invokeRotator(invoke){
+  return function(v,call0,call1,call2){
+    var newkey, subargs, key, item, rtn = invoke(v)
+
+    //loop extra arguments as property collectors
+    for(var x=1; x < arguments.length; ++x){
+      key = arguments[x]
+      subargs = []
+
+      //array where 1st arg is method and subs are positional arguments
+      if(key.constructor==Array){
+        newkey = key.shift()
+        subargs = key
+        key = newkey
+      }
+
+      item = rtn[key];
+
+      if(item && item.constructor==Function){
+        rtn = item.apply(rtn,subargs)
+      }else{
+        rtn = item
+      }
+    }
+
+    return rtn
+  }
+}

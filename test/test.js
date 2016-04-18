@@ -30786,42 +30786,7 @@
 	__webpack_require__(31)
 	__webpack_require__(32)
 
-	function a(name){
-	  return function(ack){
-	    return invokeRotator( ack[name] )
-	  }
-	}
-
-	function invokeRotator(invoke){
-	  return function(v,call0,call1,call2){
-	    var newkey, subargs, key, item, rtn = invoke(v)
-
-	    //loop extra arguments as property collectors
-	    for(var x=1; x < arguments.length; ++x){
-	      key = arguments[x]
-	      subargs = []
-
-	      //array where 1st arg is method and subs are positional arguments
-	      if(key.constructor==Array){
-	        newkey = key.shift()
-	        subargs = key
-	        key = newkey
-	      }
-
-	      item = rtn[key];
-
-	      if(item && item.constructor==Function){
-	        rtn = item.apply(rtn,subargs)
-	      }else{
-	        rtn = item
-	      }
-	    }
-
-	    return rtn
-	  }
-	}
-
-	//version: 1.1.0
+	//version: 1.1.4
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
 	.service('ack', function(){return ack})
 	.filter('aDate',a('date'))
@@ -30862,6 +30827,42 @@
 	    }
 	  }
 	})
+
+	function a(name){
+	  return function(ack){
+	    return invokeRotator( ack[name] )
+	  }
+	}
+
+	function invokeRotator(invoke){
+	  return function(v,call0,call1,call2){
+	    var newkey, subargs, key, item, rtn = invoke(v)
+
+	    //loop extra arguments as property collectors
+	    for(var x=1; x < arguments.length; ++x){
+	      key = arguments[x]
+	      subargs = []
+
+	      //array where 1st arg is method and subs are positional arguments
+	      if(key.constructor==Array){
+	        newkey = key.shift()
+	        subargs = key
+	        key = newkey
+	      }
+
+	      item = rtn[key];
+
+	      if(item && item.constructor==Function){
+	        rtn = item.apply(rtn,subargs)
+	      }else{
+	        rtn = item
+	      }
+	    }
+
+	    return rtn
+	  }
+	}
+
 
 /***/ },
 /* 4 */
@@ -36650,6 +36651,17 @@
 
 	/* ! TIME METHODS ! */
 
+	ackDate.prototype.setTimeByString = function(string){
+		if(!this.date)return this
+
+		var parsed = eackDate.parseTimeString(string)
+		this.date = this.date.setHours(parsed.hour);
+		this.date = new Date(this.date)
+		this.date = this.date.setMinutes(parsed.minute);
+		this.date = new Date(this.date)
+		return this;
+	}
+
 	/** alters this.date and return this */
 	ackDate.prototype.addHours = function(n){
 		if(this.date)this.date.setHours( this.date.getHours()+n );
@@ -36843,9 +36855,35 @@
 		return (d.getMonth()+1)+ sep + d.getDate()
 	}
 
+
 	var eackDate = function(date){
 		return new ackDate(date)
 	}
+
+	eackDate.parseTimeString = function (date){
+		var hour, minute, tt;
+		var tArray = date.split(':');
+		var hour = tArray[0];
+
+		if(tArray.length > 1){
+			minute = tArray[1];
+			minute = minute.split(' ');
+			if(minute.length > 1){
+				tt = minute[1];
+				var isPm = tt.toLowerCase()=='pm'
+				if(hour<=11 && isPm){
+					hour = Number(hour) + 12;
+				}else if(hour==12 && !isPm){
+					hour = 0
+				}
+			}
+
+			minute = Number(minute[0]);
+		}
+
+		return {hour:hour, minute:minute}
+	}
+
 
 	function toDecimal(n,p){var m=Math.pow(10,p);return (Math.round(n*m)/m).toFixed(p)}
 
@@ -36984,28 +37022,10 @@
 				return date
 
 			if(date.split){
-				var hour, minute, tt;
-				var tArray = date.split(':');
-				var hour = tArray[0];
+				var parsed = ackDate.parseTimeString(date)
 
-				if(tArray.length > 1){
-					minute = tArray[1];
-					minute = minute.split(' ');
-					if(minute.length > 1){
-						tt = minute[1];
-						var isPm = tt.toLowerCase()=='pm'
-						if(hour<=11 && isPm){
-							hour = Number(hour) + 12;
-						}else if(hour==12 && !isPm){
-							hour = 0
-						}
-					}
-
-					minute = minute[0];
-				}
-
-				var newDate = new Date().setHours(hour);
-				newDate = new Date(newDate).setMinutes(minute)
+				var newDate = new Date().setHours(parsed.hour);
+				newDate = new Date(newDate).setMinutes(parsed.minute)
 				date = new Date(newDate)
 			}
 
