@@ -4,12 +4,15 @@ var ack = require('ack-x/index-browser')
 require('ng-fx')
 require('angular-animate')
 
-//version: 1.1.0
-angular.module('ack-angular',['ngAnimate','ng-fx'])
-.service('ack', function(){return ack})
-.filter('ack', function(){
+function a(name){
+  return function(ack){
+    return invokeRotator( ack[name] )
+  }
+}
+
+function invokeRotator(invoke){
   return function(v,call0,call1,call2){
-    var newkey, subargs, key, item, rtn = ack(v)
+    var newkey, subargs, key, item, rtn = invoke(v)
 
     //loop extra arguments as property collectors
     for(var x=1; x < arguments.length; ++x){
@@ -34,6 +37,15 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 
     return rtn
   }
+}
+
+//version: 1.1.0
+angular.module('ack-angular',['ngAnimate','ng-fx'])
+.service('ack', function(){return ack})
+.filter('aDate',a('date'))
+.filter('aTime',a('time'))
+.filter('ack', function(){
+  return invokeRotator(ack)
 })
 .directive('whiteOutModal',function(){//white-out-modal
   return {

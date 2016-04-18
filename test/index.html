@@ -28,26 +28,75 @@
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
         <br />
         <br />
-        time: "{{0|ack:'date':'now':'hmmtt'}}"
-        <br />
-        time: "{{0|ack:'date':'now':'hhmmtt'}}"
-        <br />
-        <br />
-        empty-string: "{{null|ack:'date':'hmmtt'}}"
-        <br />
-        empty-string: "{{null|ack:'date':'hhmmtt'}}"
-        <br />
-        date-diff: {{0|ack:'date':'now':['addSeconds',60]:'dateSecondDiff'}} == 60
-        <br />
-        time: {{'13:30'|ack:'time':'hhmmtt'}} == 01:30 PM
-        <br />
-        time: {{'1:30 pm'|ack:'time':'hhmmtt'}} == 01:30 PM
-        <br />
-        time: {{'12:00 am'|ack:'time':'hhmmtt'}} == 12:00 AM
-        <br />
-        time: {{'12:00 pm'|ack:'time':'hhmmtt'}} == 12:00 PM
-        <br />
-        minuteDiff: {{'01/01/2014 2:00 am'|ack:'date':['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
+
+        <h4>ackFilter</h4>
+        <ul>
+          <li>
+            time: "{{0|aDate:'now':'hmmtt'}}"
+          </li>
+          <li>
+            time: "{{0|aDate:'now':'hhmmtt'}}"
+          </li>
+          <li>
+            empty-string: "{{null|aDate:'hmmtt'}}"
+          </li>
+          <li>
+            empty-string: "{{null|aDate:'hhmmtt'}}"
+          </li>
+          <li>
+            date-diff: {{0|aDate:'now':['addSeconds',60]:'dateSecondDiff'}} == 60
+          </li>
+          <li>
+            time: {{'13:30'|aTime:'hhmmtt'}} == 01:30 PM
+          </li>
+          <li>
+            time: {{'1:30 pm'|aTime:'hhmmtt'}} == 01:30 PM
+          </li>
+          <li>
+            time: {{'12:00 am'|aTime:'hhmmtt'}} == 12:00 AM
+          </li>
+          <li>
+            time: {{'12:00 pm'|aTime:'hhmmtt'}} == 12:00 PM
+          </li>
+          <li>
+            minuteDiff: {{'01/01/2014 2:00 am'|aDate:['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
+          </li>
+        </ul>
+
+
+        <h4>ack:filter</h4>
+        <ul>
+          <li>
+            time: "{{0|ack:'date':'now':'hmmtt'}}"
+          </li>
+          <li>
+            time: "{{0|ack:'date':'now':'hhmmtt'}}"
+          </li>
+          <li>
+            empty-string: "{{null|ack:'date':'hmmtt'}}"
+          </li>
+          <li>
+            empty-string: "{{null|ack:'date':'hhmmtt'}}"
+          </li>
+          <li>
+            date-diff: {{0|ack:'date':'now':['addSeconds',60]:'dateSecondDiff'}} == 60
+          </li>
+          <li>
+            time: {{'13:30'|ack:'time':'hhmmtt'}} == 01:30 PM
+          </li>
+          <li>
+            time: {{'1:30 pm'|ack:'time':'hhmmtt'}} == 01:30 PM
+          </li>
+          <li>
+            time: {{'12:00 am'|ack:'time':'hhmmtt'}} == 12:00 AM
+          </li>
+          <li>
+            time: {{'12:00 pm'|ack:'time':'hhmmtt'}} == 12:00 PM
+          </li>
+          <li>
+            minuteDiff: {{'01/01/2014 2:00 am'|ack:'date':['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
+          </li>
+        </ul>
         <hr />
         <div style="text-align:center;">
           tap outside of here to close
