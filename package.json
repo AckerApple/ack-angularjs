@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --progress",
-    "pack": "webpack --progress",
+    "bundle": "webpack --progress",
     "start": "webpack-dev-server --content-base ./test"
   },
   "repository": {

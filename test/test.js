@@ -36652,13 +36652,16 @@
 	/* ! TIME METHODS ! */
 
 	ackDate.prototype.setTimeByString = function(string){
-		if(!this.date)return this
+		if(!this.date || !string)return this
 
-		var parsed = eackDate.parseTimeString(string)
-		this.date = this.date.setHours(parsed.hour);
-		this.date = new Date(this.date)
-		this.date = this.date.setMinutes(parsed.minute);
-		this.date = new Date(this.date)
+		if(string.split){
+			var parsed = eackDate.parseTimeString(string)
+			this.date = this.date.setHours(parsed.hour);
+			this.date = new Date(this.date)
+			this.date = this.date.setMinutes(parsed.minute);
+			this.date = new Date(this.date)
+		}
+
 		return this;
 	}
 
