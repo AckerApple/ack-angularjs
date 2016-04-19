@@ -5780,13 +5780,6 @@
 	}
 	ackDate.prototype.priorDay = ackDate.prototype.prevDay//aka for naming consistency
 
-	ackDate.prototype.getDayName = function(){
-	  return ackDate.dayNameArray[ this.date.getDay() ]
-	}
-
-	ackDate.prototype.getDayAbbr = function(){
-	  return ackDate.dayAbbrArray[ this.date.getDay() ]
-	}
 
 
 
@@ -6018,6 +6011,16 @@
 
 
 	/* FORMATTING */
+	ackDate.prototype.getDayName = function(){
+	  if(!this.date)return ''
+	  return ackDate.dayNameArray[ this.date.getDay() ]
+	}
+
+	ackDate.prototype.getDayAbbr = function(){
+	  if(!this.date)return ''
+	  return ackDate.dayAbbrArray[ this.date.getDay() ]
+	}
+
 	/** Febuary 24th 2016 */
 	ackDate.prototype.mmmmdyyyy = function(){
 	  return this.getMonthName()+' '+this.getMonthDateProperNumber() +' '+ this.date.getFullYear()
