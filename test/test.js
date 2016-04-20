@@ -36878,6 +36878,11 @@
 	}
 
 	eackDate.parseTimeString = function (date){
+	  var dDate = new Date(date);
+	  if(dDate!='Invalid Date'){
+	    return {hour:dDate.getHours(), minute:dDate.getMinutes()};
+	  }
+
 	  var hour, minute, tt;
 	  var tArray = date.split(':');
 	  var hour = tArray[0];
