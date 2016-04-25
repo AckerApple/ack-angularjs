@@ -30944,6 +30944,7 @@
 	"use strict";
 
 	console.log('348')
+	var angular = __webpack_require__(1)
 	console.log('angular',angular)
 
 	var ack = __webpack_require__(5)
