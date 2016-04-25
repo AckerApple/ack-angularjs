@@ -45,18 +45,29 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(35);
+	__webpack_require__(36);
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(2);
+	module.exports = 'ack-angular';
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
-	var ack = __webpack_require__(2)
-	__webpack_require__(29)
+	console.log('348')
+	console.log('angular',angular)
+
+	var ack = __webpack_require__(3)
 	__webpack_require__(30)
+	__webpack_require__(31)
+
 
 	//version: 1.1.4
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
@@ -71,7 +82,7 @@
 	    restrict:'E'
 	    ,scope:{show:'=', size:'=?'}
 	    ,transclude:true
-	    ,template:__webpack_require__(32)
+	    ,template:__webpack_require__(33)
 	    ,bindToController:true
 	    ,controllerAs:'wom'
 	    ,controller:function(){}
@@ -137,44 +148,44 @@
 
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var ack = __webpack_require__(3)
-
-	ack.error = __webpack_require__(11)
-	ack.number = __webpack_require__(12)
-	ack.string = __webpack_require__(13)
-	ack.binary = __webpack_require__(18)
-	ack.base64 = __webpack_require__(19)
-	ack.object = __webpack_require__(20)
-	ack.method = __webpack_require__(21)
-	ack.array = __webpack_require__(22)
-	ack.queryObject = __webpack_require__(23)
-	ack.week = __webpack_require__(24)
-	ack.month = __webpack_require__(25)
-	ack.year = __webpack_require__(27)
-	ack.date = __webpack_require__(26)
-	ack.time = __webpack_require__(28)
-	/*
-	ack.function = require('./js/method')
-	*/
-	ack['function'] = __webpack_require__(21);
-
-	module.exports = ack
-
-/***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var jc = __webpack_require__(4),//old old old library for Classes and Accessors
-			ackInjector = __webpack_require__(5),
+	var ack = __webpack_require__(4)
+
+	ack.error = __webpack_require__(12)
+	ack.number = __webpack_require__(13)
+	ack.string = __webpack_require__(14)
+	ack.binary = __webpack_require__(19)
+	ack.base64 = __webpack_require__(20)
+	ack.object = __webpack_require__(21)
+	ack.method = __webpack_require__(22)
+	ack.array = __webpack_require__(23)
+	ack.queryObject = __webpack_require__(24)
+	ack.week = __webpack_require__(25)
+	ack.month = __webpack_require__(26)
+	ack.year = __webpack_require__(28)
+	ack.date = __webpack_require__(27)
+	ack.time = __webpack_require__(29)
+	/*
+	ack.function = require('./js/method')
+	*/
+	ack['function'] = __webpack_require__(22);
+
+	module.exports = ack
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var jc = __webpack_require__(5),//old old old library for Classes and Accessors
+			ackInjector = __webpack_require__(6),
 			partyModules = {
-				ackP:__webpack_require__(6), debug:__webpack_require__(7)
+				ackP:__webpack_require__(7), debug:__webpack_require__(8)
 			}
 
 	/** calling ack() as function, will return a module to work with almost any object */
@@ -208,7 +219,7 @@
 			return new partyModules.ackP(resolver)
 		}
 
-		var indexSelector = __webpack_require__(10)
+		var indexSelector = __webpack_require__(11)
 		ack.indexSelector = function(){
 			var $scope = {}
 			if(arguments.length){
@@ -395,7 +406,7 @@
 	module.exports = ack
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
@@ -814,7 +825,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -922,7 +933,7 @@
 	module.exports = ackInjector
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2023,7 +2034,7 @@
 	}
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2033,7 +2044,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(8);
+	exports = module.exports = __webpack_require__(9);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -2197,7 +2208,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2213,7 +2224,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(9);
+	exports.humanize = __webpack_require__(10);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -2400,7 +2411,7 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -2531,7 +2542,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2655,7 +2666,7 @@
 	module.exports = IndexSelector
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2877,7 +2888,7 @@
 	}
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2941,7 +2952,7 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -3020,10 +3031,10 @@
 	}
 	rtn.Class = ExString
 	module.exports = rtn
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15).Buffer))
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
@@ -3036,9 +3047,9 @@
 
 	'use strict'
 
-	var base64 = __webpack_require__(15)
-	var ieee754 = __webpack_require__(16)
-	var isArray = __webpack_require__(17)
+	var base64 = __webpack_require__(16)
+	var ieee754 = __webpack_require__(17)
+	var isArray = __webpack_require__(18)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -4575,10 +4586,10 @@
 	  return i
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14).Buffer, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15).Buffer, (function() { return this; }())))
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -4708,7 +4719,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -4798,7 +4809,7 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -4809,7 +4820,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4833,7 +4844,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4887,7 +4898,7 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4943,7 +4954,7 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5056,7 +5067,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5199,7 +5210,7 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5342,13 +5353,13 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var jc = __webpack_require__(4)
-		,xMonth = __webpack_require__(25)
-		,ExDate = __webpack_require__(26)
+	var jc = __webpack_require__(5)
+		,xMonth = __webpack_require__(26)
+		,ExDate = __webpack_require__(27)
 
 
 	var Week = function Week(num){
@@ -5392,11 +5403,11 @@
 	module.exports = rtn
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xDate = __webpack_require__(26)
+	var xDate = __webpack_require__(27)
 
 	var xMonth = function xMonth(num){
 		if(num!=null){
@@ -5467,7 +5478,7 @@
 	module.exports = rtn
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6221,11 +6232,11 @@
 	module.exports = eackDate
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xDate = __webpack_require__(26)
+	var xDate = __webpack_require__(27)
 
 	var ackYear = function ackYear(yyyy){
 		if(yyyy!=null)this.setStartDate(yyyy)
@@ -6330,12 +6341,12 @@
 	module.exports = rtn
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var ackDate = __webpack_require__(26)
+	var ackDate = __webpack_require__(27)
 
 	function ackTime(date){
 	  this.date = ackTime.toDate(date)
@@ -6386,7 +6397,7 @@
 	module.exports = eackTime
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -9716,23 +9727,23 @@
 	;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(31);
+	__webpack_require__(32);
 	module.exports = 'ngAnimate';
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/**
-	 * @license AngularJS v1.5.3
+	 * @license AngularJS v1.5.5
 	 * (c) 2010-2016 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
-	(function(window, angular, undefined) {'use strict';
+	(function(window, angular) {'use strict';
 
 	/* jshint ignore:start */
 	var noop        = angular.noop;
@@ -12046,7 +12057,7 @@
 	    }
 
 	    // IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
-	    var contains = Node.prototype.contains || function(arg) {
+	    var contains = window.Node.prototype.contains || function(arg) {
 	      // jshint bitwise: false
 	      return this === arg || !!(this.compareDocumentPosition(arg) & 16);
 	      // jshint bitwise: true
@@ -12071,6 +12082,23 @@
 	      return matches;
 	    }
 
+	    function filterFromRegistry(list, matchContainer, matchCallback) {
+	      var containerNode = extractElementNode(matchContainer);
+	      return list.filter(function(entry) {
+	        var isMatch = entry.node === containerNode &&
+	                        (!matchCallback || entry.callback === matchCallback);
+	        return !isMatch;
+	      });
+	    }
+
+	    function cleanupEventListeners(phase, element) {
+	      if (phase === 'close' && !element[0].parentNode) {
+	        // If the element is not attached to a parentNode, it has been removed by
+	        // the domOperation, and we can safely remove the event callbacks
+	        $animate.off(element);
+	      }
+	    }
+
 	    var $animate = {
 	      on: function(event, container, callback) {
 	        var node = extractElementNode(container);
@@ -12082,26 +12110,33 @@
 
 	        // Remove the callback when the element is removed from the DOM
 	        jqLite(container).on('$destroy', function() {
-	          $animate.off(event, container, callback);
+	          var animationDetails = activeAnimationsLookup.get(node);
+
+	          if (!animationDetails) {
+	            // If there's an animation ongoing, the callback calling code will remove
+	            // the event listeners. If we'd remove here, the callbacks would be removed
+	            // before the animation ends
+	            $animate.off(event, container, callback);
+	          }
 	        });
 	      },
 
 	      off: function(event, container, callback) {
+	        if (arguments.length === 1 && !angular.isString(arguments[0])) {
+	          container = arguments[0];
+	          for (var eventType in callbackRegistry) {
+	            callbackRegistry[eventType] = filterFromRegistry(callbackRegistry[eventType], container);
+	          }
+
+	          return;
+	        }
+
 	        var entries = callbackRegistry[event];
 	        if (!entries) return;
 
 	        callbackRegistry[event] = arguments.length === 1
 	            ? null
 	            : filterFromRegistry(entries, container, callback);
-
-	        function filterFromRegistry(list, matchContainer, matchCallback) {
-	          var containerNode = extractElementNode(matchContainer);
-	          return list.filter(function(entry) {
-	            var isMatch = entry.node === containerNode &&
-	                            (!matchCallback || entry.callback === matchCallback);
-	            return !isMatch;
-	          });
-	        }
 	      },
 
 	      pin: function(element, parentElement) {
@@ -12215,12 +12250,14 @@
 
 	      var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
 
+	      var documentHidden = $document[0].hidden;
+
 	      // this is a hard disable of all animations for the application or on
 	      // the element itself, therefore  there is no need to continue further
 	      // past this point if not enabled
 	      // Animations are also disabled if the document is currently hidden (page is not visible
 	      // to the user), because browsers slow down or do not flush calls to requestAnimationFrame
-	      var skipAnimations = !animationsEnabled || $document[0].hidden || disabledElementsLookup.get(node);
+	      var skipAnimations = !animationsEnabled || documentHidden || disabledElementsLookup.get(node);
 	      var existingAnimation = (!skipAnimations && activeAnimationsLookup.get(node)) || {};
 	      var hasExistingAnimation = !!existingAnimation.state;
 
@@ -12231,7 +12268,10 @@
 	      }
 
 	      if (skipAnimations) {
+	        // Callbacks should fire even if the document is hidden (regression fix for issue #14120)
+	        if (documentHidden) notifyProgress(runner, event, 'start');
 	        close();
+	        if (documentHidden) notifyProgress(runner, event, 'close');
 	        return runner;
 	      }
 
@@ -12381,6 +12421,11 @@
 	        markElementAnimationState(element, RUNNING_STATE);
 	        var realRunner = $$animation(element, event, animationDetails.options);
 
+	        // this will update the runner's flow-control events based on
+	        // the `realRunner` object.
+	        runner.setHost(realRunner);
+	        notifyProgress(runner, event, 'start', {});
+
 	        realRunner.done(function(status) {
 	          close(!status);
 	          var animationDetails = activeAnimationsLookup.get(node);
@@ -12389,11 +12434,6 @@
 	          }
 	          notifyProgress(runner, event, 'close', {});
 	        });
-
-	        // this will update the runner's flow-control events based on
-	        // the `realRunner` object.
-	        runner.setHost(realRunner);
-	        notifyProgress(runner, event, 'start', {});
 	      });
 
 	      return runner;
@@ -12410,7 +12450,10 @@
 	              forEach(callbacks, function(callback) {
 	                callback(element, phase, data);
 	              });
+	              cleanupEventListeners(phase, element);
 	            });
+	          } else {
+	            cleanupEventListeners(phase, element);
 	          }
 	        });
 	        runner.progress(event, phase, data);
@@ -13215,7 +13258,7 @@
 	 * <div ng-show="bool" class="fade">
 	 *   Show and hide me
 	 * </div>
-	 * <button ng-click="bool=true">Toggle</button>
+	 * <button ng-click="bool=!bool">Toggle</button>
 	 *
 	 * <style>
 	 * .fade.ng-hide {
@@ -13845,10 +13888,10 @@
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(33);
+	var jade = __webpack_require__(34);
 
 	module.exports = function template(locals) {
 	var buf = [];
@@ -13859,7 +13902,7 @@
 	}
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14079,7 +14122,7 @@
 	    throw err;
 	  }
 	  try {
-	    str = str || __webpack_require__(34).readFileSync(filename, 'utf8')
+	    str = str || __webpack_require__(35).readFileSync(filename, 'utf8')
 	  } catch (ex) {
 	    rethrow(err, null, lineno)
 	  }
@@ -14111,22 +14154,22 @@
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(36);
+	var content = __webpack_require__(37);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(38)(content, {});
+	var update = __webpack_require__(39)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -14143,10 +14186,10 @@
 	}
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(37)();
+	exports = module.exports = __webpack_require__(38)();
 	// imports
 
 
@@ -14157,7 +14200,7 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/*
@@ -14213,7 +14256,7 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

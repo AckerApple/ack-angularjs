@@ -33,7 +33,7 @@ var dist = {
   },
   module: {loaders:loaders}
 }
-
+/*
 var package = {
   entry: "./entry.js",
   output: {
@@ -43,7 +43,7 @@ var package = {
   },
   module: {loaders:loaders}
 }
-
+*/
 var distMin = {
   entry: "./entry.js",
   output: {
@@ -59,4 +59,4 @@ var distMin = {
   ]
 }
 
-module.exports = [test,dist,distMin,package];
+module.exports = [test,dist,distMin];//,package
