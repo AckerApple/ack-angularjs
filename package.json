@@ -40,7 +40,8 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-x": "github:AckerApple/ack-x@master"
+      "ack-x": "github:AckerApple/ack-x@master",
+      "ng-fx": "npm:nf-fx@^2.0.4"
     }
   }
 }
