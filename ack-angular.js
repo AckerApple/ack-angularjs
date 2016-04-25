@@ -1,7 +1,7 @@
 "use strict";
 
-console.log('348')
-var angular = require('angular')
+console.log('349')
+require('angular')
 console.log('angular',angular)
 
 var ack = require('ack-x/index-browser')
