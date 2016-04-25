@@ -24,7 +24,9 @@
     "url": "https://github.com/AckerApple/ack-angular/issues"
   },
   "homepage": "https://github.com/AckerApple/ack-angular",
-  "dependencies":{},
+  "dependencies":{
+    "ack-x": "https://github.com/AckerApple/ack-x.git"
+  },
   "devDependencies": {
     "angular":"^1.5.3",
     "angular-animate": "^1.5.3",
@@ -33,7 +35,6 @@
     "jade-loader": "^0.8.0",
     "style-loader": "^0.13.0",
     "angular": "^1.5.3",
-    "ack-x": "https://github.com/AckerApple/ack-x.git",
     "webpack": "^1.12.14",
     "ng-fx": "^2.0.4"
   }
