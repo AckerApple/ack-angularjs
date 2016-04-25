@@ -22,7 +22,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     restrict:'E'
     ,scope:{show:'=', size:'=?'}
     ,transclude:true
-    ,template:require('./white-out-modal.jade')
+    ,template:require('./white-out-modal.jade!')
     ,bindToController:true
     ,controllerAs:'wom'
     ,controller:function(){}
