@@ -36,7 +36,7 @@
     "jade-loader": "^0.8.0",
     "style-loader": "^0.13.0",
     "angular": "^1.5.3",
-    "webpack": "^1.12.14",
+    "webpack": "^1.12.14"
   },
   "jspm": {
     "dependencies": {
