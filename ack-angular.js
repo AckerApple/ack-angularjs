@@ -53,9 +53,9 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 })
 
 function a(name){
-  return function(ack){
+  return ['ack',function(ack){
     return invokeRotator( ack[name] )
-  }
+  }]
 }
 
 function invokeRotator(invoke){
@@ -86,3 +86,4 @@ function invokeRotator(invoke){
     return rtn
   }
 }
+

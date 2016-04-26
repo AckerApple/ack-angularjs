@@ -37,12 +37,5 @@
     "style-loader": "^0.13.0",
     "angular": "^1.5.3",
     "webpack": "^1.12.14"
-  },
-  "jspm": {
-    "dependencies": {
-      "angular-animate": "npm:angular-animate@^1.5.3",
-      "ack-x": "github:AckerApple/ack-x@master",
-      "ng-fx": "npm:ng-fx@^2.0.4"
-    }
   }
 }

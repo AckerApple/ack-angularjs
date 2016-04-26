@@ -1,3 +1,6 @@
+console.log('angular22')
+console.log('angular22',angular)
+
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
