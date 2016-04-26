@@ -1,11 +1,12 @@
 "use strict";
 
 console.log('349')
-require('angular')
 console.log('angular',angular)
 
 var ack = require('ack-x/index-browser')
+//var ngFx = require('ng-fx')
 require('ng-fx')
+//var ngAnimate = require('angular-animate')
 require('angular-animate')
 
 
@@ -22,7 +23,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     restrict:'E'
     ,scope:{show:'=', size:'=?'}
     ,transclude:true
-    ,template:require('./white-out-modal.jade!')
+    ,template:require('./white-out-modal.jade')
     ,bindToController:true
     ,controllerAs:'wom'
     ,controller:function(){}
