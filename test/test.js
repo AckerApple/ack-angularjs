@@ -30943,9 +30943,6 @@
 
 	"use strict";
 
-	console.log('349')
-	console.log('angular',angular)
-
 	var ack = __webpack_require__(5)
 	//var ngFx = require('ng-fx')
 	__webpack_require__(32)
@@ -30996,9 +30993,9 @@
 	})
 
 	function a(name){
-	  return function(ack){
+	  return ['ack',function(ack){
 	    return invokeRotator( ack[name] )
-	  }
+	  }]
 	}
 
 	function invokeRotator(invoke){
@@ -31029,6 +31026,7 @@
 	    return rtn
 	  }
 	}
+
 
 
 /***/ },

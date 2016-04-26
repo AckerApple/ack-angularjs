@@ -1,8 +1,5 @@
 "use strict";
 
-console.log('349')
-console.log('angular',angular)
-
 var ack = require('ack-x/index-browser')
 //var ngFx = require('ng-fx')
 require('ng-fx')

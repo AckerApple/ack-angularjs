@@ -1,6 +1,3 @@
-console.log('angular22')
-console.log('angular22',angular)
-
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,9 +61,6 @@ console.log('angular22',angular)
 
 	"use strict";
 
-	console.log('349')
-	console.log('angular',angular)
-
 	var ack = __webpack_require__(3)
 	//var ngFx = require('ng-fx')
 	__webpack_require__(30)
@@ -117,9 +111,9 @@ console.log('angular22',angular)
 	})
 
 	function a(name){
-	  return function(ack){
+	  return ['ack',function(ack){
 	    return invokeRotator( ack[name] )
-	  }
+	  }]
 	}
 
 	function invokeRotator(invoke){
@@ -150,6 +144,7 @@ console.log('angular22',angular)
 	    return rtn
 	  }
 	}
+
 
 
 /***/ },
