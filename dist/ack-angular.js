@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(36);
-
+	__webpack_require__(40);
 
 /***/ },
 /* 1 */
@@ -14180,8 +14180,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./node_modules/css-loader/index.js!./ack-angular.css", function() {
-				var newContent = require("!!./node_modules/css-loader/index.js!./ack-angular.css");
+			module.hot.accept("!!./node_modules/css-loader/index.js!./ack-angular-animations.css", function() {
+				var newContent = require("!!./node_modules/css-loader/index.js!./ack-angular-animations.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -14510,6 +14510,46 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(41);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(39)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./node_modules/css-loader/index.js!./ack-angular-helpers.css", function() {
+				var newContent = require("!!./node_modules/css-loader/index.js!./ack-angular-helpers.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(38)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".text-overflow\n{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}\n\n.valign,.valign-top,.vert-align-top{vertical-align:top;}\n.valign-middle,.valign-center,.vert-align-middle{vertical-align:middle;}\n.valign-bottom,.vert-align-bottom{vertical-align:bottom;}\n\n.nowrap{white-space:nowrap;}\n\na,.cursor-pointer {cursor:pointer;/*text-decoration:underline;*/}\n\n.text-underline,.underline {text-decoration:underline;}\n.strong, .bold, .text-bold {font-weight:bold;}\n\n.text-lg {font-size:130%;}\n.text-md {font-size:115%;}\n.text-sm {font-size:90%;}\n.text-smx {font-size:85%;}\n.text-xs {font-size:75%;}\n.text-xxs {font-size:65%;}\n.text-muted-sm{color:#AAAAAA;}\n.text-muted-xs{color:#BABABA;}\n\n.text-green,.font-green{color: #060;}\n.text-orange,.font-orange{color: #C60;}\n.text-red,.font-red{color:#900;}\n.text-blue,.font-blue{color: #009;}\n.text-purple,.font-purple{color: #60C;}\n.text-black,.font-black{color: #000;}\n.text-white,.font-white{color: #FFF;}\n\n.clear,.clear-both,.clear-fix {clear:both}\n\n.pos-absolute,.pos-abs{position:absolute;}\n.pos-relative,.pos-rel{position:relative;}\n.pos-fixed,.pos-fix{position:fixed;}\n\n.z-index-1{z-index:1;}\n.z-index-10{z-index:10;}\n.top-0{top:0}\n.right-0{right:0}\n.bottom-0{bottom:0}\n.left-0{left:0}\n\n.inline-block,\n.display-inline-block {\n  display:inline-block;\n}\n\n.block,\n.display-block {\n  display:block;\n}\n\n.opacity-half {opacity: 0.5;}\n\n.width-full{width:100%;}\n\n\n.margin-0{margin:0;}\n.margin-xxs{margin:2px;}\n.margin-xs{margin:4px;}\n.margin-sm{margin:6px;}\n.margin{margin:8px;}\n.margin-md{margin:16px;}\n.margin-lg{margin:22px;}\n\n.margin-v-0{margin-top:0;margin-bottom:0;}\n.margin-v-xxs{margin-top:2px;margin-bottom:2px;}\n.margin-v-xs{margin-top:4px;margin-bottom:4px;}\n.margin-v-sm{margin-top:6px;margin-bottom:6px;}\n.margin-v{margin-top:8px;margin-bottom:8px;}\n.margin-v-md{margin-top:16px;margin-bottom:16px;}\n.margin-v-lg{margin-top:22px;margin-bottom:22px;}\n\n.margin-h-0{margin-left:0;margin-right:0;}\n.margin-h-xxs{margin-left:2px;margin-right:2px;}\n.margin-h-xs{margin-left:4px;margin-right:4px;}\n.margin-h-sm{margin-left:6px;margin-right:6px;}\n.margin-h{margin-left:8px;margin-right:8px;}\n.margin-h-md{margin-left:16px;margin-right:16px;}\n.margin-h-lg{margin-left:22px;margin-right:22px;}\n\n.margin-top-0{margin-top:0;}\n.margin-top-xxs{margin-top:2px;}\n.margin-top-xs{margin-top:4px;}\n.margin-top-sm{margin-top:6px;}\n.margin-top{margin-top:8px;}\n.margin-top-md{margin-top:16px;}\n.margin-top-lg{margin-top:22px;}\n\n.margin-bottom-0{margin-bottom:0;}\n.margin-bottom-xxs{margin-bottom:2px;}\n.margin-bottom-xs{margin-bottom:4px;}\n.margin-bottom-sm{margin-bottom:6px;}\n.margin-bottom{margin-bottom:8px;}\n.margin-bottom-md{margin-bottom:16px;}\n.margin-bottom-lg{margin-bottom:22px;}\n\n.margin-left-0{margin-left:0;}\n.margin-left-xxs{margin-left:2px;}\n.margin-left-xs{margin-left:4px;}\n.margin-left-sm{margin-left:6px;}\n.margin-left{margin-left:8px;}\n.margin-left-md{margin-left:16px;}\n.margin-left-lg{margin-left:22px;}\n\n.margin-right-0{margin-right:0;}\n.margin-right-xxs{margin-right:2px;}\n.margin-right-xs{margin-right:4px;}\n.margin-right-sm{margin-right:6px;}\n.margin-right{margin-right:8px;}\n.margin-right-md{margin-right:16px;}\n.margin-right-lg{margin-right:22px;}\n\n.pad-0{padding:0;}\n.pad-xxs{padding:2px;}\n.pad-xs{padding:4px;}\n.pad-sm{padding:6px;}\n.pad{padding:8px;}\n.pad-md{padding:16px;}\n.pad-lg{padding:22px;}\n\n.pad-v-0{padding-top:0;padding-bottom:0;}\n.pad-v-xxs{padding-top:2px;padding-bottom:2px;}\n.pad-v-xs{padding-top:4px;padding-bottom:4px;}\n.pad-v-sm{padding-top:6px;padding-bottom:6px;}\n.pad-v{padding-top:8px;padding-bottom:8px;}\n.pad-v-md{padding-top:16px;padding-bottom:16px;}\n.pad-v-lg{padding-top:22px;padding-bottom:22px;}\n\n.pad-h-0{padding-left:0;padding-right:0;}\n.pad-h-xxs{padding-left:2px;padding-right:2px;}\n.pad-h-xs{padding-left:4px;padding-right:4px;}\n.pad-h-sm{padding-left:6px;padding-right:6px;}\n.pad-h{padding-left:8px;padding-right:8px;}\n.pad-h-md{padding-left:16px;padding-right:16px;}\n.pad-h-lg{padding-left:22px;padding-right:22px;}\n\n.pad-top-0{padding-top:0;}\n.pad-top-xxs{padding-top:2px;}\n.pad-top-xs{padding-top:4px;}\n.pad-top-sm{padding-top:6px;}\n.pad-top{padding-top:8px;}\n.pad-top-md{padding-top:16px;}\n.pad-top-lg{padding-top:22px;}\n\n.pad-bottom-0{padding-bottom:0;}\n.pad-bottom-xxs{padding-bottom:2px;}\n.pad-bottom-xs{padding-bottom:4px;}\n.pad-bottom-sm{padding-bottom:6px;}\n.pad-bottom{padding-bottom:8px;}\n.pad-bottom-md{padding-bottom:16px;}\n.pad-bottom-lg{padding-bottom:22px;}\n\n.pad-left-0{padding-left:0;}\n.pad-left-xxs{padding-left:2px;}\n.pad-left-xs{padding-left:4px;}\n.pad-left-sm{padding-left:6px;}\n.pad-left{padding-left:8px;}\n.pad-left-md{padding-left:16px;}\n.pad-left-lg{padding-left:22px;}\n\n.pad-right-0{padding-right:0;}\n.pad-right-xxs{padding-right:2px;}\n.pad-right-xs{padding-right:4px;}\n.pad-right-sm{padding-right:6px;}\n.pad-right{padding-right:8px;}\n.pad-right-md{padding-right:16px;}\n.pad-right-lg{padding-right:22px;}\n\n\n\n.bg-white{\n  background-color:white;\n}\n\n.bg-black{\n  background-color:black;\n}\n", ""]);
+
+	// exports
 
 
 /***/ }
