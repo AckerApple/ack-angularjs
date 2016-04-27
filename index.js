@@ -1,3 +1,3 @@
 "use strict";
-require('./ack-angular.js');
+require('./dist/ack-angular.js');
 module.exports = 'ack-angular';
