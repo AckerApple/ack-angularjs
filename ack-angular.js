@@ -20,7 +20,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     restrict:'A',
     scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
     link: function($scope, jElm, attrs) {
-      jElm[0].onkeydown = handler = function(event){
+      jElm[0].onkeydown = function(event){
         var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
         if(yesNo){
           $scope.onEnterKey({event:event})
