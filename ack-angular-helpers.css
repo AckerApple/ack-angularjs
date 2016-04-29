@@ -7,10 +7,18 @@
 
 .nowrap{white-space:nowrap}
 
-a,.cursor-pointer {cursor:pointer;/*text-decoration:underline;*/}
+a,.cursor-pointer {cursor:pointer}
 
 .text-underline,.underline {text-decoration:underline}
 .strong, .bold, .text-bold {font-weight:bold}
+
+.text-left {text-align:left}
+.text-right {text-align:right}
+.text-center {text-align:center}
+
+.text-uppercase {text-transform: uppercase}
+.text-lowercase {text-transform: lowercase}
+.text-capitalize {text-transform: capitalize}
 
 .text-lg {font-size:130%}
 .text-md {font-size:115%}
@@ -18,8 +26,15 @@ a,.cursor-pointer {cursor:pointer;/*text-decoration:underline;*/}
 .text-smx {font-size:85%}
 .text-xs {font-size:75%}
 .text-xxs {font-size:65%}
-.text-muted-sm{color:#AAAAAA}
-.text-muted-xs{color:#BABABA}
+
+.text-primary{color:#337ab7}
+.text-success{color:#3c763d}
+.text-info{color:#31708f}
+.text-warning{color:#8a6d3b}
+.text-danger{color:#a94442}
+.text-muted{color:#777}
+.text-muted-sm{color:#AAA}
+.text-muted-xs{color:#BAB}
 
 .text-green,.font-green{color: #060}
 .text-orange,.font-orange{color: #C60}
@@ -42,19 +57,14 @@ a,.cursor-pointer {cursor:pointer;/*text-decoration:underline;*/}
 .bottom-0{bottom:0}
 .left-0{left:0}
 
-.inline-block,
-.display-inline-block {
-  display:inline-block;
-}
+.inline-block, .display-inline-block {display:inline-block}
 
-.block,
-.display-block {
-  display:block;
-}
+.block, .display-block {display:block}
 
 .opacity-half {opacity: 0.5}
 
 .width-full{width:100%}
+.width-half{width:50%}
 
 
 .margin-0{margin:0}
@@ -170,11 +180,13 @@ a,.cursor-pointer {cursor:pointer;/*text-decoration:underline;*/}
 .pad-right-lg{padding-right:1.5em}
 
 
+.bg-primary{background-color:#337ab7}
+.bg-success{background-color:#dff0d8}
+.bg-info{background-color:#d9edf7}
+.bg-warning{background-color:#fcf8e3}
+.bg-danger{background-color:#f2dede}
+.bg-white{background-color:white}
+.bg-black{background-color:black}
 
-.bg-white{
-  background-color:white;
-}
-
-.bg-black{
-  background-color:black;
-}
+.float-right, .pull-right{float:right}
+.float-left, .pull-left{float:left}
