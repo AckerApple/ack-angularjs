@@ -19,11 +19,12 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
   return {
     restrict:'A',
     scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
-    link: function($scope, jElm, attrs) {
+    link: function($scope, jElm) {
       jElm[0].onkeydown = function(event){
         var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
         if(yesNo){
           $scope.onEnterKey({event:event})
+          $scope.$apply()
         }
       }
     }
@@ -32,7 +33,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .directive('preventBackKey', function() {
   return {
     restrict:'AE',
-    link: function($scope, jElm, attrs) {
+    link: function($scope, jElm) {
       jElm[0].onkeydown = function(event){
         var yesNo = [8].indexOf(event.which||event.keyCode)<0
         if(!yesNo && event.preventDefault){
@@ -46,7 +47,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .directive('preventEnterKey', function() {
   return {
     restrict:'AE',
-    link: function($scope, jElm, attrs) {
+    link: function($scope, jElm) {
       jElm[0].onkeydown = function(event){
         var yesNo = [13,10].indexOf(event.which||event.keyCode)<0
         if(!yesNo && event.preventDefault){
