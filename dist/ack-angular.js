@@ -60,7 +60,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	"use strict"
 
 	var ack = __webpack_require__(3)
 	//var ngFx = require('ng-fx')
@@ -69,13 +69,55 @@
 	__webpack_require__(31)
 
 
-	//version: 1.1.4
+	//version: 1.2.1
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
 	.service('ack', function(){return ack})
 	.filter('aDate',a('date'))
 	.filter('aTime',a('time'))
 	.filter('ack', function(){
 	  return invokeRotator(ack)
+	})
+	.directive('onEnterKey', function() {
+	  return {
+	    restrict:'A',
+	    scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+	    link: function($scope, jElm, attrs) {
+	      jElm[0].onkeydown = handler = function(event){
+	        var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
+	        if(yesNo){
+	          $scope.onEnterKey({event:event})
+	        }
+	      }
+	    }
+	  }
+	})
+	.directive('preventBackKey', function() {
+	  return {
+	    restrict:'AE',
+	    link: function($scope, jElm, attrs) {
+	      jElm[0].onkeydown = function(event){
+	        var yesNo = [8].indexOf(event.which||event.keyCode)<0
+	        if(!yesNo && event.preventDefault){
+	          event.preventDefault()
+	        }
+	        return yesNo
+	      }
+	    }
+	  }
+	})
+	.directive('preventEnterKey', function() {
+	  return {
+	    restrict:'AE',
+	    link: function($scope, jElm, attrs) {
+	      jElm[0].onkeydown = function(event){
+	        var yesNo = [13,10].indexOf(event.which||event.keyCode)<0
+	        if(!yesNo && event.preventDefault){
+	          event.preventDefault()
+	        }
+	        return yesNo
+	      }
+	    }
+	  }
 	})
 	.directive('whiteOutModal',function(){//white-out-modal
 	  return {
@@ -133,7 +175,7 @@
 	        key = newkey
 	      }
 
-	      item = rtn[key];
+	      item = rtn[key]
 
 	      if(item && item.constructor==Function){
 	        rtn = item.apply(rtn,subargs)
