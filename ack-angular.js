@@ -10,6 +10,8 @@ require('angular-animate')
 //version: 1.2.1
 angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
+.filter('aMethod',a('method'))
+.filter('aFunction',a('method'))//alias
 .filter('aDate',a('date'))
 .filter('aTime',a('time'))
 .filter('ack', function(){

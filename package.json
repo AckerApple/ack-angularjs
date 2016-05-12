@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Universal Angular base code suited for any web app",
   "main": "index.js",
   "scripts": {
