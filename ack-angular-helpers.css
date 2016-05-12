@@ -20,6 +20,8 @@ a,.cursor-pointer {cursor:pointer}
 .text-lowercase {text-transform: lowercase}
 .text-capitalize {text-transform: capitalize}
 
+.text-3x {font-size:160%}
+.text-2x {font-size:145%}
 .text-lg {font-size:130%}
 .text-md {font-size:115%}
 .text-sm {font-size:90%}
@@ -190,3 +192,6 @@ a,.cursor-pointer {cursor:pointer}
 
 .float-right, .pull-right{float:right}
 .float-left, .pull-left{float:left}
+
+.border-radius-0{border-radius:0px}
+.border-radius-half{border-radius:50%}
