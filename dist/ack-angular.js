@@ -196,7 +196,6 @@
 	function capitalize() {
 	  return function(input) {
 	    input = capitalizeOne(input)
-	    console.log('input',input)
 	    var reg = /[.?!][\s\r\t]+\w/g
 	    return (!!input) ? input.replace(reg, capitalizeAfterSentence) : ''
 	  }
