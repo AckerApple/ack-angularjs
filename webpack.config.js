@@ -16,6 +16,7 @@ var loaders = [
 
 var test = {
   entry: "./entry-test.js",
+  devtool:"#source-map",
   output: {
     path: path.join(__dirname,'test'),
     filename: "test.js"
@@ -26,6 +27,7 @@ var test = {
 
 var dist = {
   entry: "./entry.js",
+  devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
     filename: "ack-angular.js"
@@ -46,6 +48,7 @@ var package = {
 */
 var distMin = {
   entry: "./entry.js",
+  devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
     filename: "ack-angular-min.js"

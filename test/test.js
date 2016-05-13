@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -46,7 +46,8 @@
 
 	__webpack_require__(1);
 	__webpack_require__(3);
-	__webpack_require__(7);
+	__webpack_require__(37);
+	__webpack_require__(41);
 
 /***/ },
 /* 1 */
@@ -66,7 +67,7 @@
 	 * License: MIT
 	 */
 	(function(window) {'use strict';
-
+	
 	/**
 	 * @description
 	 *
@@ -96,41 +97,41 @@
 	 *   error from returned function, for cases when a particular type of error is useful.
 	 * @returns {function(code:string, template:string, ...templateArgs): Error} minErr instance
 	 */
-
+	
 	function minErr(module, ErrorConstructor) {
 	  ErrorConstructor = ErrorConstructor || Error;
 	  return function() {
 	    var SKIP_INDEXES = 2;
-
+	
 	    var templateArgs = arguments,
 	      code = templateArgs[0],
 	      message = '[' + (module ? module + ':' : '') + code + '] ',
 	      template = templateArgs[1],
 	      paramPrefix, i;
-
+	
 	    message += template.replace(/\{\d+\}/g, function(match) {
 	      var index = +match.slice(1, -1),
 	        shiftedIndex = index + SKIP_INDEXES;
-
+	
 	      if (shiftedIndex < templateArgs.length) {
 	        return toDebugString(templateArgs[shiftedIndex]);
 	      }
-
+	
 	      return match;
 	    });
-
+	
 	    message += '\nhttp://errors.angularjs.org/1.5.5/' +
 	      (module ? module + '/' : '') + code;
-
+	
 	    for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
 	      message += paramPrefix + 'p' + (i - SKIP_INDEXES) + '=' +
 	        encodeURIComponent(toDebugString(templateArgs[i]));
 	    }
-
+	
 	    return new ErrorConstructor(message);
 	  };
 	}
-
+	
 	/* We need to tell jshint what variables are being exported */
 	/* global angular: true,
 	  msie: true,
@@ -145,7 +146,7 @@
 	  uid: true,
 	  REGEX_STRING_REGEXP: true,
 	  VALIDITY_STATE_PROPERTY: true,
-
+	
 	  lowercase: true,
 	  uppercase: true,
 	  manualLowercase: true,
@@ -218,7 +219,7 @@
 	  getBlockNodes: true,
 	  hasOwnProperty: true,
 	  createMap: true,
-
+	
 	  NODE_TYPE_ELEMENT: true,
 	  NODE_TYPE_ATTRIBUTE: true,
 	  NODE_TYPE_TEXT: true,
@@ -226,9 +227,9 @@
 	  NODE_TYPE_DOCUMENT: true,
 	  NODE_TYPE_DOCUMENT_FRAGMENT: true,
 	*/
-
+	
 	////////////////////////////////////
-
+	
 	/**
 	 * @ngdoc module
 	 * @name ng
@@ -244,19 +245,19 @@
 	 *
 	 * <div doc-module-components="ng"></div>
 	 */
-
+	
 	var REGEX_STRING_REGEXP = /^\/(.+)\/([a-z]*)$/;
-
+	
 	// The name of a form control's ValidityState property.
 	// This is used so that it's possible for internal tests to create mock ValidityStates.
 	var VALIDITY_STATE_PROPERTY = 'validity';
-
+	
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
-
+	
 	var lowercase = function(string) {return isString(string) ? string.toLowerCase() : string;};
 	var uppercase = function(string) {return isString(string) ? string.toUpperCase() : string;};
-
-
+	
+	
 	var manualLowercase = function(s) {
 	  /* jshint bitwise: false */
 	  return isString(s)
@@ -269,8 +270,8 @@
 	      ? s.replace(/[a-z]/g, function(ch) {return String.fromCharCode(ch.charCodeAt(0) & ~32);})
 	      : s;
 	};
-
-
+	
+	
 	// String#toLowerCase and String#toUpperCase don't produce correct results in browsers with Turkish
 	// locale, for this reason we need to detect this case and redefine lowercase/uppercase methods
 	// with correct but slower alternatives. See https://github.com/angular/angular.js/issues/11387
@@ -278,8 +279,8 @@
 	  lowercase = manualLowercase;
 	  uppercase = manualUppercase;
 	}
-
-
+	
+	
 	var
 	    msie,             // holds major version number for IE, or NaN if UA is not IE.
 	    jqLite,           // delay binding since jQuery could be loaded after us.
@@ -290,19 +291,19 @@
 	    toString          = Object.prototype.toString,
 	    getPrototypeOf    = Object.getPrototypeOf,
 	    ngMinErr          = minErr('ng'),
-
+	
 	    /** @name angular */
 	    angular           = window.angular || (window.angular = {}),
 	    angularModule,
 	    uid               = 0;
-
+	
 	/**
 	 * documentMode is an IE-only property
 	 * http://msdn.microsoft.com/en-us/library/ie/cc196988(v=vs.85).aspx
 	 */
 	msie = window.document.documentMode;
-
-
+	
+	
 	/**
 	 * @private
 	 * @param {*} obj
@@ -310,27 +311,27 @@
 	 *                   String ...)
 	 */
 	function isArrayLike(obj) {
-
+	
 	  // `null`, `undefined` and `window` are not array-like
 	  if (obj == null || isWindow(obj)) return false;
-
+	
 	  // arrays, strings and jQuery/jqLite objects are array like
 	  // * jqLite is either the jQuery or jqLite constructor function
 	  // * we have to check the existence of jqLite first as this method is called
 	  //   via the forEach method when constructing the jqLite object in the first place
 	  if (isArray(obj) || isString(obj) || (jqLite && obj instanceof jqLite)) return true;
-
+	
 	  // Support: iOS 8.2 (not reproducible in simulator)
 	  // "length" in obj used to prevent JIT error (gh-11508)
 	  var length = "length" in Object(obj) && obj.length;
-
+	
 	  // NodeList objects (with `item` method) and
 	  // other objects with suitable length characteristics are array-like
 	  return isNumber(length) &&
 	    (length >= 0 && ((length - 1) in obj || obj instanceof Array) || typeof obj.item == 'function');
-
+	
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.forEach
@@ -365,7 +366,7 @@
 	 * @param {Object=} context Object to become context (`this`) for the iterator function.
 	 * @returns {Object|Array} Reference to `obj`.
 	 */
-
+	
 	function forEach(obj, iterator, context) {
 	  var key, length;
 	  if (obj) {
@@ -409,7 +410,7 @@
 	  }
 	  return obj;
 	}
-
+	
 	function forEachSorted(obj, iterator, context) {
 	  var keys = Object.keys(obj).sort();
 	  for (var i = 0; i < keys.length; i++) {
@@ -417,8 +418,8 @@
 	  }
 	  return keys;
 	}
-
-
+	
+	
 	/**
 	 * when using forEach the params are value, key, but it is often useful to have key, value.
 	 * @param {function(string, *)} iteratorFn
@@ -427,7 +428,7 @@
 	function reverseParams(iteratorFn) {
 	  return function(value, key) {iteratorFn(key, value);};
 	}
-
+	
 	/**
 	 * A consistent way of creating unique IDs in angular.
 	 *
@@ -441,8 +442,8 @@
 	function nextUid() {
 	  return ++uid;
 	}
-
-
+	
+	
 	/**
 	 * Set or clear the hashkey for an object.
 	 * @param obj object
@@ -455,11 +456,11 @@
 	    delete obj.$$hashKey;
 	  }
 	}
-
-
+	
+	
 	function baseExtend(dst, objs, deep) {
 	  var h = dst.$$hashKey;
-
+	
 	  for (var i = 0, ii = objs.length; i < ii; ++i) {
 	    var obj = objs[i];
 	    if (!isObject(obj) && !isFunction(obj)) continue;
@@ -467,7 +468,7 @@
 	    for (var j = 0, jj = keys.length; j < jj; j++) {
 	      var key = keys[j];
 	      var src = obj[key];
-
+	
 	      if (deep && isObject(src)) {
 	        if (isDate(src)) {
 	          dst[key] = new Date(src.valueOf());
@@ -486,11 +487,11 @@
 	      }
 	    }
 	  }
-
+	
 	  setHashKey(dst, h);
 	  return dst;
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.extend
@@ -512,8 +513,8 @@
 	function extend(dst) {
 	  return baseExtend(dst, slice.call(arguments, 1), false);
 	}
-
-
+	
+	
 	/**
 	* @ngdoc function
 	* @name angular.merge
@@ -535,18 +536,18 @@
 	function merge(dst) {
 	  return baseExtend(dst, slice.call(arguments, 1), true);
 	}
-
-
-
+	
+	
+	
 	function toInt(str) {
 	  return parseInt(str, 10);
 	}
-
-
+	
+	
 	function inherit(parent, extra) {
 	  return extend(Object.create(parent), extra);
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.noop
@@ -565,8 +566,8 @@
 	 */
 	function noop() {}
 	noop.$inject = [];
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.identity
@@ -587,15 +588,15 @@
 	 */
 	function identity($) {return $;}
 	identity.$inject = [];
-
-
+	
+	
 	function valueFn(value) {return function valueRef() {return value;};}
-
+	
 	function hasCustomToString(obj) {
 	  return isFunction(obj.toString) && obj.toString !== toString;
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isUndefined
@@ -609,8 +610,8 @@
 	 * @returns {boolean} True if `value` is undefined.
 	 */
 	function isUndefined(value) {return typeof value === 'undefined';}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isDefined
@@ -624,8 +625,8 @@
 	 * @returns {boolean} True if `value` is defined.
 	 */
 	function isDefined(value) {return typeof value !== 'undefined';}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isObject
@@ -643,8 +644,8 @@
 	  // http://jsperf.com/isobject4
 	  return value !== null && typeof value === 'object';
 	}
-
-
+	
+	
 	/**
 	 * Determine if a value is an object with a null prototype
 	 *
@@ -653,8 +654,8 @@
 	function isBlankObject(value) {
 	  return value !== null && typeof value === 'object' && !getPrototypeOf(value);
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isString
@@ -668,8 +669,8 @@
 	 * @returns {boolean} True if `value` is a `String`.
 	 */
 	function isString(value) {return typeof value === 'string';}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isNumber
@@ -689,8 +690,8 @@
 	 * @returns {boolean} True if `value` is a `Number`.
 	 */
 	function isNumber(value) {return typeof value === 'number';}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isDate
@@ -706,8 +707,8 @@
 	function isDate(value) {
 	  return toString.call(value) === '[object Date]';
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isArray
@@ -721,7 +722,7 @@
 	 * @returns {boolean} True if `value` is an `Array`.
 	 */
 	var isArray = Array.isArray;
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isFunction
@@ -735,8 +736,8 @@
 	 * @returns {boolean} True if `value` is a `Function`.
 	 */
 	function isFunction(value) {return typeof value === 'function';}
-
-
+	
+	
 	/**
 	 * Determines if a value is a regular expression object.
 	 *
@@ -747,8 +748,8 @@
 	function isRegExp(value) {
 	  return toString.call(value) === '[object RegExp]';
 	}
-
-
+	
+	
 	/**
 	 * Checks if `obj` is a window object.
 	 *
@@ -759,52 +760,52 @@
 	function isWindow(obj) {
 	  return obj && obj.window === obj;
 	}
-
-
+	
+	
 	function isScope(obj) {
 	  return obj && obj.$evalAsync && obj.$watch;
 	}
-
-
+	
+	
 	function isFile(obj) {
 	  return toString.call(obj) === '[object File]';
 	}
-
-
+	
+	
 	function isFormData(obj) {
 	  return toString.call(obj) === '[object FormData]';
 	}
-
-
+	
+	
 	function isBlob(obj) {
 	  return toString.call(obj) === '[object Blob]';
 	}
-
-
+	
+	
 	function isBoolean(value) {
 	  return typeof value === 'boolean';
 	}
-
-
+	
+	
 	function isPromiseLike(obj) {
 	  return obj && isFunction(obj.then);
 	}
-
-
+	
+	
 	var TYPED_ARRAY_REGEXP = /^\[object (?:Uint8|Uint8Clamped|Uint16|Uint32|Int8|Int16|Int32|Float32|Float64)Array\]$/;
 	function isTypedArray(value) {
 	  return value && isNumber(value.length) && TYPED_ARRAY_REGEXP.test(toString.call(value));
 	}
-
+	
 	function isArrayBuffer(obj) {
 	  return toString.call(obj) === '[object ArrayBuffer]';
 	}
-
-
+	
+	
 	var trim = function(value) {
 	  return isString(value) ? value.trim() : value;
 	};
-
+	
 	// Copied from:
 	// http://docs.closure-library.googlecode.com/git/local_closure_goog_string_string.js.source.html#line1021
 	// Prereq: s is a string.
@@ -812,8 +813,8 @@
 	  return s.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').
 	           replace(/\x08/g, '\\x08');
 	};
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.isElement
@@ -831,7 +832,7 @@
 	    (node.nodeName  // we are a direct element
 	    || (node.prop && node.attr && node.find)));  // we have an on and find method part of jQuery API
 	}
-
+	
 	/**
 	 * @param str 'key1,key2,...'
 	 * @returns {object} in the form of {key1:true, key2:true, ...}
@@ -843,16 +844,16 @@
 	  }
 	  return obj;
 	}
-
-
+	
+	
 	function nodeName_(element) {
 	  return lowercase(element.nodeName || (element[0] && element[0].nodeName));
 	}
-
+	
 	function includes(array, obj) {
 	  return Array.prototype.indexOf.call(array, obj) != -1;
 	}
-
+	
 	function arrayRemove(array, value) {
 	  var index = array.indexOf(value);
 	  if (index >= 0) {
@@ -860,7 +861,7 @@
 	  }
 	  return index;
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.copy
@@ -897,22 +898,22 @@
 	 <pre>form = {{user | json}}</pre>
 	 <pre>master = {{master | json}}</pre>
 	 </div>
-
+	
 	 <script>
 	  angular.module('copyExample', [])
 	    .controller('ExampleController', ['$scope', function($scope) {
 	      $scope.master= {};
-
+	
 	      $scope.update = function(user) {
 	        // Example with 1 argument
 	        $scope.master= angular.copy(user);
 	      };
-
+	
 	      $scope.reset = function() {
 	        // Example with 2 arguments
 	        angular.copy($scope.master, $scope.user);
 	      };
-
+	
 	      $scope.reset();
 	    }]);
 	 </script>
@@ -922,7 +923,7 @@
 	function copy(source, destination) {
 	  var stackSource = [];
 	  var stackDest = [];
-
+	
 	  if (destination) {
 	    if (isTypedArray(destination) || isArrayBuffer(destination)) {
 	      throw ngMinErr('cpta', "Can't copy! TypedArray destination cannot be mutated.");
@@ -930,7 +931,7 @@
 	    if (source === destination) {
 	      throw ngMinErr('cpi', "Can't copy! Source and destination are identical.");
 	    }
-
+	
 	    // Empty the destination object
 	    if (isArray(destination)) {
 	      destination.length = 0;
@@ -941,14 +942,14 @@
 	        }
 	      });
 	    }
-
+	
 	    stackSource.push(source);
 	    stackDest.push(destination);
 	    return copyRecurse(source, destination);
 	  }
-
+	
 	  return copyElement(source);
-
+	
 	  function copyRecurse(source, destination) {
 	    var h = destination.$$hashKey;
 	    var key;
@@ -979,40 +980,40 @@
 	    setHashKey(destination, h);
 	    return destination;
 	  }
-
+	
 	  function copyElement(source) {
 	    // Simple values
 	    if (!isObject(source)) {
 	      return source;
 	    }
-
+	
 	    // Already copied values
 	    var index = stackSource.indexOf(source);
 	    if (index !== -1) {
 	      return stackDest[index];
 	    }
-
+	
 	    if (isWindow(source) || isScope(source)) {
 	      throw ngMinErr('cpws',
 	        "Can't copy! Making copies of Window or Scope instances is not supported.");
 	    }
-
+	
 	    var needsRecurse = false;
 	    var destination = copyType(source);
-
+	
 	    if (destination === undefined) {
 	      destination = isArray(source) ? [] : Object.create(getPrototypeOf(source));
 	      needsRecurse = true;
 	    }
-
+	
 	    stackSource.push(source);
 	    stackDest.push(destination);
-
+	
 	    return needsRecurse
 	      ? copyRecurse(source, destination)
 	      : destination;
 	  }
-
+	
 	  function copyType(source) {
 	    switch (toString.call(source)) {
 	      case '[object Int8Array]':
@@ -1025,7 +1026,7 @@
 	      case '[object Uint16Array]':
 	      case '[object Uint32Array]':
 	        return new source.constructor(copyElement(source.buffer));
-
+	
 	      case '[object ArrayBuffer]':
 	        //Support: IE10
 	        if (!source.slice) {
@@ -1034,28 +1035,28 @@
 	          return copied;
 	        }
 	        return source.slice(0);
-
+	
 	      case '[object Boolean]':
 	      case '[object Number]':
 	      case '[object String]':
 	      case '[object Date]':
 	        return new source.constructor(source.valueOf());
-
+	
 	      case '[object RegExp]':
 	        var re = new RegExp(source.source, source.toString().match(/[^\/]*$/)[0]);
 	        re.lastIndex = source.lastIndex;
 	        return re;
-
+	
 	      case '[object Blob]':
 	        return new source.constructor([source], {type: source.type});
 	    }
-
+	
 	    if (isFunction(source.cloneNode)) {
 	      return source.cloneNode(true);
 	    }
 	  }
 	}
-
+	
 	/**
 	 * Creates a shallow copy of an object, an array or a primitive.
 	 *
@@ -1064,24 +1065,24 @@
 	function shallowCopy(src, dst) {
 	  if (isArray(src)) {
 	    dst = dst || [];
-
+	
 	    for (var i = 0, ii = src.length; i < ii; i++) {
 	      dst[i] = src[i];
 	    }
 	  } else if (isObject(src)) {
 	    dst = dst || {};
-
+	
 	    for (var key in src) {
 	      if (!(key.charAt(0) === '$' && key.charAt(1) === '$')) {
 	        dst[key] = src[key];
 	      }
 	    }
 	  }
-
+	
 	  return dst || src;
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.equals
@@ -1119,11 +1120,11 @@
 	          <h3>User 1</h3>
 	          Name: <input type="text" ng-model="user1.name">
 	          Age: <input type="number" ng-model="user1.age">
-
+	
 	          <h3>User 2</h3>
 	          Name: <input type="text" ng-model="user2.name">
 	          Age: <input type="number" ng-model="user2.age">
-
+	
 	          <div>
 	            <br/>
 	            <input type="button" value="Compare" ng-click="compare()">
@@ -1186,14 +1187,14 @@
 	  }
 	  return false;
 	}
-
+	
 	var csp = function() {
 	  if (!isDefined(csp.rules)) {
-
-
+	
+	
 	    var ngCspElement = (window.document.querySelector('[ng-csp]') ||
 	                    window.document.querySelector('[data-ng-csp]'));
-
+	
 	    if (ngCspElement) {
 	      var ngCspAttribute = ngCspElement.getAttribute('ng-csp') ||
 	                    ngCspElement.getAttribute('data-ng-csp');
@@ -1208,9 +1209,9 @@
 	      };
 	    }
 	  }
-
+	
 	  return csp.rules;
-
+	
 	  function noUnsafeEval() {
 	    try {
 	      /* jshint -W031, -W054 */
@@ -1222,7 +1223,7 @@
 	    }
 	  }
 	};
-
+	
 	/**
 	 * @ngdoc directive
 	 * @module ng
@@ -1272,19 +1273,19 @@
 	      break;
 	    }
 	  }
-
+	
 	  return (jq.name_ = name);
 	};
-
+	
 	function concat(array1, array2, index) {
 	  return array1.concat(slice.call(array2, index));
 	}
-
+	
 	function sliceArgs(args, startIndex) {
 	  return slice.call(args, startIndex || 0);
 	}
-
-
+	
+	
 	/* jshint -W101 */
 	/**
 	 * @ngdoc function
@@ -1323,11 +1324,11 @@
 	    return fn;
 	  }
 	}
-
-
+	
+	
 	function toJsonReplacer(key, value) {
 	  var val = value;
-
+	
 	  if (typeof key === 'string' && key.charAt(0) === '$' && key.charAt(1) === '$') {
 	    val = undefined;
 	  } else if (isWindow(value)) {
@@ -1337,11 +1338,11 @@
 	  } else if (isScope(value)) {
 	    val = '$SCOPE';
 	  }
-
+	
 	  return val;
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.toJson
@@ -1364,8 +1365,8 @@
 	  }
 	  return JSON.stringify(obj, toJsonReplacer, pretty);
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.fromJson
@@ -1383,8 +1384,8 @@
 	      ? JSON.parse(json)
 	      : json;
 	}
-
-
+	
+	
 	var ALL_COLONS = /:/g;
 	function timezoneToOffset(timezone, fallback) {
 	  // IE/Edge do not "understand" colon (`:`) in timezone
@@ -1392,23 +1393,23 @@
 	  var requestedTimezoneOffset = Date.parse('Jan 01, 1970 00:00:00 ' + timezone) / 60000;
 	  return isNaN(requestedTimezoneOffset) ? fallback : requestedTimezoneOffset;
 	}
-
-
+	
+	
 	function addDateMinutes(date, minutes) {
 	  date = new Date(date.getTime());
 	  date.setMinutes(date.getMinutes() + minutes);
 	  return date;
 	}
-
-
+	
+	
 	function convertTimezoneToLocal(date, timezone, reverse) {
 	  reverse = reverse ? -1 : 1;
 	  var dateTimezoneOffset = date.getTimezoneOffset();
 	  var timezoneOffset = timezoneToOffset(timezone, dateTimezoneOffset);
 	  return addDateMinutes(date, reverse * (timezoneOffset - dateTimezoneOffset));
 	}
-
-
+	
+	
 	/**
 	 * @returns {string} Returns the string representation of the element.
 	 */
@@ -1428,12 +1429,12 @@
 	  } catch (e) {
 	    return lowercase(elemHtml);
 	  }
-
+	
 	}
-
-
+	
+	
 	/////////////////////////////////////////////////
-
+	
 	/**
 	 * Tries to decode the URI component without throwing an exception.
 	 *
@@ -1449,8 +1450,8 @@
 	    // Ignore any invalid uri component
 	  }
 	}
-
-
+	
+	
 	/**
 	 * Parses an escaped url query string into key-value pairs.
 	 * @returns {Object.<string,boolean|Array>}
@@ -1481,7 +1482,7 @@
 	  });
 	  return obj;
 	}
-
+	
 	function toKeyValue(obj) {
 	  var parts = [];
 	  forEach(obj, function(value, key) {
@@ -1497,8 +1498,8 @@
 	  });
 	  return parts.length ? parts.join('&') : '';
 	}
-
-
+	
+	
 	/**
 	 * We need our custom method because encodeURIComponent is too aggressive and doesn't follow
 	 * http://www.ietf.org/rfc/rfc3986.txt with regards to the character set (pchar) allowed in path
@@ -1516,8 +1517,8 @@
 	             replace(/%3D/gi, '=').
 	             replace(/%2B/gi, '+');
 	}
-
-
+	
+	
 	/**
 	 * This method is intended for encoding *key* or *value* parts of query component. We need a custom
 	 * method because encodeURIComponent is too aggressive and encodes stuff that doesn't have to be
@@ -1538,9 +1539,9 @@
 	             replace(/%3B/gi, ';').
 	             replace(/%20/g, (pctEncodeSpaces ? '%20' : '+'));
 	}
-
+	
 	var ngAttrPrefixes = ['ng-', 'data-ng-', 'ng:', 'x-ng-'];
-
+	
 	function getNgAttribute(element, ngAttr) {
 	  var attr, i, ii = ngAttrPrefixes.length;
 	  for (i = 0; i < ii; ++i) {
@@ -1551,7 +1552,7 @@
 	  }
 	  return null;
 	}
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngApp
@@ -1616,26 +1617,26 @@
 	   <div ng-app="ngAppStrictDemo" ng-strict-di>
 	       <div ng-controller="GoodController1">
 	           I can add: {{a}} + {{b}} =  {{ a+b }}
-
+	
 	           <p>This renders because the controller does not fail to
 	              instantiate, by using explicit annotation style (see
 	              script.js for details)
 	           </p>
 	       </div>
-
+	
 	       <div ng-controller="GoodController2">
 	           Name: <input ng-model="name"><br />
 	           Hello, {{name}}!
-
+	
 	           <p>This renders because the controller does not fail to
 	              instantiate, by using explicit annotation style
 	              (see script.js for details)
 	           </p>
 	       </div>
-
+	
 	       <div ng-controller="BadController">
 	           I can add: {{a}} + {{b}} =  {{ a+b }}
-
+	
 	           <p>The controller could not be instantiated, due to relying
 	              on automatic function annotations (which are disabled in
 	              strict mode). As such, the content of this section is not
@@ -1690,11 +1691,11 @@
 	  var appElement,
 	      module,
 	      config = {};
-
+	
 	  // The element `element` has priority over any other element
 	  forEach(ngAttrPrefixes, function(prefix) {
 	    var name = prefix + 'app';
-
+	
 	    if (!appElement && element.hasAttribute && element.hasAttribute(name)) {
 	      appElement = element;
 	      module = element.getAttribute(name);
@@ -1703,7 +1704,7 @@
 	  forEach(ngAttrPrefixes, function(prefix) {
 	    var name = prefix + 'app';
 	    var candidate;
-
+	
 	    if (!appElement && (candidate = element.querySelector('[' + name.replace(':', '\\:') + ']'))) {
 	      appElement = candidate;
 	      module = candidate.getAttribute(name);
@@ -1714,7 +1715,7 @@
 	    bootstrap(appElement, module ? [module] : [], config);
 	  }
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.bootstrap
@@ -1782,7 +1783,7 @@
 	  config = extend(defaultConfig, config);
 	  var doBootstrap = function() {
 	    element = jqLite(element);
-
+	
 	    if (element.injector()) {
 	      var tag = (element[0] === window.document) ? 'document' : startingTag(element);
 	      //Encode angle brackets to prevent input from being sanitized to empty string #8683
@@ -1791,19 +1792,19 @@
 	          "App already bootstrapped with this element '{0}'",
 	          tag.replace(/</,'&lt;').replace(/>/,'&gt;'));
 	    }
-
+	
 	    modules = modules || [];
 	    modules.unshift(['$provide', function($provide) {
 	      $provide.value('$rootElement', element);
 	    }]);
-
+	
 	    if (config.debugInfoEnabled) {
 	      // Pushing so that this overrides `debugInfoEnabled` setting defined in user's `modules`.
 	      modules.push(['$compileProvider', function($compileProvider) {
 	        $compileProvider.debugInfoEnabled(true);
 	      }]);
 	    }
-
+	
 	    modules.unshift('ng');
 	    var injector = createInjector(modules, config.strictDi);
 	    injector.invoke(['$rootScope', '$rootElement', '$compile', '$injector',
@@ -1816,19 +1817,19 @@
 	    );
 	    return injector;
 	  };
-
+	
 	  var NG_ENABLE_DEBUG_INFO = /^NG_ENABLE_DEBUG_INFO!/;
 	  var NG_DEFER_BOOTSTRAP = /^NG_DEFER_BOOTSTRAP!/;
-
+	
 	  if (window && NG_ENABLE_DEBUG_INFO.test(window.name)) {
 	    config.debugInfoEnabled = true;
 	    window.name = window.name.replace(NG_ENABLE_DEBUG_INFO, '');
 	  }
-
+	
 	  if (window && !NG_DEFER_BOOTSTRAP.test(window.name)) {
 	    return doBootstrap();
 	  }
-
+	
 	  window.name = window.name.replace(NG_DEFER_BOOTSTRAP, '');
 	  angular.resumeBootstrap = function(extraModules) {
 	    forEach(extraModules, function(module) {
@@ -1836,12 +1837,12 @@
 	    });
 	    return doBootstrap();
 	  };
-
+	
 	  if (isFunction(angular.resumeDeferredBootstrap)) {
 	    angular.resumeDeferredBootstrap();
 	  }
 	}
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.reloadWithDebugInfo
@@ -1856,7 +1857,7 @@
 	  window.name = 'NG_ENABLE_DEBUG_INFO!' + window.name;
 	  window.location.reload();
 	}
-
+	
 	/**
 	 * @name angular.getTestability
 	 * @module ng
@@ -1873,7 +1874,7 @@
 	  }
 	  return injector.get('$$testability');
 	}
-
+	
 	var SNAKE_CASE_REGEXP = /[A-Z]/g;
 	function snake_case(name, separator) {
 	  separator = separator || '_';
@@ -1881,21 +1882,21 @@
 	    return (pos ? separator : '') + letter.toLowerCase();
 	  });
 	}
-
+	
 	var bindJQueryFired = false;
 	function bindJQuery() {
 	  var originalCleanData;
-
+	
 	  if (bindJQueryFired) {
 	    return;
 	  }
-
+	
 	  // bind to jQuery if present;
 	  var jqName = jq();
 	  jQuery = isUndefined(jqName) ? window.jQuery :   // use jQuery (if present)
 	           !jqName             ? undefined     :   // use jqLite
 	                                 window[jqName];   // use jQuery specified by `ngJq`
-
+	
 	  // Use jQuery if it exists with proper functionality, otherwise default to us.
 	  // Angular 1.2+ requires jQuery 1.7+ for on()/off() support.
 	  // Angular 1.3+ technically requires at least jQuery 2.1+ but it may work with older
@@ -1909,7 +1910,7 @@
 	      injector: JQLitePrototype.injector,
 	      inheritedData: JQLitePrototype.inheritedData
 	    });
-
+	
 	    // All nodes removed from the DOM via various jQuery APIs like .remove()
 	    // are passed through jQuery.cleanData. Monkey-patch this method to fire
 	    // the $destroy event on all removed nodes.
@@ -1927,13 +1928,13 @@
 	  } else {
 	    jqLite = JQLite;
 	  }
-
+	
 	  angular.element = jqLite;
-
+	
 	  // Prevent double-proxying.
 	  bindJQueryFired = true;
 	}
-
+	
 	/**
 	 * throw error if the argument is falsy.
 	 */
@@ -1943,17 +1944,17 @@
 	  }
 	  return arg;
 	}
-
+	
 	function assertArgFn(arg, name, acceptArrayAnnotation) {
 	  if (acceptArrayAnnotation && isArray(arg)) {
 	      arg = arg[arg.length - 1];
 	  }
-
+	
 	  assertArg(isFunction(arg), name, 'not a function, got ' +
 	      (arg && typeof arg === 'object' ? arg.constructor.name || 'Object' : typeof arg));
 	  return arg;
 	}
-
+	
 	/**
 	 * throw error if the name given is hasOwnProperty
 	 * @param  {String} name    the name to test
@@ -1964,7 +1965,7 @@
 	    throw ngMinErr('badname', "hasOwnProperty is not a valid {0} name", context);
 	  }
 	}
-
+	
 	/**
 	 * Return the value accessible from the object by path. Any undefined traversals are ignored
 	 * @param {Object} obj starting object
@@ -1979,7 +1980,7 @@
 	  var key;
 	  var lastInstance = obj;
 	  var len = keys.length;
-
+	
 	  for (var i = 0; i < len; i++) {
 	    key = keys[i];
 	    if (obj) {
@@ -1991,7 +1992,7 @@
 	  }
 	  return obj;
 	}
-
+	
 	/**
 	 * Return the DOM siblings between the first and last node in the given array.
 	 * @param {Array} array like object
@@ -2002,7 +2003,7 @@
 	  var node = nodes[0];
 	  var endNode = nodes[nodes.length - 1];
 	  var blockNodes;
-
+	
 	  for (var i = 1; node !== endNode && (node = node.nextSibling); i++) {
 	    if (blockNodes || nodes[i] !== node) {
 	      if (!blockNodes) {
@@ -2011,11 +2012,11 @@
 	      blockNodes.push(node);
 	    }
 	  }
-
+	
 	  return blockNodes || nodes;
 	}
-
-
+	
+	
 	/**
 	 * Creates a new object without a prototype. This object is useful for lookup without having to
 	 * guard against prototypically inherited properties via hasOwnProperty.
@@ -2030,14 +2031,14 @@
 	function createMap() {
 	  return Object.create(null);
 	}
-
+	
 	var NODE_TYPE_ELEMENT = 1;
 	var NODE_TYPE_ATTRIBUTE = 2;
 	var NODE_TYPE_TEXT = 3;
 	var NODE_TYPE_COMMENT = 8;
 	var NODE_TYPE_DOCUMENT = 9;
 	var NODE_TYPE_DOCUMENT_FRAGMENT = 11;
-
+	
 	/**
 	 * @ngdoc type
 	 * @name angular.Module
@@ -2046,25 +2047,25 @@
 	 *
 	 * Interface for configuring angular {@link angular.module modules}.
 	 */
-
+	
 	function setupModuleLoader(window) {
-
+	
 	  var $injectorMinErr = minErr('$injector');
 	  var ngMinErr = minErr('ng');
-
+	
 	  function ensure(obj, name, factory) {
 	    return obj[name] || (obj[name] = factory());
 	  }
-
+	
 	  var angular = ensure(window, 'angular', Object);
-
+	
 	  // We need to expose `angular.$$minErr` to modules such as `ngResource` that reference it during bootstrap
 	  angular.$$minErr = angular.$$minErr || minErr;
-
+	
 	  return ensure(angular, 'module', function() {
 	    /** @type {Object.<string, angular.Module>} */
 	    var modules = {};
-
+	
 	    /**
 	     * @ngdoc function
 	     * @name angular.module
@@ -2122,7 +2123,7 @@
 	          throw ngMinErr('badname', 'hasOwnProperty is not a valid {0} name', context);
 	        }
 	      };
-
+	
 	      assertNotHasOwnProperty(name, 'module');
 	      if (requires && modules.hasOwnProperty(name)) {
 	        modules[name] = null;
@@ -2133,25 +2134,25 @@
 	             "the module name or forgot to load it. If registering a module ensure that you " +
 	             "specify the dependencies as the second argument.", name);
 	        }
-
+	
 	        /** @type {!Array.<Array.<*>>} */
 	        var invokeQueue = [];
-
+	
 	        /** @type {!Array.<Function>} */
 	        var configBlocks = [];
-
+	
 	        /** @type {!Array.<Function>} */
 	        var runBlocks = [];
-
+	
 	        var config = invokeLater('$injector', 'invoke', 'push', configBlocks);
-
+	
 	        /** @type {angular.Module} */
 	        var moduleInstance = {
 	          // Private state
 	          _invokeQueue: invokeQueue,
 	          _configBlocks: configBlocks,
 	          _runBlocks: runBlocks,
-
+	
 	          /**
 	           * @ngdoc property
 	           * @name angular.Module#requires
@@ -2162,7 +2163,7 @@
 	           * loaded.
 	           */
 	          requires: requires,
-
+	
 	          /**
 	           * @ngdoc property
 	           * @name angular.Module#name
@@ -2172,8 +2173,8 @@
 	           * Name of the module.
 	           */
 	          name: name,
-
-
+	
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#provider
@@ -2185,7 +2186,7 @@
 	           * See {@link auto.$provide#provider $provide.provider()}.
 	           */
 	          provider: invokeLaterAndSetModuleName('$provide', 'provider'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#factory
@@ -2196,7 +2197,7 @@
 	           * See {@link auto.$provide#factory $provide.factory()}.
 	           */
 	          factory: invokeLaterAndSetModuleName('$provide', 'factory'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#service
@@ -2207,7 +2208,7 @@
 	           * See {@link auto.$provide#service $provide.service()}.
 	           */
 	          service: invokeLaterAndSetModuleName('$provide', 'service'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#value
@@ -2218,7 +2219,7 @@
 	           * See {@link auto.$provide#value $provide.value()}.
 	           */
 	          value: invokeLater('$provide', 'value'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#constant
@@ -2230,7 +2231,7 @@
 	           * See {@link auto.$provide#constant $provide.constant()}.
 	           */
 	          constant: invokeLater('$provide', 'constant', 'unshift'),
-
+	
 	           /**
 	           * @ngdoc method
 	           * @name angular.Module#decorator
@@ -2242,7 +2243,7 @@
 	           * See {@link auto.$provide#decorator $provide.decorator()}.
 	           */
 	          decorator: invokeLaterAndSetModuleName('$provide', 'decorator'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#animation
@@ -2276,7 +2277,7 @@
 	           * {@link ngAnimate ngAnimate module} for more information.
 	           */
 	          animation: invokeLaterAndSetModuleName('$animateProvider', 'register'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#filter
@@ -2294,7 +2295,7 @@
 	           * </div>
 	           */
 	          filter: invokeLaterAndSetModuleName('$filterProvider', 'register'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#controller
@@ -2306,7 +2307,7 @@
 	           * See {@link ng.$controllerProvider#register $controllerProvider.register()}.
 	           */
 	          controller: invokeLaterAndSetModuleName('$controllerProvider', 'register'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#directive
@@ -2319,7 +2320,7 @@
 	           * See {@link ng.$compileProvider#directive $compileProvider.directive()}.
 	           */
 	          directive: invokeLaterAndSetModuleName('$compileProvider', 'directive'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#component
@@ -2332,7 +2333,7 @@
 	           * See {@link ng.$compileProvider#component $compileProvider.component()}.
 	           */
 	          component: invokeLaterAndSetModuleName('$compileProvider', 'component'),
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#config
@@ -2345,7 +2346,7 @@
 	           * {@link providers#provider-recipe Provider Recipe}.
 	           */
 	          config: config,
-
+	
 	          /**
 	           * @ngdoc method
 	           * @name angular.Module#run
@@ -2361,13 +2362,13 @@
 	            return this;
 	          }
 	        };
-
+	
 	        if (configFn) {
 	          config(configFn);
 	        }
-
+	
 	        return moduleInstance;
-
+	
 	        /**
 	         * @param {string} provider
 	         * @param {string} method
@@ -2381,7 +2382,7 @@
 	            return moduleInstance;
 	          };
 	        }
-
+	
 	        /**
 	         * @param {string} provider
 	         * @param {string} method
@@ -2397,26 +2398,26 @@
 	      });
 	    };
 	  });
-
+	
 	}
-
+	
 	/* global: toDebugString: true */
-
+	
 	function serializeObject(obj) {
 	  var seen = [];
-
+	
 	  return JSON.stringify(obj, function(key, val) {
 	    val = toJsonReplacer(key, val);
 	    if (isObject(val)) {
-
+	
 	      if (seen.indexOf(val) >= 0) return '...';
-
+	
 	      seen.push(val);
 	    }
 	    return val;
 	  });
 	}
-
+	
 	function toDebugString(obj) {
 	  if (typeof obj === 'function') {
 	    return obj.toString().replace(/ \{[\s\S]*$/, '');
@@ -2427,12 +2428,12 @@
 	  }
 	  return obj;
 	}
-
+	
 	/* global angularModule: true,
 	  version: true,
-
+	
 	  $CompileProvider,
-
+	
 	  htmlAnchorDirective,
 	  inputDirective,
 	  inputDirective,
@@ -2480,7 +2481,7 @@
 	  ngModelOptionsDirective,
 	  ngAttributeAliasDirectives,
 	  ngEventDirectives,
-
+	
 	  $AnchorScrollProvider,
 	  $AnimateProvider,
 	  $CoreAnimateCssProvider,
@@ -2523,8 +2524,8 @@
 	  $$jqLiteProvider,
 	  $$CookieReaderProvider
 	*/
-
-
+	
+	
 	/**
 	 * @ngdoc object
 	 * @name angular.version
@@ -2547,8 +2548,8 @@
 	  dot: 5,
 	  codeName: 'material-conspiration'
 	};
-
-
+	
+	
 	function publishExternalAPI(angular) {
 	  extend(angular, {
 	    'bootstrap': bootstrap,
@@ -2582,9 +2583,9 @@
 	    '$$csp': csp,
 	    'reloadWithDebugInfo': reloadWithDebugInfo
 	  });
-
+	
 	  angularModule = setupModuleLoader(window);
-
+	
 	  angularModule('ng', ['ngLocale'], ['$provide',
 	    function ngModule($provide) {
 	      // $$sanitizeUriProvider needs to be before $compileProvider as it is used by it.
@@ -2687,7 +2688,7 @@
 	    }
 	  ]);
 	}
-
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *     Any commits to this file should be reviewed with security in mind.  *
 	 *   Changes to this file can potentially create security vulnerabilities. *
@@ -2698,18 +2699,18 @@
 	 *    Or allows for someone to change the prototype of built-in objects?   *
 	 *     Or gives undesired access to variables likes document or window?    *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+	
 	/* global JQLitePrototype: true,
 	  addEventListenerFn: true,
 	  removeEventListenerFn: true,
 	  BOOLEAN_ATTR: true,
 	  ALIASED_ATTR: true,
 	*/
-
+	
 	//////////////////////////////////
 	//JQLite
 	//////////////////////////////////
-
+	
 	/**
 	 * @ngdoc function
 	 * @name angular.element
@@ -2808,9 +2809,9 @@
 	 * @param {string|DOMElement} element HTML string or DOMElement to be wrapped into jQuery.
 	 * @returns {Object} jQuery object.
 	 */
-
+	
 	JQLite.expando = 'ng339';
-
+	
 	var jqCache = JQLite.cache = {},
 	    jqId = 1,
 	    addEventListenerFn = function(element, type, fn) {
@@ -2819,7 +2820,7 @@
 	    removeEventListenerFn = function(element, type, fn) {
 	      element.removeEventListener(type, fn, false);
 	    };
-
+	
 	/*
 	 * !!! This is an undocumented "private" function !!!
 	 */
@@ -2827,15 +2828,15 @@
 	  //jQuery always returns an object on cache miss
 	  return this.cache[node[this.expando]] || {};
 	};
-
+	
 	function jqNextId() { return ++jqId; }
-
-
+	
+	
 	var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
 	var MOZ_HACK_REGEXP = /^moz([A-Z])/;
 	var MOUSE_EVENT_MAP= { mouseleave: "mouseout", mouseenter: "mouseover"};
 	var jqLiteMinErr = minErr('jqLite');
-
+	
 	/**
 	 * Converts snake_case to camelCase.
 	 * Also there is special case for Moz prefix starting with upper case letter.
@@ -2848,56 +2849,56 @@
 	    }).
 	    replace(MOZ_HACK_REGEXP, 'Moz$1');
 	}
-
+	
 	var SINGLE_TAG_REGEXP = /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;
 	var HTML_REGEXP = /<|&#?\w+;/;
 	var TAG_NAME_REGEXP = /<([\w:-]+)/;
 	var XHTML_TAG_REGEXP = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi;
-
+	
 	var wrapMap = {
 	  'option': [1, '<select multiple="multiple">', '</select>'],
-
+	
 	  'thead': [1, '<table>', '</table>'],
 	  'col': [2, '<table><colgroup>', '</colgroup></table>'],
 	  'tr': [2, '<table><tbody>', '</tbody></table>'],
 	  'td': [3, '<table><tbody><tr>', '</tr></tbody></table>'],
 	  '_default': [0, "", ""]
 	};
-
+	
 	wrapMap.optgroup = wrapMap.option;
 	wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 	wrapMap.th = wrapMap.td;
-
-
+	
+	
 	function jqLiteIsTextNode(html) {
 	  return !HTML_REGEXP.test(html);
 	}
-
+	
 	function jqLiteAcceptsData(node) {
 	  // The window object can accept data but has no nodeType
 	  // Otherwise we are only interested in elements (1) and documents (9)
 	  var nodeType = node.nodeType;
 	  return nodeType === NODE_TYPE_ELEMENT || !nodeType || nodeType === NODE_TYPE_DOCUMENT;
 	}
-
+	
 	function jqLiteHasData(node) {
 	  for (var key in jqCache[node.ng339]) {
 	    return true;
 	  }
 	  return false;
 	}
-
+	
 	function jqLiteCleanData(nodes) {
 	  for (var i = 0, ii = nodes.length; i < ii; i++) {
 	    jqLiteRemoveData(nodes[i]);
 	  }
 	}
-
+	
 	function jqLiteBuildFragment(html, context) {
 	  var tmp, tag, wrap,
 	      fragment = context.createDocumentFragment(),
 	      nodes = [], i;
-
+	
 	  if (jqLiteIsTextNode(html)) {
 	    // Convert non-html into a text node
 	    nodes.push(context.createTextNode(html));
@@ -2907,70 +2908,70 @@
 	    tag = (TAG_NAME_REGEXP.exec(html) || ["", ""])[1].toLowerCase();
 	    wrap = wrapMap[tag] || wrapMap._default;
 	    tmp.innerHTML = wrap[1] + html.replace(XHTML_TAG_REGEXP, "<$1></$2>") + wrap[2];
-
+	
 	    // Descend through wrappers to the right content
 	    i = wrap[0];
 	    while (i--) {
 	      tmp = tmp.lastChild;
 	    }
-
+	
 	    nodes = concat(nodes, tmp.childNodes);
-
+	
 	    tmp = fragment.firstChild;
 	    tmp.textContent = "";
 	  }
-
+	
 	  // Remove wrapper from fragment
 	  fragment.textContent = "";
 	  fragment.innerHTML = ""; // Clear inner HTML
 	  forEach(nodes, function(node) {
 	    fragment.appendChild(node);
 	  });
-
+	
 	  return fragment;
 	}
-
+	
 	function jqLiteParseHTML(html, context) {
 	  context = context || window.document;
 	  var parsed;
-
+	
 	  if ((parsed = SINGLE_TAG_REGEXP.exec(html))) {
 	    return [context.createElement(parsed[1])];
 	  }
-
+	
 	  if ((parsed = jqLiteBuildFragment(html, context))) {
 	    return parsed.childNodes;
 	  }
-
+	
 	  return [];
 	}
-
+	
 	function jqLiteWrapNode(node, wrapper) {
 	  var parent = node.parentNode;
-
+	
 	  if (parent) {
 	    parent.replaceChild(wrapper, node);
 	  }
-
+	
 	  wrapper.appendChild(node);
 	}
-
-
+	
+	
 	// IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
 	var jqLiteContains = window.Node.prototype.contains || function(arg) {
 	  // jshint bitwise: false
 	  return !!(this.compareDocumentPosition(arg) & 16);
 	  // jshint bitwise: true
 	};
-
+	
 	/////////////////////////////////////////////
 	function JQLite(element) {
 	  if (element instanceof JQLite) {
 	    return element;
 	  }
-
+	
 	  var argIsString;
-
+	
 	  if (isString(element)) {
 	    element = trim(element);
 	    argIsString = true;
@@ -2981,21 +2982,21 @@
 	    }
 	    return new JQLite(element);
 	  }
-
+	
 	  if (argIsString) {
 	    jqLiteAddNodes(this, jqLiteParseHTML(element));
 	  } else {
 	    jqLiteAddNodes(this, element);
 	  }
 	}
-
+	
 	function jqLiteClone(element) {
 	  return element.cloneNode(true);
 	}
-
+	
 	function jqLiteDealoc(element, onlyDescendants) {
 	  if (!onlyDescendants) jqLiteRemoveData(element);
-
+	
 	  if (element.querySelectorAll) {
 	    var descendants = element.querySelectorAll('*');
 	    for (var i = 0, l = descendants.length; i < l; i++) {
@@ -3003,16 +3004,16 @@
 	    }
 	  }
 	}
-
+	
 	function jqLiteOff(element, type, fn, unsupported) {
 	  if (isDefined(unsupported)) throw jqLiteMinErr('offargs', 'jqLite#off() does not support the `selector` argument');
-
+	
 	  var expandoStore = jqLiteExpandoStore(element);
 	  var events = expandoStore && expandoStore.events;
 	  var handle = expandoStore && expandoStore.handle;
-
+	
 	  if (!handle) return; //no listeners registered
-
+	
 	  if (!type) {
 	    for (type in events) {
 	      if (type !== '$destroy') {
@@ -3021,7 +3022,7 @@
 	      delete events[type];
 	    }
 	  } else {
-
+	
 	    var removeHandler = function(type) {
 	      var listenerFns = events[type];
 	      if (isDefined(fn)) {
@@ -3032,7 +3033,7 @@
 	        delete events[type];
 	      }
 	    };
-
+	
 	    forEach(type.split(' '), function(type) {
 	      removeHandler(type);
 	      if (MOUSE_EVENT_MAP[type]) {
@@ -3041,17 +3042,17 @@
 	    });
 	  }
 	}
-
+	
 	function jqLiteRemoveData(element, name) {
 	  var expandoId = element.ng339;
 	  var expandoStore = expandoId && jqCache[expandoId];
-
+	
 	  if (expandoStore) {
 	    if (name) {
 	      delete expandoStore.data[name];
 	      return;
 	    }
-
+	
 	    if (expandoStore.handle) {
 	      if (expandoStore.events.$destroy) {
 	        expandoStore.handle({}, '$destroy');
@@ -3062,30 +3063,30 @@
 	    element.ng339 = undefined; // don't delete DOM expandos. IE and Chrome don't like it
 	  }
 	}
-
-
+	
+	
 	function jqLiteExpandoStore(element, createIfNecessary) {
 	  var expandoId = element.ng339,
 	      expandoStore = expandoId && jqCache[expandoId];
-
+	
 	  if (createIfNecessary && !expandoStore) {
 	    element.ng339 = expandoId = jqNextId();
 	    expandoStore = jqCache[expandoId] = {events: {}, data: {}, handle: undefined};
 	  }
-
+	
 	  return expandoStore;
 	}
-
-
+	
+	
 	function jqLiteData(element, key, value) {
 	  if (jqLiteAcceptsData(element)) {
-
+	
 	    var isSimpleSetter = isDefined(value);
 	    var isSimpleGetter = !isSimpleSetter && key && !isObject(key);
 	    var massGetter = !key;
 	    var expandoStore = jqLiteExpandoStore(element, !isSimpleGetter);
 	    var data = expandoStore && expandoStore.data;
-
+	
 	    if (isSimpleSetter) { // data('key', value)
 	      data[key] = value;
 	    } else {
@@ -3102,13 +3103,13 @@
 	    }
 	  }
 	}
-
+	
 	function jqLiteHasClass(element, selector) {
 	  if (!element.getAttribute) return false;
 	  return ((" " + (element.getAttribute('class') || '') + " ").replace(/[\n\t]/g, " ").
 	      indexOf(" " + selector + " ") > -1);
 	}
-
+	
 	function jqLiteRemoveClass(element, cssClasses) {
 	  if (cssClasses && element.setAttribute) {
 	    forEach(cssClasses.split(' '), function(cssClass) {
@@ -3120,35 +3121,35 @@
 	    });
 	  }
 	}
-
+	
 	function jqLiteAddClass(element, cssClasses) {
 	  if (cssClasses && element.setAttribute) {
 	    var existingClasses = (' ' + (element.getAttribute('class') || '') + ' ')
 	                            .replace(/[\n\t]/g, " ");
-
+	
 	    forEach(cssClasses.split(' '), function(cssClass) {
 	      cssClass = trim(cssClass);
 	      if (existingClasses.indexOf(' ' + cssClass + ' ') === -1) {
 	        existingClasses += cssClass + ' ';
 	      }
 	    });
-
+	
 	    element.setAttribute('class', trim(existingClasses));
 	  }
 	}
-
-
+	
+	
 	function jqLiteAddNodes(root, elements) {
 	  // THIS CODE IS VERY HOT. Don't make changes without benchmarking.
-
+	
 	  if (elements) {
-
+	
 	    // if a Node (the most common case)
 	    if (elements.nodeType) {
 	      root[root.length++] = elements;
 	    } else {
 	      var length = elements.length;
-
+	
 	      // if an Array or NodeList and not a Window
 	      if (typeof length === 'number' && elements.window !== elements) {
 	        if (length) {
@@ -3162,12 +3163,12 @@
 	    }
 	  }
 	}
-
-
+	
+	
 	function jqLiteController(element, name) {
 	  return jqLiteInheritedData(element, '$' + (name || 'ngController') + 'Controller');
 	}
-
+	
 	function jqLiteInheritedData(element, name, value) {
 	  // if element is the document object work with the html element instead
 	  // this makes $(document).scope() possible
@@ -3175,33 +3176,33 @@
 	    element = element.documentElement;
 	  }
 	  var names = isArray(name) ? name : [name];
-
+	
 	  while (element) {
 	    for (var i = 0, ii = names.length; i < ii; i++) {
 	      if (isDefined(value = jqLite.data(element, names[i]))) return value;
 	    }
-
+	
 	    // If dealing with a document fragment node with a host element, and no parent, use the host
 	    // element as the parent. This enables directives within a Shadow DOM or polyfilled Shadow DOM
 	    // to lookup parent controllers.
 	    element = element.parentNode || (element.nodeType === NODE_TYPE_DOCUMENT_FRAGMENT && element.host);
 	  }
 	}
-
+	
 	function jqLiteEmpty(element) {
 	  jqLiteDealoc(element, true);
 	  while (element.firstChild) {
 	    element.removeChild(element.firstChild);
 	  }
 	}
-
+	
 	function jqLiteRemove(element, keepData) {
 	  if (!keepData) jqLiteDealoc(element);
 	  var parent = element.parentNode;
 	  if (parent) parent.removeChild(element);
 	}
-
-
+	
+	
 	function jqLiteDocumentLoaded(action, win) {
 	  win = win || window;
 	  if (win.document.readyState === 'complete') {
@@ -3214,20 +3215,20 @@
 	    jqLite(win).on('load', action);
 	  }
 	}
-
+	
 	//////////////////////////////////////////
 	// Functions which are declared directly.
 	//////////////////////////////////////////
 	var JQLitePrototype = JQLite.prototype = {
 	  ready: function(fn) {
 	    var fired = false;
-
+	
 	    function trigger() {
 	      if (fired) return;
 	      fired = true;
 	      fn();
 	    }
-
+	
 	    // check if document is already loaded
 	    if (window.document.readyState === 'complete') {
 	      window.setTimeout(trigger);
@@ -3244,17 +3245,17 @@
 	    forEach(this, function(e) { value.push('' + e);});
 	    return '[' + value.join(', ') + ']';
 	  },
-
+	
 	  eq: function(index) {
 	      return (index >= 0) ? jqLite(this[index]) : jqLite(this[this.length + index]);
 	  },
-
+	
 	  length: 0,
 	  push: push,
 	  sort: [].sort,
 	  splice: [].splice
 	};
-
+	
 	//////////////////////////////////////////
 	// Functions iterating getter/setters.
 	// these functions return self on setter and
@@ -3275,19 +3276,19 @@
 	  'ngMax': 'max',
 	  'ngPattern': 'pattern'
 	};
-
+	
 	function getBooleanAttrName(element, name) {
 	  // check dom last since we will most likely fail on name
 	  var booleanAttr = BOOLEAN_ATTR[name.toLowerCase()];
-
+	
 	  // booleanAttr is here twice to minimize DOM access
 	  return booleanAttr && BOOLEAN_ELEMENTS[nodeName_(element)] && booleanAttr;
 	}
-
+	
 	function getAliasedAttrName(name) {
 	  return ALIASED_ATTR[name];
 	}
-
+	
 	forEach({
 	  data: jqLiteData,
 	  removeData: jqLiteRemoveData,
@@ -3296,43 +3297,43 @@
 	}, function(fn, name) {
 	  JQLite[name] = fn;
 	});
-
+	
 	forEach({
 	  data: jqLiteData,
 	  inheritedData: jqLiteInheritedData,
-
+	
 	  scope: function(element) {
 	    // Can't use jqLiteData here directly so we stay compatible with jQuery!
 	    return jqLite.data(element, '$scope') || jqLiteInheritedData(element.parentNode || element, ['$isolateScope', '$scope']);
 	  },
-
+	
 	  isolateScope: function(element) {
 	    // Can't use jqLiteData here directly so we stay compatible with jQuery!
 	    return jqLite.data(element, '$isolateScope') || jqLite.data(element, '$isolateScopeNoTemplate');
 	  },
-
+	
 	  controller: jqLiteController,
-
+	
 	  injector: function(element) {
 	    return jqLiteInheritedData(element, '$injector');
 	  },
-
+	
 	  removeAttr: function(element, name) {
 	    element.removeAttribute(name);
 	  },
-
+	
 	  hasClass: jqLiteHasClass,
-
+	
 	  css: function(element, name, value) {
 	    name = camelCase(name);
-
+	
 	    if (isDefined(value)) {
 	      element.style[name] = value;
 	    } else {
 	      return element.style[name];
 	    }
 	  },
-
+	
 	  attr: function(element, name, value) {
 	    var nodeType = element.nodeType;
 	    if (nodeType === NODE_TYPE_TEXT || nodeType === NODE_TYPE_ATTRIBUTE || nodeType === NODE_TYPE_COMMENT) {
@@ -3364,7 +3365,7 @@
 	      return ret === null ? undefined : ret;
 	    }
 	  },
-
+	
 	  prop: function(element, name, value) {
 	    if (isDefined(value)) {
 	      element[name] = value;
@@ -3372,11 +3373,11 @@
 	      return element[name];
 	    }
 	  },
-
+	
 	  text: (function() {
 	    getText.$dv = '';
 	    return getText;
-
+	
 	    function getText(element, value) {
 	      if (isUndefined(value)) {
 	        var nodeType = element.nodeType;
@@ -3385,7 +3386,7 @@
 	      element.textContent = value;
 	    }
 	  })(),
-
+	
 	  val: function(element, value) {
 	    if (isUndefined(value)) {
 	      if (element.multiple && nodeName_(element) === 'select') {
@@ -3401,7 +3402,7 @@
 	    }
 	    element.value = value;
 	  },
-
+	
 	  html: function(element, value) {
 	    if (isUndefined(value)) {
 	      return element.innerHTML;
@@ -3409,7 +3410,7 @@
 	    jqLiteDealoc(element, true);
 	    element.innerHTML = value;
 	  },
-
+	
 	  empty: jqLiteEmpty
 	}, function(fn, name) {
 	  /**
@@ -3418,14 +3419,14 @@
 	  JQLite.prototype[name] = function(arg1, arg2) {
 	    var i, key;
 	    var nodeCount = this.length;
-
+	
 	    // jqLiteHasClass has only two arguments, but is a getter-only fn, so we need to special-case it
 	    // in a way that survives minification.
 	    // jqLiteEmpty takes no arguments but is a setter.
 	    if (fn !== jqLiteEmpty &&
 	        (isUndefined((fn.length == 2 && (fn !== jqLiteHasClass && fn !== jqLiteController)) ? arg1 : arg2))) {
 	      if (isObject(arg1)) {
-
+	
 	        // we are a write, but the object properties are the key/values
 	        for (i = 0; i < nodeCount; i++) {
 	          if (fn === jqLiteData) {
@@ -3461,63 +3462,63 @@
 	    }
 	  };
 	});
-
+	
 	function createEventHandler(element, events) {
 	  var eventHandler = function(event, type) {
 	    // jQuery specific api
 	    event.isDefaultPrevented = function() {
 	      return event.defaultPrevented;
 	    };
-
+	
 	    var eventFns = events[type || event.type];
 	    var eventFnsLength = eventFns ? eventFns.length : 0;
-
+	
 	    if (!eventFnsLength) return;
-
+	
 	    if (isUndefined(event.immediatePropagationStopped)) {
 	      var originalStopImmediatePropagation = event.stopImmediatePropagation;
 	      event.stopImmediatePropagation = function() {
 	        event.immediatePropagationStopped = true;
-
+	
 	        if (event.stopPropagation) {
 	          event.stopPropagation();
 	        }
-
+	
 	        if (originalStopImmediatePropagation) {
 	          originalStopImmediatePropagation.call(event);
 	        }
 	      };
 	    }
-
+	
 	    event.isImmediatePropagationStopped = function() {
 	      return event.immediatePropagationStopped === true;
 	    };
-
+	
 	    // Some events have special handlers that wrap the real handler
 	    var handlerWrapper = eventFns.specialHandlerWrapper || defaultHandlerWrapper;
-
+	
 	    // Copy event handlers in case event handlers array is modified during execution.
 	    if ((eventFnsLength > 1)) {
 	      eventFns = shallowCopy(eventFns);
 	    }
-
+	
 	    for (var i = 0; i < eventFnsLength; i++) {
 	      if (!event.isImmediatePropagationStopped()) {
 	        handlerWrapper(element, event, eventFns[i]);
 	      }
 	    }
 	  };
-
+	
 	  // TODO: this is a hack for angularMocks/clearDataCache that makes it possible to deregister all
 	  //       events on `element`
 	  eventHandler.elem = element;
 	  return eventHandler;
 	}
-
+	
 	function defaultHandlerWrapper(element, event, handler) {
 	  handler.call(element, event);
 	}
-
+	
 	function specialMouseHandlerWrapper(target, event, handler) {
 	  // Refer to jQuery's implementation of mouseenter & mouseleave
 	  // Read about mouseenter and mouseleave:
@@ -3529,7 +3530,7 @@
 	    handler.call(target, event);
 	  }
 	}
-
+	
 	//////////////////////////////////////////
 	// Functions iterating traversal.
 	// These functions chain results into a single
@@ -3537,30 +3538,30 @@
 	//////////////////////////////////////////
 	forEach({
 	  removeData: jqLiteRemoveData,
-
+	
 	  on: function jqLiteOn(element, type, fn, unsupported) {
 	    if (isDefined(unsupported)) throw jqLiteMinErr('onargs', 'jqLite#on() does not support the `selector` or `eventData` parameters');
-
+	
 	    // Do not add event handlers to non-elements because they will not be cleaned up.
 	    if (!jqLiteAcceptsData(element)) {
 	      return;
 	    }
-
+	
 	    var expandoStore = jqLiteExpandoStore(element, true);
 	    var events = expandoStore.events;
 	    var handle = expandoStore.handle;
-
+	
 	    if (!handle) {
 	      handle = expandoStore.handle = createEventHandler(element, events);
 	    }
-
+	
 	    // http://jsperf.com/string-indexof-vs-split
 	    var types = type.indexOf(' ') >= 0 ? type.split(' ') : [type];
 	    var i = types.length;
-
+	
 	    var addHandler = function(type, specialHandlerWrapper, noEventListener) {
 	      var eventFns = events[type];
-
+	
 	      if (!eventFns) {
 	        eventFns = events[type] = [];
 	        eventFns.specialHandlerWrapper = specialHandlerWrapper;
@@ -3568,10 +3569,10 @@
 	          addEventListenerFn(element, type, handle);
 	        }
 	      }
-
+	
 	      eventFns.push(fn);
 	    };
-
+	
 	    while (i--) {
 	      type = types[i];
 	      if (MOUSE_EVENT_MAP[type]) {
@@ -3582,12 +3583,12 @@
 	      }
 	    }
 	  },
-
+	
 	  off: jqLiteOff,
-
+	
 	  one: function(element, type, fn) {
 	    element = jqLite(element);
-
+	
 	    //add the listener twice so that when it is called
 	    //you can remove the original function and still be
 	    //able to call element.off(ev, fn) normally
@@ -3597,7 +3598,7 @@
 	    });
 	    element.on(type, fn);
 	  },
-
+	
 	  replaceWith: function(element, replaceNode) {
 	    var index, parent = element.parentNode;
 	    jqLiteDealoc(element);
@@ -3610,7 +3611,7 @@
 	      index = node;
 	    });
 	  },
-
+	
 	  children: function(element) {
 	    var children = [];
 	    forEach(element.childNodes, function(element) {
@@ -3620,23 +3621,23 @@
 	    });
 	    return children;
 	  },
-
+	
 	  contents: function(element) {
 	    return element.contentDocument || element.childNodes || [];
 	  },
-
+	
 	  append: function(element, node) {
 	    var nodeType = element.nodeType;
 	    if (nodeType !== NODE_TYPE_ELEMENT && nodeType !== NODE_TYPE_DOCUMENT_FRAGMENT) return;
-
+	
 	    node = new JQLite(node);
-
+	
 	    for (var i = 0, ii = node.length; i < ii; i++) {
 	      var child = node[i];
 	      element.appendChild(child);
 	    }
 	  },
-
+	
 	  prepend: function(element, node) {
 	    if (element.nodeType === NODE_TYPE_ELEMENT) {
 	      var index = element.firstChild;
@@ -3645,31 +3646,31 @@
 	      });
 	    }
 	  },
-
+	
 	  wrap: function(element, wrapNode) {
 	    jqLiteWrapNode(element, jqLite(wrapNode).eq(0).clone()[0]);
 	  },
-
+	
 	  remove: jqLiteRemove,
-
+	
 	  detach: function(element) {
 	    jqLiteRemove(element, true);
 	  },
-
+	
 	  after: function(element, newElement) {
 	    var index = element, parent = element.parentNode;
 	    newElement = new JQLite(newElement);
-
+	
 	    for (var i = 0, ii = newElement.length; i < ii; i++) {
 	      var node = newElement[i];
 	      parent.insertBefore(node, index.nextSibling);
 	      index = node;
 	    }
 	  },
-
+	
 	  addClass: jqLiteAddClass,
 	  removeClass: jqLiteRemoveClass,
-
+	
 	  toggleClass: function(element, selector, condition) {
 	    if (selector) {
 	      forEach(selector.split(' '), function(className) {
@@ -3681,16 +3682,16 @@
 	      });
 	    }
 	  },
-
+	
 	  parent: function(element) {
 	    var parent = element.parentNode;
 	    return parent && parent.nodeType !== NODE_TYPE_DOCUMENT_FRAGMENT ? parent : null;
 	  },
-
+	
 	  next: function(element) {
 	    return element.nextElementSibling;
 	  },
-
+	
 	  find: function(element, selector) {
 	    if (element.getElementsByTagName) {
 	      return element.getElementsByTagName(selector);
@@ -3698,17 +3699,17 @@
 	      return [];
 	    }
 	  },
-
+	
 	  clone: jqLiteClone,
-
+	
 	  triggerHandler: function(element, event, extraParameters) {
-
+	
 	    var dummyEvent, eventFnsCopy, handlerArgs;
 	    var eventName = event.type || event;
 	    var expandoStore = jqLiteExpandoStore(element);
 	    var events = expandoStore && expandoStore.events;
 	    var eventFns = events && events[eventName];
-
+	
 	    if (eventFns) {
 	      // Create a dummy event to pass to the handlers
 	      dummyEvent = {
@@ -3720,16 +3721,16 @@
 	        type: eventName,
 	        target: element
 	      };
-
+	
 	      // If a custom event was provided then extend our dummy event with it
 	      if (event.type) {
 	        dummyEvent = extend(dummyEvent, event);
 	      }
-
+	
 	      // Copy event handlers in case event handlers array is modified during execution.
 	      eventFnsCopy = shallowCopy(eventFns);
 	      handlerArgs = extraParameters ? [dummyEvent].concat(extraParameters) : [dummyEvent];
-
+	
 	      forEach(eventFnsCopy, function(fn) {
 	        if (!dummyEvent.isImmediatePropagationStopped()) {
 	          fn.apply(element, handlerArgs);
@@ -3743,7 +3744,7 @@
 	   */
 	  JQLite.prototype[name] = function(arg1, arg2, arg3) {
 	    var value;
-
+	
 	    for (var i = 0, ii = this.length; i < ii; i++) {
 	      if (isUndefined(value)) {
 	        value = fn(this[i], arg1, arg2, arg3);
@@ -3757,13 +3758,13 @@
 	    }
 	    return isDefined(value) ? value : this;
 	  };
-
+	
 	  // bind legacy bind/unbind to on/off
 	  JQLite.prototype.bind = JQLite.prototype.on;
 	  JQLite.prototype.unbind = JQLite.prototype.off;
 	});
-
-
+	
+	
 	// Provider for private $$jqLite service
 	function $$jqLiteProvider() {
 	  this.$get = function $$jqLite() {
@@ -3783,7 +3784,7 @@
 	    });
 	  };
 	}
-
+	
 	/**
 	 * Computes a hash of an 'obj'.
 	 * Hash of a:
@@ -3798,24 +3799,24 @@
 	 */
 	function hashKey(obj, nextUidFn) {
 	  var key = obj && obj.$$hashKey;
-
+	
 	  if (key) {
 	    if (typeof key === 'function') {
 	      key = obj.$$hashKey();
 	    }
 	    return key;
 	  }
-
+	
 	  var objType = typeof obj;
 	  if (objType == 'function' || (objType == 'object' && obj !== null)) {
 	    key = obj.$$hashKey = objType + ':' + (nextUidFn || nextUid)();
 	  } else {
 	    key = objType + ':' + obj;
 	  }
-
+	
 	  return key;
 	}
-
+	
 	/**
 	 * HashMap which can use objects as keys
 	 */
@@ -3837,7 +3838,7 @@
 	  put: function(key, value) {
 	    this[hashKey(key, this.nextUid)] = value;
 	  },
-
+	
 	  /**
 	   * @param key
 	   * @returns {Object} the value for the key
@@ -3845,7 +3846,7 @@
 	  get: function(key) {
 	    return this[hashKey(key, this.nextUid)];
 	  },
-
+	
 	  /**
 	   * Remove the key/value pair
 	   * @param key
@@ -3856,13 +3857,13 @@
 	    return value;
 	  }
 	};
-
+	
 	var $$HashMapProvider = [function() {
 	  this.$get = [function() {
 	    return HashMap;
 	  }];
 	}];
-
+	
 	/**
 	 * @ngdoc function
 	 * @module ng
@@ -3915,8 +3916,8 @@
 	 * });
 	 * ```
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc module
 	 * @name auto
@@ -3925,20 +3926,20 @@
 	 *
 	 * Implicit module which gets automatically added to each {@link auto.$injector $injector}.
 	 */
-
+	
 	var ARROW_ARG = /^([^\(]+?)=>/;
 	var FN_ARGS = /^[^\(]*\(\s*([^\)]*)\)/m;
 	var FN_ARG_SPLIT = /,/;
 	var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 	var $injectorMinErr = minErr('$injector');
-
+	
 	function extractArgs(fn) {
 	  var fnText = Function.prototype.toString.call(fn).replace(STRIP_COMMENTS, ''),
 	      args = fnText.match(ARROW_ARG) || fnText.match(FN_ARGS);
 	  return args;
 	}
-
+	
 	function anonFn(fn) {
 	  // For anonymous functions, showing at the very least the function signature can help in
 	  // debugging.
@@ -3948,12 +3949,12 @@
 	  }
 	  return 'fn';
 	}
-
+	
 	function annotate(fn, strictDi, name) {
 	  var $inject,
 	      argDecl,
 	      last;
-
+	
 	  if (typeof fn === 'function') {
 	    if (!($inject = fn.$inject)) {
 	      $inject = [];
@@ -3983,9 +3984,9 @@
 	  }
 	  return $inject;
 	}
-
+	
 	///////////////////////////////////////
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $injector
@@ -4038,7 +4039,7 @@
 	 * ## Inline
 	 * As an array of injection names, where the last item in the array is the function to call.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $injector#get
@@ -4050,7 +4051,7 @@
 	 * @param {string=} caller An optional string to provide the origin of the function call for error messages.
 	 * @return {*} The instance.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $injector#invoke
@@ -4065,7 +4066,7 @@
 	 *                         object first, before the `$injector` is consulted.
 	 * @returns {*} the value returned by the invoked `fn` function.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $injector#has
@@ -4076,7 +4077,7 @@
 	 * @param {string} name Name of the service to query.
 	 * @returns {boolean} `true` if injector has given service.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $injector#instantiate
@@ -4090,7 +4091,7 @@
 	 * object first, before the `$injector` is consulted.
 	 * @returns {Object} new instance of `Type`.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $injector#annotate
@@ -4174,10 +4175,10 @@
 	 *
 	 * @returns {Array.<string>} The names of the services which the function requires.
 	 */
-
-
-
-
+	
+	
+	
+	
 	/**
 	 * @ngdoc service
 	 * @name $provide
@@ -4217,7 +4218,7 @@
 	 *
 	 * See the individual methods for more information and examples.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#provider
@@ -4248,7 +4249,7 @@
 	 *     {@link auto.$injector#instantiate $injector.instantiate()}, then treated as `object`.
 	 *
 	 * @returns {Object} registered provider instance
-
+	
 	 * @example
 	 *
 	 * The following example shows how to create a simple event tracking service and register it using
@@ -4313,7 +4314,7 @@
 	 *  });
 	 * ```
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#factory
@@ -4346,8 +4347,8 @@
 	 *   }]);
 	 * ```
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#service
@@ -4400,8 +4401,8 @@
 	 *   }]);
 	 * ```
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#value
@@ -4432,8 +4433,8 @@
 	 *   });
 	 * ```
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#constant
@@ -4463,8 +4464,8 @@
 	 *   });
 	 * ```
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc method
 	 * @name $provide#decorator
@@ -4494,8 +4495,8 @@
 	 *   }]);
 	 * ```
 	 */
-
-
+	
+	
 	function createInjector(modulesToLoad, strictDi) {
 	  strictDi = (strictDi === true);
 	  var INSTANTIATING = {},
@@ -4527,19 +4528,19 @@
 	                provider.$get, provider, undefined, serviceName);
 	          }),
 	      instanceInjector = protoInstanceInjector;
-
+	
 	  providerCache['$injector' + providerSuffix] = { $get: valueFn(protoInstanceInjector) };
 	  var runBlocks = loadModules(modulesToLoad);
 	  instanceInjector = protoInstanceInjector.get('$injector');
 	  instanceInjector.strictDi = strictDi;
 	  forEach(runBlocks, function(fn) { if (fn) instanceInjector.invoke(fn); });
-
+	
 	  return instanceInjector;
-
+	
 	  ////////////////////////////////////
 	  // $provider
 	  ////////////////////////////////////
-
+	
 	  function supportObject(delegate) {
 	    return function(key, value) {
 	      if (isObject(key)) {
@@ -4549,7 +4550,7 @@
 	      }
 	    };
 	  }
-
+	
 	  function provider(name, provider_) {
 	    assertNotHasOwnProperty(name, 'service');
 	    if (isFunction(provider_) || isArray(provider_)) {
@@ -4560,7 +4561,7 @@
 	    }
 	    return providerCache[name + providerSuffix] = provider_;
 	  }
-
+	
 	  function enforceReturnValue(name, factory) {
 	    return function enforcedReturnValue() {
 	      var result = instanceInjector.invoke(factory, this);
@@ -4570,37 +4571,37 @@
 	      return result;
 	    };
 	  }
-
+	
 	  function factory(name, factoryFn, enforce) {
 	    return provider(name, {
 	      $get: enforce !== false ? enforceReturnValue(name, factoryFn) : factoryFn
 	    });
 	  }
-
+	
 	  function service(name, constructor) {
 	    return factory(name, ['$injector', function($injector) {
 	      return $injector.instantiate(constructor);
 	    }]);
 	  }
-
+	
 	  function value(name, val) { return factory(name, valueFn(val), false); }
-
+	
 	  function constant(name, value) {
 	    assertNotHasOwnProperty(name, 'constant');
 	    providerCache[name] = value;
 	    instanceCache[name] = value;
 	  }
-
+	
 	  function decorator(serviceName, decorFn) {
 	    var origProvider = providerInjector.get(serviceName + providerSuffix),
 	        orig$get = origProvider.$get;
-
+	
 	    origProvider.$get = function() {
 	      var origInstance = instanceInjector.invoke(orig$get, origProvider);
 	      return instanceInjector.invoke(decorFn, null, {$delegate: origInstance});
 	    };
 	  }
-
+	
 	  ////////////////////////////////////
 	  // Module Loading
 	  ////////////////////////////////////
@@ -4610,17 +4611,17 @@
 	    forEach(modulesToLoad, function(module) {
 	      if (loadedModules.get(module)) return;
 	      loadedModules.put(module, true);
-
+	
 	      function runInvokeQueue(queue) {
 	        var i, ii;
 	        for (i = 0, ii = queue.length; i < ii; i++) {
 	          var invokeArgs = queue[i],
 	              provider = providerInjector.get(invokeArgs[0]);
-
+	
 	          provider[invokeArgs[1]].apply(provider, invokeArgs[2]);
 	        }
 	      }
-
+	
 	      try {
 	        if (isString(module)) {
 	          moduleFn = angularModule(module);
@@ -4652,13 +4653,13 @@
 	    });
 	    return runBlocks;
 	  }
-
+	
 	  ////////////////////////////////////
 	  // internal Injector
 	  ////////////////////////////////////
-
+	
 	  function createInternalInjector(cache, factory) {
-
+	
 	    function getService(serviceName, caller) {
 	      if (cache.hasOwnProperty(serviceName)) {
 	        if (cache[serviceName] === INSTANTIATING) {
@@ -4681,12 +4682,12 @@
 	        }
 	      }
 	    }
-
-
+	
+	
 	    function injectionArgs(fn, locals, serviceName) {
 	      var args = [],
 	          $inject = createInjector.$$annotate(fn, strictDi, serviceName);
-
+	
 	      for (var i = 0, length = $inject.length; i < length; i++) {
 	        var key = $inject[i];
 	        if (typeof key !== 'string') {
@@ -4698,7 +4699,7 @@
 	      }
 	      return args;
 	    }
-
+	
 	    function isClass(func) {
 	      // IE 9-11 do not support classes and IE9 leaks with the code below.
 	      if (msie <= 11) {
@@ -4709,18 +4710,18 @@
 	      return typeof func === 'function'
 	        && /^(?:class\s|constructor\()/.test(Function.prototype.toString.call(func));
 	    }
-
+	
 	    function invoke(fn, self, locals, serviceName) {
 	      if (typeof locals === 'string') {
 	        serviceName = locals;
 	        locals = null;
 	      }
-
+	
 	      var args = injectionArgs(fn, locals, serviceName);
 	      if (isArray(fn)) {
 	        fn = fn[fn.length - 1];
 	      }
-
+	
 	      if (!isClass(fn)) {
 	        // http://jsperf.com/angularjs-invoke-apply-vs-switch
 	        // #5388
@@ -4730,8 +4731,8 @@
 	        return new (Function.prototype.bind.apply(fn, args))();
 	      }
 	    }
-
-
+	
+	
 	    function instantiate(Type, locals, serviceName) {
 	      // Check if Type is annotated and use just the given function at n-1 as parameter
 	      // e.g. someModule.factory('greeter', ['$window', function(renamed$window) {}]);
@@ -4741,8 +4742,8 @@
 	      args.unshift(null);
 	      return new (Function.prototype.bind.apply(ctor, args))();
 	    }
-
-
+	
+	
 	    return {
 	      invoke: invoke,
 	      instantiate: instantiate,
@@ -4754,9 +4755,9 @@
 	    };
 	  }
 	}
-
+	
 	createInjector.$$annotate = annotate;
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $anchorScrollProvider
@@ -4766,9 +4767,9 @@
 	 * {@link ng.$location#hash $location.hash()} changes.
 	 */
 	function $AnchorScrollProvider() {
-
+	
 	  var autoScrollingEnabled = true;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $anchorScrollProvider#disableAutoScrolling
@@ -4785,7 +4786,7 @@
 	  this.disableAutoScrolling = function() {
 	    autoScrollingEnabled = false;
 	  };
-
+	
 	  /**
 	   * @ngdoc service
 	   * @name $anchorScroll
@@ -4846,7 +4847,7 @@
 	                 // set the location.hash to the id of
 	                 // the element you wish to scroll to.
 	                 $location.hash('bottom');
-
+	
 	                 // call $anchorScroll()
 	                 $anchorScroll();
 	               };
@@ -4857,7 +4858,7 @@
 	           height: 280px;
 	           overflow: auto;
 	         }
-
+	
 	         #bottom {
 	           display: block;
 	           margin-top: 2000px;
@@ -4907,19 +4908,19 @@
 	         body {
 	           padding-top: 50px;
 	         }
-
+	
 	         .anchor {
 	           border: 2px dashed DarkOrchid;
 	           padding: 10px 10px 200px 10px;
 	         }
-
+	
 	         .fixed-header {
 	           background-color: rgba(0, 0, 0, 0.2);
 	           height: 50px;
 	           position: fixed;
 	           top: 0; left: 0; right: 0;
 	         }
-
+	
 	         .fixed-header > a {
 	           display: inline-block;
 	           margin: 5px 15px;
@@ -4929,7 +4930,7 @@
 	   */
 	  this.$get = ['$window', '$location', '$rootScope', function($window, $location, $rootScope) {
 	    var document = $window.document;
-
+	
 	    // Helper function to get first anchor from a NodeList
 	    // (using `Array#some()` instead of `angular#forEach()` since it's more performant
 	    //  and working in all supported browsers.)
@@ -4943,11 +4944,11 @@
 	      });
 	      return result;
 	    }
-
+	
 	    function getYOffset() {
-
+	
 	      var offset = scroll.yOffset;
-
+	
 	      if (isFunction(offset)) {
 	        offset = offset();
 	      } else if (isElement(offset)) {
@@ -4961,16 +4962,16 @@
 	      } else if (!isNumber(offset)) {
 	        offset = 0;
 	      }
-
+	
 	      return offset;
 	    }
-
+	
 	    function scrollTo(elem) {
 	      if (elem) {
 	        elem.scrollIntoView();
-
+	
 	        var offset = getYOffset();
-
+	
 	        if (offset) {
 	          // `offset` is the number of pixels we should scroll UP in order to align `elem` properly.
 	          // This is true ONLY if the call to `elem.scrollIntoView()` initially aligns `elem` at the
@@ -4992,24 +4993,24 @@
 	        $window.scrollTo(0, 0);
 	      }
 	    }
-
+	
 	    function scroll(hash) {
 	      hash = isString(hash) ? hash : $location.hash();
 	      var elm;
-
+	
 	      // empty hash, scroll to the top of the page
 	      if (!hash) scrollTo(null);
-
+	
 	      // element with given id
 	      else if ((elm = document.getElementById(hash))) scrollTo(elm);
-
+	
 	      // first anchor with given name :-D
 	      else if ((elm = getFirstAnchor(document.getElementsByName(hash)))) scrollTo(elm);
-
+	
 	      // no element and hash == 'top', scroll to the top of the page
 	      else if (hash === 'top') scrollTo(null);
 	    }
-
+	
 	    // does not scroll when user clicks on anchor link that is currently on
 	    // (no url change, no $location.hash() change), browser native does scroll
 	    if (autoScrollingEnabled) {
@@ -5017,21 +5018,21 @@
 	        function autoScrollWatchAction(newVal, oldVal) {
 	          // skip the initial scroll if $location.hash is empty
 	          if (newVal === oldVal && newVal === '') return;
-
+	
 	          jqLiteDocumentLoaded(function() {
 	            $rootScope.$evalAsync(scroll);
 	          });
 	        });
 	    }
-
+	
 	    return scroll;
 	  }];
 	}
-
+	
 	var $animateMinErr = minErr('$animate');
 	var ELEMENT_NODE = 1;
 	var NG_ANIMATE_CLASSNAME = 'ng-animate';
-
+	
 	function mergeClasses(a,b) {
 	  if (!a && !b) return '';
 	  if (!a) return b;
@@ -5040,7 +5041,7 @@
 	  if (isArray(b)) b = b.join(' ');
 	  return a + ' ' + b;
 	}
-
+	
 	function extractElementNode(element) {
 	  for (var i = 0; i < element.length; i++) {
 	    var elm = element[i];
@@ -5049,12 +5050,12 @@
 	    }
 	  }
 	}
-
+	
 	function splitClasses(classes) {
 	  if (isString(classes)) {
 	    classes = classes.split(' ');
 	  }
-
+	
 	  // Use createMap() to prevent class assumptions involving property names in
 	  // Object.prototype
 	  var obj = createMap();
@@ -5067,7 +5068,7 @@
 	  });
 	  return obj;
 	}
-
+	
 	// if any other type of options value besides an Object value is
 	// passed into the $animate.method() animation then this helper code
 	// will be run which will ignore it. While this patch is not the
@@ -5080,17 +5081,17 @@
 	      ? options
 	      : {};
 	}
-
+	
 	var $$CoreAnimateJsProvider = function() {
 	  this.$get = noop;
 	};
-
+	
 	// this is prefixed with Core since it conflicts with
 	// the animateQueueProvider defined in ngAnimate/animateQueue.js
 	var $$CoreAnimateQueueProvider = function() {
 	  var postDigestQueue = new HashMap();
 	  var postDigestElements = [];
-
+	
 	  this.$get = ['$$AnimateRunner', '$rootScope',
 	       function($$AnimateRunner,   $rootScope) {
 	    return {
@@ -5098,28 +5099,28 @@
 	      on: noop,
 	      off: noop,
 	      pin: noop,
-
+	
 	      push: function(element, event, options, domOperation) {
 	        domOperation        && domOperation();
-
+	
 	        options = options || {};
 	        options.from        && element.css(options.from);
 	        options.to          && element.css(options.to);
-
+	
 	        if (options.addClass || options.removeClass) {
 	          addRemoveClassesPostDigest(element, options.addClass, options.removeClass);
 	        }
-
+	
 	        var runner = new $$AnimateRunner(); // jshint ignore:line
-
+	
 	        // since there are no animations to run the runner needs to be
 	        // notified that the animation call is complete.
 	        runner.complete();
 	        return runner;
 	      }
 	    };
-
-
+	
+	
 	    function updateData(data, classes, value) {
 	      var changed = false;
 	      if (classes) {
@@ -5134,7 +5135,7 @@
 	      }
 	      return changed;
 	    }
-
+	
 	    function handleCSSClassChanges() {
 	      forEach(postDigestElements, function(element) {
 	        var data = postDigestQueue.get(element);
@@ -5152,7 +5153,7 @@
 	              }
 	            }
 	          });
-
+	
 	          forEach(element, function(elm) {
 	            toAdd    && jqLiteAddClass(elm, toAdd);
 	            toRemove && jqLiteRemoveClass(elm, toRemove);
@@ -5162,19 +5163,19 @@
 	      });
 	      postDigestElements.length = 0;
 	    }
-
-
+	
+	
 	    function addRemoveClassesPostDigest(element, add, remove) {
 	      var data = postDigestQueue.get(element) || {};
-
+	
 	      var classesAdded = updateData(data, add, true);
 	      var classesRemoved = updateData(data, remove, false);
-
+	
 	      if (classesAdded || classesRemoved) {
-
+	
 	        postDigestQueue.put(element, data);
 	        postDigestElements.push(element);
-
+	
 	        if (postDigestElements.length === 1) {
 	          $rootScope.$$postDigest(handleCSSClassChanges);
 	        }
@@ -5182,7 +5183,7 @@
 	    }
 	  }];
 	};
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $animateProvider
@@ -5197,9 +5198,9 @@
 	 */
 	var $AnimateProvider = ['$provide', function($provide) {
 	  var provider = this;
-
+	
 	  this.$$registeredAnimations = Object.create(null);
-
+	
 	   /**
 	   * @ngdoc method
 	   * @name $animateProvider#register
@@ -5243,12 +5244,12 @@
 	    if (name && name.charAt(0) !== '.') {
 	      throw $animateMinErr('notcsel', "Expecting class selector starting with '.' got '{0}'.", name);
 	    }
-
+	
 	    var key = name + '-animation';
 	    provider.$$registeredAnimations[name.substr(1)] = key;
 	    $provide.factory(key, factory);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $animateProvider#classNameFilter
@@ -5270,13 +5271,13 @@
 	        var reservedRegex = new RegExp("(\\s+|\\/)" + NG_ANIMATE_CLASSNAME + "(\\s+|\\/)");
 	        if (reservedRegex.test(this.$$classNameFilter.toString())) {
 	          throw $animateMinErr('nongcls','$animateProvider.classNameFilter(regex) prohibits accepting a regex value which matches/contains the "{0}" CSS class.', NG_ANIMATE_CLASSNAME);
-
+	
 	        }
 	      }
 	    }
 	    return this.$$classNameFilter;
 	  };
-
+	
 	  this.$get = ['$$animateQueue', function($$animateQueue) {
 	    function domInsert(element, parentElement, afterElement) {
 	      // if for some reason the previous element was removed
@@ -5290,7 +5291,7 @@
 	      }
 	      afterElement ? afterElement.after(element) : parentElement.prepend(element);
 	    }
-
+	
 	    /**
 	     * @ngdoc service
 	     * @name $animate
@@ -5313,7 +5314,7 @@
 	    return {
 	      // we don't call it directly since non-existant arguments may
 	      // be interpreted as null within the sub enabled function
-
+	
 	      /**
 	       *
 	       * @ngdoc method
@@ -5341,7 +5342,7 @@
 	       * * `phase` - The phase of the animation. The two possible phases are **start** (when the animation starts) and **close** (when it ends).
 	       */
 	      on: $$animateQueue.on,
-
+	
 	      /**
 	       *
 	       * @ngdoc method
@@ -5372,7 +5373,7 @@
 	       * @param {Function=} callback the callback function that was registered as the listener
 	       */
 	      off: $$animateQueue.off,
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#pin
@@ -5390,7 +5391,7 @@
 	       * @param {DOMElement} parentElement the host parent element that will be associated with the external element
 	       */
 	      pin: $$animateQueue.pin,
-
+	
 	      /**
 	       *
 	       * @ngdoc method
@@ -5421,7 +5422,7 @@
 	       * @return {boolean} whether or not animations are enabled
 	       */
 	      enabled: $$animateQueue.enabled,
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#cancel
@@ -5433,7 +5434,7 @@
 	      cancel: function(runner) {
 	        runner.end && runner.end();
 	      },
-
+	
 	      /**
 	       *
 	       * @ngdoc method
@@ -5459,7 +5460,7 @@
 	        domInsert(element, parent, after);
 	        return $$animateQueue.push(element, 'enter', prepareAnimateOptions(options));
 	      },
-
+	
 	      /**
 	       *
 	       * @ngdoc method
@@ -5485,7 +5486,7 @@
 	        domInsert(element, parent, after);
 	        return $$animateQueue.push(element, 'move', prepareAnimateOptions(options));
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#leave
@@ -5504,7 +5505,7 @@
 	          element.remove();
 	        });
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#addClass
@@ -5528,7 +5529,7 @@
 	        options.addClass = mergeClasses(options.addclass, className);
 	        return $$animateQueue.push(element, 'addClass', options);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#removeClass
@@ -5552,7 +5553,7 @@
 	        options.removeClass = mergeClasses(options.removeClass, className);
 	        return $$animateQueue.push(element, 'removeClass', options);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#setClass
@@ -5578,7 +5579,7 @@
 	        options.removeClass = mergeClasses(options.removeClass, remove);
 	        return $$animateQueue.push(element, 'setClass', options);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $animate#animate
@@ -5617,7 +5618,7 @@
 	        options = prepareAnimateOptions(options);
 	        options.from = options.from ? extend(options.from, from) : from;
 	        options.to   = options.to   ? extend(options.to, to)     : to;
-
+	
 	        className = className || 'ng-inline-animate';
 	        options.tempClasses = mergeClasses(options.tempClasses, className);
 	        return $$animateQueue.push(element, 'animate', options);
@@ -5625,11 +5626,11 @@
 	    };
 	  }];
 	}];
-
+	
 	var $$AnimateAsyncRunFactoryProvider = function() {
 	  this.$get = ['$$rAF', function($$rAF) {
 	    var waitQueue = [];
-
+	
 	    function waitForTick(fn) {
 	      waitQueue.push(fn);
 	      if (waitQueue.length > 1) return;
@@ -5640,7 +5641,7 @@
 	        waitQueue = [];
 	      });
 	    }
-
+	
 	    return function() {
 	      var passed = false;
 	      waitForTick(function() {
@@ -5652,25 +5653,25 @@
 	    };
 	  }];
 	};
-
+	
 	var $$AnimateRunnerFactoryProvider = function() {
 	  this.$get = ['$q', '$sniffer', '$$animateAsyncRun', '$document', '$timeout',
 	       function($q,   $sniffer,   $$animateAsyncRun,   $document,   $timeout) {
-
+	
 	    var INITIAL_STATE = 0;
 	    var DONE_PENDING_STATE = 1;
 	    var DONE_COMPLETE_STATE = 2;
-
+	
 	    AnimateRunner.chain = function(chain, callback) {
 	      var index = 0;
-
+	
 	      next();
 	      function next() {
 	        if (index === chain.length) {
 	          callback(true);
 	          return;
 	        }
-
+	
 	        chain[index](function(response) {
 	          if (response === false) {
 	            callback(false);
@@ -5681,14 +5682,14 @@
 	        });
 	      }
 	    };
-
+	
 	    AnimateRunner.all = function(runners, callback) {
 	      var count = 0;
 	      var status = true;
 	      forEach(runners, function(runner) {
 	        runner.done(onProgress);
 	      });
-
+	
 	      function onProgress(response) {
 	        status = status && response;
 	        if (++count === runners.length) {
@@ -5696,19 +5697,19 @@
 	        }
 	      }
 	    };
-
+	
 	    function AnimateRunner(host) {
 	      this.setHost(host);
-
+	
 	      var rafTick = $$animateAsyncRun();
 	      var timeoutTick = function(fn) {
 	        $timeout(fn, 0, false);
 	      };
-
+	
 	      this._doneCallbacks = [];
 	      this._tick = function(fn) {
 	        var doc = $document[0];
-
+	
 	        // the document may not be ready or attached
 	        // to the module for some internal tests
 	        if (doc && doc.hidden) {
@@ -5719,12 +5720,12 @@
 	      };
 	      this._state = 0;
 	    }
-
+	
 	    AnimateRunner.prototype = {
 	      setHost: function(host) {
 	        this.host = host || {};
 	      },
-
+	
 	      done: function(fn) {
 	        if (this._state === DONE_COMPLETE_STATE) {
 	          fn();
@@ -5732,9 +5733,9 @@
 	          this._doneCallbacks.push(fn);
 	        }
 	      },
-
+	
 	      progress: noop,
-
+	
 	      getPromise: function() {
 	        if (!this.promise) {
 	          var self = this;
@@ -5746,45 +5747,45 @@
 	        }
 	        return this.promise;
 	      },
-
+	
 	      then: function(resolveHandler, rejectHandler) {
 	        return this.getPromise().then(resolveHandler, rejectHandler);
 	      },
-
+	
 	      'catch': function(handler) {
 	        return this.getPromise()['catch'](handler);
 	      },
-
+	
 	      'finally': function(handler) {
 	        return this.getPromise()['finally'](handler);
 	      },
-
+	
 	      pause: function() {
 	        if (this.host.pause) {
 	          this.host.pause();
 	        }
 	      },
-
+	
 	      resume: function() {
 	        if (this.host.resume) {
 	          this.host.resume();
 	        }
 	      },
-
+	
 	      end: function() {
 	        if (this.host.end) {
 	          this.host.end();
 	        }
 	        this._resolve(true);
 	      },
-
+	
 	      cancel: function() {
 	        if (this.host.cancel) {
 	          this.host.cancel();
 	        }
 	        this._resolve(false);
 	      },
-
+	
 	      complete: function(response) {
 	        var self = this;
 	        if (self._state === INITIAL_STATE) {
@@ -5794,7 +5795,7 @@
 	          });
 	        }
 	      },
-
+	
 	      _resolve: function(response) {
 	        if (this._state !== DONE_COMPLETE_STATE) {
 	          forEach(this._doneCallbacks, function(fn) {
@@ -5805,11 +5806,11 @@
 	        }
 	      }
 	    };
-
+	
 	    return AnimateRunner;
 	  }];
 	};
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $animateCss
@@ -5823,7 +5824,7 @@
 	 */
 	var $CoreAnimateCssProvider = function() {
 	  this.$get = ['$$rAF', '$q', '$$AnimateRunner', function($$rAF, $q, $$AnimateRunner) {
-
+	
 	    return function(element, initialOptions) {
 	      // all of the animation functions should create
 	      // a copy of the options data, however, if a
@@ -5833,26 +5834,26 @@
 	      if (!options.$$prepared) {
 	        options = copy(options);
 	      }
-
+	
 	      // there is no point in applying the styles since
 	      // there is no animation that goes on at all in
 	      // this version of $animateCss.
 	      if (options.cleanupStyles) {
 	        options.from = options.to = null;
 	      }
-
+	
 	      if (options.from) {
 	        element.css(options.from);
 	        options.from = null;
 	      }
-
+	
 	      /* jshint newcap: false */
 	      var closed, runner = new $$AnimateRunner();
 	      return {
 	        start: run,
 	        end: run
 	      };
-
+	
 	      function run() {
 	        $$rAF(function() {
 	          applyAnimationContents();
@@ -5863,7 +5864,7 @@
 	        });
 	        return runner;
 	      }
-
+	
 	      function applyAnimationContents() {
 	        if (options.addClass) {
 	          element.addClass(options.addClass);
@@ -5881,9 +5882,9 @@
 	    };
 	  }];
 	};
-
+	
 	/* global stripHash: true */
-
+	
 	/**
 	 * ! This is a private undocumented service !
 	 *
@@ -5912,16 +5913,16 @@
 	      setTimeout = window.setTimeout,
 	      clearTimeout = window.clearTimeout,
 	      pendingDeferIds = {};
-
+	
 	  self.isMock = false;
-
+	
 	  var outstandingRequestCount = 0;
 	  var outstandingRequestCallbacks = [];
-
+	
 	  // TODO(vojta): remove this temporary api
 	  self.$$completeOutstandingRequest = completeOutstandingRequest;
 	  self.$$incOutstandingRequestCount = function() { outstandingRequestCount++; };
-
+	
 	  /**
 	   * Executes the `fn` function(supports currying) and decrements the `outstandingRequestCallbacks`
 	   * counter. If the counter reaches 0, all the `outstandingRequestCallbacks` are executed.
@@ -5942,12 +5943,12 @@
 	      }
 	    }
 	  }
-
+	
 	  function getHash(url) {
 	    var index = url.indexOf('#');
 	    return index === -1 ? '' : url.substr(index);
 	  }
-
+	
 	  /**
 	   * @private
 	   * Note: this method is used only by scenario runner
@@ -5961,11 +5962,11 @@
 	      outstandingRequestCallbacks.push(callback);
 	    }
 	  };
-
+	
 	  //////////////////////////////////////////////////////////////
 	  // URL API
 	  //////////////////////////////////////////////////////////////
-
+	
 	  var cachedState, lastHistoryState,
 	      lastBrowserUrl = location.href,
 	      baseElement = document.find('base'),
@@ -5977,10 +5978,10 @@
 	          // MSIE can reportedly throw when there is no state (UNCONFIRMED).
 	        }
 	      };
-
+	
 	  cacheState();
 	  lastHistoryState = cachedState;
-
+	
 	  /**
 	   * @name $browser#url
 	   *
@@ -6008,15 +6009,15 @@
 	    if (isUndefined(state)) {
 	      state = null;
 	    }
-
+	
 	    // Android Browser BFCache causes location, history reference to become stale.
 	    if (location !== window.location) location = window.location;
 	    if (history !== window.history) history = window.history;
-
+	
 	    // setter
 	    if (url) {
 	      var sameState = lastHistoryState === state;
-
+	
 	      // Don't change anything if previous and current URLs and states match. This also prevents
 	      // IE<10 from getting into redirect loop when in LocationHashbangInHtml5Url mode.
 	      // See https://github.com/angular/angular.js/commit/ffb2701
@@ -6060,7 +6061,7 @@
 	      return pendingLocation || location.href.replace(/%27/g,"'");
 	    }
 	  };
-
+	
 	  /**
 	   * @name $browser#state
 	   *
@@ -6074,42 +6075,42 @@
 	  self.state = function() {
 	    return cachedState;
 	  };
-
+	
 	  var urlChangeListeners = [],
 	      urlChangeInit = false;
-
+	
 	  function cacheStateAndFireUrlChange() {
 	    pendingLocation = null;
 	    cacheState();
 	    fireUrlChange();
 	  }
-
+	
 	  // This variable should be used *only* inside the cacheState function.
 	  var lastCachedState = null;
 	  function cacheState() {
 	    // This should be the only place in $browser where `history.state` is read.
 	    cachedState = getCurrentState();
 	    cachedState = isUndefined(cachedState) ? null : cachedState;
-
+	
 	    // Prevent callbacks fo fire twice if both hashchange & popstate were fired.
 	    if (equals(cachedState, lastCachedState)) {
 	      cachedState = lastCachedState;
 	    }
 	    lastCachedState = cachedState;
 	  }
-
+	
 	  function fireUrlChange() {
 	    if (lastBrowserUrl === self.url() && lastHistoryState === cachedState) {
 	      return;
 	    }
-
+	
 	    lastBrowserUrl = self.url();
 	    lastHistoryState = cachedState;
 	    forEach(urlChangeListeners, function(listener) {
 	      listener(self.url(), cachedState);
 	    });
 	  }
-
+	
 	  /**
 	   * @name $browser#onUrlChange
 	   *
@@ -6137,19 +6138,19 @@
 	      // We listen on both (hashchange/popstate) when available, as some browsers (e.g. Opera)
 	      // don't fire popstate when user change the address bar and don't fire hashchange when url
 	      // changed by push/replaceState
-
+	
 	      // html5 history api - popstate event
 	      if ($sniffer.history) jqLite(window).on('popstate', cacheStateAndFireUrlChange);
 	      // hashchange event
 	      jqLite(window).on('hashchange', cacheStateAndFireUrlChange);
-
+	
 	      urlChangeInit = true;
 	    }
-
+	
 	    urlChangeListeners.push(callback);
 	    return callback;
 	  };
-
+	
 	  /**
 	   * @private
 	   * Remove popstate and hashchange handler from window.
@@ -6159,18 +6160,18 @@
 	  self.$$applicationDestroyed = function() {
 	    jqLite(window).off('hashchange popstate', cacheStateAndFireUrlChange);
 	  };
-
+	
 	  /**
 	   * Checks whether the url has changed outside of Angular.
 	   * Needs to be exported to be able to check for changes that have been done in sync,
 	   * as hashchange/popstate events fire in async.
 	   */
 	  self.$$checkUrlChange = fireUrlChange;
-
+	
 	  //////////////////////////////////////////////////////////////
 	  // Misc API
 	  //////////////////////////////////////////////////////////////
-
+	
 	  /**
 	   * @name $browser#baseHref
 	   *
@@ -6184,7 +6185,7 @@
 	    var href = baseElement.attr('href');
 	    return href ? href.replace(/^(https?\:)?\/\/[^\/]*/, '') : '';
 	  };
-
+	
 	  /**
 	   * @name $browser#defer
 	   * @param {function()} fn A function, who's execution should be deferred.
@@ -6209,8 +6210,8 @@
 	    pendingDeferIds[timeoutId] = true;
 	    return timeoutId;
 	  };
-
-
+	
+	
 	  /**
 	   * @name $browser#defer.cancel
 	   *
@@ -6230,16 +6231,16 @@
 	    }
 	    return false;
 	  };
-
+	
 	}
-
+	
 	function $BrowserProvider() {
 	  this.$get = ['$window', '$log', '$sniffer', '$document',
 	      function($window, $log, $sniffer, $document) {
 	        return new Browser($window, $document, $log, $sniffer);
 	      }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $cacheFactory
@@ -6285,14 +6286,14 @@
 	         <input ng-model="newCacheKey" placeholder="Key">
 	         <input ng-model="newCacheValue" placeholder="Value">
 	         <button ng-click="put(newCacheKey, newCacheValue)">Cache</button>
-
+	
 	         <p ng-if="keys.length">Cached Values</p>
 	         <div ng-repeat="key in keys">
 	           <span ng-bind="key"></span>
 	           <span>: </span>
 	           <b ng-bind="cache.get(key)"></b>
 	         </div>
-
+	
 	         <p>Cache Info</p>
 	         <div ng-repeat="(key, value) in cache.info()">
 	           <span ng-bind="key"></span>
@@ -6322,15 +6323,15 @@
 	   </example>
 	 */
 	function $CacheFactoryProvider() {
-
+	
 	  this.$get = function() {
 	    var caches = {};
-
+	
 	    function cacheFactory(cacheId, options) {
 	      if (cacheId in caches) {
 	        throw minErr('$cacheFactory')('iid', "CacheId '{0}' is already taken!", cacheId);
 	      }
-
+	
 	      var size = 0,
 	          stats = extend({}, options, {id: cacheId}),
 	          data = createMap(),
@@ -6338,7 +6339,7 @@
 	          lruHash = createMap(),
 	          freshEnd = null,
 	          staleEnd = null;
-
+	
 	      /**
 	       * @ngdoc type
 	       * @name $cacheFactory.Cache
@@ -6379,7 +6380,7 @@
 	       * ```
 	       */
 	      return caches[cacheId] = {
-
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#put
@@ -6402,20 +6403,20 @@
 	          if (isUndefined(value)) return;
 	          if (capacity < Number.MAX_VALUE) {
 	            var lruEntry = lruHash[key] || (lruHash[key] = {key: key});
-
+	
 	            refresh(lruEntry);
 	          }
-
+	
 	          if (!(key in data)) size++;
 	          data[key] = value;
-
+	
 	          if (size > capacity) {
 	            this.remove(staleEnd.key);
 	          }
-
+	
 	          return value;
 	        },
-
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#get
@@ -6430,16 +6431,16 @@
 	        get: function(key) {
 	          if (capacity < Number.MAX_VALUE) {
 	            var lruEntry = lruHash[key];
-
+	
 	            if (!lruEntry) return;
-
+	
 	            refresh(lruEntry);
 	          }
-
+	
 	          return data[key];
 	        },
-
-
+	
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#remove
@@ -6453,23 +6454,23 @@
 	        remove: function(key) {
 	          if (capacity < Number.MAX_VALUE) {
 	            var lruEntry = lruHash[key];
-
+	
 	            if (!lruEntry) return;
-
+	
 	            if (lruEntry == freshEnd) freshEnd = lruEntry.p;
 	            if (lruEntry == staleEnd) staleEnd = lruEntry.n;
 	            link(lruEntry.n,lruEntry.p);
-
+	
 	            delete lruHash[key];
 	          }
-
+	
 	          if (!(key in data)) return;
-
+	
 	          delete data[key];
 	          size--;
 	        },
-
-
+	
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#removeAll
@@ -6484,8 +6485,8 @@
 	          lruHash = createMap();
 	          freshEnd = staleEnd = null;
 	        },
-
-
+	
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#destroy
@@ -6501,8 +6502,8 @@
 	          lruHash = null;
 	          delete caches[cacheId];
 	        },
-
-
+	
+	
 	        /**
 	         * @ngdoc method
 	         * @name $cacheFactory.Cache#info
@@ -6523,8 +6524,8 @@
 	          return extend({}, stats, {size: size});
 	        }
 	      };
-
-
+	
+	
 	      /**
 	       * makes the `entry` the freshEnd of the LRU linked list
 	       */
@@ -6535,15 +6536,15 @@
 	          } else if (staleEnd == entry) {
 	            staleEnd = entry.n;
 	          }
-
+	
 	          link(entry.n, entry.p);
 	          link(entry, freshEnd);
 	          freshEnd = entry;
 	          freshEnd.n = null;
 	        }
 	      }
-
-
+	
+	
 	      /**
 	       * bidirectionally links two entries of the LRU linked list
 	       */
@@ -6554,8 +6555,8 @@
 	        }
 	      }
 	    }
-
-
+	
+	
 	  /**
 	   * @ngdoc method
 	   * @name $cacheFactory#info
@@ -6572,8 +6573,8 @@
 	      });
 	      return info;
 	    };
-
-
+	
+	
 	  /**
 	   * @ngdoc method
 	   * @name $cacheFactory#get
@@ -6587,12 +6588,12 @@
 	    cacheFactory.get = function(cacheId) {
 	      return caches[cacheId];
 	    };
-
-
+	
+	
 	    return cacheFactory;
 	  };
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $templateCache
@@ -6641,7 +6642,7 @@
 	    return $cacheFactory('templates');
 	  }];
 	}
-
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *     Any commits to this file should be reviewed with security in mind.  *
 	 *   Changes to this file can potentially create security vulnerabilities. *
@@ -6652,7 +6653,7 @@
 	 *    Or allows for someone to change the prototype of built-in objects?   *
 	 *     Or gives undesired access to variables likes document or window?    *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+	
 	/* ! VARIABLE/FUNCTION NAMING CONVENTIONS THAT APPLY TO THIS FILE!
 	 *
 	 * DOM-related variables:
@@ -6669,8 +6670,8 @@
 	 * - "childLinkFn" -  function that aggregates all linking fns for child nodes of a particular node
 	 * - "compositeLinkFn" - function that aggregates all linking fns for a compilation root (nodeList)
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc service
 	 * @name $compile
@@ -7087,7 +7088,7 @@
 	 * apply to all cloned DOM nodes within the compile function. Specifically, DOM listener registration
 	 * should be done in a linking function rather than in a compile function.
 	 * </div>
-
+	
 	 * <div class="alert alert-warning">
 	 * **Note:** The compile function cannot handle directives that recursively use themselves in their
 	 * own templates or compile functions. Compiling these directives results in an infinite loop and
@@ -7103,7 +7104,7 @@
 	 *   e.g. does not know about the right outer scope. Please use the transclude function that is passed
 	 *   to the link function instead.
 	 * </div>
-
+	
 	 * A compile function can have a return value which can be either a function or an object.
 	 *
 	 * * returning a (post-link) function - is equivalent to registering the linking function via the
@@ -7373,7 +7374,7 @@
 	                // when the 'compile' expression changes
 	                // assign it into the current DOM
 	                element.html(value);
-
+	
 	                // compile the new DOM and link it to the current
 	                // scope.
 	                // NOTE: we only compile .childNodes so that
@@ -7407,7 +7408,7 @@
 	     });
 	   </file>
 	 </example>
-
+	
 	 *
 	 *
 	 * @param {string|DOMElement} element Element or HTML string to compile into a template function.
@@ -7485,12 +7486,12 @@
 	 * For information on how the compiler works, see the
 	 * {@link guide/compiler Angular HTML Compiler} section of the Developer Guide.
 	 */
-
+	
 	var $compileMinErr = minErr('$compile');
-
+	
 	function UNINITIALIZED_VALUE() {}
 	var _UNINITIALIZED_VALUE = new UNINITIALIZED_VALUE();
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $compileProvider
@@ -7505,25 +7506,25 @@
 	      CLASS_DIRECTIVE_REGEXP = /(([\w\-]+)(?:\:([^;]+))?;?)/,
 	      ALL_OR_NOTHING_ATTRS = makeMap('ngSrc,ngSrcset,src,srcset'),
 	      REQUIRE_PREFIX_REGEXP = /^(?:(\^\^?)?(\?)?(\^\^?)?)?/;
-
+	
 	  // Ref: http://developers.whatwg.org/webappapis.html#event-handler-idl-attributes
 	  // The assumption is that future DOM event attribute names will begin with
 	  // 'on' and be composed of only English letters.
 	  var EVENT_HANDLER_ATTR_REGEXP = /^(on[a-z]+|formaction)$/;
 	  var bindingCache = createMap();
-
+	
 	  function parseIsolateBindings(scope, directiveName, isController) {
 	    var LOCAL_REGEXP = /^\s*([@&<]|=(\*?))(\??)\s*(\w*)\s*$/;
-
+	
 	    var bindings = createMap();
-
+	
 	    forEach(scope, function(definition, scopeName) {
 	      if (definition in bindingCache) {
 	        bindings[scopeName] = bindingCache[definition];
 	        return;
 	      }
 	      var match = definition.match(LOCAL_REGEXP);
-
+	
 	      if (!match) {
 	        throw $compileMinErr('iscp',
 	            "Invalid {3} for directive '{0}'." +
@@ -7532,7 +7533,7 @@
 	            (isController ? "controller bindings definition" :
 	            "isolate scope definition"));
 	      }
-
+	
 	      bindings[scopeName] = {
 	        mode: match[1][0],
 	        collection: match[2] === '*',
@@ -7543,10 +7544,10 @@
 	        bindingCache[definition] = bindings[scopeName];
 	      }
 	    });
-
+	
 	    return bindings;
 	  }
-
+	
 	  function parseDirectiveBindings(directive, directiveName) {
 	    var bindings = {
 	      isolateScope: null,
@@ -7583,7 +7584,7 @@
 	    }
 	    return bindings;
 	  }
-
+	
 	  function assertValidDirectiveName(name) {
 	    var letter = name.charAt(0);
 	    if (!letter || letter !== lowercase(letter)) {
@@ -7595,7 +7596,7 @@
 	            name);
 	    }
 	  }
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $compileProvider#directive
@@ -7649,7 +7650,7 @@
 	    }
 	    return this;
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $compileProvider#component
@@ -7738,7 +7739,7 @@
 	   */
 	  this.component = function registerComponent(name, options) {
 	    var controller = options.controller || function() {};
-
+	
 	    function factory($injector) {
 	      function makeInjectable(fn) {
 	        if (isFunction(fn) || isArray(fn)) {
@@ -7749,7 +7750,7 @@
 	          return fn;
 	        }
 	      }
-
+	
 	      var template = (!options.template && !options.templateUrl ? '' : options.template);
 	      var ddo = {
 	        controller: controller,
@@ -7762,20 +7763,20 @@
 	        restrict: 'E',
 	        require: options.require
 	      };
-
+	
 	      // Copy annotations (starting with $) over to the DDO
 	      forEach(options, function(val, key) {
 	        if (key.charAt(0) === '$') ddo[key] = val;
 	      });
-
+	
 	      return ddo;
 	    }
-
+	
 	    // TODO(pete) remove the following `forEach` before we release 1.6.0
 	    // The component-router@0.2.0 looks for the annotations on the controller constructor
 	    // Nothing in Angular looks for annotations on the factory function but we can't remove
 	    // it from 1.5.x yet.
-
+	
 	    // Copy any annotation properties (starting with $) over to the factory and controller constructor functions
 	    // These could be used by libraries such as the new component router
 	    forEach(options, function(val, key) {
@@ -7785,13 +7786,13 @@
 	        if (isFunction(controller)) controller[key] = val;
 	      }
 	    });
-
+	
 	    factory.$inject = ['$injector'];
-
+	
 	    return this.directive(name, factory);
 	  };
-
-
+	
+	
 	  /**
 	   * @ngdoc method
 	   * @name $compileProvider#aHrefSanitizationWhitelist
@@ -7820,8 +7821,8 @@
 	      return $$sanitizeUriProvider.aHrefSanitizationWhitelist();
 	    }
 	  };
-
-
+	
+	
 	  /**
 	   * @ngdoc method
 	   * @name $compileProvider#imgSrcSanitizationWhitelist
@@ -7850,7 +7851,7 @@
 	      return $$sanitizeUriProvider.imgSrcSanitizationWhitelist();
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name  $compileProvider#debugInfoEnabled
@@ -7881,8 +7882,8 @@
 	    }
 	    return debugInfoEnabled;
 	  };
-
-
+	
+	
 	  var TTL = 10;
 	  /**
 	   * @ngdoc method
@@ -7911,23 +7912,23 @@
 	    }
 	    return TTL;
 	  };
-
+	
 	  this.$get = [
 	            '$injector', '$interpolate', '$exceptionHandler', '$templateRequest', '$parse',
 	            '$controller', '$rootScope', '$sce', '$animate', '$$sanitizeUri',
 	    function($injector,   $interpolate,   $exceptionHandler,   $templateRequest,   $parse,
 	             $controller,   $rootScope,   $sce,   $animate,   $$sanitizeUri) {
-
+	
 	    var SIMPLE_ATTR_NAME = /^\w/;
 	    var specialAttrHolder = window.document.createElement('div');
-
-
-
+	
+	
+	
 	    var onChangesTtl = TTL;
 	    // The onChanges hooks should all be run together in a single digest
 	    // When changes occur, the call to trigger their hooks will be added to this queue
 	    var onChangesQueue;
-
+	
 	    // This function is called in a $$postDigest to trigger all the onChanges hooks in a single digest
 	    function flushOnChangesQueue() {
 	      try {
@@ -7948,13 +7949,13 @@
 	        onChangesTtl++;
 	      }
 	    }
-
-
+	
+	
 	    function Attributes(element, attributesToCopy) {
 	      if (attributesToCopy) {
 	        var keys = Object.keys(attributesToCopy);
 	        var i, l, key;
-
+	
 	        for (i = 0, l = keys.length; i < l; i++) {
 	          key = keys[i];
 	          this[key] = attributesToCopy[key];
@@ -7962,10 +7963,10 @@
 	      } else {
 	        this.$attr = {};
 	      }
-
+	
 	      this.$$element = element;
 	    }
-
+	
 	    Attributes.prototype = {
 	      /**
 	       * @ngdoc method
@@ -7983,8 +7984,8 @@
 	       * @param {string} name Name to normalize
 	       */
 	      $normalize: directiveNormalize,
-
-
+	
+	
 	      /**
 	       * @ngdoc method
 	       * @name $compile.directive.Attributes#$addClass
@@ -8001,7 +8002,7 @@
 	          $animate.addClass(this.$$element, classVal);
 	        }
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $compile.directive.Attributes#$removeClass
@@ -8018,7 +8019,7 @@
 	          $animate.removeClass(this.$$element, classVal);
 	        }
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $compile.directive.Attributes#$updateClass
@@ -8036,13 +8037,13 @@
 	        if (toAdd && toAdd.length) {
 	          $animate.addClass(this.$$element, toAdd);
 	        }
-
+	
 	        var toRemove = tokenDifference(oldClasses, newClasses);
 	        if (toRemove && toRemove.length) {
 	          $animate.removeClass(this.$$element, toRemove);
 	        }
 	      },
-
+	
 	      /**
 	       * Set a normalized attribute on the element in a way such that all directives
 	       * can share the attribute. This function properly handles boolean attributes.
@@ -8056,13 +8057,13 @@
 	        // TODO: decide whether or not to throw an error if "class"
 	        //is set through this function since it may cause $updateClass to
 	        //become unstable.
-
+	
 	        var node = this.$$element[0],
 	            booleanKey = getBooleanAttrName(node, key),
 	            aliasedKey = getAliasedAttrName(key),
 	            observer = key,
 	            nodeName;
-
+	
 	        if (booleanKey) {
 	          this.$$element.prop(key, value);
 	          attrName = booleanKey;
@@ -8070,9 +8071,9 @@
 	          this[aliasedKey] = value;
 	          observer = aliasedKey;
 	        }
-
+	
 	        this[key] = value;
-
+	
 	        // translate normalized key to actual key
 	        if (attrName) {
 	          this.$attr[key] = attrName;
@@ -8082,9 +8083,9 @@
 	            this.$attr[key] = attrName = snake_case(key, '-');
 	          }
 	        }
-
+	
 	        nodeName = nodeName_(this.$$element);
-
+	
 	        if ((nodeName === 'a' && (key === 'href' || key === 'xlinkHref')) ||
 	            (nodeName === 'img' && key === 'src')) {
 	          // sanitize a[href] and img[src] values
@@ -8092,16 +8093,16 @@
 	        } else if (nodeName === 'img' && key === 'srcset') {
 	          // sanitize img[srcset] values
 	          var result = "";
-
+	
 	          // first check if there are spaces because it's not the same pattern
 	          var trimmedSrcset = trim(value);
 	          //                (   999x   ,|   999w   ,|   ,|,   )
 	          var srcPattern = /(\s+\d+x\s*,|\s+\d+w\s*,|\s+,|,\s+)/;
 	          var pattern = /\s/.test(trimmedSrcset) ? srcPattern : /(,)/;
-
+	
 	          // split srcset into tuple of uri and descriptor except for the last item
 	          var rawUris = trimmedSrcset.split(pattern);
-
+	
 	          // for each tuples
 	          var nbrUrisWith2parts = Math.floor(rawUris.length / 2);
 	          for (var i = 0; i < nbrUrisWith2parts; i++) {
@@ -8111,20 +8112,20 @@
 	            // add the descriptor
 	            result += (" " + trim(rawUris[innerIdx + 1]));
 	          }
-
+	
 	          // split the last item into uri and descriptor
 	          var lastTuple = trim(rawUris[i * 2]).split(/\s/);
-
+	
 	          // sanitize the last uri
 	          result += $$sanitizeUri(trim(lastTuple[0]), true);
-
+	
 	          // and add the last descriptor if any
 	          if (lastTuple.length === 2) {
 	            result += (" " + trim(lastTuple[1]));
 	          }
 	          this[key] = value = result;
 	        }
-
+	
 	        if (writeAttr !== false) {
 	          if (value === null || isUndefined(value)) {
 	            this.$$element.removeAttr(attrName);
@@ -8136,7 +8137,7 @@
 	            }
 	          }
 	        }
-
+	
 	        // fire observers
 	        var $$observers = this.$$observers;
 	        $$observers && forEach($$observers[observer], function(fn) {
@@ -8147,8 +8148,8 @@
 	          }
 	        });
 	      },
-
-
+	
+	
 	      /**
 	       * @ngdoc method
 	       * @name $compile.directive.Attributes#$observe
@@ -8172,7 +8173,7 @@
 	        var attrs = this,
 	            $$observers = (attrs.$$observers || (attrs.$$observers = createMap())),
 	            listeners = ($$observers[key] || ($$observers[key] = []));
-
+	
 	        listeners.push(fn);
 	        $rootScope.$evalAsync(function() {
 	          if (!listeners.$$inter && attrs.hasOwnProperty(key) && !isUndefined(attrs[key])) {
@@ -8180,13 +8181,13 @@
 	            fn(attrs[key]);
 	          }
 	        });
-
+	
 	        return function() {
 	          arrayRemove(listeners, fn);
 	        };
 	      }
 	    };
-
+	
 	    function setSpecialAttr(element, attrName, value) {
 	      // Attributes names that do not start with letters (such as `(click)`) cannot be set using `setAttribute`
 	      // so we have to jump through some hoops to get such an attribute
@@ -8199,7 +8200,7 @@
 	      attribute.value = value;
 	      element.attributes.setNamedItem(attribute);
 	    }
-
+	
 	    function safeAddClass($element, className) {
 	      try {
 	        $element.addClass(className);
@@ -8208,8 +8209,8 @@
 	        // SVG element, where class name is read-only.
 	      }
 	    }
-
-
+	
+	
 	    var startSymbol = $interpolate.startSymbol(),
 	        endSymbol = $interpolate.endSymbol(),
 	        denormalizeTemplate = (startSymbol == '{{' && endSymbol  == '}}')
@@ -8219,32 +8220,32 @@
 	        },
 	        NG_ATTR_BINDING = /^ngAttr[A-Z]/;
 	    var MULTI_ELEMENT_DIR_RE = /^(.+)Start$/;
-
+	
 	    compile.$$addBindingInfo = debugInfoEnabled ? function $$addBindingInfo($element, binding) {
 	      var bindings = $element.data('$binding') || [];
-
+	
 	      if (isArray(binding)) {
 	        bindings = bindings.concat(binding);
 	      } else {
 	        bindings.push(binding);
 	      }
-
+	
 	      $element.data('$binding', bindings);
 	    } : noop;
-
+	
 	    compile.$$addBindingClass = debugInfoEnabled ? function $$addBindingClass($element) {
 	      safeAddClass($element, 'ng-binding');
 	    } : noop;
-
+	
 	    compile.$$addScopeInfo = debugInfoEnabled ? function $$addScopeInfo($element, scope, isolated, noTemplate) {
 	      var dataName = isolated ? (noTemplate ? '$isolateScopeNoTemplate' : '$isolateScope') : '$scope';
 	      $element.data(dataName, scope);
 	    } : noop;
-
+	
 	    compile.$$addScopeClass = debugInfoEnabled ? function $$addScopeClass($element, isolated) {
 	      safeAddClass($element, isolated ? 'ng-isolate-scope' : 'ng-scope');
 	    } : noop;
-
+	
 	    compile.$$createComment = function(directiveName, comment) {
 	      var content = '';
 	      if (debugInfoEnabled) {
@@ -8252,11 +8253,11 @@
 	      }
 	      return window.document.createComment(content);
 	    };
-
+	
 	    return compile;
-
+	
 	    //================================
-
+	
 	    function compile($compileNodes, transcludeFn, maxPriority, ignoreDirective,
 	                        previousCompileContext) {
 	      if (!($compileNodes instanceof jqLite)) {
@@ -8264,19 +8265,19 @@
 	        // modify it.
 	        $compileNodes = jqLite($compileNodes);
 	      }
-
+	
 	      var NOT_EMPTY = /\S+/;
-
+	
 	      // We can not compile top level text elements since text nodes can be merged and we will
 	      // not be able to attach scope data to them, so we will wrap them in <span>
 	      for (var i = 0, len = $compileNodes.length; i < len; i++) {
 	        var domNode = $compileNodes[i];
-
+	
 	        if (domNode.nodeType === NODE_TYPE_TEXT && domNode.nodeValue.match(NOT_EMPTY) /* non-empty */) {
 	          jqLiteWrapNode(domNode, $compileNodes[i] = window.document.createElement('span'));
 	        }
 	      }
-
+	
 	      var compositeLinkFn =
 	              compileNodes($compileNodes, transcludeFn, $compileNodes,
 	                           maxPriority, ignoreDirective, previousCompileContext);
@@ -8284,7 +8285,7 @@
 	      var namespace = null;
 	      return function publicLinkFn(scope, cloneConnectFn, options) {
 	        assertArg(scope, 'scope');
-
+	
 	        if (previousCompileContext && previousCompileContext.needsNewScope) {
 	          // A parent directive did a replace and a directive on this element asked
 	          // for transclusion, which caused us to lose a layer of element on which
@@ -8292,12 +8293,12 @@
 	          // here.
 	          scope = scope.$parent.$new();
 	        }
-
+	
 	        options = options || {};
 	        var parentBoundTranscludeFn = options.parentBoundTranscludeFn,
 	          transcludeControllers = options.transcludeControllers,
 	          futureParentElement = options.futureParentElement;
-
+	
 	        // When `parentBoundTranscludeFn` is passed, it is a
 	        // `controllersBoundTransclude` function (it was previously passed
 	        // as `transclude` to directive.link) so we must unwrap it to get
@@ -8305,7 +8306,7 @@
 	        if (parentBoundTranscludeFn && parentBoundTranscludeFn.$$boundTransclude) {
 	          parentBoundTranscludeFn = parentBoundTranscludeFn.$$boundTransclude;
 	        }
-
+	
 	        if (!namespace) {
 	          namespace = detectNamespaceForChildElements(futureParentElement);
 	        }
@@ -8326,21 +8327,21 @@
 	        } else {
 	          $linkNode = $compileNodes;
 	        }
-
+	
 	        if (transcludeControllers) {
 	          for (var controllerName in transcludeControllers) {
 	            $linkNode.data('$' + controllerName + 'Controller', transcludeControllers[controllerName].instance);
 	          }
 	        }
-
+	
 	        compile.$$addScopeInfo($linkNode, scope);
-
+	
 	        if (cloneConnectFn) cloneConnectFn($linkNode, scope);
 	        if (compositeLinkFn) compositeLinkFn(scope, $linkNode, $linkNode, parentBoundTranscludeFn);
 	        return $linkNode;
 	      };
 	    }
-
+	
 	    function detectNamespaceForChildElements(parentElement) {
 	      // TODO: Make this detect MathML as well...
 	      var node = parentElement && parentElement[0];
@@ -8350,7 +8351,7 @@
 	        return nodeName_(node) !== 'foreignobject' && toString.call(node).match(/SVG/) ? 'svg' : 'html';
 	      }
 	    }
-
+	
 	    /**
 	     * Compile function matches each node in nodeList against the directives. Once all directives
 	     * for a particular node are collected their compile functions are executed. The compile
@@ -8370,23 +8371,23 @@
 	                            previousCompileContext) {
 	      var linkFns = [],
 	          attrs, directives, nodeLinkFn, childNodes, childLinkFn, linkFnFound, nodeLinkFnFound;
-
+	
 	      for (var i = 0; i < nodeList.length; i++) {
 	        attrs = new Attributes();
-
+	
 	        // we must always refer to nodeList[i] since the nodes can be replaced underneath us.
 	        directives = collectDirectives(nodeList[i], [], attrs, i === 0 ? maxPriority : undefined,
 	                                        ignoreDirective);
-
+	
 	        nodeLinkFn = (directives.length)
 	            ? applyDirectivesToNode(directives, nodeList[i], attrs, transcludeFn, $rootElement,
 	                                      null, [], [], previousCompileContext)
 	            : null;
-
+	
 	        if (nodeLinkFn && nodeLinkFn.scope) {
 	          compile.$$addScopeClass(attrs.$$element);
 	        }
-
+	
 	        childLinkFn = (nodeLinkFn && nodeLinkFn.terminal ||
 	                      !(childNodes = nodeList[i].childNodes) ||
 	                      !childNodes.length)
@@ -8395,31 +8396,31 @@
 	                 nodeLinkFn ? (
 	                  (nodeLinkFn.transcludeOnThisElement || !nodeLinkFn.templateOnThisElement)
 	                     && nodeLinkFn.transclude) : transcludeFn);
-
+	
 	        if (nodeLinkFn || childLinkFn) {
 	          linkFns.push(i, nodeLinkFn, childLinkFn);
 	          linkFnFound = true;
 	          nodeLinkFnFound = nodeLinkFnFound || nodeLinkFn;
 	        }
-
+	
 	        //use the previous context only for the first element in the virtual group
 	        previousCompileContext = null;
 	      }
-
+	
 	      // return a linking function if we have found anything, null otherwise
 	      return linkFnFound ? compositeLinkFn : null;
-
+	
 	      function compositeLinkFn(scope, nodeList, $rootElement, parentBoundTranscludeFn) {
 	        var nodeLinkFn, childLinkFn, node, childScope, i, ii, idx, childBoundTranscludeFn;
 	        var stableNodeList;
-
-
+	
+	
 	        if (nodeLinkFnFound) {
 	          // copy nodeList so that if a nodeLinkFn removes or adds an element at this DOM level our
 	          // offsets don't get screwed up
 	          var nodeListLength = nodeList.length;
 	          stableNodeList = new Array(nodeListLength);
-
+	
 	          // create a sparse array by only copying the elements which have a linkFn
 	          for (i = 0; i < linkFns.length; i+=3) {
 	            idx = linkFns[i];
@@ -8428,12 +8429,12 @@
 	        } else {
 	          stableNodeList = nodeList;
 	        }
-
+	
 	        for (i = 0, ii = linkFns.length; i < ii;) {
 	          node = stableNodeList[linkFns[i++]];
 	          nodeLinkFn = linkFns[i++];
 	          childLinkFn = linkFns[i++];
-
+	
 	          if (nodeLinkFn) {
 	            if (nodeLinkFn.scope) {
 	              childScope = scope.$new();
@@ -8441,45 +8442,45 @@
 	            } else {
 	              childScope = scope;
 	            }
-
+	
 	            if (nodeLinkFn.transcludeOnThisElement) {
 	              childBoundTranscludeFn = createBoundTranscludeFn(
 	                  scope, nodeLinkFn.transclude, parentBoundTranscludeFn);
-
+	
 	            } else if (!nodeLinkFn.templateOnThisElement && parentBoundTranscludeFn) {
 	              childBoundTranscludeFn = parentBoundTranscludeFn;
-
+	
 	            } else if (!parentBoundTranscludeFn && transcludeFn) {
 	              childBoundTranscludeFn = createBoundTranscludeFn(scope, transcludeFn);
-
+	
 	            } else {
 	              childBoundTranscludeFn = null;
 	            }
-
+	
 	            nodeLinkFn(childLinkFn, childScope, node, $rootElement, childBoundTranscludeFn);
-
+	
 	          } else if (childLinkFn) {
 	            childLinkFn(scope, node.childNodes, undefined, parentBoundTranscludeFn);
 	          }
 	        }
 	      }
 	    }
-
+	
 	    function createBoundTranscludeFn(scope, transcludeFn, previousBoundTranscludeFn) {
 	      function boundTranscludeFn(transcludedScope, cloneFn, controllers, futureParentElement, containingScope) {
-
+	
 	        if (!transcludedScope) {
 	          transcludedScope = scope.$new(false, containingScope);
 	          transcludedScope.$$transcluded = true;
 	        }
-
+	
 	        return transcludeFn(transcludedScope, cloneFn, {
 	          parentBoundTranscludeFn: previousBoundTranscludeFn,
 	          transcludeControllers: controllers,
 	          futureParentElement: futureParentElement
 	        });
 	      }
-
+	
 	      // We need  to attach the transclusion slots onto the `boundTranscludeFn`
 	      // so that they are available inside the `controllersBoundTransclude` function
 	      var boundSlots = boundTranscludeFn.$$slots = createMap();
@@ -8490,10 +8491,10 @@
 	          boundSlots[slotName] = null;
 	        }
 	      }
-
+	
 	      return boundTranscludeFn;
 	    }
-
+	
 	    /**
 	     * Looks for directives on the given node and adds them to the directive collection which is
 	     * sorted.
@@ -8509,23 +8510,23 @@
 	          attrsMap = attrs.$attr,
 	          match,
 	          className;
-
+	
 	      switch (nodeType) {
 	        case NODE_TYPE_ELEMENT: /* Element */
 	          // use the node name: <directive>
 	          addDirective(directives,
 	              directiveNormalize(nodeName_(node)), 'E', maxPriority, ignoreDirective);
-
+	
 	          // iterate over the attributes
 	          for (var attr, name, nName, ngAttrName, value, isNgAttr, nAttrs = node.attributes,
 	                   j = 0, jj = nAttrs && nAttrs.length; j < jj; j++) {
 	            var attrStartName = false;
 	            var attrEndName = false;
-
+	
 	            attr = nAttrs[j];
 	            name = attr.name;
 	            value = trim(attr.value);
-
+	
 	            // support ngAttr attribute binding
 	            ngAttrName = directiveNormalize(name);
 	            if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
@@ -8534,14 +8535,14 @@
 	                  return letter.toUpperCase();
 	                });
 	            }
-
+	
 	            var multiElementMatch = ngAttrName.match(MULTI_ELEMENT_DIR_RE);
 	            if (multiElementMatch && directiveIsMultiElement(multiElementMatch[1])) {
 	              attrStartName = name;
 	              attrEndName = name.substr(0, name.length - 5) + 'end';
 	              name = name.substr(0, name.length - 6);
 	            }
-
+	
 	            nName = directiveNormalize(name.toLowerCase());
 	            attrsMap[nName] = name;
 	            if (isNgAttr || !attrs.hasOwnProperty(nName)) {
@@ -8554,7 +8555,7 @@
 	            addDirective(directives, nName, 'A', maxPriority, ignoreDirective, attrStartName,
 	                          attrEndName);
 	          }
-
+	
 	          // use class as directive
 	          className = node.className;
 	          if (isObject(className)) {
@@ -8597,11 +8598,11 @@
 	          }
 	          break;
 	      }
-
+	
 	      directives.sort(byPriority);
 	      return directives;
 	    }
-
+	
 	    /**
 	     * Given a node with an directive-start it collects all of the siblings until it finds
 	     * directive-end.
@@ -8630,10 +8631,10 @@
 	      } else {
 	        nodes.push(node);
 	      }
-
+	
 	      return jqLite(nodes);
 	    }
-
+	
 	    /**
 	     * Wrapper for linking function which converts normal linking function into a grouped
 	     * linking function.
@@ -8648,7 +8649,7 @@
 	        return linkFn(scope, element, attrs, controllers, transcludeFn);
 	      };
 	    }
-
+	
 	    /**
 	     * A function generator that is used to support both eager and lazy compilation
 	     * linking function.
@@ -8662,14 +8663,14 @@
 	     */
 	    function compilationGenerator(eager, $compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext) {
 	      var compiled;
-
+	
 	      if (eager) {
 	        return compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
 	      }
 	      return function lazyCompilation() {
 	        if (!compiled) {
 	          compiled = compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
-
+	
 	          // Null out all of these references in order to make them eligible for garbage collection
 	          // since this is a potentially long lived closure
 	          $compileNodes = transcludeFn = previousCompileContext = null;
@@ -8677,7 +8678,7 @@
 	        return compiled.apply(this, arguments);
 	      };
 	    }
-
+	
 	    /**
 	     * Once the directives have been collected, their compile functions are executed. This method
 	     * is responsible for inlining directive templates as well as terminating the application
@@ -8705,7 +8706,7 @@
 	                                   jqCollection, originalReplaceDirective, preLinkFns, postLinkFns,
 	                                   previousCompileContext) {
 	      previousCompileContext = previousCompileContext || {};
-
+	
 	      var terminalPriority = -Number.MAX_VALUE,
 	          newScopeDirective = previousCompileContext.newScopeDirective,
 	          controllerDirectives = previousCompileContext.controllerDirectives,
@@ -8725,25 +8726,25 @@
 	          didScanForMultipleTransclusion = false,
 	          mightHaveMultipleTransclusionError = false,
 	          directiveValue;
-
+	
 	      // executes all directives on the current element
 	      for (var i = 0, ii = directives.length; i < ii; i++) {
 	        directive = directives[i];
 	        var attrStart = directive.$$start;
 	        var attrEnd = directive.$$end;
-
+	
 	        // collect multiblock sections
 	        if (attrStart) {
 	          $compileNode = groupScan(compileNode, attrStart, attrEnd);
 	        }
 	        $template = undefined;
-
+	
 	        if (terminalPriority > directive.priority) {
 	          break; // prevent further processing of directives
 	        }
-
+	
 	        if (directiveValue = directive.scope) {
-
+	
 	          // skip the check for directives with async templates, we'll check the derived sync
 	          // directive when the template arrives
 	          if (!directive.templateUrl) {
@@ -8760,12 +8761,12 @@
 	                                $compileNode);
 	            }
 	          }
-
+	
 	          newScopeDirective = newScopeDirective || directive;
 	        }
-
+	
 	        directiveName = directive.name;
-
+	
 	        // If we encounter a condition that can result in transclusion on the directive,
 	        // then scan ahead in the remaining directives for others that may cause a multiple
 	        // transclusion error to be thrown during the compilation process.  If a matching directive
@@ -8775,7 +8776,7 @@
 	        if (!didScanForMultipleTransclusion && ((directive.replace && (directive.templateUrl || directive.template))
 	            || (directive.transclude && !directive.$$tlb))) {
 	                var candidateDirective;
-
+	
 	                for (var scanningIndex = i + 1; candidateDirective = directives[scanningIndex++];) {
 	                    if ((candidateDirective.transclude && !candidateDirective.$$tlb)
 	                        || (candidateDirective.replace && (candidateDirective.templateUrl || candidateDirective.template))) {
@@ -8783,10 +8784,10 @@
 	                        break;
 	                    }
 	                }
-
+	
 	                didScanForMultipleTransclusion = true;
 	        }
-
+	
 	        if (!directive.templateUrl && directive.controller) {
 	          directiveValue = directive.controller;
 	          controllerDirectives = controllerDirectives || createMap();
@@ -8794,10 +8795,10 @@
 	              controllerDirectives[directiveName], directive, $compileNode);
 	          controllerDirectives[directiveName] = directive;
 	        }
-
+	
 	        if (directiveValue = directive.transclude) {
 	          hasTranscludeDirective = true;
-
+	
 	          // Special case ngIf and ngRepeat so that we don't complain about duplicate transclusion.
 	          // This option should only be used by directives that know how to safely handle element transclusion,
 	          // where the transcluded nodes are added or replaced after linking.
@@ -8805,7 +8806,7 @@
 	            assertNoDuplicate('transclusion', nonTlbTranscludeDirective, directive, $compileNode);
 	            nonTlbTranscludeDirective = directive;
 	          }
-
+	
 	          if (directiveValue == 'element') {
 	            hasElementTranscludeDirective = true;
 	            terminalPriority = directive.priority;
@@ -8814,10 +8815,10 @@
 	                jqLite(compile.$$createComment(directiveName, templateAttrs[directiveName]));
 	            compileNode = $compileNode[0];
 	            replaceWith(jqCollection, sliceArgs($template), compileNode);
-
+	
 	            // Support: Chrome < 50
 	            // https://github.com/angular/angular.js/issues/14041
-
+	
 	            // In the versions of V8 prior to Chrome 50, the document fragment that is created
 	            // in the `replaceWith` function is improperly garbage collected despite still
 	            // being referenced by the `parentNode` property of all of the child nodes.  By adding
@@ -8825,7 +8826,7 @@
 	            // behavior.
 	            // TODO: remove this line after Chrome 50 has been released
 	            $template[0].$$parentNode = $template[0].parentNode;
-
+	
 	            childTranscludeFn = compilationGenerator(mightHaveMultipleTransclusionError, $template, transcludeFn, terminalPriority,
 	                                        replaceDirective && replaceDirective.name, {
 	                                          // Don't pass in:
@@ -8838,38 +8839,38 @@
 	                                          nonTlbTranscludeDirective: nonTlbTranscludeDirective
 	                                        });
 	          } else {
-
+	
 	            var slots = createMap();
-
+	
 	            $template = jqLite(jqLiteClone(compileNode)).contents();
-
+	
 	            if (isObject(directiveValue)) {
-
+	
 	              // We have transclusion slots,
 	              // collect them up, compile them and store their transclusion functions
 	              $template = [];
-
+	
 	              var slotMap = createMap();
 	              var filledSlots = createMap();
-
+	
 	              // Parse the element selectors
 	              forEach(directiveValue, function(elementSelector, slotName) {
 	                // If an element selector starts with a ? then it is optional
 	                var optional = (elementSelector.charAt(0) === '?');
 	                elementSelector = optional ? elementSelector.substring(1) : elementSelector;
-
+	
 	                slotMap[elementSelector] = slotName;
-
+	
 	                // We explicitly assign `null` since this implies that a slot was defined but not filled.
 	                // Later when calling boundTransclusion functions with a slot name we only error if the
 	                // slot is `undefined`
 	                slots[slotName] = null;
-
+	
 	                // filledSlots contains `true` for all slots that are either optional or have been
 	                // filled. This is used to check that we have not missed any required slots
 	                filledSlots[slotName] = optional;
 	              });
-
+	
 	              // Add the matching elements into their slot
 	              forEach($compileNode.contents(), function(node) {
 	                var slotName = slotMap[directiveNormalize(nodeName_(node))];
@@ -8881,14 +8882,14 @@
 	                  $template.push(node);
 	                }
 	              });
-
+	
 	              // Check for required slots that were not filled
 	              forEach(filledSlots, function(filled, slotName) {
 	                if (!filled) {
 	                  throw $compileMinErr('reqslot', 'Required transclusion slot `{0}` was not filled.', slotName);
 	                }
 	              });
-
+	
 	              for (var slotName in slots) {
 	                if (slots[slotName]) {
 	                  // Only define a transclusion function if the slot was filled
@@ -8896,25 +8897,25 @@
 	                }
 	              }
 	            }
-
+	
 	            $compileNode.empty(); // clear contents
 	            childTranscludeFn = compilationGenerator(mightHaveMultipleTransclusionError, $template, transcludeFn, undefined,
 	                undefined, { needsNewScope: directive.$$isolateScope || directive.$$newScope});
 	            childTranscludeFn.$$slots = slots;
 	          }
 	        }
-
+	
 	        if (directive.template) {
 	          hasTemplate = true;
 	          assertNoDuplicate('template', templateDirective, directive, $compileNode);
 	          templateDirective = directive;
-
+	
 	          directiveValue = (isFunction(directive.template))
 	              ? directive.template($compileNode, templateAttrs)
 	              : directive.template;
-
+	
 	          directiveValue = denormalizeTemplate(directiveValue);
-
+	
 	          if (directive.replace) {
 	            replaceDirective = directive;
 	            if (jqLiteIsTextNode(directiveValue)) {
@@ -8923,17 +8924,17 @@
 	              $template = removeComments(wrapTemplate(directive.templateNamespace, trim(directiveValue)));
 	            }
 	            compileNode = $template[0];
-
+	
 	            if ($template.length != 1 || compileNode.nodeType !== NODE_TYPE_ELEMENT) {
 	              throw $compileMinErr('tplrt',
 	                  "Template for directive '{0}' must have exactly one root element. {1}",
 	                  directiveName, '');
 	            }
-
+	
 	            replaceWith(jqCollection, $compileNode, compileNode);
-
+	
 	            var newTemplateAttrs = {$attr: {}};
-
+	
 	            // combine directives from the original node and from the template:
 	            // - take the array of directives for this element
 	            // - split it into two parts, those that already applied (processed) and those that weren't (unprocessed)
@@ -8941,7 +8942,7 @@
 	            // - combine directives as: processed + template + unprocessed
 	            var templateDirectives = collectDirectives(compileNode, [], newTemplateAttrs);
 	            var unprocessedDirectives = directives.splice(i + 1, directives.length - (i + 1));
-
+	
 	            if (newIsolateScopeDirective || newScopeDirective) {
 	              // The original directive caused the current element to be replaced but this element
 	              // also needs to have a new scope, so we need to tell the template directives
@@ -8950,22 +8951,22 @@
 	            }
 	            directives = directives.concat(templateDirectives).concat(unprocessedDirectives);
 	            mergeTemplateAttributes(templateAttrs, newTemplateAttrs);
-
+	
 	            ii = directives.length;
 	          } else {
 	            $compileNode.html(directiveValue);
 	          }
 	        }
-
+	
 	        if (directive.templateUrl) {
 	          hasTemplate = true;
 	          assertNoDuplicate('template', templateDirective, directive, $compileNode);
 	          templateDirective = directive;
-
+	
 	          if (directive.replace) {
 	            replaceDirective = directive;
 	          }
-
+	
 	          /* jshint -W021 */
 	          nodeLinkFn = compileTemplateUrl(directives.splice(i, directives.length - i), $compileNode,
 	          /* jshint +W021 */
@@ -8989,26 +8990,26 @@
 	            $exceptionHandler(e, startingTag($compileNode));
 	          }
 	        }
-
+	
 	        if (directive.terminal) {
 	          nodeLinkFn.terminal = true;
 	          terminalPriority = Math.max(terminalPriority, directive.priority);
 	        }
-
+	
 	      }
-
+	
 	      nodeLinkFn.scope = newScopeDirective && newScopeDirective.scope === true;
 	      nodeLinkFn.transcludeOnThisElement = hasTranscludeDirective;
 	      nodeLinkFn.templateOnThisElement = hasTemplate;
 	      nodeLinkFn.transclude = childTranscludeFn;
-
+	
 	      previousCompileContext.hasElementTranscludeDirective = hasElementTranscludeDirective;
-
+	
 	      // might be normal or delayed nodeLinkFn depending on if templateUrl is present
 	      return nodeLinkFn;
-
+	
 	      ////////////////////
-
+	
 	      function addLinkFns(pre, post, attrStart, attrEnd) {
 	        if (pre) {
 	          if (attrStart) pre = groupElementsLinkFnWrapper(pre, attrStart, attrEnd);
@@ -9029,11 +9030,11 @@
 	          postLinkFns.push(post);
 	        }
 	      }
-
+	
 	      function nodeLinkFn(childLinkFn, scope, linkNode, $rootElement, boundTranscludeFn) {
 	        var i, ii, linkFn, isolateScope, controllerScope, elementControllers, transcludeFn, $element,
 	            attrs, scopeBindingInfo;
-
+	
 	        if (compileNode === linkNode) {
 	          attrs = templateAttrs;
 	          $element = templateAttrs.$$element;
@@ -9041,14 +9042,14 @@
 	          $element = jqLite(linkNode);
 	          attrs = new Attributes($element, templateAttrs);
 	        }
-
+	
 	        controllerScope = scope;
 	        if (newIsolateScopeDirective) {
 	          isolateScope = scope.$new(true);
 	        } else if (newScopeDirective) {
 	          controllerScope = scope.$parent;
 	        }
-
+	
 	        if (boundTranscludeFn) {
 	          // track `boundTranscludeFn` so it can be unwrapped if `transcludeFn`
 	          // is later passed as `parentBoundTranscludeFn` to `publicLinkFn`
@@ -9059,11 +9060,11 @@
 	            return !!boundTranscludeFn.$$slots[slotName];
 	          };
 	        }
-
+	
 	        if (controllerDirectives) {
 	          elementControllers = setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope, newIsolateScopeDirective);
 	        }
-
+	
 	        if (newIsolateScopeDirective) {
 	          // Initialize isolate scope bindings for new isolate scope directive.
 	          compile.$$addScopeInfo($element, isolateScope, true, !(templateDirective && (templateDirective === newIsolateScopeDirective ||
@@ -9078,20 +9079,20 @@
 	            isolateScope.$on('$destroy', scopeBindingInfo.removeWatches);
 	          }
 	        }
-
+	
 	        // Initialize bindToController bindings
 	        for (var name in elementControllers) {
 	          var controllerDirective = controllerDirectives[name];
 	          var controller = elementControllers[name];
 	          var bindings = controllerDirective.$$bindings.bindToController;
-
+	
 	          if (controller.identifier && bindings) {
 	            controller.bindingInfo =
 	              initializeDirectiveBindings(controllerScope, attrs, controller.instance, bindings, controllerDirective);
 	          } else {
 	            controller.bindingInfo = {};
 	          }
-
+	
 	          var controllerResult = controller();
 	          if (controllerResult !== controller.instance) {
 	            // If the controller constructor has a return value, overwrite the instance
@@ -9103,7 +9104,7 @@
 	              initializeDirectiveBindings(controllerScope, attrs, controller.instance, bindings, controllerDirective);
 	          }
 	        }
-
+	
 	        // Bind the required controllers to the controller, if `require` is an object and `bindToController` is truthy
 	        forEach(controllerDirectives, function(controllerDirective, name) {
 	          var require = controllerDirective.require;
@@ -9111,7 +9112,7 @@
 	            extend(elementControllers[name].instance, getControllers(name, require, $element, elementControllers));
 	          }
 	        });
-
+	
 	        // Handle the init and destroy lifecycle hooks on all controllers that have them
 	        forEach(elementControllers, function(controller) {
 	          var controllerInstance = controller.instance;
@@ -9127,7 +9128,7 @@
 	            });
 	          }
 	        });
-
+	
 	        // PRELINKING
 	        for (i = 0, ii = preLinkFns.length; i < ii; i++) {
 	          linkFn = preLinkFns[i];
@@ -9139,7 +9140,7 @@
 	              transcludeFn
 	          );
 	        }
-
+	
 	        // RECURSION
 	        // We only pass the isolate scope, if the isolate directive has a template,
 	        // otherwise the child elements do not belong to the isolate directive.
@@ -9148,7 +9149,7 @@
 	          scopeToChild = isolateScope;
 	        }
 	        childLinkFn && childLinkFn(scopeToChild, linkNode.childNodes, undefined, boundTranscludeFn);
-
+	
 	        // POSTLINKING
 	        for (i = postLinkFns.length - 1; i >= 0; i--) {
 	          linkFn = postLinkFns[i];
@@ -9160,7 +9161,7 @@
 	              transcludeFn
 	          );
 	        }
-
+	
 	        // Trigger $postLink lifecycle hooks
 	        forEach(elementControllers, function(controller) {
 	          var controllerInstance = controller.instance;
@@ -9168,7 +9169,7 @@
 	            controllerInstance.$postLink();
 	          }
 	        });
-
+	
 	        // This is the function that is injected as `$transclude`.
 	        // Note: all arguments are optional!
 	        function controllersBoundTransclude(scope, cloneAttachFn, futureParentElement, slotName) {
@@ -9180,7 +9181,7 @@
 	            cloneAttachFn = scope;
 	            scope = undefined;
 	          }
-
+	
 	          if (hasElementTranscludeDirective) {
 	            transcludeControllers = elementControllers;
 	          }
@@ -9207,16 +9208,16 @@
 	        }
 	      }
 	    }
-
+	
 	    function getControllers(directiveName, require, $element, elementControllers) {
 	      var value;
-
+	
 	      if (isString(require)) {
 	        var match = require.match(REQUIRE_PREFIX_REGEXP);
 	        var name = require.substring(match[0].length);
 	        var inheritType = match[1] || match[3];
 	        var optional = match[2] === '?';
-
+	
 	        //If only parents then start at the parent element
 	        if (inheritType === '^^') {
 	          $element = $element.parent();
@@ -9226,12 +9227,12 @@
 	          value = elementControllers && elementControllers[name];
 	          value = value && value.instance;
 	        }
-
+	
 	        if (!value) {
 	          var dataName = '$' + name + 'Controller';
 	          value = inheritType ? $element.inheritedData(dataName) : $element.data(dataName);
 	        }
-
+	
 	        if (!value && !optional) {
 	          throw $compileMinErr('ctreq',
 	              "Controller '{0}', required by directive '{1}', can't be found!",
@@ -9248,10 +9249,10 @@
 	          value[property] = getControllers(directiveName, controller, $element, elementControllers);
 	        });
 	      }
-
+	
 	      return value || null;
 	    }
-
+	
 	    function setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope, newIsolateScopeDirective) {
 	      var elementControllers = createMap();
 	      for (var controllerKey in controllerDirectives) {
@@ -9262,14 +9263,14 @@
 	          $attrs: attrs,
 	          $transclude: transcludeFn
 	        };
-
+	
 	        var controller = directive.controller;
 	        if (controller == '@') {
 	          controller = attrs[directive.name];
 	        }
-
+	
 	        var controllerInstance = $controller(controller, locals, true, directive.controllerAs);
-
+	
 	        // For directives with element transclusion the element is a comment.
 	        // In this case .data will not attach any data.
 	        // Instead, we save the controllers for the element in a local hash and attach to .data
@@ -9279,7 +9280,7 @@
 	      }
 	      return elementControllers;
 	    }
-
+	
 	    // Depending upon the context in which a directive finds itself it might need to have a new isolated
 	    // or child scope created. For instance:
 	    // * if the directive has been pulled into a template because another directive with a higher priority
@@ -9291,7 +9292,7 @@
 	        directives[j] = inherit(directives[j], {$$isolateScope: isolateScope, $$newScope: newScope});
 	      }
 	    }
-
+	
 	    /**
 	     * looks up the directive and decorates it with exception handling and proper parameters. We
 	     * call this the boundDirective.
@@ -9335,8 +9336,8 @@
 	      }
 	      return match;
 	    }
-
-
+	
+	
 	    /**
 	     * looks up the directive and returns true if it is a multi-element directive,
 	     * and therefore requires DOM nodes between -start and -end markers to be grouped
@@ -9357,7 +9358,7 @@
 	      }
 	      return false;
 	    }
-
+	
 	    /**
 	     * When the element is replaced with HTML template then the new attributes
 	     * on the template need to be merged with the existing attributes in the DOM.
@@ -9370,7 +9371,7 @@
 	      var srcAttr = src.$attr,
 	          dstAttr = dst.$attr,
 	          $element = dst.$$element;
-
+	
 	      // reapply the old attributes to the new element
 	      forEach(dst, function(value, key) {
 	        if (key.charAt(0) != '$') {
@@ -9380,7 +9381,7 @@
 	          dst.$set(key, value, true, srcAttr[key]);
 	        }
 	      });
-
+	
 	      // copy the new attributes on the old attrs object
 	      forEach(src, function(value, key) {
 	        if (key == 'class') {
@@ -9398,8 +9399,8 @@
 	        }
 	      });
 	    }
-
-
+	
+	
 	    function compileTemplateUrl(directives, $compileNode, tAttrs,
 	        $rootElement, childTranscludeFn, preLinkFns, postLinkFns, previousCompileContext) {
 	      var linkQueue = [],
@@ -9414,15 +9415,15 @@
 	              ? origAsyncDirective.templateUrl($compileNode, tAttrs)
 	              : origAsyncDirective.templateUrl,
 	          templateNamespace = origAsyncDirective.templateNamespace;
-
+	
 	      $compileNode.empty();
-
+	
 	      $templateRequest(templateUrl)
 	        .then(function(content) {
 	          var compileNode, tempTemplateAttrs, $template, childBoundTranscludeFn;
-
+	
 	          content = denormalizeTemplate(content);
-
+	
 	          if (origAsyncDirective.replace) {
 	            if (jqLiteIsTextNode(content)) {
 	              $template = [];
@@ -9430,17 +9431,17 @@
 	              $template = removeComments(wrapTemplate(templateNamespace, trim(content)));
 	            }
 	            compileNode = $template[0];
-
+	
 	            if ($template.length != 1 || compileNode.nodeType !== NODE_TYPE_ELEMENT) {
 	              throw $compileMinErr('tplrt',
 	                  "Template for directive '{0}' must have exactly one root element. {1}",
 	                  origAsyncDirective.name, templateUrl);
 	            }
-
+	
 	            tempTemplateAttrs = {$attr: {}};
 	            replaceWith($rootElement, $compileNode, compileNode);
 	            var templateDirectives = collectDirectives(compileNode, [], tempTemplateAttrs);
-
+	
 	            if (isObject(origAsyncDirective.scope)) {
 	              // the original directive that caused the template to be loaded async required
 	              // an isolate scope
@@ -9452,9 +9453,9 @@
 	            compileNode = beforeTemplateCompileNode;
 	            $compileNode.html(content);
 	          }
-
+	
 	          directives.unshift(derivedSyncDirective);
-
+	
 	          afterTemplateNodeLinkFn = applyDirectivesToNode(directives, compileNode, tAttrs,
 	              childTranscludeFn, $compileNode, origAsyncDirective, preLinkFns, postLinkFns,
 	              previousCompileContext);
@@ -9464,26 +9465,26 @@
 	            }
 	          });
 	          afterTemplateChildLinkFn = compileNodes($compileNode[0].childNodes, childTranscludeFn);
-
+	
 	          while (linkQueue.length) {
 	            var scope = linkQueue.shift(),
 	                beforeTemplateLinkNode = linkQueue.shift(),
 	                linkRootElement = linkQueue.shift(),
 	                boundTranscludeFn = linkQueue.shift(),
 	                linkNode = $compileNode[0];
-
+	
 	            if (scope.$$destroyed) continue;
-
+	
 	            if (beforeTemplateLinkNode !== beforeTemplateCompileNode) {
 	              var oldClasses = beforeTemplateLinkNode.className;
-
+	
 	              if (!(previousCompileContext.hasElementTranscludeDirective &&
 	                  origAsyncDirective.replace)) {
 	                // it was cloned therefore we have to clone as well.
 	                linkNode = jqLiteClone(compileNode);
 	              }
 	              replaceWith(linkRootElement, jqLite(beforeTemplateLinkNode), linkNode);
-
+	
 	              // Copy in CSS classes from original node
 	              safeAddClass(jqLite(linkNode), oldClasses);
 	            }
@@ -9497,7 +9498,7 @@
 	          }
 	          linkQueue = null;
 	        });
-
+	
 	      return function delayedNodeLinkFn(ignoreChildLinkFn, scope, node, rootElement, boundTranscludeFn) {
 	        var childBoundTranscludeFn = boundTranscludeFn;
 	        if (scope.$$destroyed) return;
@@ -9514,8 +9515,8 @@
 	        }
 	      };
 	    }
-
-
+	
+	
 	    /**
 	     * Sorting function for bound directives.
 	     */
@@ -9525,23 +9526,23 @@
 	      if (a.name !== b.name) return (a.name < b.name) ? -1 : 1;
 	      return a.index - b.index;
 	    }
-
+	
 	    function assertNoDuplicate(what, previousDirective, directive, element) {
-
+	
 	      function wrapModuleNameIfDefined(moduleName) {
 	        return moduleName ?
 	          (' (module: ' + moduleName + ')') :
 	          '';
 	      }
-
+	
 	      if (previousDirective) {
 	        throw $compileMinErr('multidir', 'Multiple directives [{0}{1}, {2}{3}] asking for {4} on: {5}',
 	            previousDirective.name, wrapModuleNameIfDefined(previousDirective.$$moduleName),
 	            directive.name, wrapModuleNameIfDefined(directive.$$moduleName), what, startingTag(element));
 	      }
 	    }
-
-
+	
+	
 	    function addTextInterpolateDirective(directives, text) {
 	      var interpolateFn = $interpolate(text, true);
 	      if (interpolateFn) {
@@ -9550,11 +9551,11 @@
 	          compile: function textInterpolateCompileFn(templateNode) {
 	            var templateNodeParent = templateNode.parent(),
 	                hasCompileParent = !!templateNodeParent.length;
-
+	
 	            // When transcluding a template that has bindings in the root
 	            // we don't have a parent and thus need to add the class during linking fn.
 	            if (hasCompileParent) compile.$$addBindingClass(templateNodeParent);
-
+	
 	            return function textInterpolateLinkFn(scope, node) {
 	              var parent = node.parent();
 	              if (!hasCompileParent) compile.$$addBindingClass(parent);
@@ -9567,8 +9568,8 @@
 	        });
 	      }
 	    }
-
-
+	
+	
 	    function wrapTemplate(type, template) {
 	      type = lowercase(type || 'html');
 	      switch (type) {
@@ -9581,8 +9582,8 @@
 	        return template;
 	      }
 	    }
-
-
+	
+	
 	    function getTrustedContext(node, attrNormalizedName) {
 	      if (attrNormalizedName == "srcdoc") {
 	        return $sce.HTML;
@@ -9596,37 +9597,37 @@
 	        return $sce.RESOURCE_URL;
 	      }
 	    }
-
-
+	
+	
 	    function addAttrInterpolateDirective(node, directives, value, name, allOrNothing) {
 	      var trustedContext = getTrustedContext(node, name);
 	      allOrNothing = ALL_OR_NOTHING_ATTRS[name] || allOrNothing;
-
+	
 	      var interpolateFn = $interpolate(value, true, trustedContext, allOrNothing);
-
+	
 	      // no interpolation found -> ignore
 	      if (!interpolateFn) return;
-
-
+	
+	
 	      if (name === "multiple" && nodeName_(node) === "select") {
 	        throw $compileMinErr("selmulti",
 	            "Binding to the 'multiple' attribute is not supported. Element: {0}",
 	            startingTag(node));
 	      }
-
+	
 	      directives.push({
 	        priority: 100,
 	        compile: function() {
 	            return {
 	              pre: function attrInterpolatePreLinkFn(scope, element, attr) {
 	                var $$observers = (attr.$$observers || (attr.$$observers = createMap()));
-
+	
 	                if (EVENT_HANDLER_ATTR_REGEXP.test(name)) {
 	                  throw $compileMinErr('nodomevents',
 	                      "Interpolations for HTML DOM event attributes are disallowed.  Please use the " +
 	                          "ng- versions (such as ng-click instead of onclick) instead.");
 	                }
-
+	
 	                // If the attribute has changed since last $interpolate()ed
 	                var newValue = attr[name];
 	                if (newValue !== value) {
@@ -9636,16 +9637,16 @@
 	                  interpolateFn = newValue && $interpolate(newValue, true, trustedContext, allOrNothing);
 	                  value = newValue;
 	                }
-
+	
 	                // if attribute was updated so that there is no interpolation going on we don't want to
 	                // register any observers
 	                if (!interpolateFn) return;
-
+	
 	                // initialize attr object so that it's ready in case we need the value for isolate
 	                // scope initialization, otherwise the value would not be available from isolate
 	                // directive's linking fn during linking phase
 	                attr[name] = interpolateFn(scope);
-
+	
 	                ($$observers[name] || ($$observers[name] = [])).$$inter = true;
 	                (attr.$$observers && attr.$$observers[name].$$scope || scope).
 	                  $watch(interpolateFn, function interpolateFnWatchAction(newValue, oldValue) {
@@ -9666,8 +9667,8 @@
 	          }
 	      });
 	    }
-
-
+	
+	
 	    /**
 	     * This is a special jqLite.replaceWith, which can replace items which
 	     * have no parents, provided that the containing jqLite collection is provided.
@@ -9683,7 +9684,7 @@
 	          removeCount = elementsToRemove.length,
 	          parent = firstElementToRemove.parentNode,
 	          i, ii;
-
+	
 	      if ($rootElement) {
 	        for (i = 0, ii = $rootElement.length; i < ii; i++) {
 	          if ($rootElement[i] == firstElementToRemove) {
@@ -9698,7 +9699,7 @@
 	              }
 	            }
 	            $rootElement.length -= removeCount - 1;
-
+	
 	            // If the replaced element is also the jQuery .context then replace it
 	            // .context is a deprecated jQuery api, so we should set it only when jQuery set it
 	            // http://api.jquery.com/context/
@@ -9709,11 +9710,11 @@
 	          }
 	        }
 	      }
-
+	
 	      if (parent) {
 	        parent.replaceChild(newNode, firstElementToRemove);
 	      }
-
+	
 	      // Append all the `elementsToRemove` to a fragment. This will...
 	      // - remove them from the DOM
 	      // - allow them to still be traversed with .nextSibling
@@ -9722,21 +9723,21 @@
 	      for (i = 0; i < removeCount; i++) {
 	        fragment.appendChild(elementsToRemove[i]);
 	      }
-
+	
 	      if (jqLite.hasData(firstElementToRemove)) {
 	        // Copy over user data (that includes Angular's $scope etc.). Don't copy private
 	        // data here because there's no public interface in jQuery to do that and copying over
 	        // event listeners (which is the main use of private data) wouldn't work anyway.
 	        jqLite.data(newNode, jqLite.data(firstElementToRemove));
-
+	
 	        // Remove $destroy event listeners from `firstElementToRemove`
 	        jqLite(firstElementToRemove).off('$destroy');
 	      }
-
+	
 	      // Cleanup any data/listeners on the elements and children.
 	      // This includes invoking the $destroy event on any elements with listeners.
 	      jqLite.cleanData(fragment.querySelectorAll('*'));
-
+	
 	      // Update the jqLite collection to only contain the `newNode`
 	      for (i = 1; i < removeCount; i++) {
 	        delete elementsToRemove[i];
@@ -9744,13 +9745,13 @@
 	      elementsToRemove[0] = newNode;
 	      elementsToRemove.length = 1;
 	    }
-
-
+	
+	
 	    function cloneAndAnnotateFn(fn, annotation) {
 	      return extend(function() { return fn.apply(null, arguments); }, fn, annotation);
 	    }
-
-
+	
+	
 	    function invokeLinkFn(linkFn, scope, $element, attrs, controllers, transcludeFn) {
 	      try {
 	        linkFn(scope, $element, attrs, controllers, transcludeFn);
@@ -9758,8 +9759,8 @@
 	        $exceptionHandler(e, startingTag($element));
 	      }
 	    }
-
-
+	
+	
 	    // Set up $watches for isolate scope and controller bindings. This process
 	    // only occurs for isolate scopes and new scopes with controllerAs.
 	    function initializeDirectiveBindings(scope, attrs, destination, bindings, directive) {
@@ -9772,9 +9773,9 @@
 	        mode = definition.mode, // @, =, or &
 	        lastValue,
 	        parentGet, parentSet, compare, removeWatch;
-
+	
 	        switch (mode) {
-
+	
 	          case '@':
 	            if (!optional && !hasOwnProperty.call(attrs, attrName)) {
 	              destination[scopeName] = attrs[attrName] = void 0;
@@ -9799,14 +9800,14 @@
 	            }
 	            initialChanges[scopeName] = new SimpleChange(_UNINITIALIZED_VALUE, destination[scopeName]);
 	            break;
-
+	
 	          case '=':
 	            if (!hasOwnProperty.call(attrs, attrName)) {
 	              if (optional) break;
 	              attrs[attrName] = void 0;
 	            }
 	            if (optional && !attrs[attrName]) break;
-
+	
 	            parentGet = $parse(attrs[attrName]);
 	            if (parentGet.literal) {
 	              compare = equals;
@@ -9842,19 +9843,19 @@
 	            }
 	            removeWatchCollection.push(removeWatch);
 	            break;
-
+	
 	          case '<':
 	            if (!hasOwnProperty.call(attrs, attrName)) {
 	              if (optional) break;
 	              attrs[attrName] = void 0;
 	            }
 	            if (optional && !attrs[attrName]) break;
-
+	
 	            parentGet = $parse(attrs[attrName]);
-
+	
 	            destination[scopeName] = parentGet(scope);
 	            initialChanges[scopeName] = new SimpleChange(_UNINITIALIZED_VALUE, destination[scopeName]);
-
+	
 	            removeWatch = scope.$watch(parentGet, function parentValueWatchAction(newValue, oldValue) {
 	              if (newValue === oldValue) {
 	                // If the new and old values are identical then this is the first time the watch has been triggered
@@ -9864,24 +9865,24 @@
 	              recordChanges(scopeName, newValue, oldValue);
 	              destination[scopeName] = newValue;
 	            }, parentGet.literal);
-
+	
 	            removeWatchCollection.push(removeWatch);
 	            break;
-
+	
 	          case '&':
 	            // Don't assign Object.prototype method to scope
 	            parentGet = attrs.hasOwnProperty(attrName) ? $parse(attrs[attrName]) : noop;
-
+	
 	            // Don't assign noop to destination if expression is not valid
 	            if (parentGet === noop && optional) break;
-
+	
 	            destination[scopeName] = function(locals) {
 	              return parentGet(scope, locals);
 	            };
 	            break;
 	        }
 	      });
-
+	
 	      function recordChanges(key, currentValue, previousValue) {
 	        if (isFunction(destination.$onChanges) && currentValue !== previousValue) {
 	          // If we have not already scheduled the top level onChangesQueue handler then do so now
@@ -9902,13 +9903,13 @@
 	          changes[key] = new SimpleChange(previousValue, currentValue);
 	        }
 	      }
-
+	
 	      function triggerOnChangesHook() {
 	        destination.$onChanges(changes);
 	        // Now clear the changes so that we schedule onChanges when more changes arrive
 	        changes = undefined;
 	      }
-
+	
 	      return {
 	        initialChanges: initialChanges,
 	        removeWatches: removeWatchCollection.length && function removeWatches() {
@@ -9920,14 +9921,14 @@
 	    }
 	  }];
 	}
-
+	
 	function SimpleChange(previous, current) {
 	  this.previousValue = previous;
 	  this.currentValue = current;
 	}
 	SimpleChange.prototype.isFirstChange = function() { return this.previousValue === _UNINITIALIZED_VALUE; };
-
-
+	
+	
 	var PREFIX_REGEXP = /^((?:x|data)[\:\-_])/i;
 	/**
 	 * Converts all accepted directives format into proper directive name.
@@ -9936,7 +9937,7 @@
 	function directiveNormalize(name) {
 	  return camelCase(name.replace(PREFIX_REGEXP, ''));
 	}
-
+	
 	/**
 	 * @ngdoc type
 	 * @name $compile.directive.Attributes
@@ -9950,7 +9951,7 @@
 	 *    <span ng:bind="a" ng-bind="a" data-ng-bind="a" x-ng-bind="a">
 	 * ```
 	 */
-
+	
 	/**
 	 * @ngdoc property
 	 * @name $compile.directive.Attributes#$attr
@@ -9959,8 +9960,8 @@
 	 * A map of DOM element attribute names to the normalized name. This is
 	 * needed to do reverse lookup from normalized name back to actual name.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc method
 	 * @name $compile.directive.Attributes#$set
@@ -9975,20 +9976,20 @@
 	 *          property to the original name.
 	 * @param {string} value Value to set the attribute to. The value can be an interpolated string.
 	 */
-
-
-
+	
+	
+	
 	/**
 	 * Closure compiler type information
 	 */
-
+	
 	function nodesetLinkingFn(
 	  /* angular.Scope */ scope,
 	  /* NodeList */ nodeList,
 	  /* Element */ rootElement,
 	  /* function(Function) */ boundTranscludeFn
 	) {}
-
+	
 	function directiveLinkingFn(
 	  /* nodesetLinkingFn */ nodesetLinkingFn,
 	  /* angular.Scope */ scope,
@@ -9996,12 +9997,12 @@
 	  /* Element */ rootElement,
 	  /* function(Function) */ boundTranscludeFn
 	) {}
-
+	
 	function tokenDifference(str1, str2) {
 	  var values = '',
 	      tokens1 = str1.split(/\s+/),
 	      tokens2 = str2.split(/\s+/);
-
+	
 	  outer:
 	  for (var i = 0; i < tokens1.length; i++) {
 	    var token = tokens1[i];
@@ -10012,15 +10013,15 @@
 	  }
 	  return values;
 	}
-
+	
 	function removeComments(jqNodes) {
 	  jqNodes = jqLite(jqNodes);
 	  var i = jqNodes.length;
-
+	
 	  if (i <= 1) {
 	    return jqNodes;
 	  }
-
+	
 	  while (i--) {
 	    var node = jqNodes[i];
 	    if (node.nodeType === NODE_TYPE_COMMENT) {
@@ -10029,10 +10030,10 @@
 	  }
 	  return jqNodes;
 	}
-
+	
 	var $controllerMinErr = minErr('$controller');
-
-
+	
+	
 	var CNTRL_REG = /^(\S+)(\s+as\s+([\w$]+))?$/;
 	function identifierForController(controller, ident) {
 	  if (ident && isString(ident)) return ident;
@@ -10041,8 +10042,8 @@
 	    if (match) return match[3];
 	  }
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc provider
 	 * @name $controllerProvider
@@ -10056,7 +10057,7 @@
 	function $ControllerProvider() {
 	  var controllers = {},
 	      globals = false;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $controllerProvider#has
@@ -10065,7 +10066,7 @@
 	  this.has = function(name) {
 	    return controllers.hasOwnProperty(name);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $controllerProvider#register
@@ -10082,7 +10083,7 @@
 	      controllers[name] = constructor;
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $controllerProvider#allowGlobals
@@ -10091,10 +10092,10 @@
 	  this.allowGlobals = function() {
 	    globals = true;
 	  };
-
-
+	
+	
 	  this.$get = ['$injector', '$window', function($injector, $window) {
-
+	
 	    /**
 	     * @ngdoc service
 	     * @name $controller
@@ -10135,7 +10136,7 @@
 	      if (ident && isString(ident)) {
 	        identifier = ident;
 	      }
-
+	
 	      if (isString(expression)) {
 	        match = expression.match(CNTRL_REG);
 	        if (!match) {
@@ -10149,10 +10150,10 @@
 	            ? controllers[constructor]
 	            : getter(locals.$scope, constructor, true) ||
 	                (globals ? getter($window, constructor, true) : undefined);
-
+	
 	        assertArgFn(expression, constructor, true);
 	      }
-
+	
 	      if (later) {
 	        // Instantiate controller later:
 	        // This machinery is used to create an instance of the object before calling the
@@ -10167,11 +10168,11 @@
 	        var controllerPrototype = (isArray(expression) ?
 	          expression[expression.length - 1] : expression).prototype;
 	        instance = Object.create(controllerPrototype || null);
-
+	
 	        if (identifier) {
 	          addIdentifier(locals, identifier, instance, constructor || expression.name);
 	        }
-
+	
 	        var instantiate;
 	        return instantiate = extend(function $controllerInit() {
 	          var result = $injector.invoke(expression, instance, locals, constructor);
@@ -10188,28 +10189,28 @@
 	          identifier: identifier
 	        });
 	      }
-
+	
 	      instance = $injector.instantiate(expression, locals, constructor);
-
+	
 	      if (identifier) {
 	        addIdentifier(locals, identifier, instance, constructor || expression.name);
 	      }
-
+	
 	      return instance;
 	    };
-
+	
 	    function addIdentifier(locals, identifier, instance, name) {
 	      if (!(locals && isObject(locals.$scope))) {
 	        throw minErr('$controller')('noscp',
 	          "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.",
 	          name, identifier);
 	      }
-
+	
 	      locals.$scope[identifier] = instance;
 	    }
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $document
@@ -10240,7 +10241,7 @@
 	    return jqLite(window.document);
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $exceptionHandler
@@ -10288,7 +10289,7 @@
 	    };
 	  }];
 	}
-
+	
 	var $$ForceReflowProvider = function() {
 	  this.$get = ['$document', function($document) {
 	    return function(domNode) {
@@ -10311,7 +10312,7 @@
 	    };
 	  }];
 	};
-
+	
 	var APPLICATION_JSON = 'application/json';
 	var CONTENT_TYPE_APPLICATION_JSON = {'Content-Type': APPLICATION_JSON + ';charset=utf-8'};
 	var JSON_START = /^\[|^\{(?!\{)/;
@@ -10326,15 +10327,15 @@
 	    throw $httpMinErr('legacy', 'The method `{0}` on the promise returned from `$http` has been disabled.', method);
 	  };
 	};
-
+	
 	function serializeValue(v) {
 	  if (isObject(v)) {
 	    return isDate(v) ? v.toISOString() : toJson(v);
 	  }
 	  return v;
 	}
-
-
+	
+	
 	function $HttpParamSerializerProvider() {
 	  /**
 	   * @ngdoc service
@@ -10351,7 +10352,7 @@
 	   *
 	   * Note that serializer will sort the request parameters alphabetically.
 	   * */
-
+	
 	  this.$get = function() {
 	    return function ngParamSerializer(params) {
 	      if (!params) return '';
@@ -10366,12 +10367,12 @@
 	          parts.push(encodeUriQuery(key) + '=' + encodeUriQuery(serializeValue(value)));
 	        }
 	      });
-
+	
 	      return parts.join('&');
 	    };
 	  };
 	}
-
+	
 	function $HttpParamSerializerJQLikeProvider() {
 	  /**
 	   * @ngdoc service
@@ -10422,7 +10423,7 @@
 	      var parts = [];
 	      serialize(params, '', true);
 	      return parts.join('&');
-
+	
 	      function serialize(toSerialize, prefix, topLevel) {
 	        if (toSerialize === null || isUndefined(toSerialize)) return;
 	        if (isArray(toSerialize)) {
@@ -10443,12 +10444,12 @@
 	    };
 	  };
 	}
-
+	
 	function defaultHttpResponseTransform(data, headers) {
 	  if (isString(data)) {
 	    // Strip json vulnerability protection prefix and trim whitespace
 	    var tempData = data.replace(JSON_PROTECTION_PREFIX, '').trim();
-
+	
 	    if (tempData) {
 	      var contentType = headers('Content-Type');
 	      if ((contentType && (contentType.indexOf(APPLICATION_JSON) === 0)) || isJsonLike(tempData)) {
@@ -10456,15 +10457,15 @@
 	      }
 	    }
 	  }
-
+	
 	  return data;
 	}
-
+	
 	function isJsonLike(str) {
 	    var jsonStart = str.match(JSON_START);
 	    return jsonStart && JSON_ENDS[jsonStart[0]].test(str);
 	}
-
+	
 	/**
 	 * Parse headers into key value object
 	 *
@@ -10473,13 +10474,13 @@
 	 */
 	function parseHeaders(headers) {
 	  var parsed = createMap(), i;
-
+	
 	  function fillInParsed(key, val) {
 	    if (key) {
 	      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
 	    }
 	  }
-
+	
 	  if (isString(headers)) {
 	    forEach(headers.split('\n'), function(line) {
 	      i = line.indexOf(':');
@@ -10490,11 +10491,11 @@
 	      fillInParsed(lowercase(headerKey), trim(headerVal));
 	    });
 	  }
-
+	
 	  return parsed;
 	}
-
-
+	
+	
 	/**
 	 * Returns a function that provides access to parsed headers.
 	 *
@@ -10509,10 +10510,10 @@
 	 */
 	function headersGetter(headers) {
 	  var headersObj;
-
+	
 	  return function(name) {
 	    if (!headersObj) headersObj =  parseHeaders(headers);
-
+	
 	    if (name) {
 	      var value = headersObj[lowercase(name)];
 	      if (value === void 0) {
@@ -10520,12 +10521,12 @@
 	      }
 	      return value;
 	    }
-
+	
 	    return headersObj;
 	  };
 	}
-
-
+	
+	
 	/**
 	 * Chain all given functions
 	 *
@@ -10541,20 +10542,20 @@
 	  if (isFunction(fns)) {
 	    return fns(data, headers, status);
 	  }
-
+	
 	  forEach(fns, function(fn) {
 	    data = fn(data, headers, status);
 	  });
-
+	
 	  return data;
 	}
-
-
+	
+	
 	function isSuccess(status) {
 	  return 200 <= status && status < 300;
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc provider
 	 * @name $httpProvider
@@ -10597,12 +10598,12 @@
 	  var defaults = this.defaults = {
 	    // transform incoming response data
 	    transformResponse: [defaultHttpResponseTransform],
-
+	
 	    // transform outgoing request data
 	    transformRequest: [function(d) {
 	      return isObject(d) && !isFile(d) && !isBlob(d) && !isFormData(d) ? toJson(d) : d;
 	    }],
-
+	
 	    // default headers
 	    headers: {
 	      common: {
@@ -10612,13 +10613,13 @@
 	      put:    shallowCopy(CONTENT_TYPE_APPLICATION_JSON),
 	      patch:  shallowCopy(CONTENT_TYPE_APPLICATION_JSON)
 	    },
-
+	
 	    xsrfCookieName: 'XSRF-TOKEN',
 	    xsrfHeaderName: 'X-XSRF-TOKEN',
-
+	
 	    paramSerializer: '$httpParamSerializer'
 	  };
-
+	
 	  var useApplyAsync = false;
 	  /**
 	   * @ngdoc method
@@ -10646,7 +10647,7 @@
 	    }
 	    return useApplyAsync;
 	  };
-
+	
 	  var useLegacyPromise = true;
 	  /**
 	   * @ngdoc method
@@ -10670,7 +10671,7 @@
 	    }
 	    return useLegacyPromise;
 	  };
-
+	
 	  /**
 	   * @ngdoc property
 	   * @name $httpProvider#interceptors
@@ -10685,30 +10686,30 @@
 	   * {@link ng.$http#interceptors Interceptors detailed info}
 	   **/
 	  var interceptorFactories = this.interceptors = [];
-
+	
 	  this.$get = ['$httpBackend', '$$cookieReader', '$cacheFactory', '$rootScope', '$q', '$injector',
 	      function($httpBackend, $$cookieReader, $cacheFactory, $rootScope, $q, $injector) {
-
+	
 	    var defaultCache = $cacheFactory('$http');
-
+	
 	    /**
 	     * Make sure that default param serializer is exposed as a function
 	     */
 	    defaults.paramSerializer = isString(defaults.paramSerializer) ?
 	      $injector.get(defaults.paramSerializer) : defaults.paramSerializer;
-
+	
 	    /**
 	     * Interceptors stored in reverse order. Inner interceptors before outer interceptors.
 	     * The reversal is needed so that we can build up the interception chain around the
 	     * server request.
 	     */
 	    var reversedInterceptors = [];
-
+	
 	    forEach(interceptorFactories, function(interceptorFactory) {
 	      reversedInterceptors.unshift(isString(interceptorFactory)
 	          ? $injector.get(interceptorFactory) : $injector.invoke(interceptorFactory));
 	    });
-
+	
 	    /**
 	     * @ngdoc service
 	     * @kind function
@@ -11189,11 +11190,11 @@
 	      function($scope, $http, $templateCache) {
 	        $scope.method = 'GET';
 	        $scope.url = 'http-hello.html';
-
+	
 	        $scope.fetch = function() {
 	          $scope.code = null;
 	          $scope.response = null;
-
+	
 	          $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
 	            then(function(response) {
 	              $scope.status = response.status;
@@ -11203,7 +11204,7 @@
 	              $scope.status = response.status;
 	          });
 	        };
-
+	
 	        $scope.updateModel = function(method, url) {
 	          $scope.method = method;
 	          $scope.url = url;
@@ -11220,14 +11221,14 @@
 	  var sampleGetBtn = element(by.id('samplegetbtn'));
 	  var sampleJsonpBtn = element(by.id('samplejsonpbtn'));
 	  var invalidJsonpBtn = element(by.id('invalidjsonpbtn'));
-
+	
 	  it('should make an xhr GET request', function() {
 	    sampleGetBtn.click();
 	    fetchBtn.click();
 	    expect(status.getText()).toMatch('200');
 	    expect(data.getText()).toMatch(/Hello, \$http!/);
 	  });
-
+	
 	// Commented out due to flakes. See https://github.com/angular/angular.js/issues/9185
 	// it('should make a JSONP request to angularjs.org', function() {
 	//   sampleJsonpBtn.click();
@@ -11235,7 +11236,7 @@
 	//   expect(status.getText()).toMatch('200');
 	//   expect(data.getText()).toMatch(/Super Hero!/);
 	// });
-
+	
 	  it('should make JSONP request to invalid URL and invoke the error handler',
 	      function() {
 	    invalidJsonpBtn.click();
@@ -11247,31 +11248,31 @@
 	</example>
 	     */
 	    function $http(requestConfig) {
-
+	
 	      if (!isObject(requestConfig)) {
 	        throw minErr('$http')('badreq', 'Http request configuration must be an object.  Received: {0}', requestConfig);
 	      }
-
+	
 	      if (!isString(requestConfig.url)) {
 	        throw minErr('$http')('badreq', 'Http request configuration url must be a string.  Received: {0}', requestConfig.url);
 	      }
-
+	
 	      var config = extend({
 	        method: 'get',
 	        transformRequest: defaults.transformRequest,
 	        transformResponse: defaults.transformResponse,
 	        paramSerializer: defaults.paramSerializer
 	      }, requestConfig);
-
+	
 	      config.headers = mergeHeaders(requestConfig);
 	      config.method = uppercase(config.method);
 	      config.paramSerializer = isString(config.paramSerializer) ?
 	        $injector.get(config.paramSerializer) : config.paramSerializer;
-
+	
 	      var serverRequest = function(config) {
 	        var headers = config.headers;
 	        var reqData = transformData(config.data, headersGetter(headers), undefined, config.transformRequest);
-
+	
 	        // strip content-type if data is undefined
 	        if (isUndefined(reqData)) {
 	          forEach(headers, function(value, header) {
@@ -11280,18 +11281,18 @@
 	            }
 	          });
 	        }
-
+	
 	        if (isUndefined(config.withCredentials) && !isUndefined(defaults.withCredentials)) {
 	          config.withCredentials = defaults.withCredentials;
 	        }
-
+	
 	        // send request
 	        return sendReq(config, reqData).then(transformResponse, transformResponse);
 	      };
-
+	
 	      var chain = [serverRequest, undefined];
 	      var promise = $q.when(config);
-
+	
 	      // apply interceptors
 	      forEach(reversedInterceptors, function(interceptor) {
 	        if (interceptor.request || interceptor.requestError) {
@@ -11301,27 +11302,27 @@
 	          chain.push(interceptor.response, interceptor.responseError);
 	        }
 	      });
-
+	
 	      while (chain.length) {
 	        var thenFn = chain.shift();
 	        var rejectFn = chain.shift();
-
+	
 	        promise = promise.then(thenFn, rejectFn);
 	      }
-
+	
 	      if (useLegacyPromise) {
 	        promise.success = function(fn) {
 	          assertArgFn(fn, 'fn');
-
+	
 	          promise.then(function(response) {
 	            fn(response.data, response.status, response.headers, config);
 	          });
 	          return promise;
 	        };
-
+	
 	        promise.error = function(fn) {
 	          assertArgFn(fn, 'fn');
-
+	
 	          promise.then(null, function(response) {
 	            fn(response.data, response.status, response.headers, config);
 	          });
@@ -11331,9 +11332,9 @@
 	        promise.success = $httpMinErrLegacyFn('success');
 	        promise.error = $httpMinErrLegacyFn('error');
 	      }
-
+	
 	      return promise;
-
+	
 	      function transformResponse(response) {
 	        // make a copy since the response must be cacheable
 	        var resp = extend({}, response);
@@ -11343,10 +11344,10 @@
 	          ? resp
 	          : $q.reject(resp);
 	      }
-
+	
 	      function executeHeaderFns(headers, config) {
 	        var headerContent, processedHeaders = {};
-
+	
 	        forEach(headers, function(headerFn, header) {
 	          if (isFunction(headerFn)) {
 	            headerContent = headerFn(config);
@@ -11357,38 +11358,38 @@
 	            processedHeaders[header] = headerFn;
 	          }
 	        });
-
+	
 	        return processedHeaders;
 	      }
-
+	
 	      function mergeHeaders(config) {
 	        var defHeaders = defaults.headers,
 	            reqHeaders = extend({}, config.headers),
 	            defHeaderName, lowercaseDefHeaderName, reqHeaderName;
-
+	
 	        defHeaders = extend({}, defHeaders.common, defHeaders[lowercase(config.method)]);
-
+	
 	        // using for-in instead of forEach to avoid unnecessary iteration after header has been found
 	        defaultHeadersIteration:
 	        for (defHeaderName in defHeaders) {
 	          lowercaseDefHeaderName = lowercase(defHeaderName);
-
+	
 	          for (reqHeaderName in reqHeaders) {
 	            if (lowercase(reqHeaderName) === lowercaseDefHeaderName) {
 	              continue defaultHeadersIteration;
 	            }
 	          }
-
+	
 	          reqHeaders[defHeaderName] = defHeaders[defHeaderName];
 	        }
-
+	
 	        // execute if header value is a function for merged headers
 	        return executeHeaderFns(reqHeaders, shallowCopy(config));
 	      }
 	    }
-
+	
 	    $http.pendingRequests = [];
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#get
@@ -11400,7 +11401,7 @@
 	     * @param {Object=} config Optional configuration object
 	     * @returns {HttpPromise} Future object
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#delete
@@ -11412,7 +11413,7 @@
 	     * @param {Object=} config Optional configuration object
 	     * @returns {HttpPromise} Future object
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#head
@@ -11424,7 +11425,7 @@
 	     * @param {Object=} config Optional configuration object
 	     * @returns {HttpPromise} Future object
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#jsonp
@@ -11438,7 +11439,7 @@
 	     * @returns {HttpPromise} Future object
 	     */
 	    createShortMethods('get', 'delete', 'head', 'jsonp');
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#post
@@ -11451,7 +11452,7 @@
 	     * @param {Object=} config Optional configuration object
 	     * @returns {HttpPromise} Future object
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $http#put
@@ -11464,7 +11465,7 @@
 	     * @param {Object=} config Optional configuration object
 	     * @returns {HttpPromise} Future object
 	     */
-
+	
 	     /**
 	      * @ngdoc method
 	      * @name $http#patch
@@ -11478,7 +11479,7 @@
 	      * @returns {HttpPromise} Future object
 	      */
 	    createShortMethodsWithData('post', 'put', 'patch');
-
+	
 	        /**
 	         * @ngdoc property
 	         * @name $http#defaults
@@ -11490,11 +11491,11 @@
 	         * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
 	         */
 	    $http.defaults = defaults;
-
-
+	
+	
 	    return $http;
-
-
+	
+	
 	    function createShortMethods(names) {
 	      forEach(arguments, function(name) {
 	        $http[name] = function(url, config) {
@@ -11505,8 +11506,8 @@
 	        };
 	      });
 	    }
-
-
+	
+	
 	    function createShortMethodsWithData(name) {
 	      forEach(arguments, function(name) {
 	        $http[name] = function(url, data, config) {
@@ -11518,8 +11519,8 @@
 	        };
 	      });
 	    }
-
-
+	
+	
 	    /**
 	     * Makes the request.
 	     *
@@ -11533,18 +11534,18 @@
 	          cachedResp,
 	          reqHeaders = config.headers,
 	          url = buildUrl(config.url, config.paramSerializer(config.params));
-
+	
 	      $http.pendingRequests.push(config);
 	      promise.then(removePendingReq, removePendingReq);
-
-
+	
+	
 	      if ((config.cache || defaults.cache) && config.cache !== false &&
 	          (config.method === 'GET' || config.method === 'JSONP')) {
 	        cache = isObject(config.cache) ? config.cache
 	              : isObject(defaults.cache) ? defaults.cache
 	              : defaultCache;
 	      }
-
+	
 	      if (cache) {
 	        cachedResp = cache.get(url);
 	        if (isDefined(cachedResp)) {
@@ -11564,8 +11565,8 @@
 	          cache.put(url, promise);
 	        }
 	      }
-
-
+	
+	
 	      // if we won't have the response in cache, set the xsrf headers and
 	      // send the request to the backend
 	      if (isUndefined(cachedResp)) {
@@ -11575,15 +11576,15 @@
 	        if (xsrfValue) {
 	          reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;
 	        }
-
+	
 	        $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
 	            config.withCredentials, config.responseType,
 	            createApplyHandlers(config.eventHandlers),
 	            createApplyHandlers(config.uploadEventHandlers));
 	      }
-
+	
 	      return promise;
-
+	
 	      function createApplyHandlers(eventHandlers) {
 	        if (eventHandlers) {
 	          var applyHandlers = {};
@@ -11596,7 +11597,7 @@
 	              } else {
 	                $rootScope.$apply(callEventHandler);
 	              }
-
+	
 	              function callEventHandler() {
 	                eventHandler(event);
 	              }
@@ -11605,8 +11606,8 @@
 	          return applyHandlers;
 	        }
 	      }
-
-
+	
+	
 	      /**
 	       * Callback registered to $httpBackend():
 	       *  - caches the response if desired
@@ -11622,11 +11623,11 @@
 	            cache.remove(url);
 	          }
 	        }
-
+	
 	        function resolveHttpPromise() {
 	          resolvePromise(response, status, headersString, statusText);
 	        }
-
+	
 	        if (useApplyAsync) {
 	          $rootScope.$applyAsync(resolveHttpPromise);
 	        } else {
@@ -11634,15 +11635,15 @@
 	          if (!$rootScope.$$phase) $rootScope.$apply();
 	        }
 	      }
-
-
+	
+	
 	      /**
 	       * Resolves the raw $http promise.
 	       */
 	      function resolvePromise(response, status, headers, statusText) {
 	        //status: HTTP response status code, 0, -1 (aborted by timeout / promise)
 	        status = status >= -1 ? status : 0;
-
+	
 	        (isSuccess(status) ? deferred.resolve : deferred.reject)({
 	          data: response,
 	          status: status,
@@ -11651,18 +11652,18 @@
 	          statusText: statusText
 	        });
 	      }
-
+	
 	      function resolvePromiseWithResult(result) {
 	        resolvePromise(result.data, result.status, shallowCopy(result.headers()), result.statusText);
 	      }
-
+	
 	      function removePendingReq() {
 	        var idx = $http.pendingRequests.indexOf(config);
 	        if (idx !== -1) $http.pendingRequests.splice(idx, 1);
 	      }
 	    }
-
-
+	
+	
 	    function buildUrl(url, serializedParams) {
 	      if (serializedParams.length > 0) {
 	        url += ((url.indexOf('?') == -1) ? '?' : '&') + serializedParams;
@@ -11671,7 +11672,7 @@
 	    }
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $xhrFactory
@@ -11700,7 +11701,7 @@
 	    };
 	  };
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $httpBackend
@@ -11723,81 +11724,81 @@
 	    return createHttpBackend($browser, $xhrFactory, $browser.defer, $window.angular.callbacks, $document[0]);
 	  }];
 	}
-
+	
 	function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDocument) {
 	  // TODO(vojta): fix the signature
 	  return function(method, url, post, callback, headers, timeout, withCredentials, responseType, eventHandlers, uploadEventHandlers) {
 	    $browser.$$incOutstandingRequestCount();
 	    url = url || $browser.url();
-
+	
 	    if (lowercase(method) == 'jsonp') {
 	      var callbackId = '_' + (callbacks.counter++).toString(36);
 	      callbacks[callbackId] = function(data) {
 	        callbacks[callbackId].data = data;
 	        callbacks[callbackId].called = true;
 	      };
-
+	
 	      var jsonpDone = jsonpReq(url.replace('JSON_CALLBACK', 'angular.callbacks.' + callbackId),
 	          callbackId, function(status, text) {
 	        completeRequest(callback, status, callbacks[callbackId].data, "", text);
 	        callbacks[callbackId] = noop;
 	      });
 	    } else {
-
+	
 	      var xhr = createXhr(method, url);
-
+	
 	      xhr.open(method, url, true);
 	      forEach(headers, function(value, key) {
 	        if (isDefined(value)) {
 	            xhr.setRequestHeader(key, value);
 	        }
 	      });
-
+	
 	      xhr.onload = function requestLoaded() {
 	        var statusText = xhr.statusText || '';
-
+	
 	        // responseText is the old-school way of retrieving response (supported by IE9)
 	        // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
 	        var response = ('response' in xhr) ? xhr.response : xhr.responseText;
-
+	
 	        // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
 	        var status = xhr.status === 1223 ? 204 : xhr.status;
-
+	
 	        // fix status code when it is 0 (0 status is undocumented).
 	        // Occurs when accessing file resources or on Android 4.1 stock browser
 	        // while retrieving files from application cache.
 	        if (status === 0) {
 	          status = response ? 200 : urlResolve(url).protocol == 'file' ? 404 : 0;
 	        }
-
+	
 	        completeRequest(callback,
 	            status,
 	            response,
 	            xhr.getAllResponseHeaders(),
 	            statusText);
 	      };
-
+	
 	      var requestError = function() {
 	        // The response is always empty
 	        // See https://xhr.spec.whatwg.org/#request-error-steps and https://fetch.spec.whatwg.org/#concept-network-error
 	        completeRequest(callback, -1, null, null, '');
 	      };
-
+	
 	      xhr.onerror = requestError;
 	      xhr.onabort = requestError;
-
+	
 	      forEach(eventHandlers, function(value, key) {
 	          xhr.addEventListener(key, value);
 	      });
-
+	
 	      forEach(uploadEventHandlers, function(value, key) {
 	        xhr.upload.addEventListener(key, value);
 	      });
-
+	
 	      if (withCredentials) {
 	        xhr.withCredentials = true;
 	      }
-
+	
 	      if (responseType) {
 	        try {
 	          xhr.responseType = responseType;
@@ -11814,34 +11815,34 @@
 	          }
 	        }
 	      }
-
+	
 	      xhr.send(isUndefined(post) ? null : post);
 	    }
-
+	
 	    if (timeout > 0) {
 	      var timeoutId = $browserDefer(timeoutRequest, timeout);
 	    } else if (isPromiseLike(timeout)) {
 	      timeout.then(timeoutRequest);
 	    }
-
-
+	
+	
 	    function timeoutRequest() {
 	      jsonpDone && jsonpDone();
 	      xhr && xhr.abort();
 	    }
-
+	
 	    function completeRequest(callback, status, response, headersString, statusText) {
 	      // cancel timeout and subsequent timeout promise resolution
 	      if (isDefined(timeoutId)) {
 	        $browserDefer.cancel(timeoutId);
 	      }
 	      jsonpDone = xhr = null;
-
+	
 	      callback(status, response, headersString, statusText);
 	      $browser.$$completeOutstandingRequest(noop);
 	    }
 	  };
-
+	
 	  function jsonpReq(url, callbackId, done) {
 	    // we can't use jQuery/jqLite here because jQuery does crazy stuff with script elements, e.g.:
 	    // - fetches local scripts via XHR and evals them
@@ -11850,7 +11851,7 @@
 	    script.type = "text/javascript";
 	    script.src = url;
 	    script.async = true;
-
+	
 	    callback = function(event) {
 	      removeEventListenerFn(script, "load", callback);
 	      removeEventListenerFn(script, "error", callback);
@@ -11858,7 +11859,7 @@
 	      script = null;
 	      var status = -1;
 	      var text = "unknown";
-
+	
 	      if (event) {
 	        if (event.type === "load" && !callbacks[callbackId].called) {
 	          event = { type: "error" };
@@ -11866,19 +11867,19 @@
 	        text = event.type;
 	        status = event.type === "error" ? 404 : 200;
 	      }
-
+	
 	      if (done) {
 	        done(status, text);
 	      }
 	    };
-
+	
 	    addEventListenerFn(script, "load", callback);
 	    addEventListenerFn(script, "error", callback);
 	    rawDocument.body.appendChild(script);
 	    return callback;
 	  }
 	}
-
+	
 	var $interpolateMinErr = angular.$interpolateMinErr = minErr('$interpolate');
 	$interpolateMinErr.throwNoconcat = function(text) {
 	  throw $interpolateMinErr('noconcat',
@@ -11886,11 +11887,11 @@
 	      "interpolations that concatenate multiple expressions when a trusted value is " +
 	      "required.  See http://docs.angularjs.org/api/ng.$sce", text);
 	};
-
+	
 	$interpolateMinErr.interr = function(text, err) {
 	  return $interpolateMinErr('interr', "Can't interpolate: {0}\n{1}", text, err.toString());
 	};
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $interpolateProvider
@@ -11912,13 +11913,13 @@
 	<file name="index.html">
 	<script>
 	  var customInterpolationApp = angular.module('customInterpolationApp', []);
-
+	
 	  customInterpolationApp.config(function($interpolateProvider) {
 	    $interpolateProvider.startSymbol('//');
 	    $interpolateProvider.endSymbol('//');
 	  });
-
-
+	
+	
 	  customInterpolationApp.controller('DemoController', function() {
 	      this.label = "This binding is brought you by // interpolation symbols.";
 	  });
@@ -11937,7 +11938,7 @@
 	function $InterpolateProvider() {
 	  var startSymbol = '{{';
 	  var endSymbol = '}}';
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $interpolateProvider#startSymbol
@@ -11955,7 +11956,7 @@
 	      return startSymbol;
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $interpolateProvider#endSymbol
@@ -11973,23 +11974,23 @@
 	      return endSymbol;
 	    }
 	  };
-
-
+	
+	
 	  this.$get = ['$parse', '$exceptionHandler', '$sce', function($parse, $exceptionHandler, $sce) {
 	    var startSymbolLength = startSymbol.length,
 	        endSymbolLength = endSymbol.length,
 	        escapedStartRegexp = new RegExp(startSymbol.replace(/./g, escape), 'g'),
 	        escapedEndRegexp = new RegExp(endSymbol.replace(/./g, escape), 'g');
-
+	
 	    function escape(ch) {
 	      return '\\\\\\' + ch;
 	    }
-
+	
 	    function unescapeText(text) {
 	      return text.replace(escapedStartRegexp, startSymbol).
 	        replace(escapedEndRegexp, endSymbol);
 	    }
-
+	
 	    function stringify(value) {
 	      if (value == null) { // null || undefined
 	        return '';
@@ -12003,10 +12004,10 @@
 	        default:
 	          value = toJson(value);
 	      }
-
+	
 	      return value;
 	    }
-
+	
 	    //TODO: this is the same as the constantWatchDelegate in parse.js
 	    function constantWatchDelegate(scope, listener, objectEquality, constantInterp) {
 	      var unwatch;
@@ -12015,7 +12016,7 @@
 	        return constantInterp(scope);
 	      }, listener, objectEquality);
 	    }
-
+	
 	    /**
 	     * @ngdoc service
 	     * @name $interpolate
@@ -12123,7 +12124,7 @@
 	        }
 	        return constantInterp;
 	      }
-
+	
 	      allOrNothing = !!allOrNothing;
 	      var startIndex,
 	          endIndex,
@@ -12134,7 +12135,7 @@
 	          exp,
 	          concat = [],
 	          expressionPositions = [];
-
+	
 	      while (index < textLength) {
 	        if (((startIndex = text.indexOf(startSymbol, index)) != -1) &&
 	             ((endIndex = text.indexOf(endSymbol, startIndex + startSymbolLength)) != -1)) {
@@ -12155,7 +12156,7 @@
 	          break;
 	        }
 	      }
-
+	
 	      // Concatenating expressions makes it hard to reason about whether some combination of
 	      // concatenated values are unsafe to use and could easily lead to XSS.  By requiring that a
 	      // single expression be used for iframe[src], object[src], etc., we ensure that the value
@@ -12165,7 +12166,7 @@
 	      if (trustedContext && concat.length > 1) {
 	          $interpolateMinErr.throwNoconcat(text);
 	      }
-
+	
 	      if (!mustHaveExpression || expressions.length) {
 	        var compute = function(values) {
 	          for (var i = 0, ii = expressions.length; i < ii; i++) {
@@ -12174,28 +12175,28 @@
 	          }
 	          return concat.join('');
 	        };
-
+	
 	        var getValue = function(value) {
 	          return trustedContext ?
 	            $sce.getTrusted(trustedContext, value) :
 	            $sce.valueOf(value);
 	        };
-
+	
 	        return extend(function interpolationFn(context) {
 	            var i = 0;
 	            var ii = expressions.length;
 	            var values = new Array(ii);
-
+	
 	            try {
 	              for (; i < ii; i++) {
 	                values[i] = parseFns[i](context);
 	              }
-
+	
 	              return compute(values);
 	            } catch (err) {
 	              $exceptionHandler($interpolateMinErr.interr(text, err));
 	            }
-
+	
 	          }, {
 	          // all of these properties are undocumented for now
 	          exp: text, //just for compatibility with regular watchers created via $watch
@@ -12212,7 +12213,7 @@
 	          }
 	        });
 	      }
-
+	
 	      function parseStringifyInterceptor(value) {
 	        try {
 	          value = getValue(value);
@@ -12222,8 +12223,8 @@
 	        }
 	      }
 	    }
-
-
+	
+	
 	    /**
 	     * @ngdoc method
 	     * @name $interpolate#startSymbol
@@ -12238,8 +12239,8 @@
 	    $interpolate.startSymbol = function() {
 	      return startSymbol;
 	    };
-
-
+	
+	
 	    /**
 	     * @ngdoc method
 	     * @name $interpolate#endSymbol
@@ -12254,17 +12255,17 @@
 	    $interpolate.endSymbol = function() {
 	      return endSymbol;
 	    };
-
+	
 	    return $interpolate;
 	  }];
 	}
-
+	
 	function $IntervalProvider() {
 	  this.$get = ['$rootScope', '$window', '$q', '$$q', '$browser',
 	       function($rootScope,   $window,   $q,   $$q,   $browser) {
 	    var intervals = {};
-
-
+	
+	
 	     /**
 	      * @ngdoc service
 	      * @name $interval
@@ -12399,9 +12400,9 @@
 	          skipApply = (isDefined(invokeApply) && !invokeApply),
 	          deferred = (skipApply ? $$q : $q).defer(),
 	          promise = deferred.promise;
-
+	
 	      count = isDefined(count) ? count : 0;
-
+	
 	      promise.$$intervalId = setInterval(function tick() {
 	        if (skipApply) {
 	          $browser.defer(callback);
@@ -12409,21 +12410,21 @@
 	          $rootScope.$evalAsync(callback);
 	        }
 	        deferred.notify(iteration++);
-
+	
 	        if (count > 0 && iteration >= count) {
 	          deferred.resolve(iteration);
 	          clearInterval(promise.$$intervalId);
 	          delete intervals[promise.$$intervalId];
 	        }
-
+	
 	        if (!skipApply) $rootScope.$apply();
-
+	
 	      }, delay);
-
+	
 	      intervals[promise.$$intervalId] = deferred;
-
+	
 	      return promise;
-
+	
 	      function callback() {
 	        if (!hasParams) {
 	          fn(iteration);
@@ -12432,8 +12433,8 @@
 	        }
 	      }
 	    }
-
-
+	
+	
 	     /**
 	      * @ngdoc method
 	      * @name $interval#cancel
@@ -12453,11 +12454,11 @@
 	      }
 	      return false;
 	    };
-
+	
 	    return interval;
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $locale
@@ -12468,12 +12469,12 @@
 	 *
 	 * * `id` – `{string}` – locale id formatted as `languageId-countryId` (e.g. `en-us`)
 	 */
-
+	
 	var PATH_MATCH = /^([^\?#]*)(\?([^#]*))?(#(.*))?$/,
 	    DEFAULT_PORTS = {'http': 80, 'https': 443, 'ftp': 21};
 	var $locationMinErr = minErr('$location');
-
-
+	
+	
 	/**
 	 * Encode path using encodeUriSegment, ignoring forward slashes
 	 *
@@ -12483,23 +12484,23 @@
 	function encodePath(path) {
 	  var segments = path.split('/'),
 	      i = segments.length;
-
+	
 	  while (i--) {
 	    segments[i] = encodeUriSegment(segments[i]);
 	  }
-
+	
 	  return segments.join('/');
 	}
-
+	
 	function parseAbsoluteUrl(absoluteUrl, locationObj) {
 	  var parsedUrl = urlResolve(absoluteUrl);
-
+	
 	  locationObj.$$protocol = parsedUrl.protocol;
 	  locationObj.$$host = parsedUrl.hostname;
 	  locationObj.$$port = toInt(parsedUrl.port) || DEFAULT_PORTS[parsedUrl.protocol] || null;
 	}
-
-
+	
+	
 	function parseAppUrl(relativeUrl, locationObj) {
 	  var prefixed = (relativeUrl.charAt(0) !== '/');
 	  if (prefixed) {
@@ -12510,14 +12511,14 @@
 	      match.pathname.substring(1) : match.pathname);
 	  locationObj.$$search = parseKeyValue(match.search);
 	  locationObj.$$hash = decodeURIComponent(match.hash);
-
+	
 	  // make sure path starts with '/';
 	  if (locationObj.$$path && locationObj.$$path.charAt(0) != '/') {
 	    locationObj.$$path = '/' + locationObj.$$path;
 	  }
 	}
-
-
+	
+	
 	/**
 	 *
 	 * @param {string} begin
@@ -12530,28 +12531,28 @@
 	    return whole.substr(begin.length);
 	  }
 	}
-
-
+	
+	
 	function stripHash(url) {
 	  var index = url.indexOf('#');
 	  return index == -1 ? url : url.substr(0, index);
 	}
-
+	
 	function trimEmptyHash(url) {
 	  return url.replace(/(#.+)|#$/, '$1');
 	}
-
-
+	
+	
 	function stripFile(url) {
 	  return url.substr(0, stripHash(url).lastIndexOf('/') + 1);
 	}
-
+	
 	/* return the server only (scheme://host:port) */
 	function serverBase(url) {
 	  return url.substring(0, url.indexOf('/', url.indexOf('//') + 2));
 	}
-
-
+	
+	
 	/**
 	 * LocationHtml5Url represents an url
 	 * This object is exposed as $location service when HTML5 mode is enabled and supported
@@ -12565,8 +12566,8 @@
 	  this.$$html5 = true;
 	  basePrefix = basePrefix || '';
 	  parseAbsoluteUrl(appBase, this);
-
-
+	
+	
 	  /**
 	   * Parse given html5 (regular) url string into properties
 	   * @param {string} url HTML5 url
@@ -12578,16 +12579,16 @@
 	      throw $locationMinErr('ipthprfx', 'Invalid url "{0}", missing path prefix "{1}".', url,
 	          appBaseNoFile);
 	    }
-
+	
 	    parseAppUrl(pathUrl, this);
-
+	
 	    if (!this.$$path) {
 	      this.$$path = '/';
 	    }
-
+	
 	    this.$$compose();
 	  };
-
+	
 	  /**
 	   * Compose url and update `absUrl` property
 	   * @private
@@ -12595,11 +12596,11 @@
 	  this.$$compose = function() {
 	    var search = toKeyValue(this.$$search),
 	        hash = this.$$hash ? '#' + encodeUriSegment(this.$$hash) : '';
-
+	
 	    this.$$url = encodePath(this.$$path) + (search ? '?' + search : '') + hash;
 	    this.$$absUrl = appBaseNoFile + this.$$url.substr(1); // first char is always '/'
 	  };
-
+	
 	  this.$$parseLinkUrl = function(url, relHref) {
 	    if (relHref && relHref[0] === '#') {
 	      // special case for links to hash fragments:
@@ -12609,7 +12610,7 @@
 	    }
 	    var appUrl, prevAppUrl;
 	    var rewrittenUrl;
-
+	
 	    if (isDefined(appUrl = beginsWith(appBase, url))) {
 	      prevAppUrl = appUrl;
 	      if (isDefined(appUrl = beginsWith(basePrefix, appUrl))) {
@@ -12628,8 +12629,8 @@
 	    return !!rewrittenUrl;
 	  };
 	}
-
-
+	
+	
 	/**
 	 * LocationHashbangUrl represents url
 	 * This object is exposed as $location service when developer doesn't opt into html5 mode.
@@ -12641,10 +12642,10 @@
 	 * @param {string} hashPrefix hashbang prefix
 	 */
 	function LocationHashbangUrl(appBase, appBaseNoFile, hashPrefix) {
-
+	
 	  parseAbsoluteUrl(appBase, this);
-
-
+	
+	
 	  /**
 	   * Parse given hashbang url into properties
 	   * @param {string} url Hashbang url
@@ -12653,9 +12654,9 @@
 	  this.$$parse = function(url) {
 	    var withoutBaseUrl = beginsWith(appBase, url) || beginsWith(appBaseNoFile, url);
 	    var withoutHashUrl;
-
+	
 	    if (!isUndefined(withoutBaseUrl) && withoutBaseUrl.charAt(0) === '#') {
-
+	
 	      // The rest of the url starts with a hash so we have
 	      // got either a hashbang path or a plain hash fragment
 	      withoutHashUrl = beginsWith(hashPrefix, withoutBaseUrl);
@@ -12663,7 +12664,7 @@
 	        // There was no hashbang prefix so we just have a hash fragment
 	        withoutHashUrl = withoutBaseUrl;
 	      }
-
+	
 	    } else {
 	      // There was no hashbang path nor hash fragment:
 	      // If we are in HTML5 mode we use what is left as the path;
@@ -12678,13 +12679,13 @@
 	        }
 	      }
 	    }
-
+	
 	    parseAppUrl(withoutHashUrl, this);
-
+	
 	    this.$$path = removeWindowsDriveName(this.$$path, withoutHashUrl, appBase);
-
+	
 	    this.$$compose();
-
+	
 	    /*
 	     * In Windows, on an anchor node on documents loaded from
 	     * the filesystem, the browser will return a pathname
@@ -12702,24 +12703,24 @@
 	      such as /C:/foo/bar, and captures only /foo/bar.
 	      */
 	      var windowsFilePathExp = /^\/[A-Z]:(\/.*)/;
-
+	
 	      var firstPathSegmentMatch;
-
+	
 	      //Get the relative path from the input URL.
 	      if (url.indexOf(base) === 0) {
 	        url = url.replace(base, '');
 	      }
-
+	
 	      // The input URL intentionally contains a first path segment that ends with a colon.
 	      if (windowsFilePathExp.exec(url)) {
 	        return path;
 	      }
-
+	
 	      firstPathSegmentMatch = windowsFilePathExp.exec(path);
 	      return firstPathSegmentMatch ? firstPathSegmentMatch[1] : path;
 	    }
 	  };
-
+	
 	  /**
 	   * Compose hashbang url and update `absUrl` property
 	   * @private
@@ -12727,11 +12728,11 @@
 	  this.$$compose = function() {
 	    var search = toKeyValue(this.$$search),
 	        hash = this.$$hash ? '#' + encodeUriSegment(this.$$hash) : '';
-
+	
 	    this.$$url = encodePath(this.$$path) + (search ? '?' + search : '') + hash;
 	    this.$$absUrl = appBase + (this.$$url ? hashPrefix + this.$$url : '');
 	  };
-
+	
 	  this.$$parseLinkUrl = function(url, relHref) {
 	    if (stripHash(appBase) == stripHash(url)) {
 	      this.$$parse(url);
@@ -12740,8 +12741,8 @@
 	    return false;
 	  };
 	}
-
-
+	
+	
 	/**
 	 * LocationHashbangUrl represents url
 	 * This object is exposed as $location service when html5 history api is enabled but the browser
@@ -12755,7 +12756,7 @@
 	function LocationHashbangInHtml5Url(appBase, appBaseNoFile, hashPrefix) {
 	  this.$$html5 = true;
 	  LocationHashbangUrl.apply(this, arguments);
-
+	
 	  this.$$parseLinkUrl = function(url, relHref) {
 	    if (relHref && relHref[0] === '#') {
 	      // special case for links to hash fragments:
@@ -12763,10 +12764,10 @@
 	      this.hash(relHref.slice(1));
 	      return true;
 	    }
-
+	
 	    var rewrittenUrl;
 	    var appUrl;
-
+	
 	    if (appBase == stripHash(url)) {
 	      rewrittenUrl = url;
 	    } else if ((appUrl = beginsWith(appBaseNoFile, url))) {
@@ -12779,33 +12780,33 @@
 	    }
 	    return !!rewrittenUrl;
 	  };
-
+	
 	  this.$$compose = function() {
 	    var search = toKeyValue(this.$$search),
 	        hash = this.$$hash ? '#' + encodeUriSegment(this.$$hash) : '';
-
+	
 	    this.$$url = encodePath(this.$$path) + (search ? '?' + search : '') + hash;
 	    // include hashPrefix in $$absUrl when $$url is empty so IE9 does not reload page because of removal of '#'
 	    this.$$absUrl = appBase + hashPrefix + this.$$url;
 	  };
-
+	
 	}
-
-
+	
+	
 	var locationPrototype = {
-
+	
 	  /**
 	   * Are we in html5 mode?
 	   * @private
 	   */
 	  $$html5: false,
-
+	
 	  /**
 	   * Has any change been replacing?
 	   * @private
 	   */
 	  $$replace: false,
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#absUrl
@@ -12826,7 +12827,7 @@
 	   * @return {string} full url
 	   */
 	  absUrl: locationGetter('$$absUrl'),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#url
@@ -12852,15 +12853,15 @@
 	    if (isUndefined(url)) {
 	      return this.$$url;
 	    }
-
+	
 	    var match = PATH_MATCH.exec(url);
 	    if (match[1] || url === '') this.path(decodeURIComponent(match[1]));
 	    if (match[2] || match[1] || url === '') this.search(match[3] || '');
 	    this.hash(match[5] || '');
-
+	
 	    return this;
 	  },
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#protocol
@@ -12880,7 +12881,7 @@
 	   * @return {string} protocol of current url
 	   */
 	  protocol: locationGetter('$$protocol'),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#host
@@ -12908,7 +12909,7 @@
 	   * @return {string} host of current url.
 	   */
 	  host: locationGetter('$$host'),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#port
@@ -12928,7 +12929,7 @@
 	   * @return {Number} port
 	   */
 	  port: locationGetter('$$port'),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#path
@@ -12957,7 +12958,7 @@
 	    path = path !== null ? path.toString() : '';
 	    return path.charAt(0) == '/' ? path : '/' + path;
 	  }),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#search
@@ -13017,7 +13018,7 @@
 	          forEach(search, function(value, key) {
 	            if (value == null) delete search[key];
 	          });
-
+	
 	          this.$$search = search;
 	        } else {
 	          throw $locationMinErr('isrcharg',
@@ -13031,11 +13032,11 @@
 	          this.$$search[search] = paramValue;
 	        }
 	    }
-
+	
 	    this.$$compose();
 	    return this;
 	  },
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#hash
@@ -13060,7 +13061,7 @@
 	  hash: locationGetterSetter('$$hash', function(hash) {
 	    return hash !== null ? hash.toString() : '';
 	  }),
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#replace
@@ -13074,10 +13075,10 @@
 	    return this;
 	  }
 	};
-
+	
 	forEach([LocationHashbangInHtml5Url, LocationHashbangUrl, LocationHtml5Url], function(Location) {
 	  Location.prototype = Object.create(locationPrototype);
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $location#state
@@ -13101,7 +13102,7 @@
 	    if (!arguments.length) {
 	      return this.$$state;
 	    }
-
+	
 	    if (Location !== LocationHtml5Url || !this.$$html5) {
 	      throw $locationMinErr('nostate', 'History API state support is available only ' +
 	        'in HTML5 mode and only in browsers supporting HTML5 History API');
@@ -13110,33 +13111,33 @@
 	    // but we're changing the $$state reference to $browser.state() during the $digest
 	    // so the modification window is narrow.
 	    this.$$state = isUndefined(state) ? null : state;
-
+	
 	    return this;
 	  };
 	});
-
-
+	
+	
 	function locationGetter(property) {
 	  return function() {
 	    return this[property];
 	  };
 	}
-
-
+	
+	
 	function locationGetterSetter(property, preprocess) {
 	  return function(value) {
 	    if (isUndefined(value)) {
 	      return this[property];
 	    }
-
+	
 	    this[property] = preprocess(value);
 	    this.$$compose();
-
+	
 	    return this;
 	  };
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc service
 	 * @name $location
@@ -13162,7 +13163,7 @@
 	 *
 	 * For more information see {@link guide/$location Developer Guide: Using $location}
 	 */
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $locationProvider
@@ -13176,7 +13177,7 @@
 	        requireBase: true,
 	        rewriteLinks: true
 	      };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $locationProvider#hashPrefix
@@ -13192,7 +13193,7 @@
 	      return hashPrefix;
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $locationProvider#html5Mode
@@ -13217,25 +13218,25 @@
 	      html5Mode.enabled = mode;
 	      return this;
 	    } else if (isObject(mode)) {
-
+	
 	      if (isBoolean(mode.enabled)) {
 	        html5Mode.enabled = mode.enabled;
 	      }
-
+	
 	      if (isBoolean(mode.requireBase)) {
 	        html5Mode.requireBase = mode.requireBase;
 	      }
-
+	
 	      if (isBoolean(mode.rewriteLinks)) {
 	        html5Mode.rewriteLinks = mode.rewriteLinks;
 	      }
-
+	
 	      return this;
 	    } else {
 	      return html5Mode;
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc event
 	   * @name $location#$locationChangeStart
@@ -13257,7 +13258,7 @@
 	   * @param {string=} newState New history state object
 	   * @param {string=} oldState History state object that was before it was changed.
 	   */
-
+	
 	  /**
 	   * @ngdoc event
 	   * @name $location#$locationChangeSuccess
@@ -13274,7 +13275,7 @@
 	   * @param {string=} newState New history state object
 	   * @param {string=} oldState History state object that was before it was changed.
 	   */
-
+	
 	  this.$get = ['$rootScope', '$browser', '$sniffer', '$rootElement', '$window',
 	      function($rootScope, $browser, $sniffer, $rootElement, $window) {
 	    var $location,
@@ -13282,7 +13283,7 @@
 	        baseHref = $browser.baseHref(), // if base[href] is undefined, it defaults to ''
 	        initialUrl = $browser.url(),
 	        appBase;
-
+	
 	    if (html5Mode.enabled) {
 	      if (!baseHref && html5Mode.requireBase) {
 	        throw $locationMinErr('nobase',
@@ -13295,20 +13296,20 @@
 	      LocationMode = LocationHashbangUrl;
 	    }
 	    var appBaseNoFile = stripFile(appBase);
-
+	
 	    $location = new LocationMode(appBase, appBaseNoFile, '#' + hashPrefix);
 	    $location.$$parseLinkUrl(initialUrl, initialUrl);
-
+	
 	    $location.$$state = $browser.state();
-
+	
 	    var IGNORE_URI_REGEXP = /^\s*(javascript|mailto):/i;
-
+	
 	    function setBrowserUrlWithFallback(url, replace, state) {
 	      var oldUrl = $location.url();
 	      var oldState = $location.$$state;
 	      try {
 	        $browser.url(url, replace, state);
-
+	
 	        // Make sure $location.state() returns referentially identical (not just deeply equal)
 	        // state object; this makes possible quick checking if the state changed in the digest
 	        // loop. Checking deep equality would be too expensive.
@@ -13317,39 +13318,39 @@
 	        // Restore old values if pushState fails
 	        $location.url(oldUrl);
 	        $location.$$state = oldState;
-
+	
 	        throw e;
 	      }
 	    }
-
+	
 	    $rootElement.on('click', function(event) {
 	      // TODO(vojta): rewrite link when opening in new tab/window (in legacy browser)
 	      // currently we open nice url link and redirect then
-
+	
 	      if (!html5Mode.rewriteLinks || event.ctrlKey || event.metaKey || event.shiftKey || event.which == 2 || event.button == 2) return;
-
+	
 	      var elm = jqLite(event.target);
-
+	
 	      // traverse the DOM up to find first A tag
 	      while (nodeName_(elm[0]) !== 'a') {
 	        // ignore rewriting if no A tag (reached root element, or no parent - removed from document)
 	        if (elm[0] === $rootElement[0] || !(elm = elm.parent())[0]) return;
 	      }
-
+	
 	      var absHref = elm.prop('href');
 	      // get the actual href attribute - see
 	      // http://msdn.microsoft.com/en-us/library/ie/dd347148(v=vs.85).aspx
 	      var relHref = elm.attr('href') || elm.attr('xlink:href');
-
+	
 	      if (isObject(absHref) && absHref.toString() === '[object SVGAnimatedString]') {
 	        // SVGAnimatedString.animVal should be identical to SVGAnimatedString.baseVal, unless during
 	        // an animation.
 	        absHref = urlResolve(absHref.animVal).href;
 	      }
-
+	
 	      // Ignore when url is started with javascript: or mailto:
 	      if (IGNORE_URI_REGEXP.test(absHref)) return;
-
+	
 	      if (absHref && !elm.attr('target') && !event.isDefaultPrevented()) {
 	        if ($location.$$parseLinkUrl(absHref, relHref)) {
 	          // We do a preventDefault for all urls that are part of the angular application,
@@ -13365,24 +13366,24 @@
 	        }
 	      }
 	    });
-
-
+	
+	
 	    // rewrite hashbang url <> html5 url
 	    if (trimEmptyHash($location.absUrl()) != trimEmptyHash(initialUrl)) {
 	      $browser.url($location.absUrl(), true);
 	    }
-
+	
 	    var initializing = true;
-
+	
 	    // update $location when $browser url changes
 	    $browser.onUrlChange(function(newUrl, newState) {
-
+	
 	      if (isUndefined(beginsWith(appBaseNoFile, newUrl))) {
 	        // If we are navigating outside of the app then force a reload
 	        $window.location.href = newUrl;
 	        return;
 	      }
-
+	
 	      $rootScope.$evalAsync(function() {
 	        var oldUrl = $location.absUrl();
 	        var oldState = $location.$$state;
@@ -13390,14 +13391,14 @@
 	        newUrl = trimEmptyHash(newUrl);
 	        $location.$$parse(newUrl);
 	        $location.$$state = newState;
-
+	
 	        defaultPrevented = $rootScope.$broadcast('$locationChangeStart', newUrl, oldUrl,
 	            newState, oldState).defaultPrevented;
-
+	
 	        // if the location was changed by a `$locationChangeStart` handler then stop
 	        // processing this location change
 	        if ($location.absUrl() !== newUrl) return;
-
+	
 	        if (defaultPrevented) {
 	          $location.$$parse(oldUrl);
 	          $location.$$state = oldState;
@@ -13409,7 +13410,7 @@
 	      });
 	      if (!$rootScope.$$phase) $rootScope.$digest();
 	    });
-
+	
 	    // update browser
 	    $rootScope.$watch(function $locationWatch() {
 	      var oldUrl = trimEmptyHash($browser.url());
@@ -13418,19 +13419,19 @@
 	      var currentReplace = $location.$$replace;
 	      var urlOrStateChanged = oldUrl !== newUrl ||
 	        ($location.$$html5 && $sniffer.history && oldState !== $location.$$state);
-
+	
 	      if (initializing || urlOrStateChanged) {
 	        initializing = false;
-
+	
 	        $rootScope.$evalAsync(function() {
 	          var newUrl = $location.absUrl();
 	          var defaultPrevented = $rootScope.$broadcast('$locationChangeStart', newUrl, oldUrl,
 	              $location.$$state, oldState).defaultPrevented;
-
+	
 	          // if the location was changed by a `$locationChangeStart` handler then stop
 	          // processing this location change
 	          if ($location.absUrl() !== newUrl) return;
-
+	
 	          if (defaultPrevented) {
 	            $location.$$parse(oldUrl);
 	            $location.$$state = oldState;
@@ -13443,22 +13444,22 @@
 	          }
 	        });
 	      }
-
+	
 	      $location.$$replace = false;
-
+	
 	      // we don't need to return anything because $evalAsync will make the digest loop dirty when
 	      // there is a change
 	    });
-
+	
 	    return $location;
-
+	
 	    function afterLocationChange(oldUrl, oldState) {
 	      $rootScope.$broadcast('$locationChangeSuccess', $location.absUrl(), oldUrl,
 	        $location.$$state, oldState);
 	    }
 	}];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $log
@@ -13496,7 +13497,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $logProvider
@@ -13506,7 +13507,7 @@
 	function $LogProvider() {
 	  var debug = true,
 	      self = this;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $logProvider#debugEnabled
@@ -13522,7 +13523,7 @@
 	      return debug;
 	    }
 	  };
-
+	
 	  this.$get = ['$window', function($window) {
 	    return {
 	      /**
@@ -13533,7 +13534,7 @@
 	       * Write a log message
 	       */
 	      log: consoleLog('log'),
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $log#info
@@ -13542,7 +13543,7 @@
 	       * Write an information message
 	       */
 	      info: consoleLog('info'),
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $log#warn
@@ -13551,7 +13552,7 @@
 	       * Write a warning message
 	       */
 	      warn: consoleLog('warn'),
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $log#error
@@ -13560,7 +13561,7 @@
 	       * Write an error message
 	       */
 	      error: consoleLog('error'),
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $log#debug
@@ -13570,7 +13571,7 @@
 	       */
 	      debug: (function() {
 	        var fn = consoleLog('debug');
-
+	
 	        return function() {
 	          if (debug) {
 	            fn.apply(self, arguments);
@@ -13578,7 +13579,7 @@
 	        };
 	      }())
 	    };
-
+	
 	    function formatError(arg) {
 	      if (arg instanceof Error) {
 	        if (arg.stack) {
@@ -13591,18 +13592,18 @@
 	      }
 	      return arg;
 	    }
-
+	
 	    function consoleLog(type) {
 	      var console = $window.console || {},
 	          logFn = console[type] || console.log || noop,
 	          hasApply = false;
-
+	
 	      // Note: reading logFn.apply throws an error in IE11 in IE8 document mode.
 	      // The reason behind this is that console.log has type "object" in IE8...
 	      try {
 	        hasApply = !!logFn.apply;
 	      } catch (e) {}
-
+	
 	      if (hasApply) {
 	        return function() {
 	          var args = [];
@@ -13612,7 +13613,7 @@
 	          return logFn.apply(console, args);
 	        };
 	      }
-
+	
 	      // we are IE which either doesn't have window.console => this is noop and we do nothing,
 	      // or we are IE where console.log doesn't have apply so we log at least first 2 args
 	      return function(arg1, arg2) {
@@ -13621,7 +13622,7 @@
 	    }
 	  }];
 	}
-
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *     Any commits to this file should be reviewed with security in mind.  *
 	 *   Changes to this file can potentially create security vulnerabilities. *
@@ -13632,9 +13633,9 @@
 	 *    Or allows for someone to change the prototype of built-in objects?   *
 	 *     Or gives undesired access to variables likes document or window?    *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+	
 	var $parseMinErr = minErr('$parse');
-
+	
 	// Sandboxing Angular Expressions
 	// ------------------------------
 	// Angular expressions are generally considered safe because these expressions only have direct
@@ -13657,8 +13658,8 @@
 	// native objects.
 	//
 	// See https://docs.angularjs.org/guide/security
-
-
+	
+	
 	function ensureSafeMemberName(name, fullExpression) {
 	  if (name === "__defineGetter__" || name === "__defineSetter__"
 	      || name === "__lookupGetter__" || name === "__lookupSetter__"
@@ -13669,7 +13670,7 @@
 	  }
 	  return name;
 	}
-
+	
 	function getStringValue(name) {
 	  // Property names must be strings. This means that non-string objects cannot be used
 	  // as keys in an object. Any non-string object, including a number, is typecasted
@@ -13687,7 +13688,7 @@
 	  // such a 'broken' object as a key.
 	  return name + '';
 	}
-
+	
 	function ensureSafeObject(obj, fullExpression) {
 	  // nifty check if obj is Function that is fast and works across iframes and other contexts
 	  if (obj) {
@@ -13714,11 +13715,11 @@
 	  }
 	  return obj;
 	}
-
+	
 	var CALL = Function.prototype.call;
 	var APPLY = Function.prototype.apply;
 	var BIND = Function.prototype.bind;
-
+	
 	function ensureSafeFunction(obj, fullExpression) {
 	  if (obj) {
 	    if (obj.constructor === obj) {
@@ -13732,7 +13733,7 @@
 	    }
 	  }
 	}
-
+	
 	function ensureSafeAssignContext(obj, fullExpression) {
 	  if (obj) {
 	    if (obj === (0).constructor || obj === (false).constructor || obj === ''.constructor ||
@@ -13742,30 +13743,30 @@
 	    }
 	  }
 	}
-
+	
 	var OPERATORS = createMap();
 	forEach('+ - * / % === !== == != < > <= >= && || ! = |'.split(' '), function(operator) { OPERATORS[operator] = true; });
 	var ESCAPE = {"n":"\n", "f":"\f", "r":"\r", "t":"\t", "v":"\v", "'":"'", '"':'"'};
-
-
+	
+	
 	/////////////////////////////////////////
-
-
+	
+	
 	/**
 	 * @constructor
 	 */
 	var Lexer = function(options) {
 	  this.options = options;
 	};
-
+	
 	Lexer.prototype = {
 	  constructor: Lexer,
-
+	
 	  lex: function(text) {
 	    this.text = text;
 	    this.index = 0;
 	    this.tokens = [];
-
+	
 	    while (this.index < this.text.length) {
 	      var ch = this.text.charAt(this.index);
 	      if (ch === '"' || ch === "'") {
@@ -13796,55 +13797,55 @@
 	    }
 	    return this.tokens;
 	  },
-
+	
 	  is: function(ch, chars) {
 	    return chars.indexOf(ch) !== -1;
 	  },
-
+	
 	  peek: function(i) {
 	    var num = i || 1;
 	    return (this.index + num < this.text.length) ? this.text.charAt(this.index + num) : false;
 	  },
-
+	
 	  isNumber: function(ch) {
 	    return ('0' <= ch && ch <= '9') && typeof ch === "string";
 	  },
-
+	
 	  isWhitespace: function(ch) {
 	    // IE treats non-breaking space as \u00A0
 	    return (ch === ' ' || ch === '\r' || ch === '\t' ||
 	            ch === '\n' || ch === '\v' || ch === '\u00A0');
 	  },
-
+	
 	  isIdentifierStart: function(ch) {
 	    return this.options.isIdentifierStart ?
 	        this.options.isIdentifierStart(ch, this.codePointAt(ch)) :
 	        this.isValidIdentifierStart(ch);
 	  },
-
+	
 	  isValidIdentifierStart: function(ch) {
 	    return ('a' <= ch && ch <= 'z' ||
 	            'A' <= ch && ch <= 'Z' ||
 	            '_' === ch || ch === '$');
 	  },
-
+	
 	  isIdentifierContinue: function(ch) {
 	    return this.options.isIdentifierContinue ?
 	        this.options.isIdentifierContinue(ch, this.codePointAt(ch)) :
 	        this.isValidIdentifierContinue(ch);
 	  },
-
+	
 	  isValidIdentifierContinue: function(ch, cp) {
 	    return this.isValidIdentifierStart(ch, cp) || this.isNumber(ch);
 	  },
-
+	
 	  codePointAt: function(ch) {
 	    if (ch.length === 1) return ch.charCodeAt(0);
 	    /*jshint bitwise: false*/
 	    return (ch.charCodeAt(0) << 10) + ch.charCodeAt(1) - 0x35FDC00;
 	    /*jshint bitwise: true*/
 	  },
-
+	
 	  peekMultichar: function() {
 	    var ch = this.text.charAt(this.index);
 	    var peek = this.peek();
@@ -13858,11 +13859,11 @@
 	    }
 	    return ch;
 	  },
-
+	
 	  isExpOperator: function(ch) {
 	    return (ch === '-' || ch === '+' || this.isNumber(ch));
 	  },
-
+	
 	  throwError: function(error, start, end) {
 	    end = end || this.index;
 	    var colStr = (isDefined(start)
@@ -13871,7 +13872,7 @@
 	    throw $parseMinErr('lexerr', 'Lexer Error: {0} at column{1} in expression [{2}].',
 	        error, colStr, this.text);
 	  },
-
+	
 	  readNumber: function() {
 	    var number = '';
 	    var start = this.index;
@@ -13904,7 +13905,7 @@
 	      value: Number(number)
 	    });
 	  },
-
+	
 	  readIdent: function() {
 	    var start = this.index;
 	    this.index += this.peekMultichar().length;
@@ -13921,7 +13922,7 @@
 	      identifier: true
 	    });
 	  },
-
+	
 	  readString: function(quote) {
 	    var start = this.index;
 	    this.index++;
@@ -13963,12 +13964,12 @@
 	    this.throwError('Unterminated quote', start);
 	  }
 	};
-
+	
 	var AST = function(lexer, options) {
 	  this.lexer = lexer;
 	  this.options = options;
 	};
-
+	
 	AST.Program = 'Program';
 	AST.ExpressionStatement = 'ExpressionStatement';
 	AST.AssignmentExpression = 'AssignmentExpression';
@@ -13985,24 +13986,24 @@
 	AST.ObjectExpression = 'ObjectExpression';
 	AST.ThisExpression = 'ThisExpression';
 	AST.LocalsExpression = 'LocalsExpression';
-
+	
 	// Internal use only
 	AST.NGValueParameter = 'NGValueParameter';
-
+	
 	AST.prototype = {
 	  ast: function(text) {
 	    this.text = text;
 	    this.tokens = this.lexer.lex(text);
-
+	
 	    var value = this.program();
-
+	
 	    if (this.tokens.length !== 0) {
 	      this.throwError('is an unexpected token', this.tokens[0]);
 	    }
-
+	
 	    return value;
 	  },
-
+	
 	  program: function() {
 	    var body = [];
 	    while (true) {
@@ -14013,11 +14014,11 @@
 	      }
 	    }
 	  },
-
+	
 	  expressionStatement: function() {
 	    return { type: AST.ExpressionStatement, expression: this.filterChain() };
 	  },
-
+	
 	  filterChain: function() {
 	    var left = this.expression();
 	    var token;
@@ -14026,11 +14027,11 @@
 	    }
 	    return left;
 	  },
-
+	
 	  expression: function() {
 	    return this.assignment();
 	  },
-
+	
 	  assignment: function() {
 	    var result = this.ternary();
 	    if (this.expect('=')) {
@@ -14038,7 +14039,7 @@
 	    }
 	    return result;
 	  },
-
+	
 	  ternary: function() {
 	    var test = this.logicalOR();
 	    var alternate;
@@ -14052,7 +14053,7 @@
 	    }
 	    return test;
 	  },
-
+	
 	  logicalOR: function() {
 	    var left = this.logicalAND();
 	    while (this.expect('||')) {
@@ -14060,7 +14061,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  logicalAND: function() {
 	    var left = this.equality();
 	    while (this.expect('&&')) {
@@ -14068,7 +14069,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  equality: function() {
 	    var left = this.relational();
 	    var token;
@@ -14077,7 +14078,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  relational: function() {
 	    var left = this.additive();
 	    var token;
@@ -14086,7 +14087,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  additive: function() {
 	    var left = this.multiplicative();
 	    var token;
@@ -14095,7 +14096,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  multiplicative: function() {
 	    var left = this.unary();
 	    var token;
@@ -14104,7 +14105,7 @@
 	    }
 	    return left;
 	  },
-
+	
 	  unary: function() {
 	    var token;
 	    if ((token = this.expect('+', '-', '!'))) {
@@ -14113,7 +14114,7 @@
 	      return this.primary();
 	    }
 	  },
-
+	
 	  primary: function() {
 	    var primary;
 	    if (this.expect('(')) {
@@ -14134,7 +14135,7 @@
 	    } else {
 	      this.throwError('not a primary expression', this.peek());
 	    }
-
+	
 	    var next;
 	    while ((next = this.expect('(', '[', '.'))) {
 	      if (next.text === '(') {
@@ -14151,18 +14152,18 @@
 	    }
 	    return primary;
 	  },
-
+	
 	  filter: function(baseExpression) {
 	    var args = [baseExpression];
 	    var result = {type: AST.CallExpression, callee: this.identifier(), arguments: args, filter: true};
-
+	
 	    while (this.expect(':')) {
 	      args.push(this.expression());
 	    }
-
+	
 	    return result;
 	  },
-
+	
 	  parseArguments: function() {
 	    var args = [];
 	    if (this.peekToken().text !== ')') {
@@ -14172,7 +14173,7 @@
 	    }
 	    return args;
 	  },
-
+	
 	  identifier: function() {
 	    var token = this.consume();
 	    if (!token.identifier) {
@@ -14180,12 +14181,12 @@
 	    }
 	    return { type: AST.Identifier, name: token.text };
 	  },
-
+	
 	  constant: function() {
 	    // TODO check that it is a constant
 	    return { type: AST.Literal, value: this.consume().value };
 	  },
-
+	
 	  arrayDeclaration: function() {
 	    var elements = [];
 	    if (this.peekToken().text !== ']') {
@@ -14198,10 +14199,10 @@
 	      } while (this.expect(','));
 	    }
 	    this.consume(']');
-
+	
 	    return { type: AST.ArrayExpression, elements: elements };
 	  },
-
+	
 	  object: function() {
 	    var properties = [], property;
 	    if (this.peekToken().text !== '}') {
@@ -14224,39 +14225,39 @@
 	      } while (this.expect(','));
 	    }
 	    this.consume('}');
-
+	
 	    return {type: AST.ObjectExpression, properties: properties };
 	  },
-
+	
 	  throwError: function(msg, token) {
 	    throw $parseMinErr('syntax',
 	        'Syntax Error: Token \'{0}\' {1} at column {2} of the expression [{3}] starting at [{4}].',
 	          token.text, msg, (token.index + 1), this.text, this.text.substring(token.index));
 	  },
-
+	
 	  consume: function(e1) {
 	    if (this.tokens.length === 0) {
 	      throw $parseMinErr('ueoe', 'Unexpected end of expression: {0}', this.text);
 	    }
-
+	
 	    var token = this.expect(e1);
 	    if (!token) {
 	      this.throwError('is unexpected, expecting [' + e1 + ']', this.peek());
 	    }
 	    return token;
 	  },
-
+	
 	  peekToken: function() {
 	    if (this.tokens.length === 0) {
 	      throw $parseMinErr('ueoe', 'Unexpected end of expression: {0}', this.text);
 	    }
 	    return this.tokens[0];
 	  },
-
+	
 	  peek: function(e1, e2, e3, e4) {
 	    return this.peekAhead(0, e1, e2, e3, e4);
 	  },
-
+	
 	  peekAhead: function(i, e1, e2, e3, e4) {
 	    if (this.tokens.length > i) {
 	      var token = this.tokens[i];
@@ -14268,7 +14269,7 @@
 	    }
 	    return false;
 	  },
-
+	
 	  expect: function(e1, e2, e3, e4) {
 	    var token = this.peek(e1, e2, e3, e4);
 	    if (token) {
@@ -14277,28 +14278,28 @@
 	    }
 	    return false;
 	  },
-
+	
 	  selfReferential: {
 	    'this': {type: AST.ThisExpression },
 	    '$locals': {type: AST.LocalsExpression }
 	  }
 	};
-
+	
 	function ifDefined(v, d) {
 	  return typeof v !== 'undefined' ? v : d;
 	}
-
+	
 	function plusFn(l, r) {
 	  if (typeof l === 'undefined') return r;
 	  if (typeof r === 'undefined') return l;
 	  return l + r;
 	}
-
+	
 	function isStateless($filter, filterName) {
 	  var fn = $filter(filterName);
 	  return !fn.$stateful;
 	}
-
+	
 	function findConstantAndWatchExpressions(ast, $filter) {
 	  var allConstants;
 	  var argsToWatch;
@@ -14406,7 +14407,7 @@
 	    break;
 	  }
 	}
-
+	
 	function getInputs(body) {
 	  if (body.length != 1) return;
 	  var lastExpression = body[0].expression;
@@ -14414,17 +14415,17 @@
 	  if (candidate.length !== 1) return candidate;
 	  return candidate[0] !== lastExpression ? candidate : undefined;
 	}
-
+	
 	function isAssignable(ast) {
 	  return ast.type === AST.Identifier || ast.type === AST.MemberExpression;
 	}
-
+	
 	function assignableAST(ast) {
 	  if (ast.body.length === 1 && isAssignable(ast.body[0].expression)) {
 	    return {type: AST.AssignmentExpression, left: ast.body[0].expression, right: {type: AST.NGValueParameter}, operator: '='};
 	  }
 	}
-
+	
 	function isLiteral(ast) {
 	  return ast.body.length === 0 ||
 	      ast.body.length === 1 && (
@@ -14432,16 +14433,16 @@
 	      ast.body[0].expression.type === AST.ArrayExpression ||
 	      ast.body[0].expression.type === AST.ObjectExpression);
 	}
-
+	
 	function isConstant(ast) {
 	  return ast.constant;
 	}
-
+	
 	function ASTCompiler(astBuilder, $filter) {
 	  this.astBuilder = astBuilder;
 	  this.$filter = $filter;
 	}
-
+	
 	ASTCompiler.prototype = {
 	  compile: function(expression, expensiveChecks) {
 	    var self = this;
@@ -14489,7 +14490,7 @@
 	      extra +
 	      this.watchFns() +
 	      'return fn;';
-
+	
 	    /* jshint -W054 */
 	    var fn = (new Function('$filter',
 	        'ensureSafeMemberName',
@@ -14516,11 +14517,11 @@
 	    fn.constant = isConstant(ast);
 	    return fn;
 	  },
-
+	
 	  USE: 'use',
-
+	
 	  STRICT: 'strict',
-
+	
 	  watchFns: function() {
 	    var result = [];
 	    var fns = this.state.inputs;
@@ -14533,14 +14534,14 @@
 	    }
 	    return result.join('');
 	  },
-
+	
 	  generateFunction: function(name, params) {
 	    return 'function(' + params + '){' +
 	        this.varsPrefix(name) +
 	        this.body(name) +
 	        '};';
 	  },
-
+	
 	  filterPrefix: function() {
 	    var parts = [];
 	    var self = this;
@@ -14550,15 +14551,15 @@
 	    if (parts.length) return 'var ' + parts.join(',') + ';';
 	    return '';
 	  },
-
+	
 	  varsPrefix: function(section) {
 	    return this.state[section].vars.length ? 'var ' + this.state[section].vars.join(',') + ';' : '';
 	  },
-
+	
 	  body: function(section) {
 	    return this.state[section].body.join('');
 	  },
-
+	
 	  recurse: function(ast, intoId, nameId, recursionFn, create, skipWatchIdCheck) {
 	    var left, right, self = this, args, expression;
 	    recursionFn = recursionFn || noop;
@@ -14783,7 +14784,7 @@
 	      break;
 	    }
 	  },
-
+	
 	  getHasOwnProperty: function(element, property) {
 	    var key = element + '.' + property;
 	    var own = this.current().own;
@@ -14792,32 +14793,32 @@
 	    }
 	    return own[key];
 	  },
-
+	
 	  assign: function(id, value) {
 	    if (!id) return;
 	    this.current().body.push(id, '=', value, ';');
 	    return id;
 	  },
-
+	
 	  filter: function(filterName) {
 	    if (!this.state.filters.hasOwnProperty(filterName)) {
 	      this.state.filters[filterName] = this.nextId(true);
 	    }
 	    return this.state.filters[filterName];
 	  },
-
+	
 	  ifDefined: function(id, defaultValue) {
 	    return 'ifDefined(' + id + ',' + this.escape(defaultValue) + ')';
 	  },
-
+	
 	  plus: function(left, right) {
 	    return 'plus(' + left + ',' + right + ')';
 	  },
-
+	
 	  return_: function(id) {
 	    this.current().body.push('return ', id, ';');
 	  },
-
+	
 	  if_: function(test, alternate, consequent) {
 	    if (test === true) {
 	      alternate();
@@ -14833,15 +14834,15 @@
 	      }
 	    }
 	  },
-
+	
 	  not: function(expression) {
 	    return '!(' + expression + ')';
 	  },
-
+	
 	  notNull: function(expression) {
 	    return expression + '!=null';
 	  },
-
+	
 	  nonComputedMember: function(left, right) {
 	    var SAFE_IDENTIFIER = /[$_a-zA-Z][$_a-zA-Z0-9]*/;
 	    var UNSAFE_CHARACTERS = /[^$_a-zA-Z0-9]/g;
@@ -14851,72 +14852,72 @@
 	      return left  + '["' + right.replace(UNSAFE_CHARACTERS, this.stringEscapeFn) + '"]';
 	    }
 	  },
-
+	
 	  computedMember: function(left, right) {
 	    return left + '[' + right + ']';
 	  },
-
+	
 	  member: function(left, right, computed) {
 	    if (computed) return this.computedMember(left, right);
 	    return this.nonComputedMember(left, right);
 	  },
-
+	
 	  addEnsureSafeObject: function(item) {
 	    this.current().body.push(this.ensureSafeObject(item), ';');
 	  },
-
+	
 	  addEnsureSafeMemberName: function(item) {
 	    this.current().body.push(this.ensureSafeMemberName(item), ';');
 	  },
-
+	
 	  addEnsureSafeFunction: function(item) {
 	    this.current().body.push(this.ensureSafeFunction(item), ';');
 	  },
-
+	
 	  addEnsureSafeAssignContext: function(item) {
 	    this.current().body.push(this.ensureSafeAssignContext(item), ';');
 	  },
-
+	
 	  ensureSafeObject: function(item) {
 	    return 'ensureSafeObject(' + item + ',text)';
 	  },
-
+	
 	  ensureSafeMemberName: function(item) {
 	    return 'ensureSafeMemberName(' + item + ',text)';
 	  },
-
+	
 	  ensureSafeFunction: function(item) {
 	    return 'ensureSafeFunction(' + item + ',text)';
 	  },
-
+	
 	  getStringValue: function(item) {
 	    this.assign(item, 'getStringValue(' + item + ')');
 	  },
-
+	
 	  ensureSafeAssignContext: function(item) {
 	    return 'ensureSafeAssignContext(' + item + ',text)';
 	  },
-
+	
 	  lazyRecurse: function(ast, intoId, nameId, recursionFn, create, skipWatchIdCheck) {
 	    var self = this;
 	    return function() {
 	      self.recurse(ast, intoId, nameId, recursionFn, create, skipWatchIdCheck);
 	    };
 	  },
-
+	
 	  lazyAssign: function(id, value) {
 	    var self = this;
 	    return function() {
 	      self.assign(id, value);
 	    };
 	  },
-
+	
 	  stringEscapeRegex: /[^ a-zA-Z0-9]/g,
-
+	
 	  stringEscapeFn: function(c) {
 	    return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
 	  },
-
+	
 	  escape: function(value) {
 	    if (isString(value)) return "'" + value.replace(this.stringEscapeRegex, this.stringEscapeFn) + "'";
 	    if (isNumber(value)) return value.toString();
@@ -14924,10 +14925,10 @@
 	    if (value === false) return 'false';
 	    if (value === null) return 'null';
 	    if (typeof value === 'undefined') return 'undefined';
-
+	
 	    throw $parseMinErr('esc', 'IMPOSSIBLE');
 	  },
-
+	
 	  nextId: function(skip, init) {
 	    var id = 'v' + (this.state.nextId++);
 	    if (!skip) {
@@ -14935,18 +14936,18 @@
 	    }
 	    return id;
 	  },
-
+	
 	  current: function() {
 	    return this.state[this.state.computing];
 	  }
 	};
-
-
+	
+	
 	function ASTInterpreter(astBuilder, $filter) {
 	  this.astBuilder = astBuilder;
 	  this.$filter = $filter;
 	}
-
+	
 	ASTInterpreter.prototype = {
 	  compile: function(expression, expensiveChecks) {
 	    var self = this;
@@ -14995,7 +14996,7 @@
 	    fn.constant = isConstant(ast);
 	    return fn;
 	  },
-
+	
 	  recurse: function(ast, context, create) {
 	    var left, right, self = this, args, expression;
 	    if (ast.input) {
@@ -15120,7 +15121,7 @@
 	      };
 	    }
 	  },
-
+	
 	  'unary+': function(argument, context) {
 	    return function(scope, locals, assign, inputs) {
 	      var arg = argument(scope, locals, assign, inputs);
@@ -15321,7 +15322,7 @@
 	    };
 	  }
 	};
-
+	
 	/**
 	 * @constructor
 	 */
@@ -15333,27 +15334,27 @@
 	  this.astCompiler = options.csp ? new ASTInterpreter(this.ast, $filter) :
 	                                   new ASTCompiler(this.ast, $filter);
 	};
-
+	
 	Parser.prototype = {
 	  constructor: Parser,
-
+	
 	  parse: function(text) {
 	    return this.astCompiler.compile(text, this.options.expensiveChecks);
 	  }
 	};
-
+	
 	function isPossiblyDangerousMemberName(name) {
 	  return name == 'constructor';
 	}
-
+	
 	var objectValueOf = Object.prototype.valueOf;
-
+	
 	function getValueOf(value) {
 	  return isFunction(value.valueOf) ? value.valueOf() : objectValueOf.call(value);
 	}
-
+	
 	///////////////////////////////////
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $parse
@@ -15393,8 +15394,8 @@
 	 *        set to a function to change its value on the given context.
 	 *
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc provider
 	 * @name $parseProvider
@@ -15413,7 +15414,7 @@
 	    'undefined': undefined
 	  };
 	  var identStart, identContinue;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $parseProvider#addLiteral
@@ -15428,7 +15429,7 @@
 	  this.addLiteral = function(literalName, literalValue) {
 	    literals[literalName] = literalValue;
 	  };
-
+	
 	 /**
 	  * @ngdoc method
 	  * @name $parseProvider#setIdentifierFns
@@ -15457,7 +15458,7 @@
 	    identContinue = identifierContinue;
 	    return this;
 	  };
-
+	
 	  this.$get = ['$filter', function($filter) {
 	    var noUnsafeEval = csp().noUnsafeEval;
 	    var $parseOptions = {
@@ -15475,26 +15476,26 @@
 	          isIdentifierContinue: isFunction(identContinue) && identContinue
 	        };
 	    var runningChecksEnabled = false;
-
+	
 	    $parse.$$runningExpensiveChecks = function() {
 	      return runningChecksEnabled;
 	    };
-
+	
 	    return $parse;
-
+	
 	    function $parse(exp, interceptorFn, expensiveChecks) {
 	      var parsedExpression, oneTime, cacheKey;
-
+	
 	      expensiveChecks = expensiveChecks || runningChecksEnabled;
-
+	
 	      switch (typeof exp) {
 	        case 'string':
 	          exp = exp.trim();
 	          cacheKey = exp;
-
+	
 	          var cache = (expensiveChecks ? cacheExpensive : cacheDefault);
 	          parsedExpression = cache[cacheKey];
-
+	
 	          if (!parsedExpression) {
 	            if (exp.charAt(0) === ':' && exp.charAt(1) === ':') {
 	              oneTime = true;
@@ -15518,15 +15519,15 @@
 	            cache[cacheKey] = parsedExpression;
 	          }
 	          return addInterceptor(parsedExpression, interceptorFn);
-
+	
 	        case 'function':
 	          return addInterceptor(exp, interceptorFn);
-
+	
 	        default:
 	          return addInterceptor(noop, interceptorFn);
 	      }
 	    }
-
+	
 	    function expensiveChecksInterceptor(fn) {
 	      if (!fn) return fn;
 	      expensiveCheckFn.$$watchDelegate = fn.$$watchDelegate;
@@ -15537,9 +15538,9 @@
 	        fn.inputs[i] = expensiveChecksInterceptor(fn.inputs[i]);
 	      }
 	      expensiveCheckFn.inputs = fn.inputs;
-
+	
 	      return expensiveCheckFn;
-
+	
 	      function expensiveCheckFn(scope, locals, assign, inputs) {
 	        var expensiveCheckOldValue = runningChecksEnabled;
 	        runningChecksEnabled = true;
@@ -15550,36 +15551,36 @@
 	        }
 	      }
 	    }
-
+	
 	    function expressionInputDirtyCheck(newValue, oldValueOfValue) {
-
+	
 	      if (newValue == null || oldValueOfValue == null) { // null/undefined
 	        return newValue === oldValueOfValue;
 	      }
-
+	
 	      if (typeof newValue === 'object') {
-
+	
 	        // attempt to convert the value to a primitive type
 	        // TODO(docs): add a note to docs that by implementing valueOf even objects and arrays can
 	        //             be cheaply dirty-checked
 	        newValue = getValueOf(newValue);
-
+	
 	        if (typeof newValue === 'object') {
 	          // objects/arrays are not supported - deep-watching them would be too expensive
 	          return false;
 	        }
-
+	
 	        // fall-through to the primitive equality check
 	      }
-
+	
 	      //Primitive or NaN
 	      return newValue === oldValueOfValue || (newValue !== newValue && oldValueOfValue !== oldValueOfValue);
 	    }
-
+	
 	    function inputsWatchDelegate(scope, listener, objectEquality, parsedExpression, prettyPrintExpression) {
 	      var inputExpressions = parsedExpression.inputs;
 	      var lastResult;
-
+	
 	      if (inputExpressions.length === 1) {
 	        var oldInputValueOf = expressionInputDirtyCheck; // init to something unique so that equals check fails
 	        inputExpressions = inputExpressions[0];
@@ -15592,17 +15593,17 @@
 	          return lastResult;
 	        }, listener, objectEquality, prettyPrintExpression);
 	      }
-
+	
 	      var oldInputValueOfValues = [];
 	      var oldInputValues = [];
 	      for (var i = 0, ii = inputExpressions.length; i < ii; i++) {
 	        oldInputValueOfValues[i] = expressionInputDirtyCheck; // init to something unique so that equals check fails
 	        oldInputValues[i] = null;
 	      }
-
+	
 	      return scope.$watch(function expressionInputsWatch(scope) {
 	        var changed = false;
-
+	
 	        for (var i = 0, ii = inputExpressions.length; i < ii; i++) {
 	          var newInputValue = inputExpressions[i](scope);
 	          if (changed || (changed = !expressionInputDirtyCheck(newInputValue, oldInputValueOfValues[i]))) {
@@ -15610,15 +15611,15 @@
 	            oldInputValueOfValues[i] = newInputValue && getValueOf(newInputValue);
 	          }
 	        }
-
+	
 	        if (changed) {
 	          lastResult = parsedExpression(scope, undefined, undefined, oldInputValues);
 	        }
-
+	
 	        return lastResult;
 	      }, listener, objectEquality, prettyPrintExpression);
 	    }
-
+	
 	    function oneTimeWatchDelegate(scope, listener, objectEquality, parsedExpression) {
 	      var unwatch, lastValue;
 	      return unwatch = scope.$watch(function oneTimeWatch(scope) {
@@ -15637,7 +15638,7 @@
 	        }
 	      }, objectEquality);
 	    }
-
+	
 	    function oneTimeLiteralWatchDelegate(scope, listener, objectEquality, parsedExpression) {
 	      var unwatch, lastValue;
 	      return unwatch = scope.$watch(function oneTimeWatch(scope) {
@@ -15653,7 +15654,7 @@
 	          });
 	        }
 	      }, objectEquality);
-
+	
 	      function isAllDefined(value) {
 	        var allDefined = true;
 	        forEach(value, function(val) {
@@ -15662,7 +15663,7 @@
 	        return allDefined;
 	      }
 	    }
-
+	
 	    function constantWatchDelegate(scope, listener, objectEquality, parsedExpression) {
 	      var unwatch;
 	      return unwatch = scope.$watch(function constantWatch(scope) {
@@ -15670,16 +15671,16 @@
 	        return parsedExpression(scope);
 	      }, listener, objectEquality);
 	    }
-
+	
 	    function addInterceptor(parsedExpression, interceptorFn) {
 	      if (!interceptorFn) return parsedExpression;
 	      var watchDelegate = parsedExpression.$$watchDelegate;
 	      var useInputs = false;
-
+	
 	      var regularWatch =
 	          watchDelegate !== oneTimeLiteralWatchDelegate &&
 	          watchDelegate !== oneTimeWatchDelegate;
-
+	
 	      var fn = regularWatch ? function regularInterceptedExpression(scope, locals, assign, inputs) {
 	        var value = useInputs && inputs ? inputs[0] : parsedExpression(scope, locals, assign, inputs);
 	        return interceptorFn(value, scope, locals);
@@ -15690,7 +15691,7 @@
 	        // initial value is defined (for bind-once)
 	        return isDefined(value) ? result : value;
 	      };
-
+	
 	      // Propagate $$watchDelegates other then inputsWatchDelegate
 	      if (parsedExpression.$$watchDelegate &&
 	          parsedExpression.$$watchDelegate !== inputsWatchDelegate) {
@@ -15702,12 +15703,12 @@
 	        useInputs = !parsedExpression.inputs;
 	        fn.inputs = parsedExpression.inputs ? parsedExpression.inputs : [parsedExpression];
 	      }
-
+	
 	      return fn;
 	    }
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $q
@@ -15925,14 +15926,14 @@
 	 * @returns {Promise} The newly created promise.
 	 */
 	function $QProvider() {
-
+	
 	  this.$get = ['$rootScope', '$exceptionHandler', function($rootScope, $exceptionHandler) {
 	    return qFactory(function(callback) {
 	      $rootScope.$evalAsync(callback);
 	    }, $exceptionHandler);
 	  }];
 	}
-
+	
 	function $$QProvider() {
 	  this.$get = ['$browser', '$exceptionHandler', function($browser, $exceptionHandler) {
 	    return qFactory(function(callback) {
@@ -15940,7 +15941,7 @@
 	    }, $exceptionHandler);
 	  }];
 	}
-
+	
 	/**
 	 * Constructs a promise manager.
 	 *
@@ -15951,7 +15952,7 @@
 	 */
 	function qFactory(nextTick, exceptionHandler) {
 	  var $qMinErr = minErr('$q', TypeError);
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ng.$q#defer
@@ -15970,29 +15971,29 @@
 	    d.notify = simpleBind(d, d.notify);
 	    return d;
 	  };
-
+	
 	  function Promise() {
 	    this.$$state = { status: 0 };
 	  }
-
+	
 	  extend(Promise.prototype, {
 	    then: function(onFulfilled, onRejected, progressBack) {
 	      if (isUndefined(onFulfilled) && isUndefined(onRejected) && isUndefined(progressBack)) {
 	        return this;
 	      }
 	      var result = new Deferred();
-
+	
 	      this.$$state.pending = this.$$state.pending || [];
 	      this.$$state.pending.push([result, onFulfilled, onRejected, progressBack]);
 	      if (this.$$state.status > 0) scheduleProcessQueue(this.$$state);
-
+	
 	      return result.promise;
 	    },
-
+	
 	    "catch": function(callback) {
 	      return this.then(null, callback);
 	    },
-
+	
 	    "finally": function(callback, progressBack) {
 	      return this.then(function(value) {
 	        return handleCallback(value, true, callback);
@@ -16001,17 +16002,17 @@
 	      }, progressBack);
 	    }
 	  });
-
+	
 	  //Faster, more basic than angular.bind http://jsperf.com/angular-bind-vs-custom-vs-native
 	  function simpleBind(context, fn) {
 	    return function(value) {
 	      fn.call(context, value);
 	    };
 	  }
-
+	
 	  function processQueue(state) {
 	    var fn, deferred, pending;
-
+	
 	    pending = state.pending;
 	    state.processScheduled = false;
 	    state.pending = undefined;
@@ -16032,17 +16033,17 @@
 	      }
 	    }
 	  }
-
+	
 	  function scheduleProcessQueue(state) {
 	    if (state.processScheduled || !state.pending) return;
 	    state.processScheduled = true;
 	    nextTick(function() { processQueue(state); });
 	  }
-
+	
 	  function Deferred() {
 	    this.promise = new Promise();
 	  }
-
+	
 	  extend(Deferred.prototype, {
 	    resolve: function(val) {
 	      if (this.promise.$$state.status) return;
@@ -16054,9 +16055,9 @@
 	      } else {
 	        this.$$resolve(val);
 	      }
-
+	
 	    },
-
+	
 	    $$resolve: function(val) {
 	      var then;
 	      var that = this;
@@ -16075,7 +16076,7 @@
 	        rejectPromise(e);
 	        exceptionHandler(e);
 	      }
-
+	
 	      function resolvePromise(val) {
 	        if (done) return;
 	        done = true;
@@ -16087,21 +16088,21 @@
 	        that.$$reject(val);
 	      }
 	    },
-
+	
 	    reject: function(reason) {
 	      if (this.promise.$$state.status) return;
 	      this.$$reject(reason);
 	    },
-
+	
 	    $$reject: function(reason) {
 	      this.promise.$$state.value = reason;
 	      this.promise.$$state.status = 2;
 	      scheduleProcessQueue(this.promise.$$state);
 	    },
-
+	
 	    notify: function(progress) {
 	      var callbacks = this.promise.$$state.pending;
-
+	
 	      if ((this.promise.$$state.status <= 0) && callbacks && callbacks.length) {
 	        nextTick(function() {
 	          var callback, result;
@@ -16118,7 +16119,7 @@
 	      }
 	    }
 	  });
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $q#reject
@@ -16160,7 +16161,7 @@
 	    result.reject(reason);
 	    return result.promise;
 	  };
-
+	
 	  var makePromise = function makePromise(value, resolved) {
 	    var result = new Deferred();
 	    if (resolved) {
@@ -16170,7 +16171,7 @@
 	    }
 	    return result.promise;
 	  };
-
+	
 	  var handleCallback = function handleCallback(value, isResolved, callback) {
 	    var callbackOutput = null;
 	    try {
@@ -16188,7 +16189,7 @@
 	      return makePromise(value, isResolved);
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $q#when
@@ -16205,14 +16206,14 @@
 	   * @param {Function=} progressCallback
 	   * @returns {Promise} Returns a promise of the passed value or promise
 	   */
-
-
+	
+	
 	  var when = function(value, callback, errback, progressBack) {
 	    var result = new Deferred();
 	    result.resolve(value);
 	    return result.promise.then(callback, errback, progressBack);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $q#resolve
@@ -16228,7 +16229,7 @@
 	   * @returns {Promise} Returns a promise of the passed value or promise
 	   */
 	  var resolve = when;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $q#all
@@ -16244,12 +16245,12 @@
 	   *   If any of the promises is resolved with a rejection, this resulting promise will be rejected
 	   *   with the same rejection value.
 	   */
-
+	
 	  function all(promises) {
 	    var deferred = new Deferred(),
 	        counter = 0,
 	        results = isArray(promises) ? [] : {};
-
+	
 	    forEach(promises, function(promise, key) {
 	      counter++;
 	      when(promise).then(function(value) {
@@ -16261,56 +16262,56 @@
 	        deferred.reject(reason);
 	      });
 	    });
-
+	
 	    if (counter === 0) {
 	      deferred.resolve(results);
 	    }
-
+	
 	    return deferred.promise;
 	  }
-
+	
 	  var $Q = function Q(resolver) {
 	    if (!isFunction(resolver)) {
 	      throw $qMinErr('norslvr', "Expected resolverFn, got '{0}'", resolver);
 	    }
-
+	
 	    var deferred = new Deferred();
-
+	
 	    function resolveFn(value) {
 	      deferred.resolve(value);
 	    }
-
+	
 	    function rejectFn(reason) {
 	      deferred.reject(reason);
 	    }
-
+	
 	    resolver(resolveFn, rejectFn);
-
+	
 	    return deferred.promise;
 	  };
-
+	
 	  // Let's make the instanceof operator work for promises, so that
 	  // `new $q(fn) instanceof $q` would evaluate to true.
 	  $Q.prototype = Promise.prototype;
-
+	
 	  $Q.defer = defer;
 	  $Q.reject = reject;
 	  $Q.when = when;
 	  $Q.resolve = resolve;
 	  $Q.all = all;
-
+	
 	  return $Q;
 	}
-
+	
 	function $$RAFProvider() { //rAF
 	  this.$get = ['$window', '$timeout', function($window, $timeout) {
 	    var requestAnimationFrame = $window.requestAnimationFrame ||
 	                                $window.webkitRequestAnimationFrame;
-
+	
 	    var cancelAnimationFrame = $window.cancelAnimationFrame ||
 	                               $window.webkitCancelAnimationFrame ||
 	                               $window.webkitCancelRequestAnimationFrame;
-
+	
 	    var rafSupported = !!requestAnimationFrame;
 	    var raf = rafSupported
 	      ? function(fn) {
@@ -16325,13 +16326,13 @@
 	            $timeout.cancel(timer);
 	          };
 	        };
-
+	
 	    raf.supported = rafSupported;
-
+	
 	    return raf;
 	  }];
 	}
-
+	
 	/**
 	 * DESIGN NOTES
 	 *
@@ -16356,8 +16357,8 @@
 	 * in the same way as watch. Watch requires return of the initialization function which is expensive
 	 * to construct.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc provider
 	 * @name $rootScopeProvider
@@ -16365,7 +16366,7 @@
 	 *
 	 * Provider for the $rootScope service.
 	 */
-
+	
 	/**
 	 * @ngdoc method
 	 * @name $rootScopeProvider#digestTtl
@@ -16386,8 +16387,8 @@
 	 *
 	 * @param {number} limit The number of digest iterations.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc service
 	 * @name $rootScope
@@ -16404,14 +16405,14 @@
 	  var $rootScopeMinErr = minErr('$rootScope');
 	  var lastDirtyWatch = null;
 	  var applyAsyncId = null;
-
+	
 	  this.digestTtl = function(value) {
 	    if (arguments.length) {
 	      TTL = value;
 	    }
 	    return TTL;
 	  };
-
+	
 	  function createChildScopeClass(parent) {
 	    function ChildScope() {
 	      this.$$watchers = this.$$nextSibling =
@@ -16425,16 +16426,16 @@
 	    ChildScope.prototype = parent;
 	    return ChildScope;
 	  }
-
+	
 	  this.$get = ['$exceptionHandler', '$parse', '$browser',
 	      function($exceptionHandler, $parse, $browser) {
-
+	
 	    function destroyChildScope($event) {
 	        $event.currentScope.$$destroyed = true;
 	    }
-
+	
 	    function cleanUpScope($scope) {
-
+	
 	      if (msie === 9) {
 	        // There is a memory leak in IE9 if all child scopes are not disconnected
 	        // completely when a scope is destroyed. So this code will recurse up through
@@ -16444,18 +16445,18 @@
 	        $scope.$$childHead && cleanUpScope($scope.$$childHead);
 	        $scope.$$nextSibling && cleanUpScope($scope.$$nextSibling);
 	      }
-
+	
 	      // The code below works around IE9 and V8's memory leaks
 	      //
 	      // See:
 	      // - https://code.google.com/p/v8/issues/detail?id=2073#c26
 	      // - https://github.com/angular/angular.js/issues/6794#issuecomment-38648909
 	      // - https://github.com/angular/angular.js/issues/1313#issuecomment-10378451
-
+	
 	      $scope.$parent = $scope.$$nextSibling = $scope.$$prevSibling = $scope.$$childHead =
 	          $scope.$$childTail = $scope.$root = $scope.$$watchers = null;
 	    }
-
+	
 	    /**
 	     * @ngdoc type
 	     * @name $rootScope.Scope
@@ -16473,10 +16474,10 @@
 	     * ```js
 	         var parent = $rootScope;
 	         var child = parent.$new();
-
+	
 	         parent.salutation = "Hello";
 	         expect(child.salutation).toEqual('Hello');
-
+	
 	         child.salutation = "Welcome";
 	         expect(child.salutation).toEqual('Welcome');
 	         expect(parent.salutation).toEqual('Hello');
@@ -16508,7 +16509,7 @@
 	      this.$$watchersCount = 0;
 	      this.$$isolateBindings = null;
 	    }
-
+	
 	    /**
 	     * @ngdoc property
 	     * @name $rootScope.Scope#$id
@@ -16516,7 +16517,7 @@
 	     * @description
 	     * Unique scope ID (monotonically increasing) useful for debugging.
 	     */
-
+	
 	     /**
 	      * @ngdoc property
 	      * @name $rootScope.Scope#$parent
@@ -16524,7 +16525,7 @@
 	      * @description
 	      * Reference to the parent scope.
 	      */
-
+	
 	      /**
 	       * @ngdoc property
 	       * @name $rootScope.Scope#$root
@@ -16532,7 +16533,7 @@
 	       * @description
 	       * Reference to the root scope.
 	       */
-
+	
 	    Scope.prototype = {
 	      constructor: Scope,
 	      /**
@@ -16566,9 +16567,9 @@
 	       */
 	      $new: function(isolate, parent) {
 	        var child;
-
+	
 	        parent = parent || this;
-
+	
 	        if (isolate) {
 	          child = new Scope();
 	          child.$root = this.$root;
@@ -16588,17 +16589,17 @@
 	        } else {
 	          parent.$$childHead = parent.$$childTail = child;
 	        }
-
+	
 	        // When the new scope is not isolated or we inherit from `this`, and
 	        // the parent scope is destroyed, the property `$$destroyed` is inherited
 	        // prototypically. In all other cases, this property needs to be set
 	        // when the parent scope is destroyed.
 	        // The listener needs to be added after the parent is set
 	        if (isolate || parent != this) child.$on('$destroy', destroyChildScope);
-
+	
 	        return child;
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$watch
@@ -16647,27 +16648,27 @@
 	           var scope = $rootScope;
 	           scope.name = 'misko';
 	           scope.counter = 0;
-
+	
 	           expect(scope.counter).toEqual(0);
 	           scope.$watch('name', function(newValue, oldValue) {
 	             scope.counter = scope.counter + 1;
 	           });
 	           expect(scope.counter).toEqual(0);
-
+	
 	           scope.$digest();
 	           // the listener is always called during the first $digest loop after it was registered
 	           expect(scope.counter).toEqual(1);
-
+	
 	           scope.$digest();
 	           // but now it will not be called unless the value changes
 	           expect(scope.counter).toEqual(1);
-
+	
 	           scope.name = 'adam';
 	           scope.$digest();
 	           expect(scope.counter).toEqual(2);
-
-
-
+	
+	
+	
 	           // Using a function as a watchExpression
 	           var food;
 	           scope.foodCounter = 0;
@@ -16685,16 +16686,16 @@
 	           );
 	           // No digest has been run so the counter will be zero
 	           expect(scope.foodCounter).toEqual(0);
-
+	
 	           // Run the digest but since food has not changed count will still be zero
 	           scope.$digest();
 	           expect(scope.foodCounter).toEqual(0);
-
+	
 	           // Update food and run digest.  Now the counter will increment
 	           food = 'cheeseburger';
 	           scope.$digest();
 	           expect(scope.foodCounter).toEqual(1);
-
+	
 	       * ```
 	       *
 	       *
@@ -16717,7 +16718,7 @@
 	       */
 	      $watch: function(watchExp, listener, objectEquality, prettyPrintExpression) {
 	        var get = $parse(watchExp);
-
+	
 	        if (get.$$watchDelegate) {
 	          return get.$$watchDelegate(this, listener, objectEquality, get, watchExp);
 	        }
@@ -16730,13 +16731,13 @@
 	              exp: prettyPrintExpression || watchExp,
 	              eq: !!objectEquality
 	            };
-
+	
 	        lastDirtyWatch = null;
-
+	
 	        if (!isFunction(listener)) {
 	          watcher.fn = noop;
 	        }
-
+	
 	        if (!array) {
 	          array = scope.$$watchers = [];
 	        }
@@ -16744,7 +16745,7 @@
 	        // the while loop reads in reverse order.
 	        array.unshift(watcher);
 	        incrementWatchersCount(this, 1);
-
+	
 	        return function deregisterWatch() {
 	          if (arrayRemove(array, watcher) >= 0) {
 	            incrementWatchersCount(scope, -1);
@@ -16752,7 +16753,7 @@
 	          lastDirtyWatch = null;
 	        };
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$watchGroup
@@ -16785,7 +16786,7 @@
 	        var self = this;
 	        var changeReactionScheduled = false;
 	        var firstRun = true;
-
+	
 	        if (!watchExpressions.length) {
 	          // No expressions means we call the listener ASAP
 	          var shouldCall = true;
@@ -16796,7 +16797,7 @@
 	            shouldCall = false;
 	          };
 	        }
-
+	
 	        if (watchExpressions.length === 1) {
 	          // Special case size of one
 	          return this.$watch(watchExpressions[0], function watchGroupAction(value, oldValue, scope) {
@@ -16805,7 +16806,7 @@
 	            listener(newValues, (value === oldValue) ? newValues : oldValues, scope);
 	          });
 	        }
-
+	
 	        forEach(watchExpressions, function(expr, i) {
 	          var unwatchFn = self.$watch(expr, function watchGroupSubAction(value, oldValue) {
 	            newValues[i] = value;
@@ -16817,10 +16818,10 @@
 	          });
 	          deregisterFns.push(unwatchFn);
 	        });
-
+	
 	        function watchGroupAction() {
 	          changeReactionScheduled = false;
-
+	
 	          if (firstRun) {
 	            firstRun = false;
 	            listener(newValues, newValues, self);
@@ -16828,15 +16829,15 @@
 	            listener(newValues, oldValues, self);
 	          }
 	        }
-
+	
 	        return function deregisterWatchGroup() {
 	          while (deregisterFns.length) {
 	            deregisterFns.shift()();
 	          }
 	        };
 	      },
-
-
+	
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$watchCollection
@@ -16857,20 +16858,20 @@
 	       * ```js
 	          $scope.names = ['igor', 'matias', 'misko', 'james'];
 	          $scope.dataCount = 4;
-
+	
 	          $scope.$watchCollection('names', function(newNames, oldNames) {
 	            $scope.dataCount = newNames.length;
 	          });
-
+	
 	          expect($scope.dataCount).toEqual(4);
 	          $scope.$digest();
-
+	
 	          //still at 4 ... no changes
 	          expect($scope.dataCount).toEqual(4);
-
+	
 	          $scope.names.pop();
 	          $scope.$digest();
-
+	
 	          //now there's been a change
 	          expect($scope.dataCount).toEqual(3);
 	       * ```
@@ -16894,7 +16895,7 @@
 	       */
 	      $watchCollection: function(obj, listener) {
 	        $watchCollectionInterceptor.$stateful = true;
-
+	
 	        var self = this;
 	        // the current value, updated on each dirty-check run
 	        var newValue;
@@ -16911,14 +16912,14 @@
 	        var internalObject = {};
 	        var initRun = true;
 	        var oldLength = 0;
-
+	
 	        function $watchCollectionInterceptor(_value) {
 	          newValue = _value;
 	          var newLength, key, bothNaN, newItem, oldItem;
-
+	
 	          // If the new value is undefined, then return undefined as the watch may be a one-time watch
 	          if (isUndefined(newValue)) return;
-
+	
 	          if (!isObject(newValue)) { // if primitive
 	            if (oldValue !== newValue) {
 	              oldValue = newValue;
@@ -16931,9 +16932,9 @@
 	              oldLength = oldValue.length = 0;
 	              changeDetected++;
 	            }
-
+	
 	            newLength = newValue.length;
-
+	
 	            if (oldLength !== newLength) {
 	              // if lengths do not match we need to trigger change notification
 	              changeDetected++;
@@ -16943,7 +16944,7 @@
 	            for (var i = 0; i < newLength; i++) {
 	              oldItem = oldValue[i];
 	              newItem = newValue[i];
-
+	
 	              bothNaN = (oldItem !== oldItem) && (newItem !== newItem);
 	              if (!bothNaN && (oldItem !== newItem)) {
 	                changeDetected++;
@@ -16964,7 +16965,7 @@
 	                newLength++;
 	                newItem = newValue[key];
 	                oldItem = oldValue[key];
-
+	
 	                if (key in oldValue) {
 	                  bothNaN = (oldItem !== oldItem) && (newItem !== newItem);
 	                  if (!bothNaN && (oldItem !== newItem)) {
@@ -16991,7 +16992,7 @@
 	          }
 	          return changeDetected;
 	        }
-
+	
 	        function $watchCollectionAction() {
 	          if (initRun) {
 	            initRun = false;
@@ -16999,7 +17000,7 @@
 	          } else {
 	            listener(newValue, veryOldValue, self);
 	          }
-
+	
 	          // make a copy for the next time a collection is changed
 	          if (trackVeryOldValue) {
 	            if (!isObject(newValue)) {
@@ -17020,10 +17021,10 @@
 	            }
 	          }
 	        }
-
+	
 	        return this.$watch(changeDetector, $watchCollectionAction);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$digest
@@ -17054,21 +17055,21 @@
 	           var scope = ...;
 	           scope.name = 'misko';
 	           scope.counter = 0;
-
+	
 	           expect(scope.counter).toEqual(0);
 	           scope.$watch('name', function(newValue, oldValue) {
 	             scope.counter = scope.counter + 1;
 	           });
 	           expect(scope.counter).toEqual(0);
-
+	
 	           scope.$digest();
 	           // the listener is always called during the first $digest loop after it was registered
 	           expect(scope.counter).toEqual(1);
-
+	
 	           scope.$digest();
 	           // but now it will not be called unless the value changes
 	           expect(scope.counter).toEqual(1);
-
+	
 	           scope.name = 'adam';
 	           scope.$digest();
 	           expect(scope.counter).toEqual(2);
@@ -17083,24 +17084,24 @@
 	            next, current, target = this,
 	            watchLog = [],
 	            logIdx, asyncTask;
-
+	
 	        beginPhase('$digest');
 	        // Check for changes to browser url that happened in sync before the call to $digest
 	        $browser.$$checkUrlChange();
-
+	
 	        if (this === $rootScope && applyAsyncId !== null) {
 	          // If this is the root scope, and $applyAsync has scheduled a deferred $apply(), then
 	          // cancel the scheduled $apply and flush the queue of expressions to be evaluated.
 	          $browser.defer.cancel(applyAsyncId);
 	          flushApplyAsync();
 	        }
-
+	
 	        lastDirtyWatch = null;
-
+	
 	        do { // "while dirty" loop
 	          dirty = false;
 	          current = target;
-
+	
 	          while (asyncQueue.length) {
 	            try {
 	              asyncTask = asyncQueue.shift();
@@ -17110,7 +17111,7 @@
 	            }
 	            lastDirtyWatch = null;
 	          }
-
+	
 	          traverseScopesLoop:
 	          do { // "traverse the scopes" loop
 	            if ((watchers = current.$$watchers)) {
@@ -17154,7 +17155,7 @@
 	                }
 	              }
 	            }
-
+	
 	            // Insanity Warning: scope depth-first traversal
 	            // yes, this code is a bit crazy, but it works and we have tests to prove it!
 	            // this piece should be kept in sync with the traversal in $broadcast
@@ -17165,9 +17166,9 @@
 	              }
 	            }
 	          } while ((current = next));
-
+	
 	          // `break traverseScopesLoop;` takes us to here
-
+	
 	          if ((dirty || asyncQueue.length) && !(ttl--)) {
 	            clearPhase();
 	            throw $rootScopeMinErr('infdig',
@@ -17175,11 +17176,11 @@
 	                'Watchers fired in the last 5 iterations: {1}',
 	                TTL, watchLog);
 	          }
-
+	
 	        } while (dirty || asyncQueue.length);
-
+	
 	        clearPhase();
-
+	
 	        while (postDigestQueue.length) {
 	          try {
 	            postDigestQueue.shift()();
@@ -17188,8 +17189,8 @@
 	          }
 	        }
 	      },
-
-
+	
+	
 	      /**
 	       * @ngdoc event
 	       * @name $rootScope.Scope#$destroy
@@ -17201,7 +17202,7 @@
 	       * Note that, in AngularJS, there is also a `$destroy` jQuery event, which can be used to
 	       * clean up DOM bindings before an element is removed from the DOM.
 	       */
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$destroy
@@ -17228,37 +17229,37 @@
 	        // We can't destroy a scope that has been already destroyed.
 	        if (this.$$destroyed) return;
 	        var parent = this.$parent;
-
+	
 	        this.$broadcast('$destroy');
 	        this.$$destroyed = true;
-
+	
 	        if (this === $rootScope) {
 	          //Remove handlers attached to window when $rootScope is removed
 	          $browser.$$applicationDestroyed();
 	        }
-
+	
 	        incrementWatchersCount(this, -this.$$watchersCount);
 	        for (var eventName in this.$$listenerCount) {
 	          decrementListenerCount(this, this.$$listenerCount[eventName], eventName);
 	        }
-
+	
 	        // sever all the references to parent scopes (after this cleanup, the current scope should
 	        // not be retained by any of our references and should be eligible for garbage collection)
 	        if (parent && parent.$$childHead == this) parent.$$childHead = this.$$nextSibling;
 	        if (parent && parent.$$childTail == this) parent.$$childTail = this.$$prevSibling;
 	        if (this.$$prevSibling) this.$$prevSibling.$$nextSibling = this.$$nextSibling;
 	        if (this.$$nextSibling) this.$$nextSibling.$$prevSibling = this.$$prevSibling;
-
+	
 	        // Disable listeners, watchers and apply/digest methods
 	        this.$destroy = this.$digest = this.$apply = this.$evalAsync = this.$applyAsync = noop;
 	        this.$on = this.$watch = this.$watchGroup = function() { return noop; };
 	        this.$$listeners = {};
-
+	
 	        // Disconnect the next sibling to prevent `cleanUpScope` destroying those too
 	        this.$$nextSibling = null;
 	        cleanUpScope(this);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$eval
@@ -17274,7 +17275,7 @@
 	           var scope = ng.$rootScope.Scope();
 	           scope.a = 1;
 	           scope.b = 2;
-
+	
 	           expect(scope.$eval('a+b')).toEqual(3);
 	           expect(scope.$eval(function(scope){ return scope.a + scope.b; })).toEqual(3);
 	       * ```
@@ -17290,7 +17291,7 @@
 	      $eval: function(expr, locals) {
 	        return $parse(expr)(this, locals);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$evalAsync
@@ -17331,14 +17332,14 @@
 	            }
 	          });
 	        }
-
+	
 	        asyncQueue.push({scope: this, expression: $parse(expr), locals: locals});
 	      },
-
+	
 	      $$postDigest: function(fn) {
 	        postDigestQueue.push(fn);
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$apply
@@ -17403,7 +17404,7 @@
 	          }
 	        }
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$applyAsync
@@ -17426,12 +17427,12 @@
 	        expr && applyAsyncQueue.push($applyAsyncExpression);
 	        expr = $parse(expr);
 	        scheduleApplyAsync();
-
+	
 	        function $applyAsyncExpression() {
 	          scope.$eval(expr);
 	        }
 	      },
-
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$on
@@ -17465,7 +17466,7 @@
 	          this.$$listeners[name] = namedListeners = [];
 	        }
 	        namedListeners.push(listener);
-
+	
 	        var current = this;
 	        do {
 	          if (!current.$$listenerCount[name]) {
@@ -17473,7 +17474,7 @@
 	          }
 	          current.$$listenerCount[name]++;
 	        } while ((current = current.$parent));
-
+	
 	        var self = this;
 	        return function() {
 	          var indexOfListener = namedListeners.indexOf(listener);
@@ -17483,8 +17484,8 @@
 	          }
 	        };
 	      },
-
-
+	
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$emit
@@ -17523,12 +17524,12 @@
 	            },
 	            listenerArgs = concat([event], arguments, 1),
 	            i, length;
-
+	
 	        do {
 	          namedListeners = scope.$$listeners[name] || empty;
 	          event.currentScope = scope;
 	          for (i = 0, length = namedListeners.length; i < length; i++) {
-
+	
 	            // if listeners were deregistered, defragment the array
 	            if (!namedListeners[i]) {
 	              namedListeners.splice(i, 1);
@@ -17551,13 +17552,13 @@
 	          //traverse upwards
 	          scope = scope.$parent;
 	        } while (scope);
-
+	
 	        event.currentScope = null;
-
+	
 	        return event;
 	      },
-
-
+	
+	
 	      /**
 	       * @ngdoc method
 	       * @name $rootScope.Scope#$broadcast
@@ -17591,12 +17592,12 @@
 	              },
 	              defaultPrevented: false
 	            };
-
+	
 	        if (!target.$$listenerCount[name]) return event;
-
+	
 	        var listenerArgs = concat([event], arguments, 1),
 	            listeners, i, length;
-
+	
 	        //down while you can, then up and next sibling or up and next sibling until back at root
 	        while ((current = next)) {
 	          event.currentScope = current;
@@ -17609,14 +17610,14 @@
 	              length--;
 	              continue;
 	            }
-
+	
 	            try {
 	              listeners[i].apply(null, listenerArgs);
 	            } catch (e) {
 	              $exceptionHandler(e);
 	            }
 	          }
-
+	
 	          // Insanity Warning: scope depth-first traversal
 	          // yes, this code is a bit crazy, but it works and we have tests to prove it!
 	          // this piece should be kept in sync with the traversal in $digest
@@ -17628,56 +17629,56 @@
 	            }
 	          }
 	        }
-
+	
 	        event.currentScope = null;
 	        return event;
 	      }
 	    };
-
+	
 	    var $rootScope = new Scope();
-
+	
 	    //The internal queues. Expose them on the $rootScope for debugging/testing purposes.
 	    var asyncQueue = $rootScope.$$asyncQueue = [];
 	    var postDigestQueue = $rootScope.$$postDigestQueue = [];
 	    var applyAsyncQueue = $rootScope.$$applyAsyncQueue = [];
-
+	
 	    return $rootScope;
-
-
+	
+	
 	    function beginPhase(phase) {
 	      if ($rootScope.$$phase) {
 	        throw $rootScopeMinErr('inprog', '{0} already in progress', $rootScope.$$phase);
 	      }
-
+	
 	      $rootScope.$$phase = phase;
 	    }
-
+	
 	    function clearPhase() {
 	      $rootScope.$$phase = null;
 	    }
-
+	
 	    function incrementWatchersCount(current, count) {
 	      do {
 	        current.$$watchersCount += count;
 	      } while ((current = current.$parent));
 	    }
-
+	
 	    function decrementListenerCount(current, count, name) {
 	      do {
 	        current.$$listenerCount[name] -= count;
-
+	
 	        if (current.$$listenerCount[name] === 0) {
 	          delete current.$$listenerCount[name];
 	        }
 	      } while ((current = current.$parent));
 	    }
-
+	
 	    /**
 	     * function used as an initial value for watchers.
 	     * because it's unique we can easily tell it apart from other values
 	     */
 	    function initWatchVal() {}
-
+	
 	    function flushApplyAsync() {
 	      while (applyAsyncQueue.length) {
 	        try {
@@ -17688,7 +17689,7 @@
 	      }
 	      applyAsyncId = null;
 	    }
-
+	
 	    function scheduleApplyAsync() {
 	      if (applyAsyncId === null) {
 	        applyAsyncId = $browser.defer(function() {
@@ -17698,7 +17699,7 @@
 	    }
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $rootElement
@@ -17710,10 +17711,10 @@
 	 * location where the application's {@link auto.$injector $injector} service gets
 	 * published, and can be retrieved using `$rootElement.injector()`.
 	 */
-
-
+	
+	
 	// the implementation is in angular.bootstrap
-
+	
 	/**
 	 * @description
 	 * Private service to sanitize uris for links and images. Used by $compile and $sanitize.
@@ -17721,7 +17722,7 @@
 	function $$SanitizeUriProvider() {
 	  var aHrefSanitizationWhitelist = /^\s*(https?|ftp|mailto|tel|file):/,
 	    imgSrcSanitizationWhitelist = /^\s*((https?|ftp|file|blob):|data:image\/)/;
-
+	
 	  /**
 	   * @description
 	   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
@@ -17745,8 +17746,8 @@
 	    }
 	    return aHrefSanitizationWhitelist;
 	  };
-
-
+	
+	
 	  /**
 	   * @description
 	   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
@@ -17770,7 +17771,7 @@
 	    }
 	    return imgSrcSanitizationWhitelist;
 	  };
-
+	
 	  this.$get = function() {
 	    return function sanitizeUri(uri, isImage) {
 	      var regex = isImage ? imgSrcSanitizationWhitelist : aHrefSanitizationWhitelist;
@@ -17783,7 +17784,7 @@
 	    };
 	  };
 	}
-
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *     Any commits to this file should be reviewed with security in mind.  *
 	 *   Changes to this file can potentially create security vulnerabilities. *
@@ -17794,9 +17795,9 @@
 	 *    Or allows for someone to change the prototype of built-in objects?   *
 	 *     Or gives undesired access to variables likes document or window?    *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+	
 	var $sceMinErr = minErr('$sce');
-
+	
 	var SCE_CONTEXTS = {
 	  HTML: 'html',
 	  CSS: 'css',
@@ -17806,9 +17807,9 @@
 	  RESOURCE_URL: 'resourceUrl',
 	  JS: 'js'
 	};
-
+	
 	// Helper functions follow.
-
+	
 	function adjustMatcher(matcher) {
 	  if (matcher === 'self') {
 	    return matcher;
@@ -17835,8 +17836,8 @@
 	        'Matchers may only be "self", string patterns or RegExp objects');
 	  }
 	}
-
-
+	
+	
 	function adjustMatchers(matchers) {
 	  var adjustedMatchers = [];
 	  if (isDefined(matchers)) {
@@ -17846,8 +17847,8 @@
 	  }
 	  return adjustedMatchers;
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc service
 	 * @name $sceDelegate
@@ -17874,7 +17875,7 @@
 	 * $sceDelegateProvider.resourceUrlWhitelist} and {@link
 	 * ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
 	 */
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $sceDelegateProvider
@@ -17914,14 +17915,14 @@
 	 *  });
 	 * ```
 	 */
-
+	
 	function $SceDelegateProvider() {
 	  this.SCE_CONTEXTS = SCE_CONTEXTS;
-
+	
 	  // Resource URLs can also be trusted by policy.
 	  var resourceUrlWhitelist = ['self'],
 	      resourceUrlBlacklist = [];
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $sceDelegateProvider#resourceUrlWhitelist
@@ -17952,7 +17953,7 @@
 	    }
 	    return resourceUrlWhitelist;
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $sceDelegateProvider#resourceUrlBlacklist
@@ -17979,25 +17980,25 @@
 	   * @description
 	   * Sets/Gets the blacklist of trusted resource URLs.
 	   */
-
+	
 	  this.resourceUrlBlacklist = function(value) {
 	    if (arguments.length) {
 	      resourceUrlBlacklist = adjustMatchers(value);
 	    }
 	    return resourceUrlBlacklist;
 	  };
-
+	
 	  this.$get = ['$injector', function($injector) {
-
+	
 	    var htmlSanitizer = function htmlSanitizer(html) {
 	      throw $sceMinErr('unsafe', 'Attempting to use an unsafe value in a safe context.');
 	    };
-
+	
 	    if ($injector.has('$sanitize')) {
 	      htmlSanitizer = $injector.get('$sanitize');
 	    }
-
-
+	
+	
 	    function matchUrl(matcher, parsedUrl) {
 	      if (matcher === 'self') {
 	        return urlIsSameOrigin(parsedUrl);
@@ -18006,7 +18007,7 @@
 	        return !!matcher.exec(parsedUrl.href);
 	      }
 	    }
-
+	
 	    function isResourceUrlAllowedByPolicy(url) {
 	      var parsedUrl = urlResolve(url.toString());
 	      var i, n, allowed = false;
@@ -18028,7 +18029,7 @@
 	      }
 	      return allowed;
 	    }
-
+	
 	    function generateHolderType(Base) {
 	      var holderType = function TrustedValueHolderType(trustedValue) {
 	        this.$$unwrapTrustedValue = function() {
@@ -18046,16 +18047,16 @@
 	      };
 	      return holderType;
 	    }
-
+	
 	    var trustedValueHolderBase = generateHolderType(),
 	        byType = {};
-
+	
 	    byType[SCE_CONTEXTS.HTML] = generateHolderType(trustedValueHolderBase);
 	    byType[SCE_CONTEXTS.CSS] = generateHolderType(trustedValueHolderBase);
 	    byType[SCE_CONTEXTS.URL] = generateHolderType(trustedValueHolderBase);
 	    byType[SCE_CONTEXTS.JS] = generateHolderType(trustedValueHolderBase);
 	    byType[SCE_CONTEXTS.RESOURCE_URL] = generateHolderType(byType[SCE_CONTEXTS.URL]);
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sceDelegate#trustAs
@@ -18092,7 +18093,7 @@
 	      }
 	      return new Constructor(trustedValue);
 	    }
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sceDelegate#valueOf
@@ -18118,7 +18119,7 @@
 	        return maybeTrusted;
 	      }
 	    }
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sceDelegate#getTrusted
@@ -18163,14 +18164,14 @@
 	      }
 	      throw $sceMinErr('unsafe', 'Attempting to use an unsafe value in a safe context.');
 	    }
-
+	
 	    return { trustAs: trustAs,
 	             getTrusted: getTrusted,
 	             valueOf: valueOf };
 	  }];
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc provider
 	 * @name $sceProvider
@@ -18182,9 +18183,9 @@
 	 *
 	 * Read more about {@link ng.$sce Strict Contextual Escaping (SCE)}.
 	 */
-
+	
 	/* jshint maxlen: false*/
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $sce
@@ -18451,10 +18452,10 @@
 	 *
 	 */
 	/* jshint maxlen: 100 */
-
+	
 	function $SceProvider() {
 	  var enabled = true;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $sceProvider#enabled
@@ -18472,8 +18473,8 @@
 	    }
 	    return enabled;
 	  };
-
-
+	
+	
 	  /* Design notes on the default implementation for SCE.
 	   *
 	   * The API contract for the SCE delegate
@@ -18519,7 +18520,7 @@
 	   * may not use inheritance anymore.  That is OK because no code outside of
 	   * sce.js and sceSpecs.js would need to be aware of this detail.
 	   */
-
+	
 	  this.$get = ['$parse', '$sceDelegate', function(
 	                $parse,   $sceDelegate) {
 	    // Prereq: Ensure that we're not running in IE<11 quirks mode.  In that mode, IE < 11 allow
@@ -18530,9 +18531,9 @@
 	        'mode.  You can fix this by adding the text <!doctype html> to the top of your HTML ' +
 	        'document.  See http://docs.angularjs.org/api/ng.$sce for more information.');
 	    }
-
+	
 	    var sce = shallowCopy(SCE_CONTEXTS);
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#isEnabled
@@ -18550,12 +18551,12 @@
 	    sce.trustAs = $sceDelegate.trustAs;
 	    sce.getTrusted = $sceDelegate.getTrusted;
 	    sce.valueOf = $sceDelegate.valueOf;
-
+	
 	    if (!enabled) {
 	      sce.trustAs = sce.getTrusted = function(type, value) { return value; };
 	      sce.valueOf = identity;
 	    }
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAs
@@ -18585,7 +18586,7 @@
 	        });
 	      }
 	    };
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#trustAs
@@ -18604,7 +18605,7 @@
 	     * @returns {*} A value that can be used to stand in for the provided `value` in places
 	     * where Angular expects a $sce.trustAs() return value.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#trustAsHtml
@@ -18619,7 +18620,7 @@
 	     *     only accept expressions that are either literal constants or are the
 	     *     return value of {@link ng.$sce#trustAs $sce.trustAs}.)
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#trustAsUrl
@@ -18634,7 +18635,7 @@
 	     *     only accept expressions that are either literal constants or are the
 	     *     return value of {@link ng.$sce#trustAs $sce.trustAs}.)
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#trustAsResourceUrl
@@ -18649,7 +18650,7 @@
 	     *     only accept expressions that are either literal constants or are the return
 	     *     value of {@link ng.$sce#trustAs $sce.trustAs}.)
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#trustAsJs
@@ -18664,7 +18665,7 @@
 	     *     only accept expressions that are either literal constants or are the
 	     *     return value of {@link ng.$sce#trustAs $sce.trustAs}.)
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrusted
@@ -18682,7 +18683,7 @@
 	     *              {@link ng.$sce#trustAs `$sce.trustAs`} if valid in this context.
 	     *              Otherwise, throws an exception.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrustedHtml
@@ -18694,7 +18695,7 @@
 	     * @param {*} value The value to pass to `$sce.getTrusted`.
 	     * @returns {*} The return value of `$sce.getTrusted($sce.HTML, value)`
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrustedCss
@@ -18706,7 +18707,7 @@
 	     * @param {*} value The value to pass to `$sce.getTrusted`.
 	     * @returns {*} The return value of `$sce.getTrusted($sce.CSS, value)`
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrustedUrl
@@ -18718,7 +18719,7 @@
 	     * @param {*} value The value to pass to `$sce.getTrusted`.
 	     * @returns {*} The return value of `$sce.getTrusted($sce.URL, value)`
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrustedResourceUrl
@@ -18730,7 +18731,7 @@
 	     * @param {*} value The value to pass to `$sceDelegate.getTrusted`.
 	     * @returns {*} The return value of `$sce.getTrusted($sce.RESOURCE_URL, value)`
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#getTrustedJs
@@ -18742,7 +18743,7 @@
 	     * @param {*} value The value to pass to `$sce.getTrusted`.
 	     * @returns {*} The return value of `$sce.getTrusted($sce.JS, value)`
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAsHtml
@@ -18759,7 +18760,7 @@
 	     *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
 	     *      `context`.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAsCss
@@ -18776,7 +18777,7 @@
 	     *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
 	     *      `context`.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAsUrl
@@ -18793,7 +18794,7 @@
 	     *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
 	     *      `context`.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAsResourceUrl
@@ -18810,7 +18811,7 @@
 	     *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
 	     *      `context`.
 	     */
-
+	
 	    /**
 	     * @ngdoc method
 	     * @name $sce#parseAsJs
@@ -18827,12 +18828,12 @@
 	     *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
 	     *      `context`.
 	     */
-
+	
 	    // Shorthand delegations.
 	    var parse = sce.parseAs,
 	        getTrusted = sce.getTrusted,
 	        trustAs = sce.trustAs;
-
+	
 	    forEach(SCE_CONTEXTS, function(enumValue, name) {
 	      var lName = lowercase(name);
 	      sce[camelCase("parse_as_" + lName)] = function(expr) {
@@ -18845,11 +18846,11 @@
 	        return trustAs(enumValue, value);
 	      };
 	    });
-
+	
 	    return sce;
 	  }];
 	}
-
+	
 	/**
 	 * !!! This is an undocumented "private" service !!!
 	 *
@@ -18881,7 +18882,7 @@
 	        transitions = false,
 	        animations = false,
 	        match;
-
+	
 	    if (bodyStyle) {
 	      for (var prop in bodyStyle) {
 	        if (match = vendorRegex.exec(prop)) {
@@ -18890,27 +18891,27 @@
 	          break;
 	        }
 	      }
-
+	
 	      if (!vendorPrefix) {
 	        vendorPrefix = ('WebkitOpacity' in bodyStyle) && 'webkit';
 	      }
-
+	
 	      transitions = !!(('transition' in bodyStyle) || (vendorPrefix + 'Transition' in bodyStyle));
 	      animations  = !!(('animation' in bodyStyle) || (vendorPrefix + 'Animation' in bodyStyle));
-
+	
 	      if (android && (!transitions ||  !animations)) {
 	        transitions = isString(bodyStyle.webkitTransition);
 	        animations = isString(bodyStyle.webkitAnimation);
 	      }
 	    }
-
-
+	
+	
 	    return {
 	      // Android has history.pushState, but it does not update location correctly
 	      // so let's not use the history API at all.
 	      // http://code.google.com/p/android/issues/detail?id=17471
 	      // https://github.com/angular/angular.js/issues/904
-
+	
 	      // older webkit browser (533.9) on Boxee box has exactly the same problem as Android has
 	      // so let's not use the history API also
 	      // We are purposefully using `!(android < 4)` to cover the case when `android` is undefined
@@ -18924,12 +18925,12 @@
 	        // IE10+ implements 'input' event but it erroneously fires under various situations,
 	        // e.g. when placeholder changes, or a form is focused.
 	        if (event === 'input' && msie <= 11) return false;
-
+	
 	        if (isUndefined(eventSupport[event])) {
 	          var divElm = document.createElement('div');
 	          eventSupport[event] = 'on' + event in divElm;
 	        }
-
+	
 	        return eventSupport[event];
 	      },
 	      csp: csp(),
@@ -18940,9 +18941,9 @@
 	    };
 	  }];
 	}
-
+	
 	var $templateRequestMinErr = minErr('$compile');
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $templateRequestProvider
@@ -18953,9 +18954,9 @@
 	 * requesting a template.
 	 */
 	function $TemplateRequestProvider() {
-
+	
 	  var httpOptions;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $templateRequestProvider#httpOptions
@@ -18976,7 +18977,7 @@
 	    }
 	    return httpOptions;
 	  };
-
+	
 	  /**
 	   * @ngdoc service
 	   * @name $templateRequest
@@ -19000,10 +19001,10 @@
 	   * @property {number} totalPendingRequests total amount of pending template requests being downloaded.
 	   */
 	  this.$get = ['$templateCache', '$http', '$q', '$sce', function($templateCache, $http, $q, $sce) {
-
+	
 	    function handleRequestFn(tpl, ignoreRequestError) {
 	      handleRequestFn.totalPendingRequests++;
-
+	
 	      // We consider the template cache holds only trusted templates, so
 	      // there's no need to go through whitelisting again for keys that already
 	      // are included in there. This also makes Angular accept any script
@@ -19012,9 +19013,9 @@
 	      if (!isString(tpl) || !$templateCache.get(tpl)) {
 	        tpl = $sce.getTrustedResourceUrl(tpl);
 	      }
-
+	
 	      var transformResponse = $http.defaults && $http.defaults.transformResponse;
-
+	
 	      if (isArray(transformResponse)) {
 	        transformResponse = transformResponse.filter(function(transformer) {
 	          return transformer !== defaultHttpResponseTransform;
@@ -19022,7 +19023,7 @@
 	      } else if (transformResponse === defaultHttpResponseTransform) {
 	        transformResponse = null;
 	      }
-
+	
 	      return $http.get(tpl, extend({
 	          cache: $templateCache,
 	          transformResponse: transformResponse
@@ -19034,7 +19035,7 @@
 	          $templateCache.put(tpl, response.data);
 	          return response.data;
 	        }, handleError);
-
+	
 	      function handleError(resp) {
 	        if (!ignoreRequestError) {
 	          throw $templateRequestMinErr('tpload', 'Failed to load template: {0} (HTTP status: {1} {2})',
@@ -19043,17 +19044,17 @@
 	        return $q.reject(resp);
 	      }
 	    }
-
+	
 	    handleRequestFn.totalPendingRequests = 0;
-
+	
 	    return handleRequestFn;
 	  }];
 	}
-
+	
 	function $$TestabilityProvider() {
 	  this.$get = ['$rootScope', '$browser', '$location',
 	       function($rootScope,   $browser,   $location) {
-
+	
 	    /**
 	     * @name $testability
 	     *
@@ -19062,7 +19063,7 @@
 	     * or by automated test and debugging tools.
 	     */
 	    var testability = {};
-
+	
 	    /**
 	     * @name $$testability#findBindings
 	     *
@@ -19097,7 +19098,7 @@
 	      });
 	      return matches;
 	    };
-
+	
 	    /**
 	     * @name $$testability#findModels
 	     *
@@ -19121,7 +19122,7 @@
 	        }
 	      }
 	    };
-
+	
 	    /**
 	     * @name $$testability#getLocation
 	     *
@@ -19132,7 +19133,7 @@
 	    testability.getLocation = function() {
 	      return $location.url();
 	    };
-
+	
 	    /**
 	     * @name $$testability#setLocation
 	     *
@@ -19148,7 +19149,7 @@
 	        $rootScope.$digest();
 	      }
 	    };
-
+	
 	    /**
 	     * @name $$testability#whenStable
 	     *
@@ -19160,18 +19161,18 @@
 	    testability.whenStable = function(callback) {
 	      $browser.notifyWhenNoOutstandingRequests(callback);
 	    };
-
+	
 	    return testability;
 	  }];
 	}
-
+	
 	function $TimeoutProvider() {
 	  this.$get = ['$rootScope', '$browser', '$q', '$$q', '$exceptionHandler',
 	       function($rootScope,   $browser,   $q,   $$q,   $exceptionHandler) {
-
+	
 	    var deferreds = {};
-
-
+	
+	
 	     /**
 	      * @ngdoc service
 	      * @name $timeout
@@ -19207,13 +19208,13 @@
 	        delay = fn;
 	        fn = noop;
 	      }
-
+	
 	      var args = sliceArgs(arguments, 3),
 	          skipApply = (isDefined(invokeApply) && !invokeApply),
 	          deferred = (skipApply ? $$q : $q).defer(),
 	          promise = deferred.promise,
 	          timeoutId;
-
+	
 	      timeoutId = $browser.defer(function() {
 	        try {
 	          deferred.resolve(fn.apply(null, args));
@@ -19224,17 +19225,17 @@
 	        finally {
 	          delete deferreds[promise.$$timeoutId];
 	        }
-
+	
 	        if (!skipApply) $rootScope.$apply();
 	      }, delay);
-
+	
 	      promise.$$timeoutId = timeoutId;
 	      deferreds[timeoutId] = deferred;
-
+	
 	      return promise;
 	    }
-
-
+	
+	
 	     /**
 	      * @ngdoc method
 	      * @name $timeout#cancel
@@ -19255,11 +19256,11 @@
 	      }
 	      return false;
 	    };
-
+	
 	    return timeout;
 	  }];
 	}
-
+	
 	// NOTE:  The usage of window and document instead of $window and $document here is
 	// deliberate.  This service depends on the specific behavior of anchor nodes created by the
 	// browser (resolving and parsing URLs) that is unlikely to be provided by mock objects and
@@ -19269,8 +19270,8 @@
 	// service.
 	var urlParsingNode = window.document.createElement("a");
 	var originUrl = urlResolve(window.location.href);
-
-
+	
+	
 	/**
 	 *
 	 * Implementation Notes for non-IE browsers
@@ -19318,16 +19319,16 @@
 	 */
 	function urlResolve(url) {
 	  var href = url;
-
+	
 	  if (msie) {
 	    // Normalize before parse.  Refer Implementation Notes on why this is
 	    // done in two steps on IE.
 	    urlParsingNode.setAttribute("href", href);
 	    href = urlParsingNode.href;
 	  }
-
+	
 	  urlParsingNode.setAttribute('href', href);
-
+	
 	  // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
 	  return {
 	    href: urlParsingNode.href,
@@ -19342,7 +19343,7 @@
 	      : '/' + urlParsingNode.pathname
 	  };
 	}
-
+	
 	/**
 	 * Parse a request URL and determine whether this is a same-origin request as the application document.
 	 *
@@ -19355,7 +19356,7 @@
 	  return (parsed.protocol === originUrl.protocol &&
 	          parsed.host === originUrl.host);
 	}
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $window
@@ -19400,7 +19401,7 @@
 	function $WindowProvider() {
 	  this.$get = valueFn(window);
 	}
-
+	
 	/**
 	 * @name $$cookieReader
 	 * @requires $document
@@ -19414,7 +19415,7 @@
 	  var rawDocument = $document[0] || {};
 	  var lastCookies = {};
 	  var lastCookieString = '';
-
+	
 	  function safeDecodeURIComponent(str) {
 	    try {
 	      return decodeURIComponent(str);
@@ -19422,16 +19423,16 @@
 	      return str;
 	    }
 	  }
-
+	
 	  return function() {
 	    var cookieArray, cookie, i, index, name;
 	    var currentCookieString = rawDocument.cookie || '';
-
+	
 	    if (currentCookieString !== lastCookieString) {
 	      lastCookieString = currentCookieString;
 	      cookieArray = lastCookieString.split('; ');
 	      lastCookies = {};
-
+	
 	      for (i = 0; i < cookieArray.length; i++) {
 	        cookie = cookieArray[i];
 	        index = cookie.indexOf('=');
@@ -19449,13 +19450,13 @@
 	    return lastCookies;
 	  };
 	}
-
+	
 	$$CookieReader.$inject = ['$document'];
-
+	
 	function $$CookieReaderProvider() {
 	  this.$get = $$CookieReader;
 	}
-
+	
 	/* global currencyFilter: true,
 	 dateFilter: true,
 	 filterFilter: true,
@@ -19466,7 +19467,7 @@
 	 orderByFilter: true,
 	 uppercaseFilter: true,
 	 */
-
+	
 	/**
 	 * @ngdoc provider
 	 * @name $filterProvider
@@ -19523,7 +19524,7 @@
 	 * For more information about how angular filters work, and how to create your own filters, see
 	 * {@link guide/filter Filters} in the Angular Developer Guide.
 	 */
-
+	
 	/**
 	 * @ngdoc service
 	 * @name $filter
@@ -19545,7 +19546,7 @@
 	        <h3>{{ filteredText }}</h3>
 	       </div>
 	     </file>
-
+	
 	     <file name="script.js">
 	      angular.module('filterExample', [])
 	      .controller('MainCtrl', function($scope, $filter) {
@@ -19558,7 +19559,7 @@
 	$FilterProvider.$inject = ['$provide'];
 	function $FilterProvider($provide) {
 	  var suffix = 'Filter';
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name $filterProvider#register
@@ -19587,15 +19588,15 @@
 	    }
 	  }
 	  this.register = register;
-
+	
 	  this.$get = ['$injector', function($injector) {
 	    return function(name) {
 	      return $injector.get(name + suffix);
 	    };
 	  }];
-
+	
 	  ////////////////////////////////////////
-
+	
 	  /* global
 	    currencyFilter: false,
 	    dateFilter: false,
@@ -19607,7 +19608,7 @@
 	    orderByFilter: false,
 	    uppercaseFilter: false,
 	  */
-
+	
 	  register('currency', currencyFilter);
 	  register('date', dateFilter);
 	  register('filter', filterFilter);
@@ -19618,7 +19619,7 @@
 	  register('orderBy', orderByFilter);
 	  register('uppercase', uppercaseFilter);
 	}
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name filter
@@ -19687,7 +19688,7 @@
 	                                {name:'Adam', phone:'555-5678'},
 	                                {name:'Julie', phone:'555-8765'},
 	                                {name:'Juliette', phone:'555-5678'}]"></div>
-
+	
 	       <label>Search: <input ng-model="searchText"></label>
 	       <table id="searchTextResults">
 	         <tr><th>Name</th><th>Phone</th></tr>
@@ -19717,18 +19718,18 @@
 	           });
 	         });
 	       };
-
+	
 	       it('should search across all fields when filtering with a string', function() {
 	         var searchText = element(by.model('searchText'));
 	         searchText.clear();
 	         searchText.sendKeys('m');
 	         expectFriendNames(['Mary', 'Mike', 'Adam'], 'friend');
-
+	
 	         searchText.clear();
 	         searchText.sendKeys('76');
 	         expectFriendNames(['John', 'Julie'], 'friend');
 	       });
-
+	
 	       it('should search in specific fields when filtering with a predicate object', function() {
 	         var searchAny = element(by.model('search.$'));
 	         searchAny.clear();
@@ -19755,11 +19756,11 @@
 	        throw minErr('filter')('notarray', 'Expected array but received: {0}', array);
 	      }
 	    }
-
+	
 	    var expressionType = getTypeForFilter(expression);
 	    var predicateFn;
 	    var matchAgainstAnyProp;
-
+	
 	    switch (expressionType) {
 	      case 'function':
 	        predicateFn = expression;
@@ -19777,16 +19778,16 @@
 	      default:
 	        return array;
 	    }
-
+	
 	    return Array.prototype.filter.call(array, predicateFn);
 	  };
 	}
-
+	
 	// Helper functions for `filterFilter`
 	function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
 	  var shouldMatchPrimitives = isObject(expression) && ('$' in expression);
 	  var predicateFn;
-
+	
 	  if (comparator === true) {
 	    comparator = equals;
 	  } else if (!isFunction(comparator)) {
@@ -19803,27 +19804,27 @@
 	        // Should not compare primitives against objects, unless they have custom `toString` method
 	        return false;
 	      }
-
+	
 	      actual = lowercase('' + actual);
 	      expected = lowercase('' + expected);
 	      return actual.indexOf(expected) !== -1;
 	    };
 	  }
-
+	
 	  predicateFn = function(item) {
 	    if (shouldMatchPrimitives && !isObject(item)) {
 	      return deepCompare(item, expression.$, comparator, false);
 	    }
 	    return deepCompare(item, expression, comparator, matchAgainstAnyProp);
 	  };
-
+	
 	  return predicateFn;
 	}
-
+	
 	function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatchWholeObject) {
 	  var actualType = getTypeForFilter(actual);
 	  var expectedType = getTypeForFilter(expected);
-
+	
 	  if ((expectedType === 'string') && (expected.charAt(0) === '!')) {
 	    return !deepCompare(actual, expected.substring(1), comparator, matchAgainstAnyProp);
 	  } else if (isArray(actual)) {
@@ -19833,7 +19834,7 @@
 	      return deepCompare(item, expected, comparator, matchAgainstAnyProp);
 	    });
 	  }
-
+	
 	  switch (actualType) {
 	    case 'object':
 	      var key;
@@ -19850,7 +19851,7 @@
 	          if (isFunction(expectedVal) || isUndefined(expectedVal)) {
 	            continue;
 	          }
-
+	
 	          var matchAnyProperty = key === '$';
 	          var actualVal = matchAnyProperty ? actual : actual[key];
 	          if (!deepCompare(actualVal, expectedVal, comparator, matchAnyProperty, matchAnyProperty)) {
@@ -19868,16 +19869,16 @@
 	      return comparator(actual, expected);
 	  }
 	}
-
+	
 	// Used for easily differentiating between `null` and actual `object`
 	function getTypeForFilter(val) {
 	  return (val === null) ? 'null' : typeof val;
 	}
-
+	
 	var MAX_DIGITS = 22;
 	var DECIMAL_SEP = '.';
 	var ZERO_CHAR = '0';
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name currency
@@ -19937,11 +19938,11 @@
 	    if (isUndefined(currencySymbol)) {
 	      currencySymbol = formats.CURRENCY_SYM;
 	    }
-
+	
 	    if (isUndefined(fractionSize)) {
 	      fractionSize = formats.PATTERNS[1].maxFrac;
 	    }
-
+	
 	    // if null or undefined pass it through
 	    return (amount == null)
 	        ? amount
@@ -19949,7 +19950,7 @@
 	            replace(/\u00A4/g, currencySymbol);
 	  };
 	}
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name number
@@ -19993,7 +19994,7 @@
 	         expect(element(by.binding('val | number:0')).getText()).toBe('1,235');
 	         expect(element(by.binding('-val | number:4')).getText()).toBe('-1,234.5679');
 	       });
-
+	
 	       it('should update', function() {
 	         element(by.model('val')).clear();
 	         element(by.model('val')).sendKeys('3374.333');
@@ -20008,7 +20009,7 @@
 	function numberFilter($locale) {
 	  var formats = $locale.NUMBER_FORMATS;
 	  return function(number, fractionSize) {
-
+	
 	    // if null or undefined pass it through
 	    return (number == null)
 	        ? number
@@ -20016,7 +20017,7 @@
 	                       fractionSize);
 	  };
 	}
-
+	
 	/**
 	 * Parse a number (as a string) into three components that can be used
 	 * for formatting the number.
@@ -20033,12 +20034,12 @@
 	function parse(numStr) {
 	  var exponent = 0, digits, numberOfIntegerDigits;
 	  var i, j, zeros;
-
+	
 	  // Decimal point?
 	  if ((numberOfIntegerDigits = numStr.indexOf(DECIMAL_SEP)) > -1) {
 	    numStr = numStr.replace(DECIMAL_SEP, '');
 	  }
-
+	
 	  // Exponential form?
 	  if ((i = numStr.search(/e/i)) > 0) {
 	    // Work out the exponent.
@@ -20049,10 +20050,10 @@
 	    // There was no decimal point or exponent so it is an integer.
 	    numberOfIntegerDigits = numStr.length;
 	  }
-
+	
 	  // Count the number of leading zeros.
 	  for (i = 0; numStr.charAt(i) == ZERO_CHAR; i++) {/* jshint noempty: false */}
-
+	
 	  if (i == (zeros = numStr.length)) {
 	    // The digits are all zero.
 	    digits = [0];
@@ -20061,7 +20062,7 @@
 	    // Count the number of trailing zeros
 	    zeros--;
 	    while (numStr.charAt(zeros) == ZERO_CHAR) zeros--;
-
+	
 	    // Trailing zeros are insignificant so ignore them
 	    numberOfIntegerDigits -= i;
 	    digits = [];
@@ -20070,17 +20071,17 @@
 	      digits[j] = +numStr.charAt(i);
 	    }
 	  }
-
+	
 	  // If the number overflows the maximum allowed digits then use an exponent.
 	  if (numberOfIntegerDigits > MAX_DIGITS) {
 	    digits = digits.splice(0, MAX_DIGITS - 1);
 	    exponent = numberOfIntegerDigits - 1;
 	    numberOfIntegerDigits = 1;
 	  }
-
+	
 	  return { d: digits, e: exponent, i: numberOfIntegerDigits };
 	}
-
+	
 	/**
 	 * Round the parsed number to the specified number of decimal places
 	 * This function changed the parsedNumber in-place
@@ -20088,18 +20089,18 @@
 	function roundNumber(parsedNumber, fractionSize, minFrac, maxFrac) {
 	    var digits = parsedNumber.d;
 	    var fractionLen = digits.length - parsedNumber.i;
-
+	
 	    // determine fractionSize if it is not specified; `+fractionSize` converts it to a number
 	    fractionSize = (isUndefined(fractionSize)) ? Math.min(Math.max(minFrac, fractionLen), maxFrac) : +fractionSize;
-
+	
 	    // The index of the digit to where rounding is to occur
 	    var roundAt = fractionSize + parsedNumber.i;
 	    var digit = digits[roundAt];
-
+	
 	    if (roundAt > 0) {
 	      // Drop fractional digits beyond `roundAt`
 	      digits.splice(Math.max(parsedNumber.i, roundAt));
-
+	
 	      // Set non-fractional digits beyond `roundAt` to 0
 	      for (var j = roundAt; j < digits.length; j++) {
 	        digits[j] = 0;
@@ -20112,7 +20113,7 @@
 	      digits[0] = 0;
 	      for (var i = 1; i < roundAt; i++) digits[i] = 0;
 	    }
-
+	
 	    if (digit >= 5) {
 	      if (roundAt - 1 < 0) {
 	        for (var k = 0; k > roundAt; k--) {
@@ -20125,11 +20126,11 @@
 	        digits[roundAt - 1]++;
 	      }
 	    }
-
+	
 	    // Pad out with zeros to get the required fraction length
 	    for (; fractionLen < Math.max(0, fractionSize); fractionLen++) digits.push(0);
-
-
+	
+	
 	    // Do any carrying, e.g. a digit was rounded up to 10
 	    var carry = digits.reduceRight(function(carry, d, i, digits) {
 	      d = d + carry;
@@ -20141,7 +20142,7 @@
 	      parsedNumber.i++;
 	    }
 	}
-
+	
 	/**
 	 * Format a number into a string
 	 * @param  {number} number       The number to format
@@ -20161,34 +20162,34 @@
 	 * @return {string}              The number formatted as a string
 	 */
 	function formatNumber(number, pattern, groupSep, decimalSep, fractionSize) {
-
+	
 	  if (!(isString(number) || isNumber(number)) || isNaN(number)) return '';
-
+	
 	  var isInfinity = !isFinite(number);
 	  var isZero = false;
 	  var numStr = Math.abs(number) + '',
 	      formattedText = '',
 	      parsedNumber;
-
+	
 	  if (isInfinity) {
 	    formattedText = '\u221e';
 	  } else {
 	    parsedNumber = parse(numStr);
-
+	
 	    roundNumber(parsedNumber, fractionSize, pattern.minFrac, pattern.maxFrac);
-
+	
 	    var digits = parsedNumber.d;
 	    var integerLen = parsedNumber.i;
 	    var exponent = parsedNumber.e;
 	    var decimals = [];
 	    isZero = digits.reduce(function(isZero, d) { return isZero && !d; }, true);
-
+	
 	    // pad zeros for small numbers
 	    while (integerLen < 0) {
 	      digits.unshift(0);
 	      integerLen++;
 	    }
-
+	
 	    // extract decimals digits
 	    if (integerLen > 0) {
 	      decimals = digits.splice(integerLen);
@@ -20196,7 +20197,7 @@
 	      decimals = digits;
 	      digits = [0];
 	    }
-
+	
 	    // format the integer digits with grouping separators
 	    var groups = [];
 	    if (digits.length >= pattern.lgSize) {
@@ -20209,12 +20210,12 @@
 	      groups.unshift(digits.join(''));
 	    }
 	    formattedText = groups.join(groupSep);
-
+	
 	    // append the decimal digits
 	    if (decimals.length) {
 	      formattedText += decimalSep + decimals.join('');
 	    }
-
+	
 	    if (exponent) {
 	      formattedText += 'e+' + exponent;
 	    }
@@ -20225,7 +20226,7 @@
 	    return pattern.posPre + formattedText + pattern.posSuf;
 	  }
 	}
-
+	
 	function padNumber(num, digits, trim, negWrap) {
 	  var neg = '';
 	  if (num < 0 || (negWrap && num <= 0)) {
@@ -20243,8 +20244,8 @@
 	  }
 	  return neg + num;
 	}
-
-
+	
+	
 	function dateGetter(name, size, offset, trim, negWrap) {
 	  offset = offset || 0;
 	  return function(date) {
@@ -20256,27 +20257,27 @@
 	    return padNumber(value, size, trim, negWrap);
 	  };
 	}
-
+	
 	function dateStrGetter(name, shortForm, standAlone) {
 	  return function(date, formats) {
 	    var value = date['get' + name]();
 	    var propPrefix = (standAlone ? 'STANDALONE' : '') + (shortForm ? 'SHORT' : '');
 	    var get = uppercase(propPrefix + name);
-
+	
 	    return formats[get][value];
 	  };
 	}
-
+	
 	function timeZoneGetter(date, formats, offset) {
 	  var zone = -1 * offset;
 	  var paddedZone = (zone >= 0) ? "+" : "";
-
+	
 	  paddedZone += padNumber(Math[zone > 0 ? 'floor' : 'ceil'](zone / 60), 2) +
 	                padNumber(Math.abs(zone % 60), 2);
-
+	
 	  return paddedZone;
 	}
-
+	
 	function getFirstThursdayOfYear(year) {
 	    // 0 = index of January
 	    var dayOfWeekOnFirst = (new Date(year, 0, 1)).getDay();
@@ -20284,37 +20285,37 @@
 	    // 11 = index of *next* Thursday (+1 account for 1st = 12)
 	    return new Date(year, 0, ((dayOfWeekOnFirst <= 4) ? 5 : 12) - dayOfWeekOnFirst);
 	}
-
+	
 	function getThursdayThisWeek(datetime) {
 	    return new Date(datetime.getFullYear(), datetime.getMonth(),
 	      // 4 = index of Thursday
 	      datetime.getDate() + (4 - datetime.getDay()));
 	}
-
+	
 	function weekGetter(size) {
 	   return function(date) {
 	      var firstThurs = getFirstThursdayOfYear(date.getFullYear()),
 	         thisThurs = getThursdayThisWeek(date);
-
+	
 	      var diff = +thisThurs - +firstThurs,
 	         result = 1 + Math.round(diff / 6.048e8); // 6.048e8 ms per week
-
+	
 	      return padNumber(result, size);
 	   };
 	}
-
+	
 	function ampmGetter(date, formats) {
 	  return date.getHours() < 12 ? formats.AMPMS[0] : formats.AMPMS[1];
 	}
-
+	
 	function eraGetter(date, formats) {
 	  return date.getFullYear() <= 0 ? formats.ERAS[0] : formats.ERAS[1];
 	}
-
+	
 	function longEraGetter(date, formats) {
 	  return date.getFullYear() <= 0 ? formats.ERANAMES[0] : formats.ERANAMES[1];
 	}
-
+	
 	var DATE_FORMATS = {
 	  yyyy: dateGetter('FullYear', 4, 0, false, true),
 	    yy: dateGetter('FullYear', 2, 0, true, true),
@@ -20348,10 +20349,10 @@
 	     GGG: eraGetter,
 	     GGGG: longEraGetter
 	};
-
+	
 	var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,
 	    NUMBER_STRING = /^\-?\d+$/;
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name date
@@ -20448,8 +20449,8 @@
 	 */
 	dateFilter.$inject = ['$locale'];
 	function dateFilter($locale) {
-
-
+	
+	
 	  var R_ISO8601_STR = /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
 	                     // 1        2       3         4          5          6          7          8  9     10      11
 	  function jsonStringToDate(string) {
@@ -20460,7 +20461,7 @@
 	          tzMin  = 0,
 	          dateSetter = match[8] ? date.setUTCFullYear : date.setFullYear,
 	          timeSetter = match[8] ? date.setUTCHours : date.setHours;
-
+	
 	      if (match[9]) {
 	        tzHour = toInt(match[9] + match[10]);
 	        tzMin = toInt(match[9] + match[11]);
@@ -20475,27 +20476,27 @@
 	    }
 	    return string;
 	  }
-
-
+	
+	
 	  return function(date, format, timezone) {
 	    var text = '',
 	        parts = [],
 	        fn, match;
-
+	
 	    format = format || 'mediumDate';
 	    format = $locale.DATETIME_FORMATS[format] || format;
 	    if (isString(date)) {
 	      date = NUMBER_STRING.test(date) ? toInt(date) : jsonStringToDate(date);
 	    }
-
+	
 	    if (isNumber(date)) {
 	      date = new Date(date);
 	    }
-
+	
 	    if (!isDate(date) || !isFinite(date.getTime())) {
 	      return date;
 	    }
-
+	
 	    while (format) {
 	      match = DATE_FORMATS_SPLIT.exec(format);
 	      if (match) {
@@ -20506,7 +20507,7 @@
 	        format = null;
 	      }
 	    }
-
+	
 	    var dateTimezoneOffset = date.getTimezoneOffset();
 	    if (timezone) {
 	      dateTimezoneOffset = timezoneToOffset(timezone, dateTimezoneOffset);
@@ -20517,12 +20518,12 @@
 	      text += fn ? fn(date, $locale.DATETIME_FORMATS, dateTimezoneOffset)
 	                 : value === "''" ? "'" : value.replace(/(^'|'$)/g, '').replace(/''/g, "'");
 	    });
-
+	
 	    return text;
 	  };
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc filter
 	 * @name json
@@ -20562,8 +20563,8 @@
 	    return toJson(object, spacing);
 	  };
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc filter
 	 * @name lowercase
@@ -20573,8 +20574,8 @@
 	 * @see angular.lowercase
 	 */
 	var lowercaseFilter = valueFn(lowercase);
-
-
+	
+	
 	/**
 	 * @ngdoc filter
 	 * @name uppercase
@@ -20584,7 +20585,7 @@
 	 * @see angular.uppercase
 	 */
 	var uppercaseFilter = valueFn(uppercase);
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name limitTo
@@ -20646,7 +20647,7 @@
 	       var limitedNumbers = element(by.binding('numbers | limitTo:numLimit'));
 	       var limitedLetters = element(by.binding('letters | limitTo:letterLimit'));
 	       var limitedLongNumber = element(by.binding('longNumber | limitTo:longNumberLimit'));
-
+	
 	       it('should limit the number array to first three items', function() {
 	         expect(numLimitInput.getAttribute('value')).toBe('3');
 	         expect(letterLimitInput.getAttribute('value')).toBe('3');
@@ -20655,7 +20656,7 @@
 	         expect(limitedLetters.getText()).toEqual('Output letters: abc');
 	         expect(limitedLongNumber.getText()).toEqual('Output long number: 234');
 	       });
-
+	
 	       // There is a bug in safari and protractor that doesn't like the minus key
 	       // it('should update the output when -3 is entered', function() {
 	       //   numLimitInput.clear();
@@ -20668,7 +20669,7 @@
 	       //   expect(limitedLetters.getText()).toEqual('Output letters: ghi');
 	       //   expect(limitedLongNumber.getText()).toEqual('Output long number: 342');
 	       // });
-
+	
 	       it('should not exceed the maximum size of input array', function() {
 	         numLimitInput.clear();
 	         numLimitInput.sendKeys('100');
@@ -20691,13 +20692,13 @@
 	      limit = toInt(limit);
 	    }
 	    if (isNaN(limit)) return input;
-
+	
 	    if (isNumber(input)) input = input.toString();
 	    if (!isArray(input) && !isString(input)) return input;
-
+	
 	    begin = (!begin || isNaN(begin)) ? 0 : toInt(begin);
 	    begin = (begin < 0) ? Math.max(0, input.length + begin) : begin;
-
+	
 	    if (limit >= 0) {
 	      return input.slice(begin, begin + limit);
 	    } else {
@@ -20709,7 +20710,7 @@
 	    }
 	  };
 	}
-
+	
 	/**
 	 * @ngdoc filter
 	 * @name orderBy
@@ -20873,7 +20874,7 @@
 	      </table>
 	    </div>
 	    </file>
-
+	
 	    <file name="script.js">
 	      angular.module('orderByExample', [])
 	        .controller('ExampleController', ['$scope', '$filter', function($scope, $filter) {
@@ -20893,7 +20894,7 @@
 	          $scope.order('age', true);
 	        }]);
 	    </file>
-
+	
 	    <file name="style.css">
 	       .sortorder:after {
 	         content: '\25b2';
@@ -20907,30 +20908,30 @@
 	orderByFilter.$inject = ['$parse'];
 	function orderByFilter($parse) {
 	  return function(array, sortPredicate, reverseOrder) {
-
+	
 	    if (array == null) return array;
 	    if (!isArrayLike(array)) {
 	      throw minErr('orderBy')('notarray', 'Expected array but received: {0}', array);
 	    }
-
+	
 	    if (!isArray(sortPredicate)) { sortPredicate = [sortPredicate]; }
 	    if (sortPredicate.length === 0) { sortPredicate = ['+']; }
-
+	
 	    var predicates = processPredicates(sortPredicate, reverseOrder);
 	    // Add a predicate at the end that evaluates to the element index. This makes the
 	    // sort stable as it works as a tie-breaker when all the input predicates cannot
 	    // distinguish between two elements.
 	    predicates.push({ get: function() { return {}; }, descending: reverseOrder ? -1 : 1});
-
+	
 	    // The next three lines are a version of a Swartzian Transform idiom from Perl
 	    // (sometimes called the Decorate-Sort-Undecorate idiom)
 	    // See https://en.wikipedia.org/wiki/Schwartzian_transform
 	    var compareValues = Array.prototype.map.call(array, getComparisonObject);
 	    compareValues.sort(doComparison);
 	    array = compareValues.map(function(item) { return item.value; });
-
+	
 	    return array;
-
+	
 	    function getComparisonObject(value, index) {
 	      return {
 	        value: value,
@@ -20939,7 +20940,7 @@
 	        })
 	      };
 	    }
-
+	
 	    function doComparison(v1, v2) {
 	      var result = 0;
 	      for (var index=0, length = predicates.length; index < length; ++index) {
@@ -20949,12 +20950,12 @@
 	      return result;
 	    }
 	  };
-
+	
 	  function processPredicates(sortPredicate, reverseOrder) {
 	    reverseOrder = reverseOrder ? -1 : 1;
 	    return sortPredicate.map(function(predicate) {
 	      var descending = 1, get = identity;
-
+	
 	      if (isFunction(predicate)) {
 	        get = predicate;
 	      } else if (isString(predicate)) {
@@ -20973,7 +20974,7 @@
 	      return { get: get, descending: descending * reverseOrder };
 	    });
 	  }
-
+	
 	  function isPrimitive(value) {
 	    switch (typeof value) {
 	      case 'number': /* falls through */
@@ -20984,7 +20985,7 @@
 	        return false;
 	    }
 	  }
-
+	
 	  function objectValue(value, index) {
 	    // If `valueOf` is a valid function use that
 	    if (typeof value.valueOf === 'function') {
@@ -20999,7 +21000,7 @@
 	    // We have a basic object so we use the position of the object in the collection
 	    return index;
 	  }
-
+	
 	  function getPredicateValue(value, index) {
 	    var type = typeof value;
 	    if (value === null) {
@@ -21012,7 +21013,7 @@
 	    }
 	    return { value: value, type: type };
 	  }
-
+	
 	  function compare(v1, v2) {
 	    var result = 0;
 	    if (v1.type === v2.type) {
@@ -21025,7 +21026,7 @@
 	    return result;
 	  }
 	}
-
+	
 	function ngDirective(directive) {
 	  if (isFunction(directive)) {
 	    directive = {
@@ -21035,7 +21036,7 @@
 	  directive.restrict = directive.restrict || 'AC';
 	  return valueFn(directive);
 	}
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name a
@@ -21056,7 +21057,7 @@
 	      return function(scope, element) {
 	        // If the linked element is not an anchor tag anymore, do nothing
 	        if (element[0].nodeName.toLowerCase() !== 'a') return;
-
+	
 	        // SVGAElement does not use the href attribute, but rather the 'xlinkHref' attribute.
 	        var href = toString.call(element.prop('href')) === '[object SVGAnimatedString]' ?
 	                   'xlink:href' : 'href';
@@ -21070,7 +21071,7 @@
 	    }
 	  }
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngHref
@@ -21117,47 +21118,47 @@
 	          expect(element(by.model('value')).getAttribute('value')).toEqual('1');
 	          expect(element(by.id('link-1')).getAttribute('href')).toBe('');
 	        });
-
+	
 	        it('should execute ng-click but not reload when href empty string', function() {
 	          element(by.id('link-2')).click();
 	          expect(element(by.model('value')).getAttribute('value')).toEqual('2');
 	          expect(element(by.id('link-2')).getAttribute('href')).toBe('');
 	        });
-
+	
 	        it('should execute ng-click and change url when ng-href specified', function() {
 	          expect(element(by.id('link-3')).getAttribute('href')).toMatch(/\/123$/);
-
+	
 	          element(by.id('link-3')).click();
-
+	
 	          // At this point, we navigate away from an Angular page, so we need
 	          // to use browser.driver to get the base webdriver.
-
+	
 	          browser.wait(function() {
 	            return browser.driver.getCurrentUrl().then(function(url) {
 	              return url.match(/\/123$/);
 	            });
 	          }, 5000, 'page should navigate to /123');
 	        });
-
+	
 	        it('should execute ng-click but not reload when href empty string and name specified', function() {
 	          element(by.id('link-4')).click();
 	          expect(element(by.model('value')).getAttribute('value')).toEqual('4');
 	          expect(element(by.id('link-4')).getAttribute('href')).toBe('');
 	        });
-
+	
 	        it('should execute ng-click but not reload when no href but name specified', function() {
 	          element(by.id('link-5')).click();
 	          expect(element(by.model('value')).getAttribute('value')).toEqual('5');
 	          expect(element(by.id('link-5')).getAttribute('href')).toBe(null);
 	        });
-
+	
 	        it('should only change url when only ng-href', function() {
 	          element(by.model('value')).clear();
 	          element(by.model('value')).sendKeys('6');
 	          expect(element(by.id('link-6')).getAttribute('href')).toMatch(/\/6$/);
-
+	
 	          element(by.id('link-6')).click();
-
+	
 	          // At this point, we navigate away from an Angular page, so we need
 	          // to use browser.driver to get the base webdriver.
 	          browser.wait(function() {
@@ -21169,7 +21170,7 @@
 	      </file>
 	    </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngSrc
@@ -21195,7 +21196,7 @@
 	 * @element IMG
 	 * @param {template} ngSrc any string which can contain `{{}}` markup.
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngSrcset
@@ -21221,7 +21222,7 @@
 	 * @element IMG
 	 * @param {template} ngSrcset any string which can contain `{{}}` markup.
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngDisabled
@@ -21255,8 +21256,8 @@
 	 * @param {expression} ngDisabled If the {@link guide/expression expression} is truthy,
 	 *     then the `disabled` attribute will be set on the element
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngChecked
@@ -21291,8 +21292,8 @@
 	 * @param {expression} ngChecked If the {@link guide/expression expression} is truthy,
 	 *     then the `checked` attribute will be set on the element
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngReadonly
@@ -21325,8 +21326,8 @@
 	 * @param {expression} ngReadonly If the {@link guide/expression expression} is truthy,
 	 *     then special attribute "readonly" will be set on the element
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngSelected
@@ -21362,7 +21363,7 @@
 	 * @param {expression} ngSelected If the {@link guide/expression expression} is truthy,
 	 *     then special attribute "selected" will be set on the element
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngOpen
@@ -21397,23 +21398,23 @@
 	 * @param {expression} ngOpen If the {@link guide/expression expression} is truthy,
 	 *     then special attribute "open" will be set on the element
 	 */
-
+	
 	var ngAttributeAliasDirectives = {};
-
+	
 	// boolean attrs are evaluated
 	forEach(BOOLEAN_ATTR, function(propName, attrName) {
 	  // binding to multiple is not supported
 	  if (propName == "multiple") return;
-
+	
 	  function defaultLinkFn(scope, element, attr) {
 	    scope.$watch(attr[normalized], function ngBooleanAttrWatchAction(value) {
 	      attr.$set(attrName, !!value);
 	    });
 	  }
-
+	
 	  var normalized = directiveNormalize('ng-' + attrName);
 	  var linkFn = defaultLinkFn;
-
+	
 	  if (propName === 'checked') {
 	    linkFn = function(scope, element, attr) {
 	      // ensuring ngChecked doesn't interfere with ngModel when both are set on the same input
@@ -21422,7 +21423,7 @@
 	      }
 	    };
 	  }
-
+	
 	  ngAttributeAliasDirectives[normalized] = function() {
 	    return {
 	      restrict: 'A',
@@ -21431,7 +21432,7 @@
 	    };
 	  };
 	});
-
+	
 	// aliased input attrs are evaluated
 	forEach(ALIASED_ATTR, function(htmlAttr, ngAttr) {
 	  ngAttributeAliasDirectives[ngAttr] = function() {
@@ -21447,7 +21448,7 @@
 	            return;
 	          }
 	        }
-
+	
 	        scope.$watch(attr[ngAttr], function ngAttrAliasWatchAction(value) {
 	          attr.$set(ngAttr, value);
 	        });
@@ -21455,7 +21456,7 @@
 	    };
 	  };
 	});
-
+	
 	// ng-src, ng-srcset, ng-href are interpolated
 	forEach(['src', 'srcset', 'href'], function(attrName) {
 	  var normalized = directiveNormalize('ng-' + attrName);
@@ -21465,14 +21466,14 @@
 	      link: function(scope, element, attr) {
 	        var propName = attrName,
 	            name = attrName;
-
+	
 	        if (attrName === 'href' &&
 	            toString.call(element.prop('href')) === '[object SVGAnimatedString]') {
 	          name = 'xlinkHref';
 	          attr.$attr[name] = 'xlink:href';
 	          propName = null;
 	        }
-
+	
 	        attr.$observe(normalized, function(value) {
 	          if (!value) {
 	            if (attrName === 'href') {
@@ -21480,9 +21481,9 @@
 	            }
 	            return;
 	          }
-
+	
 	          attr.$set(name, value);
-
+	
 	          // on IE, if "ng:src" directive declaration is used and "src" attribute doesn't exist
 	          // then calling element.setAttribute('src', 'foo') doesn't do anything, so we need
 	          // to set the property as well to achieve the desired effect.
@@ -21493,7 +21494,7 @@
 	    };
 	  };
 	});
-
+	
 	/* global -nullFormCtrl, -SUBMITTED_CLASS, addSetValidityMethod: true
 	 */
 	var nullFormCtrl = {
@@ -21506,11 +21507,11 @@
 	  $setSubmitted: noop
 	},
 	SUBMITTED_CLASS = 'ng-submitted';
-
+	
 	function nullFormRenameControl(control, name) {
 	  control.$name = name;
 	}
-
+	
 	/**
 	 * @ngdoc type
 	 * @name form.FormController
@@ -21558,7 +21559,7 @@
 	function FormController(element, attrs, $scope, $animate, $interpolate) {
 	  var form = this,
 	      controls = [];
-
+	
 	  // init state
 	  form.$error = {};
 	  form.$$success = {};
@@ -21570,7 +21571,7 @@
 	  form.$invalid = false;
 	  form.$submitted = false;
 	  form.$$parentForm = nullFormCtrl;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$rollbackViewValue
@@ -21587,7 +21588,7 @@
 	      control.$rollbackViewValue();
 	    });
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$commitViewValue
@@ -21604,7 +21605,7 @@
 	      control.$commitViewValue();
 	    });
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$addControl
@@ -21631,25 +21632,25 @@
 	    // and not added to the scope.  Now we throw an error.
 	    assertNotHasOwnProperty(control.$name, 'input');
 	    controls.push(control);
-
+	
 	    if (control.$name) {
 	      form[control.$name] = control;
 	    }
-
+	
 	    control.$$parentForm = form;
 	  };
-
+	
 	  // Private API: rename a form control
 	  form.$$renameControl = function(control, newName) {
 	    var oldName = control.$name;
-
+	
 	    if (form[oldName] === control) {
 	      delete form[oldName];
 	    }
 	    form[newName] = control;
 	    control.$name = newName;
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$removeControl
@@ -21679,12 +21680,12 @@
 	    forEach(form.$$success, function(value, name) {
 	      form.$setValidity(name, null, control);
 	    });
-
+	
 	    arrayRemove(controls, control);
 	    control.$$parentForm = nullFormCtrl;
 	  };
-
-
+	
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$setValidity
@@ -21720,7 +21721,7 @@
 	    },
 	    $animate: $animate
 	  });
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$setDirty
@@ -21738,7 +21739,7 @@
 	    form.$pristine = false;
 	    form.$$parentForm.$setDirty();
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$setPristine
@@ -21762,7 +21763,7 @@
 	      control.$setPristine();
 	    });
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$setUntouched
@@ -21781,7 +21782,7 @@
 	      control.$setUntouched();
 	    });
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name form.FormController#$setSubmitted
@@ -21795,7 +21796,7 @@
 	    form.$$parentForm.$setSubmitted();
 	  };
 	}
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngForm
@@ -21814,7 +21815,7 @@
 	 *                       related scope, under this name.
 	 *
 	 */
-
+	
 	 /**
 	 * @ngdoc directive
 	 * @name form
@@ -21935,19 +21936,19 @@
 	        it('should initialize to model', function() {
 	          var userType = element(by.binding('userType'));
 	          var valid = element(by.binding('myForm.input.$valid'));
-
+	
 	          expect(userType.getText()).toContain('guest');
 	          expect(valid.getText()).toContain('true');
 	        });
-
+	
 	        it('should be invalid if empty', function() {
 	          var userType = element(by.binding('userType'));
 	          var valid = element(by.binding('myForm.input.$valid'));
 	          var userInput = element(by.model('userType'));
-
+	
 	          userInput.clear();
 	          userInput.sendKeys('');
-
+	
 	          expect(userType.getText()).toEqual('userType =');
 	          expect(valid.getText()).toContain('false');
 	        });
@@ -21967,13 +21968,13 @@
 	      compile: function ngFormCompile(formElement, attr) {
 	        // Setup initial state of the control
 	        formElement.addClass(PRISTINE_CLASS).addClass(VALID_CLASS);
-
+	
 	        var nameAttr = attr.name ? 'name' : (isNgForm && attr.ngForm ? 'ngForm' : false);
-
+	
 	        return {
 	          pre: function ngFormPreLink(scope, formElement, attr, ctrls) {
 	            var controller = ctrls[0];
-
+	
 	            // if `action` attr is not present on the form, prevent the default action (submission)
 	            if (!('action' in attr)) {
 	              // we can't use jq events because if a form is destroyed during submission the default
@@ -21987,12 +21988,12 @@
 	                  controller.$commitViewValue();
 	                  controller.$setSubmitted();
 	                });
-
+	
 	                event.preventDefault();
 	              };
-
+	
 	              addEventListenerFn(formElement[0], 'submit', handleFormSubmission);
-
+	
 	              // unregister the preventDefault listener so that we don't not leak memory but in a
 	              // way that will achieve the prevention of the default action.
 	              formElement.on('$destroy', function() {
@@ -22001,12 +22002,12 @@
 	                }, 0, false);
 	              });
 	            }
-
+	
 	            var parentFormCtrl = ctrls[1] || controller.$$parentForm;
 	            parentFormCtrl.$addControl(controller);
-
+	
 	            var setter = nameAttr ? getSetter(controller.$name) : noop;
-
+	
 	            if (nameAttr) {
 	              setter(scope, controller);
 	              attr.$observe(nameAttr, function(newValue) {
@@ -22026,9 +22027,9 @@
 	        };
 	      }
 	    };
-
+	
 	    return formDirective;
-
+	
 	    function getSetter(expression) {
 	      if (expression === '') {
 	        //create an assignable expression, so forms with an empty name can be renamed later
@@ -22038,10 +22039,10 @@
 	    }
 	  }];
 	};
-
+	
 	var formDirective = formDirectiveFactory();
 	var ngFormDirective = formDirectiveFactory(true);
-
+	
 	/* global VALID_CLASS: false,
 	  INVALID_CLASS: false,
 	  PRISTINE_CLASS: false,
@@ -22050,7 +22051,7 @@
 	  TOUCHED_CLASS: false,
 	  ngModelMinErr: false,
 	*/
-
+	
 	// Regex code was initially obtained from SO prior to modification: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime#answer-3143231
 	var ISO_DATE_REGEXP = /^\d{4,}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+(?:[+-][0-2]\d:[0-5]\d|Z)$/;
 	// See valid URLs in RFC3987 (http://tools.ietf.org/html/rfc3987)
@@ -22073,15 +22074,15 @@
 	var WEEK_REGEXP = /^(\d{4,})-W(\d\d)$/;
 	var MONTH_REGEXP = /^(\d{4,})-(\d\d)$/;
 	var TIME_REGEXP = /^(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/;
-
+	
 	var PARTIAL_VALIDATION_EVENTS = 'keydown wheel mousedown';
 	var PARTIAL_VALIDATION_TYPES = createMap();
 	forEach('date,datetime-local,month,time,week'.split(','), function(type) {
 	  PARTIAL_VALIDATION_TYPES[type] = true;
 	});
-
+	
 	var inputType = {
-
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[text]
@@ -22153,31 +22154,31 @@
 	          var text = element(by.binding('example.text'));
 	          var valid = element(by.binding('myForm.input.$valid'));
 	          var input = element(by.model('example.text'));
-
+	
 	          it('should initialize to model', function() {
 	            expect(text.getText()).toContain('guest');
 	            expect(valid.getText()).toContain('true');
 	          });
-
+	
 	          it('should be invalid if empty', function() {
 	            input.clear();
 	            input.sendKeys('');
-
+	
 	            expect(text.getText()).toEqual('text =');
 	            expect(valid.getText()).toContain('false');
 	          });
-
+	
 	          it('should be invalid if multi word', function() {
 	            input.clear();
 	            input.sendKeys('hello world');
-
+	
 	            expect(valid.getText()).toContain('false');
 	          });
 	        </file>
 	      </example>
 	   */
 	  'text': textInputType,
-
+	
 	    /**
 	     * @ngdoc input
 	     * @name input[date]
@@ -22248,7 +22249,7 @@
 	        var value = element(by.binding('example.value | date: "yyyy-MM-dd"'));
 	        var valid = element(by.binding('myForm.input.$valid'));
 	        var input = element(by.model('example.value'));
-
+	
 	        // currently protractor/webdriver does not support
 	        // sending keys to all known HTML5 input controls
 	        // for various browsers (see https://github.com/angular/protractor/issues/562).
@@ -22259,18 +22260,18 @@
 	          "angular.element(ipt).scope().$apply(function(s) { s.myForm[ipt.name].$setViewValue('" + val + "'); });";
 	          browser.executeScript(scr);
 	        }
-
+	
 	        it('should initialize to model', function() {
 	          expect(value.getText()).toContain('2013-10-22');
 	          expect(valid.getText()).toContain('myForm.input.$valid = true');
 	        });
-
+	
 	        it('should be invalid if empty', function() {
 	          setInput('');
 	          expect(value.getText()).toEqual('value =');
 	          expect(valid.getText()).toContain('myForm.input.$valid = false');
 	        });
-
+	
 	        it('should be invalid if over max', function() {
 	          setInput('2015-01-01');
 	          expect(value.getText()).toContain('');
@@ -22282,7 +22283,7 @@
 	  'date': createDateInputType('date', DATE_REGEXP,
 	         createDateParser(DATE_REGEXP, ['yyyy', 'MM', 'dd']),
 	         'yyyy-MM-dd'),
-
+	
 	   /**
 	    * @ngdoc input
 	    * @name input[datetime-local]
@@ -22351,7 +22352,7 @@
 	      var value = element(by.binding('example.value | date: "yyyy-MM-ddTHH:mm:ss"'));
 	      var valid = element(by.binding('myForm.input.$valid'));
 	      var input = element(by.model('example.value'));
-
+	
 	      // currently protractor/webdriver does not support
 	      // sending keys to all known HTML5 input controls
 	      // for various browsers (https://github.com/angular/protractor/issues/562).
@@ -22362,18 +22363,18 @@
 	        "angular.element(ipt).scope().$apply(function(s) { s.myForm[ipt.name].$setViewValue('" + val + "'); });";
 	        browser.executeScript(scr);
 	      }
-
+	
 	      it('should initialize to model', function() {
 	        expect(value.getText()).toContain('2010-12-28T14:57:00');
 	        expect(valid.getText()).toContain('myForm.input.$valid = true');
 	      });
-
+	
 	      it('should be invalid if empty', function() {
 	        setInput('');
 	        expect(value.getText()).toEqual('value =');
 	        expect(valid.getText()).toContain('myForm.input.$valid = false');
 	      });
-
+	
 	      it('should be invalid if over max', function() {
 	        setInput('2015-01-01T23:59:00');
 	        expect(value.getText()).toContain('');
@@ -22385,7 +22386,7 @@
 	  'datetime-local': createDateInputType('datetimelocal', DATETIMELOCAL_REGEXP,
 	      createDateParser(DATETIMELOCAL_REGEXP, ['yyyy', 'MM', 'dd', 'HH', 'mm', 'ss', 'sss']),
 	      'yyyy-MM-ddTHH:mm:ss.sss'),
-
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[time]
@@ -22455,7 +22456,7 @@
 	      var value = element(by.binding('example.value | date: "HH:mm:ss"'));
 	      var valid = element(by.binding('myForm.input.$valid'));
 	      var input = element(by.model('example.value'));
-
+	
 	      // currently protractor/webdriver does not support
 	      // sending keys to all known HTML5 input controls
 	      // for various browsers (https://github.com/angular/protractor/issues/562).
@@ -22466,18 +22467,18 @@
 	        "angular.element(ipt).scope().$apply(function(s) { s.myForm[ipt.name].$setViewValue('" + val + "'); });";
 	        browser.executeScript(scr);
 	      }
-
+	
 	      it('should initialize to model', function() {
 	        expect(value.getText()).toContain('14:57:00');
 	        expect(valid.getText()).toContain('myForm.input.$valid = true');
 	      });
-
+	
 	      it('should be invalid if empty', function() {
 	        setInput('');
 	        expect(value.getText()).toEqual('value =');
 	        expect(valid.getText()).toContain('myForm.input.$valid = false');
 	      });
-
+	
 	      it('should be invalid if over max', function() {
 	        setInput('23:59:00');
 	        expect(value.getText()).toContain('');
@@ -22489,7 +22490,7 @@
 	  'time': createDateInputType('time', TIME_REGEXP,
 	      createDateParser(TIME_REGEXP, ['HH', 'mm', 'ss', 'sss']),
 	     'HH:mm:ss.sss'),
-
+	
 	   /**
 	    * @ngdoc input
 	    * @name input[week]
@@ -22560,7 +22561,7 @@
 	      var value = element(by.binding('example.value | date: "yyyy-Www"'));
 	      var valid = element(by.binding('myForm.input.$valid'));
 	      var input = element(by.model('example.value'));
-
+	
 	      // currently protractor/webdriver does not support
 	      // sending keys to all known HTML5 input controls
 	      // for various browsers (https://github.com/angular/protractor/issues/562).
@@ -22571,18 +22572,18 @@
 	        "angular.element(ipt).scope().$apply(function(s) { s.myForm[ipt.name].$setViewValue('" + val + "'); });";
 	        browser.executeScript(scr);
 	      }
-
+	
 	      it('should initialize to model', function() {
 	        expect(value.getText()).toContain('2013-W01');
 	        expect(valid.getText()).toContain('myForm.input.$valid = true');
 	      });
-
+	
 	      it('should be invalid if empty', function() {
 	        setInput('');
 	        expect(value.getText()).toEqual('value =');
 	        expect(valid.getText()).toContain('myForm.input.$valid = false');
 	      });
-
+	
 	      it('should be invalid if over max', function() {
 	        setInput('2015-W01');
 	        expect(value.getText()).toContain('');
@@ -22592,7 +22593,7 @@
 	    </example>
 	    */
 	  'week': createDateInputType('week', WEEK_REGEXP, weekParser, 'yyyy-Www'),
-
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[month]
@@ -22624,7 +22625,7 @@
 	   *   the `ngMin` expression evaluates to. Note that it does not set the `min` attribute.
 	   * @param {(date|string)=} ngMax Sets the `max` validation constraint to the Date / ISO week string
 	   *   the `ngMax` expression evaluates to. Note that it does not set the `max` attribute.
-
+	
 	   * @param {string=} required Sets `required` validation error key if the value is not entered.
 	   * @param {string=} ngRequired Adds `required` attribute and `required` validation constraint to
 	   *    the element when the ngRequired expression evaluates to true. Use `ngRequired` instead of
@@ -22664,7 +22665,7 @@
 	      var value = element(by.binding('example.value | date: "yyyy-MM"'));
 	      var valid = element(by.binding('myForm.input.$valid'));
 	      var input = element(by.model('example.value'));
-
+	
 	      // currently protractor/webdriver does not support
 	      // sending keys to all known HTML5 input controls
 	      // for various browsers (https://github.com/angular/protractor/issues/562).
@@ -22675,18 +22676,18 @@
 	        "angular.element(ipt).scope().$apply(function(s) { s.myForm[ipt.name].$setViewValue('" + val + "'); });";
 	        browser.executeScript(scr);
 	      }
-
+	
 	      it('should initialize to model', function() {
 	        expect(value.getText()).toContain('2013-10');
 	        expect(valid.getText()).toContain('myForm.input.$valid = true');
 	      });
-
+	
 	      it('should be invalid if empty', function() {
 	        setInput('');
 	        expect(value.getText()).toEqual('value =');
 	        expect(valid.getText()).toContain('myForm.input.$valid = false');
 	      });
-
+	
 	      it('should be invalid if over max', function() {
 	        setInput('2015-01');
 	        expect(value.getText()).toContain('');
@@ -22698,7 +22699,7 @@
 	  'month': createDateInputType('month', MONTH_REGEXP,
 	     createDateParser(MONTH_REGEXP, ['yyyy', 'MM']),
 	     'yyyy-MM'),
-
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[number]
@@ -22784,19 +22785,19 @@
 	          var value = element(by.binding('example.value'));
 	          var valid = element(by.binding('myForm.input.$valid'));
 	          var input = element(by.model('example.value'));
-
+	
 	          it('should initialize to model', function() {
 	            expect(value.getText()).toContain('12');
 	            expect(valid.getText()).toContain('true');
 	          });
-
+	
 	          it('should be invalid if empty', function() {
 	            input.clear();
 	            input.sendKeys('');
 	            expect(value.getText()).toEqual('value =');
 	            expect(valid.getText()).toContain('false');
 	          });
-
+	
 	          it('should be invalid if over max', function() {
 	            input.clear();
 	            input.sendKeys('123');
@@ -22807,8 +22808,8 @@
 	      </example>
 	   */
 	  'number': numberInputType,
-
-
+	
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[url]
@@ -22882,32 +22883,32 @@
 	          var text = element(by.binding('url.text'));
 	          var valid = element(by.binding('myForm.input.$valid'));
 	          var input = element(by.model('url.text'));
-
+	
 	          it('should initialize to model', function() {
 	            expect(text.getText()).toContain('http://google.com');
 	            expect(valid.getText()).toContain('true');
 	          });
-
+	
 	          it('should be invalid if empty', function() {
 	            input.clear();
 	            input.sendKeys('');
-
+	
 	            expect(text.getText()).toEqual('text =');
 	            expect(valid.getText()).toContain('false');
 	          });
-
+	
 	          it('should be invalid if not url', function() {
 	            input.clear();
 	            input.sendKeys('box');
-
+	
 	            expect(valid.getText()).toContain('false');
 	          });
 	        </file>
 	      </example>
 	   */
 	  'url': urlInputType,
-
-
+	
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[email]
@@ -22981,31 +22982,31 @@
 	          var text = element(by.binding('email.text'));
 	          var valid = element(by.binding('myForm.input.$valid'));
 	          var input = element(by.model('email.text'));
-
+	
 	          it('should initialize to model', function() {
 	            expect(text.getText()).toContain('me@example.com');
 	            expect(valid.getText()).toContain('true');
 	          });
-
+	
 	          it('should be invalid if empty', function() {
 	            input.clear();
 	            input.sendKeys('');
 	            expect(text.getText()).toEqual('text =');
 	            expect(valid.getText()).toContain('false');
 	          });
-
+	
 	          it('should be invalid if not email', function() {
 	            input.clear();
 	            input.sendKeys('xxx');
-
+	
 	            expect(valid.getText()).toContain('false');
 	          });
 	        </file>
 	      </example>
 	   */
 	  'email': emailInputType,
-
-
+	
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[radio]
@@ -23059,19 +23060,19 @@
 	        <file name="protractor.js" type="protractor">
 	          it('should change state', function() {
 	            var color = element(by.binding('color.name'));
-
+	
 	            expect(color.getText()).toContain('blue');
-
+	
 	            element.all(by.model('color.name')).get(0).click();
-
+	
 	            expect(color.getText()).toContain('red');
 	          });
 	        </file>
 	      </example>
 	   */
 	  'radio': radioInputType,
-
-
+	
+	
 	  /**
 	   * @ngdoc input
 	   * @name input[checkbox]
@@ -23114,13 +23115,13 @@
 	          it('should change state', function() {
 	            var value1 = element(by.binding('checkboxModel.value1'));
 	            var value2 = element(by.binding('checkboxModel.value2'));
-
+	
 	            expect(value1.getText()).toContain('true');
 	            expect(value2.getText()).toContain('YES');
-
+	
 	            element(by.model('checkboxModel.value1')).click();
 	            element(by.model('checkboxModel.value2')).click();
-
+	
 	            expect(value1.getText()).toContain('false');
 	            expect(value2.getText()).toContain('NO');
 	          });
@@ -23128,46 +23129,46 @@
 	      </example>
 	   */
 	  'checkbox': checkboxInputType,
-
+	
 	  'hidden': noop,
 	  'button': noop,
 	  'submit': noop,
 	  'reset': noop,
 	  'file': noop
 	};
-
+	
 	function stringBasedInputType(ctrl) {
 	  ctrl.$formatters.push(function(value) {
 	    return ctrl.$isEmpty(value) ? value : value.toString();
 	  });
 	}
-
+	
 	function textInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 	  baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 	  stringBasedInputType(ctrl);
 	}
-
+	
 	function baseInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 	  var type = lowercase(element[0].type);
-
+	
 	  // In composition mode, users are still inputing intermediate text buffer,
 	  // hold the listener until composition is done.
 	  // More about composition events: https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent
 	  if (!$sniffer.android) {
 	    var composing = false;
-
+	
 	    element.on('compositionstart', function() {
 	      composing = true;
 	    });
-
+	
 	    element.on('compositionend', function() {
 	      composing = false;
 	      listener();
 	    });
 	  }
-
+	
 	  var timeout;
-
+	
 	  var listener = function(ev) {
 	    if (timeout) {
 	      $browser.defer.cancel(timeout);
@@ -23176,14 +23177,14 @@
 	    if (composing) return;
 	    var value = element.val(),
 	        event = ev && ev.type;
-
+	
 	    // By default we will trim the value
 	    // If the attribute ng-trim exists we will avoid trimming
 	    // If input type is 'password', the value is never trimmed
 	    if (type !== 'password' && (!attr.ngTrim || attr.ngTrim !== 'false')) {
 	      value = trim(value);
 	    }
-
+	
 	    // If a control is suffering from bad input (due to native validators), browsers discard its
 	    // value, so it may be necessary to revalidate (by calling $setViewValue again) even if the
 	    // control's value is the same empty value twice in a row.
@@ -23191,7 +23192,7 @@
 	      ctrl.$setViewValue(value, event);
 	    }
 	  };
-
+	
 	  // if the browser does support "input" event, we are fine - except on IE9 which doesn't fire the
 	  // input event on backspace, delete or cut
 	  if ($sniffer.hasEvent('input')) {
@@ -23207,27 +23208,27 @@
 	        });
 	      }
 	    };
-
+	
 	    element.on('keydown', function(event) {
 	      var key = event.keyCode;
-
+	
 	      // ignore
 	      //    command            modifiers                   arrows
 	      if (key === 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) return;
-
+	
 	      deferListener(event, this, this.value);
 	    });
-
+	
 	    // if user modifies input value using context menu in IE, we need "paste" and "cut" events to catch it
 	    if ($sniffer.hasEvent('paste')) {
 	      element.on('paste cut', deferListener);
 	    }
 	  }
-
+	
 	  // if user paste into input using mouse on older browser
 	  // or form autocomplete on newer browser, we need "change" event to catch it
 	  element.on('change', listener);
-
+	
 	  // Some native input types (date-family) have the ability to change validity without
 	  // firing any input/change events.
 	  // For these event types, when native validators are present and the browser supports the type,
@@ -23247,7 +23248,7 @@
 	      }
 	    });
 	  }
-
+	
 	  ctrl.$render = function() {
 	    // Workaround for Firefox validation #12102.
 	    var value = ctrl.$isEmpty(ctrl.$viewValue) ? '' : ctrl.$viewValue;
@@ -23256,12 +23257,12 @@
 	    }
 	  };
 	}
-
+	
 	function weekParser(isoWeek, existingDate) {
 	  if (isDate(isoWeek)) {
 	    return isoWeek;
 	  }
-
+	
 	  if (isString(isoWeek)) {
 	    WEEK_REGEXP.lastIndex = 0;
 	    var parts = WEEK_REGEXP.exec(isoWeek);
@@ -23274,29 +23275,29 @@
 	          milliseconds = 0,
 	          firstThurs = getFirstThursdayOfYear(year),
 	          addDays = (week - 1) * 7;
-
+	
 	      if (existingDate) {
 	        hours = existingDate.getHours();
 	        minutes = existingDate.getMinutes();
 	        seconds = existingDate.getSeconds();
 	        milliseconds = existingDate.getMilliseconds();
 	      }
-
+	
 	      return new Date(year, 0, firstThurs.getDate() + addDays, hours, minutes, seconds, milliseconds);
 	    }
 	  }
-
+	
 	  return NaN;
 	}
-
+	
 	function createDateParser(regexp, mapping) {
 	  return function(iso, date) {
 	    var parts, map;
-
+	
 	    if (isDate(iso)) {
 	      return iso;
 	    }
-
+	
 	    if (isString(iso)) {
 	      // When a date is JSON'ified to wraps itself inside of an extra
 	      // set of double quotes. This makes the date parsing code unable
@@ -23309,7 +23310,7 @@
 	      }
 	      regexp.lastIndex = 0;
 	      parts = regexp.exec(iso);
-
+	
 	      if (parts) {
 	        parts.shift();
 	        if (date) {
@@ -23325,7 +23326,7 @@
 	        } else {
 	          map = { yyyy: 1970, MM: 1, dd: 1, HH: 0, mm: 0, ss: 0, sss: 0 };
 	        }
-
+	
 	        forEach(parts, function(part, index) {
 	          if (index < mapping.length) {
 	            map[mapping[index]] = +part;
@@ -23334,18 +23335,18 @@
 	        return new Date(map.yyyy, map.MM - 1, map.dd, map.HH, map.mm, map.ss || 0, map.sss * 1000 || 0);
 	      }
 	    }
-
+	
 	    return NaN;
 	  };
 	}
-
+	
 	function createDateInputType(type, regexp, parseDate, format) {
 	  return function dynamicDateInputType(scope, element, attr, ctrl, $sniffer, $browser, $filter) {
 	    badInputChecker(scope, element, attr, ctrl);
 	    baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 	    var timezone = ctrl && ctrl.$options && ctrl.$options.timezone;
 	    var previousDate;
-
+	
 	    ctrl.$$parserName = type;
 	    ctrl.$parsers.push(function(value) {
 	      if (ctrl.$isEmpty(value)) return null;
@@ -23361,7 +23362,7 @@
 	      }
 	      return undefined;
 	    });
-
+	
 	    ctrl.$formatters.push(function(value) {
 	      if (value && !isDate(value)) {
 	        throw ngModelMinErr('datefmt', 'Expected `{0}` to be a date', value);
@@ -23377,7 +23378,7 @@
 	        return '';
 	      }
 	    });
-
+	
 	    if (isDefined(attr.min) || attr.ngMin) {
 	      var minVal;
 	      ctrl.$validators.min = function(value) {
@@ -23388,7 +23389,7 @@
 	        ctrl.$validate();
 	      });
 	    }
-
+	
 	    if (isDefined(attr.max) || attr.ngMax) {
 	      var maxVal;
 	      ctrl.$validators.max = function(value) {
@@ -23399,18 +23400,18 @@
 	        ctrl.$validate();
 	      });
 	    }
-
+	
 	    function isValidDate(value) {
 	      // Invalid Date: getTime() returns NaN
 	      return value && !(value.getTime && value.getTime() !== value.getTime());
 	    }
-
+	
 	    function parseObservedDateValue(val) {
 	      return isDefined(val) && !isDate(val) ? parseDate(val) || undefined : val;
 	    }
 	  };
 	}
-
+	
 	function badInputChecker(scope, element, attr, ctrl) {
 	  var node = element[0];
 	  var nativeValidation = ctrl.$$hasNativeValidators = isObject(node.validity);
@@ -23421,18 +23422,18 @@
 	    });
 	  }
 	}
-
+	
 	function numberInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 	  badInputChecker(scope, element, attr, ctrl);
 	  baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
-
+	
 	  ctrl.$$parserName = 'number';
 	  ctrl.$parsers.push(function(value) {
 	    if (ctrl.$isEmpty(value))      return null;
 	    if (NUMBER_REGEXP.test(value)) return parseFloat(value);
 	    return undefined;
 	  });
-
+	
 	  ctrl.$formatters.push(function(value) {
 	    if (!ctrl.$isEmpty(value)) {
 	      if (!isNumber(value)) {
@@ -23442,13 +23443,13 @@
 	    }
 	    return value;
 	  });
-
+	
 	  if (isDefined(attr.min) || attr.ngMin) {
 	    var minVal;
 	    ctrl.$validators.min = function(value) {
 	      return ctrl.$isEmpty(value) || isUndefined(minVal) || value >= minVal;
 	    };
-
+	
 	    attr.$observe('min', function(val) {
 	      if (isDefined(val) && !isNumber(val)) {
 	        val = parseFloat(val, 10);
@@ -23458,13 +23459,13 @@
 	      ctrl.$validate();
 	    });
 	  }
-
+	
 	  if (isDefined(attr.max) || attr.ngMax) {
 	    var maxVal;
 	    ctrl.$validators.max = function(value) {
 	      return ctrl.$isEmpty(value) || isUndefined(maxVal) || value <= maxVal;
 	    };
-
+	
 	    attr.$observe('max', function(val) {
 	      if (isDefined(val) && !isNumber(val)) {
 	        val = parseFloat(val, 10);
@@ -23475,55 +23476,55 @@
 	    });
 	  }
 	}
-
+	
 	function urlInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 	  // Note: no badInputChecker here by purpose as `url` is only a validation
 	  // in browsers, i.e. we can always read out input.value even if it is not valid!
 	  baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 	  stringBasedInputType(ctrl);
-
+	
 	  ctrl.$$parserName = 'url';
 	  ctrl.$validators.url = function(modelValue, viewValue) {
 	    var value = modelValue || viewValue;
 	    return ctrl.$isEmpty(value) || URL_REGEXP.test(value);
 	  };
 	}
-
+	
 	function emailInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 	  // Note: no badInputChecker here by purpose as `url` is only a validation
 	  // in browsers, i.e. we can always read out input.value even if it is not valid!
 	  baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 	  stringBasedInputType(ctrl);
-
+	
 	  ctrl.$$parserName = 'email';
 	  ctrl.$validators.email = function(modelValue, viewValue) {
 	    var value = modelValue || viewValue;
 	    return ctrl.$isEmpty(value) || EMAIL_REGEXP.test(value);
 	  };
 	}
-
+	
 	function radioInputType(scope, element, attr, ctrl) {
 	  // make the name unique, if not defined
 	  if (isUndefined(attr.name)) {
 	    element.attr('name', nextUid());
 	  }
-
+	
 	  var listener = function(ev) {
 	    if (element[0].checked) {
 	      ctrl.$setViewValue(attr.value, ev && ev.type);
 	    }
 	  };
-
+	
 	  element.on('click', listener);
-
+	
 	  ctrl.$render = function() {
 	    var value = attr.value;
 	    element[0].checked = (value == ctrl.$viewValue);
 	  };
-
+	
 	  attr.$observe('value', ctrl.$render);
 	}
-
+	
 	function parseConstantExpr($parse, context, name, expression, fallback) {
 	  var parseFn;
 	  if (isDefined(expression)) {
@@ -23536,38 +23537,38 @@
 	  }
 	  return fallback;
 	}
-
+	
 	function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filter, $parse) {
 	  var trueValue = parseConstantExpr($parse, scope, 'ngTrueValue', attr.ngTrueValue, true);
 	  var falseValue = parseConstantExpr($parse, scope, 'ngFalseValue', attr.ngFalseValue, false);
-
+	
 	  var listener = function(ev) {
 	    ctrl.$setViewValue(element[0].checked, ev && ev.type);
 	  };
-
+	
 	  element.on('click', listener);
-
+	
 	  ctrl.$render = function() {
 	    element[0].checked = ctrl.$viewValue;
 	  };
-
+	
 	  // Override the standard `$isEmpty` because the $viewValue of an empty checkbox is always set to `false`
 	  // This is because of the parser below, which compares the `$modelValue` with `trueValue` to convert
 	  // it to a boolean.
 	  ctrl.$isEmpty = function(value) {
 	    return value === false;
 	  };
-
+	
 	  ctrl.$formatters.push(function(value) {
 	    return equals(value, trueValue);
 	  });
-
+	
 	  ctrl.$parsers.push(function(value) {
 	    return value ? trueValue : falseValue;
 	  });
 	}
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name textarea
@@ -23602,8 +23603,8 @@
 	 *    interaction with the input element.
 	 * @param {boolean=} [ngTrim=true] If set to false Angular will not automatically trim the input.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name input
@@ -23694,45 +23695,45 @@
 	        var formValid = element(by.binding('myForm.$valid'));
 	        var userNameInput = element(by.model('user.name'));
 	        var userLastInput = element(by.model('user.last'));
-
+	
 	        it('should initialize to model', function() {
 	          expect(user.getText()).toContain('{"name":"guest","last":"visitor"}');
 	          expect(userNameValid.getText()).toContain('true');
 	          expect(formValid.getText()).toContain('true');
 	        });
-
+	
 	        it('should be invalid if empty when required', function() {
 	          userNameInput.clear();
 	          userNameInput.sendKeys('');
-
+	
 	          expect(user.getText()).toContain('{"last":"visitor"}');
 	          expect(userNameValid.getText()).toContain('false');
 	          expect(formValid.getText()).toContain('false');
 	        });
-
+	
 	        it('should be valid if empty when min length is set', function() {
 	          userLastInput.clear();
 	          userLastInput.sendKeys('');
-
+	
 	          expect(user.getText()).toContain('{"name":"guest","last":""}');
 	          expect(lastNameValid.getText()).toContain('true');
 	          expect(formValid.getText()).toContain('true');
 	        });
-
+	
 	        it('should be invalid if less than required min length', function() {
 	          userLastInput.clear();
 	          userLastInput.sendKeys('xx');
-
+	
 	          expect(user.getText()).toContain('{"name":"guest"}');
 	          expect(lastNameValid.getText()).toContain('false');
 	          expect(lastNameError.getText()).toContain('minlength');
 	          expect(formValid.getText()).toContain('false');
 	        });
-
+	
 	        it('should be invalid if longer than max length', function() {
 	          userLastInput.clear();
 	          userLastInput.sendKeys('some ridiculously long name');
-
+	
 	          expect(user.getText()).toContain('{"name":"guest"}');
 	          expect(lastNameValid.getText()).toContain('false');
 	          expect(lastNameError.getText()).toContain('maxlength');
@@ -23756,9 +23757,9 @@
 	    }
 	  };
 	}];
-
-
-
+	
+	
+	
 	var CONSTANT_VALUE_REGEXP = /^(true|false|\d+)$/;
 	/**
 	 * @ngdoc directive
@@ -23806,7 +23807,7 @@
 	      </file>
 	      <file name="protractor.js" type="protractor">
 	        var favorite = element(by.binding('my.favorite'));
-
+	
 	        it('should initialize to model', function() {
 	          expect(favorite.getText()).toContain('unicorns');
 	        });
@@ -23836,7 +23837,7 @@
 	    }
 	  };
 	};
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngBind
@@ -23879,7 +23880,7 @@
 	     <file name="protractor.js" type="protractor">
 	       it('should check ng-bind', function() {
 	         var nameInput = element(by.model('name'));
-
+	
 	         expect(element(by.binding('name')).getText()).toBe('Whirled');
 	         nameInput.clear();
 	         nameInput.sendKeys('world');
@@ -23903,8 +23904,8 @@
 	    }
 	  };
 	}];
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngBindTemplate
@@ -23943,14 +23944,14 @@
 	         var salutationElem = element(by.binding('salutation'));
 	         var salutationInput = element(by.model('salutation'));
 	         var nameInput = element(by.model('name'));
-
+	
 	         expect(salutationElem.getText()).toBe('Hello World!');
-
+	
 	         salutationInput.clear();
 	         salutationInput.sendKeys('Greetings');
 	         nameInput.clear();
 	         nameInput.sendKeys('user');
-
+	
 	         expect(salutationElem.getText()).toBe('Greetings user!');
 	       });
 	     </file>
@@ -23971,8 +23972,8 @@
 	    }
 	  };
 	}];
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngBindHtml
@@ -23995,14 +23996,14 @@
 	 * @param {expression} ngBindHtml {@link guide/expression Expression} to evaluate.
 	 *
 	 * @example
-
+	
 	   <example module="bindHtmlExample" deps="angular-sanitize.js">
 	     <file name="index.html">
 	       <div ng-controller="ExampleController">
 	        <p ng-bind-html="myHTML"></p>
 	       </div>
 	     </file>
-
+	
 	     <file name="script.js">
 	       angular.module('bindHtmlExample', ['ngSanitize'])
 	         .controller('ExampleController', ['$scope', function($scope) {
@@ -24011,7 +24012,7 @@
 	              '<a href="#">links!</a> and other <em>stuff</em>';
 	         }]);
 	     </file>
-
+	
 	     <file name="protractor.js" type="protractor">
 	       it('should check ng-bind-html', function() {
 	         expect(element(by.binding('myHTML')).getText()).toBe(
@@ -24029,10 +24030,10 @@
 	        return (value || '').toString();
 	      });
 	      $compile.$$addBindingClass(tElement);
-
+	
 	      return function ngBindHtmlLink(scope, element, attr) {
 	        $compile.$$addBindingInfo(element, attr.ngBindHtml);
-
+	
 	        scope.$watch(ngBindHtmlWatch, function ngBindHtmlWatchAction() {
 	          // we re-evaluate the expr because we want a TrustedValueHolderType
 	          // for $sce, not a string
@@ -24042,7 +24043,7 @@
 	    }
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngChange
@@ -24103,7 +24104,7 @@
 	 *
 	 *     it('should not evaluate the expression if changing from model', function() {
 	 *       element(by.id('ng-change-example2')).click();
-
+	
 	 *       expect(counter.getText()).toContain('0');
 	 *       expect(debug.getText()).toContain('true');
 	 *     });
@@ -24119,7 +24120,7 @@
 	    });
 	  }
 	});
-
+	
 	function classDirective(name, selector) {
 	  name = 'ngClass' + name;
 	  return ['$animate', function($animate) {
@@ -24127,14 +24128,14 @@
 	      restrict: 'AC',
 	      link: function(scope, element, attr) {
 	        var oldVal;
-
+	
 	        scope.$watch(attr[name], ngClassWatchAction, true);
-
+	
 	        attr.$observe('class', function(value) {
 	          ngClassWatchAction(scope.$eval(attr[name]));
 	        });
-
-
+	
+	
 	        if (name !== 'ngClass') {
 	          scope.$watch('$index', function($index, old$index) {
 	            // jshint bitwise: false
@@ -24147,17 +24148,17 @@
 	            }
 	          });
 	        }
-
+	
 	        function addClasses(classes) {
 	          var newClasses = digestClassCounts(classes, 1);
 	          attr.$addClass(newClasses);
 	        }
-
+	
 	        function removeClasses(classes) {
 	          var newClasses = digestClassCounts(classes, -1);
 	          attr.$removeClass(newClasses);
 	        }
-
+	
 	        function digestClassCounts(classes, count) {
 	          // Use createMap() to prevent class assumptions involving property
 	          // names in Object.prototype
@@ -24174,7 +24175,7 @@
 	          element.data('$classCounts', classCounts);
 	          return classesToUpdate.join(' ');
 	        }
-
+	
 	        function updateClasses(oldClasses, newClasses) {
 	          var toAdd = arrayDifference(newClasses, oldClasses);
 	          var toRemove = arrayDifference(oldClasses, newClasses);
@@ -24187,7 +24188,7 @@
 	            $animate.removeClass(element, toRemove);
 	          }
 	        }
-
+	
 	        function ngClassWatchAction(newVal) {
 	          if (selector === true || scope.$index % 2 === selector) {
 	            var newClasses = arrayClasses(newVal || []);
@@ -24206,10 +24207,10 @@
 	        }
 	      }
 	    };
-
+	
 	    function arrayDifference(tokens1, tokens2) {
 	      var values = [];
-
+	
 	      outer:
 	      for (var i = 0; i < tokens1.length; i++) {
 	        var token = tokens1[i];
@@ -24220,7 +24221,7 @@
 	      }
 	      return values;
 	    }
-
+	
 	    function arrayClasses(classVal) {
 	      var classes = [];
 	      if (isArray(classVal)) {
@@ -24242,7 +24243,7 @@
 	    }
 	  }];
 	}
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngClass
@@ -24337,26 +24338,26 @@
 	     </file>
 	     <file name="protractor.js" type="protractor">
 	       var ps = element.all(by.css('p'));
-
+	
 	       it('should let you toggle the class', function() {
-
+	
 	         expect(ps.first().getAttribute('class')).not.toMatch(/bold/);
 	         expect(ps.first().getAttribute('class')).not.toMatch(/has-error/);
-
+	
 	         element(by.model('important')).click();
 	         expect(ps.first().getAttribute('class')).toMatch(/bold/);
-
+	
 	         element(by.model('error')).click();
 	         expect(ps.first().getAttribute('class')).toMatch(/has-error/);
 	       });
-
+	
 	       it('should let you toggle string example', function() {
 	         expect(ps.get(1).getAttribute('class')).toBe('');
 	         element(by.model('style')).clear();
 	         element(by.model('style')).sendKeys('red');
 	         expect(ps.get(1).getAttribute('class')).toBe('red');
 	       });
-
+	
 	       it('array example should have 3 classes', function() {
 	         expect(ps.get(2).getAttribute('class')).toBe('');
 	         element(by.model('style1')).sendKeys('bold');
@@ -24364,7 +24365,7 @@
 	         element(by.model('style3')).sendKeys('red');
 	         expect(ps.get(2).getAttribute('class')).toBe('bold strike red');
 	       });
-
+	
 	       it('array with map example should have 2 classes', function() {
 	         expect(ps.last().getAttribute('class')).toBe('');
 	         element(by.model('style4')).sendKeys('bold');
@@ -24373,11 +24374,11 @@
 	       });
 	     </file>
 	   </example>
-
+	
 	   ## Animations
-
+	
 	   The example below demonstrates how to perform animations using ngClass.
-
+	
 	   <example module="ngAnimate" deps="angular-animate.js" animations="true">
 	     <file name="index.html">
 	      <input id="setbtn" type="button" value="set" ng-click="myVar='my-class'">
@@ -24389,7 +24390,7 @@
 	       .base-class {
 	         transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 	       }
-
+	
 	       .base-class.my-class {
 	         color: red;
 	         font-size:3em;
@@ -24399,21 +24400,21 @@
 	       it('should check ng-class', function() {
 	         expect(element(by.css('.base-class')).getAttribute('class')).not.
 	           toMatch(/my-class/);
-
+	
 	         element(by.id('setbtn')).click();
-
+	
 	         expect(element(by.css('.base-class')).getAttribute('class')).
 	           toMatch(/my-class/);
-
+	
 	         element(by.id('clearbtn')).click();
-
+	
 	         expect(element(by.css('.base-class')).getAttribute('class')).not.
 	           toMatch(/my-class/);
 	       });
 	     </file>
 	   </example>
-
-
+	
+	
 	   ## ngClass and pre-existing CSS3 Transitions/Animations
 	   The ngClass directive still supports CSS3 Transitions/Animations even if they do not follow the ngAnimate CSS naming structure.
 	   Upon animation ngAnimate will apply supplementary CSS classes to track the start and end of an animation, but this will not hinder
@@ -24422,7 +24423,7 @@
 	   {@link $animate#removeClass $animate.removeClass}.
 	 */
 	var ngClassDirective = classDirective('', true);
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngClassOdd
@@ -24470,7 +24471,7 @@
 	   </example>
 	 */
 	var ngClassOddDirective = classDirective('Odd', 0);
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngClassEven
@@ -24518,7 +24519,7 @@
 	   </example>
 	 */
 	var ngClassEvenDirective = classDirective('Even', 1);
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngCloak
@@ -24577,7 +24578,7 @@
 	    element.removeClass('ng-cloak');
 	  }
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngController
@@ -24802,7 +24803,7 @@
 	 *    });
 	 *  </file>
 	 *</example>
-
+	
 	 */
 	var ngControllerDirective = [function() {
 	  return {
@@ -24812,7 +24813,7 @@
 	    priority: 500
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngCsp
@@ -24904,7 +24905,7 @@
 	                {{ctrl.counter}}
 	              </span>
 	            </div>
-
+	
 	            <div>
 	              <button ng-click="ctrl.evil()" id="evil">Evil</button>
 	              <span id="evilError">
@@ -24932,12 +24933,12 @@
 	        </file>
 	        <file name="protractor.js" type="protractor">
 	          var util, webdriver;
-
+	
 	          var incBtn = element(by.id('inc'));
 	          var counter = element(by.id('counter'));
 	          var evilBtn = element(by.id('evil'));
 	          var evilError = element(by.id('evilError'));
-
+	
 	          function getAndClearSevereErrors() {
 	            return browser.manage().logs().get('browser').then(function(browserLog) {
 	              return browserLog.filter(function(logEntry) {
@@ -24945,11 +24946,11 @@
 	              });
 	            });
 	          }
-
+	
 	          function clearErrors() {
 	            getAndClearSevereErrors();
 	          }
-
+	
 	          function expectNoErrors() {
 	            getAndClearSevereErrors().then(function(filteredLog) {
 	              expect(filteredLog.length).toEqual(0);
@@ -24958,7 +24959,7 @@
 	              }
 	            });
 	          }
-
+	
 	          function expectError(regex) {
 	            getAndClearSevereErrors().then(function(filteredLog) {
 	              var found = false;
@@ -24972,19 +24973,19 @@
 	              }
 	            });
 	          }
-
+	
 	          beforeEach(function() {
 	            util = require('util');
 	            webdriver = require('protractor/node_modules/selenium-webdriver');
 	          });
-
+	
 	          // For now, we only test on Chrome,
 	          // as Safari does not load the page with Protractor's injected scripts,
 	          // and Firefox webdriver always disables content security policy (#6358)
 	          if (browser.params.browser !== 'chrome') {
 	            return;
 	          }
-
+	
 	          it('should not report errors when the page is loaded', function() {
 	            // clear errors so we are not dependent on previous tests
 	            clearErrors();
@@ -24995,14 +24996,14 @@
 	            });
 	            expectNoErrors();
 	          });
-
+	
 	          it('should evaluate expressions', function() {
 	            expect(counter.getText()).toEqual('0');
 	            incBtn.click();
 	            expect(counter.getText()).toEqual('1');
 	            expectNoErrors();
 	          });
-
+	
 	          it('should throw and report an error when using "eval"', function() {
 	            evilBtn.click();
 	            expect(evilError.getText()).toMatch(/Content Security Policy/);
@@ -25011,11 +25012,11 @@
 	        </file>
 	      </example>
 	  */
-
+	
 	// ngCsp is not implemented as a proper directive any more, because we need it be processed while we
 	// bootstrap the system (before $parse is instantiated), for this reason we just have
 	// the csp() fn that looks for the `ng-csp` attribute anywhere in the current doc
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngClick
@@ -25053,7 +25054,7 @@
 	 * angular expressions and are compiled and executed within the current scope.
 	 */
 	var ngEventDirectives = {};
-
+	
 	// For events that might fire synchronously during DOM manipulation
 	// we need to execute their event handlers asynchronously using $evalAsync,
 	// so that they are not executed in an inconsistent state.
@@ -25091,7 +25092,7 @@
 	    }];
 	  }
 	);
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngDblclick
@@ -25114,8 +25115,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMousedown
@@ -25138,8 +25139,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMouseup
@@ -25162,7 +25163,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMouseover
@@ -25185,8 +25186,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMouseenter
@@ -25209,8 +25210,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMouseleave
@@ -25233,8 +25234,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMousemove
@@ -25257,8 +25258,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngKeydown
@@ -25279,8 +25280,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngKeyup
@@ -25298,7 +25299,7 @@
 	     <file name="index.html">
 	       <p>Typing in the input box below updates the key count</p>
 	       <input ng-keyup="count = count + 1" ng-init="count=0"> key up count: {{count}}
-
+	
 	       <p>Typing in the input box below updates the keycode</p>
 	       <input ng-keyup="event=$event">
 	       <p>event keyCode: {{ event.keyCode }}</p>
@@ -25306,8 +25307,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngKeypress
@@ -25328,8 +25329,8 @@
 	     </file>
 	   </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngSubmit
@@ -25392,7 +25393,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngFocus
@@ -25412,7 +25413,7 @@
 	 * @example
 	 * See {@link ng.directive:ngClick ngClick}
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngBlur
@@ -25436,7 +25437,7 @@
 	 * @example
 	 * See {@link ng.directive:ngClick ngClick}
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngCopy
@@ -25457,7 +25458,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngCut
@@ -25478,7 +25479,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngPaste
@@ -25499,7 +25500,7 @@
 	     </file>
 	   </example>
 	 */
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngIf
@@ -25561,16 +25562,16 @@
 	        border:1px solid black;
 	        padding:10px;
 	      }
-
+	
 	      .animate-if.ng-enter, .animate-if.ng-leave {
 	        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 	      }
-
+	
 	      .animate-if.ng-enter,
 	      .animate-if.ng-leave.ng-leave-active {
 	        opacity:0;
 	      }
-
+	
 	      .animate-if.ng-leave,
 	      .animate-if.ng-enter.ng-enter-active {
 	        opacity:1;
@@ -25589,7 +25590,7 @@
 	    link: function($scope, $element, $attr, ctrl, $transclude) {
 	        var block, childScope, previousElements;
 	        $scope.$watch($attr.ngIf, function ngIfWatchAction(value) {
-
+	
 	          if (value) {
 	            if (!childScope) {
 	              $transclude(function(clone, newScope) {
@@ -25625,7 +25626,7 @@
 	    }
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngInclude
@@ -25713,14 +25714,14 @@
 	        height:40px;
 	        overflow:hidden;
 	      }
-
+	
 	      .slide-animate {
 	        padding:10px;
 	      }
-
+	
 	      .slide-animate.ng-enter, .slide-animate.ng-leave {
 	        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-
+	
 	        position:absolute;
 	        top:0;
 	        left:0;
@@ -25729,14 +25730,14 @@
 	        display:block;
 	        padding:10px;
 	      }
-
+	
 	      .slide-animate.ng-enter {
 	        top:-50px;
 	      }
 	      .slide-animate.ng-enter.ng-enter-active {
 	        top:0;
 	      }
-
+	
 	      .slide-animate.ng-leave {
 	        top:0;
 	      }
@@ -25747,11 +25748,11 @@
 	    <file name="protractor.js" type="protractor">
 	      var templateSelect = element(by.model('template'));
 	      var includeElem = element(by.css('[ng-include]'));
-
+	
 	      it('should load template1.html', function() {
 	        expect(includeElem.getText()).toMatch(/Content of template1.html/);
 	      });
-
+	
 	      it('should load template2.html', function() {
 	        if (browser.params.browser == 'firefox') {
 	          // Firefox can't handle using selects
@@ -25762,7 +25763,7 @@
 	        templateSelect.all(by.css('option')).get(2).click();
 	        expect(includeElem.getText()).toMatch(/Content of template2.html/);
 	      });
-
+	
 	      it('should change to blank', function() {
 	        if (browser.params.browser == 'firefox') {
 	          // Firefox can't handle using selects
@@ -25775,8 +25776,8 @@
 	    </file>
 	  </example>
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc event
 	 * @name ngInclude#$includeContentRequested
@@ -25787,8 +25788,8 @@
 	 * @param {Object} angularEvent Synthetic event object.
 	 * @param {String} src URL of content to load.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc event
 	 * @name ngInclude#$includeContentLoaded
@@ -25799,8 +25800,8 @@
 	 * @param {Object} angularEvent Synthetic event object.
 	 * @param {String} src URL of content to load.
 	 */
-
-
+	
+	
 	/**
 	 * @ngdoc event
 	 * @name ngInclude#$includeContentError
@@ -25823,13 +25824,13 @@
 	      var srcExp = attr.ngInclude || attr.src,
 	          onloadExp = attr.onload || '',
 	          autoScrollExp = attr.autoscroll;
-
+	
 	      return function(scope, $element, $attr, ctrl, $transclude) {
 	        var changeCounter = 0,
 	            currentScope,
 	            previousElement,
 	            currentElement;
-
+	
 	        var cleanupLastIncludeContent = function() {
 	          if (previousElement) {
 	            previousElement.remove();
@@ -25847,7 +25848,7 @@
 	            currentElement = null;
 	          }
 	        };
-
+	
 	        scope.$watch(srcExp, function ngIncludeWatchAction(src) {
 	          var afterAnimation = function() {
 	            if (isDefined(autoScrollExp) && (!autoScrollExp || scope.$eval(autoScrollExp))) {
@@ -25855,17 +25856,17 @@
 	            }
 	          };
 	          var thisChangeId = ++changeCounter;
-
+	
 	          if (src) {
 	            //set the 2nd param to true to ignore the template request error so that the inner
 	            //contents and scope can be cleaned up.
 	            $templateRequest(src, true).then(function(response) {
 	              if (scope.$$destroyed) return;
-
+	
 	              if (thisChangeId !== changeCounter) return;
 	              var newScope = scope.$new();
 	              ctrl.template = response;
-
+	
 	              // Note: This will also link all children of ng-include that were contained in the original
 	              // html. If that content contains controllers, ... they could pollute/change the scope.
 	              // However, using ng-include on an element with additional content does not make sense...
@@ -25876,15 +25877,15 @@
 	                cleanupLastIncludeContent();
 	                $animate.enter(clone, null, $element).then(afterAnimation);
 	              });
-
+	
 	              currentScope = newScope;
 	              currentElement = clone;
-
+	
 	              currentScope.$emit('$includeContentLoaded', src);
 	              scope.$eval(onloadExp);
 	            }, function() {
 	              if (scope.$$destroyed) return;
-
+	
 	              if (thisChangeId === changeCounter) {
 	                cleanupLastIncludeContent();
 	                scope.$emit('$includeContentError', src);
@@ -25900,7 +25901,7 @@
 	    }
 	  };
 	}];
-
+	
 	// This directive is called during the $transclude call of the first `ngInclude` directive.
 	// It will replace and compile the content of the element with the loaded template.
 	// We need this directive so that the element content is already filled when
@@ -25924,13 +25925,13 @@
 	          }, {futureParentElement: $element});
 	          return;
 	        }
-
+	
 	        $element.html(ctrl.template);
 	        $compile($element.contents())(scope);
 	      }
 	    };
 	  }];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngInit
@@ -25999,7 +26000,7 @@
 	    };
 	  }
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngList
@@ -26095,31 +26096,31 @@
 	      var ngList = element.attr(attr.$attr.ngList) || ', ';
 	      var trimValues = attr.ngTrim !== 'false';
 	      var separator = trimValues ? trim(ngList) : ngList;
-
+	
 	      var parse = function(viewValue) {
 	        // If the viewValue is invalid (say required but empty) it will be `undefined`
 	        if (isUndefined(viewValue)) return;
-
+	
 	        var list = [];
-
+	
 	        if (viewValue) {
 	          forEach(viewValue.split(separator), function(value) {
 	            if (value) list.push(trimValues ? trim(value) : value);
 	          });
 	        }
-
+	
 	        return list;
 	      };
-
+	
 	      ctrl.$parsers.push(parse);
 	      ctrl.$formatters.push(function(value) {
 	        if (isArray(value)) {
 	          return value.join(ngList);
 	        }
-
+	
 	        return undefined;
 	      });
-
+	
 	      // Override the standard $isEmpty because an empty array means the input is empty.
 	      ctrl.$isEmpty = function(value) {
 	        return !value || !value.length;
@@ -26127,7 +26128,7 @@
 	    }
 	  };
 	};
-
+	
 	/* global VALID_CLASS: true,
 	  INVALID_CLASS: true,
 	  PRISTINE_CLASS: true,
@@ -26135,7 +26136,7 @@
 	  UNTOUCHED_CLASS: true,
 	  TOUCHED_CLASS: true,
 	*/
-
+	
 	var VALID_CLASS = 'ng-valid',
 	    INVALID_CLASS = 'ng-invalid',
 	    PRISTINE_CLASS = 'ng-pristine',
@@ -26145,9 +26146,9 @@
 	    PENDING_CLASS = 'ng-pending',
 	    EMPTY_CLASS = 'ng-empty',
 	    NOT_EMPTY_CLASS = 'ng-not-empty';
-
+	
 	var ngModelMinErr = minErr('ngModel');
-
+	
 	/**
 	 * @ngdoc type
 	 * @name ngModel.NgModelController
@@ -26160,15 +26161,15 @@
 	       the control reads value from the DOM. The functions are called in array order, each passing
 	       its return value through to the next. The last return value is forwarded to the
 	       {@link ngModel.NgModelController#$validators `$validators`} collection.
-
+	
 	Parsers are used to sanitize / convert the {@link ngModel.NgModelController#$viewValue
 	`$viewValue`}.
-
+	
 	Returning `undefined` from a parser means a parse error occurred. In that case,
 	no {@link ngModel.NgModelController#$validators `$validators`} will run and the `ngModel`
 	will be set to `undefined` unless {@link ngModelOptions `ngModelOptions.allowInvalid`}
 	is set to `true`. The parse error is stored in `ngModel.$error.parse`.
-
+	
 	 *
 	 * @property {Array.<Function>} $formatters Array of functions to execute, as a pipeline, whenever
 	       the model value changes. The functions are called in reverse array order, each passing the value through to the
@@ -26275,11 +26276,11 @@
 	        background-color: white;
 	        min-height: 20px;
 	      }
-
+	
 	      .ng-invalid {
 	        border: 1px solid red;
 	      }
-
+	
 	    </file>
 	    <file name="script.js">
 	      angular.module('customControl', ['ngSanitize']).
@@ -26289,18 +26290,18 @@
 	            require: '?ngModel', // get a hold of NgModelController
 	            link: function(scope, element, attrs, ngModel) {
 	              if (!ngModel) return; // do nothing if no ng-model
-
+	
 	              // Specify how UI should be updated
 	              ngModel.$render = function() {
 	                element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
 	              };
-
+	
 	              // Listen for change events to enable binding
 	              element.on('blur keyup change', function() {
 	                scope.$evalAsync(read);
 	              });
 	              read(); // initialize
-
+	
 	              // Write data to the model
 	              function read() {
 	                var html = element.html();
@@ -26335,9 +26336,9 @@
 	      }
 	      var contentEditable = element(by.css('[contenteditable]'));
 	      var content = 'Change me!';
-
+	
 	      expect(contentEditable.getText()).toEqual(content);
-
+	
 	      contentEditable.clear();
 	      contentEditable.sendKeys(protractor.Key.BACK_SPACE);
 	      expect(contentEditable.getText()).toEqual('');
@@ -26369,7 +26370,7 @@
 	  this.$pending = undefined; // keep pending keys here
 	  this.$name = $interpolate($attr.name || '', false)($scope);
 	  this.$$parentForm = nullFormCtrl;
-
+	
 	  var parsedNgModel = $parse($attr.ngModel),
 	      parsedNgModelAssign = parsedNgModel.assign,
 	      ngModelGet = parsedNgModel,
@@ -26377,13 +26378,13 @@
 	      pendingDebounce = null,
 	      parserValid,
 	      ctrl = this;
-
+	
 	  this.$$setOptions = function(options) {
 	    ctrl.$options = options;
 	    if (options && options.getterSetter) {
 	      var invokeModelGetter = $parse($attr.ngModel + '()'),
 	          invokeModelSetter = $parse($attr.ngModel + '($$$p)');
-
+	
 	      ngModelGet = function($scope) {
 	        var modelValue = parsedNgModel($scope);
 	        if (isFunction(modelValue)) {
@@ -26403,7 +26404,7 @@
 	          $attr.ngModel, startingTag($element));
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$render
@@ -26425,7 +26426,7 @@
 	   * invoked if you only change a property on the objects.
 	   */
 	  this.$render = noop;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$isEmpty
@@ -26447,7 +26448,7 @@
 	  this.$isEmpty = function(value) {
 	    return isUndefined(value) || value === '' || value === null || value !== value;
 	  };
-
+	
 	  this.$$updateEmptyClasses = function(value) {
 	    if (ctrl.$isEmpty(value)) {
 	      $animate.removeClass($element, NOT_EMPTY_CLASS);
@@ -26457,10 +26458,10 @@
 	      $animate.addClass($element, NOT_EMPTY_CLASS);
 	    }
 	  };
-
-
+	
+	
 	  var currentValidationRunId = 0;
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setValidity
@@ -26494,7 +26495,7 @@
 	    },
 	    $animate: $animate
 	  });
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setPristine
@@ -26512,7 +26513,7 @@
 	    $animate.removeClass($element, DIRTY_CLASS);
 	    $animate.addClass($element, PRISTINE_CLASS);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setDirty
@@ -26531,7 +26532,7 @@
 	    $animate.addClass($element, DIRTY_CLASS);
 	    ctrl.$$parentForm.$setDirty();
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setUntouched
@@ -26549,7 +26550,7 @@
 	    ctrl.$untouched = true;
 	    $animate.setClass($element, UNTOUCHED_CLASS, TOUCHED_CLASS);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setTouched
@@ -26566,7 +26567,7 @@
 	    ctrl.$untouched = false;
 	    $animate.setClass($element, TOUCHED_CLASS, UNTOUCHED_CLASS);
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$rollbackViewValue
@@ -26651,7 +26652,7 @@
 	          div:nth-child(1) {
 	            padding-right: 30px;
 	          }
-
+	
 	        </file>
 	   * </example>
 	   */
@@ -26660,7 +26661,7 @@
 	    ctrl.$viewValue = ctrl.$$lastCommittedViewValue;
 	    ctrl.$render();
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$validate
@@ -26678,19 +26679,19 @@
 	    if (isNumber(ctrl.$modelValue) && isNaN(ctrl.$modelValue)) {
 	      return;
 	    }
-
+	
 	    var viewValue = ctrl.$$lastCommittedViewValue;
 	    // Note: we use the $$rawModelValue as $modelValue might have been
 	    // set to undefined during a view -> model update that found validation
 	    // errors. We can't parse the view here, since that could change
 	    // the model although neither viewValue nor the model on the scope changed
 	    var modelValue = ctrl.$$rawModelValue;
-
+	
 	    var prevValid = ctrl.$valid;
 	    var prevModelValue = ctrl.$modelValue;
-
+	
 	    var allowInvalid = ctrl.$options && ctrl.$options.allowInvalid;
-
+	
 	    ctrl.$$runValidators(modelValue, viewValue, function(allValid) {
 	      // If there was no change in validity, don't update the model
 	      // This prevents changing an invalid modelValue to undefined
@@ -26700,19 +26701,19 @@
 	        // that just call $setValidity and need the model value
 	        // to calculate their validity.
 	        ctrl.$modelValue = allValid ? modelValue : undefined;
-
+	
 	        if (ctrl.$modelValue !== prevModelValue) {
 	          ctrl.$$writeModelToScope();
 	        }
 	      }
 	    });
-
+	
 	  };
-
+	
 	  this.$$runValidators = function(modelValue, viewValue, doneCallback) {
 	    currentValidationRunId++;
 	    var localValidationRunId = currentValidationRunId;
-
+	
 	    // check parser error
 	    if (!processParseErrors()) {
 	      validationDone(false);
@@ -26723,7 +26724,7 @@
 	      return;
 	    }
 	    processAsyncValidators();
-
+	
 	    function processParseErrors() {
 	      var errorKey = ctrl.$$parserName || 'parse';
 	      if (isUndefined(parserValid)) {
@@ -26743,7 +26744,7 @@
 	      }
 	      return true;
 	    }
-
+	
 	    function processSyncValidators() {
 	      var syncValidatorsValid = true;
 	      forEach(ctrl.$validators, function(validator, name) {
@@ -26759,7 +26760,7 @@
 	      }
 	      return true;
 	    }
-
+	
 	    function processAsyncValidators() {
 	      var validatorPromises = [];
 	      var allValid = true;
@@ -26785,21 +26786,21 @@
 	        }, noop);
 	      }
 	    }
-
+	
 	    function setValidity(name, isValid) {
 	      if (localValidationRunId === currentValidationRunId) {
 	        ctrl.$setValidity(name, isValid);
 	      }
 	    }
-
+	
 	    function validationDone(allValid) {
 	      if (localValidationRunId === currentValidationRunId) {
-
+	
 	        doneCallback(allValid);
 	      }
 	    }
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$commitViewValue
@@ -26813,9 +26814,9 @@
 	   */
 	  this.$commitViewValue = function() {
 	    var viewValue = ctrl.$viewValue;
-
+	
 	    $timeout.cancel(pendingDebounce);
-
+	
 	    // If the view value has not changed then we should just exit, except in the case where there is
 	    // a native validator on the element. In this case the validation state may have changed even though
 	    // the viewValue has stayed empty.
@@ -26824,19 +26825,19 @@
 	    }
 	    ctrl.$$updateEmptyClasses(viewValue);
 	    ctrl.$$lastCommittedViewValue = viewValue;
-
+	
 	    // change to dirty
 	    if (ctrl.$pristine) {
 	      this.$setDirty();
 	    }
 	    this.$$parseAndValidate();
 	  };
-
+	
 	  this.$$parseAndValidate = function() {
 	    var viewValue = ctrl.$$lastCommittedViewValue;
 	    var modelValue = viewValue;
 	    parserValid = isUndefined(modelValue) ? undefined : true;
-
+	
 	    if (parserValid) {
 	      for (var i = 0; i < ctrl.$parsers.length; i++) {
 	        modelValue = ctrl.$parsers[i](modelValue);
@@ -26853,12 +26854,12 @@
 	    var prevModelValue = ctrl.$modelValue;
 	    var allowInvalid = ctrl.$options && ctrl.$options.allowInvalid;
 	    ctrl.$$rawModelValue = modelValue;
-
+	
 	    if (allowInvalid) {
 	      ctrl.$modelValue = modelValue;
 	      writeToModelIfNeeded();
 	    }
-
+	
 	    // Pass the $$lastCommittedViewValue here, because the cached viewValue might be out of date.
 	    // This can happen if e.g. $setViewValue is called from inside a parser
 	    ctrl.$$runValidators(modelValue, ctrl.$$lastCommittedViewValue, function(allValid) {
@@ -26871,14 +26872,14 @@
 	        writeToModelIfNeeded();
 	      }
 	    });
-
+	
 	    function writeToModelIfNeeded() {
 	      if (ctrl.$modelValue !== prevModelValue) {
 	        ctrl.$$writeModelToScope();
 	      }
 	    }
 	  };
-
+	
 	  this.$$writeModelToScope = function() {
 	    ngModelSet($scope, ctrl.$modelValue);
 	    forEach(ctrl.$viewChangeListeners, function(listener) {
@@ -26889,7 +26890,7 @@
 	      }
 	    });
 	  };
-
+	
 	  /**
 	   * @ngdoc method
 	   * @name ngModel.NgModelController#$setViewValue
@@ -26946,12 +26947,12 @@
 	      ctrl.$$debounceViewValueCommit(trigger);
 	    }
 	  };
-
+	
 	  this.$$debounceViewValueCommit = function(trigger) {
 	    var debounceDelay = 0,
 	        options = ctrl.$options,
 	        debounce;
-
+	
 	    if (options && isDefined(options.debounce)) {
 	      debounce = options.debounce;
 	      if (isNumber(debounce)) {
@@ -26962,7 +26963,7 @@
 	        debounceDelay = debounce['default'];
 	      }
 	    }
-
+	
 	    $timeout.cancel(pendingDebounce);
 	    if (debounceDelay) {
 	      pendingDebounce = $timeout(function() {
@@ -26976,7 +26977,7 @@
 	      });
 	    }
 	  };
-
+	
 	  // model -> value
 	  // Note: we cannot use a normal scope.$watch as we want to detect the following:
 	  // 1. scope value is 'a'
@@ -26987,7 +26988,7 @@
 	  // 4. view should be changed back to 'a'
 	  $scope.$watch(function ngModelWatch() {
 	    var modelValue = ngModelGet($scope);
-
+	
 	    // if scope model value and ngModel value are out of sync
 	    // TODO(perf): why not move this to the action fn?
 	    if (modelValue !== ctrl.$modelValue &&
@@ -26996,10 +26997,10 @@
 	    ) {
 	      ctrl.$modelValue = ctrl.$$rawModelValue = modelValue;
 	      parserValid = undefined;
-
+	
 	      var formatters = ctrl.$formatters,
 	          idx = formatters.length;
-
+	
 	      var viewValue = modelValue;
 	      while (idx--) {
 	        viewValue = formatters[idx](viewValue);
@@ -27008,16 +27009,16 @@
 	        ctrl.$$updateEmptyClasses(viewValue);
 	        ctrl.$viewValue = ctrl.$$lastCommittedViewValue = viewValue;
 	        ctrl.$render();
-
+	
 	        ctrl.$$runValidators(modelValue, viewValue, noop);
 	      }
 	    }
-
+	
 	    return modelValue;
 	  });
 	}];
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngModel
@@ -27217,23 +27218,23 @@
 	    compile: function ngModelCompile(element) {
 	      // Setup initial state of the control
 	      element.addClass(PRISTINE_CLASS).addClass(UNTOUCHED_CLASS).addClass(VALID_CLASS);
-
+	
 	      return {
 	        pre: function ngModelPreLink(scope, element, attr, ctrls) {
 	          var modelCtrl = ctrls[0],
 	              formCtrl = ctrls[1] || modelCtrl.$$parentForm;
-
+	
 	          modelCtrl.$$setOptions(ctrls[2] && ctrls[2].$options);
-
+	
 	          // notify others, especially parent forms
 	          formCtrl.$addControl(modelCtrl);
-
+	
 	          attr.$observe('name', function(newValue) {
 	            if (modelCtrl.$name !== newValue) {
 	              modelCtrl.$$parentForm.$$renameControl(modelCtrl, newValue);
 	            }
 	          });
-
+	
 	          scope.$on('$destroy', function() {
 	            modelCtrl.$$parentForm.$removeControl(modelCtrl);
 	          });
@@ -27245,10 +27246,10 @@
 	              modelCtrl.$$debounceViewValueCommit(ev && ev.type);
 	            });
 	          }
-
+	
 	          element.on('blur', function() {
 	            if (modelCtrl.$touched) return;
-
+	
 	            if ($rootScope.$$phase) {
 	              scope.$evalAsync(modelCtrl.$setTouched);
 	            } else {
@@ -27260,9 +27261,9 @@
 	    }
 	  };
 	}];
-
+	
 	var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngModelOptions
@@ -27307,11 +27308,11 @@
 	 *     If not specified, the timezone of the browser will be used.
 	 *
 	 * @example
-
+	
 	  The following example shows how to override immediate updates. Changes on the inputs within the
 	  form will update the model only when the control loses focus (blur event). If `escape` key is
 	  pressed while the input field is focused, the value is reset to the value in the current model.
-
+	
 	  <example name="ngModelOptions-directive-blur" module="optionsExample">
 	    <file name="index.html">
 	      <div ng-controller="ExampleController">
@@ -27334,7 +27335,7 @@
 	      angular.module('optionsExample', [])
 	        .controller('ExampleController', ['$scope', function($scope) {
 	          $scope.user = { name: 'John', data: '' };
-
+	
 	          $scope.cancel = function(e) {
 	            if (e.keyCode == 27) {
 	              $scope.userForm.userName.$rollbackViewValue();
@@ -27346,7 +27347,7 @@
 	      var model = element(by.binding('user.name'));
 	      var input = element(by.model('user.name'));
 	      var other = element(by.model('user.data'));
-
+	
 	      it('should allow custom events', function() {
 	        input.sendKeys(' Doe');
 	        input.click();
@@ -27354,7 +27355,7 @@
 	        other.click();
 	        expect(model.getText()).toEqual('John Doe');
 	      });
-
+	
 	      it('should $rollbackViewValue when model changes', function() {
 	        input.sendKeys(' Doe');
 	        expect(input.getAttribute('value')).toEqual('John Doe');
@@ -27365,10 +27366,10 @@
 	      });
 	    </file>
 	  </example>
-
+	
 	  This one shows how to debounce model changes. Model will be updated only 1 sec after last change.
 	  If the `Clear` button is pressed, any debounced action is canceled and the value becomes empty.
-
+	
 	  <example name="ngModelOptions-directive-debounce" module="optionsExample">
 	    <file name="index.html">
 	      <div ng-controller="ExampleController">
@@ -27391,9 +27392,9 @@
 	        }]);
 	    </file>
 	  </example>
-
+	
 	  This one shows how to bind to getter/setters:
-
+	
 	  <example name="ngModelOptions-directive-getter-setter" module="getterSetterExample">
 	    <file name="index.html">
 	      <div ng-controller="ExampleController">
@@ -27444,9 +27445,9 @@
 	    }]
 	  };
 	};
-
-
-
+	
+	
+	
 	// helper methods
 	function addSetValidityMethod(context) {
 	  var ctrl = context.ctrl,
@@ -27455,11 +27456,11 @@
 	      set = context.set,
 	      unset = context.unset,
 	      $animate = context.$animate;
-
+	
 	  classCache[INVALID_CLASS] = !(classCache[VALID_CLASS] = $element.hasClass(VALID_CLASS));
-
+	
 	  ctrl.$setValidity = setValidity;
-
+	
 	  function setValidity(validationErrorKey, state, controller) {
 	    if (isUndefined(state)) {
 	      createAndSet('$pending', validationErrorKey, controller);
@@ -27488,7 +27489,7 @@
 	      ctrl.$invalid = !ctrl.$valid;
 	      toggleValidationCss('', ctrl.$valid);
 	    }
-
+	
 	    // re-read the state as the set/unset methods could have
 	    // combined state in ctrl.$error[validationError] (used for forms),
 	    // where setting/unsetting only increments/decrements the value,
@@ -27503,18 +27504,18 @@
 	    } else {
 	      combinedState = null;
 	    }
-
+	
 	    toggleValidationCss(validationErrorKey, combinedState);
 	    ctrl.$$parentForm.$setValidity(validationErrorKey, combinedState, ctrl);
 	  }
-
+	
 	  function createAndSet(name, value, controller) {
 	    if (!ctrl[name]) {
 	      ctrl[name] = {};
 	    }
 	    set(ctrl[name], value, controller);
 	  }
-
+	
 	  function unsetAndCleanup(name, value, controller) {
 	    if (ctrl[name]) {
 	      unset(ctrl[name], value, controller);
@@ -27523,7 +27524,7 @@
 	      ctrl[name] = undefined;
 	    }
 	  }
-
+	
 	  function cachedToggleClass(className, switchValue) {
 	    if (switchValue && !classCache[className]) {
 	      $animate.addClass($element, className);
@@ -27533,15 +27534,15 @@
 	      classCache[className] = false;
 	    }
 	  }
-
+	
 	  function toggleValidationCss(validationErrorKey, isValid) {
 	    validationErrorKey = validationErrorKey ? '-' + snake_case(validationErrorKey, '-') : '';
-
+	
 	    cachedToggleClass(VALID_CLASS + validationErrorKey, isValid === true);
 	    cachedToggleClass(INVALID_CLASS + validationErrorKey, isValid === false);
 	  }
 	}
-
+	
 	function isObjectEmpty(obj) {
 	  if (obj) {
 	    for (var prop in obj) {
@@ -27552,7 +27553,7 @@
 	  }
 	  return true;
 	}
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngNonBindable
@@ -27586,11 +27587,11 @@
 	    </example>
 	 */
 	var ngNonBindableDirective = ngDirective({ terminal: true, priority: 1000 });
-
+	
 	/* global jqLiteRemove */
-
+	
 	var ngOptionsMinErr = minErr('ngOptions');
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngOptions
@@ -27780,20 +27781,20 @@
 	              <option value="">-- choose color --</option>
 	            </select>
 	          </span></label><br/>
-
+	
 	          <label>Color grouped by shade:
 	            <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
 	            </select>
 	          </label><br/>
-
+	
 	          <label>Color grouped by shade, with some disabled:
 	            <select ng-model="myColor"
 	                  ng-options="color.name group by color.shade disable when color.notAnOption for color in colors">
 	            </select>
 	          </label><br/>
-
-
-
+	
+	
+	
 	          Select <button ng-click="myColor = { name:'not in list', shade: 'other' }">bogus</button>.
 	          <br/>
 	          <hr/>
@@ -27816,7 +27817,7 @@
 	      </file>
 	    </example>
 	 */
-
+	
 	// jshint maxlen: false
 	//                     //00001111111111000000000002222222222000000000000000000000333333333300000000000000000000000004444444444400000000000005555555555555550000000006666666666666660000000777777777777777000000000000000888888888800000000000000000009999999999
 	var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
@@ -27830,12 +27831,12 @@
 	                        // 8: collection expression
 	                        // 9: track by expression
 	// jshint maxlen: 100
-
-
+	
+	
 	var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, $document, $parse) {
-
+	
 	  function parseOptionsExpression(optionsExp, selectElement, scope) {
-
+	
 	    var match = optionsExp.match(NG_OPTIONS_REGEXP);
 	    if (!(match)) {
 	      throw ngOptionsMinErr('iexp',
@@ -27844,14 +27845,14 @@
 	        " but got '{0}'. Element: {1}",
 	        optionsExp, startingTag(selectElement));
 	    }
-
+	
 	    // Extract the parts from the ngOptions expression
-
+	
 	    // The variable name for the value of the item in the collection
 	    var valueName = match[5] || match[7];
 	    // The variable name for the key of the item in the collection
 	    var keyName = match[6];
-
+	
 	    // An expression that generates the viewValue for an option if there is a label expression
 	    var selectAs = / as /.test(match[0]) && match[1];
 	    // An expression that is used to track the id of each object in the options collection
@@ -27861,7 +27862,7 @@
 	    var selectAsFn = selectAs && $parse(selectAs);
 	    var viewValueFn = selectAsFn || valueFn;
 	    var trackByFn = trackBy && $parse(trackBy);
-
+	
 	    // Get the value by which we are going to track the option
 	    // if we have a trackFn then use that (passing scope and locals)
 	    // otherwise just hash the given viewValue
@@ -27871,12 +27872,12 @@
 	    var getTrackByValue = function(value, key) {
 	      return getTrackByValueFn(value, getLocals(value, key));
 	    };
-
+	
 	    var displayFn = $parse(match[2] || match[1]);
 	    var groupByFn = $parse(match[3] || '');
 	    var disableWhenFn = $parse(match[4] || '');
 	    var valuesFn = $parse(match[8]);
-
+	
 	    var locals = {};
 	    var getLocals = keyName ? function(value, key) {
 	      locals[keyName] = key;
@@ -27886,8 +27887,8 @@
 	      locals[valueName] = value;
 	      return locals;
 	    };
-
-
+	
+	
 	    function Option(selectValue, viewValue, label, group, disabled) {
 	      this.selectValue = selectValue;
 	      this.viewValue = viewValue;
@@ -27895,10 +27896,10 @@
 	      this.group = group;
 	      this.disabled = disabled;
 	    }
-
+	
 	    function getOptionValuesKeys(optionValues) {
 	      var optionValuesKeys;
-
+	
 	      if (!keyName && isArrayLike(optionValues)) {
 	        optionValuesKeys = optionValues;
 	      } else {
@@ -27912,7 +27913,7 @@
 	      }
 	      return optionValuesKeys;
 	    }
-
+	
 	    return {
 	      trackBy: trackBy,
 	      getTrackByValue: getTrackByValue,
@@ -27922,23 +27923,23 @@
 	        // that only runs the handler once if anything changes
 	        var watchedArray = [];
 	        optionValues = optionValues || [];
-
+	
 	        var optionValuesKeys = getOptionValuesKeys(optionValues);
 	        var optionValuesLength = optionValuesKeys.length;
 	        for (var index = 0; index < optionValuesLength; index++) {
 	          var key = (optionValues === optionValuesKeys) ? index : optionValuesKeys[index];
 	          var value = optionValues[key];
-
+	
 	          var locals = getLocals(value, key);
 	          var selectValue = getTrackByValueFn(value, locals);
 	          watchedArray.push(selectValue);
-
+	
 	          // Only need to watch the displayFn if there is a specific label expression
 	          if (match[2] || match[1]) {
 	            var label = displayFn(scope, locals);
 	            watchedArray.push(label);
 	          }
-
+	
 	          // Only need to watch the disableWhenFn if there is a specific disable expression
 	          if (match[4]) {
 	            var disableWhen = disableWhenFn(scope, locals);
@@ -27947,18 +27948,18 @@
 	        }
 	        return watchedArray;
 	      }),
-
+	
 	      getOptions: function() {
-
+	
 	        var optionItems = [];
 	        var selectValueMap = {};
-
+	
 	        // The option values were already computed in the `getWatchables` fn,
 	        // which must have been called to trigger `getOptions`
 	        var optionValues = valuesFn(scope) || [];
 	        var optionValuesKeys = getOptionValuesKeys(optionValues);
 	        var optionValuesLength = optionValuesKeys.length;
-
+	
 	        for (var index = 0; index < optionValuesLength; index++) {
 	          var key = (optionValues === optionValuesKeys) ? index : optionValuesKeys[index];
 	          var value = optionValues[key];
@@ -27969,11 +27970,11 @@
 	          var group = groupByFn(scope, locals);
 	          var disabled = disableWhenFn(scope, locals);
 	          var optionItem = new Option(selectValue, viewValue, label, group, disabled);
-
+	
 	          optionItems.push(optionItem);
 	          selectValueMap[selectValue] = optionItem;
 	        }
-
+	
 	        return {
 	          items: optionItems,
 	          selectValueMap: selectValueMap,
@@ -27989,19 +27990,19 @@
 	      }
 	    };
 	  }
-
-
+	
+	
 	  // we can't just jqLite('<option>') since jqLite is not smart enough
 	  // to create it in <select> and IE barfs otherwise.
 	  var optionTemplate = window.document.createElement('option'),
 	      optGroupTemplate = window.document.createElement('optgroup');
-
+	
 	    function ngOptionsPostLink(scope, selectElement, attr, ctrls) {
-
+	
 	      var selectCtrl = ctrls[0];
 	      var ngModelCtrl = ctrls[1];
 	      var multiple = attr.multiple;
-
+	
 	      // The emptyOption allows the application developer to provide their own custom "empty"
 	      // option when the viewValue does not match any of the option values.
 	      var emptyOption;
@@ -28011,19 +28012,19 @@
 	          break;
 	        }
 	      }
-
+	
 	      var providedEmptyOption = !!emptyOption;
-
+	
 	      var unknownOption = jqLite(optionTemplate.cloneNode(false));
 	      unknownOption.val('?');
-
+	
 	      var options;
 	      var ngOptions = parseOptionsExpression(attr.ngOptions, selectElement, scope);
 	      // This stores the newly created options before they are appended to the select.
 	      // Since the contents are removed from the fragment when it is appended,
 	      // we only need to create it once.
 	      var listFragment = $document[0].createDocumentFragment();
-
+	
 	      var renderEmptyOption = function() {
 	        if (!providedEmptyOption) {
 	          selectElement.prepend(emptyOption);
@@ -28032,45 +28033,45 @@
 	        emptyOption.prop('selected', true); // needed for IE
 	        emptyOption.attr('selected', true);
 	      };
-
+	
 	      var removeEmptyOption = function() {
 	        if (!providedEmptyOption) {
 	          emptyOption.remove();
 	        }
 	      };
-
-
+	
+	
 	      var renderUnknownOption = function() {
 	        selectElement.prepend(unknownOption);
 	        selectElement.val('?');
 	        unknownOption.prop('selected', true); // needed for IE
 	        unknownOption.attr('selected', true);
 	      };
-
+	
 	      var removeUnknownOption = function() {
 	        unknownOption.remove();
 	      };
-
+	
 	      // Update the controller methods for multiple selectable options
 	      if (!multiple) {
-
+	
 	        selectCtrl.writeValue = function writeNgOptionsValue(value) {
 	          var option = options.getOptionFromViewValue(value);
-
+	
 	          if (option) {
 	            // Don't update the option when it is already selected.
 	            // For example, the browser will select the first option by default. In that case,
 	            // most properties are set automatically - except the `selected` attribute, which we
 	            // set always
-
+	
 	            if (selectElement[0].value !== option.selectValue) {
 	              removeUnknownOption();
 	              removeEmptyOption();
-
+	
 	              selectElement[0].value = option.selectValue;
 	              option.element.selected = true;
 	            }
-
+	
 	            option.element.setAttribute('selected', 'selected');
 	          } else {
 	            if (value === null || providedEmptyOption) {
@@ -28082,11 +28083,11 @@
 	            }
 	          }
 	        };
-
+	
 	        selectCtrl.readValue = function readNgOptionsValue() {
-
+	
 	          var selectedOption = options.selectValueMap[selectElement.val()];
-
+	
 	          if (selectedOption && !selectedOption.disabled) {
 	            removeEmptyOption();
 	            removeUnknownOption();
@@ -28094,7 +28095,7 @@
 	          }
 	          return null;
 	        };
-
+	
 	        // If we are using `track by` then we must watch the tracked value on the model
 	        // since ngModel only watches for object identity change
 	        if (ngOptions.trackBy) {
@@ -28103,19 +28104,19 @@
 	            function() { ngModelCtrl.$render(); }
 	          );
 	        }
-
+	
 	      } else {
-
+	
 	        ngModelCtrl.$isEmpty = function(value) {
 	          return !value || value.length === 0;
 	        };
-
-
+	
+	
 	        selectCtrl.writeValue = function writeNgOptionsMultiple(value) {
 	          options.items.forEach(function(option) {
 	            option.element.selected = false;
 	          });
-
+	
 	          if (value) {
 	            value.forEach(function(item) {
 	              var option = options.getOptionFromViewValue(item);
@@ -28123,24 +28124,24 @@
 	            });
 	          }
 	        };
-
-
+	
+	
 	        selectCtrl.readValue = function readNgOptionsMultiple() {
 	          var selectedValues = selectElement.val() || [],
 	              selections = [];
-
+	
 	          forEach(selectedValues, function(value) {
 	            var option = options.selectValueMap[value];
 	            if (option && !option.disabled) selections.push(options.getViewValueFromOption(option));
 	          });
-
+	
 	          return selections;
 	        };
-
+	
 	        // If we are using `track by` then we must watch these tracked values on the model
 	        // since ngModel only watches for object identity change
 	        if (ngOptions.trackBy) {
-
+	
 	          scope.$watchCollection(function() {
 	            if (isArray(ngModelCtrl.$viewValue)) {
 	              return ngModelCtrl.$viewValue.map(function(value) {
@@ -28150,45 +28151,45 @@
 	          }, function() {
 	            ngModelCtrl.$render();
 	          });
-
+	
 	        }
 	      }
-
-
+	
+	
 	      if (providedEmptyOption) {
-
+	
 	        // we need to remove it before calling selectElement.empty() because otherwise IE will
 	        // remove the label from the element. wtf?
 	        emptyOption.remove();
-
+	
 	        // compile the element since there might be bindings in it
 	        $compile(emptyOption)(scope);
-
+	
 	        // remove the class, which is added automatically because we recompile the element and it
 	        // becomes the compilation root
 	        emptyOption.removeClass('ng-scope');
 	      } else {
 	        emptyOption = jqLite(optionTemplate.cloneNode(false));
 	      }
-
+	
 	      selectElement.empty();
-
+	
 	      // We need to do this here to ensure that the options object is defined
 	      // when we first hit it in writeNgOptionsValue
 	      updateOptions();
-
+	
 	      // We will re-render the option elements if the option values or labels change
 	      scope.$watchCollection(ngOptions.getWatchables, updateOptions);
-
+	
 	      // ------------------------------------------------------------------ //
-
+	
 	      function addOptionElement(option, parent) {
 	        var optionElement = optionTemplate.cloneNode(false);
 	        parent.appendChild(optionElement);
 	        updateOptionElement(option, optionElement);
 	      }
-
-
+	
+	
 	      function updateOptionElement(option, element) {
 	        option.element = element;
 	        element.disabled = option.disabled;
@@ -28203,17 +28204,17 @@
 	        }
 	        if (option.value !== element.value) element.value = option.selectValue;
 	      }
-
+	
 	      function updateOptions() {
 	        var previousValue = options && selectCtrl.readValue();
-
+	
 	        // We must remove all current options, but cannot simply set innerHTML = null
 	        // since the providedEmptyOption might have an ngIf on it that inserts comments which we
 	        // must preserve.
 	        // Instead, iterate over the current option elements and remove them or their optgroup
 	        // parents
 	        if (options) {
-
+	
 	          for (var i = options.items.length - 1; i >= 0; i--) {
 	            var option = options.items[i];
 	            if (option.group) {
@@ -28223,50 +28224,50 @@
 	            }
 	          }
 	        }
-
+	
 	        options = ngOptions.getOptions();
-
+	
 	        var groupElementMap = {};
-
+	
 	        // Ensure that the empty option is always there if it was explicitly provided
 	        if (providedEmptyOption) {
 	          selectElement.prepend(emptyOption);
 	        }
-
+	
 	        options.items.forEach(function addOption(option) {
 	          var groupElement;
-
+	
 	          if (isDefined(option.group)) {
-
+	
 	            // This option is to live in a group
 	            // See if we have already created this group
 	            groupElement = groupElementMap[option.group];
-
+	
 	            if (!groupElement) {
-
+	
 	              groupElement = optGroupTemplate.cloneNode(false);
 	              listFragment.appendChild(groupElement);
-
+	
 	              // Update the label on the group element
 	              groupElement.label = option.group;
-
+	
 	              // Store it for use later
 	              groupElementMap[option.group] = groupElement;
 	            }
-
+	
 	            addOptionElement(option, groupElement);
-
+	
 	          } else {
-
+	
 	            // This option is not in a group
 	            addOptionElement(option, listFragment);
 	          }
 	        });
-
+	
 	        selectElement[0].appendChild(listFragment);
-
+	
 	        ngModelCtrl.$render();
-
+	
 	        // Check to see if the value has changed due to the update to the options
 	        if (!ngModelCtrl.$isEmpty(previousValue)) {
 	          var nextValue = selectCtrl.readValue();
@@ -28276,10 +28277,10 @@
 	            ngModelCtrl.$render();
 	          }
 	        }
-
+	
 	      }
 	  }
-
+	
 	  return {
 	    restrict: 'A',
 	    terminal: true,
@@ -28295,7 +28296,7 @@
 	    }
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngPluralize
@@ -28402,7 +28403,7 @@
 	          <label>Person 1:<input type="text" ng-model="person1" value="Igor" /></label><br/>
 	          <label>Person 2:<input type="text" ng-model="person2" value="Misko" /></label><br/>
 	          <label>Number of People:<input type="text" ng-model="personCount" value="1" /></label><br/>
-
+	
 	          <!--- Example with simple pluralization rules for en locale --->
 	          Without Offset:
 	          <ng-pluralize count="personCount"
@@ -28410,7 +28411,7 @@
 	                               'one': '1 person is viewing.',
 	                               'other': '{} people are viewing.'}">
 	          </ng-pluralize><br>
-
+	
 	          <!--- Example with offset --->
 	          With Offset(2):
 	          <ng-pluralize count="personCount" offset=2
@@ -28427,31 +28428,31 @@
 	          var withoutOffset = element.all(by.css('ng-pluralize')).get(0);
 	          var withOffset = element.all(by.css('ng-pluralize')).get(1);
 	          var countInput = element(by.model('personCount'));
-
+	
 	          expect(withoutOffset.getText()).toEqual('1 person is viewing.');
 	          expect(withOffset.getText()).toEqual('Igor is viewing.');
-
+	
 	          countInput.clear();
 	          countInput.sendKeys('0');
-
+	
 	          expect(withoutOffset.getText()).toEqual('Nobody is viewing.');
 	          expect(withOffset.getText()).toEqual('Nobody is viewing.');
-
+	
 	          countInput.clear();
 	          countInput.sendKeys('2');
-
+	
 	          expect(withoutOffset.getText()).toEqual('2 people are viewing.');
 	          expect(withOffset.getText()).toEqual('Igor and Misko are viewing.');
-
+	
 	          countInput.clear();
 	          countInput.sendKeys('3');
-
+	
 	          expect(withoutOffset.getText()).toEqual('3 people are viewing.');
 	          expect(withOffset.getText()).toEqual('Igor, Misko and one other person are viewing.');
-
+	
 	          countInput.clear();
 	          countInput.sendKeys('4');
-
+	
 	          expect(withoutOffset.getText()).toEqual('4 people are viewing.');
 	          expect(withOffset.getText()).toEqual('Igor, Misko and 2 other people are viewing.');
 	        });
@@ -28474,7 +28475,7 @@
 	var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale, $interpolate, $log) {
 	  var BRACE = /{}/g,
 	      IS_WHEN = /^when(Minus)?(.+)$/;
-
+	
 	  return {
 	    link: function(scope, element, attr) {
 	      var numberExp = attr.count,
@@ -28487,7 +28488,7 @@
 	          braceReplacement = startSymbol + numberExp + '-' + offset + endSymbol,
 	          watchRemover = angular.noop,
 	          lastCount;
-
+	
 	      forEach(attr, function(expression, attributeName) {
 	        var tmpMatch = IS_WHEN.exec(attributeName);
 	        if (tmpMatch) {
@@ -28497,19 +28498,19 @@
 	      });
 	      forEach(whens, function(expression, key) {
 	        whensExpFns[key] = $interpolate(expression.replace(BRACE, braceReplacement));
-
+	
 	      });
-
+	
 	      scope.$watch(numberExp, function ngPluralizeWatchAction(newVal) {
 	        var count = parseFloat(newVal);
 	        var countIsNaN = isNaN(count);
-
+	
 	        if (!countIsNaN && !(count in whens)) {
 	          // If an explicit number rule such as 1, 2, 3... is defined, just use it.
 	          // Otherwise, check it against pluralization rules in $locale service.
 	          count = $locale.pluralCat(count - offset);
 	        }
-
+	
 	        // If both `count` and `lastCount` are NaN, we don't need to re-register a watch.
 	        // In JS `NaN !== NaN`, so we have to explicitly check.
 	        if ((count !== lastCount) && !(countIsNaN && isNumber(lastCount) && isNaN(lastCount))) {
@@ -28527,14 +28528,14 @@
 	          lastCount = count;
 	        }
 	      });
-
+	
 	      function updateElementText(newText) {
 	        element.text(newText || '');
 	      }
 	    }
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngRepeat
@@ -28806,26 +28807,26 @@
 	        margin:0;
 	        padding:0 10px;
 	      }
-
+	
 	      .animate-repeat {
 	        line-height:30px;
 	        list-style:none;
 	        box-sizing:border-box;
 	      }
-
+	
 	      .animate-repeat.ng-move,
 	      .animate-repeat.ng-enter,
 	      .animate-repeat.ng-leave {
 	        transition:all linear 0.5s;
 	      }
-
+	
 	      .animate-repeat.ng-leave.ng-leave-active,
 	      .animate-repeat.ng-move,
 	      .animate-repeat.ng-enter {
 	        opacity:0;
 	        max-height:0;
 	      }
-
+	
 	      .animate-repeat.ng-leave,
 	      .animate-repeat.ng-move.ng-move-active,
 	      .animate-repeat.ng-enter.ng-enter-active {
@@ -28835,7 +28836,7 @@
 	    </file>
 	    <file name="protractor.js" type="protractor">
 	      var friends = element.all(by.repeater('friend in friends'));
-
+	
 	      it('should render initial data set', function() {
 	        expect(friends.count()).toBe(10);
 	        expect(friends.get(0).getText()).toEqual('[1] John who is 25 years old.');
@@ -28844,12 +28845,12 @@
 	        expect(element(by.binding('friends.length')).getText())
 	            .toMatch("I have 10 friends. They are:");
 	      });
-
+	
 	       it('should update repeater when filter predicate changes', function() {
 	         expect(friends.count()).toBe(10);
-
+	
 	         element(by.model('q')).sendKeys('ma');
-
+	
 	         expect(friends.count()).toBe(2);
 	         expect(friends.get(0).getText()).toEqual('[1] Mary who is 28 years old.');
 	         expect(friends.last().getText()).toEqual('[2] Samantha who is 60 years old.');
@@ -28860,7 +28861,7 @@
 	var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $animate, $compile) {
 	  var NG_REMOVED = '$$NG_REMOVED';
 	  var ngRepeatMinErr = minErr('ngRepeat');
-
+	
 	  var updateScope = function(scope, index, valueIdentifier, value, keyIdentifier, key, arrayLength) {
 	    // TODO(perf): generate setters to shave off ~40ms or 1-1.5%
 	    scope[valueIdentifier] = value;
@@ -28873,16 +28874,16 @@
 	    scope.$odd = !(scope.$even = (index&1) === 0);
 	    // jshint bitwise: true
 	  };
-
+	
 	  var getBlockStart = function(block) {
 	    return block.clone[0];
 	  };
-
+	
 	  var getBlockEnd = function(block) {
 	    return block.clone[block.clone.length - 1];
 	  };
-
-
+	
+	
 	  return {
 	    restrict: 'A',
 	    multiElement: true,
@@ -28893,37 +28894,37 @@
 	    compile: function ngRepeatCompile($element, $attr) {
 	      var expression = $attr.ngRepeat;
 	      var ngRepeatEndComment = $compile.$$createComment('end ngRepeat', expression);
-
+	
 	      var match = expression.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
-
+	
 	      if (!match) {
 	        throw ngRepeatMinErr('iexp', "Expected expression in form of '_item_ in _collection_[ track by _id_]' but got '{0}'.",
 	            expression);
 	      }
-
+	
 	      var lhs = match[1];
 	      var rhs = match[2];
 	      var aliasAs = match[3];
 	      var trackByExp = match[4];
-
+	
 	      match = lhs.match(/^(?:(\s*[\$\w]+)|\(\s*([\$\w]+)\s*,\s*([\$\w]+)\s*\))$/);
-
+	
 	      if (!match) {
 	        throw ngRepeatMinErr('iidexp', "'_item_' in '_item_ in _collection_' should be an identifier or '(_key_, _value_)' expression, but got '{0}'.",
 	            lhs);
 	      }
 	      var valueIdentifier = match[3] || match[1];
 	      var keyIdentifier = match[2];
-
+	
 	      if (aliasAs && (!/^[$a-zA-Z_][$a-zA-Z0-9_]*$/.test(aliasAs) ||
 	          /^(null|undefined|this|\$index|\$first|\$middle|\$last|\$even|\$odd|\$parent|\$root|\$id)$/.test(aliasAs))) {
 	        throw ngRepeatMinErr('badident', "alias '{0}' is invalid --- must be a valid JS identifier which is not a reserved name.",
 	          aliasAs);
 	      }
-
+	
 	      var trackByExpGetter, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn;
 	      var hashFnLocals = {$id: hashKey};
-
+	
 	      if (trackByExp) {
 	        trackByExpGetter = $parse(trackByExp);
 	      } else {
@@ -28934,9 +28935,9 @@
 	          return key;
 	        };
 	      }
-
+	
 	      return function ngRepeatLink($scope, $element, $attr, ctrl, $transclude) {
-
+	
 	        if (trackByExpGetter) {
 	          trackByIdExpFn = function(key, value, index) {
 	            // assign key, value, and $index to the locals so that they can be used in hash functions
@@ -28946,7 +28947,7 @@
 	            return trackByExpGetter($scope, hashFnLocals);
 	          };
 	        }
-
+	
 	        // Store a list of elements from previous run. This is a hash where key is the item from the
 	        // iterator, and the value is objects with following properties.
 	        //   - scope: bound scope
@@ -28956,7 +28957,7 @@
 	        // We are using no-proto object so that we don't need to guard against inherited props via
 	        // hasOwnProperty.
 	        var lastBlockMap = createMap();
-
+	
 	        //watch props
 	        $scope.$watchCollection(rhs, function ngRepeatAction(collection) {
 	          var index, length,
@@ -28974,11 +28975,11 @@
 	              block,       // last object information {scope, element, id}
 	              nextBlockOrder,
 	              elementsToRemove;
-
+	
 	          if (aliasAs) {
 	            $scope[aliasAs] = collection;
 	          }
-
+	
 	          if (isArrayLike(collection)) {
 	            collectionKeys = collection;
 	            trackByIdFn = trackByIdExpFn || trackByIdArrayFn;
@@ -28992,10 +28993,10 @@
 	              }
 	            }
 	          }
-
+	
 	          collectionLength = collectionKeys.length;
 	          nextBlockOrder = new Array(collectionLength);
-
+	
 	          // locate existing items
 	          for (index = 0; index < collectionLength; index++) {
 	            key = (collection === collectionKeys) ? index : collectionKeys[index];
@@ -29021,7 +29022,7 @@
 	              nextBlockMap[trackById] = true;
 	            }
 	          }
-
+	
 	          // remove leftover items
 	          for (var blockKey in lastBlockMap) {
 	            block = lastBlockMap[blockKey];
@@ -29036,24 +29037,24 @@
 	            }
 	            block.scope.$destroy();
 	          }
-
+	
 	          // we are not using forEach for perf reasons (trying to avoid #call)
 	          for (index = 0; index < collectionLength; index++) {
 	            key = (collection === collectionKeys) ? index : collectionKeys[index];
 	            value = collection[key];
 	            block = nextBlockOrder[index];
-
+	
 	            if (block.scope) {
 	              // if we have already seen this object, then we need to reuse the
 	              // associated scope/element
-
+	
 	              nextNode = previousNode;
-
+	
 	              // skip nodes that are already pending removal via leave animation
 	              do {
 	                nextNode = nextNode.nextSibling;
 	              } while (nextNode && nextNode[NG_REMOVED]);
-
+	
 	              if (getBlockStart(block) != nextNode) {
 	                // existing item which got moved
 	                $animate.move(getBlockNodes(block.clone), null, previousNode);
@@ -29067,7 +29068,7 @@
 	                // http://jsperf.com/clone-vs-createcomment
 	                var endNode = ngRepeatEndComment.cloneNode(false);
 	                clone[clone.length++] = endNode;
-
+	
 	                $animate.enter(clone, null, previousNode);
 	                previousNode = endNode;
 	                // Note: We only need the first/last node of the cloned nodes.
@@ -29085,7 +29086,7 @@
 	    }
 	  };
 	}];
-
+	
 	var NG_HIDE_CLASS = 'ng-hide';
 	var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
 	/**
@@ -29212,17 +29213,17 @@
 	        border: 1px solid black;
 	        background: white;
 	      }
-
+	
 	      .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
 	        transition: all linear 0.5s;
 	      }
-
+	
 	      .animate-show.ng-hide {
 	        line-height: 0;
 	        opacity: 0;
 	        padding: 0 10px;
 	      }
-
+	
 	      .check-element {
 	        padding: 10px;
 	        border: 1px solid black;
@@ -29232,13 +29233,13 @@
 	    <file name="protractor.js" type="protractor">
 	      var thumbsUp = element(by.css('span.glyphicon-thumbs-up'));
 	      var thumbsDown = element(by.css('span.glyphicon-thumbs-down'));
-
+	
 	      it('should check ng-show / ng-hide', function() {
 	        expect(thumbsUp.isDisplayed()).toBeFalsy();
 	        expect(thumbsDown.isDisplayed()).toBeTruthy();
-
+	
 	        element(by.model('checked')).click();
-
+	
 	        expect(thumbsUp.isDisplayed()).toBeTruthy();
 	        expect(thumbsDown.isDisplayed()).toBeFalsy();
 	      });
@@ -29262,8 +29263,8 @@
 	    }
 	  };
 	}];
-
-
+	
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngHide
@@ -29380,13 +29381,13 @@
 	        border: 1px solid black;
 	        background: white;
 	      }
-
+	
 	      .animate-hide.ng-hide {
 	        line-height: 0;
 	        opacity: 0;
 	        padding: 0 10px;
 	      }
-
+	
 	      .check-element {
 	        padding: 10px;
 	        border: 1px solid black;
@@ -29396,13 +29397,13 @@
 	    <file name="protractor.js" type="protractor">
 	      var thumbsUp = element(by.css('span.glyphicon-thumbs-up'));
 	      var thumbsDown = element(by.css('span.glyphicon-thumbs-down'));
-
+	
 	      it('should check ng-show / ng-hide', function() {
 	        expect(thumbsUp.isDisplayed()).toBeFalsy();
 	        expect(thumbsDown.isDisplayed()).toBeTruthy();
-
+	
 	        element(by.model('checked')).click();
-
+	
 	        expect(thumbsUp.isDisplayed()).toBeTruthy();
 	        expect(thumbsDown.isDisplayed()).toBeFalsy();
 	      });
@@ -29424,7 +29425,7 @@
 	    }
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngStyle
@@ -29460,7 +29461,7 @@
 	     </file>
 	     <file name="protractor.js" type="protractor">
 	       var colorSpan = element(by.css('span'));
-
+	
 	       it('should check ng-style', function() {
 	         expect(colorSpan.getCssValue('color')).toBe('rgba(0, 0, 0, 1)');
 	         element(by.css('input[value=\'set color\']')).click();
@@ -29479,7 +29480,7 @@
 	    if (newStyles) element.css(newStyles);
 	  }, true);
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngSwitch
@@ -29505,7 +29506,7 @@
 	 * For example, **`ng-switch-when="someVal"`** will match against the string `"someVal"` not against the
 	 * value of the expression `$scope.someVal`.
 	 * </div>
-
+	
 	 * @animations
 	 * | Animation                        | Occurs                              |
 	 * |----------------------------------|-------------------------------------|
@@ -29567,21 +29568,21 @@
 	        height:40px;
 	        overflow:hidden;
 	      }
-
+	
 	      .animate-switch {
 	        padding:10px;
 	      }
-
+	
 	      .animate-switch.ng-animate {
 	        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-
+	
 	        position:absolute;
 	        top:0;
 	        left:0;
 	        right:0;
 	        bottom:0;
 	      }
-
+	
 	      .animate-switch.ng-leave.ng-leave-active,
 	      .animate-switch.ng-enter {
 	        top:-50px;
@@ -29594,7 +29595,7 @@
 	    <file name="protractor.js" type="protractor">
 	      var switchElem = element(by.css('[ng-switch]'));
 	      var select = element(by.model('selection'));
-
+	
 	      it('should start in settings', function() {
 	        expect(switchElem.getText()).toMatch(/Settings Div/);
 	      });
@@ -29612,7 +29613,7 @@
 	var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
 	  return {
 	    require: 'ngSwitch',
-
+	
 	    // asks for $scope to fool the BC controller module
 	    controller: ['$scope', function ngSwitchController() {
 	     this.cases = {};
@@ -29623,28 +29624,28 @@
 	          selectedElements = [],
 	          previousLeaveAnimations = [],
 	          selectedScopes = [];
-
+	
 	      var spliceFactory = function(array, index) {
 	          return function() { array.splice(index, 1); };
 	      };
-
+	
 	      scope.$watch(watchExpr, function ngSwitchWatchAction(value) {
 	        var i, ii;
 	        for (i = 0, ii = previousLeaveAnimations.length; i < ii; ++i) {
 	          $animate.cancel(previousLeaveAnimations[i]);
 	        }
 	        previousLeaveAnimations.length = 0;
-
+	
 	        for (i = 0, ii = selectedScopes.length; i < ii; ++i) {
 	          var selected = getBlockNodes(selectedElements[i].clone);
 	          selectedScopes[i].$destroy();
 	          var promise = previousLeaveAnimations[i] = $animate.leave(selected);
 	          promise.then(spliceFactory(previousLeaveAnimations, i));
 	        }
-
+	
 	        selectedElements.length = 0;
 	        selectedScopes.length = 0;
-
+	
 	        if ((selectedTranscludes = ngSwitchController.cases['!' + value] || ngSwitchController.cases['?'])) {
 	          forEach(selectedTranscludes, function(selectedTransclude) {
 	            selectedTransclude.transclude(function(caseElement, selectedScope) {
@@ -29652,7 +29653,7 @@
 	              var anchor = selectedTransclude.element;
 	              caseElement[caseElement.length++] = $compile.$$createComment('end ngSwitchWhen');
 	              var block = { clone: caseElement };
-
+	
 	              selectedElements.push(block);
 	              $animate.enter(caseElement, anchor.parent(), anchor);
 	            });
@@ -29662,7 +29663,7 @@
 	    }
 	  };
 	}];
-
+	
 	var ngSwitchWhenDirective = ngDirective({
 	  transclude: 'element',
 	  priority: 1200,
@@ -29673,7 +29674,7 @@
 	    ctrl.cases['!' + attrs.ngSwitchWhen].push({ transclude: $transclude, element: element });
 	  }
 	});
-
+	
 	var ngSwitchDefaultDirective = ngDirective({
 	  transclude: 'element',
 	  priority: 1200,
@@ -29684,7 +29685,7 @@
 	    ctrl.cases['?'].push({ transclude: $transclude, element: element });
 	   }
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngTransclude
@@ -29847,20 +29848,20 @@
 	var ngTranscludeDirective = ngDirective({
 	  restrict: 'EAC',
 	  link: function($scope, $element, $attrs, controller, $transclude) {
-
+	
 	    if ($attrs.ngTransclude === $attrs.$attr.ngTransclude) {
 	      // If the attribute is of the form: `ng-transclude="ng-transclude"`
 	      // then treat it like the default
 	      $attrs.ngTransclude = '';
 	    }
-
+	
 	    function ngTranscludeCloneAttachFn(clone) {
 	      if (clone.length) {
 	        $element.empty();
 	        $element.append(clone);
 	      }
 	    }
-
+	
 	    if (!$transclude) {
 	      throw ngTranscludeMinErr('orphan',
 	       'Illegal use of ngTransclude directive in the template! ' +
@@ -29868,14 +29869,14 @@
 	       'Element: {0}',
 	       startingTag($element));
 	    }
-
+	
 	    // If there is no slot name defined or the slot name is not optional
 	    // then transclude the slot
 	    var slotName = $attrs.ngTransclude || $attrs.ngTranscludeSlot;
 	    $transclude(ngTranscludeCloneAttachFn, null, slotName);
 	  }
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name script
@@ -29897,7 +29898,7 @@
 	      <script type="text/ng-template" id="/tpl.html">
 	        Content of the template.
 	      </script>
-
+	
 	      <a ng-click="currentTpl='/tpl.html'" id="tpl-link">Load inlined template</a>
 	      <div id="tpl-content" ng-include src="currentTpl"></div>
 	    </file>
@@ -29917,15 +29918,15 @@
 	      if (attr.type == 'text/ng-template') {
 	        var templateUrl = attr.id,
 	            text = element[0].text;
-
+	
 	        $templateCache.put(templateUrl, text);
 	      }
 	    }
 	  };
 	}];
-
+	
 	var noopNgModelController = { $setViewValue: noop, $render: noop };
-
+	
 	function chromeHack(optionElement) {
 	  // Workaround for https://code.google.com/p/chromium/issues/detail?id=381459
 	  // Adding an <option selected="selected"> element to a <select required="required"> should
@@ -29934,7 +29935,7 @@
 	    optionElement[0].selected = true;
 	  }
 	}
-
+	
 	/**
 	 * @ngdoc type
 	 * @name  select.SelectController
@@ -29945,13 +29946,13 @@
 	 */
 	var SelectController =
 	        ['$element', '$scope', function($element, $scope) {
-
+	
 	  var self = this,
 	      optionsMap = new HashMap();
-
+	
 	  // If the ngModel doesn't get provided then provide a dummy noop version to prevent errors
 	  self.ngModelCtrl = noopNgModelController;
-
+	
 	  // The "unknown" option is one that is prepended to the list if the viewValue
 	  // does not match any of the options. When it is rendered the value of the unknown
 	  // option is '? XXX ?' where XXX is the hashKey of the value that is not known.
@@ -29965,25 +29966,25 @@
 	    $element.prepend(self.unknownOption);
 	    $element.val(unknownVal);
 	  };
-
+	
 	  $scope.$on('$destroy', function() {
 	    // disable unknown option so that we don't do work when the whole select is being destroyed
 	    self.renderUnknownOption = noop;
 	  });
-
+	
 	  self.removeUnknownOption = function() {
 	    if (self.unknownOption.parent()) self.unknownOption.remove();
 	  };
-
-
+	
+	
 	  // Read the value of the select control, the implementation of this changes depending
 	  // upon whether the select can have multiple values and whether ngOptions is at work.
 	  self.readValue = function readSingleValue() {
 	    self.removeUnknownOption();
 	    return $element.val();
 	  };
-
-
+	
+	
 	  // Write the value to the select control, the implementation of this changes depending
 	  // upon whether the select can have multiple values and whether ngOptions is at work.
 	  self.writeValue = function writeSingleValue(value) {
@@ -30000,13 +30001,13 @@
 	      }
 	    }
 	  };
-
-
+	
+	
 	  // Tell the select control that an option, with the given value, has been added
 	  self.addOption = function(value, element) {
 	    // Skip comment nodes, as they only pollute the `optionsMap`
 	    if (element[0].nodeType === NODE_TYPE_COMMENT) return;
-
+	
 	    assertNotHasOwnProperty(value, '"option value"');
 	    if (value === '') {
 	      self.emptyOption = element;
@@ -30016,7 +30017,7 @@
 	    self.ngModelCtrl.$render();
 	    chromeHack(element);
 	  };
-
+	
 	  // Tell the select control that an option, with the given value, has been removed
 	  self.removeOption = function(value) {
 	    var count = optionsMap.get(value);
@@ -30031,15 +30032,15 @@
 	      }
 	    }
 	  };
-
+	
 	  // Check whether the select control has an option matching the given value
 	  self.hasOption = function(value) {
 	    return !!optionsMap.get(value);
 	  };
-
-
+	
+	
 	  self.registerOption = function(optionScope, optionElement, optionAttrs, interpolateValueFn, interpolateTextFn) {
-
+	
 	    if (interpolateValueFn) {
 	      // The value attribute is interpolated
 	      var oldVal;
@@ -30063,14 +30064,14 @@
 	      // The value attribute is static
 	      self.addOption(optionAttrs.value, optionElement);
 	    }
-
+	
 	    optionElement.on('$destroy', function() {
 	      self.removeOption(optionAttrs.value);
 	      self.ngModelCtrl.$render();
 	    });
 	  };
 	}];
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name select
@@ -30276,7 +30277,7 @@
 	 *
 	 */
 	var selectDirective = function() {
-
+	
 	  return {
 	    restrict: 'E',
 	    require: ['select', '?ngModel'],
@@ -30287,17 +30288,17 @@
 	      post: selectPostLink
 	    }
 	  };
-
+	
 	  function selectPreLink(scope, element, attr, ctrls) {
-
+	
 	      // if ngModel is not defined, we don't need to do anything
 	      var ngModelCtrl = ctrls[1];
 	      if (!ngModelCtrl) return;
-
+	
 	      var selectCtrl = ctrls[0];
-
+	
 	      selectCtrl.ngModelCtrl = ngModelCtrl;
-
+	
 	      // When the selected item(s) changes we delegate getting the value of the select control
 	      // to the `readValue` method, which can be changed if the select can have multiple
 	      // selected values or if the options are being generated by `ngOptions`
@@ -30306,13 +30307,13 @@
 	          ngModelCtrl.$setViewValue(selectCtrl.readValue());
 	        });
 	      });
-
+	
 	      // If the select allows multiple values then we need to modify how we read and write
 	      // values from and to the control; also what it means for the value to be empty and
 	      // we have to add an extra watch since ngModel doesn't work well with arrays - it
 	      // doesn't trigger rendering if only an item in the array changes.
 	      if (attr.multiple) {
-
+	
 	        // Read value now needs to check each option to see if it is selected
 	        selectCtrl.readValue = function readMultipleValue() {
 	          var array = [];
@@ -30323,7 +30324,7 @@
 	          });
 	          return array;
 	        };
-
+	
 	        // Write value now needs to set the selected property of each matching option
 	        selectCtrl.writeValue = function writeMultipleValue(value) {
 	          var items = new HashMap(value);
@@ -30331,7 +30332,7 @@
 	            option.selected = isDefined(items.get(option.value));
 	          });
 	        };
-
+	
 	        // we have to do it on each watch since ngModel watches reference, but
 	        // we need to work of an array, so we need to see if anything was inserted/removed
 	        var lastView, lastViewRef = NaN;
@@ -30342,23 +30343,23 @@
 	          }
 	          lastViewRef = ngModelCtrl.$viewValue;
 	        });
-
+	
 	        // If we are a multiple select then value is now a collection
 	        // so the meaning of $isEmpty changes
 	        ngModelCtrl.$isEmpty = function(value) {
 	          return !value || value.length === 0;
 	        };
-
+	
 	      }
 	    }
-
+	
 	    function selectPostLink(scope, element, attrs, ctrls) {
 	      // if ngModel is not defined, we don't need to do anything
 	      var ngModelCtrl = ctrls[1];
 	      if (!ngModelCtrl) return;
-
+	
 	      var selectCtrl = ctrls[0];
-
+	
 	      // We delegate rendering to the `writeValue` method, which can be changed
 	      // if the select can have multiple selected values or if the options are being
 	      // generated by `ngOptions`.
@@ -30369,8 +30370,8 @@
 	      };
 	    }
 	};
-
-
+	
+	
 	// The option directive is purely designed to communicate the existence (or lack of)
 	// of dynamically created (and destroyed) option elements to their containing select
 	// directive via its controller.
@@ -30390,7 +30391,7 @@
 	          attr.$set('value', element.text());
 	        }
 	      }
-
+	
 	      return function(scope, element, attr) {
 	        // This is an optimization over using ^^ since we don't want to have to search
 	        // all the way to the root of the DOM for every single option element
@@ -30398,7 +30399,7 @@
 	            parent = element.parent(),
 	            selectCtrl = parent.data(selectCtrlName) ||
 	              parent.parent().data(selectCtrlName); // in case we are in optgroup
-
+	
 	        if (selectCtrl) {
 	          selectCtrl.registerOption(scope, element, attr, interpolateValueFn, interpolateTextFn);
 	        }
@@ -30406,12 +30407,12 @@
 	    }
 	  };
 	}];
-
+	
 	var styleDirective = valueFn({
 	  restrict: 'E',
 	  terminal: false
 	});
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngRequired
@@ -30459,10 +30460,10 @@
 	       var required = element(by.binding('form.input.$error.required'));
 	       var model = element(by.binding('model'));
 	       var input = element(by.id('input'));
-
+	
 	       it('should set the required error', function() {
 	         expect(required.getText()).toContain('true');
-
+	
 	         input.sendKeys('123');
 	         expect(required.getText()).not.toContain('true');
 	         expect(model.getText()).toContain('123');
@@ -30477,18 +30478,18 @@
 	    link: function(scope, elm, attr, ctrl) {
 	      if (!ctrl) return;
 	      attr.required = true; // force truthy in case we are on non input element
-
+	
 	      ctrl.$validators.required = function(modelValue, viewValue) {
 	        return !attr.required || !ctrl.$isEmpty(viewValue);
 	      };
-
+	
 	      attr.$observe('required', function() {
 	        ctrl.$validate();
 	      });
 	    }
 	  };
 	};
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngPattern
@@ -30551,11 +30552,11 @@
 	 *   <file name="protractor.js" type="protractor">
 	       var model = element(by.binding('model'));
 	       var input = element(by.id('input'));
-
+	
 	       it('should validate the input with the default pattern', function() {
 	         input.sendKeys('aaa');
 	         expect(model.getText()).not.toContain('aaa');
-
+	
 	         input.clear().then(function() {
 	           input.sendKeys('123');
 	           expect(model.getText()).toContain('123');
@@ -30570,23 +30571,23 @@
 	    require: '?ngModel',
 	    link: function(scope, elm, attr, ctrl) {
 	      if (!ctrl) return;
-
+	
 	      var regexp, patternExp = attr.ngPattern || attr.pattern;
 	      attr.$observe('pattern', function(regex) {
 	        if (isString(regex) && regex.length > 0) {
 	          regex = new RegExp('^' + regex + '$');
 	        }
-
+	
 	        if (regex && !regex.test) {
 	          throw minErr('ngPattern')('noregexp',
 	            'Expected {0} to be a RegExp but was {1}. Element: {2}', patternExp,
 	            regex, startingTag(elm));
 	        }
-
+	
 	        regexp = regex || undefined;
 	        ctrl.$validate();
 	      });
-
+	
 	      ctrl.$validators.pattern = function(modelValue, viewValue) {
 	        // HTML5 pattern constraint validates the input value, so we validate the viewValue
 	        return ctrl.$isEmpty(viewValue) || isUndefined(regexp) || regexp.test(viewValue);
@@ -30594,7 +30595,7 @@
 	    }
 	  };
 	};
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMaxlength
@@ -30648,11 +30649,11 @@
 	 *   <file name="protractor.js" type="protractor">
 	       var model = element(by.binding('model'));
 	       var input = element(by.id('input'));
-
+	
 	       it('should validate the input with the default maxlength', function() {
 	         input.sendKeys('abcdef');
 	         expect(model.getText()).not.toContain('abcdef');
-
+	
 	         input.clear().then(function() {
 	           input.sendKeys('abcde');
 	           expect(model.getText()).toContain('abcde');
@@ -30667,7 +30668,7 @@
 	    require: '?ngModel',
 	    link: function(scope, elm, attr, ctrl) {
 	      if (!ctrl) return;
-
+	
 	      var maxlength = -1;
 	      attr.$observe('maxlength', function(value) {
 	        var intVal = toInt(value);
@@ -30680,7 +30681,7 @@
 	    }
 	  };
 	};
-
+	
 	/**
 	 * @ngdoc directive
 	 * @name ngMinlength
@@ -30734,11 +30735,11 @@
 	 *   <file name="protractor.js" type="protractor">
 	       var model = element(by.binding('model'));
 	       var input = element(by.id('input'));
-
+	
 	       it('should validate the input with the default minlength', function() {
 	         input.sendKeys('ab');
 	         expect(model.getText()).not.toContain('ab');
-
+	
 	         input.sendKeys('abc');
 	         expect(model.getText()).toContain('abc');
 	       });
@@ -30751,7 +30752,7 @@
 	    require: '?ngModel',
 	    link: function(scope, elm, attr, ctrl) {
 	      if (!ctrl) return;
-
+	
 	      var minlength = 0;
 	      attr.$observe('minlength', function(value) {
 	        minlength = toInt(value) || 0;
@@ -30763,7 +30764,7 @@
 	    }
 	  };
 	};
-
+	
 	if (window.angular.bootstrap) {
 	  //AngularJS is already loaded, so we can return here...
 	  if (window.console) {
@@ -30771,13 +30772,13 @@
 	  }
 	  return;
 	}
-
+	
 	//try to bind to jquery now so that one can write jqLite(document).ready()
 	//but we will rebind on bootstrap again.
 	bindJQuery();
-
+	
 	publishExternalAPI(angular);
-
+	
 	angular.module("ngLocale", [], ["$provide", function($provide) {
 	var PLURAL_CATEGORY = {ZERO: "zero", ONE: "one", TWO: "two", FEW: "few", MANY: "many", OTHER: "other"};
 	function getDecimals(n) {
@@ -30785,19 +30786,19 @@
 	  var i = n.indexOf('.');
 	  return (i == -1) ? 0 : n.length - i - 1;
 	}
-
+	
 	function getVF(n, opt_precision) {
 	  var v = opt_precision;
-
+	
 	  if (undefined === v) {
 	    v = Math.min(getDecimals(n), 3);
 	  }
-
+	
 	  var base = Math.pow(10, v);
 	  var f = ((n * base) | 0) % base;
 	  return {v: v, f: f};
 	}
-
+	
 	$provide.value("$locale", {
 	  "DATETIME_FORMATS": {
 	    "AMPMS": [
@@ -30920,26 +30921,14210 @@
 	  "pluralCat": function(n, opt_precision) {  var i = n | 0;  var vf = getVF(n, opt_precision);  if (i == 1 && vf.v == 0) {    return PLURAL_CATEGORY.ONE;  }  return PLURAL_CATEGORY.OTHER;}
 	});
 	}]);
-
+	
 	  jqLite(window.document).ready(function() {
 	    angularInit(window.document, bootstrap);
 	  });
-
+	
 	})(window);
-
+	
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
+	"use strict"
+	
+	var ack = __webpack_require__(4)
+	//var ngFx = require('ng-fx')
+	__webpack_require__(31)
+	//var ngAnimate = require('angular-animate')
+	__webpack_require__(32)
+	
+	
+	//version: 1.2.1
+	angular.module('ack-angular',['ngAnimate','ng-fx'])
+	.service('ack', function(){return ack})
+	.filter('aMethod',a('method'))
+	.filter('aFunction',a('method'))//alias
+	.filter('aDate',a('date'))
+	.filter('aTime',a('time'))
+	.filter('ack', function(){
+	  return invokeRotator(ack)
+	})
+	.filter('capitalize', capitalize)
+	.filter('capitalizeWords', capitalizeWords)
+	.directive('onEnterKey', function() {
+	  return {
+	    restrict:'A',
+	    scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+	    link: function($scope, jElm) {
+	      jElm[0].onkeydown = function(event){
+	        var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
+	        if(yesNo){
+	          $scope.onEnterKey({event:event})
+	          $scope.$apply()
+	        }
+	      }
+	    }
+	  }
+	})
+	.directive('preventBackKey', function() {
+	  return {
+	    restrict:'AE',
+	    link: function($scope, jElm) {
+	      jElm[0].onkeydown = function(event){
+	        var yesNo = [8].indexOf(event.which||event.keyCode)<0
+	        if(!yesNo && event.preventDefault){
+	          event.preventDefault()
+	        }
+	        return yesNo
+	      }
+	    }
+	  }
+	})
+	.directive('preventEnterKey', function() {
+	  return {
+	    restrict:'AE',
+	    link: function($scope, jElm) {
+	      jElm[0].onkeydown = function(event){
+	        var yesNo = [13,10].indexOf(event.which||event.keyCode)<0
+	        if(!yesNo && event.preventDefault){
+	          event.preventDefault()
+	        }
+	        return yesNo
+	      }
+	    }
+	  }
+	})
+	.directive('whiteOutModal',function(){//white-out-modal
+	  return {
+	    restrict:'E'
+	    ,scope:{show:'=', size:'=?'}
+	    ,transclude:true
+	    ,template:__webpack_require__(34)
+	    ,bindToController:true
+	    ,controllerAs:'wom'
+	    ,controller:function(){}
+	    ,link:function($scope, jElm, attrs){
+	      var handler = function(event){
+	        //already showing
+	        var jTar = jElm.children().eq(0)
+	        var eTar = event.srcElement || event.toElement || event.target
+	        if($scope.wom.show && eTar==jTar[0]){
+	          $scope.wom.show = null
+	          $scope.$apply()
+	          jTar.off('click', handler)
+	        }
+	      }
+	
+	      var addHandler = function(){
+	        jElm.children().eq(0).on('click', handler)
+	      }
+	
+	      $scope.$watch('wom.show',function(show){
+	        if(show){
+	          setTimeout(addHandler, 301)//delay needed to prevent immediate close
+	        }
+	      })
+	    }
+	  }
+	})
+	
+	function a(name){
+	  return ['ack',function(ack){
+	    return invokeRotator( ack[name] )
+	  }]
+	}
+	
+	function invokeRotator(invoke){
+	  return function(v,call0,call1,call2){
+	    var newkey, subargs, key, item, rtn = invoke(v)
+	
+	    //loop extra arguments as property collectors
+	    for(var x=1; x < arguments.length; ++x){
+	      key = arguments[x]
+	      subargs = []
+	
+	      //array where 1st arg is method and subs are positional arguments
+	      if(key.constructor==Array){
+	        newkey = key.shift()
+	        subargs = key
+	        key = newkey
+	      }
+	
+	      item = rtn[key]
+	
+	      if(item && item.constructor==Function){
+	        rtn = item.apply(rtn,subargs)
+	      }else{
+	        rtn = item
+	      }
+	    }
+	
+	    return rtn
+	  }
+	}
+	
+	function capitalize() {
+	  return function(input) {
+	    input = capitalizeOne(input)
+	    console.log('input',input)
+	    var reg = /[.?!][\s\r\t]+\w/g
+	    return (!!input) ? input.replace(reg, capitalizeAfterSentence) : ''
+	  }
+	}
+	
+	function capitalizeAfterSentence(input){
+	  var reg = /[\s\r\t]\w/g
+	  return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0) + txt.charAt(1).toUpperCase() + txt.substr(2).toLowerCase()}) : ''
+	}
+	
+	function capitalizeOne(input) {
+	  var reg = /[^\W_]+[^\s-]*/
+	  return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
+	}
+	
+	function capitalizeWords() {
+	  return function(input) {
+	    var reg = /[^\W_]+[^\s-]* */g
+	    return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
+	  }
+	}
 
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var ack = __webpack_require__(5)
+	
+	ack.error = __webpack_require__(13)
+	ack.number = __webpack_require__(14)
+	ack.string = __webpack_require__(15)
+	ack.binary = __webpack_require__(20)
+	ack.base64 = __webpack_require__(21)
+	ack.object = __webpack_require__(22)
+	ack.method = __webpack_require__(23)
+	ack.array = __webpack_require__(24)
+	ack.queryObject = __webpack_require__(25)
+	ack.week = __webpack_require__(26)
+	ack.month = __webpack_require__(27)
+	ack.year = __webpack_require__(29)
+	ack.date = __webpack_require__(28)
+	ack.time = __webpack_require__(30)
+	/*
+	ack.function = require('./js/method')
+	*/
+	ack['function'] = __webpack_require__(23);
+	
+	module.exports = ack
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var jc = __webpack_require__(6),//old old old library for Classes and Accessors
+			ackInjector = __webpack_require__(7),
+			partyModules = {
+				ackP:__webpack_require__(8), debug:__webpack_require__(9)
+			}
+	
+	/** calling ack() as function, will return a module to work with almost any object */
+	function ack($var){
+		return new ackExpose($var)
+	}
+	
+	ack.Expose = ackExpose//Outsider's referense to expose factory
+	
+	/* MODULES */
+		ack.modules = new ackInjector(ack)
+	
+		ack['class'] = function(cl, extendOrAccessors, accessors){
+			return new jc(cl, extendOrAccessors, accessors)
+		}
+	
+		ack.accessors = function($scope){
+			return new jc.Vm($scope)
+		}
+	
+		ack.injector = function($scope){
+			return new ackInjector($scope)
+		}
+	
+		ack.promise = function(var0, var1, var2, var3){
+			var promise = partyModules.ackP.start()
+			return promise.set.apply(promise,arguments)
+		}
+	
+		ack.Promise = function(resolver){
+			return new partyModules.ackP(resolver)
+		}
+	
+		var indexSelector = __webpack_require__(12)
+		ack.indexSelector = function(){
+			var $scope = {}
+			if(arguments.length){
+				$scope.indexes = arguments[0]
+			}
+			return new indexSelector($scope)
+		}
+	
+		/** Organized debug logging. See npm debug for more information */
+		var ackDebugMap = {}//create storage of all loggers created
+		ack.debug = function debug(name, log0, log1, log2){
+			var logger = partyModules.debug(name)
+			ack.debug.map[name] = logger//store memory of logger for meta referencing
+	
+			if(arguments.length>1){//logging intended to go with
+				var args = Array.prototype.slice.call(arguments)
+				args.shift()//remove first
+				logger.apply(logger,args)
+			}
+	
+			logger.debug = function(subname, log0, log1, log2){
+				arguments[0] = name+':'+subname
+				return ack.debug.apply(ack, arguments)
+			}
+			logger.sublog = logger.debug
+	
+			return logger
+		}
+		ack.debug.map = ackDebugMap//latch onto storage
+	/* END MODULES */
+	
+	ack.throwBy = function(ob, msg){
+		if(ob){
+			throw(ob)
+		}else if(msg){
+			throw new Error(msg)
+		}else{
+			throw new Error('An unexpected error has occured')
+		}
+	}
+	
+	ack.logArrayTo = function(array, logTo){
+		logTo.apply(logTo, array)
+	}
+	
+	ack.logError = function(err, msg, logTo){
+		logTo = logTo || console.log
+	
+		var drray=[]
+	
+		if(msg==null && err && err.stack){//?no message
+			msg = msg || err.stack.replace(/(\n|\t|\r)/g,'').split(/\s+at\s+/).shift()//error stack as message
+		}
+	
+		if(msg!=null)drray.push(msg)
+		if(err!=null)drray.push(err)
+	
+		ack.logErrorArray(drray, logTo)
+	}
+	
+	
+	
+	
+	
+	
+	
+	function ackExpose($var){
+		this.$var = $var
+		return this
+	}
+	
+	ackExpose.prototype.error = function(){return ack.error(this.$var)}
+	ackExpose.prototype.number = function(){return ack.number(this.$var)}
+	ackExpose.prototype.string = function(){return ack.string(this.$var)}
+	ackExpose.prototype.binary = function(){return ack.binary(this.$var)}
+	ackExpose.prototype.base64 = function(){return ack.base64(this.$var)}
+	ackExpose.prototype.object = function(){return ack.object(this.$var)}
+	ackExpose.prototype.method = function(){return ack.method(this.$var)}
+	ackExpose.prototype['function'] = function(){return ack['function'](this.$var)}
+	ackExpose.prototype.array = function(){return ack.array(this.$var)}
+	ackExpose.prototype.queryObject = function(){return ack.queryObject(this.$var)}
+	ackExpose.prototype.week = function(){return ack.week(this.$var)}
+	ackExpose.prototype.month = function(){return ack.month(this.$var)}
+	ackExpose.prototype.year = function(){return ack.year(this.$var)}
+	ackExpose.prototype.date = function(){return ack.date(this.$var)}
+	ackExpose.prototype.time = function(){return ack.time(this.$var)}
+	
+	
+	ackExpose.prototype.getSimpleClone = function(){
+		var target = {}
+		for (var i in this.$var){
+			target[i] = this.$var[i]
+		}
+		return target;
+	}
+	
+	//get at raw variable within target variable
+	ackExpose.prototype.get = function(name,def){
+		if(!name)return this.$var
+	
+		if(this.$var && this.$var[name]!=null)//try exact match first
+			return this.$var[name]
+	
+		//case insensative search
+		var lcase = name.toLowerCase()
+		for(var key in this.$var){
+			if(lcase == key.toLowerCase())
+				return this.$var[key]
+		}
+	
+		return def
+	}
+	
+	//$var[name] returned as ack Object. When null, null returned
+	ackExpose.prototype.byName = function(name){
+		var v = this.get(name)
+		if(v!=null)return ack(v)
+	}
+	
+	ackExpose.prototype['throw'] = function(msg, logTo){
+		ack.logError(this.$var, msg, logTo)
+		ack.throwBy(this.$var, msg)
+		return this
+	}
+	
+	ackExpose.prototype.dump = function(){
+		return JSON.stringify(this.$var)
+	}
+	
+	/** negative numbers will be 0  */
+	ackExpose.prototype.getBit = function(){
+		var b = this.getBoolean()
+		if(b && b.constructor==Number && b < 0){
+			b=0
+		}
+		return b ? 1 : 0;
+	}
+	
+	//!NON PROTOTYPED
+	ackExpose.prototype.nullsToEmptyString = function(){
+		for(var key in this.$var){
+			if(this.$var[key]==null){
+				this.$var[key]='';
+			}
+		}
+		return this
+	}
+	
+	/** reduces variable to a true/false */
+	ackExpose.prototype.getBoolean = function(){
+	  if(this.$var==null || !this.$var.constructor)return false
+	
+	  var a = this.$var
+	
+	  if(a.constructor==String){
+		a = a.toLowerCase()//makes TRUE:true and yes/no true
+		if(a==='y' || a==='yes'){
+			return true
+		}
+		if(a==='no' || a==='n'){
+			return false
+		}
+	
+	    try{
+	      a = JSON.parse(a)
+	    }catch(e){
+	      return null
+	    }
+	  }
+	
+	  if(a!=null && (a.constructor==Number || a.constructor==Boolean)){
+		return a
+	  }
+	
+	  return null
+	}
+	
+	ackExpose.prototype.isBooleanLike = function(){
+	  if(this.$var==null || !this.$var.constructor)return false
+	  return this.getBoolean()!==null
+	}
+	
+	
+	module.exports = ack
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
+	
+	//Entry point to accessors framework
+	//argMap : 0:'init-function or accessor-map', 1:'extend-from or accessor-map', 2:'accessor-map'
+	//accessor-map: if-string:'property-name' if-array:array-of-accessor-maps if-object:{keyname:defaultMethod || keyName:property-map || keyName:simple-value-default}
+	//per-accessor-property-map:{preset:function-to-examine-a-set-call-to-return-what-to-actually-set, typeset:set-variable-must-be-constructor-of, default:funcForValue-or-value}
+	function jC(initOrStruct, parentOrStruct, struct){
+		initOrStruct = jC.$(initOrStruct, parentOrStruct, struct)
+		var f = function f(){//function to add more accessor definitions
+			initOrStruct.jC.prop.apply(initOrStruct.jC,arguments);
+			return f
+		}
+		return f
+	}
+	
+	//function controller for entry point
+	jC.$ = function(initOrStruct, parentOrStruct, struct){
+		//arg0 is struct
+		if(initOrStruct!=null && !jC.isF(initOrStruct)){
+			struct=initOrStruct;
+			initOrStruct=null
+		}
+	
+		//arg1 is struct
+		if(parentOrStruct!=null && !jC.isF(parentOrStruct)){
+			struct=parentOrStruct;
+			parentOrStruct=null
+		}
+	
+		if(initOrStruct==null)//provide constructor
+			initOrStruct = function($scope){
+				return jC.F.prototype.init.call(this,$scope)
+			}//DONT function initOrStruct(){} AND DONT var initOrStruct = function initOrStruct(){} for IE8
+	
+		if(parentOrStruct==null)//provide parent constructor
+			parentOrStruct = function(){/*jC*/}//DONT function parentOrStruct(){} AND DONT var parentOrStruct = function parentOrStruct(){} for IE8
+	
+		initOrStruct.jC = new jC.F(initOrStruct,parentOrStruct, struct)//return has jC reference
+	
+		return initOrStruct
+	}
+	
+	//very specific and tuned function to set variables using setMethods
+	jC.setByAccessor = function(nameOrInitStruct,value){//params data then sets a "set" method and calls it
+		if(typeof(nameOrInitStruct)=='string'){
+			if(this['set'+nameOrInitStruct]){//exact key case found
+				this['set'+nameOrInitStruct].call(this,value)
+				return this
+			}
+	
+			/* look at all keys for set function */
+				var lCaseKey = nameOrInitStruct.toLowerCase()
+				var mySetKey = 'set'+lCaseKey
+				for(var key in this)
+					if(key.length==mySetKey.length && key.toLowerCase() == mySetKey){
+						this[key].call(this,value)
+						return this
+					}
+	
+				//may require updating as they use implied scope (perhaps 3rd argument is $scope)
+				jC.F.paramdata.call(this)
+				this.data[nameOrInitStruct] = value
+				//this.data[lCaseKey] = value
+			/* end */
+		}else
+			jC.each(nameOrInitStruct,jC.setByAccessor,this)//arg1 is object||array
+	
+		return this
+	}
+	
+	
+	//Accessors building framework
+	jC.F = function(C, parent , prop){//what is called to add accessors but ONCE AN OBJECT it becomes is the init and ONLY HAS 1 argument
+		this.init.call(this)
+		.setC(C)//set base Class aka main init method
+		.setParent(parent)//inheritance
+	
+		//C.prototype = new parent//creates data scope and such cause it invokes init function
+		for(var x in parent.prototype)C.prototype[x] = parent.prototype[x]
+	
+		//deprecate these, don't add methods to an object
+		/*
+		C.prototype.set = function(){//deprecated. Use self destructing init method
+			console.log('jC: this.set is deprecated. Use self destructing method this.init or if you need this.set, have your class extend jC.Vm',arguments.callee.caller)
+			return jC.setByAccessor.apply(this,arguments)
+		}
+		*/
+	
+		C.prototype.init = jC.F.prototype.init
+		this.prop(prop)
+	
+		return this
+	}
+	
+	jC.F.prototype.init = function($scope){//main function that creates data scope
+		this.data = $scope==null ? {}:$scope
+		jC.setByAccessor.call(this, $scope)//convert keys to case
+		this.init = null;delete this.init//self destruct init method
+		return this
+	}
+	
+	jC.F.paramdata = function(){
+		if(this.data==null)this.data={};return this
+	}
+	
+	//assumptions: .data exists && keyName will be found in lowercase
+	jC.F.set = function(nameOrInitStruct,value){
+		if(typeof(nameOrInitStruct)=='string'){//is arg1 name
+			jC.F.paramdata.call(this)//ensure this.data is defined
+			var keyName = nameOrInitStruct//nameOrInitStruct.toLowerCase()
+			this.data[keyName] = value
+		}else{
+			jC.each(nameOrInitStruct, jC.F.set, this)//arg1 is object||array
+		}
+		return this
+	}
+	
+	jC.F.get = function(name,def,stick,nullop){//!!!!TODO:This should no longer param and just get the value regardless of null or anything else
+		return jC.F.param.call(this,name,def,stick,nullop)
+	}
+	
+	jC.F.param = function(name,def,stick,nullop){
+		this.data = this.data!=null ? this.data : {}//param data scope
+		if(typeof(this.data[name])=='undefined')
+			var r = nullop ? nullop.call(this,def,stick) : jC.F.runNullOp.call(this,name,def,stick)
+		else{
+			var r = this.data[name]
+		}
+	
+		return r
+	}
+	
+	//returns set closured function
+	jC.F.getSet = function(name,options){
+		var useArray = []
+			,keyName = options && options.as ? options.as : name
+			,fireSet = function(v){
+				jC.F.set.call(this,keyName,v);return this
+			}
+	
+		if(options){
+			if(options.typeset){
+				useArray.push(function(v){
+					if(v && v.constructor === options.typeset)
+						return v
+	
+					var etn = jC.getMethodName(options.typeset)
+						,oName = jC.getConName(this)
+						,oOwnName = jC.getMethodName(options.original.owner)
+						,msg = 'Invalid Constructor Passed to set'+options.original.name+'().'
+					msg += ' ExpectTypeName:'+etn+'. GotTypeName:'+jC.getConName(v)+'. OwnerName:'+oName+'.'//details
+					if(oName != oOwnName)//?original owner has changed?
+						msg += ' OriginalOwnerName:'+oOwnName
+					console.error(msg);
+					return v
+				})
+			}
+	
+			if(options.preset)
+				useArray.push(function(v){
+					return options.preset.apply(this,arguments)
+				})
+	
+			//options last action
+			if(useArray.length)
+				fireSet = function(v){
+					for(var x=0; x < useArray.length; ++x)
+						v = useArray[x].call(this,v)
+	
+					jC.F.set.call(this,keyName,v);return this
+				}
+		}
+	
+	
+		return fireSet
+	}
+	
+	//returns a get closured function
+	jC.F.getGet = function(name, defOrDefFunc){
+		var nullop = jC.F.getNullOp(name, defOrDefFunc)
+		return function(def,stick){//!!!TODO:This function shouldn't try to param, just get
+			var r = jC.F.get.call(this, name, def, stick, nullop);
+			return r
+		}
+	}
+	
+	//returns function to call when no default avail
+	jC.F.getNullOp = function(name, defOrDefFunc){
+		return function(def,stick){
+			return jC.F.runNullOp.call(this,name,def,stick,defOrDefFunc)
+		}
+	}
+	
+	//if name-value undefined, return value based on defaulting defintiion
+	jC.F.runNullOp = function(name,def,stick,dM){
+		if(dM==null)
+			var dm=function(){}//make dm reliable as always something
+		else if(jC.isF(dM))
+			var dm = dM//dm is already function
+		else
+			var dm = function(){return dM}//dm will return a static value
+	
+		var r = def==null ? dm.call(this) : def
+	
+		if((stick==null || stick) && (r!=null || this.data[name]!=null)){
+			jC.setByAccessor.call(this,name,r)//call this['set'+name] incase it has a preset
+			//this.data[name.toLowerCase()] = r//this wont call this['set'+name]
+		}
+	
+		return r
+	}
+	
+	jC.F.prototype.set = jC.F.set//?deprecated
+	jC.F.prototype.get = jC.F.get
+	jC.F.prototype.param = jC.F.param
+	jC.F.prototype.setC = jC.F.getSet('c')
+	jC.F.prototype.getC = jC.F.getGet('c')
+	jC.F.prototype.setParent = jC.F.getSet('parent')
+	jC.F.prototype.getParent = jC.F.getGet('parent')
+	
+	jC.F.prototype.setter = function(name,config){
+		var isSubDef = config && config.constructor==Object && config.constructor!=Array,
+			method = jC.F.getSet(name, config),
+			Cls = this.getC()
+	
+	
+		name = name.substring(0, 1).toUpperCase()+name.substring(1, name.length)//first letter must be capital
+		Cls.prototype['set'+name] = method
+	
+		if(isSubDef && config.setAka)
+			Cls.prototype[config.setAka] = method
+	
+		return this
+	}
+	
+	jC.F.prototype.getter = function(name, defOrDefFunc){
+		var isSubDef = defOrDefFunc!=null && defOrDefFunc.constructor==Object && defOrDefFunc.constructor!=Array
+			,def
+	
+		if(isSubDef){
+			if(defOrDefFunc['default'] != null)
+				def = defOrDefFunc['default']
+		}else
+			def = defOrDefFunc
+	
+		var keyName = defOrDefFunc && defOrDefFunc.as ? defOrDefFunc.as : name
+			,method = jC.F.getGet(keyName, def)//sequence sensative
+			,Cls=this.getC()
+	
+		name = name.substring(0, 1).toUpperCase()+name.substring(1, name.length)//first letter must be capital
+		Cls.prototype['get'+name] = method
+	
+		if(isSubDef && defOrDefFunc.getAka)
+			Cls.prototype[defOrDefFunc.getAka] = method
+	
+		return this
+	}
+	
+	jC.F.prototype.prop = function(naOrStOrAr, defOrDefFunc){
+		switch(typeof(naOrStOrAr)){
+			case 'string'://create a setter/getter just based on name alond
+				defOrDefFunc = defOrDefFunc==null ? {} : defOrDefFunc
+	
+				var typ = typeof(defOrDefFunc), typArray = ['number','boolean','string'];
+				for(var x=typArray.length-1; x >= 0; --x){
+					if(typArray[x] == typ){
+						defOrDefFunc = {
+							'default':defOrDefFunc,
+							original:{owner:this.getC(), name:naOrStOrAr}//record Object metadata
+						}
+						break
+					}
+				}
+				//below breaks in ie8
+				//if(typArray.indexOf(typ) < 0)//ensure Object/Array/Function
+				//	defOrDefFunc.original = {owner:this.getC(), name:naOrStOrAr}//record Object metadata
+	
+				return this.getter(naOrStOrAr, defOrDefFunc).setter(naOrStOrAr, defOrDefFunc)//name
+			case 'undefined':
+			case 'function':
+				return this
+		}
+	
+		if(naOrStOrAr.constructor == Array){//array of definitions
+			for(var x=naOrStOrAr.length-1; x >= 0; --x)
+				this.prop(naOrStOrAr[x])
+		}else
+			jC.each(naOrStOrAr,this.prop,this)
+	
+		return this
+	}
+	
+	
+	
+	
+	if(jC.name && jC.name==='jC')//device supports function.name
+		jC.getMethodName = function(method){
+			return method.name
+		}
+	else
+		jC.getMethodName = function(method){
+			var funcNameRegex = /function (.{1,})\(/;
+			var results = (funcNameRegex).exec(method.toString())
+			return (results && results.length > 1) ? results[1] : ""
+		}
+	
+	if({}.constructor.name)//device supports new Function().constructor.name
+		jC.getConName = function(obj){
+			return obj.constructor.name
+		}
+	else
+		jC.getConName = function(obj){
+			return jC.getMethodName((obj).constructor)
+		}
+	
+	jC.isF = function(f){
+		return typeof(f)=='function'
+	}
+	
+	jC.clear = function(s){
+		for(var x in s)delete s[x]
+	}
+	
+	
+	//loops arrays(value,index,context) or objects(name,value,context)
+	jC.each = function(a,meth,context){
+		if(!a)return;//null abort
+		if(a.constructor==Array){
+			var m=(context==null) ? meth : function(v,i){meth.call(context,v,i)}
+			for(var x=0;x<a.length;++x)m(a[x],x)
+		}else{
+			var m=(context==null) ? meth : function(n,v){meth.call(context,n,v)}
+			for(var n in a)m(n,a[n])
+		}return a
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//ValueMemory: Object for case-insensitive name/value pair management
+	jC.Vm = function Vm(a){
+		return this.init.apply(this,arguments)
+	}
+	jC(jC.Vm)//?maybe deprecated with no get/set/param methods
+	
+	jC.Vm.prototype.set = jC.setByAccessor
+	jC.Vm.prototype.get = function(name){
+		var r = jC.F.get.apply(this,arguments)
+		if(r!=null)return r
+	
+		var eName = this.defined(name)
+		return this.data[eName]
+	
+	}
+	
+	/** if name is defined, returns actual case sensative name */
+	jC.Vm.prototype.defined = function(name){
+		if(this.data[name]!=null)return name
+	
+		//get by lowercase keyname match
+		var n = name.toLowerCase()
+		for(var x in this.data){
+			if(x.toLowerCase()==n){
+				return x
+			}
+		}
+	}
+	/** deprecated name alias */
+	jC.Vm.prototype.getExactName = jC.Vm.prototype.defined
+	
+	jC.Vm.prototype.param = function(name,def){
+		var r = this.get(name)
+		if(r!=null)return r
+		return jC.F.param.apply(this,arguments)
+	}
+	
+	//removes all case-insensative matching keys
+	jC.Vm.prototype.remove = function(name){
+		var n = name.toLowerCase()
+		for(var x in this.data){
+			if(x.toLowerCase()==n){
+				this.data[x] = null;delete this.data[x];
+			}
+		}
+		return this
+	}
+	
+	jC.Vm.prototype.clearVars = function(){
+		jC.clear(this.data);return this
+	}
+	
+	jC.Vm.prototype.setNewData=function(value){
+		this.clearVars()
+		jC.F.set.call(this,value);return this
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	if(true){
+		module.exports=jC
+		module.exports.__dirname = __dirname
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var ackInjector = function ackInjector($scope, $storage){
+	  this.$storage = $storage || {}
+	  this.$scope = $scope || this
+	  return this
+	}
+	
+	ackInjector.prototype.define = function(name, $module, initInjectArray){
+	  var $this = this
+	  var method = function(){
+	    return $this.LoadModule(name, $module, arguments, initInjectArray)
+	  }
+	
+	  this.$scope[name] = method//this.functionName . example: ack.mail()
+	  return this
+	}
+	
+	ackInjector.prototype.definePath = function(name,path,initInjectArray){
+	  var $this = this
+	  var fetcher = function(){
+	    var $module = $this.getModule(name, path)
+	    return $this.LoadModule(name, $module, arguments, initInjectArray)
+	  }
+	
+	  this.$scope[name] = fetcher//this.functionName . example: ack.mail()
+	  return this
+	}
+	
+	ackInjector.prototype.LoadModule = function(name, $module, $args, injectArray){
+	  if($module.constructor!=Function){
+	    return $module
+	  }
+	
+	  if(!injectArray){
+	    var r = $module.apply($module, $args)//no dependencies
+	    return r
+	  }
+	
+	  var isInjectInit = typeof(injectArray)=='function',
+	    init = isInjectInit ? injectArray : injectArray[injectArray.length-1],
+	    args = []
+	
+	  if(!isInjectInit){
+	    var tar
+	    for(var i=0; i < injectArray.length-1; ++i){//all but last, last was init
+	      switch(injectArray[i].toLowerCase()){
+	        case '$arg0':
+	          tar = $args[0]
+	          break;
+	
+	        case '$injector':
+	          tar = this.$scope//this
+	          break;
+	
+	        case '$module':
+	          tar = $module
+	          break;
+	
+	        case '$args':
+	          tar = Array.prototype.slice.call($args)
+	          break;
+	
+	
+	        default:
+	          if(this.$scope[injectArray[i]]!=null){
+	            tar = this.$scope[injectArray[i]]
+	          }else if(this.$storage[injectArray[i]] != null){
+	            tar = this.$storage[injectArray[i]]
+	          }
+	      }
+	      args.push(tar)
+	    }
+	  }
+	
+	  args = args.concat(Array.prototype.slice.call($args))
+	
+	  if(typeof(init)=='string'){//last arg is module to return
+	    switch(init){
+	      case '$module':
+	        return $module.apply($module, args)
+	        break;
+	
+	      default:
+	        throw 'should not get here. Last argument of injector was not a function NOR "$module"';
+	        return $module.apply(this.$scope[init], args)
+	    }
+	  }
+	  return init.apply(init, args)
+	}
+	
+	ackInjector.prototype.getModule = function(name,path){
+	  if(this.$storage[name])return this.$storage[name]
+	  throw new Error('Module not defined ('+name+'). Valid modules: "'+ Object.keys(this.$storage).join(',')+'"')
+	}
+	
+	ackInjector.prototype.newModule = function(name,path,arg){
+	  var Module = this.getModule(name,path)
+	  return new Module(arg)
+	}
+	
+	
+	module.exports = ackInjector
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var isPromiseLike = function isPromiseLike(potentialPromise, notThisPromise){
+	  return potentialPromise && potentialPromise.then && potentialPromise!=notThisPromise
+	}
+	
+	function objectKeys(ob){
+	  var x,array = []
+	  for(x in ob)array.push(x)
+	  return array
+	}
+	
+	/** constructor. Invoke by new ackPromise()
+	  @resolver - function(resolve,reject){}
+	*/
+	function ackPromise(resolver){
+	  return new ackP()
+	  .next(function(next){
+	    resolver(next, next.throw)
+	  })
+	}
+	
+	/** all arguments are used to jump start a thenable promise */
+	ackPromise.resolve = function(v0,v1,v2,v3){
+	  var promise = new ackP()
+	  promise = promise.set.apply(promise,arguments)
+	  return promise
+	}
+	
+	ackPromise.start = function(){
+	  return new ackP()
+	}
+	
+	
+	ackPromise.method = function(method){
+	  return function(){
+	    var Promise = new ackPromise.start()
+	    return Promise.set.apply(Promise, arguments).then(method)
+	  }
+	}
+	
+	ackPromise.getErrorType = function(error){
+	  var isNamed = error.name && error.name.toLowerCase!=null
+	  var isCode = error.code && error.code.toLowerCase!=null
+	
+	  if(isCode && error.name=='Error'){
+	    return error.code
+	  }
+	
+	  if(isNamed){
+	    return error.name
+	  }
+	}
+	
+	ackPromise.isErrorType = function(error, type){
+	  if(error==null)return false
+	
+	  if(error.constructor && type == error.constructor)
+	    return true
+	
+	  var eName = ackPromise.getErrorType(error)
+	  if(eName && eName.toLowerCase()==type.toLowerCase()){
+	    return true
+	  }
+	
+	  return false
+	}
+	
+	ackPromise.callback4callback = function(method, promise, bind){
+	  return function(){
+	    var args = Array.prototype.slice.call(arguments)
+	    var next = args.pop()
+	    var processor = ackPromise.getNextCallback(next, promise)
+	
+	    if(method.length){
+	      args[method.length-1] = processor
+	    }else{
+	      args.push(processor)
+	    }
+	
+	    method.apply(bind||this,args)
+	  }
+	}
+	
+	ackPromise.createIf = function(promise, condition, $scope, onTrue, isTruthMode){
+	  isTruthMode = isTruthMode==null ? true : isTruthMode
+	  var isMethod = condition && condition.constructor && condition.constructor==Function
+	
+	  if(isMethod){
+	    var processCondition = function(args, next, scope){
+	      next.call(scope, condition.apply(scope,args))
+	    }
+	  }else{
+	    var processCondition = function(args, next, scope){
+	      var result = args[0]===condition
+	      next.call(scope, result)
+	    }
+	  }
+	
+	  var ifMethod = function(){
+	    var args = Array.prototype.slice.call(arguments)
+	    var next = args.pop()//last argument will be next method to call
+	
+	    processCondition(args, function(result){
+	      var isVal = (isTruthMode && result==true) || (!isTruthMode && result==false)
+	      if(isVal){
+	        onTrue.call(this, args, next)//onTrue.call(this, args, next)
+	      }else{
+	        next.apply(next, args)//pass along args cause i didn't run
+	      }
+	    }, this)
+	  }
+	
+	  return promise.next(ifMethod, $scope)
+	}
+	
+	ackPromise.getNextCallback = function(next, promise){
+	  return function(){
+	    if(arguments[0]!=null){//1st arg is error!
+	      return promise['throw'].call(promise, arguments[0])
+	    }
+	    var args = Array.prototype.slice.call(arguments)
+	    args.shift()//remove error
+	    next.apply(next, args)
+	  }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function ackP(){
+	  this._promise0 = true//bluebird compatibility
+	  this.data = {waiting:0}
+	  return this.processor()//fire
+	}
+	
+	
+	ackP.prototype.processor = function(){
+	  this.values = Array.prototype.slice.call(arguments)
+	  if(!this.data || !this.data.task){
+	    return// this
+	  }
+	
+	  var $scope={
+	    args:Array.prototype.slice.call(arguments)//args that can be manipulated
+	  }
+	
+	  var thisTask = this.data.task
+	  var context = thisTask.context || this.data.context || this.nextContext || this//never use outside arguments.context as context can be changed by bind()
+	  this.data.waiting=1//indicate in-process
+	
+	  /* async callback method */
+	    var $this = this
+	    if(thisTask.isAsync===true){//if callback required, how is it defined. Pipe=last-arg-as-callback
+	      var nPos = thisTask.method.length===0 ? -1 : thisTask.method.length-1
+	
+	      var oneTimeCall = false
+	      var oneTimeMethod = function(){
+	        var args = Array.prototype.slice.call(arguments)
+	        var then = function(){
+	          if($this.inpass){
+	            --$this.inpass.count
+	
+	            if($this.inpass.count>0){
+	              return// $this
+	            }
+	            return $this.inpass.lastProm.runNextPromise()
+	          }
+	          return $this.runNextPromise()
+	        }
+	
+	        if(arguments.length && isPromiseLike(arguments[0], $this)){//result is promise
+	          $this.runSubPromise(arguments[0], thisTask, args).then(then)
+	        }else{
+	          if(thisTask && !thisTask.isPass){
+	            $this.values = args
+	          }
+	          then()
+	        }
+	
+	      }
+	
+	      oneTimeMethod['throw'] = function(){
+	        return $this['throw'].apply($this, arguments)
+	      }
+	
+	      if(nPos>=0)
+	        $scope.args[nPos] = oneTimeMethod//last argument will be next call
+	      else
+	        $scope.args.push(oneTimeMethod)//last argument will be next call
+	    }
+	  /* end: async callback method */
+	
+	  if(thisTask.isPass===true){
+	    if(thisTask.isAsync===true){
+	      if(!this.inpass){
+	        this.inpass={count:1}
+	      }else{
+	        ++this.inpass.count
+	      }
+	    }
+	
+	    if(this.inpass)this.inpass.lastProm = this
+	  }
+	
+	  try{
+	    var result = thisTask.method.apply(context, $scope.args)//args from last next call are directly fed in
+	  }catch(e){
+	    if(e.constructor==String){
+	      var eName = e
+	      e = new Error(e)
+	      e.name = eName
+	    }
+	
+	    if(!e.code && e.message){
+	      e.code = e.message
+	    }
+	
+	    //try to indicate which method has failed
+	    try{
+	      e.method = thisTask.method//maybe read-only and so may error
+	    }catch(e){}
+	
+	    this['throw'].call(this, e)
+	    return// this
+	  }
+	
+	  if(thisTask.isPass===true){
+	    return this.runNextPromise()
+	  }
+	
+	  if(thisTask.isAsync===true)return;
+	
+	  if(isPromiseLike(result, this)){//result is promise
+	    return this.runSubPromise(result, thisTask)
+	    .then(function(){
+	      $this.runNextPromise()
+	    })
+	  }
+	
+	  if(!this.data){
+	    return// this
+	  }
+	
+	  if(this.inpass!=null){//pass over
+	    this.inpass.count = null
+	    this.inpass.lastProm = null
+	    this.inpass = null
+	  }
+	
+	  if(result==this || result==null && typeof(result)==='undefined'){
+	    this.values = null//if we are not passing previous result, then lets set
+	  }else{
+	    this.values = [result]//if we are not passing previous result, then lets set
+	  }
+	
+	  if(this.data.getNextPromise!=null){//we need to trigger our next task
+	    return this.runNextPromise()
+	  }
+	
+	  this.data.waiting=0//no longer waiting for another task. This is key for a then being added to a fully exectured chain
+	
+	  this.clearMem()
+	
+	  return// this
+	}
+	
+	ackP.prototype.runSubPromise = function(result, thisTask){
+	  var $this = this,
+	      closingTask = function(){
+	        if(thisTask && !thisTask.isPass){
+	          $this.values = Array.prototype.slice.call(arguments)
+	        }
+	      }
+	
+	  result = result.then(closingTask)
+	  ['catch'](function(e){
+	    //e = e.cause || e//bluebird may have wrapped the true error
+	    $this['throw'].call($this, e)//result promise catcher
+	  })
+	
+	  return result
+	}
+	
+	ackP.prototype.runNextPromise = function(){
+	  if(this._rejected){
+	    return
+	  }
+	  if(this.values && this.values.length){
+	    return this.runNextPromiseWithValueArray(this.values)
+	  }
+	  return this.runNextPromiseWithValueArray()
+	  //this.values = null//intended to clear memory
+	}
+	
+	ackP.prototype.runNextPromiseWithValueArray = function(valueArray){
+	  if(!this.data){
+	    return// this
+	  }
+	  var np = this.data.getNextPromise ? this.data.getNextPromise() : null
+	  if(!np){
+	    this.data.waiting = 0;return// this
+	  }
+	
+	  if(
+	      this.inpass && this.inpass.count
+	  &&  np.data && np.data.task && !np.data.task.isPass
+	  ){
+	    return// np
+	  }
+	  //np.paramData()
+	  //var shares
+	  np.data.waiting = -1
+	  np.nextContext = np.nextContext || this.nextContext// || this.data.context
+	  np.data.context = np.data.context || this.nextContext// || this.data.context
+	  np.inpass = this.inpass
+	  this.clearMem()
+	  this.nextContext = null//clear mem
+	
+	  var r = np.processor.apply(np, valueArray)
+	  return r
+	
+	}
+	
+	ackP.prototype.runCatch = function(err, catcher){
+	  var caught = catcher.call(this.nextContext || this, err)
+	  if(isPromiseLike(caught)){
+	    var $this = this
+	    return caught.then(function(){
+	      $this.runNextPromiseWithValueArray( Array.prototype.slice.call(arguments) )
+	    })
+	  }
+	
+	  var argArray=[]
+	  if(caught!==null){
+	    argArray.push(caught)
+	  }
+	  this.values = argArray
+	  var r = this.runNextPromiseWithValueArray(argArray)
+	  this.clearMem()
+	  return r
+	}
+	
+	ackP.prototype.getLastPromise = function(){
+	  if(!this.data || !this.data.getNextPromise){
+	    return this
+	  }
+	  return this.data.getNextPromise().getLastPromise()
+	}
+	
+	ackP.prototype['catch'] = function(typeOrMethod, method){
+	  var newProm = this.next(function(){
+	    var args = Array.prototype.slice.call(arguments)
+	    var next = args.pop()
+	    next.apply(this, args)
+	  })
+	
+	  newProm._rejected = null
+	
+	  this.catchers = this.catchers || {}
+	  if(method){
+	    switch(typeof(typeOrMethod)){
+	      case 'string':
+	        var type = typeOrMethod.toLowerCase()
+	        this.catchers['catch'+type] = method;
+	        if(this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, type)){//error already happend
+	          this._rejectedCaught = true
+	          this.runCatch(this._rejected, method)//method.call(this, this._rejected)
+	        }
+	        break;
+	      //case 'function':break;
+	      default:{
+	        this.catchers.catch_type_array = this.catchers.catch_type_array || []
+	        this.catchers.catch_type_array.push({method:method, type:typeOrMethod})
+	        if(this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, typeOrMethod)){
+	          this._rejectedCaught = true
+	          this.runCatch(this._rejected, method)//method.call(this, this._rejected)
+	        }
+	      }
+	    }
+	  }else{
+	    method = typeOrMethod
+	    this.catchers.catchAll = typeOrMethod
+	    if(this._rejected && !this._rejectedCaught){
+	      this._rejectedCaught = true
+	      this.runCatch(this._rejected, method)//method.call(this, this._rejected)
+	    }
+	  }
+	
+	  if(this._rejected && !this._rejectedCaught){
+	    newProm._rejected = this._rejected
+	    if(nativePromiseThen)this.then = ackP.rejectedThen
+	  }
+	
+	  return newProm
+	}
+	/** alias for compatibility with earlier ECMAScript version */
+	ackP.prototype.caught = ackP.prototype['catch']
+	
+	/**
+	  @condition - if condition is not a method, then value must strictly match condition. If condition is method, condition only must return truthy
+	*/
+	ackP.prototype['if'] = function(condition,method,scope){
+	  return ackPromise.createIf(this, condition, scope, function(args, next){
+	    var mr = method.apply(this, args)
+	    next.call(next, mr)
+	  })
+	}
+	
+	ackP.prototype.ifNot = function(condition,method,scope){
+	  var processor = function(args, next){
+	    var mr = method.apply(this, args)
+	    next.call(next, mr)
+	  }
+	  return ackPromise.createIf(this, condition, scope, processor, false)
+	}
+	
+	ackP.prototype.ifNext = function(condition,method,scope){
+	  var processor = function(args,next){
+	    if(method.length){
+	      args[method.length-1] = next
+	    }else{
+	      args.push(next)
+	    }
+	
+	    method.apply(this,args)
+	  }
+	  return ackPromise.createIf(this, condition, scope, processor)
+	}
+	
+	ackP.prototype.ifCallback = function(condition,method,scope){
+	  return ackPromise.createIf(this, condition, scope, function(args,next){
+	    var cb = ackPromise.getNextCallback(next, this)
+	
+	    if(method.length)
+	      args[method.length-1] = cb
+	    else
+	      args.push(cb)
+	
+	    method.apply(this,args)
+	  })
+	}
+	
+	ackP.prototype.getNewData = function(){
+	  return {waiting:0}
+	}
+	
+	ackP.prototype.paramData = function(){
+	  this.data = this.data || this.getNewData();return this
+	}
+	
+	ackP.prototype.setNextPromise = function(np){
+	    this.data.getNextPromise = function(){
+	      return np
+	    }
+	    np.nextContext = this.nextContext
+	    if(this._rejected){
+	      np._rejected = this._rejected
+	      if(nativePromiseThen)np.then = ackP.rejectedThen
+	    }
+	
+	    return np
+	}
+	
+	ackP.prototype.add = function(options){
+	  if(options.method==null){
+	    this['throw'].call(this,'promise task undefined')
+	    var e = new Error('promise task undefined')
+	    e.name = 'promise task undefined'
+	    throw e
+	  }
+	
+	  this.paramData()
+	//???
+	  if( isPromiseLike(options.method) ){
+	  var nextp = options.method
+	  options.method = function(){
+	    return nextp
+	  }
+	    var newp = ackPromise.start().add(options)//.bind(this.data.context)
+	    return this.setNextPromise( newp )//options.method
+	  }
+	
+	  if(this.data.getNextPromise){
+	    return this.data.getNextPromise().add(options)
+	  }else if(this.data.task){
+	    var np = ackPromise.start()//.paramData()
+	    this.setNextPromise(np)
+	    np.data.waiting = 1
+	    np.add(options)
+	
+	    if(this.data.waiting==0){
+	      this.runNextPromise()
+	    }
+	
+	    return np
+	  }
+	
+	  this.data.task = options//first added task
+	  //this.data.context = this.nextContext
+	
+	  if(this.data.waiting===0){//?already done process, put back into process
+	    this.processor.apply(this, this.values)
+	  }
+	
+	  return this
+	}
+	
+	//async-method whose input is passed exactly as output AFTER the last-method(callback) is called
+	ackP.prototype.pass = function(method,scope){
+	  //this.checkPassMode()
+	  return this.add({method:method, context:scope, isPass:true, isAsync:true})
+	}
+	
+	function getMethodNameList(ob){
+	  var array = []
+	  for(var x in ob){
+	    if(ob[x] && ob[x].constructor && ob[x].constructor == Function){
+	      array.push(x)
+	    }
+	  }
+	  return array.join(',')
+	}
+	
+	/** (name, args0, arg1, arg2) */
+	ackP.prototype.call = function(name){
+	  var args = Array.prototype.slice.call(arguments)
+	  args.shift()//remove name argument
+	  return this.then(function(){
+	    if(arguments.length && arguments[0][name]){
+	      return arguments[0][name].apply(arguments[0], args)
+	    }
+	    var msg = 'promise.call "'+name+'" is not a function.'
+	    if(arguments.length){
+	      msg += ' Function list: '+getMethodNameList(arguments[0])
+	    }
+	    var e = new Error(msg)
+	    e.name='not-a-function'
+	    throw e
+	  })
+	}
+	
+	/** (name, args0, arg1, arg2) */
+	ackP.prototype.bindCall = function(name){
+	  var args = Array.prototype.slice.call(arguments)
+	  args.shift()//remove name argument
+	  return this.then(function(){
+	    if(this[name]){
+	      return this[name].apply(this, args)
+	    }
+	    var msg = 'promise.bindCall "'+name+'" is not a function.'
+	    msg += ' Function list: '+getMethodNameList(this)
+	    var e = new Error(msg)
+	    e.name='not-a-function'
+	    throw e
+	  })
+	}
+	
+	/** promise result will become "this" context */
+	ackP.prototype.bindResult = function(){
+	  return this.then(function(v){
+	    this.bind(v)
+	    return ackPromise.start().set( Array.prototype.slice.call(arguments) ).spread()
+	  })
+	}
+	
+	ackP.prototype.bind = function($this){
+	  if( $this!=this && isPromiseLike($this) ){
+	    var passon = {}
+	    return this.then(function(){
+	      passon.result = Array.prototype.slice.call(arguments)
+	    })
+	    .then($this)
+	    .bindResult()
+	    .set(passon).get('result').spread()
+	  }
+	
+	  this.paramData()
+	  if(!this.data.task){
+	    this.data.context = $this
+	  }
+	  this.nextContext = $this
+	  return this
+	}
+	
+	ackP.prototype.singleGet = function(name){
+	  if(!isNaN(name) && name < 0){//negative number array index? array[-1] = array[array.length-1]
+	    return this.then(function(v){
+	      if(v && v.constructor==Array){
+	        return v[ v.length + name ]
+	      }
+	      return v[name]
+	    })
+	  }
+	
+	  return this.then(function(v){
+	    return v[name]
+	  })
+	}
+	
+	ackP.prototype.get = function(){
+	  var args = Array.prototype.slice.call(arguments)
+	  var promise = this
+	  for(var aIndex=0; aIndex < args.length; ++aIndex){
+	    promise = promise.singleGet(args[aIndex])
+	  }
+	  return promise
+	}
+	
+	ackP.prototype.set = function(){
+	  var args = Array.prototype.slice.call(arguments)
+	  return this.next(function(next){
+	    next.apply(next, args)
+	  })
+	}
+	ackP.prototype.return = ackP.prototype.set//respect the bluebird alias
+	ackP.prototype.resolve = ackP.prototype.set//alias for other promise libaries
+	
+	ackP.prototype.delay = function(t){
+	  return this.next(function(){
+	    var args = Array.prototype.slice.call(arguments),
+	      next = args.pop()
+	    setTimeout(function(){
+	      next.apply(next, args)
+	    }, t)
+	  })
+	}
+	
+	//sync-method whose input is passed exactly as output to the next method in chain
+	ackP.prototype.past = function(method,scope){
+	  return this.add({method:method, context:scope, isPass:true, isAsync:false})
+	}
+	ackP.prototype.tap = ackP.prototype.past//respect the bluebird
+	
+	/** when this thenable is run, the first argument is this promise in it's current state */
+	ackP.prototype.inspect = function(method,scope){
+	  var inspect = function(){
+	    var args = Array.prototype.slice.call(arguments)
+	    args.unshift(this)
+	    method.apply(scope||this, args)
+	  }
+	
+	  return this.add({method:inspect, context:this, isPass:true, isAsync:false})
+	}
+	ackP.prototype.tap = ackP.prototype.past//respect the bluebird
+	
+	//async-method
+	ackP.prototype.next = function(method,scope){
+	  return this.add({method:method, context:scope, isAsync:true})
+	}
+	
+	ackP.prototype.then = function(method,scope){
+	
+	  return this.add({method:method, context:scope, isAsync:false})
+	}
+	ackP.prototype.method = ackP.prototype.then//respect the blue bird
+	
+	/** this function will be made into ackP.prototype.then WHEN a promise error occurs. It makes catching errors flow properly between ecma6 promises and ackP */
+	ackP.rejectedThen = function(method,scope){
+	  /* !extremely important! - This connects ackP promises with native promises */
+	  if(this._rejected && method.toString()==nativePromiseThen.toString() ){
+	    throw err//This will reject to the native promise. I have already been rejected and a native promise is trying to chain onto me
+	  }
+	
+	  return this.add({method:method, context:scope, isAsync:false})
+	}
+	
+	ackP.prototype.spread = function(method,scope){
+	  if(!method){
+	    return this.add({method:function(a,next){next.apply(next,a)}, context:this, isAsync:true})
+	  }else{
+	    return this.add({method:function(a){
+	      return method.apply(this, a)}, context:scope, isAsync:false
+	    })
+	  }
+	}
+	
+	ackP.prototype.spreadCallback = function(method,scope){
+	  return this.callback(function(){
+	    var args = Array.prototype.slice.call(arguments)
+	    var callback = args[args.length-1]
+	    if(args.length){
+	      switch(args[0].constructor){
+	        case String: case Boolean: case Object:
+	          args = [args[0]]
+	          break;
+	        case Array:
+	          args = args[0]
+	          break;
+	
+	        default:args=[]
+	      }
+	
+	      args.push(callback)
+	    }
+	    method.apply(this, args)
+	  }, scope)
+	}
+	
+	//async-method aka promisify
+	ackP.prototype.callback = function(method,scope){
+	  var fireMethod = function(){
+	    var bind = scope||this
+	    var prom = ackPromise.start()
+	    prom.set.apply(prom,arguments).spread()
+	    var myMethod = ackPromise.callback4callback(method, prom, bind)
+	    return prom
+	    .next(function(){
+	      return myMethod.apply(bind, arguments)
+	    })
+	    return prom
+	  }
+	  return this.add({method:fireMethod, scope:scope, isAsync:false})
+	}
+	
+	ackP.prototype.clearMem = function(){
+	  this.data = null;
+	  return this
+	}
+	
+	ackP.prototype.seekPromiseCatcher = function(allowSelf){
+	  if(this.catchers && allowSelf==null){
+	    return this
+	  }
+	
+	  if(this.data && this.data.getNextPromise){
+	    return this.data.getNextPromise().seekPromiseCatcher()
+	  }
+	}
+	
+	ackP.prototype.throwPromiseCatcher = function(e, promiseCatcher){
+	  if(promiseCatcher.catchers.catch_type_array){
+	    for(var i=0; i < promiseCatcher.catchers.catch_type_array.length; ++i){
+	      if(promiseCatcher.catchers.catch_type_array[i].type == e.constructor){
+	        this._rejectedCaught = true
+	        //var r = promiseCatcher.catchers.catch_type_array[i].method.call(this,e)
+	        var catcher = promiseCatcher.catchers.catch_type_array[i].method
+	        promiseCatcher.runCatch(e, catcher)
+	        return this
+	      }
+	    }
+	  }
+	
+	  /* error string type catchers */
+	    if(e && e.name && e.name.toLowerCase){
+	      var eName = e.name.toLowerCase()
+	      if(promiseCatcher.catchers['catch'+eName]){
+	        this._rejectedCaught = true
+	        //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+	        var catcher = promiseCatcher.catchers['catch'+eName]
+	        promiseCatcher.runCatch(e, catcher)
+	        return this//r
+	      }
+	    }
+	
+	    if(e && e.code && e.code.toLowerCase){
+	      var eName = e.code.toLowerCase()
+	      if(promiseCatcher.catchers['catch'+eName]){
+	        this._rejectedCaught = true
+	        //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+	        var catcher = promiseCatcher.catchers['catch'+eName]
+	        promiseCatcher.runCatch(e, catcher)
+	        return this//r
+	      }
+	    }
+	
+	    if(e && e.message && e.message.toLowerCase){
+	      var eName = e.message.toLowerCase()
+	      if(promiseCatcher.catchers['catch'+eName]){
+	        this._rejectedCaught = true
+	        //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+	        var catcher = promiseCatcher.catchers['catch'+eName]
+	        promiseCatcher.runCatch(e, catcher)
+	        return this//r
+	      }
+	    }
+	  /* end: error string type catchers */
+	
+	  if(promiseCatcher.catchers.catchAll){
+	    this._rejectedCaught = true
+	    //var r = promiseCatcher.catchers.catchAll.call(this,e)
+	    var catcher = promiseCatcher.catchers.catchAll
+	    promiseCatcher.runCatch(e, catcher)
+	    return this//r
+	  }
+	
+	  var promiseCatcher = promiseCatcher.seekPromiseCatcher(false)//the current promise catcher we have didn't work out
+	  if(promiseCatcher){
+	    return this.throwPromiseCatcher(e, promiseCatcher)
+	  }
+	}
+	
+	ackP.prototype['throw'] = function(err){
+	  if(err && err.constructor==String){
+	    var s = err
+	    err = new Error(err)
+	    err.name = s
+	  }
+	
+	  this._rejected = err
+	  this._rejectedCaught = false
+	  if(nativePromiseThen)this.then = ackP.rejectedThen
+	
+	  var $this = this
+	  var promiseCatcher = this.seekPromiseCatcher()
+	
+	  if(promiseCatcher){
+	    return this.throwPromiseCatcher(err, promiseCatcher)
+	  }
+	
+	  if(this.data && this.data.getNextPromise){
+	    var np = this.data.getNextPromise()
+	    return np['throw'].call(np, err)//cascade error reporting
+	  }
+	
+	  //throw err
+	  //return err
+	}
+	
+	ackP.prototype.all = function(){
+	  var args = Array.prototype.slice.call(arguments);
+	  //create handler function
+	  args.push(function(){
+	    if(arguments.length){
+	      var args = Array.prototype.slice.call(arguments)
+	      return args
+	    }
+	  })
+	  return this.join.apply(this, args)
+	}
+	
+	//expected every argument but last is a running promise. Last argument is callback. Example: join(firePromiseA(),firePromiseB(),function(A,B){return 22}).then(function(r22){})
+	//if only one argument, then it is a single promise whos result will be passed along
+	ackP.prototype.join = function(/* promiseArrayOrPromise, promiseArrayOrPromise, joinMethod */){
+	  var joinPromise, next, $this = this
+	
+	  var resultArray = []
+	      ,count = 0
+	      ,argSlice = Array.prototype.slice.call(arguments)//mutatable arguments
+	      ,isArg0Array = argSlice.length && argSlice[0] && argSlice[0].constructor==Array
+	      ,promiseArray = isArg0Array ? arguments[0] : argSlice
+	
+	  if(argSlice[argSlice.length-1] && argSlice[argSlice.length-1].constructor == Function){
+	    var controller = argSlice.pop()//last arg is controller
+	    //function that is called when this function counts all promises completed
+	    var done = function(){
+	      var controlResult = ackPromise.start().set(resultArray).spread(controller, $this)
+	      controlResult.then(function(){
+	        next.apply(next, Array.prototype.slice.call(arguments))
+	        //$this.values = Array.prototype.slice.call(arguments)
+	        //$this.runNextPromise()
+	      })
+	    }
+	  }else{
+	    var done = function(){
+	      next.apply(next, [resultArray])
+	    }
+	  }
+	
+	  var nextMethod = function(){//we will call $this instead of a next method
+	    next = Array.prototype.slice.call(arguments).pop()//last argument is next method
+	    if(!promiseArray.length){
+	      return done()
+	    }
+	
+	    var processResult = function(i, v){
+	      resultArray[i] = v
+	      ++count//count a finishing promise
+	      if(count==promiseArray.length){//all promises have been accounted for
+	        done()
+	      }
+	    }
+	
+	    var catcher = function(e){
+	      next['throw'](e)
+	    }
+	
+	    promiseArray.forEach(function(v,i){
+	      if(isPromiseLike(v)){
+	        v.then(function(v){
+	          processResult(i,v)
+	        })['catch'](catcher)
+	      }else{
+	        processResult(i,v)
+	      }
+	    })
+	  }
+	
+	  return $this.next(nextMethod)
+	}
+	
+	/**
+	  (array|callback, callback, options)
+	  @options {concurrency}
+	*/
+	ackP.prototype.map = function(){
+	  var args = Array.prototype.slice.call(arguments)
+	
+	  if(typeof(args[args.length-1])==='object'){//last is option
+	    var options = args.pop()
+	  }else{
+	    var options = {concurrency:0}//infinite
+	  }
+	
+	  var conc = options.concurrency==null||isNaN(options.concurrency) ? 0 : options.concurrency
+	  var controller = args.pop()//last is controller
+	  var newArray = []
+	
+	  var per = function(v,i,len){
+	    return ackPromise.start().then(function(){
+	      var r = controller.call(this, v, i, len)
+	      if(r && r.then){//fire controller's promise
+	        return r.then(function(newItem){
+	          newArray[i] = newItem
+	        })
+	      }else{
+	        newArray[i] = r
+	      }
+	    }, this)
+	  }
+	
+	  var loopArray = function(arrOrOb, callback){
+	    if(!arrOrOb){
+	      return callback(null);
+	    }
+	
+	    var v, wait=0,counter=0;
+	    if(arrOrOb.constructor===Array){
+	      var len = arrOrOb.length
+	      if(!len){
+	        callback(null,[])
+	      }
+	
+	      var next = function(nx, i, $this){
+	        if(i==len){
+	          return;//no more loop
+	        }
+	
+	        var prom = per.call($this, arrOrOb[i], i, len)
+	        .then(function(){
+	          ++counter
+	          if(counter==len){//fullment by equal array.length
+	            callback(null,newArray)
+	          }
+	        })['catch'](callback)
+	
+	        if(conc>0){
+	          var rotation = (i+1) % conc
+	          if(rotation==0){
+	            return prom.then(function(){
+	              nx(nx,i+1,$this)
+	            })
+	          }
+	          ++wait;
+	          return nx(nx,i+1,$this).then(function(){
+	            --wait;
+	            if(wait==0){
+	              nx(nx,i+1,$this)
+	            }
+	          })
+	        }
+	
+	          return prom.then(function(){
+	            nx(nx, i+1, $this)
+	          })
+	      }
+	
+	      next(next, 0, this)
+	
+	      return;
+	    }
+	
+	    //loop objects
+	    var len = objectKeys(arrOrOb).length
+	    if(!len)callback(null,{})
+	    for(var x in arrOrOb){
+	      v = arrOrOb[x];
+	
+	      per.call(this, v, x, len)
+	      .then(function(){
+	        ++counter
+	        if(counter==len){//fullment by equal array len
+	          callback(null,newArray)
+	        }
+	      })['catch'](callback)
+	    }
+	  }
+	
+	  if(args[0] && args[0].constructor!==Function){//we have array
+	    return this.callback(function(callback){
+	      loopArray.call(this, args[0], callback)
+	    })
+	  }
+	
+	  return this.callback(function(array,callback){
+	    loopArray.call(this, array, callback)
+	  })
+	}
+	
+	/** always returns original array */
+	ackP.prototype.each = function(func){
+	  return this.then(function(a){
+	    var prom = ackPromise.start()
+	    for(var i=0; i < a.length; ++i){
+	      prom = prom.set(a[i],i,a).then(func)
+	    }
+	
+	    return prom.set.apply(prom, arguments)
+	  })
+	}
+	
+	//bluebird compatibility
+	ackP.prototype._then = function(didFulfill,didReject,didProgress,receiver,internalData){
+	  return this.add({method:function(){
+	    didFulfill.apply(receiver, arguments)//success
+	  }, isAsync:false})
+	  .catch(function(){
+	    didReject.apply(receiver,arguments)//reject
+	  })
+	}
+	
+	
+	
+	
+	if(true){
+	  module.exports = ackPromise
+	  //module.exports.__dirname = __dirname
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// Used to resolve the internal `[[Class]]` of values
+	var toString = Object.prototype.toString;
+	
+	// Used to resolve the decompiled source of functions
+	var fnToString = Function.prototype.toString;
+	
+	// Used to detect host constructors (Safari > 4; really typed array specific)
+	var reHostCtor = /^\[object .+?Constructor\]$/;
+	
+	// Compile a regexp using a common native method as a template.
+	// We chose `Object#toString` because there's a good chance it is not being mucked with.
+	var reNative = RegExp('^' +
+	  // Coerce `Object#toString` to a string
+	  String(toString)
+	  // Escape any special regexp characters
+	  .replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&')
+	  // Replace mentions of `toString` with `.*?` to keep the template generic.
+	  // Replace thing like `for ...` to support environments like Rhino which add extra info
+	  // such as method arity.
+	  .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	function isNative(value) {
+	  var type = typeof value;
+	  return type == 'function'
+	    // Use `Function#toString` to bypass the value's own `toString` method
+	    // and avoid being faked out.
+	    ? reNative.test(fnToString.call(value))
+	    // Fallback to a host object check because some environments will represent
+	    // things like typed arrays as DOM methods which may not conform to the
+	    // normal native pattern.
+	    : (value && type == 'object' && reHostCtor.test(toString.call(value))) || false;
+	}
+	
+	var nativePromiseThen;
+	var isNativePromised = typeof(Promise)!='undefined' && Promise && Promise.resolve
+	if(isNativePromised){
+	  Promise.resolve().then(function(){
+	    var testerP = {}
+	
+	    testerP.then = function(nativeThen){
+	      nativePromiseThen = nativeThen
+	    }
+	    return testerP
+	  })
+	  .then(function(){})//triggers native promise to invoke my promise
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * This is the web browser implementation of `debug()`.
+	 *
+	 * Expose `debug()` as the module.
+	 */
+	
+	exports = module.exports = __webpack_require__(10);
+	exports.log = log;
+	exports.formatArgs = formatArgs;
+	exports.save = save;
+	exports.load = load;
+	exports.useColors = useColors;
+	exports.storage = 'undefined' != typeof chrome
+	               && 'undefined' != typeof chrome.storage
+	                  ? chrome.storage.local
+	                  : localstorage();
+	
+	/**
+	 * Colors.
+	 */
+	
+	exports.colors = [
+	  'lightseagreen',
+	  'forestgreen',
+	  'goldenrod',
+	  'dodgerblue',
+	  'darkorchid',
+	  'crimson'
+	];
+	
+	/**
+	 * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+	 * and the Firebug extension (any Firefox version) are known
+	 * to support "%c" CSS customizations.
+	 *
+	 * TODO: add a `localStorage` variable to explicitly enable/disable colors
+	 */
+	
+	function useColors() {
+	  // is webkit? http://stackoverflow.com/a/16459606/376773
+	  return ('WebkitAppearance' in document.documentElement.style) ||
+	    // is firebug? http://stackoverflow.com/a/398120/376773
+	    (window.console && (console.firebug || (console.exception && console.table))) ||
+	    // is firefox >= v31?
+	    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+	    (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
+	}
+	
+	/**
+	 * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+	 */
+	
+	exports.formatters.j = function(v) {
+	  return JSON.stringify(v);
+	};
+	
+	
+	/**
+	 * Colorize log arguments if enabled.
+	 *
+	 * @api public
+	 */
+	
+	function formatArgs() {
+	  var args = arguments;
+	  var useColors = this.useColors;
+	
+	  args[0] = (useColors ? '%c' : '')
+	    + this.namespace
+	    + (useColors ? ' %c' : ' ')
+	    + args[0]
+	    + (useColors ? '%c ' : ' ')
+	    + '+' + exports.humanize(this.diff);
+	
+	  if (!useColors) return args;
+	
+	  var c = 'color: ' + this.color;
+	  args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
+	
+	  // the final "%c" is somewhat tricky, because there could be other
+	  // arguments passed either before or after the %c, so we need to
+	  // figure out the correct index to insert the CSS into
+	  var index = 0;
+	  var lastC = 0;
+	  args[0].replace(/%[a-z%]/g, function(match) {
+	    if ('%%' === match) return;
+	    index++;
+	    if ('%c' === match) {
+	      // we only are interested in the *last* %c
+	      // (the user may have provided their own)
+	      lastC = index;
+	    }
+	  });
+	
+	  args.splice(lastC, 0, c);
+	  return args;
+	}
+	
+	/**
+	 * Invokes `console.log()` when available.
+	 * No-op when `console.log` is not a "function".
+	 *
+	 * @api public
+	 */
+	
+	function log() {
+	  // this hackery is required for IE8/9, where
+	  // the `console.log` function doesn't have 'apply'
+	  return 'object' === typeof console
+	    && console.log
+	    && Function.prototype.apply.call(console.log, console, arguments);
+	}
+	
+	/**
+	 * Save `namespaces`.
+	 *
+	 * @param {String} namespaces
+	 * @api private
+	 */
+	
+	function save(namespaces) {
+	  try {
+	    if (null == namespaces) {
+	      exports.storage.removeItem('debug');
+	    } else {
+	      exports.storage.debug = namespaces;
+	    }
+	  } catch(e) {}
+	}
+	
+	/**
+	 * Load `namespaces`.
+	 *
+	 * @return {String} returns the previously persisted debug modes
+	 * @api private
+	 */
+	
+	function load() {
+	  var r;
+	  try {
+	    r = exports.storage.debug;
+	  } catch(e) {}
+	  return r;
+	}
+	
+	/**
+	 * Enable namespaces listed in `localStorage.debug` initially.
+	 */
+	
+	exports.enable(load());
+	
+	/**
+	 * Localstorage attempts to return the localstorage.
+	 *
+	 * This is necessary because safari throws
+	 * when a user disables cookies/localstorage
+	 * and you attempt to access it.
+	 *
+	 * @return {LocalStorage}
+	 * @api private
+	 */
+	
+	function localstorage(){
+	  try {
+	    return window.localStorage;
+	  } catch (e) {}
+	}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * This is the common logic for both the Node.js and web browser
+	 * implementations of `debug()`.
+	 *
+	 * Expose `debug()` as the module.
+	 */
+	
+	exports = module.exports = debug;
+	exports.coerce = coerce;
+	exports.disable = disable;
+	exports.enable = enable;
+	exports.enabled = enabled;
+	exports.humanize = __webpack_require__(11);
+	
+	/**
+	 * The currently active debug mode names, and names to skip.
+	 */
+	
+	exports.names = [];
+	exports.skips = [];
+	
+	/**
+	 * Map of special "%n" handling functions, for the debug "format" argument.
+	 *
+	 * Valid key names are a single, lowercased letter, i.e. "n".
+	 */
+	
+	exports.formatters = {};
+	
+	/**
+	 * Previously assigned color.
+	 */
+	
+	var prevColor = 0;
+	
+	/**
+	 * Previous log timestamp.
+	 */
+	
+	var prevTime;
+	
+	/**
+	 * Select a color.
+	 *
+	 * @return {Number}
+	 * @api private
+	 */
+	
+	function selectColor() {
+	  return exports.colors[prevColor++ % exports.colors.length];
+	}
+	
+	/**
+	 * Create a debugger with the given `namespace`.
+	 *
+	 * @param {String} namespace
+	 * @return {Function}
+	 * @api public
+	 */
+	
+	function debug(namespace) {
+	
+	  // define the `disabled` version
+	  function disabled() {
+	  }
+	  disabled.enabled = false;
+	
+	  // define the `enabled` version
+	  function enabled() {
+	
+	    var self = enabled;
+	
+	    // set `diff` timestamp
+	    var curr = +new Date();
+	    var ms = curr - (prevTime || curr);
+	    self.diff = ms;
+	    self.prev = prevTime;
+	    self.curr = curr;
+	    prevTime = curr;
+	
+	    // add the `color` if not set
+	    if (null == self.useColors) self.useColors = exports.useColors();
+	    if (null == self.color && self.useColors) self.color = selectColor();
+	
+	    var args = Array.prototype.slice.call(arguments);
+	
+	    args[0] = exports.coerce(args[0]);
+	
+	    if ('string' !== typeof args[0]) {
+	      // anything else let's inspect with %o
+	      args = ['%o'].concat(args);
+	    }
+	
+	    // apply any `formatters` transformations
+	    var index = 0;
+	    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
+	      // if we encounter an escaped % then don't increase the array index
+	      if (match === '%%') return match;
+	      index++;
+	      var formatter = exports.formatters[format];
+	      if ('function' === typeof formatter) {
+	        var val = args[index];
+	        match = formatter.call(self, val);
+	
+	        // now we need to remove `args[index]` since it's inlined in the `format`
+	        args.splice(index, 1);
+	        index--;
+	      }
+	      return match;
+	    });
+	
+	    if ('function' === typeof exports.formatArgs) {
+	      args = exports.formatArgs.apply(self, args);
+	    }
+	    var logFn = enabled.log || exports.log || console.log.bind(console);
+	    logFn.apply(self, args);
+	  }
+	  enabled.enabled = true;
+	
+	  var fn = exports.enabled(namespace) ? enabled : disabled;
+	
+	  fn.namespace = namespace;
+	
+	  return fn;
+	}
+	
+	/**
+	 * Enables a debug mode by namespaces. This can include modes
+	 * separated by a colon and wildcards.
+	 *
+	 * @param {String} namespaces
+	 * @api public
+	 */
+	
+	function enable(namespaces) {
+	  exports.save(namespaces);
+	
+	  var split = (namespaces || '').split(/[\s,]+/);
+	  var len = split.length;
+	
+	  for (var i = 0; i < len; i++) {
+	    if (!split[i]) continue; // ignore empty strings
+	    namespaces = split[i].replace(/\*/g, '.*?');
+	    if (namespaces[0] === '-') {
+	      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+	    } else {
+	      exports.names.push(new RegExp('^' + namespaces + '$'));
+	    }
+	  }
+	}
+	
+	/**
+	 * Disable debug output.
+	 *
+	 * @api public
+	 */
+	
+	function disable() {
+	  exports.enable('');
+	}
+	
+	/**
+	 * Returns true if the given mode name is enabled, false otherwise.
+	 *
+	 * @param {String} name
+	 * @return {Boolean}
+	 * @api public
+	 */
+	
+	function enabled(name) {
+	  var i, len;
+	  for (i = 0, len = exports.skips.length; i < len; i++) {
+	    if (exports.skips[i].test(name)) {
+	      return false;
+	    }
+	  }
+	  for (i = 0, len = exports.names.length; i < len; i++) {
+	    if (exports.names[i].test(name)) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+	
+	/**
+	 * Coerce `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {Mixed}
+	 * @api private
+	 */
+	
+	function coerce(val) {
+	  if (val instanceof Error) return val.stack || val.message;
+	  return val;
+	}
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	/**
+	 * Helpers.
+	 */
+	
+	var s = 1000;
+	var m = s * 60;
+	var h = m * 60;
+	var d = h * 24;
+	var y = d * 365.25;
+	
+	/**
+	 * Parse or format the given `val`.
+	 *
+	 * Options:
+	 *
+	 *  - `long` verbose formatting [false]
+	 *
+	 * @param {String|Number} val
+	 * @param {Object} options
+	 * @return {String|Number}
+	 * @api public
+	 */
+	
+	module.exports = function(val, options){
+	  options = options || {};
+	  if ('string' == typeof val) return parse(val);
+	  return options.long
+	    ? long(val)
+	    : short(val);
+	};
+	
+	/**
+	 * Parse the given `str` and return milliseconds.
+	 *
+	 * @param {String} str
+	 * @return {Number}
+	 * @api private
+	 */
+	
+	function parse(str) {
+	  str = '' + str;
+	  if (str.length > 10000) return;
+	  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
+	  if (!match) return;
+	  var n = parseFloat(match[1]);
+	  var type = (match[2] || 'ms').toLowerCase();
+	  switch (type) {
+	    case 'years':
+	    case 'year':
+	    case 'yrs':
+	    case 'yr':
+	    case 'y':
+	      return n * y;
+	    case 'days':
+	    case 'day':
+	    case 'd':
+	      return n * d;
+	    case 'hours':
+	    case 'hour':
+	    case 'hrs':
+	    case 'hr':
+	    case 'h':
+	      return n * h;
+	    case 'minutes':
+	    case 'minute':
+	    case 'mins':
+	    case 'min':
+	    case 'm':
+	      return n * m;
+	    case 'seconds':
+	    case 'second':
+	    case 'secs':
+	    case 'sec':
+	    case 's':
+	      return n * s;
+	    case 'milliseconds':
+	    case 'millisecond':
+	    case 'msecs':
+	    case 'msec':
+	    case 'ms':
+	      return n;
+	  }
+	}
+	
+	/**
+	 * Short format for `ms`.
+	 *
+	 * @param {Number} ms
+	 * @return {String}
+	 * @api private
+	 */
+	
+	function short(ms) {
+	  if (ms >= d) return Math.round(ms / d) + 'd';
+	  if (ms >= h) return Math.round(ms / h) + 'h';
+	  if (ms >= m) return Math.round(ms / m) + 'm';
+	  if (ms >= s) return Math.round(ms / s) + 's';
+	  return ms + 'ms';
+	}
+	
+	/**
+	 * Long format for `ms`.
+	 *
+	 * @param {Number} ms
+	 * @return {String}
+	 * @api private
+	 */
+	
+	function long(ms) {
+	  return plural(ms, d, 'day')
+	    || plural(ms, h, 'hour')
+	    || plural(ms, m, 'minute')
+	    || plural(ms, s, 'second')
+	    || ms + ' ms';
+	}
+	
+	/**
+	 * Pluralization helper.
+	 */
+	
+	function plural(ms, n, name) {
+	  if (ms < n) return;
+	  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+	  return Math.ceil(ms / n) + ' ' + name + 's';
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	"use strict";
+	//Helps in the goal of selecting and defining states of properties on indexable data (object & arrays). The indexable data is not to be polluted by the defined properties (data and states seperate)
+	function IndexSelector($scope){
+	  this.data = $scope||{}
+	
+	  this.data.indexes = this.data.indexes || []//any object will do
+	  this.data.selected = this.data.selected || []
+	  this.data.states = this.data.states || []
+	  return this
+	}
+	
+	IndexSelector.prototype.isIndexSelected = function(index){
+	  for(var i=this.data.states.length-1; i >= 0; --i){
+	    if(this.data.states[i].index==index)return true
+	  }
+	  return false
+	}
+	
+	IndexSelector.prototype.selectByIndex = function(index){
+	  var selected = this.data.indexes[index]
+	  if(selected){
+	    this.data.states.push(this.newStateByIndex(index))
+	    this.data.selected.push(selected)
+	  }
+	  return this
+	}
+	
+	IndexSelector.prototype.deselectByIndex = function(index){
+	  var i,state
+	  for(i=this.data.states.length-1; i >= 0; --i){
+	    var state = this.data.states[i]
+	    if(state.index==index){
+	      this.data.selected.splice(i, 1)
+	      this.data.states.splice(i, 1)
+	      break
+	    }
+	  }
+	  return this
+	}
+	
+	IndexSelector.prototype.deselectState = function(state){
+	  this.deselectByIndex(state.index);return this
+	}
+	
+	IndexSelector.prototype.deselectAll = function(){
+	    this.data.selected.length=0
+	    this.data.states.length=0
+	  return this
+	}
+	
+	IndexSelector.prototype.selectAll = function(){
+	  if(!this.data.indexes)return this
+	
+	  for(var i=0; i < this.data.indexes.length; ++i){
+	    this.selectByIndex(i)
+	  }
+	
+	  return this
+	}
+	
+	//getter/setter. Getter for determining if selected. Setter to set if selected or not
+	IndexSelector.prototype.selectorByIndex = function(index){
+	  var $this = this
+	  return function(yesNo){
+	      if(yesNo!=null){
+	        yesNo ? $this.selectByIndex(index) : $this.deselectByIndex(index)
+	        return yesNo
+	      }
+	
+	      return $this.isIndexSelected(index)
+	    }
+	}
+	
+	IndexSelector.prototype.newStateByIndex = function(index){
+	  var state={
+	    data:this.data.indexes[index],
+	    state:{},
+	    index:index
+	  }
+	
+	  return state
+	}
+	
+	IndexSelector.prototype.selectStateByIndex = function(index){
+	  var i = this.data.states.length
+	  this.selectByIndex(index)
+	  return this.data.states[i].state
+	}
+	
+	IndexSelector.prototype.deselectOldest = function(){
+	  this.data.selected.splice(0, 1)
+	  this.data.states.splice(0, 1)
+	  return this
+	}
+	
+	IndexSelector.prototype.getOldestIndex = function(){
+	  if(this.data.states.length)return this.data.states[0].index
+	}
+	
+	//when IndexSelector has been init with selectives but no states, blank states can be built
+	IndexSelector.prototype.pairSelectedToState = function(){
+	  for(var i=0; i < this.data.states.length; ++i){
+	    var state = this.data.states[i]
+	    this.data.selected[i] = this.data.selected[i] || this.data.indexes[state.index]
+	  }
+	  return this
+	}
+	
+	//when IndexSelector has been init with selectives but no states, blank states can be built
+	IndexSelector.prototype.pairStateToSelected = function(){
+	  for(var i=0; i < this.data.selected.length; ++i){
+	    var selected = this.data.selected[i]
+	    this.data.states[i] = this.data.states[i] || this.newStateByIndex(i)
+	  }
+	  return this
+	}
+	
+	
+	module.exports = IndexSelector
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+	module.exports = function(errorObject){
+	  return new jError(errorObject)
+	}
+	
+	var jError = function jError(errorObject){
+	  this.types = jError.types
+	  this.errorObject = errorObject;return this;
+	}
+	
+	jError.prototype.getKeys = function(){
+	  return Object.getOwnPropertyNames(this.errorObject)
+	}
+	
+	/** converts error.stack into array via stack.split(' at ') */
+	jError.prototype.getStackArray = function(amount){
+	  if(this.stackArray){
+	    return this.stackArray
+	  }
+	
+	  if(this.errorObject.stack){
+	    if(this.errorObject.stack.split){
+	      this.stackArray = this.errorObject.stack.split(' at ');
+	    }else if(this.errorObject.stack.splice){//?already an array?
+	      this.stackArray = this.errorObject.stack;
+	    }
+	    return this.stackArray;
+	  }
+	
+	  return []
+	}
+	
+	jError.prototype.getTraceArray = function(amount){
+	  var stackArray = [];
+	  stackArray.push.apply(stackArray, this.getStackArray())
+	  stackArray.shift();
+	
+	  if(amount){
+	    stackArray.splice(amount, stackArray.length)
+	  }
+	
+	  return stackArray
+	}
+	
+	jError.prototype.getFirstTrace = function(amount){
+	  var stackArray = this.getStackArray()
+	  if(!stackArray)return;
+	
+	  amount = amount || 1
+	
+	  if(stackArray.length==1){
+	    var rtn = [stackArray[0]]
+	  }else{
+	    var rtn = []
+	    for(var i=1; i <= stackArray.length && i <= amount; ++i){
+	      rtn.push( stackArray[i] )
+	    }
+	  }
+	
+	  return rtn.join(' at ')
+	}
+	
+	jError.prototype.setStackArray = function(stackArray){
+	  this.errorObject.stack = stackArray.join(' at ')
+	  this.stackArray = stackArray
+	  return this
+	}
+	
+	/** analyzes stack to remove 1st trace (leaves error message in stack). Essentially calls .splice(1,1) on stack array  */
+	jError.prototype.cutFirstTrace = function(){
+	  var stackArray = this.getStackArray()
+	  if(stackArray && stackArray.length > 1){
+	    stackArray.splice(1,1)
+	    this.setStackArray( stackArray )
+	  }
+	
+	  return this
+	}
+	
+	jError.prototype.getLineNum = function(){
+	  var string = this.getFirstTrace().split(':')[1]
+	  return Number(string)
+	}
+	
+	jError.prototype.getFilePath = function(){
+	  var trace = this.getFirstTrace()
+	  return trace.split(':')[0].split('(').pop()
+	}
+	
+	jError.prototype.getName = function(){
+	  if(this.errorObject.name)return this.errorObject.name
+	  return this.getFailingObjectName()
+	}
+	
+	jError.prototype.getFailingObjectName = function(){
+	  var trace = this.getFirstTrace()
+	  return trace.split(/\(|@/)[0].trim()
+	}
+	
+	jError.prototype.getMessage = function(){
+	  if(this.errorObject.message)return this.errorObject.message
+	
+	  var fTrace = this.getFirstTrace()
+	  if(fTrace){
+	    var fSpaceArray = fTrace.split(' ')
+	    if(fSpaceArray.length){
+	      return fSpaceArray.splice(0, 1)[0]
+	    }
+	  }
+	
+	  if(this.errorObject.constructor == String){
+	    return this.errorObject
+	  }
+	}
+	
+	jError.prototype.getType = function(){
+	  var isNamed = this.errorObject.name && this.errorObject.name.toLowerCase!=null
+	  var isCode = this.errorObject.code && this.errorObject.code.toLowerCase!=null
+	
+	  if(isCode && this.errorObject.name=='Error'){
+	    return this.errorObject.code
+	  }
+	
+	  if(isNamed){
+	    return this.errorObject.name
+	  }
+	}
+	
+	jError.prototype.isType = function(type){
+	  if(this.errorObject==null)return false
+	
+	  if(this.errorObject.constructor && type == this.errorObject.constructor){
+	    return true
+	  }
+	
+	  var eName = this.getType()
+	  if(eName && eName.toLowerCase()==type.toLowerCase()){
+	    return true
+	  }
+	
+	  if(type.constructor==String){
+	    if(this.errorObject.constructor==String){
+	      return this.errorObject.toLowerCase() === type.toLowerCase()
+	    }
+	
+	    var mess = this.getMessage()
+	    if(mess && type.toLowerCase()==mess.toLowerCase()){
+	      return true
+	    }
+	  }
+	
+	  return false
+	}
+	
+	
+	
+	jError.types = {}
+	
+	jError.types.NotFound = function(message){
+	  Error.captureStackTrace(this, this.constructor);
+	  this.name = this.constructor.name;
+	  this.status = 404;
+	  this.code = "not_found";
+	  this.message = message || "Could Not Find Requested Resource";
+	}
+	jError.types.NotFound.prototype = Object.create(Error.prototype)
+	jError.types.notFound = function(message){
+	  return new jError.types.NotFound(message)
+	}
+	
+	jError.types.LocalNetworkRequired = function(message){
+	  Error.captureStackTrace(this, this.constructor);
+	  this.name = this.constructor.name;
+	  this.status = 403;
+	  this.code = "local_network_required";
+	  this.message = message || "Local Network Connection Required";
+	}
+	jError.types.LocalNetworkRequired.prototype = Object.create(Error.prototype)
+	jError.types.localNetworkRequired = function(message){
+	  return new jError.types.LocalNetworkRequired(message)
+	}
+	
+	jError.types.Unauthorized = function(message){
+	  Error.captureStackTrace(this, this.constructor);
+	  this.name = this.constructor.name;
+	  this.status = 401;
+	  this.code = "credentials_required";
+	  this.message = message || "No authorization token was found";
+	}
+	jError.types.Unauthorized.prototype = Object.create(Error.prototype)
+	jError.types.unauthorized = function(message){
+	  return new jError.types.Unauthorized(message)
+	}
+	
+	jError.types.BadRequest = function(message){
+	  Error.captureStackTrace(this, this.constructor);
+	  this.name = this.constructor.name;
+	  this.status = 400;
+	  this.code = "bad_request";
+	  this.message = message || "Bad Request";
+	}
+	jError.types.BadRequest.prototype = Object.create(Error.prototype)
+	jError.types.badRequest = function(message){
+	  return new jError.types.BadRequest(message)
+	}
+	
+	jError.types.MethodNotAllowed = function(message){
+	  Error.captureStackTrace(this, this.constructor);
+	  this.name = this.constructor.name;
+	  this.status = 405;
+	  this.code = "method_not_allowed";
+	  this.message = message || "Method Not Allowed";
+	}
+	jError.types.MethodNotAllowed.prototype = Object.create(Error.prototype)
+	jError.types.methodNotAllowed = function(message){
+	  return new jError.types.MethodNotAllowed(message)
+	}
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXNumber = function jXNumber(number){
+		this.number = number
+		return this
+	}
+	
+	jXNumber.prototype.decimalFormat = function(p){
+	  p = p==null ? 2 : p
+	  var m=Math.pow(10,p)
+	    ,n=this.number
+	  return (Math.round(n*m)/m).toFixed(p)
+	}
+	
+	/**
+	  @options - {}
+	  @options.date - default=new Date()
+	*/
+	jXNumber.prototype.asMinutesToDateTime = function(options){
+	  options = options || {}
+	  var minute = this.number
+	  var iDate = options.date || new Date()
+	  var date = new Date(iDate.getFullYear(), iDate.getMonth(), iDate.getDate(), 0, minute)
+	
+	  return date
+	}
+	
+	/**
+	  @options = {}
+	  @options.timeDelim - default=':'
+	  @optiosn.dayPeriodDelim - default=' '
+	*/
+	jXNumber.prototype.asMinutesToTime = function(options){
+	  options = options || {}
+	  options.timeDelim = options.timeDelim || ':'
+	  options.dayPeriodDelim = options.dayPeriodDelim || ' '
+	  var d = this.asMinutesToDateTime(options)
+	  var hour = d.getHours()
+	  var tt = 'AM'
+	  var mins = d.getMinutes()
+	
+	  if(hour > 12){
+	    tt = 'PM'
+	    hour = hour - 12
+	  }
+	
+	  mins = mins.toString().length == 1 ? '0'+mins : mins
+	
+	  return hour +options.timeDelim+ mins +options.dayPeriodDelim+ tt;
+	}
+	
+	
+	var rtn = function(path){return new jXNumber(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXNumber
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('number', rtn)
+	}
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
+	var ExString = function ExString(string){
+		this.string = string
+		return this
+	}
+	
+	ExString._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+	
+	ExString.prototype.isEmail = function(){
+		return this.string.search(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)>=0
+	}
+	
+	//Node.js doesnt have .repeat as of 2/11/15
+	ExString.prototype.repeat = function(num){
+		var x,s = ''
+		for(x=0; x < num; ++x)s = s + this.string
+		return s
+	}
+	
+	//grouptype = sequence || struct
+	ExString.prototype.htmlFormat = function(){
+		var v = this.string
+		v=v.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+		return v
+	}
+	
+	ExString.prototype.toBase64 = function(){
+		var e = this._utf8_encode();
+		var t="";var n,r,i,s,o,u,a;var f=0;
+		while(f<e.length){
+			n=e.charCodeAt(f++);r=e.charCodeAt(f++);
+			i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;
+			if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}
+			t=t+ExString._keyStr.charAt(s)+ExString._keyStr.charAt(o)+ExString._keyStr.charAt(u)+ExString._keyStr.charAt(a)
+		}
+		return t
+	}
+	
+	ExString.prototype._utf8_encode = function(){
+		var e = this.string.replace ? this.string : this.string.toString()
+		e=e.replace(/\r\n/g,"\n");var t="";
+		for(var n=0;n<e.length;n++){
+			var r=e.charCodeAt(n);
+			if(r<128){
+				t+=String.fromCharCode(r)
+			}else if(r>127&&r<2048){
+				t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)
+			}else{
+				t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)
+			}
+		}
+		return t
+	}
+	/*
+	ExString.prototype.isBinary = function(){
+		return /^[01]+$/.test(this.string)
+	}
+	*/
+	//NODE ONLY
+	if(typeof(Buffer) != 'undefined'){
+		ExString.prototype.toHex = function(encType){
+			encType = encType || 'hex'
+			return new Buffer(this.string,encType).toString('hex')
+		}
+	
+		ExString.prototype.toBinary = function(encType){
+			encType = encType || 'binary'
+			return new Buffer(this.string,encType)
+		}
+	}
+	
+	var rtn = function(path){
+		return new ExString(path)
+	}
+	rtn.Class = ExString
+	module.exports = rtn
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16).Buffer))
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
+	 * The buffer module from node.js, for the browser.
+	 *
+	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+	 * @license  MIT
+	 */
+	/* eslint-disable no-proto */
+	
+	'use strict'
+	
+	var base64 = __webpack_require__(17)
+	var ieee754 = __webpack_require__(18)
+	var isArray = __webpack_require__(19)
+	
+	exports.Buffer = Buffer
+	exports.SlowBuffer = SlowBuffer
+	exports.INSPECT_MAX_BYTES = 50
+	Buffer.poolSize = 8192 // not used by this implementation
+	
+	var rootParent = {}
+	
+	/**
+	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
+	 *   === true    Use Uint8Array implementation (fastest)
+	 *   === false   Use Object implementation (most compatible, even IE6)
+	 *
+	 * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+	 * Opera 11.6+, iOS 4.2+.
+	 *
+	 * Due to various browser bugs, sometimes the Object implementation will be used even
+	 * when the browser supports typed arrays.
+	 *
+	 * Note:
+	 *
+	 *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+	 *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+	 *
+	 *   - Safari 5-7 lacks support for changing the `Object.prototype.constructor` property
+	 *     on objects.
+	 *
+	 *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+	 *
+	 *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+	 *     incorrect length in some situations.
+	
+	 * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+	 * get the Object implementation, which is slower but behaves correctly.
+	 */
+	Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined
+	  ? global.TYPED_ARRAY_SUPPORT
+	  : typedArraySupport()
+	
+	function typedArraySupport () {
+	  function Bar () {}
+	  try {
+	    var arr = new Uint8Array(1)
+	    arr.foo = function () { return 42 }
+	    arr.constructor = Bar
+	    return arr.foo() === 42 && // typed array instances can be augmented
+	        arr.constructor === Bar && // constructor can be set
+	        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
+	        arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
+	  } catch (e) {
+	    return false
+	  }
+	}
+	
+	function kMaxLength () {
+	  return Buffer.TYPED_ARRAY_SUPPORT
+	    ? 0x7fffffff
+	    : 0x3fffffff
+	}
+	
+	/**
+	 * Class: Buffer
+	 * =============
+	 *
+	 * The Buffer constructor returns instances of `Uint8Array` that are augmented
+	 * with function properties for all the node `Buffer` API functions. We use
+	 * `Uint8Array` so that square bracket notation works as expected -- it returns
+	 * a single octet.
+	 *
+	 * By augmenting the instances, we can avoid modifying the `Uint8Array`
+	 * prototype.
+	 */
+	function Buffer (arg) {
+	  if (!(this instanceof Buffer)) {
+	    // Avoid going through an ArgumentsAdaptorTrampoline in the common case.
+	    if (arguments.length > 1) return new Buffer(arg, arguments[1])
+	    return new Buffer(arg)
+	  }
+	
+	  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+	    this.length = 0
+	    this.parent = undefined
+	  }
+	
+	  // Common case.
+	  if (typeof arg === 'number') {
+	    return fromNumber(this, arg)
+	  }
+	
+	  // Slightly less common case.
+	  if (typeof arg === 'string') {
+	    return fromString(this, arg, arguments.length > 1 ? arguments[1] : 'utf8')
+	  }
+	
+	  // Unusual.
+	  return fromObject(this, arg)
+	}
+	
+	function fromNumber (that, length) {
+	  that = allocate(that, length < 0 ? 0 : checked(length) | 0)
+	  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+	    for (var i = 0; i < length; i++) {
+	      that[i] = 0
+	    }
+	  }
+	  return that
+	}
+	
+	function fromString (that, string, encoding) {
+	  if (typeof encoding !== 'string' || encoding === '') encoding = 'utf8'
+	
+	  // Assumption: byteLength() return value is always < kMaxLength.
+	  var length = byteLength(string, encoding) | 0
+	  that = allocate(that, length)
+	
+	  that.write(string, encoding)
+	  return that
+	}
+	
+	function fromObject (that, object) {
+	  if (Buffer.isBuffer(object)) return fromBuffer(that, object)
+	
+	  if (isArray(object)) return fromArray(that, object)
+	
+	  if (object == null) {
+	    throw new TypeError('must start with number, buffer, array or string')
+	  }
+	
+	  if (typeof ArrayBuffer !== 'undefined') {
+	    if (object.buffer instanceof ArrayBuffer) {
+	      return fromTypedArray(that, object)
+	    }
+	    if (object instanceof ArrayBuffer) {
+	      return fromArrayBuffer(that, object)
+	    }
+	  }
+	
+	  if (object.length) return fromArrayLike(that, object)
+	
+	  return fromJsonObject(that, object)
+	}
+	
+	function fromBuffer (that, buffer) {
+	  var length = checked(buffer.length) | 0
+	  that = allocate(that, length)
+	  buffer.copy(that, 0, 0, length)
+	  return that
+	}
+	
+	function fromArray (that, array) {
+	  var length = checked(array.length) | 0
+	  that = allocate(that, length)
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255
+	  }
+	  return that
+	}
+	
+	// Duplicate of fromArray() to keep fromArray() monomorphic.
+	function fromTypedArray (that, array) {
+	  var length = checked(array.length) | 0
+	  that = allocate(that, length)
+	  // Truncating the elements is probably not what people expect from typed
+	  // arrays with BYTES_PER_ELEMENT > 1 but it's compatible with the behavior
+	  // of the old Buffer constructor.
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255
+	  }
+	  return that
+	}
+	
+	function fromArrayBuffer (that, array) {
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    array.byteLength
+	    that = Buffer._augment(new Uint8Array(array))
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    that = fromTypedArray(that, new Uint8Array(array))
+	  }
+	  return that
+	}
+	
+	function fromArrayLike (that, array) {
+	  var length = checked(array.length) | 0
+	  that = allocate(that, length)
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255
+	  }
+	  return that
+	}
+	
+	// Deserialize { type: 'Buffer', data: [1,2,3,...] } into a Buffer object.
+	// Returns a zero-length buffer for inputs that don't conform to the spec.
+	function fromJsonObject (that, object) {
+	  var array
+	  var length = 0
+	
+	  if (object.type === 'Buffer' && isArray(object.data)) {
+	    array = object.data
+	    length = checked(array.length) | 0
+	  }
+	  that = allocate(that, length)
+	
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255
+	  }
+	  return that
+	}
+	
+	if (Buffer.TYPED_ARRAY_SUPPORT) {
+	  Buffer.prototype.__proto__ = Uint8Array.prototype
+	  Buffer.__proto__ = Uint8Array
+	} else {
+	  // pre-set for values that may exist in the future
+	  Buffer.prototype.length = undefined
+	  Buffer.prototype.parent = undefined
+	}
+	
+	function allocate (that, length) {
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    that = Buffer._augment(new Uint8Array(length))
+	    that.__proto__ = Buffer.prototype
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    that.length = length
+	    that._isBuffer = true
+	  }
+	
+	  var fromPool = length !== 0 && length <= Buffer.poolSize >>> 1
+	  if (fromPool) that.parent = rootParent
+	
+	  return that
+	}
+	
+	function checked (length) {
+	  // Note: cannot use `length < kMaxLength` here because that fails when
+	  // length is NaN (which is otherwise coerced to zero.)
+	  if (length >= kMaxLength()) {
+	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+	                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+	  }
+	  return length | 0
+	}
+	
+	function SlowBuffer (subject, encoding) {
+	  if (!(this instanceof SlowBuffer)) return new SlowBuffer(subject, encoding)
+	
+	  var buf = new Buffer(subject, encoding)
+	  delete buf.parent
+	  return buf
+	}
+	
+	Buffer.isBuffer = function isBuffer (b) {
+	  return !!(b != null && b._isBuffer)
+	}
+	
+	Buffer.compare = function compare (a, b) {
+	  if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
+	    throw new TypeError('Arguments must be Buffers')
+	  }
+	
+	  if (a === b) return 0
+	
+	  var x = a.length
+	  var y = b.length
+	
+	  var i = 0
+	  var len = Math.min(x, y)
+	  while (i < len) {
+	    if (a[i] !== b[i]) break
+	
+	    ++i
+	  }
+	
+	  if (i !== len) {
+	    x = a[i]
+	    y = b[i]
+	  }
+	
+	  if (x < y) return -1
+	  if (y < x) return 1
+	  return 0
+	}
+	
+	Buffer.isEncoding = function isEncoding (encoding) {
+	  switch (String(encoding).toLowerCase()) {
+	    case 'hex':
+	    case 'utf8':
+	    case 'utf-8':
+	    case 'ascii':
+	    case 'binary':
+	    case 'base64':
+	    case 'raw':
+	    case 'ucs2':
+	    case 'ucs-2':
+	    case 'utf16le':
+	    case 'utf-16le':
+	      return true
+	    default:
+	      return false
+	  }
+	}
+	
+	Buffer.concat = function concat (list, length) {
+	  if (!isArray(list)) throw new TypeError('list argument must be an Array of Buffers.')
+	
+	  if (list.length === 0) {
+	    return new Buffer(0)
+	  }
+	
+	  var i
+	  if (length === undefined) {
+	    length = 0
+	    for (i = 0; i < list.length; i++) {
+	      length += list[i].length
+	    }
+	  }
+	
+	  var buf = new Buffer(length)
+	  var pos = 0
+	  for (i = 0; i < list.length; i++) {
+	    var item = list[i]
+	    item.copy(buf, pos)
+	    pos += item.length
+	  }
+	  return buf
+	}
+	
+	function byteLength (string, encoding) {
+	  if (typeof string !== 'string') string = '' + string
+	
+	  var len = string.length
+	  if (len === 0) return 0
+	
+	  // Use a for loop to avoid recursion
+	  var loweredCase = false
+	  for (;;) {
+	    switch (encoding) {
+	      case 'ascii':
+	      case 'binary':
+	      // Deprecated
+	      case 'raw':
+	      case 'raws':
+	        return len
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8ToBytes(string).length
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return len * 2
+	      case 'hex':
+	        return len >>> 1
+	      case 'base64':
+	        return base64ToBytes(string).length
+	      default:
+	        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+	        encoding = ('' + encoding).toLowerCase()
+	        loweredCase = true
+	    }
+	  }
+	}
+	Buffer.byteLength = byteLength
+	
+	function slowToString (encoding, start, end) {
+	  var loweredCase = false
+	
+	  start = start | 0
+	  end = end === undefined || end === Infinity ? this.length : end | 0
+	
+	  if (!encoding) encoding = 'utf8'
+	  if (start < 0) start = 0
+	  if (end > this.length) end = this.length
+	  if (end <= start) return ''
+	
+	  while (true) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexSlice(this, start, end)
+	
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Slice(this, start, end)
+	
+	      case 'ascii':
+	        return asciiSlice(this, start, end)
+	
+	      case 'binary':
+	        return binarySlice(this, start, end)
+	
+	      case 'base64':
+	        return base64Slice(this, start, end)
+	
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return utf16leSlice(this, start, end)
+	
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+	        encoding = (encoding + '').toLowerCase()
+	        loweredCase = true
+	    }
+	  }
+	}
+	
+	Buffer.prototype.toString = function toString () {
+	  var length = this.length | 0
+	  if (length === 0) return ''
+	  if (arguments.length === 0) return utf8Slice(this, 0, length)
+	  return slowToString.apply(this, arguments)
+	}
+	
+	Buffer.prototype.equals = function equals (b) {
+	  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (this === b) return true
+	  return Buffer.compare(this, b) === 0
+	}
+	
+	Buffer.prototype.inspect = function inspect () {
+	  var str = ''
+	  var max = exports.INSPECT_MAX_BYTES
+	  if (this.length > 0) {
+	    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
+	    if (this.length > max) str += ' ... '
+	  }
+	  return '<Buffer ' + str + '>'
+	}
+	
+	Buffer.prototype.compare = function compare (b) {
+	  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (this === b) return 0
+	  return Buffer.compare(this, b)
+	}
+	
+	Buffer.prototype.indexOf = function indexOf (val, byteOffset) {
+	  if (byteOffset > 0x7fffffff) byteOffset = 0x7fffffff
+	  else if (byteOffset < -0x80000000) byteOffset = -0x80000000
+	  byteOffset >>= 0
+	
+	  if (this.length === 0) return -1
+	  if (byteOffset >= this.length) return -1
+	
+	  // Negative offsets start from the end of the buffer
+	  if (byteOffset < 0) byteOffset = Math.max(this.length + byteOffset, 0)
+	
+	  if (typeof val === 'string') {
+	    if (val.length === 0) return -1 // special case: looking for empty string always fails
+	    return String.prototype.indexOf.call(this, val, byteOffset)
+	  }
+	  if (Buffer.isBuffer(val)) {
+	    return arrayIndexOf(this, val, byteOffset)
+	  }
+	  if (typeof val === 'number') {
+	    if (Buffer.TYPED_ARRAY_SUPPORT && Uint8Array.prototype.indexOf === 'function') {
+	      return Uint8Array.prototype.indexOf.call(this, val, byteOffset)
+	    }
+	    return arrayIndexOf(this, [ val ], byteOffset)
+	  }
+	
+	  function arrayIndexOf (arr, val, byteOffset) {
+	    var foundIndex = -1
+	    for (var i = 0; byteOffset + i < arr.length; i++) {
+	      if (arr[byteOffset + i] === val[foundIndex === -1 ? 0 : i - foundIndex]) {
+	        if (foundIndex === -1) foundIndex = i
+	        if (i - foundIndex + 1 === val.length) return byteOffset + foundIndex
+	      } else {
+	        foundIndex = -1
+	      }
+	    }
+	    return -1
+	  }
+	
+	  throw new TypeError('val must be string, number or Buffer')
+	}
+	
+	// `get` is deprecated
+	Buffer.prototype.get = function get (offset) {
+	  console.log('.get() is deprecated. Access using array indexes instead.')
+	  return this.readUInt8(offset)
+	}
+	
+	// `set` is deprecated
+	Buffer.prototype.set = function set (v, offset) {
+	  console.log('.set() is deprecated. Access using array indexes instead.')
+	  return this.writeUInt8(v, offset)
+	}
+	
+	function hexWrite (buf, string, offset, length) {
+	  offset = Number(offset) || 0
+	  var remaining = buf.length - offset
+	  if (!length) {
+	    length = remaining
+	  } else {
+	    length = Number(length)
+	    if (length > remaining) {
+	      length = remaining
+	    }
+	  }
+	
+	  // must be an even number of digits
+	  var strLen = string.length
+	  if (strLen % 2 !== 0) throw new Error('Invalid hex string')
+	
+	  if (length > strLen / 2) {
+	    length = strLen / 2
+	  }
+	  for (var i = 0; i < length; i++) {
+	    var parsed = parseInt(string.substr(i * 2, 2), 16)
+	    if (isNaN(parsed)) throw new Error('Invalid hex string')
+	    buf[offset + i] = parsed
+	  }
+	  return i
+	}
+	
+	function utf8Write (buf, string, offset, length) {
+	  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+	}
+	
+	function asciiWrite (buf, string, offset, length) {
+	  return blitBuffer(asciiToBytes(string), buf, offset, length)
+	}
+	
+	function binaryWrite (buf, string, offset, length) {
+	  return asciiWrite(buf, string, offset, length)
+	}
+	
+	function base64Write (buf, string, offset, length) {
+	  return blitBuffer(base64ToBytes(string), buf, offset, length)
+	}
+	
+	function ucs2Write (buf, string, offset, length) {
+	  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+	}
+	
+	Buffer.prototype.write = function write (string, offset, length, encoding) {
+	  // Buffer#write(string)
+	  if (offset === undefined) {
+	    encoding = 'utf8'
+	    length = this.length
+	    offset = 0
+	  // Buffer#write(string, encoding)
+	  } else if (length === undefined && typeof offset === 'string') {
+	    encoding = offset
+	    length = this.length
+	    offset = 0
+	  // Buffer#write(string, offset[, length][, encoding])
+	  } else if (isFinite(offset)) {
+	    offset = offset | 0
+	    if (isFinite(length)) {
+	      length = length | 0
+	      if (encoding === undefined) encoding = 'utf8'
+	    } else {
+	      encoding = length
+	      length = undefined
+	    }
+	  // legacy write(string, encoding, offset, length) - remove in v0.13
+	  } else {
+	    var swap = encoding
+	    encoding = offset
+	    offset = length | 0
+	    length = swap
+	  }
+	
+	  var remaining = this.length - offset
+	  if (length === undefined || length > remaining) length = remaining
+	
+	  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+	    throw new RangeError('attempt to write outside buffer bounds')
+	  }
+	
+	  if (!encoding) encoding = 'utf8'
+	
+	  var loweredCase = false
+	  for (;;) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexWrite(this, string, offset, length)
+	
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Write(this, string, offset, length)
+	
+	      case 'ascii':
+	        return asciiWrite(this, string, offset, length)
+	
+	      case 'binary':
+	        return binaryWrite(this, string, offset, length)
+	
+	      case 'base64':
+	        // Warning: maxLength not taken into account in base64Write
+	        return base64Write(this, string, offset, length)
+	
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return ucs2Write(this, string, offset, length)
+	
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+	        encoding = ('' + encoding).toLowerCase()
+	        loweredCase = true
+	    }
+	  }
+	}
+	
+	Buffer.prototype.toJSON = function toJSON () {
+	  return {
+	    type: 'Buffer',
+	    data: Array.prototype.slice.call(this._arr || this, 0)
+	  }
+	}
+	
+	function base64Slice (buf, start, end) {
+	  if (start === 0 && end === buf.length) {
+	    return base64.fromByteArray(buf)
+	  } else {
+	    return base64.fromByteArray(buf.slice(start, end))
+	  }
+	}
+	
+	function utf8Slice (buf, start, end) {
+	  end = Math.min(buf.length, end)
+	  var res = []
+	
+	  var i = start
+	  while (i < end) {
+	    var firstByte = buf[i]
+	    var codePoint = null
+	    var bytesPerSequence = (firstByte > 0xEF) ? 4
+	      : (firstByte > 0xDF) ? 3
+	      : (firstByte > 0xBF) ? 2
+	      : 1
+	
+	    if (i + bytesPerSequence <= end) {
+	      var secondByte, thirdByte, fourthByte, tempCodePoint
+	
+	      switch (bytesPerSequence) {
+	        case 1:
+	          if (firstByte < 0x80) {
+	            codePoint = firstByte
+	          }
+	          break
+	        case 2:
+	          secondByte = buf[i + 1]
+	          if ((secondByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
+	            if (tempCodePoint > 0x7F) {
+	              codePoint = tempCodePoint
+	            }
+	          }
+	          break
+	        case 3:
+	          secondByte = buf[i + 1]
+	          thirdByte = buf[i + 2]
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
+	            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+	              codePoint = tempCodePoint
+	            }
+	          }
+	          break
+	        case 4:
+	          secondByte = buf[i + 1]
+	          thirdByte = buf[i + 2]
+	          fourthByte = buf[i + 3]
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
+	            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+	              codePoint = tempCodePoint
+	            }
+	          }
+	      }
+	    }
+	
+	    if (codePoint === null) {
+	      // we did not generate a valid codePoint so insert a
+	      // replacement char (U+FFFD) and advance only 1 byte
+	      codePoint = 0xFFFD
+	      bytesPerSequence = 1
+	    } else if (codePoint > 0xFFFF) {
+	      // encode to utf16 (surrogate pair dance)
+	      codePoint -= 0x10000
+	      res.push(codePoint >>> 10 & 0x3FF | 0xD800)
+	      codePoint = 0xDC00 | codePoint & 0x3FF
+	    }
+	
+	    res.push(codePoint)
+	    i += bytesPerSequence
+	  }
+	
+	  return decodeCodePointsArray(res)
+	}
+	
+	// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+	// the lowest limit is Chrome, with 0x10000 args.
+	// We go 1 magnitude less, for safety
+	var MAX_ARGUMENTS_LENGTH = 0x1000
+	
+	function decodeCodePointsArray (codePoints) {
+	  var len = codePoints.length
+	  if (len <= MAX_ARGUMENTS_LENGTH) {
+	    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+	  }
+	
+	  // Decode in chunks to avoid "call stack size exceeded".
+	  var res = ''
+	  var i = 0
+	  while (i < len) {
+	    res += String.fromCharCode.apply(
+	      String,
+	      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+	    )
+	  }
+	  return res
+	}
+	
+	function asciiSlice (buf, start, end) {
+	  var ret = ''
+	  end = Math.min(buf.length, end)
+	
+	  for (var i = start; i < end; i++) {
+	    ret += String.fromCharCode(buf[i] & 0x7F)
+	  }
+	  return ret
+	}
+	
+	function binarySlice (buf, start, end) {
+	  var ret = ''
+	  end = Math.min(buf.length, end)
+	
+	  for (var i = start; i < end; i++) {
+	    ret += String.fromCharCode(buf[i])
+	  }
+	  return ret
+	}
+	
+	function hexSlice (buf, start, end) {
+	  var len = buf.length
+	
+	  if (!start || start < 0) start = 0
+	  if (!end || end < 0 || end > len) end = len
+	
+	  var out = ''
+	  for (var i = start; i < end; i++) {
+	    out += toHex(buf[i])
+	  }
+	  return out
+	}
+	
+	function utf16leSlice (buf, start, end) {
+	  var bytes = buf.slice(start, end)
+	  var res = ''
+	  for (var i = 0; i < bytes.length; i += 2) {
+	    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
+	  }
+	  return res
+	}
+	
+	Buffer.prototype.slice = function slice (start, end) {
+	  var len = this.length
+	  start = ~~start
+	  end = end === undefined ? len : ~~end
+	
+	  if (start < 0) {
+	    start += len
+	    if (start < 0) start = 0
+	  } else if (start > len) {
+	    start = len
+	  }
+	
+	  if (end < 0) {
+	    end += len
+	    if (end < 0) end = 0
+	  } else if (end > len) {
+	    end = len
+	  }
+	
+	  if (end < start) end = start
+	
+	  var newBuf
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    newBuf = Buffer._augment(this.subarray(start, end))
+	  } else {
+	    var sliceLen = end - start
+	    newBuf = new Buffer(sliceLen, undefined)
+	    for (var i = 0; i < sliceLen; i++) {
+	      newBuf[i] = this[i + start]
+	    }
+	  }
+	
+	  if (newBuf.length) newBuf.parent = this.parent || this
+	
+	  return newBuf
+	}
+	
+	/*
+	 * Need to make sure that buffer isn't trying to write out of bounds.
+	 */
+	function checkOffset (offset, ext, length) {
+	  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+	  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+	}
+	
+	Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) checkOffset(offset, byteLength, this.length)
+	
+	  var val = this[offset]
+	  var mul = 1
+	  var i = 0
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul
+	  }
+	
+	  return val
+	}
+	
+	Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) {
+	    checkOffset(offset, byteLength, this.length)
+	  }
+	
+	  var val = this[offset + --byteLength]
+	  var mul = 1
+	  while (byteLength > 0 && (mul *= 0x100)) {
+	    val += this[offset + --byteLength] * mul
+	  }
+	
+	  return val
+	}
+	
+	Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 1, this.length)
+	  return this[offset]
+	}
+	
+	Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length)
+	  return this[offset] | (this[offset + 1] << 8)
+	}
+	
+	Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length)
+	  return (this[offset] << 8) | this[offset + 1]
+	}
+	
+	Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	
+	  return ((this[offset]) |
+	      (this[offset + 1] << 8) |
+	      (this[offset + 2] << 16)) +
+	      (this[offset + 3] * 0x1000000)
+	}
+	
+	Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	
+	  return (this[offset] * 0x1000000) +
+	    ((this[offset + 1] << 16) |
+	    (this[offset + 2] << 8) |
+	    this[offset + 3])
+	}
+	
+	Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) checkOffset(offset, byteLength, this.length)
+	
+	  var val = this[offset]
+	  var mul = 1
+	  var i = 0
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul
+	  }
+	  mul *= 0x80
+	
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+	
+	  return val
+	}
+	
+	Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) checkOffset(offset, byteLength, this.length)
+	
+	  var i = byteLength
+	  var mul = 1
+	  var val = this[offset + --i]
+	  while (i > 0 && (mul *= 0x100)) {
+	    val += this[offset + --i] * mul
+	  }
+	  mul *= 0x80
+	
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+	
+	  return val
+	}
+	
+	Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 1, this.length)
+	  if (!(this[offset] & 0x80)) return (this[offset])
+	  return ((0xff - this[offset] + 1) * -1)
+	}
+	
+	Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length)
+	  var val = this[offset] | (this[offset + 1] << 8)
+	  return (val & 0x8000) ? val | 0xFFFF0000 : val
+	}
+	
+	Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length)
+	  var val = this[offset + 1] | (this[offset] << 8)
+	  return (val & 0x8000) ? val | 0xFFFF0000 : val
+	}
+	
+	Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	
+	  return (this[offset]) |
+	    (this[offset + 1] << 8) |
+	    (this[offset + 2] << 16) |
+	    (this[offset + 3] << 24)
+	}
+	
+	Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	
+	  return (this[offset] << 24) |
+	    (this[offset + 1] << 16) |
+	    (this[offset + 2] << 8) |
+	    (this[offset + 3])
+	}
+	
+	Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	  return ieee754.read(this, offset, true, 23, 4)
+	}
+	
+	Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length)
+	  return ieee754.read(this, offset, false, 23, 4)
+	}
+	
+	Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 8, this.length)
+	  return ieee754.read(this, offset, true, 52, 8)
+	}
+	
+	Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 8, this.length)
+	  return ieee754.read(this, offset, false, 52, 8)
+	}
+	
+	function checkInt (buf, value, offset, ext, max, min) {
+	  if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance')
+	  if (value > max || value < min) throw new RangeError('value is out of bounds')
+	  if (offset + ext > buf.length) throw new RangeError('index out of range')
+	}
+	
+	Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+	
+	  var mul = 1
+	  var i = 0
+	  this[offset] = value & 0xFF
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    this[offset + i] = (value / mul) & 0xFF
+	  }
+	
+	  return offset + byteLength
+	}
+	
+	Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  byteLength = byteLength | 0
+	  if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+	
+	  var i = byteLength - 1
+	  var mul = 1
+	  this[offset + i] = value & 0xFF
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    this[offset + i] = (value / mul) & 0xFF
+	  }
+	
+	  return offset + byteLength
+	}
+	
+	Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0)
+	  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+	  this[offset] = (value & 0xff)
+	  return offset + 1
+	}
+	
+	function objectWriteUInt16 (buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffff + value + 1
+	  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
+	    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+	      (littleEndian ? i : 1 - i) * 8
+	  }
+	}
+	
+	Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff)
+	    this[offset + 1] = (value >>> 8)
+	  } else {
+	    objectWriteUInt16(this, value, offset, true)
+	  }
+	  return offset + 2
+	}
+	
+	Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 8)
+	    this[offset + 1] = (value & 0xff)
+	  } else {
+	    objectWriteUInt16(this, value, offset, false)
+	  }
+	  return offset + 2
+	}
+	
+	function objectWriteUInt32 (buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffffffff + value + 1
+	  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; i++) {
+	    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
+	  }
+	}
+	
+	Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset + 3] = (value >>> 24)
+	    this[offset + 2] = (value >>> 16)
+	    this[offset + 1] = (value >>> 8)
+	    this[offset] = (value & 0xff)
+	  } else {
+	    objectWriteUInt32(this, value, offset, true)
+	  }
+	  return offset + 4
+	}
+	
+	Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 24)
+	    this[offset + 1] = (value >>> 16)
+	    this[offset + 2] = (value >>> 8)
+	    this[offset + 3] = (value & 0xff)
+	  } else {
+	    objectWriteUInt32(this, value, offset, false)
+	  }
+	  return offset + 4
+	}
+	
+	Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1)
+	
+	    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+	  }
+	
+	  var i = 0
+	  var mul = 1
+	  var sub = value < 0 ? 1 : 0
+	  this[offset] = value & 0xFF
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+	  }
+	
+	  return offset + byteLength
+	}
+	
+	Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1)
+	
+	    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+	  }
+	
+	  var i = byteLength - 1
+	  var mul = 1
+	  var sub = value < 0 ? 1 : 0
+	  this[offset + i] = value & 0xFF
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+	  }
+	
+	  return offset + byteLength
+	}
+	
+	Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
+	  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+	  if (value < 0) value = 0xff + value + 1
+	  this[offset] = (value & 0xff)
+	  return offset + 1
+	}
+	
+	Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff)
+	    this[offset + 1] = (value >>> 8)
+	  } else {
+	    objectWriteUInt16(this, value, offset, true)
+	  }
+	  return offset + 2
+	}
+	
+	Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 8)
+	    this[offset + 1] = (value & 0xff)
+	  } else {
+	    objectWriteUInt16(this, value, offset, false)
+	  }
+	  return offset + 2
+	}
+	
+	Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff)
+	    this[offset + 1] = (value >>> 8)
+	    this[offset + 2] = (value >>> 16)
+	    this[offset + 3] = (value >>> 24)
+	  } else {
+	    objectWriteUInt32(this, value, offset, true)
+	  }
+	  return offset + 4
+	}
+	
+	Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+	  value = +value
+	  offset = offset | 0
+	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+	  if (value < 0) value = 0xffffffff + value + 1
+	  if (Buffer.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 24)
+	    this[offset + 1] = (value >>> 16)
+	    this[offset + 2] = (value >>> 8)
+	    this[offset + 3] = (value & 0xff)
+	  } else {
+	    objectWriteUInt32(this, value, offset, false)
+	  }
+	  return offset + 4
+	}
+	
+	function checkIEEE754 (buf, value, offset, ext, max, min) {
+	  if (value > max || value < min) throw new RangeError('value is out of bounds')
+	  if (offset + ext > buf.length) throw new RangeError('index out of range')
+	  if (offset < 0) throw new RangeError('index out of range')
+	}
+	
+	function writeFloat (buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
+	  }
+	  ieee754.write(buf, value, offset, littleEndian, 23, 4)
+	  return offset + 4
+	}
+	
+	Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+	  return writeFloat(this, value, offset, true, noAssert)
+	}
+	
+	Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+	  return writeFloat(this, value, offset, false, noAssert)
+	}
+	
+	function writeDouble (buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
+	  }
+	  ieee754.write(buf, value, offset, littleEndian, 52, 8)
+	  return offset + 8
+	}
+	
+	Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+	  return writeDouble(this, value, offset, true, noAssert)
+	}
+	
+	Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+	  return writeDouble(this, value, offset, false, noAssert)
+	}
+	
+	// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+	Buffer.prototype.copy = function copy (target, targetStart, start, end) {
+	  if (!start) start = 0
+	  if (!end && end !== 0) end = this.length
+	  if (targetStart >= target.length) targetStart = target.length
+	  if (!targetStart) targetStart = 0
+	  if (end > 0 && end < start) end = start
+	
+	  // Copy 0 bytes; we're done
+	  if (end === start) return 0
+	  if (target.length === 0 || this.length === 0) return 0
+	
+	  // Fatal error conditions
+	  if (targetStart < 0) {
+	    throw new RangeError('targetStart out of bounds')
+	  }
+	  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+	  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+	
+	  // Are we oob?
+	  if (end > this.length) end = this.length
+	  if (target.length - targetStart < end - start) {
+	    end = target.length - targetStart + start
+	  }
+	
+	  var len = end - start
+	  var i
+	
+	  if (this === target && start < targetStart && targetStart < end) {
+	    // descending copy from end
+	    for (i = len - 1; i >= 0; i--) {
+	      target[i + targetStart] = this[i + start]
+	    }
+	  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+	    // ascending copy from start
+	    for (i = 0; i < len; i++) {
+	      target[i + targetStart] = this[i + start]
+	    }
+	  } else {
+	    target._set(this.subarray(start, start + len), targetStart)
+	  }
+	
+	  return len
+	}
+	
+	// fill(value, start=0, end=buffer.length)
+	Buffer.prototype.fill = function fill (value, start, end) {
+	  if (!value) value = 0
+	  if (!start) start = 0
+	  if (!end) end = this.length
+	
+	  if (end < start) throw new RangeError('end < start')
+	
+	  // Fill 0 bytes; we're done
+	  if (end === start) return
+	  if (this.length === 0) return
+	
+	  if (start < 0 || start >= this.length) throw new RangeError('start out of bounds')
+	  if (end < 0 || end > this.length) throw new RangeError('end out of bounds')
+	
+	  var i
+	  if (typeof value === 'number') {
+	    for (i = start; i < end; i++) {
+	      this[i] = value
+	    }
+	  } else {
+	    var bytes = utf8ToBytes(value.toString())
+	    var len = bytes.length
+	    for (i = start; i < end; i++) {
+	      this[i] = bytes[i % len]
+	    }
+	  }
+	
+	  return this
+	}
+	
+	/**
+	 * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
+	 * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
+	 */
+	Buffer.prototype.toArrayBuffer = function toArrayBuffer () {
+	  if (typeof Uint8Array !== 'undefined') {
+	    if (Buffer.TYPED_ARRAY_SUPPORT) {
+	      return (new Buffer(this)).buffer
+	    } else {
+	      var buf = new Uint8Array(this.length)
+	      for (var i = 0, len = buf.length; i < len; i += 1) {
+	        buf[i] = this[i]
+	      }
+	      return buf.buffer
+	    }
+	  } else {
+	    throw new TypeError('Buffer.toArrayBuffer not supported in this browser')
+	  }
+	}
+	
+	// HELPER FUNCTIONS
+	// ================
+	
+	var BP = Buffer.prototype
+	
+	/**
+	 * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
+	 */
+	Buffer._augment = function _augment (arr) {
+	  arr.constructor = Buffer
+	  arr._isBuffer = true
+	
+	  // save reference to original Uint8Array set method before overwriting
+	  arr._set = arr.set
+	
+	  // deprecated
+	  arr.get = BP.get
+	  arr.set = BP.set
+	
+	  arr.write = BP.write
+	  arr.toString = BP.toString
+	  arr.toLocaleString = BP.toString
+	  arr.toJSON = BP.toJSON
+	  arr.equals = BP.equals
+	  arr.compare = BP.compare
+	  arr.indexOf = BP.indexOf
+	  arr.copy = BP.copy
+	  arr.slice = BP.slice
+	  arr.readUIntLE = BP.readUIntLE
+	  arr.readUIntBE = BP.readUIntBE
+	  arr.readUInt8 = BP.readUInt8
+	  arr.readUInt16LE = BP.readUInt16LE
+	  arr.readUInt16BE = BP.readUInt16BE
+	  arr.readUInt32LE = BP.readUInt32LE
+	  arr.readUInt32BE = BP.readUInt32BE
+	  arr.readIntLE = BP.readIntLE
+	  arr.readIntBE = BP.readIntBE
+	  arr.readInt8 = BP.readInt8
+	  arr.readInt16LE = BP.readInt16LE
+	  arr.readInt16BE = BP.readInt16BE
+	  arr.readInt32LE = BP.readInt32LE
+	  arr.readInt32BE = BP.readInt32BE
+	  arr.readFloatLE = BP.readFloatLE
+	  arr.readFloatBE = BP.readFloatBE
+	  arr.readDoubleLE = BP.readDoubleLE
+	  arr.readDoubleBE = BP.readDoubleBE
+	  arr.writeUInt8 = BP.writeUInt8
+	  arr.writeUIntLE = BP.writeUIntLE
+	  arr.writeUIntBE = BP.writeUIntBE
+	  arr.writeUInt16LE = BP.writeUInt16LE
+	  arr.writeUInt16BE = BP.writeUInt16BE
+	  arr.writeUInt32LE = BP.writeUInt32LE
+	  arr.writeUInt32BE = BP.writeUInt32BE
+	  arr.writeIntLE = BP.writeIntLE
+	  arr.writeIntBE = BP.writeIntBE
+	  arr.writeInt8 = BP.writeInt8
+	  arr.writeInt16LE = BP.writeInt16LE
+	  arr.writeInt16BE = BP.writeInt16BE
+	  arr.writeInt32LE = BP.writeInt32LE
+	  arr.writeInt32BE = BP.writeInt32BE
+	  arr.writeFloatLE = BP.writeFloatLE
+	  arr.writeFloatBE = BP.writeFloatBE
+	  arr.writeDoubleLE = BP.writeDoubleLE
+	  arr.writeDoubleBE = BP.writeDoubleBE
+	  arr.fill = BP.fill
+	  arr.inspect = BP.inspect
+	  arr.toArrayBuffer = BP.toArrayBuffer
+	
+	  return arr
+	}
+	
+	var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
+	
+	function base64clean (str) {
+	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+	  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+	  // Node converts strings with length < 2 to ''
+	  if (str.length < 2) return ''
+	  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+	  while (str.length % 4 !== 0) {
+	    str = str + '='
+	  }
+	  return str
+	}
+	
+	function stringtrim (str) {
+	  if (str.trim) return str.trim()
+	  return str.replace(/^\s+|\s+$/g, '')
+	}
+	
+	function toHex (n) {
+	  if (n < 16) return '0' + n.toString(16)
+	  return n.toString(16)
+	}
+	
+	function utf8ToBytes (string, units) {
+	  units = units || Infinity
+	  var codePoint
+	  var length = string.length
+	  var leadSurrogate = null
+	  var bytes = []
+	
+	  for (var i = 0; i < length; i++) {
+	    codePoint = string.charCodeAt(i)
+	
+	    // is surrogate component
+	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+	      // last char was a lead
+	      if (!leadSurrogate) {
+	        // no lead yet
+	        if (codePoint > 0xDBFF) {
+	          // unexpected trail
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	          continue
+	        } else if (i + 1 === length) {
+	          // unpaired lead
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	          continue
+	        }
+	
+	        // valid lead
+	        leadSurrogate = codePoint
+	
+	        continue
+	      }
+	
+	      // 2 leads in a row
+	      if (codePoint < 0xDC00) {
+	        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	        leadSurrogate = codePoint
+	        continue
+	      }
+	
+	      // valid surrogate pair
+	      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
+	    } else if (leadSurrogate) {
+	      // valid bmp char, but last char was a lead
+	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	    }
+	
+	    leadSurrogate = null
+	
+	    // encode utf8
+	    if (codePoint < 0x80) {
+	      if ((units -= 1) < 0) break
+	      bytes.push(codePoint)
+	    } else if (codePoint < 0x800) {
+	      if ((units -= 2) < 0) break
+	      bytes.push(
+	        codePoint >> 0x6 | 0xC0,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else if (codePoint < 0x10000) {
+	      if ((units -= 3) < 0) break
+	      bytes.push(
+	        codePoint >> 0xC | 0xE0,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else if (codePoint < 0x110000) {
+	      if ((units -= 4) < 0) break
+	      bytes.push(
+	        codePoint >> 0x12 | 0xF0,
+	        codePoint >> 0xC & 0x3F | 0x80,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else {
+	      throw new Error('Invalid code point')
+	    }
+	  }
+	
+	  return bytes
+	}
+	
+	function asciiToBytes (str) {
+	  var byteArray = []
+	  for (var i = 0; i < str.length; i++) {
+	    // Node's code seems to be doing this and not & 0x7F..
+	    byteArray.push(str.charCodeAt(i) & 0xFF)
+	  }
+	  return byteArray
+	}
+	
+	function utf16leToBytes (str, units) {
+	  var c, hi, lo
+	  var byteArray = []
+	  for (var i = 0; i < str.length; i++) {
+	    if ((units -= 2) < 0) break
+	
+	    c = str.charCodeAt(i)
+	    hi = c >> 8
+	    lo = c % 256
+	    byteArray.push(lo)
+	    byteArray.push(hi)
+	  }
+	
+	  return byteArray
+	}
+	
+	function base64ToBytes (str) {
+	  return base64.toByteArray(base64clean(str))
+	}
+	
+	function blitBuffer (src, dst, offset, length) {
+	  for (var i = 0; i < length; i++) {
+	    if ((i + offset >= dst.length) || (i >= src.length)) break
+	    dst[i + offset] = src[i]
+	  }
+	  return i
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16).Buffer, (function() { return this; }())))
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	
+	;(function (exports) {
+		'use strict';
+	
+	  var Arr = (typeof Uint8Array !== 'undefined')
+	    ? Uint8Array
+	    : Array
+	
+		var PLUS   = '+'.charCodeAt(0)
+		var SLASH  = '/'.charCodeAt(0)
+		var NUMBER = '0'.charCodeAt(0)
+		var LOWER  = 'a'.charCodeAt(0)
+		var UPPER  = 'A'.charCodeAt(0)
+		var PLUS_URL_SAFE = '-'.charCodeAt(0)
+		var SLASH_URL_SAFE = '_'.charCodeAt(0)
+	
+		function decode (elt) {
+			var code = elt.charCodeAt(0)
+			if (code === PLUS ||
+			    code === PLUS_URL_SAFE)
+				return 62 // '+'
+			if (code === SLASH ||
+			    code === SLASH_URL_SAFE)
+				return 63 // '/'
+			if (code < NUMBER)
+				return -1 //no match
+			if (code < NUMBER + 10)
+				return code - NUMBER + 26 + 26
+			if (code < UPPER + 26)
+				return code - UPPER
+			if (code < LOWER + 26)
+				return code - LOWER + 26
+		}
+	
+		function b64ToByteArray (b64) {
+			var i, j, l, tmp, placeHolders, arr
+	
+			if (b64.length % 4 > 0) {
+				throw new Error('Invalid string. Length must be a multiple of 4')
+			}
+	
+			// the number of equal signs (place holders)
+			// if there are two placeholders, than the two characters before it
+			// represent one byte
+			// if there is only one, then the three characters before it represent 2 bytes
+			// this is just a cheap hack to not do indexOf twice
+			var len = b64.length
+			placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
+	
+			// base64 is 4/3 + up to two characters of the original data
+			arr = new Arr(b64.length * 3 / 4 - placeHolders)
+	
+			// if there are placeholders, only get up to the last complete 4 chars
+			l = placeHolders > 0 ? b64.length - 4 : b64.length
+	
+			var L = 0
+	
+			function push (v) {
+				arr[L++] = v
+			}
+	
+			for (i = 0, j = 0; i < l; i += 4, j += 3) {
+				tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
+				push((tmp & 0xFF0000) >> 16)
+				push((tmp & 0xFF00) >> 8)
+				push(tmp & 0xFF)
+			}
+	
+			if (placeHolders === 2) {
+				tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
+				push(tmp & 0xFF)
+			} else if (placeHolders === 1) {
+				tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
+				push((tmp >> 8) & 0xFF)
+				push(tmp & 0xFF)
+			}
+	
+			return arr
+		}
+	
+		function uint8ToBase64 (uint8) {
+			var i,
+				extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
+				output = "",
+				temp, length
+	
+			function encode (num) {
+				return lookup.charAt(num)
+			}
+	
+			function tripletToBase64 (num) {
+				return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
+			}
+	
+			// go through the array every three bytes, we'll deal with trailing stuff later
+			for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
+				temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+				output += tripletToBase64(temp)
+			}
+	
+			// pad the end with zeros, but make sure to not forget the extra bytes
+			switch (extraBytes) {
+				case 1:
+					temp = uint8[uint8.length - 1]
+					output += encode(temp >> 2)
+					output += encode((temp << 4) & 0x3F)
+					output += '=='
+					break
+				case 2:
+					temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
+					output += encode(temp >> 10)
+					output += encode((temp >> 4) & 0x3F)
+					output += encode((temp << 2) & 0x3F)
+					output += '='
+					break
+			}
+	
+			return output
+		}
+	
+		exports.toByteArray = b64ToByteArray
+		exports.fromByteArray = uint8ToBase64
+	}( false ? (this.base64js = {}) : exports))
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+	  var e, m
+	  var eLen = nBytes * 8 - mLen - 1
+	  var eMax = (1 << eLen) - 1
+	  var eBias = eMax >> 1
+	  var nBits = -7
+	  var i = isLE ? (nBytes - 1) : 0
+	  var d = isLE ? -1 : 1
+	  var s = buffer[offset + i]
+	
+	  i += d
+	
+	  e = s & ((1 << (-nBits)) - 1)
+	  s >>= (-nBits)
+	  nBits += eLen
+	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+	
+	  m = e & ((1 << (-nBits)) - 1)
+	  e >>= (-nBits)
+	  nBits += mLen
+	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+	
+	  if (e === 0) {
+	    e = 1 - eBias
+	  } else if (e === eMax) {
+	    return m ? NaN : ((s ? -1 : 1) * Infinity)
+	  } else {
+	    m = m + Math.pow(2, mLen)
+	    e = e - eBias
+	  }
+	  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+	}
+	
+	exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+	  var e, m, c
+	  var eLen = nBytes * 8 - mLen - 1
+	  var eMax = (1 << eLen) - 1
+	  var eBias = eMax >> 1
+	  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+	  var i = isLE ? 0 : (nBytes - 1)
+	  var d = isLE ? 1 : -1
+	  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+	
+	  value = Math.abs(value)
+	
+	  if (isNaN(value) || value === Infinity) {
+	    m = isNaN(value) ? 1 : 0
+	    e = eMax
+	  } else {
+	    e = Math.floor(Math.log(value) / Math.LN2)
+	    if (value * (c = Math.pow(2, -e)) < 1) {
+	      e--
+	      c *= 2
+	    }
+	    if (e + eBias >= 1) {
+	      value += rt / c
+	    } else {
+	      value += rt * Math.pow(2, 1 - eBias)
+	    }
+	    if (value * c >= 2) {
+	      e++
+	      c /= 2
+	    }
+	
+	    if (e + eBias >= eMax) {
+	      m = 0
+	      e = eMax
+	    } else if (e + eBias >= 1) {
+	      m = (value * c - 1) * Math.pow(2, mLen)
+	      e = e + eBias
+	    } else {
+	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+	      e = 0
+	    }
+	  }
+	
+	  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+	
+	  e = (e << mLen) | m
+	  eLen += mLen
+	  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+	
+	  buffer[offset + i - d] |= s * 128
+	}
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	var toString = {}.toString;
+	
+	module.exports = Array.isArray || function (arr) {
+	  return toString.call(arr) == '[object Array]';
+	};
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXBinary = function jXBinary(binary){
+		this.binary = binary
+		return this
+	}
+	
+	jXBinary.prototype.is = function(){
+		return /^[01]+$/.test(this.binary)
+	}
+	
+	
+	var rtn = function(path){return new jXBinary(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXBinary
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('binary', rtn)
+	}
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXBase64 = function jXBase64(base64){
+		this.base64 = base64
+		return this
+	}
+	
+	jXBase64._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+	
+	jXBase64.prototype.toString = function(e){
+		var e = this.base64.replace(/[^A-Za-z0-9\+\/\=]/g,"");
+		var t="";var n,r,i;var s,o,u,a;var f=0;
+		while(f<e.length){
+			s=jXBase64._keyStr.indexOf(e.charAt(f++));
+			o=jXBase64._keyStr.indexOf(e.charAt(f++));
+			u=jXBase64._keyStr.indexOf(e.charAt(f++));
+			a=jXBase64._keyStr.indexOf(e.charAt(f++));
+			n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;
+			t=t+String.fromCharCode(n);
+			if(u!=64){t=t+String.fromCharCode(r)}
+			if(a!=64){t=t+String.fromCharCode(i)}
+		}
+		t = this._utf8_decode(t);
+		return t
+	}
+	
+	jXBase64.prototype._utf8_decode = function(e){
+		var t="";var n=0;var r=0,c2=0;
+		while(n<e.length){
+			r=e.charCodeAt(n);
+			if(r<128){
+				t+=String.fromCharCode(r);n++
+			}else if(r>191&&r<224){
+				c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2
+			}else{
+				c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);
+				t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3
+			}
+		}
+		return t
+	}
+	
+	var rtn = function(path){return new jXBase64(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXBase64
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('base64', rtn)
+	}
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXObject = function jXObject(object){
+		this.object = object
+		return this
+	}
+	
+	jXObject.prototype.isCyclic = function() {
+		var seenObjects = [];
+	
+		function detect (obj) {
+			if (obj && typeof obj === 'object') {
+				if (seenObjects.indexOf(obj) !== -1) {
+					return true;
+				}
+				seenObjects.push(obj);
+				for(var key in obj) {
+					if(obj.hasOwnProperty(key) && detect(obj[key])) {
+				//console.log(obj, 'cycle at ' + key);
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	
+		return detect(this.object);
+	}
+	
+	jXObject.prototype.toCookieString = function(){
+		var cookies = this.object
+		var cookieNameArray = Object.keys(cookies)
+		if(cookieNameArray.length){
+			var cookieString = '';
+			cookieNameArray.forEach(function(name,i){
+				cookieString += '; '+name+'='+cookies[name]
+			})
+			cookieString = cookieString.substring(2, cookieString.length)//remove "; "
+			return cookieString
+		}
+		return ''
+	}
+	
+	
+	var rtn = function(path){return new jXObject(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXObject
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('object', rtn)
+	}
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXMethod = function jXMethod(method, name){
+		this.method = method;this.name = name
+		return this
+	}
+	
+	jXMethod.prototype.runInMs = function(ms){
+		setTimeout(this.method, ms);return this
+	}
+	
+	if(jXMethod.name && jXMethod.name==='jXMethod'){//device supports function.name
+		jXMethod.prototype.getName = function(){
+			return this.name || (this.method.name.length ? this.method.name : null)
+		}
+	}else{
+		jXMethod.prototype.getName = function(){
+			var funcNameRegex = /function\s+(.{1,})\(/;
+			var results = (funcNameRegex).exec(this.method.toString())
+			return this.name || ((results && results.length > 1) ? results[1] : null)
+		}
+	}
+	
+	jXMethod.prototype.getArgNameArray = function(){
+		var string = this.getDefinition()
+		var argDef = /\(.+\)/.exec(string)[0]
+		argDef = argDef.substring(1, argDef.length)//remove (
+		argDef = argDef.substring(0, argDef.length-1)//remove )
+		argDef = argDef.replace(/\s|\t|\r|\n/g,'')
+		return argDef.split(',')
+	}
+	
+	jXMethod.prototype.getDefinition = function(){
+		var funcNameRegex = /(.*function[^\)]+\))/;
+		var results = (funcNameRegex).exec(this.method.toString())
+		return (results && results.length > 1) ? results[1] : null
+	}
+	
+	/** This is an option enhanced version of expectOne */
+	jXMethod.prototype.expect = function(nameOrMap, value, requiredOrType, type){
+		if(nameOrMap && nameOrMap.constructor==String){
+			return this.expectOne(nameOrMap, value, requiredOrType, type)
+		}
+	
+		for(var key in nameOrMap){
+			var define = nameOrMap[key]
+			var val = define && (define.val!==null || define.value!==null)
+			if(val){
+				val = define.val || define.value
+				this.expectOne(key, val, define.required, define.type)
+			}else{
+				this.expectOne(key, define, true)
+			}
+		}
+	
+		return this
+	}
+	
+	/**
+		argument-name, argument-value, required, constructor
+		@requiredOrType - true/false or constructor validation. When constructor validatation, required is true. When undefined, required is true
+	*/
+	jXMethod.prototype.expectOne = function(name, value, requiredOrType, type){
+		var isReqDefined = requiredOrType!=null && requiredOrType.constructor==Boolean
+		var isRequired = isReqDefined ? requiredOrType : true
+		type = type || (isReqDefined ? null : requiredOrType)
+	
+		if(isRequired && value==null){
+			var methodName = this.getName()
+			var methodMsg = methodName ? 'The function '+methodName+' recieved an invalid argument. ' : ''
+			var argTypeMsg = methodMsg+'Argument '+name+' is required. '
+			var err = new Error(argTypeMsg+' Function definition: '+this.getDefinition())
+			err.invalidArg = {errorType:'undefined', name:name}
+			throw err
+		}
+	
+		if(type){
+			if(value!=null && value.constructor!=type){
+				var methodName = this.getName()
+				var methodMsg = methodName ? 'The function '+methodName+' recieved an invalid argument. ' : ''
+				var argTypeMsg = methodMsg+'Argument '+name+' is not of type '+type.name+'. '
+				var err = new Error(argTypeMsg+'Received type: '+value.constructor.name+'. Function definition: '+this.getDefinition())
+				err.invalidArg = {errorType:'type', name:name}
+				throw err
+			}
+		}
+		return this
+	}
+	
+	/** for processing current arguments */
+	jXMethod.prototype.arguments = function(args){
+		return new jXArgs(this, args)
+	}
+	
+	var rtn = function(path){
+		return new jXMethod(path)
+	}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXMethod
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('method', rtn)
+	}
+	
+	
+	
+	
+	
+	var jXArgs = function(jXMethod, args){
+		this.args=args;this.jXMethod=jXMethod;return this
+	}
+	
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXArray = function jXArray(array){
+		this.array = array
+		return this
+	}
+	
+	/**
+		Intended for high performance by looping an array only once but performing multiple actions.
+		Run multiple functions for each iteration of an array.
+	
+		Example: array.each(countTeacher, countChild) instead of two loops array.each(countTeacher) + array.each(countChild)
+	*/
+	jXArray.prototype.each = function(method0, method1, method2, method3){
+		if(!this.array)return this;
+		for(var x=0; x < this.array.length; ++x){
+			for(var a=0; a < arguments.length; ++a){
+				arguments[a].call(null, this.array[x], x, this.array.length)
+			}
+			this.array[x]
+		}
+		return this;
+	}
+	
+	jXArray.prototype.distinct = function(method){
+		if(!this.array)return this;
+	
+		var distincts = []
+		method = method || function(v){return v}
+	
+		for(var x=0; x < this.array.length; ++x){
+			var a0 = this.array[x]
+			var isDef = false
+			for(var xd=distincts.length-1; xd >= 0; --xd){
+				var item = distincts[xd]
+				if(method(a0)==method(item)){
+					isDef = true
+					break;
+				}
+			}
+			if(!isDef)distincts.push(a0)
+		}
+		this.array = distincts
+		return this
+	}
+	
+	//pivets array of objects to object of arrays
+	jXArray.prototype.objectify = function(){
+		if(!this.array.length)return {}
+	
+		var x,n,s,r={}
+	
+		s = this.array[0]
+		for(n in s){
+			r[n] = []
+		}
+	
+		for(x=this.array.length-1; x >= 0; --x){
+			s = this.array[x]
+			for(n in s){
+				r[n].unshift(s[n])
+			}
+		}
+		return r
+	}
+	
+	//append an array's items onto the end of this array
+	jXArray.prototype.appendArray = function(){
+		//each argument maybe another array
+		for(var argIn=0; argIn < arguments.length; ++argIn){
+			var array = arguments[argIn]
+			for(var aI=0; aI < array.length; ++aI){
+				this.array.push(array[aI])
+			}
+		}
+	
+		return this
+	}
+	jXArray.prototype.union = jXArray.prototype.appendArray
+	
+	//prepend an array's items onto the front of this array
+	jXArray.prototype.prependArray = function(){
+		//each argument maybe another array
+		for(var argIn=0; argIn < arguments.length; ++argIn){
+			var array = arguments[argIn]
+			for(var aI=array.length-1; aI >= 0; --aI){
+				this.array.unshift(array[aI])
+			}
+		}
+	
+		return this
+	}
+	
+	jXArray.prototype.sum = function(method){
+		var n=0,a = this.array
+		method = method || function(v,i){return v}
+		for(var i=a.length-1; i >= 0; --i){
+			n = n + Number(method(a[i],i))
+		}
+		return n
+	}
+	
+	//grouptype = sequence || struct. WHEN isIndexValue=true THEN return array contains back reference to orginal array index
+	jXArray.prototype.group = function(method, isIndexValue, grouptype){
+		method = method ? method : function(v){return v}
+		grouptype = grouptype ? grouptype : 'sequence'
+		isIndexValue = isIndexValue==null ? 0 : isIndexValue
+	
+		var array = this.array
+	
+		if(grouptype == 'struct'){
+			var struct = {};
+			for(var x=0; x < array.length; ++x){
+				var a = array[x]
+				var v = method(a);
+				if(struct[v]==null)struct[v]=[];
+				struct[v].push(isIndexValue ? x : a);
+			}
+			return struct;
+		}
+	
+		var rArray = [[]];
+		var cVal = 0;
+		for(var x=0; x < array.length; ++x){
+			var a = array[x];
+			var v = method(a);
+			if(cVal != v && x > 1)rArray.push([]);
+			cVal=v;
+			rArray[rArray.length-1].push(isIndexValue ? x : a);
+		}
+	
+		return rArray;
+	}
+	
+	var rtn = function(path){return new jXArray(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXArray
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('array', rtn)
+	}
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var jXQueryObject = function jXQueryObject(object){
+		this.queryObject = object
+		return this
+	}
+	
+	jXQueryObject.prototype.getNameArray = function(){
+		return Object.keys(this.queryObject)
+	}
+	
+	//{delimiter,isNameFirstRow,textQualifier,titleArray}
+	jXQueryObject.prototype.toCsv = function(delimOrOptions, textQualifier, titleArray){
+		return this.Csv.apply(this,arguments).output()
+	}
+	
+	jXQueryObject.prototype.Csv = function(delimOrOptions, textQualifier, titleArray){
+		if(typeof(delimOrOptions)=='string')
+			delimOrOptions = {delimiter:delimOrOptions}
+		else if(delimOrOptions==null)
+			delimOrOptions = {}
+	
+		if(textQualifier)delimOrOptions.textQualifier=textQualifier
+		if(titleArray)delimOrOptions.titleArray=titleArray
+	
+		return new jXQueryObjectCsv(this.queryObject, delimOrOptions)
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//{delimiter,isNameFirstRow,textQualifier,titleArray}
+	function jXQueryObjectCsv(queryObject,$scope){
+		this.data = $scope || {}
+		this.data.isNameFirstRow = this.data.isNameFirstRow==null ? true : this.data.isNameFirstRow
+		this.data.delimiter = this.data.delimiter || ','
+		this.data.queryObject = queryObject || this.data.queryObject || {}
+		return this
+	}
+	
+	jXQueryObjectCsv.prototype.getTitleArray = function(){
+		if(this.data.titleArray)return this.data.titleArray
+		if(this.data.isNameFirstRow)return Object.keys(this.data.queryObject)
+	}
+	
+	jXQueryObjectCsv.prototype.output = function(){
+		return this.toArray().join( this.data.lineDelim || '\r\n' )
+	}
+	
+	jXQueryObjectCsv.prototype.toArray = function(){
+		//textQualifier = textQualifier || '"'
+		var columnLoop, columnCount, tempContent, newValue, newTitle,
+			returnText = [],
+			titleArray = this.getTitleArray(),
+			nameArray = titleArray
+	
+		var options = this.data
+		if(options.textQualifier && options.textQualifier.length){
+			var nr = new RegExp('/'+options.textQualifier+'/', 'gi')
+			var getCsvValueOf = function(val){
+				if(val==null)return ''
+				val = val.toString().replace(nr, options.textQualifier+options.textQualifier)
+				val = options.textQualifier + val + options.textQualifier;
+				return val
+			}
+		}else
+			var getCsvValueOf = function(val){
+				return val
+			}
+	
+			/* figure headers */
+				var tempContent=[]
+	
+				for(columnLoop=0; columnLoop < titleArray.length; ++columnLoop){
+					if(typeof(titleArray[columnLoop])=='object'){
+						newTitle =  titleArray[columnLoop][1]
+						titleArray[columnLoop] = newTitle
+						nameArray[columnLoop] = titleArray[columnLoop][0]
+					}else{
+						newTitle = titleArray[columnLoop]
+					}
+					newValue = getCsvValueOf(newTitle)
+					tempContent.push(newValue)
+				}
+			/* end: figure headers */
+	
+			if(this.data.isNameFirstRow){
+				tempContent = tempContent.join(this.data.delimiter)
+				if(tempContent){
+	        returnText.push(tempContent);
+	      }
+			}
+	
+			/* build CSV content */
+	//console.log('nameArray[0]', nameArray[0], nameArray, this.data.isNameFirstRow, this.data.queryObject)
+	
+			var rowLoop,
+				columnName,
+	      firstColumn=this.data.queryObject[ nameArray[0] ]
+	
+	    if(firstColumn){//when no data provided, firstColumn is null
+				var len = firstColumn.length;//get array len from first column
+	  		for(rowLoop=0; rowLoop < len; ++rowLoop){
+	  			tempContent	= [];
+	  			columnCount = nameArray.length;
+	  			for(columnLoop=0; columnLoop < columnCount; ++columnLoop){
+	  				columnName = nameArray[columnLoop];
+	  				newValue = this.data.queryObject[columnName][rowLoop]
+	  				newValue = getCsvValueOf(newValue);
+	  				//if(isBinary(newValue))newValue = toString(newValue);
+	  				tempContent.push(newValue)
+	  			}
+	  			tempContent = tempContent.join(this.data.delimiter)
+	  			returnText.push(tempContent)
+	  		}
+	    }
+		/* end */
+	
+		return returnText
+	}
+	
+	
+	
+	
+	
+	
+	
+	var rtn = function(path){return new jXQueryObject(path)}
+	if(typeof(module)!='undefined' && module.exports){
+		rtn.Class = jXQueryObject
+		module.exports = rtn
+	}else if(typeof(jX)!='undefined'){
+		jX.modules.define('queryObject',rtn)
+	}
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var jc = __webpack_require__(6)
+		,xMonth = __webpack_require__(27)
+		,ExDate = __webpack_require__(28)
+	
+	
+	var Week = function Week(num){
+		if(num!=null)this.setStartDate(num)
+		return this
+	}
+	
+	jc(Week, xMonth.Class)
+	
+	Week.prototype.getEndDate = function(){
+		if(this.endDate)return this.endDate
+		this.endDate = new Date(this.getStartDate().getDate() + 6)
+		return this.endDate
+	}
+	
+	Week.prototype.setEndDate = function(date){
+		if(!ExDate(date).isDate() && !isNaN(date))//just the month number?
+			endDate = ExDate(new Date()).setMonth(date).getLastDateOfMonth()
+		else
+			this.endDate = date
+	
+		return this
+	}
+	
+	Week.prototype.setStartDate = function(date){
+		if(!isNaN(date) && date.constructor != Date)//just the month number?
+			this.date = ExDate(new Date()).gotoWeek(date).date
+		else
+			this.date = date
+		return this
+	}
+	
+	Week.prototype.getStartDate = function(){
+		if(!this.date)
+			this.date = ExDate(new Date()).getDateWeekStart()
+		return this.date
+	}
+	
+	var rtn = function(path){return new Week(path)}
+	rtn.Class = Week
+	module.exports = rtn
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xDate = __webpack_require__(28)
+	
+	var xMonth = function xMonth(num){
+		if(num!=null){
+			this.setStartDate(num)
+		}
+		return this
+	}
+	
+	xMonth.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+	
+	xMonth.getMonthIndexByString = function(mon){
+		return xMonth.monthLcaseNameArray.indexOf(mon.toLowerCase())
+	}
+	
+	xMonth.prototype.setStartDate = function(date){
+		var jDate = xDate()
+		if(!jDate.isDate(date)){
+			var num = Number(date)
+	
+			if(!isNaN(num)){//just the month number?
+				date = xDate().now().setDate(1).setMonth(date).date
+			}else{
+				var i = xMonth.getMonthIndexByString(date)
+				date = xDate(new Date()).setDate(1).setMonth(i+1).date
+			}
+		}
+		this.date = date
+		return this
+	}
+	
+	xMonth.prototype.StartDate = function(isClone){
+		var startDate = !isClone ?  this.getStartDate() : this.getStartDate()
+		return xDate(startDate)
+	}
+	
+	xMonth.prototype.xDate = function(){
+		return xDate(this.getStartDate())
+	}
+	
+	xMonth.prototype.getStartDate = function(){
+		if(this.date)return this.date
+		this.date = new Date(new Date().setDate(1))
+		return this
+	}
+	
+	xMonth.prototype.setEndDate = function(date){
+		if(!xDate(v).isDate() && !isNaN(v))//just the month number?
+			this.endDate = xDate(new Date()).setMonth(date).getLastDateOfMonth()
+		else
+			this.endDate = date
+	
+		return this
+	}
+	
+	xMonth.prototype.getEndDate = function(){
+		if(this.endDate)return this.endDate
+		var d = '12/31/'+this.getYear()
+		this.endDate = new Date(d)
+		return this.endDate
+	}
+	
+	
+	
+	var rtn = function(num){
+		return new xMonth(num)
+	}
+	rtn.Class = xMonth
+	module.exports = rtn
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	/* everything operates on a scale of 1-12 NOT 0-11 OR 1-31 NOT 0-30 ... Weeks are 1-53 */
+	function ackDate(date){
+	  this.date = ackDate.toDate(date)
+	  return this
+	}
+	
+	ackDate.suffixByNumber = function(i){
+	  var j = i % 10,
+	      k = i % 100;
+	  if (j == 1 && k != 11) {
+	      return i + "st";
+	  }
+	  if (j == 2 && k != 12) {
+	      return i + "nd";
+	  }
+	  if (j == 3 && k != 13) {
+	      return i + "rd";
+	  }
+	  return i + "th";
+	}
+	
+	ackDate.dateAddDay = function(d, amount){
+	  amount = amount==null ? 1 : amount
+	    var dat = new Date(d);
+	    dat.setDate(dat.getDate() + amount);
+	    return dat;
+	}
+	
+	ackDate.startOfDateDay = function(date){
+	  date = new Date(new Date(date).setHours(0))
+	  date = new Date(date.setMinutes(0))
+	  date = new Date(date.setSeconds(0))
+	  return new Date(date.setMilliseconds(0))
+	}
+	
+	ackDate.endOfDateDay = function(date){
+	  date = new Date(new Date(date).setHours(23))
+	  date = new Date(date.setMinutes(59))
+	  date = new Date(date.setSeconds(59))
+	  return new Date(date.setMilliseconds(999))
+	}
+	
+	ackDate.dateObjectBy = function(date){
+	  if(date){
+	    if(date.constructor == ackDate)
+	      return date.date
+	
+	    if(date.constructor == Date)
+	      return date
+	
+	    //if(['string','number'].indexOf(typeof(date)))
+	    return new Date(date)//convert string to date object
+	  }
+	
+	  return date || new Date()
+	}
+	
+	ackDate.toDate = function(date){
+	  return date!=null ? ackDate.dateObjectBy(date) : null
+	}
+	
+	//NON PROTOTYPE METHODS
+	ackDate.twoDigit = function(n){
+	  return ('0'+n).slice(-2)
+	}
+	
+	ackDate.isDate = function(date){
+	  var isRawDate = date.constructor==Date&&!isNaN(date.getTime())
+	  if(isRawDate)return true
+	
+	  if(date.search)//string
+	    return date.search(/^([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0-9]{4}|[0-9]{2})$/) >= 0
+	
+	  return false
+	}
+	
+	ackDate.yearByDate = function(d){
+	  return d.getFullYear()
+	}
+	
+	ackDate.getMonthIndexByString = function(mon){
+	  return ackDate.monthLcaseNameArray.indexOf(mon.toLowerCase())
+	}
+	
+	ackDate.monthNameArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+	ackDate.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+	ackDate.monthAbbrArray = ['Jan','Feb','Mar','Apr','Ma','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
+	ackDate.dayNameArray = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+	ackDate.dayAbbrArray = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+	
+	
+	ackDate.dateYearDiff = function(d0, d1){
+	  return Math.abs(d0.getFullYear() - d1.getFullYear())
+	}
+	
+	/*
+	  PROTOTYPES
+	*/
+	
+	ackDate.prototype.now = function(){
+	  this.date = new Date();return this;
+	}
+	
+	ackDate.prototype.param = function(){
+	  this.date = this.date||new Date();return this;
+	}
+	
+	var stdTimezoneOffset = function() {
+	  var d = new Date()
+	  var jan = new Date(d.getFullYear(), 0, 1);
+	  var jul = new Date(d.getFullYear(), 6, 1);
+	  return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+	}()
+	ackDate.prototype.isDaylightSavings = function(){
+	  if(!this.date)return;
+	  return this.date.getTimezoneOffset() < stdTimezoneOffset;
+	}
+	
+	//returns years.months (32.11 is 32 years and 11 months && 32.1 is 32 years 1 month)
+	ackDate.prototype.getAgeDisplay = function(){
+	  var d = this.date
+	    ,toDate = new Date()
+	    ,local = {}
+	
+	  local.isValBirthdate = d!=null && ackDate.isDate(d);
+	
+	  if(!local.isValBirthdate)return 0;
+	
+	
+	  local.isBorn = d < toDate
+	  if(local.isBorn){
+	    local.lesserDate = d
+	    local.greaterDate = toDate
+	  }else{
+	    local.lesserDate = toDate
+	    local.greaterDate = d
+	  }
+	
+	  local.cYear = ackDate.yearByDate(local.greaterDate)
+	  local.lastBirthdate = ackDate.dateAddDay(local.lesserDate, -365)
+	  local.years = ackDate.dateYearDiff(local.lesserDate, local.greaterDate)
+	  local.months = ackDate.dateMonthDiff(local.lastBirthdate, local.greaterDate)
+	
+	  if(local.months >= 12)
+	    local.months = local.months % 12
+	
+	  local.format = 1;
+	  if(local.months >= 10)
+	    local.format = 2
+	
+	  var rtnNum = local.years +'.'+ local.months
+	
+	  local.result = (function(n,p){var m=Math.pow(10,p);return (Math.round(n*m)/m).toFixed(p)})(rtnNum,local.format)
+	
+	  if(!local.isBorn)local.result = -local.result;
+	
+	  return local.result;
+	}
+	
+	ackDate.prototype.gt = function(date){
+	  date = ackDate.dateObjectBy(date)
+	  return this.date > date
+	}
+	
+	ackDate.prototype.lt = function(date){
+	  date = ackDate.dateObjectBy(date)
+	  return this.date < date
+	}
+	
+	ackDate.prototype['new'] = function(){
+	  return new ackDate( new Date(this.date) )
+	}
+	
+	ackDate.prototype.isDate = function(date){
+	  return ackDate.isDate(date||this.date)
+	}
+	
+	//return natural Date object
+	ackDate.prototype.getDate = function(){
+	  return this.date.getDate()
+	}
+	
+	//sets day of month
+	ackDate.prototype.setDate = function(n){
+	  var d = this.date
+	  d = d.setDate(n)
+	  this.date = new Date(d)
+	  return this
+	}
+	ackDate.prototype.setDayOfMonth = ackDate.prototype.setDate
+	
+	
+	/* YEARS */
+	ackDate.prototype.Year = function(){
+	  return ack.year(this.date)
+	}
+	
+	ackDate.prototype.year = function(){
+	  return ackDate.yearByDate(this.date)
+	}
+	ackDate.prototype.getYear = ackDate.prototype.year
+	
+	ackDate.prototype.setYear = function(n){
+	  this.date.setYear(n)
+	  return this
+	}
+	
+	ackDate.prototype.dayOfYear = function(){
+	  var d = this.date
+	  return Math.ceil((d - new Date(d.getFullYear(), 0, 1)) / 86400000)
+	}
+	
+	ackDate.prototype.getNextYear = function(y){
+	  y = y==null ? 1 : Number(y)
+	  return this.year()+y
+	}
+	ackDate.prototype.nextYear = function(y){
+	  this.setYear( this.getNextYear(y) )
+	  return this
+	}
+	ackDate.prototype.getPriorYear = function(y){
+	  y = y==null ? 1 : Number(y)
+	  return this.year()-Math.abs(y)
+	}
+	ackDate.prototype.priorYear = function(y){
+	  this.setYear( this.getPriorYear(y) )
+	  return this
+	}
+	ackDate.prototype.addYear = ackDate.prototype.nextYear;
+	
+	ackDate.prototype.dateYearDiff = function(date){
+	  date = ackDate.toDate(date)
+	  return ackDate.dateYearDiff(date, this.date)
+	}
+	
+	
+	
+	
+	/* MONTHS */
+	
+	/** 1st 2nd 3rd of the month */
+	ackDate.prototype.getMonthAbbr = function(){
+	  return ackDate.monthAbbrArray[this.date.getMonth()]
+	}
+	
+	ackDate.prototype.getMonthDateProperNumber = function(){
+	  return ackDate.suffixByNumber( this.date.getDate() )
+	}
+	
+	ackDate.prototype.fullWeeksLeftInMonth = function(){
+	  var eDate = this.getLastDateOfMonth()
+	  var diff = this.dateDayDiff(eDate)
+	  return Math.floor( diff / 7 )
+	}
+	
+	ackDate.prototype.weekInMonth = function(){
+	  var firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
+	  return Math.ceil((this.date.getDate() + firstDay)/7)
+	}
+	
+	ackDate.prototype.getMonthDayCount = function() {
+	    return new Date(this.year(), this.month(), 0).getDate();
+	}
+	
+	ackDate.prototype.getMonthName = function(){
+	  return ackDate.monthNameArray[ this.month()-1 ]
+	}
+	
+	ackDate.prototype.getMonthNameArray = function(){
+	  return ackDate.monthNameArray
+	}
+	
+	
+	ackDate.prototype.dateMonthDiff = function(date){
+	  return ackDate.dateMonthDiff(this.date, date)
+	}
+	
+	ackDate.dateMonthDiff = function(date0, date1){
+	  date0 = new Date(date0);date1 = new Date(date1)
+	  return Math.abs( (date1.getMonth()+12*date1.getFullYear())-(date0.getMonth()+12*date0.getFullYear()) )
+	}
+	
+	ackDate.prototype.month = function(){
+	  return this.date.getMonth()+1
+	}
+	ackDate.prototype.getMonth = ackDate.prototype.month
+	
+	ackDate.prototype.priorMonth = function(amount){
+	  amount = amount || 1
+	  return this.nextMonth(-Math.abs(amount))
+	}
+	
+	ackDate.prototype.nextMonth = function(amount){
+	  amount = amount || 1
+	  this.date = new Date(this.date.setMonth(this.date.getMonth()+amount))
+	  return this
+	}
+	
+	ackDate.prototype.getLastDateOfMonth = function(){
+	  var nd = new Date(this.date)
+	    ,EDate = new ackDate(nd)
+	  return EDate.nextMonth().gotoFirstDayOfMonth().prevDay().date
+	}
+	
+	ackDate.prototype.setMonth = function(n){
+	  var d = this.date.setMonth(n-1)
+	  this.date = new Date(d)
+	  return this
+	}
+	
+	ackDate.prototype.gotoFirstDayOfMonth = function(){
+	  this.prevDay( this.date.getDate()-1 );return this
+	}
+	
+	
+	
+	/* DAYS */
+	
+	/** always absolute number */
+	ackDate.prototype.dateDayDiff = function(date){
+	  //return Math.abs(parseInt((this.date - ackDate.toDate(date))/(24*3600*1000)))
+	  return Math.abs( Math.floor(( this.date - ackDate.toDate(date) ) / 86400000) )
+	}
+	
+	ackDate.prototype.daysInMonth = function(){
+	  return new Date(this.year(), this.month(), 0).getDate()
+	}
+	
+	ackDate.prototype.addDays = function(amount){
+	  var nd = ackDate.dateAddDay(this.date,amount)
+	  this.date = new Date(nd)
+	  return this
+	}
+	ackDate.prototype.nextDay = ackDate.prototype.addDays//multi alias
+	
+	ackDate.prototype.prevDay = function(amount){
+	  amount = amount==null ? 1 : amount
+	  var d = new Date(this.date)
+	    ,d = d.setDate(d.getDate()-amount)
+	  this.date = new Date(d)
+	  return this
+	}
+	ackDate.prototype.priorDay = ackDate.prototype.prevDay//aka for naming consistency
+	
+	
+	
+	
+	
+	/* WEEKS */
+	
+	ackDate.prototype.isWeekend = function(){
+	  return [1,7].indexOf( this.dayOfWeek() ) >= 0
+	}
+	
+	/** getWeekInYear */
+	ackDate.prototype.week = function(){
+	  var d = new Date(this.date)//could be number
+	  var onejan = new Date(d.getFullYear(),0,1)
+	  var nowDate = new Date(d)
+	  return Math.ceil((((nowDate - onejan) / 86400000) + onejan.getDay()+1)/7)
+	}
+	ackDate.prototype.getWeek = ackDate.prototype.week
+	
+	ackDate.prototype.dayOfWeek = function(){
+	  var d = this.date
+	  return d.getDay()+1
+	}
+	
+	ackDate.prototype.gotoSunday = function(){
+	  this.prevDay( this.dayOfWeek()-1 );return this
+	}
+	ackDate.prototype.gotoFirstDayOfWeek = ackDate.prototype.gotoSunday
+	
+	ackDate.prototype.gotoMonday = function(){
+	  this.gotoFirstDayOfWeek().nextDay();return this
+	}
+	ackDate.prototype.gotoMondayOfWeek = ackDate.prototype.gotoMonday
+	
+	ackDate.prototype.gotoFriday = function(){
+	  this.gotoFirstDayOfWeek().nextDay(5);return this
+	}
+	ackDate.prototype.gotoFridayOfWeek = ackDate.prototype.gotoFriday
+	
+	ackDate.prototype.gotoWeek = function(week){
+	  var thisWk = this.week()
+	  this.nextWeek( week - thisWk )
+	  return this
+	}
+	
+	ackDate.prototype.priorWeek = function(amount){
+	  amount = amount==null ? 1 : amount
+	  return this.nextWeek(-Math.abs(amount))
+	}
+	
+	ackDate.prototype.nextWeek = function(amount){
+	  amount = amount==null ? 1 : amount
+	  this.nextDay(amount * 7)
+	  return this
+	}
+	
+	ackDate.prototype.getDateWeekStart = function(){
+	  var date = this.date
+	    ,dw = this.dayOfWeek()-1;
+	  return new Date(date.setDate(date.getDate()-dw))
+	}
+	
+	ackDate.prototype.getDateWeekStop = function(){
+	  var date = this.getDateWeekStart()
+	  date = date.setDate( date.getDate()+6 )
+	  return ackDate.endOfDateDay(date)
+	}
+	
+	/** goto end of day. Just sets time to 23:59:59.999 */
+	ackDate.prototype.gotoEod = function(date){
+	  this.date = ackDate.endOfDateDay(date||this.date);return this
+	}
+	ackDate.prototype.gotoEndOfDate = ackDate.prototype.gotoEod
+	
+	/** goto start of day. Just sets time to 0:0:0.0 */
+	ackDate.prototype.gotoSod = function(date){
+	  this.date = ackDate.startOfDateDay(date||this.date);return this
+	}
+	ackDate.prototype.gotoStartOfDate = ackDate.prototype.gotoSod
+	
+	
+	ackDate.prototype.FirstWeekday = function(){
+	  var amount = -this.dayOfWeek()+2
+	    ,nd = this.date
+	    ,nd = new Date(nd)//clone
+	    ,Nd = new ackDate(nd).nextDay(amount)
+	  return Nd
+	}
+	
+	ackDate.prototype.getDateOfFirstWeekday = function(){
+	  return new Date( this.FirstWeekday().date )
+	}
+	
+	/** method(weekNum, ackDate) */
+	ackDate.prototype.eachWeekInYear = function(method){
+	  var num = this.getWeeksInYear()
+	    ,year = this.year()
+	
+	  for(var x=1; x <= num; ++x){
+	    var ExD = new ackDate(this.date).setYear(year).gotoWeek(x)
+	    ExD.gotoFirstDayOfWeek()
+	    method(x,ExD)
+	  }
+	  return this
+	}
+	
+	ackDate.prototype.eachWeekWithMondayInYear = function(method){
+	  this.eachWeekInYear(function(num, ackDate){
+	    method(num, ackDate.gotoMondayOfWeek())
+	  })
+	  return this
+	}
+	
+	/** returns array of date exposed objects representing each week in a year */
+	ackDate.prototype.getWeeksWithMondayInYearExposedArray = function(){
+	  var rtnArray = []
+	  this.eachWeekWithMondayInYear(function(weekNum, ackDate){
+	    rtnArray.push(ackDate)
+	  })
+	  return rtnArray
+	}
+	
+	/** returns array of date objects representing each week in a year */
+	ackDate.prototype.getWeeksWithMondayInYearArray = function(){
+	  var rtnArray = []
+	  this.eachWeekWithMondayInYear(function(weekNum, ackDate){
+	    rtnArray.push(ackDate.date)
+	  })
+	  return rtnArray
+	}
+	
+	ackDate.prototype.getWeeksInYear = function(y){
+	  y = y ? y : this.year()
+	  var d, isLeap;
+	
+	  d = new Date(y, 0, 1);
+	  isLeap = new Date(y, 1, 29).getMonth() === 1;
+	
+	  //check for a Jan 1 that's a Thursday or a leap year that has a
+	  //Wednesday jan 1. Otherwise it's 52
+	  return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
+	}
+	
+	
+	
+	/* ! TIME METHODS ! */
+	
+	ackDate.prototype.setTimeByString = function(string){
+	  if(!this.date || !string)return this
+	
+	  if(string.split){
+	    var parsed = eackDate.parseTimeString(string)
+	    this.date = this.date.setHours(parsed.hour);
+	    this.date = new Date(this.date)
+	    this.date = this.date.setMinutes(parsed.minute);
+	    this.date = new Date(this.date)
+	  }
+	
+	  return this;
+	}
+	
+	/** alters this.date and return this */
+	ackDate.prototype.addHours = function(n){
+	  if(this.date)this.date.setHours( this.date.getHours()+n );
+	  return this
+	}
+	
+	/** alters this.date and return this */
+	ackDate.prototype.addMinutes = function(n){
+	  if(this.date)this.date = new Date(this.date.getTime() + n*60000)
+	  return this
+	}
+	
+	ackDate.prototype.minuteOfDay = function(){
+	  return (60 * this.date.getHours()) + this.date.getMinutes()
+	}
+	
+	/** alters this.date and return this */
+	ackDate.prototype.addSeconds = function(n){
+	  return this.addMilliseconds(n*1000)
+	}
+	
+	/** alters this.date and return this */
+	ackDate.prototype.addMilliseconds = function(n){
+	  if(this.date)this.date = new Date(this.date.getTime() + n)
+	  return this
+	}
+	
+	/** returns no negative numbers */
+	ackDate.prototype.dateHourDiff = function(date){
+	  return Math.abs(this.date - ackDate.dateObjectBy(date||new Date())) / 36e5;
+	}
+	ackDate.prototype.dateHoursDiff = ackDate.prototype.dateHourDiff//alias
+	
+	/** Does not return negative numbers.
+	  @date - not required, default = new Date()
+	  @decimals - not required, default = false (no decimals causes decimal rounding)
+	*/
+	ackDate.prototype.dateSecondDiff = function(date, decimals){
+	  date = ackDate.dateObjectBy(date||new Date())
+	  var dif = this.date.getTime() - date.getTime()
+	  var Seconds_from_T1_to_T2 = dif / 1000;
+	  var rtn = Math.abs(Seconds_from_T1_to_T2)
+	
+	  if(decimals){
+	    decimals = Number(decimals) && !isNaN(decimals) ? decimals:2;
+	    rtn = toDecimal(rtn,decimals)
+	  }else{
+	    rtn = Math.round(rtn)
+	  }
+	
+	  return rtn
+	}
+	ackDate.prototype.dateSecondsDiff = ackDate.prototype.dateSecondDiff//alias
+	
+	//no negative numbers
+	ackDate.prototype.dateMinuteDiff = function(date){
+	  date = ackDate.toDate(date||new Date())
+	  var hourDiff = date - this.date; //in ms
+	  var secDiff = hourDiff / 1000; //in s
+	  var minDiff = hourDiff / 60 / 1000; //in minutes
+	  var hDiff = hourDiff / 3600 / 1000; //in hours
+	  var hours = Math.floor(hDiff);
+	  var mins = minDiff - 60 * hours
+	  return Math.round( Math.abs( hours * 60 + mins ), 0);
+	}
+	ackDate.prototype.dateMinutesDiff = ackDate.prototype.dateMinuteDiff//alias
+	
+	
+	
+	/* FORMATTING */
+	ackDate.prototype.getDayName = function(){
+	  if(!this.date)return ''
+	  return ackDate.dayNameArray[ this.date.getDay() ]
+	}
+	
+	ackDate.prototype.getDayAbbr = function(){
+	  if(!this.date)return ''
+	  return ackDate.dayAbbrArray[ this.date.getDay() ]
+	}
+	
+	/** Febuary 24th 2016 */
+	ackDate.prototype.mmmmdyyyy = function(){
+	  if(!this.date)return ''
+	  return this.getMonthName()+' '+this.getMonthDateProperNumber() +' '+ this.date.getFullYear()
+	}
+	
+	/** 01:20.220 */
+	ackDate.prototype.hhmmssl = function(timeSep, milsecSep){
+	  if(!this.date)return ''
+	  timeSep = timeSep || ':'
+	  milsecSep = milsecSep || '.'
+	  var d = this.date
+	    ,h=d.getHours()
+	    ,m=d.getMinutes()
+	  m=m<10?'0'+m:m
+	  h = ('0'+h).slice(-2)
+	  var s = ('0'+d.getSeconds()).slice(-2)
+	  return h+timeSep+m+timeSep+s+milsecSep+d.getMilliseconds()
+	}
+	
+	ackDate.prototype.hhmmsl = function(timeSep, milsecSep){
+	  if(!this.date)return ''
+	  var  d = this.date,
+	      timeSep = timeSep || ':',
+	      milsecSep = milsecSep || '.',
+	      h=d.getHours(),
+	      m=d.getMinutes();
+	  m=m<10?'0'+m:m
+	  h = ('0'+h).slice(-2)
+	  return h+timeSep+m+timeSep+d.getSeconds()+milsecSep+d.getMilliseconds()
+	}
+	
+	ackDate.prototype.hmmtt = function(){
+	  if(!this.date)return ''
+	  var d = this.date
+	    ,h=d.getHours()
+	    ,t='AM'
+	    ,m=d.getMinutes();
+	
+	  m=m<10?'0'+m:m;
+	  h=h>=12?(t='PM',h-12||12):h==0?12:h
+	  return h+':'+m+' '+t
+	}
+	
+	ackDate.prototype.mmddyyyyhhmmtt = function(dateSep, spaceSep, timeSep, ttSep){
+	  if(!this.date)return ''
+	  spaceSep = spaceSep==null?' ':spaceSep;
+	  return this.mmddyyyy(dateSep)+ spaceSep + this.hhmmtt(timeSep, ttSep)
+	}
+	
+	ackDate.prototype.hhmmtt = function(timeSep, ttSep){
+	  if(!this.date)return ''
+	  var d = this.date,
+	      timeSep = timeSep || ':',
+	      ttSep = ttSep==null?' ':ttSep,
+	      h=d.getHours(),
+	      t='AM',
+	      m=d.getMinutes();
+	
+	  m=m<10?'0'+m:m;
+	  h=h>=12?(t='PM',h-12||12):h==0?12:h
+	  return ('0'+h).slice(-2) +timeSep+ m+ttSep+t
+	}
+	
+	//yyyy-mm-dd hh:nn:ss:l
+	ackDate.prototype.storageFormat = function(dateSep, spaceSep, timeSep, milsecSep){
+	  if(!this.date)return '';
+	  dateSep = dateSep || '-'
+	  spaceSep = spaceSep || ' '
+	  return this.date.getFullYear() + dateSep + this.mmdd(dateSep) + spaceSep + this.hhmmssl(timeSep, milsecSep)
+	}
+	
+	ackDate.prototype.yyyymmdd = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '' : sep
+	  return this.year() + sep + this.mmdd(sep)
+	}
+	
+	ackDate.prototype.mmddyyyy = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '/' : sep
+	  var d = this.date
+	  return this.mmdd(sep)+ sep +d.getFullYear()
+	}
+	
+	ackDate.prototype.mdyyyy = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '/' : sep
+	  var d = this.date
+	  return this.md(sep)+ sep +d.getFullYear()
+	}
+	
+	ackDate.prototype.mdyy = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '/' : sep
+	  var d = this.date
+	  return this.md(sep)+ sep +this.yy()
+	}
+	
+	ackDate.prototype.mmddyy = function(sep){
+	  if(!this.date)return '';
+	  var r = this.mmddyyyy()
+	  return r.substring(0,r.length-4)+r.substring(r.length-2,r.length)
+	}
+	
+	ackDate.prototype.yy = function(){
+	  if(!this.date)return '';
+	  return this.date.getFullYear().toString().substring(2,4)
+	}
+	
+	ackDate.prototype.mmdd = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '/' : sep
+	  var d = this.date
+	  return ackDate.twoDigit(d.getMonth()+1)+ sep + ackDate.twoDigit(d.getDate())
+	}
+	
+	ackDate.prototype.md = function(sep){
+	  if(!this.date)return '';
+	  sep = sep==null ? '/' : sep
+	  var d = this.date
+	  return (d.getMonth()+1)+ sep + d.getDate()
+	}
+	
+	
+	var eackDate = function(date){
+	  return new ackDate(date)
+	}
+	
+	eackDate.parseTimeString = function (date){
+	  var dDate = new Date(date);
+	  if(dDate!='Invalid Date'){
+	    return {hour:dDate.getHours(), minute:dDate.getMinutes()};
+	  }
+	
+	  var hour, minute, tt;
+	  var tArray = date.split(':');
+	  var hour = tArray[0];
+	
+	  if(tArray.length > 1){
+	    minute = tArray[1];
+	    minute = minute.split(' ');
+	    if(minute.length > 1){
+	      tt = minute[1];
+	      var isPm = tt.toLowerCase()=='pm'
+	      if(hour<=11 && isPm){
+	        hour = Number(hour) + 12;
+	      }else if(hour==12 && !isPm){
+	        hour = 0
+	      }
+	    }
+	
+	    minute = Number(minute[0]);
+	  }
+	
+	  return {hour:hour, minute:minute}
+	}
+	
+	
+	function toDecimal(n,p){var m=Math.pow(10,p);return (Math.round(n*m)/m).toFixed(p)}
+	
+	eackDate.Class = ackDate
+	module.exports = eackDate
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xDate = __webpack_require__(28)
+	
+	var ackYear = function ackYear(yyyy){
+		if(yyyy!=null)this.setStartDate(yyyy)
+		return this
+	}
+	
+	ackYear.prototype.setStartDate = function(date){
+		var isObject = typeof(date) == 'object',
+			isYearString = !isObject && !isNaN(Number(date)),
+			isYear = isYearString || (!xDate(date).isDate() && !isNaN(date))
+	
+		if(isYear){//just the year number?
+			date = new Date(new Date('1/1/2011').setYear(date))
+		}
+	
+		this.date = date
+		return this
+	}
+	
+	ackYear.prototype.getStartDate = function(){
+		if(this.date)return this.date
+		var d = '1/1/'+xDate(new Date()).year()
+		this.date = new Date(d)
+		return this.date
+	}
+	
+	ackYear.prototype.setEndDate = function(date){
+		if(!xDate(date).isDate() && !isNaN(date))//just the year number?
+			this.date = new Date('12/31/'+date)
+		else
+			this.date = date
+		return this
+	}
+	
+	ackYear.prototype.getEndDate = function(){
+		if(this.endDate)return this.endDate
+		var d = '12/31/'+this.getYear()
+		this.endDate = new Date(d)
+		return this.endDate
+	}
+	
+	ackYear.prototype.StartDate = function(isClone){
+		var startDate = !isClone ?  this.getStartDate() : this.getStartDate()
+		return xDate(startDate)
+	}
+	
+	ackYear.prototype.xDate = function(){
+		return xDate(this.getStartDate())
+	}
+	
+	ackYear.prototype.month = function(){
+		return this.StartDate().month()
+	}
+	ackYear.prototype.getMonth = ackYear.prototype.month//deprecated
+	
+	ackYear.prototype.week = function(){
+		return this.StartDate().week()
+	}
+	ackYear.prototype.getWeek = ackYear.prototype.week//deprecated
+	
+	//?deprecated (duplicate of Date class)
+	ackYear.prototype.getYear = function(){
+		var d = this.getStartDate()
+		return xDate(d).year()
+	}
+	ackYear.prototype.year = ackYear.prototype.getYear
+	
+	//gets startdate and changes the year
+	ackYear.prototype.setYear = function(yyyy){
+		var ExYy = xDate(yyyy)
+		if(isNaN(yyyy) && ExYy.isDate())
+			yyyy = ExYy.year()
+	
+		var date = this.getStartDate()
+		date = new Date( date.setYear(yyyy) )
+		this.setStartDate(date)
+	
+		return this
+	}
+	
+	ackYear.prototype.getDateOfLastWeekday = function(){
+		var d = getStartDate()
+			,addAmount = -xDate(d).dayOfWeek()+6
+			,dateA = new Date( d.setDate(d.getDate()+addAmount) )
+	
+		dateA = new Date(dateA.setHours(23))
+		dateA = new Date(dateA.setMinutes(59))
+		dateA = new Date(dateA.setSeconds(59))
+	
+		return dateA
+	}
+	
+	
+	
+	
+	
+	
+	var rtn = function(path){
+		return new ackYear(path)
+	}
+	rtn.Class = ackYear
+	module.exports = rtn
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var ackDate = __webpack_require__(28)
+	
+	function ackTime(date){
+	  this.date = ackTime.toDate(date)
+	  return this
+	}
+	
+	ackTime.dateObjectBy = function(date){
+	  if(date){
+	    if(date.constructor == ackTime){
+	      return date.date
+	    }
+	
+	    if(date.constructor == Date)
+	      return date
+	
+	    if(date.split){
+	      return stringToDate(date)
+	    }
+	
+	    return new Date(date)//convert string to date object
+	  }
+	
+	  return date || new Date()
+	}
+	
+	ackTime.toDate = function(date){
+	  return date!=null ? ackTime.dateObjectBy(date) : null
+	}
+	
+	function stringToDate(date){
+	  var dDate = new Date(date);
+	  if(dDate!='Invalid Date'){
+	    return date
+	  }
+	
+		var parsed = ackDate.parseTimeString(date);
+		var newDate = new Date().setHours(parsed.hour);
+		newDate = new Date(newDate).setMinutes(parsed.minute)
+		return new Date(newDate)
+	}
+	
+	var eackTime = function(date){
+	  var date = new ackTime(date).date
+	  return ackDate(date)
+	}
+	
+	eackTime.Class = ackTime
+	module.exports = eackTime
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory();
+		else if(typeof define === 'function' && define.amd)
+			define([], factory);
+		else if(typeof exports === 'object')
+			exports["ngFx"] = factory();
+		else
+			root["ngFx"] = factory();
+	})(this, function() {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	
+	
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _animations = __webpack_require__(1);
+	
+		var _utils = __webpack_require__(80);
+	
+		angular.module('ng-fx', [_animations.animations, _utils.utils]);
+	
+		exports['default'] = 'ng-fx';
+		module.exports = exports['default'];
+	
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _view = __webpack_require__(2);
+	
+		var _element = __webpack_require__(7);
+	
+		var animations = angular.module('ngFx.animations', [_element.element, _view.view]).name;
+	
+		exports.animations = animations;
+	
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(3);
+	
+		var viewModule = angular.module('ngFx.animations.view', []);
+	
+		var view = viewModule.name;
+	
+		exports.view = view;
+	
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(4);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./view.styl", function() {
+					var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./view.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, ".fx-view-container {\n  position: relative;\n  min-height: 1px;\n}\n.fx-view {\n  position: absolute;\n  width: 100%;\n  z-index: 10;\n  left: 0;\n  right: 0;\n}\n", ""]);
+	
+	/***/ },
+	/* 5 */
+	/***/ function(module, exports) {
+	
+		/*
+			MIT License http://www.opensource.org/licenses/mit-license.php
+			Author Tobias Koppers @sokra
+		*/
+		// css base code, injected by the css-loader
+		module.exports = function() {
+			var list = [];
+	
+			// return the list of modules as css string
+			list.toString = function toString() {
+				var result = [];
+				for(var i = 0; i < this.length; i++) {
+					var item = this[i];
+					if(item[2]) {
+						result.push("@media " + item[2] + "{" + item[1] + "}");
+					} else {
+						result.push(item[1]);
+					}
+				}
+				return result.join("");
+			};
+	
+			// import a list of modules into the list
+			list.i = function(modules, mediaQuery) {
+				if(typeof modules === "string")
+					modules = [[null, modules, ""]];
+				var alreadyImportedModules = {};
+				for(var i = 0; i < this.length; i++) {
+					var id = this[i][0];
+					if(typeof id === "number")
+						alreadyImportedModules[id] = true;
+				}
+				for(i = 0; i < modules.length; i++) {
+					var item = modules[i];
+					// skip already imported module
+					// this implementation is not 100% perfect for weird media query combinations
+					//  when a module is imported multiple times with different media queries.
+					//  I hope this will never occur (Hey this way we have smaller bundles)
+					if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+						if(mediaQuery && !item[2]) {
+							item[2] = mediaQuery;
+						} else if(mediaQuery) {
+							item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+						}
+						list.push(item);
+					}
+				}
+			};
+			return list;
+		};
+	
+	
+	/***/ },
+	/* 6 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		/*
+			MIT License http://www.opensource.org/licenses/mit-license.php
+			Author Tobias Koppers @sokra
+		*/
+		var stylesInDom = {},
+			memoize = function(fn) {
+				var memo;
+				return function () {
+					if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+					return memo;
+				};
+			},
+			isOldIE = memoize(function() {
+				return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+			}),
+			getHeadElement = memoize(function () {
+				return document.head || document.getElementsByTagName("head")[0];
+			}),
+			singletonElement = null,
+			singletonCounter = 0;
+	
+		module.exports = function(list, options) {
+			if(false) {
+				if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+			}
+	
+			options = options || {};
+			// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+			// tags it will allow on a page
+			if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+			var styles = listToStyles(list);
+			addStylesToDom(styles, options);
+	
+			return function update(newList) {
+				var mayRemove = [];
+				for(var i = 0; i < styles.length; i++) {
+					var item = styles[i];
+					var domStyle = stylesInDom[item.id];
+					domStyle.refs--;
+					mayRemove.push(domStyle);
+				}
+				if(newList) {
+					var newStyles = listToStyles(newList);
+					addStylesToDom(newStyles, options);
+				}
+				for(var i = 0; i < mayRemove.length; i++) {
+					var domStyle = mayRemove[i];
+					if(domStyle.refs === 0) {
+						for(var j = 0; j < domStyle.parts.length; j++)
+							domStyle.parts[j]();
+						delete stylesInDom[domStyle.id];
+					}
+				}
+			};
+		}
+	
+		function addStylesToDom(styles, options) {
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				if(domStyle) {
+					domStyle.refs++;
+					for(var j = 0; j < domStyle.parts.length; j++) {
+						domStyle.parts[j](item.parts[j]);
+					}
+					for(; j < item.parts.length; j++) {
+						domStyle.parts.push(addStyle(item.parts[j], options));
+					}
+				} else {
+					var parts = [];
+					for(var j = 0; j < item.parts.length; j++) {
+						parts.push(addStyle(item.parts[j], options));
+					}
+					stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+				}
+			}
+		}
+	
+		function listToStyles(list) {
+			var styles = [];
+			var newStyles = {};
+			for(var i = 0; i < list.length; i++) {
+				var item = list[i];
+				var id = item[0];
+				var css = item[1];
+				var media = item[2];
+				var sourceMap = item[3];
+				var part = {css: css, media: media, sourceMap: sourceMap};
+				if(!newStyles[id])
+					styles.push(newStyles[id] = {id: id, parts: [part]});
+				else
+					newStyles[id].parts.push(part);
+			}
+			return styles;
+		}
+	
+		function createStyleElement() {
+			var styleElement = document.createElement("style");
+			var head = getHeadElement();
+			styleElement.type = "text/css";
+			head.appendChild(styleElement);
+			return styleElement;
+		}
+	
+		function createLinkElement() {
+			var linkElement = document.createElement("link");
+			var head = getHeadElement();
+			linkElement.rel = "stylesheet";
+			head.appendChild(linkElement);
+			return linkElement;
+		}
+	
+		function addStyle(obj, options) {
+			var styleElement, update, remove;
+	
+			if (options.singleton) {
+				var styleIndex = singletonCounter++;
+				styleElement = singletonElement || (singletonElement = createStyleElement());
+				update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+				remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+			} else if(obj.sourceMap &&
+				typeof URL === "function" &&
+				typeof URL.createObjectURL === "function" &&
+				typeof URL.revokeObjectURL === "function" &&
+				typeof Blob === "function" &&
+				typeof btoa === "function") {
+				styleElement = createLinkElement();
+				update = updateLink.bind(null, styleElement);
+				remove = function() {
+					styleElement.parentNode.removeChild(styleElement);
+					if(styleElement.href)
+						URL.revokeObjectURL(styleElement.href);
+				};
+			} else {
+				styleElement = createStyleElement();
+				update = applyToTag.bind(null, styleElement);
+				remove = function() {
+					styleElement.parentNode.removeChild(styleElement);
+				};
+			}
+	
+			update(obj);
+	
+			return function updateStyle(newObj) {
+				if(newObj) {
+					if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+						return;
+					update(obj = newObj);
+				} else {
+					remove();
+				}
+			};
+		}
+	
+		var replaceText = (function () {
+			var textStore = [];
+	
+			return function (index, replacement) {
+				textStore[index] = replacement;
+				return textStore.filter(Boolean).join('\n');
+			};
+		})();
+	
+		function applyToSingletonTag(styleElement, index, remove, obj) {
+			var css = remove ? "" : obj.css;
+	
+			if (styleElement.styleSheet) {
+				styleElement.styleSheet.cssText = replaceText(index, css);
+			} else {
+				var cssNode = document.createTextNode(css);
+				var childNodes = styleElement.childNodes;
+				if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+				if (childNodes.length) {
+					styleElement.insertBefore(cssNode, childNodes[index]);
+				} else {
+					styleElement.appendChild(cssNode);
+				}
+			}
+		}
+	
+		function applyToTag(styleElement, obj) {
+			var css = obj.css;
+			var media = obj.media;
+			var sourceMap = obj.sourceMap;
+	
+			if(media) {
+				styleElement.setAttribute("media", media)
+			}
+	
+			if(styleElement.styleSheet) {
+				styleElement.styleSheet.cssText = css;
+			} else {
+				while(styleElement.firstChild) {
+					styleElement.removeChild(styleElement.firstChild);
+				}
+				styleElement.appendChild(document.createTextNode(css));
+			}
+		}
+	
+		function updateLink(linkElement, obj) {
+			var css = obj.css;
+			var media = obj.media;
+			var sourceMap = obj.sourceMap;
+	
+			if(sourceMap) {
+				// http://stackoverflow.com/a/26603875
+				css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+			}
+	
+			var blob = new Blob([css], { type: "text/css" });
+	
+			var oldSrc = linkElement.href;
+	
+			linkElement.href = URL.createObjectURL(blob);
+	
+			if(oldSrc)
+				URL.revokeObjectURL(oldSrc);
+		}
+	
+	
+	/***/ },
+	/* 7 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _bounceBounce = __webpack_require__(8);
+	
+		var _fadeFade = __webpack_require__(16);
+	
+		var _zoomZoom = __webpack_require__(61);
+	
+		var _lightSpeedLightSpeed = __webpack_require__(69);
+	
+		var _rotateRotate = __webpack_require__(73);
+	
+		var elementModule = angular.module('ngFx.animations.element', []);
+	
+		/**
+		 * register all animations to angular using
+		 * the `module.animation()` method
+		 */
+		[_bounceBounce.bounces, _fadeFade.fades, _zoomZoom.zooms, _lightSpeedLightSpeed.lightSpeeds, _rotateRotate.rotates].forEach(function (animation) {
+		  animation.forEach(function (variant) {
+		    elementModule.animation(variant.classname, variant.creator);
+		  });
+		});
+	
+		var element = elementModule.name;
+	
+		exports.element = element;
+	
+	/***/ },
+	/* 8 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(9);
+	
+		var _bounceNormal = __webpack_require__(11);
+	
+		var _bounceDown = __webpack_require__(12);
+	
+		var _bounceLeft = __webpack_require__(13);
+	
+		var _bounceRight = __webpack_require__(14);
+	
+		var _bounceUp = __webpack_require__(15);
+	
+		var bounces = [_bounceNormal.bounceNormal, _bounceDown.bounceDown, _bounceLeft.bounceLeft, _bounceRight.bounceRight, _bounceUp.bounceUp];
+		exports.bounces = bounces;
+	
+	/***/ },
+	/* 9 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(10);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./bounce.styl", function() {
+					var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./bounce.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 10 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, "/**\n * Bounces\n */\n/*******************************************/\n/******************************************/\n/*****************************************/\n/*******************************************/\n@-moz-keyframes bounceNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  33% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  66% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes bounceNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  33% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  66% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes bounceNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  33% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  66% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes bounceNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  33% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  66% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes bounceNormalOut {\n  100% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  66% {\n    transform: scale(1.05);\n  }\n  33% {\n    transform: scale(0.9);\n  }\n  0% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes bounceNormalOut {\n  100% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  66% {\n    transform: scale(1.05);\n  }\n  33% {\n    transform: scale(0.9);\n  }\n  0% {\n    opacity: 1;\n  }\n}\n@-o-keyframes bounceNormalOut {\n  100% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  66% {\n    transform: scale(1.05);\n  }\n  33% {\n    transform: scale(0.9);\n  }\n  0% {\n    opacity: 1;\n  }\n}\n@keyframes bounceNormalOut {\n  100% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  66% {\n    transform: scale(1.05);\n  }\n  33% {\n    transform: scale(0.9);\n  }\n  0% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes bounceDownIn {\n  0%, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-webkit-keyframes bounceDownIn {\n  0%, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-o-keyframes bounceDownIn {\n  0%, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@keyframes bounceDownIn {\n  0%, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-moz-keyframes bounceDownOut {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-webkit-keyframes bounceDownOut {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-o-keyframes bounceDownOut {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@keyframes bounceDownOut {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-moz-keyframes bounceLeftIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-webkit-keyframes bounceLeftIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-o-keyframes bounceLeftIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@keyframes bounceLeftIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-moz-keyframes bounceLeftOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@-webkit-keyframes bounceLeftOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@-o-keyframes bounceLeftOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@keyframes bounceLeftOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@-moz-keyframes bounceRightOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-webkit-keyframes bounceRightOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-o-keyframes bounceRightOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@keyframes bounceRightOut {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-moz-keyframes bounceRightIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-webkit-keyframes bounceRightIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-o-keyframes bounceRightIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@keyframes bounceRightIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n  100% {\n    transform: none;\n  }\n}\n@-moz-keyframes bounceUpIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n  100% {\n    transform: translate3d(0, 0, 0);\n  }\n}\n@-webkit-keyframes bounceUpIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n  100% {\n    transform: translate3d(0, 0, 0);\n  }\n}\n@-o-keyframes bounceUpIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n  100% {\n    transform: translate3d(0, 0, 0);\n  }\n}\n@keyframes bounceUpIn {\n  from, 60%, 75%, 90%, 100% {\n    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  }\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n  100% {\n    transform: translate3d(0, 0, 0);\n  }\n}\n@-moz-keyframes bounceUpOut {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@-webkit-keyframes bounceUpOut {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@-o-keyframes bounceUpOut {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@keyframes bounceUpOut {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n", ""]);
+	
+	/***/ },
+	/* 11 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s bounceNormalIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s bounceNormalOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-bounce-normal';
+		var bounceNormal = { creator: creator, classname: classname };
+	
+		exports.bounceNormal = bounceNormal;
+	
+	/***/ },
+	/* 12 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s bounceDownIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s bounceDownOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-bounce-down';
+		var bounceDown = { creator: creator, classname: classname };
+	
+		exports.bounceDown = bounceDown;
+	
+	/***/ },
+	/* 13 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s bounceLeftIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s bounceLeftOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-bounce-left';
+		var bounceLeft = { creator: creator, classname: classname };
+		exports.bounceLeft = bounceLeft;
+	
+	/***/ },
+	/* 14 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s bounceRightIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s bounceRightOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-bounce-right';
+		var bounceRight = { creator: creator, classname: classname };
+		exports.bounceRight = bounceRight;
+	
+	/***/ },
+	/* 15 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s bounceUpIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s bounceUpOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-bounce-up';
+		var bounceUp = { creator: creator, classname: classname };
+		exports.bounceUp = bounceUp;
+	
+	/***/ },
+	/* 16 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(17);
+	
+		var _fadeNormal = __webpack_require__(19);
+	
+		var _fadeDown = __webpack_require__(53);
+	
+		var _fadeDownBig = __webpack_require__(54);
+	
+		var _fadeLeft = __webpack_require__(55);
+	
+		var _fadeLeftBig = __webpack_require__(56);
+	
+		var _fadeRight = __webpack_require__(57);
+	
+		var _fadeRightBig = __webpack_require__(58);
+	
+		var _fadeUp = __webpack_require__(59);
+	
+		var _fadeUpBig = __webpack_require__(60);
+	
+		var fades = [_fadeNormal.fadeNormal, _fadeDown.fadeDown, _fadeDownBig.fadeDownBig, _fadeLeft.fadeLeft, _fadeLeftBig.fadeLeftBig, _fadeRight.fadeRight, _fadeRightBig.fadeRightBig, _fadeUp.fadeUp, _fadeUpBig.fadeUpBig];
+		exports.fades = fades;
+	
+	/***/ },
+	/* 17 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(18);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./fade.styl", function() {
+					var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./fade.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 18 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, "/***********************************/\n/***************************************/\n/***********************************/\n/***********************************/\n/***************************************/\n/***************************************/\n/***************************************/\n/***************************************/\n@-moz-keyframes fadeNormalIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes fadeNormalIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-o-keyframes fadeNormalIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes fadeNormalIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-moz-keyframes fadeNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n@-webkit-keyframes fadeNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n@-o-keyframes fadeNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n@keyframes fadeNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n@-moz-keyframes fadeDownIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeDownIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeDownIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeDownIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeDownOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n@-webkit-keyframes fadeDownOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n@-o-keyframes fadeDownOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n@keyframes fadeDownOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n@-moz-keyframes fadeDownBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeDownBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeDownBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeDownBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeDownBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-webkit-keyframes fadeDownBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-o-keyframes fadeDownBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@keyframes fadeDownBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n@-moz-keyframes fadeUpIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeUpIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeUpIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeUpIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeUpOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n@-webkit-keyframes fadeUpOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n@-o-keyframes fadeUpOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n@keyframes fadeUpOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n@-moz-keyframes fadeUpBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeUpBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeUpBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeUpBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeUpBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@-webkit-keyframes fadeUpBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@-o-keyframes fadeUpBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@keyframes fadeUpBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n@-moz-keyframes fadeLeftIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeLeftIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeLeftIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeLeftIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeLeftOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n@-webkit-keyframes fadeLeftOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n@-o-keyframes fadeLeftOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n@keyframes fadeLeftOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n@-moz-keyframes fadeLeftBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeLeftBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeLeftBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeLeftBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeLeftBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-webkit-keyframes fadeLeftBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-o-keyframes fadeLeftBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@keyframes fadeLeftBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n@-moz-keyframes fadeRightIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeRightIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeRightIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeRightIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeRightOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n@-webkit-keyframes fadeRightOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n@-o-keyframes fadeRightOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n@keyframes fadeRightOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n@-moz-keyframes fadeRightBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-webkit-keyframes fadeRightBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-o-keyframes fadeRightBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes fadeRightBigIn {\n  0% {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n  100% {\n    opacity: 1;\n    transform: none;\n  }\n}\n@-moz-keyframes fadeRightBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@-webkit-keyframes fadeRightBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@-o-keyframes fadeRightBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n@keyframes fadeRightBigOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n", ""]);
+	
+	/***/ },
+	/* 19 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeNormalIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeNormalOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-normal';
+		var fadeNormal = { creator: creator, classname: classname };
+	
+		exports.fadeNormal = fadeNormal;
+	
+	/***/ },
+	/* 20 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseMerge = __webpack_require__(21),
+		    createAssigner = __webpack_require__(48);
+	
+		/**
+		 * Recursively merges own enumerable properties of the source object(s), that
+		 * don't resolve to `undefined` into the destination object. Subsequent sources
+		 * overwrite property assignments of previous sources. If `customizer` is
+		 * provided it's invoked to produce the merged values of the destination and
+		 * source properties. If `customizer` returns `undefined` merging is handled
+		 * by the method instead. The `customizer` is bound to `thisArg` and invoked
+		 * with five arguments: (objectValue, sourceValue, key, object, source).
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Object
+		 * @param {Object} object The destination object.
+		 * @param {...Object} [sources] The source objects.
+		 * @param {Function} [customizer] The function to customize assigned values.
+		 * @param {*} [thisArg] The `this` binding of `customizer`.
+		 * @returns {Object} Returns `object`.
+		 * @example
+		 *
+		 * var users = {
+		 *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
+		 * };
+		 *
+		 * var ages = {
+		 *   'data': [{ 'age': 36 }, { 'age': 40 }]
+		 * };
+		 *
+		 * _.merge(users, ages);
+		 * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
+		 *
+		 * // using a customizer callback
+		 * var object = {
+		 *   'fruits': ['apple'],
+		 *   'vegetables': ['beet']
+		 * };
+		 *
+		 * var other = {
+		 *   'fruits': ['banana'],
+		 *   'vegetables': ['carrot']
+		 * };
+		 *
+		 * _.merge(object, other, function(a, b) {
+		 *   if (_.isArray(a)) {
+		 *     return a.concat(b);
+		 *   }
+		 * });
+		 * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
+		 */
+		var merge = createAssigner(baseMerge);
+	
+		module.exports = merge;
+	
+	
+	/***/ },
+	/* 21 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var arrayEach = __webpack_require__(22),
+		    baseMergeDeep = __webpack_require__(23),
+		    isArray = __webpack_require__(31),
+		    isArrayLike = __webpack_require__(26),
+		    isObject = __webpack_require__(35),
+		    isObjectLike = __webpack_require__(30),
+		    isTypedArray = __webpack_require__(43),
+		    keys = __webpack_require__(46);
+	
+		/**
+		 * The base implementation of `_.merge` without support for argument juggling,
+		 * multiple sources, and `this` binding `customizer` functions.
+		 *
+		 * @private
+		 * @param {Object} object The destination object.
+		 * @param {Object} source The source object.
+		 * @param {Function} [customizer] The function to customize merged values.
+		 * @param {Array} [stackA=[]] Tracks traversed source objects.
+		 * @param {Array} [stackB=[]] Associates values with source counterparts.
+		 * @returns {Object} Returns `object`.
+		 */
+		function baseMerge(object, source, customizer, stackA, stackB) {
+		  if (!isObject(object)) {
+		    return object;
+		  }
+		  var isSrcArr = isArrayLike(source) && (isArray(source) || isTypedArray(source)),
+		      props = isSrcArr ? undefined : keys(source);
+	
+		  arrayEach(props || source, function(srcValue, key) {
+		    if (props) {
+		      key = srcValue;
+		      srcValue = source[key];
+		    }
+		    if (isObjectLike(srcValue)) {
+		      stackA || (stackA = []);
+		      stackB || (stackB = []);
+		      baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
+		    }
+		    else {
+		      var value = object[key],
+		          result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+		          isCommon = result === undefined;
+	
+		      if (isCommon) {
+		        result = srcValue;
+		      }
+		      if ((result !== undefined || (isSrcArr && !(key in object))) &&
+		          (isCommon || (result === result ? (result !== value) : (value === value)))) {
+		        object[key] = result;
+		      }
+		    }
+		  });
+		  return object;
+		}
+	
+		module.exports = baseMerge;
+	
+	
+	/***/ },
+	/* 22 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * A specialized version of `_.forEach` for arrays without support for callback
+		 * shorthands and `this` binding.
+		 *
+		 * @private
+		 * @param {Array} array The array to iterate over.
+		 * @param {Function} iteratee The function invoked per iteration.
+		 * @returns {Array} Returns `array`.
+		 */
+		function arrayEach(array, iteratee) {
+		  var index = -1,
+		      length = array.length;
+	
+		  while (++index < length) {
+		    if (iteratee(array[index], index, array) === false) {
+		      break;
+		    }
+		  }
+		  return array;
+		}
+	
+		module.exports = arrayEach;
+	
+	
+	/***/ },
+	/* 23 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var arrayCopy = __webpack_require__(24),
+		    isArguments = __webpack_require__(25),
+		    isArray = __webpack_require__(31),
+		    isArrayLike = __webpack_require__(26),
+		    isPlainObject = __webpack_require__(36),
+		    isTypedArray = __webpack_require__(43),
+		    toPlainObject = __webpack_require__(44);
+	
+		/**
+		 * A specialized version of `baseMerge` for arrays and objects which performs
+		 * deep merges and tracks traversed objects enabling objects with circular
+		 * references to be merged.
+		 *
+		 * @private
+		 * @param {Object} object The destination object.
+		 * @param {Object} source The source object.
+		 * @param {string} key The key of the value to merge.
+		 * @param {Function} mergeFunc The function to merge values.
+		 * @param {Function} [customizer] The function to customize merged values.
+		 * @param {Array} [stackA=[]] Tracks traversed source objects.
+		 * @param {Array} [stackB=[]] Associates values with source counterparts.
+		 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+		 */
+		function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stackB) {
+		  var length = stackA.length,
+		      srcValue = source[key];
+	
+		  while (length--) {
+		    if (stackA[length] == srcValue) {
+		      object[key] = stackB[length];
+		      return;
+		    }
+		  }
+		  var value = object[key],
+		      result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+		      isCommon = result === undefined;
+	
+		  if (isCommon) {
+		    result = srcValue;
+		    if (isArrayLike(srcValue) && (isArray(srcValue) || isTypedArray(srcValue))) {
+		      result = isArray(value)
+		        ? value
+		        : (isArrayLike(value) ? arrayCopy(value) : []);
+		    }
+		    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+		      result = isArguments(value)
+		        ? toPlainObject(value)
+		        : (isPlainObject(value) ? value : {});
+		    }
+		    else {
+		      isCommon = false;
+		    }
+		  }
+		  // Add the source value to the stack of traversed objects and associate
+		  // it with its merged value.
+		  stackA.push(srcValue);
+		  stackB.push(result);
+	
+		  if (isCommon) {
+		    // Recursively merge objects and arrays (susceptible to call stack limits).
+		    object[key] = mergeFunc(result, srcValue, customizer, stackA, stackB);
+		  } else if (result === result ? (result !== value) : (value === value)) {
+		    object[key] = result;
+		  }
+		}
+	
+		module.exports = baseMergeDeep;
+	
+	
+	/***/ },
+	/* 24 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * Copies the values of `source` to `array`.
+		 *
+		 * @private
+		 * @param {Array} source The array to copy values from.
+		 * @param {Array} [array=[]] The array to copy values to.
+		 * @returns {Array} Returns `array`.
+		 */
+		function arrayCopy(source, array) {
+		  var index = -1,
+		      length = source.length;
+	
+		  array || (array = Array(length));
+		  while (++index < length) {
+		    array[index] = source[index];
+		  }
+		  return array;
+		}
+	
+		module.exports = arrayCopy;
+	
+	
+	/***/ },
+	/* 25 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isArrayLike = __webpack_require__(26),
+		    isObjectLike = __webpack_require__(30);
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+	
+		/** Native method references. */
+		var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+	
+		/**
+		 * Checks if `value` is classified as an `arguments` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+		 * @example
+		 *
+		 * _.isArguments(function() { return arguments; }());
+		 * // => true
+		 *
+		 * _.isArguments([1, 2, 3]);
+		 * // => false
+		 */
+		function isArguments(value) {
+		  return isObjectLike(value) && isArrayLike(value) &&
+		    hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+		}
+	
+		module.exports = isArguments;
+	
+	
+	/***/ },
+	/* 26 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var getLength = __webpack_require__(27),
+		    isLength = __webpack_require__(29);
+	
+		/**
+		 * Checks if `value` is array-like.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+		 */
+		function isArrayLike(value) {
+		  return value != null && isLength(getLength(value));
+		}
+	
+		module.exports = isArrayLike;
+	
+	
+	/***/ },
+	/* 27 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseProperty = __webpack_require__(28);
+	
+		/**
+		 * Gets the "length" property value of `object`.
+		 *
+		 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+		 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @returns {*} Returns the "length" value.
+		 */
+		var getLength = baseProperty('length');
+	
+		module.exports = getLength;
+	
+	
+	/***/ },
+	/* 28 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * The base implementation of `_.property` without support for deep paths.
+		 *
+		 * @private
+		 * @param {string} key The key of the property to get.
+		 * @returns {Function} Returns the new function.
+		 */
+		function baseProperty(key) {
+		  return function(object) {
+		    return object == null ? undefined : object[key];
+		  };
+		}
+	
+		module.exports = baseProperty;
+	
+	
+	/***/ },
+	/* 29 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+		 * of an array-like value.
+		 */
+		var MAX_SAFE_INTEGER = 9007199254740991;
+	
+		/**
+		 * Checks if `value` is a valid array-like length.
+		 *
+		 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+		 */
+		function isLength(value) {
+		  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+		}
+	
+		module.exports = isLength;
+	
+	
+	/***/ },
+	/* 30 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * Checks if `value` is object-like.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+		 */
+		function isObjectLike(value) {
+		  return !!value && typeof value == 'object';
+		}
+	
+		module.exports = isObjectLike;
+	
+	
+	/***/ },
+	/* 31 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var getNative = __webpack_require__(32),
+		    isLength = __webpack_require__(29),
+		    isObjectLike = __webpack_require__(30);
+	
+		/** `Object#toString` result references. */
+		var arrayTag = '[object Array]';
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/**
+		 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+		 * of values.
+		 */
+		var objToString = objectProto.toString;
+	
+		/* Native method references for those with the same name as other `lodash` methods. */
+		var nativeIsArray = getNative(Array, 'isArray');
+	
+		/**
+		 * Checks if `value` is classified as an `Array` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+		 * @example
+		 *
+		 * _.isArray([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isArray(function() { return arguments; }());
+		 * // => false
+		 */
+		var isArray = nativeIsArray || function(value) {
+		  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
+		};
+	
+		module.exports = isArray;
+	
+	
+	/***/ },
+	/* 32 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isNative = __webpack_require__(33);
+	
+		/**
+		 * Gets the native function at `key` of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @param {string} key The key of the method to get.
+		 * @returns {*} Returns the function if it's native, else `undefined`.
+		 */
+		function getNative(object, key) {
+		  var value = object == null ? undefined : object[key];
+		  return isNative(value) ? value : undefined;
+		}
+	
+		module.exports = getNative;
+	
+	
+	/***/ },
+	/* 33 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isFunction = __webpack_require__(34),
+		    isObjectLike = __webpack_require__(30);
+	
+		/** Used to detect host constructors (Safari > 5). */
+		var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/** Used to resolve the decompiled source of functions. */
+		var fnToString = Function.prototype.toString;
+	
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+	
+		/** Used to detect if a method is native. */
+		var reIsNative = RegExp('^' +
+		  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+		  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+		);
+	
+		/**
+		 * Checks if `value` is a native function.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+		 * @example
+		 *
+		 * _.isNative(Array.prototype.push);
+		 * // => true
+		 *
+		 * _.isNative(_);
+		 * // => false
+		 */
+		function isNative(value) {
+		  if (value == null) {
+		    return false;
+		  }
+		  if (isFunction(value)) {
+		    return reIsNative.test(fnToString.call(value));
+		  }
+		  return isObjectLike(value) && reIsHostCtor.test(value);
+		}
+	
+		module.exports = isNative;
+	
+	
+	/***/ },
+	/* 34 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isObject = __webpack_require__(35);
+	
+		/** `Object#toString` result references. */
+		var funcTag = '[object Function]';
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/**
+		 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+		 * of values.
+		 */
+		var objToString = objectProto.toString;
+	
+		/**
+		 * Checks if `value` is classified as a `Function` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+		 * @example
+		 *
+		 * _.isFunction(_);
+		 * // => true
+		 *
+		 * _.isFunction(/abc/);
+		 * // => false
+		 */
+		function isFunction(value) {
+		  // The use of `Object#toString` avoids issues with the `typeof` operator
+		  // in older versions of Chrome and Safari which return 'function' for regexes
+		  // and Safari 8 which returns 'object' for typed array constructors.
+		  return isObject(value) && objToString.call(value) == funcTag;
+		}
+	
+		module.exports = isFunction;
+	
+	
+	/***/ },
+	/* 35 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+		 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+		 * @example
+		 *
+		 * _.isObject({});
+		 * // => true
+		 *
+		 * _.isObject([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isObject(1);
+		 * // => false
+		 */
+		function isObject(value) {
+		  // Avoid a V8 JIT bug in Chrome 19-20.
+		  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+		  var type = typeof value;
+		  return !!value && (type == 'object' || type == 'function');
+		}
+	
+		module.exports = isObject;
+	
+	
+	/***/ },
+	/* 36 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseForIn = __webpack_require__(37),
+		    isArguments = __webpack_require__(25),
+		    isObjectLike = __webpack_require__(30);
+	
+		/** `Object#toString` result references. */
+		var objectTag = '[object Object]';
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+	
+		/**
+		 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+		 * of values.
+		 */
+		var objToString = objectProto.toString;
+	
+		/**
+		 * Checks if `value` is a plain object, that is, an object created by the
+		 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+		 *
+		 * **Note:** This method assumes objects created by the `Object` constructor
+		 * have no inherited enumerable properties.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.a = 1;
+		 * }
+		 *
+		 * _.isPlainObject(new Foo);
+		 * // => false
+		 *
+		 * _.isPlainObject([1, 2, 3]);
+		 * // => false
+		 *
+		 * _.isPlainObject({ 'x': 0, 'y': 0 });
+		 * // => true
+		 *
+		 * _.isPlainObject(Object.create(null));
+		 * // => true
+		 */
+		function isPlainObject(value) {
+		  var Ctor;
+	
+		  // Exit early for non `Object` objects.
+		  if (!(isObjectLike(value) && objToString.call(value) == objectTag && !isArguments(value)) ||
+		      (!hasOwnProperty.call(value, 'constructor') && (Ctor = value.constructor, typeof Ctor == 'function' && !(Ctor instanceof Ctor)))) {
+		    return false;
+		  }
+		  // IE < 9 iterates inherited properties before own properties. If the first
+		  // iterated property is an object's own property then there are no inherited
+		  // enumerable properties.
+		  var result;
+		  // In most environments an object's own properties are iterated before
+		  // its inherited properties. If the last iterated property is an object's
+		  // own property then there are no inherited enumerable properties.
+		  baseForIn(value, function(subValue, key) {
+		    result = key;
+		  });
+		  return result === undefined || hasOwnProperty.call(value, result);
+		}
+	
+		module.exports = isPlainObject;
+	
+	
+	/***/ },
+	/* 37 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseFor = __webpack_require__(38),
+		    keysIn = __webpack_require__(41);
+	
+		/**
+		 * The base implementation of `_.forIn` without support for callback
+		 * shorthands and `this` binding.
+		 *
+		 * @private
+		 * @param {Object} object The object to iterate over.
+		 * @param {Function} iteratee The function invoked per iteration.
+		 * @returns {Object} Returns `object`.
+		 */
+		function baseForIn(object, iteratee) {
+		  return baseFor(object, iteratee, keysIn);
+		}
+	
+		module.exports = baseForIn;
+	
+	
+	/***/ },
+	/* 38 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var createBaseFor = __webpack_require__(39);
+	
+		/**
+		 * The base implementation of `baseForIn` and `baseForOwn` which iterates
+		 * over `object` properties returned by `keysFunc` invoking `iteratee` for
+		 * each property. Iteratee functions may exit iteration early by explicitly
+		 * returning `false`.
+		 *
+		 * @private
+		 * @param {Object} object The object to iterate over.
+		 * @param {Function} iteratee The function invoked per iteration.
+		 * @param {Function} keysFunc The function to get the keys of `object`.
+		 * @returns {Object} Returns `object`.
+		 */
+		var baseFor = createBaseFor();
+	
+		module.exports = baseFor;
+	
+	
+	/***/ },
+	/* 39 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var toObject = __webpack_require__(40);
+	
+		/**
+		 * Creates a base function for `_.forIn` or `_.forInRight`.
+		 *
+		 * @private
+		 * @param {boolean} [fromRight] Specify iterating from right to left.
+		 * @returns {Function} Returns the new base function.
+		 */
+		function createBaseFor(fromRight) {
+		  return function(object, iteratee, keysFunc) {
+		    var iterable = toObject(object),
+		        props = keysFunc(object),
+		        length = props.length,
+		        index = fromRight ? length : -1;
+	
+		    while ((fromRight ? index-- : ++index < length)) {
+		      var key = props[index];
+		      if (iteratee(iterable[key], key, iterable) === false) {
+		        break;
+		      }
+		    }
+		    return object;
+		  };
+		}
+	
+		module.exports = createBaseFor;
+	
+	
+	/***/ },
+	/* 40 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isObject = __webpack_require__(35);
+	
+		/**
+		 * Converts `value` to an object if it's not one.
+		 *
+		 * @private
+		 * @param {*} value The value to process.
+		 * @returns {Object} Returns the object.
+		 */
+		function toObject(value) {
+		  return isObject(value) ? value : Object(value);
+		}
+	
+		module.exports = toObject;
+	
+	
+	/***/ },
+	/* 41 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isArguments = __webpack_require__(25),
+		    isArray = __webpack_require__(31),
+		    isIndex = __webpack_require__(42),
+		    isLength = __webpack_require__(29),
+		    isObject = __webpack_require__(35);
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+	
+		/**
+		 * Creates an array of the own and inherited enumerable property names of `object`.
+		 *
+		 * **Note:** Non-object values are coerced to objects.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Object
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.a = 1;
+		 *   this.b = 2;
+		 * }
+		 *
+		 * Foo.prototype.c = 3;
+		 *
+		 * _.keysIn(new Foo);
+		 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+		 */
+		function keysIn(object) {
+		  if (object == null) {
+		    return [];
+		  }
+		  if (!isObject(object)) {
+		    object = Object(object);
+		  }
+		  var length = object.length;
+		  length = (length && isLength(length) &&
+		    (isArray(object) || isArguments(object)) && length) || 0;
+	
+		  var Ctor = object.constructor,
+		      index = -1,
+		      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
+		      result = Array(length),
+		      skipIndexes = length > 0;
+	
+		  while (++index < length) {
+		    result[index] = (index + '');
+		  }
+		  for (var key in object) {
+		    if (!(skipIndexes && isIndex(key, length)) &&
+		        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+		      result.push(key);
+		    }
+		  }
+		  return result;
+		}
+	
+		module.exports = keysIn;
+	
+	
+	/***/ },
+	/* 42 */
+	/***/ function(module, exports) {
+	
+		/** Used to detect unsigned integer values. */
+		var reIsUint = /^\d+$/;
+	
+		/**
+		 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+		 * of an array-like value.
+		 */
+		var MAX_SAFE_INTEGER = 9007199254740991;
+	
+		/**
+		 * Checks if `value` is a valid array-like index.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+		 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+		 */
+		function isIndex(value, length) {
+		  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+		  length = length == null ? MAX_SAFE_INTEGER : length;
+		  return value > -1 && value % 1 == 0 && value < length;
+		}
+	
+		module.exports = isIndex;
+	
+	
+	/***/ },
+	/* 43 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isLength = __webpack_require__(29),
+		    isObjectLike = __webpack_require__(30);
+	
+		/** `Object#toString` result references. */
+		var argsTag = '[object Arguments]',
+		    arrayTag = '[object Array]',
+		    boolTag = '[object Boolean]',
+		    dateTag = '[object Date]',
+		    errorTag = '[object Error]',
+		    funcTag = '[object Function]',
+		    mapTag = '[object Map]',
+		    numberTag = '[object Number]',
+		    objectTag = '[object Object]',
+		    regexpTag = '[object RegExp]',
+		    setTag = '[object Set]',
+		    stringTag = '[object String]',
+		    weakMapTag = '[object WeakMap]';
+	
+		var arrayBufferTag = '[object ArrayBuffer]',
+		    float32Tag = '[object Float32Array]',
+		    float64Tag = '[object Float64Array]',
+		    int8Tag = '[object Int8Array]',
+		    int16Tag = '[object Int16Array]',
+		    int32Tag = '[object Int32Array]',
+		    uint8Tag = '[object Uint8Array]',
+		    uint8ClampedTag = '[object Uint8ClampedArray]',
+		    uint16Tag = '[object Uint16Array]',
+		    uint32Tag = '[object Uint32Array]';
+	
+		/** Used to identify `toStringTag` values of typed arrays. */
+		var typedArrayTags = {};
+		typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+		typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+		typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+		typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+		typedArrayTags[uint32Tag] = true;
+		typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+		typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+		typedArrayTags[dateTag] = typedArrayTags[errorTag] =
+		typedArrayTags[funcTag] = typedArrayTags[mapTag] =
+		typedArrayTags[numberTag] = typedArrayTags[objectTag] =
+		typedArrayTags[regexpTag] = typedArrayTags[setTag] =
+		typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/**
+		 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+		 * of values.
+		 */
+		var objToString = objectProto.toString;
+	
+		/**
+		 * Checks if `value` is classified as a typed array.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+		 * @example
+		 *
+		 * _.isTypedArray(new Uint8Array);
+		 * // => true
+		 *
+		 * _.isTypedArray([]);
+		 * // => false
+		 */
+		function isTypedArray(value) {
+		  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[objToString.call(value)];
+		}
+	
+		module.exports = isTypedArray;
+	
+	
+	/***/ },
+	/* 44 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseCopy = __webpack_require__(45),
+		    keysIn = __webpack_require__(41);
+	
+		/**
+		 * Converts `value` to a plain object flattening inherited enumerable
+		 * properties of `value` to own properties of the plain object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to convert.
+		 * @returns {Object} Returns the converted plain object.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.b = 2;
+		 * }
+		 *
+		 * Foo.prototype.c = 3;
+		 *
+		 * _.assign({ 'a': 1 }, new Foo);
+		 * // => { 'a': 1, 'b': 2 }
+		 *
+		 * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+		 * // => { 'a': 1, 'b': 2, 'c': 3 }
+		 */
+		function toPlainObject(value) {
+		  return baseCopy(value, keysIn(value));
+		}
+	
+		module.exports = toPlainObject;
+	
+	
+	/***/ },
+	/* 45 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * Copies properties of `source` to `object`.
+		 *
+		 * @private
+		 * @param {Object} source The object to copy properties from.
+		 * @param {Array} props The property names to copy.
+		 * @param {Object} [object={}] The object to copy properties to.
+		 * @returns {Object} Returns `object`.
+		 */
+		function baseCopy(source, props, object) {
+		  object || (object = {});
+	
+		  var index = -1,
+		      length = props.length;
+	
+		  while (++index < length) {
+		    var key = props[index];
+		    object[key] = source[key];
+		  }
+		  return object;
+		}
+	
+		module.exports = baseCopy;
+	
+	
+	/***/ },
+	/* 46 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var getNative = __webpack_require__(32),
+		    isArrayLike = __webpack_require__(26),
+		    isObject = __webpack_require__(35),
+		    shimKeys = __webpack_require__(47);
+	
+		/* Native method references for those with the same name as other `lodash` methods. */
+		var nativeKeys = getNative(Object, 'keys');
+	
+		/**
+		 * Creates an array of the own enumerable property names of `object`.
+		 *
+		 * **Note:** Non-object values are coerced to objects. See the
+		 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
+		 * for more details.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Object
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.a = 1;
+		 *   this.b = 2;
+		 * }
+		 *
+		 * Foo.prototype.c = 3;
+		 *
+		 * _.keys(new Foo);
+		 * // => ['a', 'b'] (iteration order is not guaranteed)
+		 *
+		 * _.keys('hi');
+		 * // => ['0', '1']
+		 */
+		var keys = !nativeKeys ? shimKeys : function(object) {
+		  var Ctor = object == null ? undefined : object.constructor;
+		  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
+		      (typeof object != 'function' && isArrayLike(object))) {
+		    return shimKeys(object);
+		  }
+		  return isObject(object) ? nativeKeys(object) : [];
+		};
+	
+		module.exports = keys;
+	
+	
+	/***/ },
+	/* 47 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isArguments = __webpack_require__(25),
+		    isArray = __webpack_require__(31),
+		    isIndex = __webpack_require__(42),
+		    isLength = __webpack_require__(29),
+		    keysIn = __webpack_require__(41);
+	
+		/** Used for native method references. */
+		var objectProto = Object.prototype;
+	
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+	
+		/**
+		 * A fallback implementation of `Object.keys` which creates an array of the
+		 * own enumerable property names of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names.
+		 */
+		function shimKeys(object) {
+		  var props = keysIn(object),
+		      propsLength = props.length,
+		      length = propsLength && object.length;
+	
+		  var allowIndexes = !!length && isLength(length) &&
+		    (isArray(object) || isArguments(object));
+	
+		  var index = -1,
+		      result = [];
+	
+		  while (++index < propsLength) {
+		    var key = props[index];
+		    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
+		      result.push(key);
+		    }
+		  }
+		  return result;
+		}
+	
+		module.exports = shimKeys;
+	
+	
+	/***/ },
+	/* 48 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var bindCallback = __webpack_require__(49),
+		    isIterateeCall = __webpack_require__(51),
+		    restParam = __webpack_require__(52);
+	
+		/**
+		 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
+		 *
+		 * @private
+		 * @param {Function} assigner The function to assign values.
+		 * @returns {Function} Returns the new assigner function.
+		 */
+		function createAssigner(assigner) {
+		  return restParam(function(object, sources) {
+		    var index = -1,
+		        length = object == null ? 0 : sources.length,
+		        customizer = length > 2 ? sources[length - 2] : undefined,
+		        guard = length > 2 ? sources[2] : undefined,
+		        thisArg = length > 1 ? sources[length - 1] : undefined;
+	
+		    if (typeof customizer == 'function') {
+		      customizer = bindCallback(customizer, thisArg, 5);
+		      length -= 2;
+		    } else {
+		      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+		      length -= (customizer ? 1 : 0);
+		    }
+		    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+		      customizer = length < 3 ? undefined : customizer;
+		      length = 1;
+		    }
+		    while (++index < length) {
+		      var source = sources[index];
+		      if (source) {
+		        assigner(object, source, customizer);
+		      }
+		    }
+		    return object;
+		  });
+		}
+	
+		module.exports = createAssigner;
+	
+	
+	/***/ },
+	/* 49 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var identity = __webpack_require__(50);
+	
+		/**
+		 * A specialized version of `baseCallback` which only supports `this` binding
+		 * and specifying the number of arguments to provide to `func`.
+		 *
+		 * @private
+		 * @param {Function} func The function to bind.
+		 * @param {*} thisArg The `this` binding of `func`.
+		 * @param {number} [argCount] The number of arguments to provide to `func`.
+		 * @returns {Function} Returns the callback.
+		 */
+		function bindCallback(func, thisArg, argCount) {
+		  if (typeof func != 'function') {
+		    return identity;
+		  }
+		  if (thisArg === undefined) {
+		    return func;
+		  }
+		  switch (argCount) {
+		    case 1: return function(value) {
+		      return func.call(thisArg, value);
+		    };
+		    case 3: return function(value, index, collection) {
+		      return func.call(thisArg, value, index, collection);
+		    };
+		    case 4: return function(accumulator, value, index, collection) {
+		      return func.call(thisArg, accumulator, value, index, collection);
+		    };
+		    case 5: return function(value, other, key, object, source) {
+		      return func.call(thisArg, value, other, key, object, source);
+		    };
+		  }
+		  return function() {
+		    return func.apply(thisArg, arguments);
+		  };
+		}
+	
+		module.exports = bindCallback;
+	
+	
+	/***/ },
+	/* 50 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * This method returns the first argument provided to it.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Utility
+		 * @param {*} value Any value.
+		 * @returns {*} Returns `value`.
+		 * @example
+		 *
+		 * var object = { 'user': 'fred' };
+		 *
+		 * _.identity(object) === object;
+		 * // => true
+		 */
+		function identity(value) {
+		  return value;
+		}
+	
+		module.exports = identity;
+	
+	
+	/***/ },
+	/* 51 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var isArrayLike = __webpack_require__(26),
+		    isIndex = __webpack_require__(42),
+		    isObject = __webpack_require__(35);
+	
+		/**
+		 * Checks if the provided arguments are from an iteratee call.
+		 *
+		 * @private
+		 * @param {*} value The potential iteratee value argument.
+		 * @param {*} index The potential iteratee index or key argument.
+		 * @param {*} object The potential iteratee object argument.
+		 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
+		 */
+		function isIterateeCall(value, index, object) {
+		  if (!isObject(object)) {
+		    return false;
+		  }
+		  var type = typeof index;
+		  if (type == 'number'
+		      ? (isArrayLike(object) && isIndex(index, object.length))
+		      : (type == 'string' && index in object)) {
+		    var other = object[index];
+		    return value === value ? (value === other) : (other !== other);
+		  }
+		  return false;
+		}
+	
+		module.exports = isIterateeCall;
+	
+	
+	/***/ },
+	/* 52 */
+	/***/ function(module, exports) {
+	
+		/** Used as the `TypeError` message for "Functions" methods. */
+		var FUNC_ERROR_TEXT = 'Expected a function';
+	
+		/* Native method references for those with the same name as other `lodash` methods. */
+		var nativeMax = Math.max;
+	
+		/**
+		 * Creates a function that invokes `func` with the `this` binding of the
+		 * created function and arguments from `start` and beyond provided as an array.
+		 *
+		 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/Web/JavaScript/Reference/Functions/rest_parameters).
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Function
+		 * @param {Function} func The function to apply a rest parameter to.
+		 * @param {number} [start=func.length-1] The start position of the rest parameter.
+		 * @returns {Function} Returns the new function.
+		 * @example
+		 *
+		 * var say = _.restParam(function(what, names) {
+		 *   return what + ' ' + _.initial(names).join(', ') +
+		 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+		 * });
+		 *
+		 * say('hello', 'fred', 'barney', 'pebbles');
+		 * // => 'hello fred, barney, & pebbles'
+		 */
+		function restParam(func, start) {
+		  if (typeof func != 'function') {
+		    throw new TypeError(FUNC_ERROR_TEXT);
+		  }
+		  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+		  return function() {
+		    var args = arguments,
+		        index = -1,
+		        length = nativeMax(args.length - start, 0),
+		        rest = Array(length);
+	
+		    while (++index < length) {
+		      rest[index] = args[start + index];
+		    }
+		    switch (start) {
+		      case 0: return func.call(this, rest);
+		      case 1: return func.call(this, args[0], rest);
+		      case 2: return func.call(this, args[0], args[1], rest);
+		    }
+		    var otherArgs = Array(start + 1);
+		    index = -1;
+		    while (++index < start) {
+		      otherArgs[index] = args[index];
+		    }
+		    otherArgs[start] = rest;
+		    return func.apply(this, otherArgs);
+		  };
+		}
+	
+		module.exports = restParam;
+	
+	
+	/***/ },
+	/* 53 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeDownIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeDownOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-down';
+		var fadeDown = { creator: creator, classname: classname };
+	
+		exports.fadeDown = fadeDown;
+	
+	/***/ },
+	/* 54 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeDownBigIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeDownBigOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-down-big';
+		var fadeDownBig = { creator: creator, classname: classname };
+	
+		exports.fadeDownBig = fadeDownBig;
+	
+	/***/ },
+	/* 55 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeLeftIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeLeftOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-left';
+		var fadeLeft = { creator: creator, classname: classname };
+	
+		exports.fadeLeft = fadeLeft;
+	
+	/***/ },
+	/* 56 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeLeftBigIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeLeftBigOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-left-big';
+		var fadeLeftBig = { creator: creator, classname: classname };
+	
+		exports.fadeLeftBig = fadeLeftBig;
+	
+	/***/ },
+	/* 57 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeRightIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeRightOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-right';
+		var fadeRight = { creator: creator, classname: classname };
+	
+		exports.fadeRight = fadeRight;
+	
+	/***/ },
+	/* 58 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeRightBigIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeRightBigOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-right-big';
+		var fadeRightBig = { creator: creator, classname: classname };
+	
+		exports.fadeRightBig = fadeRightBig;
+	
+	/***/ },
+	/* 59 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeUpIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeUpOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-up';
+		var fadeUp = { creator: creator, classname: classname };
+	
+		exports.fadeUp = fadeUp;
+	
+	/***/ },
+	/* 60 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s fadeUpBigIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s fadeUpBigOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-fade-up-big';
+		var fadeUpBig = { creator: creator, classname: classname };
+	
+		exports.fadeUpBig = fadeUpBig;
+	
+	/***/ },
+	/* 61 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(62);
+	
+		var _zoomNormal = __webpack_require__(64);
+	
+		var _zoomDown = __webpack_require__(65);
+	
+		var _zoomUp = __webpack_require__(66);
+	
+		var _zoomRight = __webpack_require__(67);
+	
+		var _zoomLeft = __webpack_require__(68);
+	
+		var zooms = [_zoomNormal.zoomNormal, _zoomDown.zoomDown, _zoomUp.zoomUp, _zoomRight.zoomRight, _zoomLeft.zoomLeft];
+		exports.zooms = zooms;
+	
+	/***/ },
+	/* 62 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(63);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./zoom.styl", function() {
+					var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./zoom.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 63 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, "/**\n * Zoom animations\n */\n/********************************************/\n/**************************************************/\n/*******************************************************/\n/*******************************************************/\n@-moz-keyframes zoomNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  50% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes zoomNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  50% {\n    opacity: 1;\n  }\n}\n@-o-keyframes zoomNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  50% {\n    opacity: 1;\n  }\n}\n@keyframes zoomNormalIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  50% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes zoomNormalOut {\n  0% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@-webkit-keyframes zoomNormalOut {\n  0% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@-o-keyframes zoomNormalOut {\n  0% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes zoomNormalOut {\n  0% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3);\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@-moz-keyframes zoomDownIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n  }\n}\n@-webkit-keyframes zoomDownIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n  }\n}\n@-o-keyframes zoomDownIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n  }\n}\n@keyframes zoomDownIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n  }\n}\n@-moz-keyframes zoomDownOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-webkit-keyframes zoomDownOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-o-keyframes zoomDownOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@keyframes zoomDownOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-moz-keyframes zoomUpIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-webkit-keyframes zoomUpIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-o-keyframes zoomUpIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@keyframes zoomUpIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-moz-keyframes zoomUpOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-webkit-keyframes zoomUpOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-o-keyframes zoomUpOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@keyframes zoomUpOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  100% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-moz-keyframes zoomRightIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-webkit-keyframes zoomRightIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-o-keyframes zoomRightIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@keyframes zoomRightIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-moz-keyframes zoomRightOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n@-webkit-keyframes zoomRightOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n@-o-keyframes zoomRightOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n@keyframes zoomRightOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n@-moz-keyframes zoomLeftIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-webkit-keyframes zoomLeftIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-o-keyframes zoomLeftIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@keyframes zoomLeftIn {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  }\n  60% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);\n  }\n}\n@-moz-keyframes zoomLeftOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n@-webkit-keyframes zoomLeftOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n@-o-keyframes zoomLeftOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n@keyframes zoomLeftOut {\n  40% {\n    opacity: 1;\n    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n", ""]);
+	
+	/***/ },
+	/* 64 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s zoomNormalIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s zoomNormalOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-zoom-normal';
+		var zoomNormal = { creator: creator, classname: classname };
+	
+		exports.zoomNormal = zoomNormal;
+	
+	/***/ },
+	/* 65 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s zoomDownIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s zoomDownOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-zoom-down';
+		var zoomDown = { creator: creator, classname: classname };
+	
+		exports.zoomDown = zoomDown;
+	
+	/***/ },
+	/* 66 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s zoomUpIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s zoomUpOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-zoom-up';
+		var zoomUp = { creator: creator, classname: classname };
+	
+		exports.zoomUp = zoomUp;
+	
+	/***/ },
+	/* 67 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s zoomRightIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s zoomRightOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-zoom-right';
+		var zoomRight = { creator: creator, classname: classname };
+	
+		exports.zoomRight = zoomRight;
+	
+	/***/ },
+	/* 68 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s zoomLeftIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s zoomLeftOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-zoom-left';
+		var zoomLeft = { creator: creator, classname: classname };
+	
+		exports.zoomLeft = zoomLeft;
+	
+	/***/ },
+	/* 69 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(70);
+	
+		var _lightSpeedNormal = __webpack_require__(72);
+	
+		var lightSpeeds = [_lightSpeedNormal.lightSpeed];
+		exports.lightSpeeds = lightSpeeds;
+	
+	/***/ },
+	/* 70 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(71);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./lightSpeed.styl", function() {
+					var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./lightSpeed.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 71 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, "@-moz-keyframes lightSpeedNormalIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes lightSpeedNormalIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n@-o-keyframes lightSpeedNormalIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n@keyframes lightSpeedNormalIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n@-moz-keyframes lightSpeedNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes lightSpeedNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n@-o-keyframes lightSpeedNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n@keyframes lightSpeedNormalOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n", ""]);
+	
+	/***/ },
+	/* 72 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s lightSpeedNormalIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s lightSpeedNormalOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-light-speed';
+		var lightSpeed = { creator: creator, classname: classname };
+	
+		exports.lightSpeed = lightSpeed;
+	
+	/***/ },
+	/* 73 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		__webpack_require__(74);
+	
+		var _rotateDownLeft = __webpack_require__(76);
+	
+		var _rotateDownRight = __webpack_require__(77);
+	
+		var _rotateUpLeft = __webpack_require__(78);
+	
+		var _rotateUpRight = __webpack_require__(79);
+	
+		var rotates = [_rotateDownLeft.rotateDownLeft, _rotateDownRight.rotateDownRight, _rotateUpLeft.rotateUpLeft, _rotateUpRight.rotateUpRight];
+		exports.rotates = rotates;
+	
+	/***/ },
+	/* 74 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(75);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(6)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./rotate.styl", function() {
+					var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./rotate.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 75 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(5)();
+		exports.push([module.id, "/**\n * ROTATES\n */\n@-moz-keyframes rotateDownLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes rotateDownLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-o-keyframes rotateDownLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@keyframes rotateDownLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-moz-keyframes rotateDownLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes rotateDownLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n@-o-keyframes rotateDownLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n@keyframes rotateDownLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n@-moz-keyframes rotateDownRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes rotateDownRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-o-keyframes rotateDownRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@keyframes rotateDownRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-moz-keyframes rotateDownRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes rotateDownRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-o-keyframes rotateDownRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@keyframes rotateDownRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-moz-keyframes rotateUpLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes rotateUpLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-o-keyframes rotateUpLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@keyframes rotateUpLeftIn {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-moz-keyframes rotateUpLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes rotateUpLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-o-keyframes rotateUpLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@keyframes rotateUpLeftOut {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n@-moz-keyframes rotateUpRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes rotateUpRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-o-keyframes rotateUpRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@keyframes rotateUpRightIn {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n@-moz-keyframes rotateUpRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes rotateUpRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n@-o-keyframes rotateUpRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n@keyframes rotateUpRightOut {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n", ""]);
+	
+	/***/ },
+	/* 76 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s rotateDownLeftIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s rotateDownLeftOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-rotate-down-left';
+		var rotateDownLeft = { creator: creator, classname: classname };
+	
+		exports.rotateDownLeft = rotateDownLeft;
+	
+	/***/ },
+	/* 77 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s rotateDownRightIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s rotateDownRightOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-rotate-down-right';
+		var rotateDownRight = { creator: creator, classname: classname };
+	
+		exports.rotateDownRight = rotateDownRight;
+	
+	/***/ },
+	/* 78 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s rotateUpLeftIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s rotateUpLeftOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-rotate-up-left';
+		var rotateUpLeft = { creator: creator, classname: classname };
+	
+		exports.rotateUpLeft = rotateUpLeft;
+	
+	/***/ },
+	/* 79 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		var creator = function creator($fxMakeAnimation) {
+	
+		  var enterAnimation = {
+		    keyframeStyle: '.1s rotateUpRightIn'
+		  };
+	
+		  var leaveAnimation = {
+		    keyframeStyle: '.1s rotateUpRightOut'
+		  };
+	
+		  return $fxMakeAnimation.create(enterAnimation, leaveAnimation);
+		};
+	
+		creator.$inject = ['$fxMakeAnimation'];
+	
+		var classname = '.fx-rotate-up-right';
+		var rotateUpRight = { creator: creator, classname: classname };
+	
+		exports.rotateUpRight = rotateUpRight;
+	
+	/***/ },
+	/* 80 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _fxHelp = __webpack_require__(81);
+	
+		var _fxMakeAnimation = __webpack_require__(86);
+	
+		var config = function config($animateProvider) {
+		  $animateProvider.classNameFilter(/fx-/);
+		};
+	
+		config.$inject = ['$animateProvider'];
+	
+		var utils = angular.module('ngFx.utils', []).factory('$$fx', _fxHelp.fxHelp).factory('$fxMakeAnimation', _fxMakeAnimation.fxMakeAnimation).name;
+		exports.utils = utils;
+	
+	/***/ },
+	/* 81 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashLangToArray = __webpack_require__(82);
+	
+		var _lodashLangToArray2 = _interopRequireDefault(_lodashLangToArray);
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		var _easings = __webpack_require__(85);
+	
+		/**
+		 * helper function to supply utility method for animations
+		 * is registed as the $$fx factory
+		 * @return {[Object]} public object of the methods to help with animations
+		 */
+		var fxHelp = function fxHelp($animateCss) {
+		  // group of similar animation events
+		  var similarEvents = ['enter', 'leave', 'move'];
+		  var classEvents = ['addClass', 'setClass', 'removeClass'];
+	
+		  var durationRegxpString = '(\\d+)';
+		  var durationRegxp = new RegExp(durationRegxpString);
+	
+		  /**
+		   * takes in a fx-{option} and creates a regexp for
+		   * checking against an element's classList
+		   * @param  {[String]} option the fx-{option}
+		   * @param  {[Boolean]} text   should the regexp loof for alphabet chars after the option
+		   *                            ex: fx-ease-back
+		   * @return {[Regexp]}        the composed regexp
+		   */
+		  var makeFxOptionRegexp = function makeFxOptionRegexp(option, text) {
+		    var afterOption = text ? '[A-Za-z]' : durationRegxpString;
+		    return new RegExp('fx\\-' + option + '\\-' + afterOption);
+		  };
+	
+		  /**
+		   * given a css classname, will check to see if it
+		   * is trying to describe the duration of the animation
+		   * with fx-speed-{num in ms}
+		   * @param  {[String]} className a css classname
+		   * @return {[Number]}           duration in seconds
+		   */
+		  var getDuration = function getDuration(className) {
+		    // default to half a second duration
+	
+		    var duration = 500;
+	
+		    // allow usres to use fx-speed|dur|duration-{num in ms}
+		    if (makeFxOptionRegexp('(speed|dur|duration)').test(className)) {
+		      try {
+		        duration = parseInt(className.match(durationRegxp)[0]);
+		      } catch (e) {}
+		    }
+	
+		    // convert ms to seconds for $animateCss to consume
+		    return duration / 1000;
+		  };
+	
+		  /**
+		   * given a css classname, it will check to see if it
+		   * trying to describe the stagger delay if any for the animation
+		   * with fx-stagger-{num in ms}
+		   * @param  {[String]} className css class name
+		   * @return {[Number]}           number in seconds
+		   */
+		  var getStagger = function getStagger(className) {
+		    if (makeFxOptionRegexp('stagger').test(className)) {
+		      var stagger = undefined;
+		      try {
+		        stagger = parseInt(className.match(durationRegxp)[0]);
+		      } catch (e) {
+		        return;
+		      }
+		      // convert ms to seconds for $animateCss to consume
+		      return stagger / 1000;
+		    }
+		  };
+	
+		  /**
+		   * takes a class name and checks to see if it is trying
+		   * to describe an ease type
+		   * @param  {String} className css class name
+		   * @return {Array}           bezier curve coordinates
+		   */
+		  var getEase = function getEase(className) {
+		    var bezier = '';
+	
+		    if (!makeFxOptionRegexp('ease', true).test(className)) {
+		      return;
+		    } else {
+		      var easeOptions = className.slice(8);
+	
+		      var _easeOptions$split = easeOptions.split('-');
+	
+		      var _easeOptions$split2 = _slicedToArray(_easeOptions$split, 3);
+	
+		      var ease = _easeOptions$split2[0];
+		      var dir = _easeOptions$split2[1];
+		      var _easeOptions$split2$2 = _easeOptions$split2[2];
+		      var dir2 = _easeOptions$split2$2 === undefined ? '' : _easeOptions$split2$2;
+	
+		      var curve = _easings.curves[ease.trim()];
+	
+		      if (!curve) {
+		        return;
+		      }
+	
+		      if (!dir) {
+		        return curve.inout;
+		      } else {
+		        var direction = ('' + dir + dir2).trim();
+		        return curve[direction];
+		      }
+		    }
+		  };
+	
+		  /**
+		   * takes an element, parses the className, and returns
+		   * an object of defined fx options
+		   * @param  {DOM node} element
+		   * @return {Object}           the fx options object for the element
+		   */
+		  var parseClassList = function parseClassList(element) {
+		    var list = (0, _lodashLangToArray2['default'])(element[0].classList);
+		    var classList = list.join(' ');
+	
+		    // will capture anything with `fx-thing-thing`
+		    var fxRegexp = /(fx\-\w+\-(.*?)(\s|$))/g;
+	
+		    var options = classList.match(fxRegexp);
+	
+		    var results = options.reduce(function (_results, option) {
+		      if (/stagger/.test(option)) {
+	
+		        var stagger = getStagger(option);
+		        _results.stagger = stagger ? stagger : undefined;
+		      } else if (/ease/.test(option)) {
+		        var ease = getEase(option);
+	
+		        if (ease) {
+		          _results.easing = 'cubic-bezier(' + ease.join() + ')';
+		        }
+		      } else if (/(speed|dur|duration)/.test(option)) {
+		        _results.duration = getDuration(option);
+		      }
+	
+		      return _results;
+		      // default to half a second animations
+		    }, { duration: .5 });
+	
+		    return results;
+		  };
+	
+		  /**
+		   * helper function to build ngAnimate animation object using $animateCss
+		   * @param  {[DOM NODE]} element   the element that will be animated
+		   * @param  {[Object]}   animation the object defining the animation, using
+		   *                                $animateCss config
+		   * @return {[Promise]}           whatver $animateCss returns
+		   */
+		  var buildAnimation = function buildAnimation(element, animation) {
+		    var opts = parseClassList(element);
+		    var animateInstructions = (0, _lodashObjectMerge2['default'])(animation, opts);
+		    return $animateCss(element, animateInstructions);
+		  };
+	
+		  /**
+		   * helper function to buid the `enter`, `leave`, and `move` animation
+		   * functions for ngAnimate to consume
+		   * @param  {Object} animationConfigs all the animation objects for the
+		   *                                     `enter`, `leave`, and `move` events
+		   * @return {Object}                  animation object to feed ngAnimate
+		   */
+		  var createAnimationsForSimilarEvents = function createAnimationsForSimilarEvents(animationConfigs) {
+		    return similarEvents.reduce(function (result, event) {
+		      var animationConfig = animationConfigs[event];
+		      if (animationConfig) {
+		        result[event] = function (element, done) {
+		          return buildAnimation(element, animationConfig);
+		        };
+		      }
+	
+		      return result;
+		    }, {});
+		  };
+	
+		  /**
+		   * helper function to build `addClass` and `removeClass` animation
+		   * functions for ngAnimate to consume
+		   * @param  {Object} animationConfigs all the animations for the
+		   *                                   `addClass` and `removeClass` events
+		   * @return {Object}                  animation object to feed ngAnimate
+		   */
+		  var createClassAnimations = function createClassAnimations(animationConfigs) {
+		    return classEvents.reduce(function (result, event) {
+		      var animationConfig = animationConfigs[event];
+	
+		      if (animationConfig) {
+		        result[event] = function (element, className, done) {
+		          if (/(addClass|removeClass)/.test(event)) {
+		            return buildAnimation(element, animationConfig);
+		          } else {
+		            done();
+		          }
+		        };
+		      }
+	
+		      return result;
+		    }, {});
+		  };
+	
+		  // expose all for testing purposes
+		  return {
+		    getStagger: getStagger,
+		    getDuration: getDuration,
+		    getEase: getEase,
+		    parseClassList: parseClassList,
+		    buildAnimation: buildAnimation,
+		    createAnimationsForSimilarEvents: createAnimationsForSimilarEvents,
+		    createClassAnimations: createClassAnimations
+		  };
+		};
+	
+		fxHelp.$inject = ['$animateCss'];
+		exports.fxHelp = fxHelp;
+	
+	/***/ },
+	/* 82 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var arrayCopy = __webpack_require__(24),
+		    getLength = __webpack_require__(27),
+		    isLength = __webpack_require__(29),
+		    values = __webpack_require__(83);
+	
+		/**
+		 * Converts `value` to an array.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Lang
+		 * @param {*} value The value to convert.
+		 * @returns {Array} Returns the converted array.
+		 * @example
+		 *
+		 * (function() {
+		 *   return _.toArray(arguments).slice(1);
+		 * }(1, 2, 3));
+		 * // => [2, 3]
+		 */
+		function toArray(value) {
+		  var length = value ? getLength(value) : 0;
+		  if (!isLength(length)) {
+		    return values(value);
+		  }
+		  if (!length) {
+		    return [];
+		  }
+		  return arrayCopy(value);
+		}
+	
+		module.exports = toArray;
+	
+	
+	/***/ },
+	/* 83 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var baseValues = __webpack_require__(84),
+		    keys = __webpack_require__(46);
+	
+		/**
+		 * Creates an array of the own enumerable property values of `object`.
+		 *
+		 * **Note:** Non-object values are coerced to objects.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @category Object
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property values.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.a = 1;
+		 *   this.b = 2;
+		 * }
+		 *
+		 * Foo.prototype.c = 3;
+		 *
+		 * _.values(new Foo);
+		 * // => [1, 2] (iteration order is not guaranteed)
+		 *
+		 * _.values('hi');
+		 * // => ['h', 'i']
+		 */
+		function values(object) {
+		  return baseValues(object, keys(object));
+		}
+	
+		module.exports = values;
+	
+	
+	/***/ },
+	/* 84 */
+	/***/ function(module, exports) {
+	
+		/**
+		 * The base implementation of `_.values` and `_.valuesIn` which creates an
+		 * array of `object` property values corresponding to the property names
+		 * of `props`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @param {Array} props The property names to get values for.
+		 * @returns {Object} Returns the array of property values.
+		 */
+		function baseValues(object, props) {
+		  var index = -1,
+		      length = props.length,
+		      result = Array(length);
+	
+		  while (++index < length) {
+		    result[index] = object[props[index]];
+		  }
+		  return result;
+		}
+	
+		module.exports = baseValues;
+	
+	
+	/***/ },
+	/* 85 */
+	/***/ function(module, exports) {
+	
+		"use strict";
+	
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		var curves = {
+		  back: {
+		    "in": [0.6, -0.28, 0.735, 0.045],
+		    out: [0.175, 0.885, 0.32, 1.275],
+		    inout: [0.68, -0.55, 0.265, 1.55]
+		  },
+	
+		  expo: {
+		    "in": [0.95, 0.05, 0.795, 0.035],
+		    out: [0.19, 1, 0.22, 1],
+		    inout: [1, 0, 0, 1]
+		  },
+	
+		  circ: {
+		    "in": [0.6, 0.04, 0.98, 0.335],
+		    out: [0.075, 0.82, 0.165, 1],
+		    inout: [0.785, 0.135, 0.15, 0.86]
+		  },
+	
+		  quint: {
+		    "in": [0.755, 0.05, 0.855, 0.06],
+		    out: [0.23, 1, 0.32, 1],
+		    inout: [0.86, 0, 0.07, 1]
+		  },
+	
+		  quart: {
+		    "in": [0.895, 0.03, 0.685, 0.22],
+		    out: [0.165, 0.84, 0.44, 1],
+		    inout: [0.77, 0, 0.175, 1]
+		  },
+	
+		  cubic: {
+		    "in": [0.55, 0.055, 0.675, 0.19],
+		    out: [0.215, 0.61, 0.355, 1],
+		    inout: [0.645, 0.045, 0.355, 1]
+		  },
+	
+		  quad: {
+		    "in": [0.55, 0.085, 0.68, 0.53],
+		    out: [0.25, 0.46, 0.45, 0.94],
+		    inout: [0.455, 0.03, 0.515, 0.955]
+		  },
+	
+		  sine: {
+		    "in": [0.47, 0, 0.745, 0.715],
+		    out: [0.39, 0.575, 0.565, 1],
+		    inout: [0.445, 0.05, 0.55, 0.95]
+		  }
+		};
+		exports.curves = curves;
+	
+	/***/ },
+	/* 86 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		var _lodashObjectMerge = __webpack_require__(20);
+	
+		var _lodashObjectMerge2 = _interopRequireDefault(_lodashObjectMerge);
+	
+		/**
+		 * factory function to help with the
+		 * basics of creating the events animaton
+		 * object for $animate to consume
+		 * @param  {[Object]} $animateCss part of ngAnimate
+		 * @param  {[Object]} $$fx     helper object to assist in getting
+		 *                                meta data from the element
+		 * @return {[Function]}           function used to pass in animation options from
+		 *                                the ngmodule.animation() methods
+		 */
+		var fxMakeAnimation = function fxMakeAnimation($animateCss, $$fx) {
+	
+		  /**
+		   * takes in different animation objects for each animation event
+		   * in ngAnimate. All are optional. The objects are given straight to
+		   * $animateCss after the element's classList is parsed for information
+		   * about duration and staggering
+		   * @param  {[Object]}  enter object describing the enter animation
+		   * @param  {[Object]}  leave object describing the leave animation
+		   * @param  {[Object]}  move  object describing the move animation
+		   * @param  {...[Object]} rest  rest of the objects for the other event type aniamtions
+		   * @return {[Object]}          the animation object for ngAnimate to consume
+		   */
+		  var create = function create(enter, leave, setClass) {
+		    var move = (0, _lodashObjectMerge2['default'])({}, enter);
+		    var addClass = (0, _lodashObjectMerge2['default'])({}, leave);
+		    var removeClass = (0, _lodashObjectMerge2['default'])({}, enter);
+	
+		    var ngAnimateConsumable = $$fx.createAnimationsForSimilarEvents({ enter: enter, leave: leave, move: move });
+	
+		    var classConsumables = $$fx.createClassAnimations({ addClass: addClass, removeClass: removeClass });
+	
+		    ngAnimateConsumable = (0, _lodashObjectMerge2['default'])(ngAnimateConsumable, classConsumables);
+	
+		    return ngAnimateConsumable;
+		  };
+	
+		  return { create: create };
+		};
+	
+		fxMakeAnimation.$inject = ['$animateCss', '$$fx'];
+	
+		exports.fxMakeAnimation = fxMakeAnimation;
+	
+	/***/ }
+	/******/ ])
+	});
+	;
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(33);
+	module.exports = 'ngAnimate';
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license AngularJS v1.5.5
+	 * (c) 2010-2016 Google, Inc. http://angularjs.org
+	 * License: MIT
+	 */
+	(function(window, angular) {'use strict';
+	
+	/* jshint ignore:start */
+	var noop        = angular.noop;
+	var copy        = angular.copy;
+	var extend      = angular.extend;
+	var jqLite      = angular.element;
+	var forEach     = angular.forEach;
+	var isArray     = angular.isArray;
+	var isString    = angular.isString;
+	var isObject    = angular.isObject;
+	var isUndefined = angular.isUndefined;
+	var isDefined   = angular.isDefined;
+	var isFunction  = angular.isFunction;
+	var isElement   = angular.isElement;
+	
+	var ELEMENT_NODE = 1;
+	var COMMENT_NODE = 8;
+	
+	var ADD_CLASS_SUFFIX = '-add';
+	var REMOVE_CLASS_SUFFIX = '-remove';
+	var EVENT_CLASS_PREFIX = 'ng-';
+	var ACTIVE_CLASS_SUFFIX = '-active';
+	var PREPARE_CLASS_SUFFIX = '-prepare';
+	
+	var NG_ANIMATE_CLASSNAME = 'ng-animate';
+	var NG_ANIMATE_CHILDREN_DATA = '$$ngAnimateChildren';
+	
+	// Detect proper transitionend/animationend event names.
+	var CSS_PREFIX = '', TRANSITION_PROP, TRANSITIONEND_EVENT, ANIMATION_PROP, ANIMATIONEND_EVENT;
+	
+	// If unprefixed events are not supported but webkit-prefixed are, use the latter.
+	// Otherwise, just use W3C names, browsers not supporting them at all will just ignore them.
+	// Note: Chrome implements `window.onwebkitanimationend` and doesn't implement `window.onanimationend`
+	// but at the same time dispatches the `animationend` event and not `webkitAnimationEnd`.
+	// Register both events in case `window.onanimationend` is not supported because of that,
+	// do the same for `transitionend` as Safari is likely to exhibit similar behavior.
+	// Also, the only modern browser that uses vendor prefixes for transitions/keyframes is webkit
+	// therefore there is no reason to test anymore for other vendor prefixes:
+	// http://caniuse.com/#search=transition
+	if (isUndefined(window.ontransitionend) && isDefined(window.onwebkittransitionend)) {
+	  CSS_PREFIX = '-webkit-';
+	  TRANSITION_PROP = 'WebkitTransition';
+	  TRANSITIONEND_EVENT = 'webkitTransitionEnd transitionend';
+	} else {
+	  TRANSITION_PROP = 'transition';
+	  TRANSITIONEND_EVENT = 'transitionend';
+	}
+	
+	if (isUndefined(window.onanimationend) && isDefined(window.onwebkitanimationend)) {
+	  CSS_PREFIX = '-webkit-';
+	  ANIMATION_PROP = 'WebkitAnimation';
+	  ANIMATIONEND_EVENT = 'webkitAnimationEnd animationend';
+	} else {
+	  ANIMATION_PROP = 'animation';
+	  ANIMATIONEND_EVENT = 'animationend';
+	}
+	
+	var DURATION_KEY = 'Duration';
+	var PROPERTY_KEY = 'Property';
+	var DELAY_KEY = 'Delay';
+	var TIMING_KEY = 'TimingFunction';
+	var ANIMATION_ITERATION_COUNT_KEY = 'IterationCount';
+	var ANIMATION_PLAYSTATE_KEY = 'PlayState';
+	var SAFE_FAST_FORWARD_DURATION_VALUE = 9999;
+	
+	var ANIMATION_DELAY_PROP = ANIMATION_PROP + DELAY_KEY;
+	var ANIMATION_DURATION_PROP = ANIMATION_PROP + DURATION_KEY;
+	var TRANSITION_DELAY_PROP = TRANSITION_PROP + DELAY_KEY;
+	var TRANSITION_DURATION_PROP = TRANSITION_PROP + DURATION_KEY;
+	
+	var isPromiseLike = function(p) {
+	  return p && p.then ? true : false;
+	};
+	
+	var ngMinErr = angular.$$minErr('ng');
+	function assertArg(arg, name, reason) {
+	  if (!arg) {
+	    throw ngMinErr('areq', "Argument '{0}' is {1}", (name || '?'), (reason || "required"));
+	  }
+	  return arg;
+	}
+	
+	function mergeClasses(a,b) {
+	  if (!a && !b) return '';
+	  if (!a) return b;
+	  if (!b) return a;
+	  if (isArray(a)) a = a.join(' ');
+	  if (isArray(b)) b = b.join(' ');
+	  return a + ' ' + b;
+	}
+	
+	function packageStyles(options) {
+	  var styles = {};
+	  if (options && (options.to || options.from)) {
+	    styles.to = options.to;
+	    styles.from = options.from;
+	  }
+	  return styles;
+	}
+	
+	function pendClasses(classes, fix, isPrefix) {
+	  var className = '';
+	  classes = isArray(classes)
+	      ? classes
+	      : classes && isString(classes) && classes.length
+	          ? classes.split(/\s+/)
+	          : [];
+	  forEach(classes, function(klass, i) {
+	    if (klass && klass.length > 0) {
+	      className += (i > 0) ? ' ' : '';
+	      className += isPrefix ? fix + klass
+	                            : klass + fix;
+	    }
+	  });
+	  return className;
+	}
+	
+	function removeFromArray(arr, val) {
+	  var index = arr.indexOf(val);
+	  if (val >= 0) {
+	    arr.splice(index, 1);
+	  }
+	}
+	
+	function stripCommentsFromElement(element) {
+	  if (element instanceof jqLite) {
+	    switch (element.length) {
+	      case 0:
+	        return [];
+	        break;
+	
+	      case 1:
+	        // there is no point of stripping anything if the element
+	        // is the only element within the jqLite wrapper.
+	        // (it's important that we retain the element instance.)
+	        if (element[0].nodeType === ELEMENT_NODE) {
+	          return element;
+	        }
+	        break;
+	
+	      default:
+	        return jqLite(extractElementNode(element));
+	        break;
+	    }
+	  }
+	
+	  if (element.nodeType === ELEMENT_NODE) {
+	    return jqLite(element);
+	  }
+	}
+	
+	function extractElementNode(element) {
+	  if (!element[0]) return element;
+	  for (var i = 0; i < element.length; i++) {
+	    var elm = element[i];
+	    if (elm.nodeType == ELEMENT_NODE) {
+	      return elm;
+	    }
+	  }
+	}
+	
+	function $$addClass($$jqLite, element, className) {
+	  forEach(element, function(elm) {
+	    $$jqLite.addClass(elm, className);
+	  });
+	}
+	
+	function $$removeClass($$jqLite, element, className) {
+	  forEach(element, function(elm) {
+	    $$jqLite.removeClass(elm, className);
+	  });
+	}
+	
+	function applyAnimationClassesFactory($$jqLite) {
+	  return function(element, options) {
+	    if (options.addClass) {
+	      $$addClass($$jqLite, element, options.addClass);
+	      options.addClass = null;
+	    }
+	    if (options.removeClass) {
+	      $$removeClass($$jqLite, element, options.removeClass);
+	      options.removeClass = null;
+	    }
+	  }
+	}
+	
+	function prepareAnimationOptions(options) {
+	  options = options || {};
+	  if (!options.$$prepared) {
+	    var domOperation = options.domOperation || noop;
+	    options.domOperation = function() {
+	      options.$$domOperationFired = true;
+	      domOperation();
+	      domOperation = noop;
+	    };
+	    options.$$prepared = true;
+	  }
+	  return options;
+	}
+	
+	function applyAnimationStyles(element, options) {
+	  applyAnimationFromStyles(element, options);
+	  applyAnimationToStyles(element, options);
+	}
+	
+	function applyAnimationFromStyles(element, options) {
+	  if (options.from) {
+	    element.css(options.from);
+	    options.from = null;
+	  }
+	}
+	
+	function applyAnimationToStyles(element, options) {
+	  if (options.to) {
+	    element.css(options.to);
+	    options.to = null;
+	  }
+	}
+	
+	function mergeAnimationDetails(element, oldAnimation, newAnimation) {
+	  var target = oldAnimation.options || {};
+	  var newOptions = newAnimation.options || {};
+	
+	  var toAdd = (target.addClass || '') + ' ' + (newOptions.addClass || '');
+	  var toRemove = (target.removeClass || '') + ' ' + (newOptions.removeClass || '');
+	  var classes = resolveElementClasses(element.attr('class'), toAdd, toRemove);
+	
+	  if (newOptions.preparationClasses) {
+	    target.preparationClasses = concatWithSpace(newOptions.preparationClasses, target.preparationClasses);
+	    delete newOptions.preparationClasses;
+	  }
+	
+	  // noop is basically when there is no callback; otherwise something has been set
+	  var realDomOperation = target.domOperation !== noop ? target.domOperation : null;
+	
+	  extend(target, newOptions);
+	
+	  // TODO(matsko or sreeramu): proper fix is to maintain all animation callback in array and call at last,but now only leave has the callback so no issue with this.
+	  if (realDomOperation) {
+	    target.domOperation = realDomOperation;
+	  }
+	
+	  if (classes.addClass) {
+	    target.addClass = classes.addClass;
+	  } else {
+	    target.addClass = null;
+	  }
+	
+	  if (classes.removeClass) {
+	    target.removeClass = classes.removeClass;
+	  } else {
+	    target.removeClass = null;
+	  }
+	
+	  oldAnimation.addClass = target.addClass;
+	  oldAnimation.removeClass = target.removeClass;
+	
+	  return target;
+	}
+	
+	function resolveElementClasses(existing, toAdd, toRemove) {
+	  var ADD_CLASS = 1;
+	  var REMOVE_CLASS = -1;
+	
+	  var flags = {};
+	  existing = splitClassesToLookup(existing);
+	
+	  toAdd = splitClassesToLookup(toAdd);
+	  forEach(toAdd, function(value, key) {
+	    flags[key] = ADD_CLASS;
+	  });
+	
+	  toRemove = splitClassesToLookup(toRemove);
+	  forEach(toRemove, function(value, key) {
+	    flags[key] = flags[key] === ADD_CLASS ? null : REMOVE_CLASS;
+	  });
+	
+	  var classes = {
+	    addClass: '',
+	    removeClass: ''
+	  };
+	
+	  forEach(flags, function(val, klass) {
+	    var prop, allow;
+	    if (val === ADD_CLASS) {
+	      prop = 'addClass';
+	      allow = !existing[klass];
+	    } else if (val === REMOVE_CLASS) {
+	      prop = 'removeClass';
+	      allow = existing[klass];
+	    }
+	    if (allow) {
+	      if (classes[prop].length) {
+	        classes[prop] += ' ';
+	      }
+	      classes[prop] += klass;
+	    }
+	  });
+	
+	  function splitClassesToLookup(classes) {
+	    if (isString(classes)) {
+	      classes = classes.split(' ');
+	    }
+	
+	    var obj = {};
+	    forEach(classes, function(klass) {
+	      // sometimes the split leaves empty string values
+	      // incase extra spaces were applied to the options
+	      if (klass.length) {
+	        obj[klass] = true;
+	      }
+	    });
+	    return obj;
+	  }
+	
+	  return classes;
+	}
+	
+	function getDomNode(element) {
+	  return (element instanceof angular.element) ? element[0] : element;
+	}
+	
+	function applyGeneratedPreparationClasses(element, event, options) {
+	  var classes = '';
+	  if (event) {
+	    classes = pendClasses(event, EVENT_CLASS_PREFIX, true);
+	  }
+	  if (options.addClass) {
+	    classes = concatWithSpace(classes, pendClasses(options.addClass, ADD_CLASS_SUFFIX));
+	  }
+	  if (options.removeClass) {
+	    classes = concatWithSpace(classes, pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX));
+	  }
+	  if (classes.length) {
+	    options.preparationClasses = classes;
+	    element.addClass(classes);
+	  }
+	}
+	
+	function clearGeneratedClasses(element, options) {
+	  if (options.preparationClasses) {
+	    element.removeClass(options.preparationClasses);
+	    options.preparationClasses = null;
+	  }
+	  if (options.activeClasses) {
+	    element.removeClass(options.activeClasses);
+	    options.activeClasses = null;
+	  }
+	}
+	
+	function blockTransitions(node, duration) {
+	  // we use a negative delay value since it performs blocking
+	  // yet it doesn't kill any existing transitions running on the
+	  // same element which makes this safe for class-based animations
+	  var value = duration ? '-' + duration + 's' : '';
+	  applyInlineStyle(node, [TRANSITION_DELAY_PROP, value]);
+	  return [TRANSITION_DELAY_PROP, value];
+	}
+	
+	function blockKeyframeAnimations(node, applyBlock) {
+	  var value = applyBlock ? 'paused' : '';
+	  var key = ANIMATION_PROP + ANIMATION_PLAYSTATE_KEY;
+	  applyInlineStyle(node, [key, value]);
+	  return [key, value];
+	}
+	
+	function applyInlineStyle(node, styleTuple) {
+	  var prop = styleTuple[0];
+	  var value = styleTuple[1];
+	  node.style[prop] = value;
+	}
+	
+	function concatWithSpace(a,b) {
+	  if (!a) return b;
+	  if (!b) return a;
+	  return a + ' ' + b;
+	}
+	
+	var $$rAFSchedulerFactory = ['$$rAF', function($$rAF) {
+	  var queue, cancelFn;
+	
+	  function scheduler(tasks) {
+	    // we make a copy since RAFScheduler mutates the state
+	    // of the passed in array variable and this would be difficult
+	    // to track down on the outside code
+	    queue = queue.concat(tasks);
+	    nextTick();
+	  }
+	
+	  queue = scheduler.queue = [];
+	
+	  /* waitUntilQuiet does two things:
+	   * 1. It will run the FINAL `fn` value only when an uncanceled RAF has passed through
+	   * 2. It will delay the next wave of tasks from running until the quiet `fn` has run.
+	   *
+	   * The motivation here is that animation code can request more time from the scheduler
+	   * before the next wave runs. This allows for certain DOM properties such as classes to
+	   * be resolved in time for the next animation to run.
+	   */
+	  scheduler.waitUntilQuiet = function(fn) {
+	    if (cancelFn) cancelFn();
+	
+	    cancelFn = $$rAF(function() {
+	      cancelFn = null;
+	      fn();
+	      nextTick();
+	    });
+	  };
+	
+	  return scheduler;
+	
+	  function nextTick() {
+	    if (!queue.length) return;
+	
+	    var items = queue.shift();
+	    for (var i = 0; i < items.length; i++) {
+	      items[i]();
+	    }
+	
+	    if (!cancelFn) {
+	      $$rAF(function() {
+	        if (!cancelFn) nextTick();
+	      });
+	    }
+	  }
+	}];
+	
+	/**
+	 * @ngdoc directive
+	 * @name ngAnimateChildren
+	 * @restrict AE
+	 * @element ANY
+	 *
+	 * @description
+	 *
+	 * ngAnimateChildren allows you to specify that children of this element should animate even if any
+	 * of the children's parents are currently animating. By default, when an element has an active `enter`, `leave`, or `move`
+	 * (structural) animation, child elements that also have an active structural animation are not animated.
+	 *
+	 * Note that even if `ngAnimteChildren` is set, no child animations will run when the parent element is removed from the DOM (`leave` animation).
+	 *
+	 *
+	 * @param {string} ngAnimateChildren If the value is empty, `true` or `on`,
+	 *     then child animations are allowed. If the value is `false`, child animations are not allowed.
+	 *
+	 * @example
+	 * <example module="ngAnimateChildren" name="ngAnimateChildren" deps="angular-animate.js" animations="true">
+	     <file name="index.html">
+	       <div ng-controller="mainController as main">
+	         <label>Show container? <input type="checkbox" ng-model="main.enterElement" /></label>
+	         <label>Animate children? <input type="checkbox" ng-model="main.animateChildren" /></label>
+	         <hr>
+	         <div ng-animate-children="{{main.animateChildren}}">
+	           <div ng-if="main.enterElement" class="container">
+	             List of items:
+	             <div ng-repeat="item in [0, 1, 2, 3]" class="item">Item {{item}}</div>
+	           </div>
+	         </div>
+	       </div>
+	     </file>
+	     <file name="animations.css">
+	
+	      .container.ng-enter,
+	      .container.ng-leave {
+	        transition: all ease 1.5s;
+	      }
+	
+	      .container.ng-enter,
+	      .container.ng-leave-active {
+	        opacity: 0;
+	      }
+	
+	      .container.ng-leave,
+	      .container.ng-enter-active {
+	        opacity: 1;
+	      }
+	
+	      .item {
+	        background: firebrick;
+	        color: #FFF;
+	        margin-bottom: 10px;
+	      }
+	
+	      .item.ng-enter,
+	      .item.ng-leave {
+	        transition: transform 1.5s ease;
+	      }
+	
+	      .item.ng-enter {
+	        transform: translateX(50px);
+	      }
+	
+	      .item.ng-enter-active {
+	        transform: translateX(0);
+	      }
+	    </file>
+	    <file name="script.js">
+	      angular.module('ngAnimateChildren', ['ngAnimate'])
+	        .controller('mainController', function() {
+	          this.animateChildren = false;
+	          this.enterElement = false;
+	        });
+	    </file>
+	  </example>
+	 */
+	var $$AnimateChildrenDirective = ['$interpolate', function($interpolate) {
+	  return {
+	    link: function(scope, element, attrs) {
+	      var val = attrs.ngAnimateChildren;
+	      if (angular.isString(val) && val.length === 0) { //empty attribute
+	        element.data(NG_ANIMATE_CHILDREN_DATA, true);
+	      } else {
+	        // Interpolate and set the value, so that it is available to
+	        // animations that run right after compilation
+	        setData($interpolate(val)(scope));
+	        attrs.$observe('ngAnimateChildren', setData);
+	      }
+	
+	      function setData(value) {
+	        value = value === 'on' || value === 'true';
+	        element.data(NG_ANIMATE_CHILDREN_DATA, value);
+	      }
+	    }
+	  };
+	}];
+	
+	var ANIMATE_TIMER_KEY = '$$animateCss';
+	
+	/**
+	 * @ngdoc service
+	 * @name $animateCss
+	 * @kind object
+	 *
+	 * @description
+	 * The `$animateCss` service is a useful utility to trigger customized CSS-based transitions/keyframes
+	 * from a JavaScript-based animation or directly from a directive. The purpose of `$animateCss` is NOT
+	 * to side-step how `$animate` and ngAnimate work, but the goal is to allow pre-existing animations or
+	 * directives to create more complex animations that can be purely driven using CSS code.
+	 *
+	 * Note that only browsers that support CSS transitions and/or keyframe animations are capable of
+	 * rendering animations triggered via `$animateCss` (bad news for IE9 and lower).
+	 *
+	 * ## Usage
+	 * Once again, `$animateCss` is designed to be used inside of a registered JavaScript animation that
+	 * is powered by ngAnimate. It is possible to use `$animateCss` directly inside of a directive, however,
+	 * any automatic control over cancelling animations and/or preventing animations from being run on
+	 * child elements will not be handled by Angular. For this to work as expected, please use `$animate` to
+	 * trigger the animation and then setup a JavaScript animation that injects `$animateCss` to trigger
+	 * the CSS animation.
+	 *
+	 * The example below shows how we can create a folding animation on an element using `ng-if`:
+	 *
+	 * ```html
+	 * <!-- notice the `fold-animation` CSS class -->
+	 * <div ng-if="onOff" class="fold-animation">
+	 *   This element will go BOOM
+	 * </div>
+	 * <button ng-click="onOff=true">Fold In</button>
+	 * ```
+	 *
+	 * Now we create the **JavaScript animation** that will trigger the CSS transition:
+	 *
+	 * ```js
+	 * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
+	 *   return {
+	 *     enter: function(element, doneFn) {
+	 *       var height = element[0].offsetHeight;
+	 *       return $animateCss(element, {
+	 *         from: { height:'0px' },
+	 *         to: { height:height + 'px' },
+	 *         duration: 1 // one second
+	 *       });
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * ## More Advanced Uses
+	 *
+	 * `$animateCss` is the underlying code that ngAnimate uses to power **CSS-based animations** behind the scenes. Therefore CSS hooks
+	 * like `.ng-EVENT`, `.ng-EVENT-active`, `.ng-EVENT-stagger` are all features that can be triggered using `$animateCss` via JavaScript code.
+	 *
+	 * This also means that just about any combination of adding classes, removing classes, setting styles, dynamically setting a keyframe animation,
+	 * applying a hardcoded duration or delay value, changing the animation easing or applying a stagger animation are all options that work with
+	 * `$animateCss`. The service itself is smart enough to figure out the combination of options and examine the element styling properties in order
+	 * to provide a working animation that will run in CSS.
+	 *
+	 * The example below showcases a more advanced version of the `.fold-animation` from the example above:
+	 *
+	 * ```js
+	 * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
+	 *   return {
+	 *     enter: function(element, doneFn) {
+	 *       var height = element[0].offsetHeight;
+	 *       return $animateCss(element, {
+	 *         addClass: 'red large-text pulse-twice',
+	 *         easing: 'ease-out',
+	 *         from: { height:'0px' },
+	 *         to: { height:height + 'px' },
+	 *         duration: 1 // one second
+	 *       });
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * Since we're adding/removing CSS classes then the CSS transition will also pick those up:
+	 *
+	 * ```css
+	 * /&#42; since a hardcoded duration value of 1 was provided in the JavaScript animation code,
+	 * the CSS classes below will be transitioned despite them being defined as regular CSS classes &#42;/
+	 * .red { background:red; }
+	 * .large-text { font-size:20px; }
+	 *
+	 * /&#42; we can also use a keyframe animation and $animateCss will make it work alongside the transition &#42;/
+	 * .pulse-twice {
+	 *   animation: 0.5s pulse linear 2;
+	 *   -webkit-animation: 0.5s pulse linear 2;
+	 * }
+	 *
+	 * @keyframes pulse {
+	 *   from { transform: scale(0.5); }
+	 *   to { transform: scale(1.5); }
+	 * }
+	 *
+	 * @-webkit-keyframes pulse {
+	 *   from { -webkit-transform: scale(0.5); }
+	 *   to { -webkit-transform: scale(1.5); }
+	 * }
+	 * ```
+	 *
+	 * Given this complex combination of CSS classes, styles and options, `$animateCss` will figure everything out and make the animation happen.
+	 *
+	 * ## How the Options are handled
+	 *
+	 * `$animateCss` is very versatile and intelligent when it comes to figuring out what configurations to apply to the element to ensure the animation
+	 * works with the options provided. Say for example we were adding a class that contained a keyframe value and we wanted to also animate some inline
+	 * styles using the `from` and `to` properties.
+	 *
+	 * ```js
+	 * var animator = $animateCss(element, {
+	 *   from: { background:'red' },
+	 *   to: { background:'blue' }
+	 * });
+	 * animator.start();
+	 * ```
+	 *
+	 * ```css
+	 * .rotating-animation {
+	 *   animation:0.5s rotate linear;
+	 *   -webkit-animation:0.5s rotate linear;
+	 * }
+	 *
+	 * @keyframes rotate {
+	 *   from { transform: rotate(0deg); }
+	 *   to { transform: rotate(360deg); }
+	 * }
+	 *
+	 * @-webkit-keyframes rotate {
+	 *   from { -webkit-transform: rotate(0deg); }
+	 *   to { -webkit-transform: rotate(360deg); }
+	 * }
+	 * ```
+	 *
+	 * The missing pieces here are that we do not have a transition set (within the CSS code nor within the `$animateCss` options) and the duration of the animation is
+	 * going to be detected from what the keyframe styles on the CSS class are. In this event, `$animateCss` will automatically create an inline transition
+	 * style matching the duration detected from the keyframe style (which is present in the CSS class that is being added) and then prepare both the transition
+	 * and keyframe animations to run in parallel on the element. Then when the animation is underway the provided `from` and `to` CSS styles will be applied
+	 * and spread across the transition and keyframe animation.
+	 *
+	 * ## What is returned
+	 *
+	 * `$animateCss` works in two stages: a preparation phase and an animation phase. Therefore when `$animateCss` is first called it will NOT actually
+	 * start the animation. All that is going on here is that the element is being prepared for the animation (which means that the generated CSS classes are
+	 * added and removed on the element). Once `$animateCss` is called it will return an object with the following properties:
+	 *
+	 * ```js
+	 * var animator = $animateCss(element, { ... });
+	 * ```
+	 *
+	 * Now what do the contents of our `animator` variable look like:
+	 *
+	 * ```js
+	 * {
+	 *   // starts the animation
+	 *   start: Function,
+	 *
+	 *   // ends (aborts) the animation
+	 *   end: Function
+	 * }
+	 * ```
+	 *
+	 * To actually start the animation we need to run `animation.start()` which will then return a promise that we can hook into to detect when the animation ends.
+	 * If we choose not to run the animation then we MUST run `animation.end()` to perform a cleanup on the element (since some CSS classes and styles may have been
+	 * applied to the element during the preparation phase). Note that all other properties such as duration, delay, transitions and keyframes are just properties
+	 * and that changing them will not reconfigure the parameters of the animation.
+	 *
+	 * ### runner.done() vs runner.then()
+	 * It is documented that `animation.start()` will return a promise object and this is true, however, there is also an additional method available on the
+	 * runner called `.done(callbackFn)`. The done method works the same as `.finally(callbackFn)`, however, it does **not trigger a digest to occur**.
+	 * Therefore, for performance reasons, it's always best to use `runner.done(callback)` instead of `runner.then()`, `runner.catch()` or `runner.finally()`
+	 * unless you really need a digest to kick off afterwards.
+	 *
+	 * Keep in mind that, to make this easier, ngAnimate has tweaked the JS animations API to recognize when a runner instance is returned from $animateCss
+	 * (so there is no need to call `runner.done(doneFn)` inside of your JavaScript animation code).
+	 * Check the {@link ngAnimate.$animateCss#usage animation code above} to see how this works.
+	 *
+	 * @param {DOMElement} element the element that will be animated
+	 * @param {object} options the animation-related options that will be applied during the animation
+	 *
+	 * * `event` - The DOM event (e.g. enter, leave, move). When used, a generated CSS class of `ng-EVENT` and `ng-EVENT-active` will be applied
+	 * to the element during the animation. Multiple events can be provided when spaces are used as a separator. (Note that this will not perform any DOM operation.)
+	 * * `structural` - Indicates that the `ng-` prefix will be added to the event class. Setting to `false` or omitting will turn `ng-EVENT` and
+	 * `ng-EVENT-active` in `EVENT` and `EVENT-active`. Unused if `event` is omitted.
+	 * * `easing` - The CSS easing value that will be applied to the transition or keyframe animation (or both).
+	 * * `transitionStyle` - The raw CSS transition style that will be used (e.g. `1s linear all`).
+	 * * `keyframeStyle` - The raw CSS keyframe animation style that will be used (e.g. `1s my_animation linear`).
+	 * * `from` - The starting CSS styles (a key/value object) that will be applied at the start of the animation.
+	 * * `to` - The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
+	 * * `addClass` - A space separated list of CSS classes that will be added to the element and spread across the animation.
+	 * * `removeClass` - A space separated list of CSS classes that will be removed from the element and spread across the animation.
+	 * * `duration` - A number value representing the total duration of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `0`
+	 * is provided then the animation will be skipped entirely.
+	 * * `delay` - A number value representing the total delay of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `true` is
+	 * used then whatever delay value is detected from the CSS classes will be mirrored on the elements styles (e.g. by setting delay true then the style value
+	 * of the element will be `transition-delay: DETECTED_VALUE`). Using `true` is useful when you want the CSS classes and inline styles to all share the same
+	 * CSS delay value.
+	 * * `stagger` - A numeric time value representing the delay between successively animated elements
+	 * ({@link ngAnimate#css-staggering-animations Click here to learn how CSS-based staggering works in ngAnimate.})
+	 * * `staggerIndex` - The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item in the stagger; therefore when a
+	 *   `stagger` option value of `0.1` is used then there will be a stagger delay of `600ms`)
+	 * * `applyClassesEarly` - Whether or not the classes being added or removed will be used when detecting the animation. This is set by `$animate` when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time. (Note that this will prevent any transitions from occurring on the classes being added and removed.)
+	 * * `cleanupStyles` - Whether or not the provided `from` and `to` styles will be removed once
+	 *    the animation is closed. This is useful for when the styles are used purely for the sake of
+	 *    the animation and do not have a lasting visual effect on the element (e.g. a collapse and open animation).
+	 *    By default this value is set to `false`.
+	 *
+	 * @return {object} an object with start and end methods and details about the animation.
+	 *
+	 * * `start` - The method to start the animation. This will return a `Promise` when called.
+	 * * `end` - This method will cancel the animation and remove all applied CSS classes and styles.
+	 */
+	var ONE_SECOND = 1000;
+	var BASE_TEN = 10;
+	
+	var ELAPSED_TIME_MAX_DECIMAL_PLACES = 3;
+	var CLOSING_TIME_BUFFER = 1.5;
+	
+	var DETECT_CSS_PROPERTIES = {
+	  transitionDuration:      TRANSITION_DURATION_PROP,
+	  transitionDelay:         TRANSITION_DELAY_PROP,
+	  transitionProperty:      TRANSITION_PROP + PROPERTY_KEY,
+	  animationDuration:       ANIMATION_DURATION_PROP,
+	  animationDelay:          ANIMATION_DELAY_PROP,
+	  animationIterationCount: ANIMATION_PROP + ANIMATION_ITERATION_COUNT_KEY
+	};
+	
+	var DETECT_STAGGER_CSS_PROPERTIES = {
+	  transitionDuration:      TRANSITION_DURATION_PROP,
+	  transitionDelay:         TRANSITION_DELAY_PROP,
+	  animationDuration:       ANIMATION_DURATION_PROP,
+	  animationDelay:          ANIMATION_DELAY_PROP
+	};
+	
+	function getCssKeyframeDurationStyle(duration) {
+	  return [ANIMATION_DURATION_PROP, duration + 's'];
+	}
+	
+	function getCssDelayStyle(delay, isKeyframeAnimation) {
+	  var prop = isKeyframeAnimation ? ANIMATION_DELAY_PROP : TRANSITION_DELAY_PROP;
+	  return [prop, delay + 's'];
+	}
+	
+	function computeCssStyles($window, element, properties) {
+	  var styles = Object.create(null);
+	  var detectedStyles = $window.getComputedStyle(element) || {};
+	  forEach(properties, function(formalStyleName, actualStyleName) {
+	    var val = detectedStyles[formalStyleName];
+	    if (val) {
+	      var c = val.charAt(0);
+	
+	      // only numerical-based values have a negative sign or digit as the first value
+	      if (c === '-' || c === '+' || c >= 0) {
+	        val = parseMaxTime(val);
+	      }
+	
+	      // by setting this to null in the event that the delay is not set or is set directly as 0
+	      // then we can still allow for negative values to be used later on and not mistake this
+	      // value for being greater than any other negative value.
+	      if (val === 0) {
+	        val = null;
+	      }
+	      styles[actualStyleName] = val;
+	    }
+	  });
+	
+	  return styles;
+	}
+	
+	function parseMaxTime(str) {
+	  var maxValue = 0;
+	  var values = str.split(/\s*,\s*/);
+	  forEach(values, function(value) {
+	    // it's always safe to consider only second values and omit `ms` values since
+	    // getComputedStyle will always handle the conversion for us
+	    if (value.charAt(value.length - 1) == 's') {
+	      value = value.substring(0, value.length - 1);
+	    }
+	    value = parseFloat(value) || 0;
+	    maxValue = maxValue ? Math.max(value, maxValue) : value;
+	  });
+	  return maxValue;
+	}
+	
+	function truthyTimingValue(val) {
+	  return val === 0 || val != null;
+	}
+	
+	function getCssTransitionDurationStyle(duration, applyOnlyDuration) {
+	  var style = TRANSITION_PROP;
+	  var value = duration + 's';
+	  if (applyOnlyDuration) {
+	    style += DURATION_KEY;
+	  } else {
+	    value += ' linear all';
+	  }
+	  return [style, value];
+	}
+	
+	function createLocalCacheLookup() {
+	  var cache = Object.create(null);
+	  return {
+	    flush: function() {
+	      cache = Object.create(null);
+	    },
+	
+	    count: function(key) {
+	      var entry = cache[key];
+	      return entry ? entry.total : 0;
+	    },
+	
+	    get: function(key) {
+	      var entry = cache[key];
+	      return entry && entry.value;
+	    },
+	
+	    put: function(key, value) {
+	      if (!cache[key]) {
+	        cache[key] = { total: 1, value: value };
+	      } else {
+	        cache[key].total++;
+	      }
+	    }
+	  };
+	}
+	
+	// we do not reassign an already present style value since
+	// if we detect the style property value again we may be
+	// detecting styles that were added via the `from` styles.
+	// We make use of `isDefined` here since an empty string
+	// or null value (which is what getPropertyValue will return
+	// for a non-existing style) will still be marked as a valid
+	// value for the style (a falsy value implies that the style
+	// is to be removed at the end of the animation). If we had a simple
+	// "OR" statement then it would not be enough to catch that.
+	function registerRestorableStyles(backup, node, properties) {
+	  forEach(properties, function(prop) {
+	    backup[prop] = isDefined(backup[prop])
+	        ? backup[prop]
+	        : node.style.getPropertyValue(prop);
+	  });
+	}
+	
+	var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
+	  var gcsLookup = createLocalCacheLookup();
+	  var gcsStaggerLookup = createLocalCacheLookup();
+	
+	  this.$get = ['$window', '$$jqLite', '$$AnimateRunner', '$timeout',
+	               '$$forceReflow', '$sniffer', '$$rAFScheduler', '$$animateQueue',
+	       function($window,   $$jqLite,   $$AnimateRunner,   $timeout,
+	                $$forceReflow,   $sniffer,   $$rAFScheduler, $$animateQueue) {
+	
+	    var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+	
+	    var parentCounter = 0;
+	    function gcsHashFn(node, extraClasses) {
+	      var KEY = "$$ngAnimateParentKey";
+	      var parentNode = node.parentNode;
+	      var parentID = parentNode[KEY] || (parentNode[KEY] = ++parentCounter);
+	      return parentID + '-' + node.getAttribute('class') + '-' + extraClasses;
+	    }
+	
+	    function computeCachedCssStyles(node, className, cacheKey, properties) {
+	      var timings = gcsLookup.get(cacheKey);
+	
+	      if (!timings) {
+	        timings = computeCssStyles($window, node, properties);
+	        if (timings.animationIterationCount === 'infinite') {
+	          timings.animationIterationCount = 1;
+	        }
+	      }
+	
+	      // we keep putting this in multiple times even though the value and the cacheKey are the same
+	      // because we're keeping an internal tally of how many duplicate animations are detected.
+	      gcsLookup.put(cacheKey, timings);
+	      return timings;
+	    }
+	
+	    function computeCachedCssStaggerStyles(node, className, cacheKey, properties) {
+	      var stagger;
+	
+	      // if we have one or more existing matches of matching elements
+	      // containing the same parent + CSS styles (which is how cacheKey works)
+	      // then staggering is possible
+	      if (gcsLookup.count(cacheKey) > 0) {
+	        stagger = gcsStaggerLookup.get(cacheKey);
+	
+	        if (!stagger) {
+	          var staggerClassName = pendClasses(className, '-stagger');
+	
+	          $$jqLite.addClass(node, staggerClassName);
+	
+	          stagger = computeCssStyles($window, node, properties);
+	
+	          // force the conversion of a null value to zero incase not set
+	          stagger.animationDuration = Math.max(stagger.animationDuration, 0);
+	          stagger.transitionDuration = Math.max(stagger.transitionDuration, 0);
+	
+	          $$jqLite.removeClass(node, staggerClassName);
+	
+	          gcsStaggerLookup.put(cacheKey, stagger);
+	        }
+	      }
+	
+	      return stagger || {};
+	    }
+	
+	    var cancelLastRAFRequest;
+	    var rafWaitQueue = [];
+	    function waitUntilQuiet(callback) {
+	      rafWaitQueue.push(callback);
+	      $$rAFScheduler.waitUntilQuiet(function() {
+	        gcsLookup.flush();
+	        gcsStaggerLookup.flush();
+	
+	        // DO NOT REMOVE THIS LINE OR REFACTOR OUT THE `pageWidth` variable.
+	        // PLEASE EXAMINE THE `$$forceReflow` service to understand why.
+	        var pageWidth = $$forceReflow();
+	
+	        // we use a for loop to ensure that if the queue is changed
+	        // during this looping then it will consider new requests
+	        for (var i = 0; i < rafWaitQueue.length; i++) {
+	          rafWaitQueue[i](pageWidth);
+	        }
+	        rafWaitQueue.length = 0;
+	      });
+	    }
+	
+	    function computeTimings(node, className, cacheKey) {
+	      var timings = computeCachedCssStyles(node, className, cacheKey, DETECT_CSS_PROPERTIES);
+	      var aD = timings.animationDelay;
+	      var tD = timings.transitionDelay;
+	      timings.maxDelay = aD && tD
+	          ? Math.max(aD, tD)
+	          : (aD || tD);
+	      timings.maxDuration = Math.max(
+	          timings.animationDuration * timings.animationIterationCount,
+	          timings.transitionDuration);
+	
+	      return timings;
+	    }
+	
+	    return function init(element, initialOptions) {
+	      // all of the animation functions should create
+	      // a copy of the options data, however, if a
+	      // parent service has already created a copy then
+	      // we should stick to using that
+	      var options = initialOptions || {};
+	      if (!options.$$prepared) {
+	        options = prepareAnimationOptions(copy(options));
+	      }
+	
+	      var restoreStyles = {};
+	      var node = getDomNode(element);
+	      if (!node
+	          || !node.parentNode
+	          || !$$animateQueue.enabled()) {
+	        return closeAndReturnNoopAnimator();
+	      }
+	
+	      var temporaryStyles = [];
+	      var classes = element.attr('class');
+	      var styles = packageStyles(options);
+	      var animationClosed;
+	      var animationPaused;
+	      var animationCompleted;
+	      var runner;
+	      var runnerHost;
+	      var maxDelay;
+	      var maxDelayTime;
+	      var maxDuration;
+	      var maxDurationTime;
+	      var startTime;
+	      var events = [];
+	
+	      if (options.duration === 0 || (!$sniffer.animations && !$sniffer.transitions)) {
+	        return closeAndReturnNoopAnimator();
+	      }
+	
+	      var method = options.event && isArray(options.event)
+	            ? options.event.join(' ')
+	            : options.event;
+	
+	      var isStructural = method && options.structural;
+	      var structuralClassName = '';
+	      var addRemoveClassName = '';
+	
+	      if (isStructural) {
+	        structuralClassName = pendClasses(method, EVENT_CLASS_PREFIX, true);
+	      } else if (method) {
+	        structuralClassName = method;
+	      }
+	
+	      if (options.addClass) {
+	        addRemoveClassName += pendClasses(options.addClass, ADD_CLASS_SUFFIX);
+	      }
+	
+	      if (options.removeClass) {
+	        if (addRemoveClassName.length) {
+	          addRemoveClassName += ' ';
+	        }
+	        addRemoveClassName += pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX);
+	      }
+	
+	      // there may be a situation where a structural animation is combined together
+	      // with CSS classes that need to resolve before the animation is computed.
+	      // However this means that there is no explicit CSS code to block the animation
+	      // from happening (by setting 0s none in the class name). If this is the case
+	      // we need to apply the classes before the first rAF so we know to continue if
+	      // there actually is a detected transition or keyframe animation
+	      if (options.applyClassesEarly && addRemoveClassName.length) {
+	        applyAnimationClasses(element, options);
+	      }
+	
+	      var preparationClasses = [structuralClassName, addRemoveClassName].join(' ').trim();
+	      var fullClassName = classes + ' ' + preparationClasses;
+	      var activeClasses = pendClasses(preparationClasses, ACTIVE_CLASS_SUFFIX);
+	      var hasToStyles = styles.to && Object.keys(styles.to).length > 0;
+	      var containsKeyframeAnimation = (options.keyframeStyle || '').length > 0;
+	
+	      // there is no way we can trigger an animation if no styles and
+	      // no classes are being applied which would then trigger a transition,
+	      // unless there a is raw keyframe value that is applied to the element.
+	      if (!containsKeyframeAnimation
+	           && !hasToStyles
+	           && !preparationClasses) {
+	        return closeAndReturnNoopAnimator();
+	      }
+	
+	      var cacheKey, stagger;
+	      if (options.stagger > 0) {
+	        var staggerVal = parseFloat(options.stagger);
+	        stagger = {
+	          transitionDelay: staggerVal,
+	          animationDelay: staggerVal,
+	          transitionDuration: 0,
+	          animationDuration: 0
+	        };
+	      } else {
+	        cacheKey = gcsHashFn(node, fullClassName);
+	        stagger = computeCachedCssStaggerStyles(node, preparationClasses, cacheKey, DETECT_STAGGER_CSS_PROPERTIES);
+	      }
+	
+	      if (!options.$$skipPreparationClasses) {
+	        $$jqLite.addClass(element, preparationClasses);
+	      }
+	
+	      var applyOnlyDuration;
+	
+	      if (options.transitionStyle) {
+	        var transitionStyle = [TRANSITION_PROP, options.transitionStyle];
+	        applyInlineStyle(node, transitionStyle);
+	        temporaryStyles.push(transitionStyle);
+	      }
+	
+	      if (options.duration >= 0) {
+	        applyOnlyDuration = node.style[TRANSITION_PROP].length > 0;
+	        var durationStyle = getCssTransitionDurationStyle(options.duration, applyOnlyDuration);
+	
+	        // we set the duration so that it will be picked up by getComputedStyle later
+	        applyInlineStyle(node, durationStyle);
+	        temporaryStyles.push(durationStyle);
+	      }
+	
+	      if (options.keyframeStyle) {
+	        var keyframeStyle = [ANIMATION_PROP, options.keyframeStyle];
+	        applyInlineStyle(node, keyframeStyle);
+	        temporaryStyles.push(keyframeStyle);
+	      }
+	
+	      var itemIndex = stagger
+	          ? options.staggerIndex >= 0
+	              ? options.staggerIndex
+	              : gcsLookup.count(cacheKey)
+	          : 0;
+	
+	      var isFirst = itemIndex === 0;
+	
+	      // this is a pre-emptive way of forcing the setup classes to be added and applied INSTANTLY
+	      // without causing any combination of transitions to kick in. By adding a negative delay value
+	      // it forces the setup class' transition to end immediately. We later then remove the negative
+	      // transition delay to allow for the transition to naturally do it's thing. The beauty here is
+	      // that if there is no transition defined then nothing will happen and this will also allow
+	      // other transitions to be stacked on top of each other without any chopping them out.
+	      if (isFirst && !options.skipBlocking) {
+	        blockTransitions(node, SAFE_FAST_FORWARD_DURATION_VALUE);
+	      }
+	
+	      var timings = computeTimings(node, fullClassName, cacheKey);
+	      var relativeDelay = timings.maxDelay;
+	      maxDelay = Math.max(relativeDelay, 0);
+	      maxDuration = timings.maxDuration;
+	
+	      var flags = {};
+	      flags.hasTransitions          = timings.transitionDuration > 0;
+	      flags.hasAnimations           = timings.animationDuration > 0;
+	      flags.hasTransitionAll        = flags.hasTransitions && timings.transitionProperty == 'all';
+	      flags.applyTransitionDuration = hasToStyles && (
+	                                        (flags.hasTransitions && !flags.hasTransitionAll)
+	                                         || (flags.hasAnimations && !flags.hasTransitions));
+	      flags.applyAnimationDuration  = options.duration && flags.hasAnimations;
+	      flags.applyTransitionDelay    = truthyTimingValue(options.delay) && (flags.applyTransitionDuration || flags.hasTransitions);
+	      flags.applyAnimationDelay     = truthyTimingValue(options.delay) && flags.hasAnimations;
+	      flags.recalculateTimingStyles = addRemoveClassName.length > 0;
+	
+	      if (flags.applyTransitionDuration || flags.applyAnimationDuration) {
+	        maxDuration = options.duration ? parseFloat(options.duration) : maxDuration;
+	
+	        if (flags.applyTransitionDuration) {
+	          flags.hasTransitions = true;
+	          timings.transitionDuration = maxDuration;
+	          applyOnlyDuration = node.style[TRANSITION_PROP + PROPERTY_KEY].length > 0;
+	          temporaryStyles.push(getCssTransitionDurationStyle(maxDuration, applyOnlyDuration));
+	        }
+	
+	        if (flags.applyAnimationDuration) {
+	          flags.hasAnimations = true;
+	          timings.animationDuration = maxDuration;
+	          temporaryStyles.push(getCssKeyframeDurationStyle(maxDuration));
+	        }
+	      }
+	
+	      if (maxDuration === 0 && !flags.recalculateTimingStyles) {
+	        return closeAndReturnNoopAnimator();
+	      }
+	
+	      if (options.delay != null) {
+	        var delayStyle;
+	        if (typeof options.delay !== "boolean") {
+	          delayStyle = parseFloat(options.delay);
+	          // number in options.delay means we have to recalculate the delay for the closing timeout
+	          maxDelay = Math.max(delayStyle, 0);
+	        }
+	
+	        if (flags.applyTransitionDelay) {
+	          temporaryStyles.push(getCssDelayStyle(delayStyle));
+	        }
+	
+	        if (flags.applyAnimationDelay) {
+	          temporaryStyles.push(getCssDelayStyle(delayStyle, true));
+	        }
+	      }
+	
+	      // we need to recalculate the delay value since we used a pre-emptive negative
+	      // delay value and the delay value is required for the final event checking. This
+	      // property will ensure that this will happen after the RAF phase has passed.
+	      if (options.duration == null && timings.transitionDuration > 0) {
+	        flags.recalculateTimingStyles = flags.recalculateTimingStyles || isFirst;
+	      }
+	
+	      maxDelayTime = maxDelay * ONE_SECOND;
+	      maxDurationTime = maxDuration * ONE_SECOND;
+	      if (!options.skipBlocking) {
+	        flags.blockTransition = timings.transitionDuration > 0;
+	        flags.blockKeyframeAnimation = timings.animationDuration > 0 &&
+	                                       stagger.animationDelay > 0 &&
+	                                       stagger.animationDuration === 0;
+	      }
+	
+	      if (options.from) {
+	        if (options.cleanupStyles) {
+	          registerRestorableStyles(restoreStyles, node, Object.keys(options.from));
+	        }
+	        applyAnimationFromStyles(element, options);
+	      }
+	
+	      if (flags.blockTransition || flags.blockKeyframeAnimation) {
+	        applyBlocking(maxDuration);
+	      } else if (!options.skipBlocking) {
+	        blockTransitions(node, false);
+	      }
+	
+	      // TODO(matsko): for 1.5 change this code to have an animator object for better debugging
+	      return {
+	        $$willAnimate: true,
+	        end: endFn,
+	        start: function() {
+	          if (animationClosed) return;
+	
+	          runnerHost = {
+	            end: endFn,
+	            cancel: cancelFn,
+	            resume: null, //this will be set during the start() phase
+	            pause: null
+	          };
+	
+	          runner = new $$AnimateRunner(runnerHost);
+	
+	          waitUntilQuiet(start);
+	
+	          // we don't have access to pause/resume the animation
+	          // since it hasn't run yet. AnimateRunner will therefore
+	          // set noop functions for resume and pause and they will
+	          // later be overridden once the animation is triggered
+	          return runner;
+	        }
+	      };
+	
+	      function endFn() {
+	        close();
+	      }
+	
+	      function cancelFn() {
+	        close(true);
+	      }
+	
+	      function close(rejected) { // jshint ignore:line
+	        // if the promise has been called already then we shouldn't close
+	        // the animation again
+	        if (animationClosed || (animationCompleted && animationPaused)) return;
+	        animationClosed = true;
+	        animationPaused = false;
+	
+	        if (!options.$$skipPreparationClasses) {
+	          $$jqLite.removeClass(element, preparationClasses);
+	        }
+	        $$jqLite.removeClass(element, activeClasses);
+	
+	        blockKeyframeAnimations(node, false);
+	        blockTransitions(node, false);
+	
+	        forEach(temporaryStyles, function(entry) {
+	          // There is only one way to remove inline style properties entirely from elements.
+	          // By using `removeProperty` this works, but we need to convert camel-cased CSS
+	          // styles down to hyphenated values.
+	          node.style[entry[0]] = '';
+	        });
+	
+	        applyAnimationClasses(element, options);
+	        applyAnimationStyles(element, options);
+	
+	        if (Object.keys(restoreStyles).length) {
+	          forEach(restoreStyles, function(value, prop) {
+	            value ? node.style.setProperty(prop, value)
+	                  : node.style.removeProperty(prop);
+	          });
+	        }
+	
+	        // the reason why we have this option is to allow a synchronous closing callback
+	        // that is fired as SOON as the animation ends (when the CSS is removed) or if
+	        // the animation never takes off at all. A good example is a leave animation since
+	        // the element must be removed just after the animation is over or else the element
+	        // will appear on screen for one animation frame causing an overbearing flicker.
+	        if (options.onDone) {
+	          options.onDone();
+	        }
+	
+	        if (events && events.length) {
+	          // Remove the transitionend / animationend listener(s)
+	          element.off(events.join(' '), onAnimationProgress);
+	        }
+	
+	        //Cancel the fallback closing timeout and remove the timer data
+	        var animationTimerData = element.data(ANIMATE_TIMER_KEY);
+	        if (animationTimerData) {
+	          $timeout.cancel(animationTimerData[0].timer);
+	          element.removeData(ANIMATE_TIMER_KEY);
+	        }
+	
+	        // if the preparation function fails then the promise is not setup
+	        if (runner) {
+	          runner.complete(!rejected);
+	        }
+	      }
+	
+	      function applyBlocking(duration) {
+	        if (flags.blockTransition) {
+	          blockTransitions(node, duration);
+	        }
+	
+	        if (flags.blockKeyframeAnimation) {
+	          blockKeyframeAnimations(node, !!duration);
+	        }
+	      }
+	
+	      function closeAndReturnNoopAnimator() {
+	        runner = new $$AnimateRunner({
+	          end: endFn,
+	          cancel: cancelFn
+	        });
+	
+	        // should flush the cache animation
+	        waitUntilQuiet(noop);
+	        close();
+	
+	        return {
+	          $$willAnimate: false,
+	          start: function() {
+	            return runner;
+	          },
+	          end: endFn
+	        };
+	      }
+	
+	      function onAnimationProgress(event) {
+	        event.stopPropagation();
+	        var ev = event.originalEvent || event;
+	
+	        // we now always use `Date.now()` due to the recent changes with
+	        // event.timeStamp in Firefox, Webkit and Chrome (see #13494 for more info)
+	        var timeStamp = ev.$manualTimeStamp || Date.now();
+	
+	        /* Firefox (or possibly just Gecko) likes to not round values up
+	         * when a ms measurement is used for the animation */
+	        var elapsedTime = parseFloat(ev.elapsedTime.toFixed(ELAPSED_TIME_MAX_DECIMAL_PLACES));
+	
+	        /* $manualTimeStamp is a mocked timeStamp value which is set
+	         * within browserTrigger(). This is only here so that tests can
+	         * mock animations properly. Real events fallback to event.timeStamp,
+	         * or, if they don't, then a timeStamp is automatically created for them.
+	         * We're checking to see if the timeStamp surpasses the expected delay,
+	         * but we're using elapsedTime instead of the timeStamp on the 2nd
+	         * pre-condition since animationPauseds sometimes close off early */
+	        if (Math.max(timeStamp - startTime, 0) >= maxDelayTime && elapsedTime >= maxDuration) {
+	          // we set this flag to ensure that if the transition is paused then, when resumed,
+	          // the animation will automatically close itself since transitions cannot be paused.
+	          animationCompleted = true;
+	          close();
+	        }
+	      }
+	
+	      function start() {
+	        if (animationClosed) return;
+	        if (!node.parentNode) {
+	          close();
+	          return;
+	        }
+	
+	        // even though we only pause keyframe animations here the pause flag
+	        // will still happen when transitions are used. Only the transition will
+	        // not be paused since that is not possible. If the animation ends when
+	        // paused then it will not complete until unpaused or cancelled.
+	        var playPause = function(playAnimation) {
+	          if (!animationCompleted) {
+	            animationPaused = !playAnimation;
+	            if (timings.animationDuration) {
+	              var value = blockKeyframeAnimations(node, animationPaused);
+	              animationPaused
+	                  ? temporaryStyles.push(value)
+	                  : removeFromArray(temporaryStyles, value);
+	            }
+	          } else if (animationPaused && playAnimation) {
+	            animationPaused = false;
+	            close();
+	          }
+	        };
+	
+	        // checking the stagger duration prevents an accidentally cascade of the CSS delay style
+	        // being inherited from the parent. If the transition duration is zero then we can safely
+	        // rely that the delay value is an intentional stagger delay style.
+	        var maxStagger = itemIndex > 0
+	                         && ((timings.transitionDuration && stagger.transitionDuration === 0) ||
+	                            (timings.animationDuration && stagger.animationDuration === 0))
+	                         && Math.max(stagger.animationDelay, stagger.transitionDelay);
+	        if (maxStagger) {
+	          $timeout(triggerAnimationStart,
+	                   Math.floor(maxStagger * itemIndex * ONE_SECOND),
+	                   false);
+	        } else {
+	          triggerAnimationStart();
+	        }
+	
+	        // this will decorate the existing promise runner with pause/resume methods
+	        runnerHost.resume = function() {
+	          playPause(true);
+	        };
+	
+	        runnerHost.pause = function() {
+	          playPause(false);
+	        };
+	
+	        function triggerAnimationStart() {
+	          // just incase a stagger animation kicks in when the animation
+	          // itself was cancelled entirely
+	          if (animationClosed) return;
+	
+	          applyBlocking(false);
+	
+	          forEach(temporaryStyles, function(entry) {
+	            var key = entry[0];
+	            var value = entry[1];
+	            node.style[key] = value;
+	          });
+	
+	          applyAnimationClasses(element, options);
+	          $$jqLite.addClass(element, activeClasses);
+	
+	          if (flags.recalculateTimingStyles) {
+	            fullClassName = node.className + ' ' + preparationClasses;
+	            cacheKey = gcsHashFn(node, fullClassName);
+	
+	            timings = computeTimings(node, fullClassName, cacheKey);
+	            relativeDelay = timings.maxDelay;
+	            maxDelay = Math.max(relativeDelay, 0);
+	            maxDuration = timings.maxDuration;
+	
+	            if (maxDuration === 0) {
+	              close();
+	              return;
+	            }
+	
+	            flags.hasTransitions = timings.transitionDuration > 0;
+	            flags.hasAnimations = timings.animationDuration > 0;
+	          }
+	
+	          if (flags.applyAnimationDelay) {
+	            relativeDelay = typeof options.delay !== "boolean" && truthyTimingValue(options.delay)
+	                  ? parseFloat(options.delay)
+	                  : relativeDelay;
+	
+	            maxDelay = Math.max(relativeDelay, 0);
+	            timings.animationDelay = relativeDelay;
+	            delayStyle = getCssDelayStyle(relativeDelay, true);
+	            temporaryStyles.push(delayStyle);
+	            node.style[delayStyle[0]] = delayStyle[1];
+	          }
+	
+	          maxDelayTime = maxDelay * ONE_SECOND;
+	          maxDurationTime = maxDuration * ONE_SECOND;
+	
+	          if (options.easing) {
+	            var easeProp, easeVal = options.easing;
+	            if (flags.hasTransitions) {
+	              easeProp = TRANSITION_PROP + TIMING_KEY;
+	              temporaryStyles.push([easeProp, easeVal]);
+	              node.style[easeProp] = easeVal;
+	            }
+	            if (flags.hasAnimations) {
+	              easeProp = ANIMATION_PROP + TIMING_KEY;
+	              temporaryStyles.push([easeProp, easeVal]);
+	              node.style[easeProp] = easeVal;
+	            }
+	          }
+	
+	          if (timings.transitionDuration) {
+	            events.push(TRANSITIONEND_EVENT);
+	          }
+	
+	          if (timings.animationDuration) {
+	            events.push(ANIMATIONEND_EVENT);
+	          }
+	
+	          startTime = Date.now();
+	          var timerTime = maxDelayTime + CLOSING_TIME_BUFFER * maxDurationTime;
+	          var endTime = startTime + timerTime;
+	
+	          var animationsData = element.data(ANIMATE_TIMER_KEY) || [];
+	          var setupFallbackTimer = true;
+	          if (animationsData.length) {
+	            var currentTimerData = animationsData[0];
+	            setupFallbackTimer = endTime > currentTimerData.expectedEndTime;
+	            if (setupFallbackTimer) {
+	              $timeout.cancel(currentTimerData.timer);
+	            } else {
+	              animationsData.push(close);
+	            }
+	          }
+	
+	          if (setupFallbackTimer) {
+	            var timer = $timeout(onAnimationExpired, timerTime, false);
+	            animationsData[0] = {
+	              timer: timer,
+	              expectedEndTime: endTime
+	            };
+	            animationsData.push(close);
+	            element.data(ANIMATE_TIMER_KEY, animationsData);
+	          }
+	
+	          if (events.length) {
+	            element.on(events.join(' '), onAnimationProgress);
+	          }
+	
+	          if (options.to) {
+	            if (options.cleanupStyles) {
+	              registerRestorableStyles(restoreStyles, node, Object.keys(options.to));
+	            }
+	            applyAnimationToStyles(element, options);
+	          }
+	        }
+	
+	        function onAnimationExpired() {
+	          var animationsData = element.data(ANIMATE_TIMER_KEY);
+	
+	          // this will be false in the event that the element was
+	          // removed from the DOM (via a leave animation or something
+	          // similar)
+	          if (animationsData) {
+	            for (var i = 1; i < animationsData.length; i++) {
+	              animationsData[i]();
+	            }
+	            element.removeData(ANIMATE_TIMER_KEY);
+	          }
+	        }
+	      }
+	    };
+	  }];
+	}];
+	
+	var $$AnimateCssDriverProvider = ['$$animationProvider', function($$animationProvider) {
+	  $$animationProvider.drivers.push('$$animateCssDriver');
+	
+	  var NG_ANIMATE_SHIM_CLASS_NAME = 'ng-animate-shim';
+	  var NG_ANIMATE_ANCHOR_CLASS_NAME = 'ng-anchor';
+	
+	  var NG_OUT_ANCHOR_CLASS_NAME = 'ng-anchor-out';
+	  var NG_IN_ANCHOR_CLASS_NAME = 'ng-anchor-in';
+	
+	  function isDocumentFragment(node) {
+	    return node.parentNode && node.parentNode.nodeType === 11;
+	  }
+	
+	  this.$get = ['$animateCss', '$rootScope', '$$AnimateRunner', '$rootElement', '$sniffer', '$$jqLite', '$document',
+	       function($animateCss,   $rootScope,   $$AnimateRunner,   $rootElement,   $sniffer,   $$jqLite,   $document) {
+	
+	    // only browsers that support these properties can render animations
+	    if (!$sniffer.animations && !$sniffer.transitions) return noop;
+	
+	    var bodyNode = $document[0].body;
+	    var rootNode = getDomNode($rootElement);
+	
+	    var rootBodyElement = jqLite(
+	      // this is to avoid using something that exists outside of the body
+	      // we also special case the doc fragment case because our unit test code
+	      // appends the $rootElement to the body after the app has been bootstrapped
+	      isDocumentFragment(rootNode) || bodyNode.contains(rootNode) ? rootNode : bodyNode
+	    );
+	
+	    var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+	
+	    return function initDriverFn(animationDetails) {
+	      return animationDetails.from && animationDetails.to
+	          ? prepareFromToAnchorAnimation(animationDetails.from,
+	                                         animationDetails.to,
+	                                         animationDetails.classes,
+	                                         animationDetails.anchors)
+	          : prepareRegularAnimation(animationDetails);
+	    };
+	
+	    function filterCssClasses(classes) {
+	      //remove all the `ng-` stuff
+	      return classes.replace(/\bng-\S+\b/g, '');
+	    }
+	
+	    function getUniqueValues(a, b) {
+	      if (isString(a)) a = a.split(' ');
+	      if (isString(b)) b = b.split(' ');
+	      return a.filter(function(val) {
+	        return b.indexOf(val) === -1;
+	      }).join(' ');
+	    }
+	
+	    function prepareAnchoredAnimation(classes, outAnchor, inAnchor) {
+	      var clone = jqLite(getDomNode(outAnchor).cloneNode(true));
+	      var startingClasses = filterCssClasses(getClassVal(clone));
+	
+	      outAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
+	      inAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
+	
+	      clone.addClass(NG_ANIMATE_ANCHOR_CLASS_NAME);
+	
+	      rootBodyElement.append(clone);
+	
+	      var animatorIn, animatorOut = prepareOutAnimation();
+	
+	      // the user may not end up using the `out` animation and
+	      // only making use of the `in` animation or vice-versa.
+	      // In either case we should allow this and not assume the
+	      // animation is over unless both animations are not used.
+	      if (!animatorOut) {
+	        animatorIn = prepareInAnimation();
+	        if (!animatorIn) {
+	          return end();
+	        }
+	      }
+	
+	      var startingAnimator = animatorOut || animatorIn;
+	
+	      return {
+	        start: function() {
+	          var runner;
+	
+	          var currentAnimation = startingAnimator.start();
+	          currentAnimation.done(function() {
+	            currentAnimation = null;
+	            if (!animatorIn) {
+	              animatorIn = prepareInAnimation();
+	              if (animatorIn) {
+	                currentAnimation = animatorIn.start();
+	                currentAnimation.done(function() {
+	                  currentAnimation = null;
+	                  end();
+	                  runner.complete();
+	                });
+	                return currentAnimation;
+	              }
+	            }
+	            // in the event that there is no `in` animation
+	            end();
+	            runner.complete();
+	          });
+	
+	          runner = new $$AnimateRunner({
+	            end: endFn,
+	            cancel: endFn
+	          });
+	
+	          return runner;
+	
+	          function endFn() {
+	            if (currentAnimation) {
+	              currentAnimation.end();
+	            }
+	          }
+	        }
+	      };
+	
+	      function calculateAnchorStyles(anchor) {
+	        var styles = {};
+	
+	        var coords = getDomNode(anchor).getBoundingClientRect();
+	
+	        // we iterate directly since safari messes up and doesn't return
+	        // all the keys for the coords object when iterated
+	        forEach(['width','height','top','left'], function(key) {
+	          var value = coords[key];
+	          switch (key) {
+	            case 'top':
+	              value += bodyNode.scrollTop;
+	              break;
+	            case 'left':
+	              value += bodyNode.scrollLeft;
+	              break;
+	          }
+	          styles[key] = Math.floor(value) + 'px';
+	        });
+	        return styles;
+	      }
+	
+	      function prepareOutAnimation() {
+	        var animator = $animateCss(clone, {
+	          addClass: NG_OUT_ANCHOR_CLASS_NAME,
+	          delay: true,
+	          from: calculateAnchorStyles(outAnchor)
+	        });
+	
+	        // read the comment within `prepareRegularAnimation` to understand
+	        // why this check is necessary
+	        return animator.$$willAnimate ? animator : null;
+	      }
+	
+	      function getClassVal(element) {
+	        return element.attr('class') || '';
+	      }
+	
+	      function prepareInAnimation() {
+	        var endingClasses = filterCssClasses(getClassVal(inAnchor));
+	        var toAdd = getUniqueValues(endingClasses, startingClasses);
+	        var toRemove = getUniqueValues(startingClasses, endingClasses);
+	
+	        var animator = $animateCss(clone, {
+	          to: calculateAnchorStyles(inAnchor),
+	          addClass: NG_IN_ANCHOR_CLASS_NAME + ' ' + toAdd,
+	          removeClass: NG_OUT_ANCHOR_CLASS_NAME + ' ' + toRemove,
+	          delay: true
+	        });
+	
+	        // read the comment within `prepareRegularAnimation` to understand
+	        // why this check is necessary
+	        return animator.$$willAnimate ? animator : null;
+	      }
+	
+	      function end() {
+	        clone.remove();
+	        outAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
+	        inAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
+	      }
+	    }
+	
+	    function prepareFromToAnchorAnimation(from, to, classes, anchors) {
+	      var fromAnimation = prepareRegularAnimation(from, noop);
+	      var toAnimation = prepareRegularAnimation(to, noop);
+	
+	      var anchorAnimations = [];
+	      forEach(anchors, function(anchor) {
+	        var outElement = anchor['out'];
+	        var inElement = anchor['in'];
+	        var animator = prepareAnchoredAnimation(classes, outElement, inElement);
+	        if (animator) {
+	          anchorAnimations.push(animator);
+	        }
+	      });
+	
+	      // no point in doing anything when there are no elements to animate
+	      if (!fromAnimation && !toAnimation && anchorAnimations.length === 0) return;
+	
+	      return {
+	        start: function() {
+	          var animationRunners = [];
+	
+	          if (fromAnimation) {
+	            animationRunners.push(fromAnimation.start());
+	          }
+	
+	          if (toAnimation) {
+	            animationRunners.push(toAnimation.start());
+	          }
+	
+	          forEach(anchorAnimations, function(animation) {
+	            animationRunners.push(animation.start());
+	          });
+	
+	          var runner = new $$AnimateRunner({
+	            end: endFn,
+	            cancel: endFn // CSS-driven animations cannot be cancelled, only ended
+	          });
+	
+	          $$AnimateRunner.all(animationRunners, function(status) {
+	            runner.complete(status);
+	          });
+	
+	          return runner;
+	
+	          function endFn() {
+	            forEach(animationRunners, function(runner) {
+	              runner.end();
+	            });
+	          }
+	        }
+	      };
+	    }
+	
+	    function prepareRegularAnimation(animationDetails) {
+	      var element = animationDetails.element;
+	      var options = animationDetails.options || {};
+	
+	      if (animationDetails.structural) {
+	        options.event = animationDetails.event;
+	        options.structural = true;
+	        options.applyClassesEarly = true;
+	
+	        // we special case the leave animation since we want to ensure that
+	        // the element is removed as soon as the animation is over. Otherwise
+	        // a flicker might appear or the element may not be removed at all
+	        if (animationDetails.event === 'leave') {
+	          options.onDone = options.domOperation;
+	        }
+	      }
+	
+	      // We assign the preparationClasses as the actual animation event since
+	      // the internals of $animateCss will just suffix the event token values
+	      // with `-active` to trigger the animation.
+	      if (options.preparationClasses) {
+	        options.event = concatWithSpace(options.event, options.preparationClasses);
+	      }
+	
+	      var animator = $animateCss(element, options);
+	
+	      // the driver lookup code inside of $$animation attempts to spawn a
+	      // driver one by one until a driver returns a.$$willAnimate animator object.
+	      // $animateCss will always return an object, however, it will pass in
+	      // a flag as a hint as to whether an animation was detected or not
+	      return animator.$$willAnimate ? animator : null;
+	    }
+	  }];
+	}];
+	
+	// TODO(matsko): use caching here to speed things up for detection
+	// TODO(matsko): add documentation
+	//  by the time...
+	
+	var $$AnimateJsProvider = ['$animateProvider', function($animateProvider) {
+	  this.$get = ['$injector', '$$AnimateRunner', '$$jqLite',
+	       function($injector,   $$AnimateRunner,   $$jqLite) {
+	
+	    var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+	         // $animateJs(element, 'enter');
+	    return function(element, event, classes, options) {
+	      var animationClosed = false;
+	
+	      // the `classes` argument is optional and if it is not used
+	      // then the classes will be resolved from the element's className
+	      // property as well as options.addClass/options.removeClass.
+	      if (arguments.length === 3 && isObject(classes)) {
+	        options = classes;
+	        classes = null;
+	      }
+	
+	      options = prepareAnimationOptions(options);
+	      if (!classes) {
+	        classes = element.attr('class') || '';
+	        if (options.addClass) {
+	          classes += ' ' + options.addClass;
+	        }
+	        if (options.removeClass) {
+	          classes += ' ' + options.removeClass;
+	        }
+	      }
+	
+	      var classesToAdd = options.addClass;
+	      var classesToRemove = options.removeClass;
+	
+	      // the lookupAnimations function returns a series of animation objects that are
+	      // matched up with one or more of the CSS classes. These animation objects are
+	      // defined via the module.animation factory function. If nothing is detected then
+	      // we don't return anything which then makes $animation query the next driver.
+	      var animations = lookupAnimations(classes);
+	      var before, after;
+	      if (animations.length) {
+	        var afterFn, beforeFn;
+	        if (event == 'leave') {
+	          beforeFn = 'leave';
+	          afterFn = 'afterLeave'; // TODO(matsko): get rid of this
+	        } else {
+	          beforeFn = 'before' + event.charAt(0).toUpperCase() + event.substr(1);
+	          afterFn = event;
+	        }
+	
+	        if (event !== 'enter' && event !== 'move') {
+	          before = packageAnimations(element, event, options, animations, beforeFn);
+	        }
+	        after  = packageAnimations(element, event, options, animations, afterFn);
+	      }
+	
+	      // no matching animations
+	      if (!before && !after) return;
+	
+	      function applyOptions() {
+	        options.domOperation();
+	        applyAnimationClasses(element, options);
+	      }
+	
+	      function close() {
+	        animationClosed = true;
+	        applyOptions();
+	        applyAnimationStyles(element, options);
+	      }
+	
+	      var runner;
+	
+	      return {
+	        $$willAnimate: true,
+	        end: function() {
+	          if (runner) {
+	            runner.end();
+	          } else {
+	            close();
+	            runner = new $$AnimateRunner();
+	            runner.complete(true);
+	          }
+	          return runner;
+	        },
+	        start: function() {
+	          if (runner) {
+	            return runner;
+	          }
+	
+	          runner = new $$AnimateRunner();
+	          var closeActiveAnimations;
+	          var chain = [];
+	
+	          if (before) {
+	            chain.push(function(fn) {
+	              closeActiveAnimations = before(fn);
+	            });
+	          }
+	
+	          if (chain.length) {
+	            chain.push(function(fn) {
+	              applyOptions();
+	              fn(true);
+	            });
+	          } else {
+	            applyOptions();
+	          }
+	
+	          if (after) {
+	            chain.push(function(fn) {
+	              closeActiveAnimations = after(fn);
+	            });
+	          }
+	
+	          runner.setHost({
+	            end: function() {
+	              endAnimations();
+	            },
+	            cancel: function() {
+	              endAnimations(true);
+	            }
+	          });
+	
+	          $$AnimateRunner.chain(chain, onComplete);
+	          return runner;
+	
+	          function onComplete(success) {
+	            close(success);
+	            runner.complete(success);
+	          }
+	
+	          function endAnimations(cancelled) {
+	            if (!animationClosed) {
+	              (closeActiveAnimations || noop)(cancelled);
+	              onComplete(cancelled);
+	            }
+	          }
+	        }
+	      };
+	
+	      function executeAnimationFn(fn, element, event, options, onDone) {
+	        var args;
+	        switch (event) {
+	          case 'animate':
+	            args = [element, options.from, options.to, onDone];
+	            break;
+	
+	          case 'setClass':
+	            args = [element, classesToAdd, classesToRemove, onDone];
+	            break;
+	
+	          case 'addClass':
+	            args = [element, classesToAdd, onDone];
+	            break;
+	
+	          case 'removeClass':
+	            args = [element, classesToRemove, onDone];
+	            break;
+	
+	          default:
+	            args = [element, onDone];
+	            break;
+	        }
+	
+	        args.push(options);
+	
+	        var value = fn.apply(fn, args);
+	        if (value) {
+	          if (isFunction(value.start)) {
+	            value = value.start();
+	          }
+	
+	          if (value instanceof $$AnimateRunner) {
+	            value.done(onDone);
+	          } else if (isFunction(value)) {
+	            // optional onEnd / onCancel callback
+	            return value;
+	          }
+	        }
+	
+	        return noop;
+	      }
+	
+	      function groupEventedAnimations(element, event, options, animations, fnName) {
+	        var operations = [];
+	        forEach(animations, function(ani) {
+	          var animation = ani[fnName];
+	          if (!animation) return;
+	
+	          // note that all of these animations will run in parallel
+	          operations.push(function() {
+	            var runner;
+	            var endProgressCb;
+	
+	            var resolved = false;
+	            var onAnimationComplete = function(rejected) {
+	              if (!resolved) {
+	                resolved = true;
+	                (endProgressCb || noop)(rejected);
+	                runner.complete(!rejected);
+	              }
+	            };
+	
+	            runner = new $$AnimateRunner({
+	              end: function() {
+	                onAnimationComplete();
+	              },
+	              cancel: function() {
+	                onAnimationComplete(true);
+	              }
+	            });
+	
+	            endProgressCb = executeAnimationFn(animation, element, event, options, function(result) {
+	              var cancelled = result === false;
+	              onAnimationComplete(cancelled);
+	            });
+	
+	            return runner;
+	          });
+	        });
+	
+	        return operations;
+	      }
+	
+	      function packageAnimations(element, event, options, animations, fnName) {
+	        var operations = groupEventedAnimations(element, event, options, animations, fnName);
+	        if (operations.length === 0) {
+	          var a,b;
+	          if (fnName === 'beforeSetClass') {
+	            a = groupEventedAnimations(element, 'removeClass', options, animations, 'beforeRemoveClass');
+	            b = groupEventedAnimations(element, 'addClass', options, animations, 'beforeAddClass');
+	          } else if (fnName === 'setClass') {
+	            a = groupEventedAnimations(element, 'removeClass', options, animations, 'removeClass');
+	            b = groupEventedAnimations(element, 'addClass', options, animations, 'addClass');
+	          }
+	
+	          if (a) {
+	            operations = operations.concat(a);
+	          }
+	          if (b) {
+	            operations = operations.concat(b);
+	          }
+	        }
+	
+	        if (operations.length === 0) return;
+	
+	        // TODO(matsko): add documentation
+	        return function startAnimation(callback) {
+	          var runners = [];
+	          if (operations.length) {
+	            forEach(operations, function(animateFn) {
+	              runners.push(animateFn());
+	            });
+	          }
+	
+	          runners.length ? $$AnimateRunner.all(runners, callback) : callback();
+	
+	          return function endFn(reject) {
+	            forEach(runners, function(runner) {
+	              reject ? runner.cancel() : runner.end();
+	            });
+	          };
+	        };
+	      }
+	    };
+	
+	    function lookupAnimations(classes) {
+	      classes = isArray(classes) ? classes : classes.split(' ');
+	      var matches = [], flagMap = {};
+	      for (var i=0; i < classes.length; i++) {
+	        var klass = classes[i],
+	            animationFactory = $animateProvider.$$registeredAnimations[klass];
+	        if (animationFactory && !flagMap[klass]) {
+	          matches.push($injector.get(animationFactory));
+	          flagMap[klass] = true;
+	        }
+	      }
+	      return matches;
+	    }
+	  }];
+	}];
+	
+	var $$AnimateJsDriverProvider = ['$$animationProvider', function($$animationProvider) {
+	  $$animationProvider.drivers.push('$$animateJsDriver');
+	  this.$get = ['$$animateJs', '$$AnimateRunner', function($$animateJs, $$AnimateRunner) {
+	    return function initDriverFn(animationDetails) {
+	      if (animationDetails.from && animationDetails.to) {
+	        var fromAnimation = prepareAnimation(animationDetails.from);
+	        var toAnimation = prepareAnimation(animationDetails.to);
+	        if (!fromAnimation && !toAnimation) return;
+	
+	        return {
+	          start: function() {
+	            var animationRunners = [];
+	
+	            if (fromAnimation) {
+	              animationRunners.push(fromAnimation.start());
+	            }
+	
+	            if (toAnimation) {
+	              animationRunners.push(toAnimation.start());
+	            }
+	
+	            $$AnimateRunner.all(animationRunners, done);
+	
+	            var runner = new $$AnimateRunner({
+	              end: endFnFactory(),
+	              cancel: endFnFactory()
+	            });
+	
+	            return runner;
+	
+	            function endFnFactory() {
+	              return function() {
+	                forEach(animationRunners, function(runner) {
+	                  // at this point we cannot cancel animations for groups just yet. 1.5+
+	                  runner.end();
+	                });
+	              };
+	            }
+	
+	            function done(status) {
+	              runner.complete(status);
+	            }
+	          }
+	        };
+	      } else {
+	        return prepareAnimation(animationDetails);
+	      }
+	    };
+	
+	    function prepareAnimation(animationDetails) {
+	      // TODO(matsko): make sure to check for grouped animations and delegate down to normal animations
+	      var element = animationDetails.element;
+	      var event = animationDetails.event;
+	      var options = animationDetails.options;
+	      var classes = animationDetails.classes;
+	      return $$animateJs(element, event, classes, options);
+	    }
+	  }];
+	}];
+	
+	var NG_ANIMATE_ATTR_NAME = 'data-ng-animate';
+	var NG_ANIMATE_PIN_DATA = '$ngAnimatePin';
+	var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
+	  var PRE_DIGEST_STATE = 1;
+	  var RUNNING_STATE = 2;
+	  var ONE_SPACE = ' ';
+	
+	  var rules = this.rules = {
+	    skip: [],
+	    cancel: [],
+	    join: []
+	  };
+	
+	  function makeTruthyCssClassMap(classString) {
+	    if (!classString) {
+	      return null;
+	    }
+	
+	    var keys = classString.split(ONE_SPACE);
+	    var map = Object.create(null);
+	
+	    forEach(keys, function(key) {
+	      map[key] = true;
+	    });
+	    return map;
+	  }
+	
+	  function hasMatchingClasses(newClassString, currentClassString) {
+	    if (newClassString && currentClassString) {
+	      var currentClassMap = makeTruthyCssClassMap(currentClassString);
+	      return newClassString.split(ONE_SPACE).some(function(className) {
+	        return currentClassMap[className];
+	      });
+	    }
+	  }
+	
+	  function isAllowed(ruleType, element, currentAnimation, previousAnimation) {
+	    return rules[ruleType].some(function(fn) {
+	      return fn(element, currentAnimation, previousAnimation);
+	    });
+	  }
+	
+	  function hasAnimationClasses(animation, and) {
+	    var a = (animation.addClass || '').length > 0;
+	    var b = (animation.removeClass || '').length > 0;
+	    return and ? a && b : a || b;
+	  }
+	
+	  rules.join.push(function(element, newAnimation, currentAnimation) {
+	    // if the new animation is class-based then we can just tack that on
+	    return !newAnimation.structural && hasAnimationClasses(newAnimation);
+	  });
+	
+	  rules.skip.push(function(element, newAnimation, currentAnimation) {
+	    // there is no need to animate anything if no classes are being added and
+	    // there is no structural animation that will be triggered
+	    return !newAnimation.structural && !hasAnimationClasses(newAnimation);
+	  });
+	
+	  rules.skip.push(function(element, newAnimation, currentAnimation) {
+	    // why should we trigger a new structural animation if the element will
+	    // be removed from the DOM anyway?
+	    return currentAnimation.event == 'leave' && newAnimation.structural;
+	  });
+	
+	  rules.skip.push(function(element, newAnimation, currentAnimation) {
+	    // if there is an ongoing current animation then don't even bother running the class-based animation
+	    return currentAnimation.structural && currentAnimation.state === RUNNING_STATE && !newAnimation.structural;
+	  });
+	
+	  rules.cancel.push(function(element, newAnimation, currentAnimation) {
+	    // there can never be two structural animations running at the same time
+	    return currentAnimation.structural && newAnimation.structural;
+	  });
+	
+	  rules.cancel.push(function(element, newAnimation, currentAnimation) {
+	    // if the previous animation is already running, but the new animation will
+	    // be triggered, but the new animation is structural
+	    return currentAnimation.state === RUNNING_STATE && newAnimation.structural;
+	  });
+	
+	  rules.cancel.push(function(element, newAnimation, currentAnimation) {
+	    // cancel the animation if classes added / removed in both animation cancel each other out,
+	    // but only if the current animation isn't structural
+	
+	    if (currentAnimation.structural) return false;
+	
+	    var nA = newAnimation.addClass;
+	    var nR = newAnimation.removeClass;
+	    var cA = currentAnimation.addClass;
+	    var cR = currentAnimation.removeClass;
+	
+	    // early detection to save the global CPU shortage :)
+	    if ((isUndefined(nA) && isUndefined(nR)) || (isUndefined(cA) && isUndefined(cR))) {
+	      return false;
+	    }
+	
+	    return hasMatchingClasses(nA, cR) || hasMatchingClasses(nR, cA);
+	  });
+	
+	  this.$get = ['$$rAF', '$rootScope', '$rootElement', '$document', '$$HashMap',
+	               '$$animation', '$$AnimateRunner', '$templateRequest', '$$jqLite', '$$forceReflow',
+	       function($$rAF,   $rootScope,   $rootElement,   $document,   $$HashMap,
+	                $$animation,   $$AnimateRunner,   $templateRequest,   $$jqLite,   $$forceReflow) {
+	
+	    var activeAnimationsLookup = new $$HashMap();
+	    var disabledElementsLookup = new $$HashMap();
+	    var animationsEnabled = null;
+	
+	    function postDigestTaskFactory() {
+	      var postDigestCalled = false;
+	      return function(fn) {
+	        // we only issue a call to postDigest before
+	        // it has first passed. This prevents any callbacks
+	        // from not firing once the animation has completed
+	        // since it will be out of the digest cycle.
+	        if (postDigestCalled) {
+	          fn();
+	        } else {
+	          $rootScope.$$postDigest(function() {
+	            postDigestCalled = true;
+	            fn();
+	          });
+	        }
+	      };
+	    }
+	
+	    // Wait until all directive and route-related templates are downloaded and
+	    // compiled. The $templateRequest.totalPendingRequests variable keeps track of
+	    // all of the remote templates being currently downloaded. If there are no
+	    // templates currently downloading then the watcher will still fire anyway.
+	    var deregisterWatch = $rootScope.$watch(
+	      function() { return $templateRequest.totalPendingRequests === 0; },
+	      function(isEmpty) {
+	        if (!isEmpty) return;
+	        deregisterWatch();
+	
+	        // Now that all templates have been downloaded, $animate will wait until
+	        // the post digest queue is empty before enabling animations. By having two
+	        // calls to $postDigest calls we can ensure that the flag is enabled at the
+	        // very end of the post digest queue. Since all of the animations in $animate
+	        // use $postDigest, it's important that the code below executes at the end.
+	        // This basically means that the page is fully downloaded and compiled before
+	        // any animations are triggered.
+	        $rootScope.$$postDigest(function() {
+	          $rootScope.$$postDigest(function() {
+	            // we check for null directly in the event that the application already called
+	            // .enabled() with whatever arguments that it provided it with
+	            if (animationsEnabled === null) {
+	              animationsEnabled = true;
+	            }
+	          });
+	        });
+	      }
+	    );
+	
+	    var callbackRegistry = {};
+	
+	    // remember that the classNameFilter is set during the provider/config
+	    // stage therefore we can optimize here and setup a helper function
+	    var classNameFilter = $animateProvider.classNameFilter();
+	    var isAnimatableClassName = !classNameFilter
+	              ? function() { return true; }
+	              : function(className) {
+	                return classNameFilter.test(className);
+	              };
+	
+	    var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+	
+	    function normalizeAnimationDetails(element, animation) {
+	      return mergeAnimationDetails(element, animation, {});
+	    }
+	
+	    // IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
+	    var contains = window.Node.prototype.contains || function(arg) {
+	      // jshint bitwise: false
+	      return this === arg || !!(this.compareDocumentPosition(arg) & 16);
+	      // jshint bitwise: true
+	    };
+	
+	    function findCallbacks(parent, element, event) {
+	      var targetNode = getDomNode(element);
+	      var targetParentNode = getDomNode(parent);
+	
+	      var matches = [];
+	      var entries = callbackRegistry[event];
+	      if (entries) {
+	        forEach(entries, function(entry) {
+	          if (contains.call(entry.node, targetNode)) {
+	            matches.push(entry.callback);
+	          } else if (event === 'leave' && contains.call(entry.node, targetParentNode)) {
+	            matches.push(entry.callback);
+	          }
+	        });
+	      }
+	
+	      return matches;
+	    }
+	
+	    function filterFromRegistry(list, matchContainer, matchCallback) {
+	      var containerNode = extractElementNode(matchContainer);
+	      return list.filter(function(entry) {
+	        var isMatch = entry.node === containerNode &&
+	                        (!matchCallback || entry.callback === matchCallback);
+	        return !isMatch;
+	      });
+	    }
+	
+	    function cleanupEventListeners(phase, element) {
+	      if (phase === 'close' && !element[0].parentNode) {
+	        // If the element is not attached to a parentNode, it has been removed by
+	        // the domOperation, and we can safely remove the event callbacks
+	        $animate.off(element);
+	      }
+	    }
+	
+	    var $animate = {
+	      on: function(event, container, callback) {
+	        var node = extractElementNode(container);
+	        callbackRegistry[event] = callbackRegistry[event] || [];
+	        callbackRegistry[event].push({
+	          node: node,
+	          callback: callback
+	        });
+	
+	        // Remove the callback when the element is removed from the DOM
+	        jqLite(container).on('$destroy', function() {
+	          var animationDetails = activeAnimationsLookup.get(node);
+	
+	          if (!animationDetails) {
+	            // If there's an animation ongoing, the callback calling code will remove
+	            // the event listeners. If we'd remove here, the callbacks would be removed
+	            // before the animation ends
+	            $animate.off(event, container, callback);
+	          }
+	        });
+	      },
+	
+	      off: function(event, container, callback) {
+	        if (arguments.length === 1 && !angular.isString(arguments[0])) {
+	          container = arguments[0];
+	          for (var eventType in callbackRegistry) {
+	            callbackRegistry[eventType] = filterFromRegistry(callbackRegistry[eventType], container);
+	          }
+	
+	          return;
+	        }
+	
+	        var entries = callbackRegistry[event];
+	        if (!entries) return;
+	
+	        callbackRegistry[event] = arguments.length === 1
+	            ? null
+	            : filterFromRegistry(entries, container, callback);
+	      },
+	
+	      pin: function(element, parentElement) {
+	        assertArg(isElement(element), 'element', 'not an element');
+	        assertArg(isElement(parentElement), 'parentElement', 'not an element');
+	        element.data(NG_ANIMATE_PIN_DATA, parentElement);
+	      },
+	
+	      push: function(element, event, options, domOperation) {
+	        options = options || {};
+	        options.domOperation = domOperation;
+	        return queueAnimation(element, event, options);
+	      },
+	
+	      // this method has four signatures:
+	      //  () - global getter
+	      //  (bool) - global setter
+	      //  (element) - element getter
+	      //  (element, bool) - element setter<F37>
+	      enabled: function(element, bool) {
+	        var argCount = arguments.length;
+	
+	        if (argCount === 0) {
+	          // () - Global getter
+	          bool = !!animationsEnabled;
+	        } else {
+	          var hasElement = isElement(element);
+	
+	          if (!hasElement) {
+	            // (bool) - Global setter
+	            bool = animationsEnabled = !!element;
+	          } else {
+	            var node = getDomNode(element);
+	            var recordExists = disabledElementsLookup.get(node);
+	
+	            if (argCount === 1) {
+	              // (element) - Element getter
+	              bool = !recordExists;
+	            } else {
+	              // (element, bool) - Element setter
+	              disabledElementsLookup.put(node, !bool);
+	            }
+	          }
+	        }
+	
+	        return bool;
+	      }
+	    };
+	
+	    return $animate;
+	
+	    function queueAnimation(element, event, initialOptions) {
+	      // we always make a copy of the options since
+	      // there should never be any side effects on
+	      // the input data when running `$animateCss`.
+	      var options = copy(initialOptions);
+	
+	      var node, parent;
+	      element = stripCommentsFromElement(element);
+	      if (element) {
+	        node = getDomNode(element);
+	        parent = element.parent();
+	      }
+	
+	      options = prepareAnimationOptions(options);
+	
+	      // we create a fake runner with a working promise.
+	      // These methods will become available after the digest has passed
+	      var runner = new $$AnimateRunner();
+	
+	      // this is used to trigger callbacks in postDigest mode
+	      var runInNextPostDigestOrNow = postDigestTaskFactory();
+	
+	      if (isArray(options.addClass)) {
+	        options.addClass = options.addClass.join(' ');
+	      }
+	
+	      if (options.addClass && !isString(options.addClass)) {
+	        options.addClass = null;
+	      }
+	
+	      if (isArray(options.removeClass)) {
+	        options.removeClass = options.removeClass.join(' ');
+	      }
+	
+	      if (options.removeClass && !isString(options.removeClass)) {
+	        options.removeClass = null;
+	      }
+	
+	      if (options.from && !isObject(options.from)) {
+	        options.from = null;
+	      }
+	
+	      if (options.to && !isObject(options.to)) {
+	        options.to = null;
+	      }
+	
+	      // there are situations where a directive issues an animation for
+	      // a jqLite wrapper that contains only comment nodes... If this
+	      // happens then there is no way we can perform an animation
+	      if (!node) {
+	        close();
+	        return runner;
+	      }
+	
+	      var className = [node.className, options.addClass, options.removeClass].join(' ');
+	      if (!isAnimatableClassName(className)) {
+	        close();
+	        return runner;
+	      }
+	
+	      var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
+	
+	      var documentHidden = $document[0].hidden;
+	
+	      // this is a hard disable of all animations for the application or on
+	      // the element itself, therefore  there is no need to continue further
+	      // past this point if not enabled
+	      // Animations are also disabled if the document is currently hidden (page is not visible
+	      // to the user), because browsers slow down or do not flush calls to requestAnimationFrame
+	      var skipAnimations = !animationsEnabled || documentHidden || disabledElementsLookup.get(node);
+	      var existingAnimation = (!skipAnimations && activeAnimationsLookup.get(node)) || {};
+	      var hasExistingAnimation = !!existingAnimation.state;
+	
+	      // there is no point in traversing the same collection of parent ancestors if a followup
+	      // animation will be run on the same element that already did all that checking work
+	      if (!skipAnimations && (!hasExistingAnimation || existingAnimation.state != PRE_DIGEST_STATE)) {
+	        skipAnimations = !areAnimationsAllowed(element, parent, event);
+	      }
+	
+	      if (skipAnimations) {
+	        // Callbacks should fire even if the document is hidden (regression fix for issue #14120)
+	        if (documentHidden) notifyProgress(runner, event, 'start');
+	        close();
+	        if (documentHidden) notifyProgress(runner, event, 'close');
+	        return runner;
+	      }
+	
+	      if (isStructural) {
+	        closeChildAnimations(element);
+	      }
+	
+	      var newAnimation = {
+	        structural: isStructural,
+	        element: element,
+	        event: event,
+	        addClass: options.addClass,
+	        removeClass: options.removeClass,
+	        close: close,
+	        options: options,
+	        runner: runner
+	      };
+	
+	      if (hasExistingAnimation) {
+	        var skipAnimationFlag = isAllowed('skip', element, newAnimation, existingAnimation);
+	        if (skipAnimationFlag) {
+	          if (existingAnimation.state === RUNNING_STATE) {
+	            close();
+	            return runner;
+	          } else {
+	            mergeAnimationDetails(element, existingAnimation, newAnimation);
+	            return existingAnimation.runner;
+	          }
+	        }
+	        var cancelAnimationFlag = isAllowed('cancel', element, newAnimation, existingAnimation);
+	        if (cancelAnimationFlag) {
+	          if (existingAnimation.state === RUNNING_STATE) {
+	            // this will end the animation right away and it is safe
+	            // to do so since the animation is already running and the
+	            // runner callback code will run in async
+	            existingAnimation.runner.end();
+	          } else if (existingAnimation.structural) {
+	            // this means that the animation is queued into a digest, but
+	            // hasn't started yet. Therefore it is safe to run the close
+	            // method which will call the runner methods in async.
+	            existingAnimation.close();
+	          } else {
+	            // this will merge the new animation options into existing animation options
+	            mergeAnimationDetails(element, existingAnimation, newAnimation);
+	
+	            return existingAnimation.runner;
+	          }
+	        } else {
+	          // a joined animation means that this animation will take over the existing one
+	          // so an example would involve a leave animation taking over an enter. Then when
+	          // the postDigest kicks in the enter will be ignored.
+	          var joinAnimationFlag = isAllowed('join', element, newAnimation, existingAnimation);
+	          if (joinAnimationFlag) {
+	            if (existingAnimation.state === RUNNING_STATE) {
+	              normalizeAnimationDetails(element, newAnimation);
+	            } else {
+	              applyGeneratedPreparationClasses(element, isStructural ? event : null, options);
+	
+	              event = newAnimation.event = existingAnimation.event;
+	              options = mergeAnimationDetails(element, existingAnimation, newAnimation);
+	
+	              //we return the same runner since only the option values of this animation will
+	              //be fed into the `existingAnimation`.
+	              return existingAnimation.runner;
+	            }
+	          }
+	        }
+	      } else {
+	        // normalization in this case means that it removes redundant CSS classes that
+	        // already exist (addClass) or do not exist (removeClass) on the element
+	        normalizeAnimationDetails(element, newAnimation);
+	      }
+	
+	      // when the options are merged and cleaned up we may end up not having to do
+	      // an animation at all, therefore we should check this before issuing a post
+	      // digest callback. Structural animations will always run no matter what.
+	      var isValidAnimation = newAnimation.structural;
+	      if (!isValidAnimation) {
+	        // animate (from/to) can be quickly checked first, otherwise we check if any classes are present
+	        isValidAnimation = (newAnimation.event === 'animate' && Object.keys(newAnimation.options.to || {}).length > 0)
+	                            || hasAnimationClasses(newAnimation);
+	      }
+	
+	      if (!isValidAnimation) {
+	        close();
+	        clearElementAnimationState(element);
+	        return runner;
+	      }
+	
+	      // the counter keeps track of cancelled animations
+	      var counter = (existingAnimation.counter || 0) + 1;
+	      newAnimation.counter = counter;
+	
+	      markElementAnimationState(element, PRE_DIGEST_STATE, newAnimation);
+	
+	      $rootScope.$$postDigest(function() {
+	        var animationDetails = activeAnimationsLookup.get(node);
+	        var animationCancelled = !animationDetails;
+	        animationDetails = animationDetails || {};
+	
+	        // if addClass/removeClass is called before something like enter then the
+	        // registered parent element may not be present. The code below will ensure
+	        // that a final value for parent element is obtained
+	        var parentElement = element.parent() || [];
+	
+	        // animate/structural/class-based animations all have requirements. Otherwise there
+	        // is no point in performing an animation. The parent node must also be set.
+	        var isValidAnimation = parentElement.length > 0
+	                                && (animationDetails.event === 'animate'
+	                                    || animationDetails.structural
+	                                    || hasAnimationClasses(animationDetails));
+	
+	        // this means that the previous animation was cancelled
+	        // even if the follow-up animation is the same event
+	        if (animationCancelled || animationDetails.counter !== counter || !isValidAnimation) {
+	          // if another animation did not take over then we need
+	          // to make sure that the domOperation and options are
+	          // handled accordingly
+	          if (animationCancelled) {
+	            applyAnimationClasses(element, options);
+	            applyAnimationStyles(element, options);
+	          }
+	
+	          // if the event changed from something like enter to leave then we do
+	          // it, otherwise if it's the same then the end result will be the same too
+	          if (animationCancelled || (isStructural && animationDetails.event !== event)) {
+	            options.domOperation();
+	            runner.end();
+	          }
+	
+	          // in the event that the element animation was not cancelled or a follow-up animation
+	          // isn't allowed to animate from here then we need to clear the state of the element
+	          // so that any future animations won't read the expired animation data.
+	          if (!isValidAnimation) {
+	            clearElementAnimationState(element);
+	          }
+	
+	          return;
+	        }
+	
+	        // this combined multiple class to addClass / removeClass into a setClass event
+	        // so long as a structural event did not take over the animation
+	        event = !animationDetails.structural && hasAnimationClasses(animationDetails, true)
+	            ? 'setClass'
+	            : animationDetails.event;
+	
+	        markElementAnimationState(element, RUNNING_STATE);
+	        var realRunner = $$animation(element, event, animationDetails.options);
+	
+	        // this will update the runner's flow-control events based on
+	        // the `realRunner` object.
+	        runner.setHost(realRunner);
+	        notifyProgress(runner, event, 'start', {});
+	
+	        realRunner.done(function(status) {
+	          close(!status);
+	          var animationDetails = activeAnimationsLookup.get(node);
+	          if (animationDetails && animationDetails.counter === counter) {
+	            clearElementAnimationState(getDomNode(element));
+	          }
+	          notifyProgress(runner, event, 'close', {});
+	        });
+	      });
+	
+	      return runner;
+	
+	      function notifyProgress(runner, event, phase, data) {
+	        runInNextPostDigestOrNow(function() {
+	          var callbacks = findCallbacks(parent, element, event);
+	          if (callbacks.length) {
+	            // do not optimize this call here to RAF because
+	            // we don't know how heavy the callback code here will
+	            // be and if this code is buffered then this can
+	            // lead to a performance regression.
+	            $$rAF(function() {
+	              forEach(callbacks, function(callback) {
+	                callback(element, phase, data);
+	              });
+	              cleanupEventListeners(phase, element);
+	            });
+	          } else {
+	            cleanupEventListeners(phase, element);
+	          }
+	        });
+	        runner.progress(event, phase, data);
+	      }
+	
+	      function close(reject) { // jshint ignore:line
+	        clearGeneratedClasses(element, options);
+	        applyAnimationClasses(element, options);
+	        applyAnimationStyles(element, options);
+	        options.domOperation();
+	        runner.complete(!reject);
+	      }
+	    }
+	
+	    function closeChildAnimations(element) {
+	      var node = getDomNode(element);
+	      var children = node.querySelectorAll('[' + NG_ANIMATE_ATTR_NAME + ']');
+	      forEach(children, function(child) {
+	        var state = parseInt(child.getAttribute(NG_ANIMATE_ATTR_NAME));
+	        var animationDetails = activeAnimationsLookup.get(child);
+	        if (animationDetails) {
+	          switch (state) {
+	            case RUNNING_STATE:
+	              animationDetails.runner.end();
+	              /* falls through */
+	            case PRE_DIGEST_STATE:
+	              activeAnimationsLookup.remove(child);
+	              break;
+	          }
+	        }
+	      });
+	    }
+	
+	    function clearElementAnimationState(element) {
+	      var node = getDomNode(element);
+	      node.removeAttribute(NG_ANIMATE_ATTR_NAME);
+	      activeAnimationsLookup.remove(node);
+	    }
+	
+	    function isMatchingElement(nodeOrElmA, nodeOrElmB) {
+	      return getDomNode(nodeOrElmA) === getDomNode(nodeOrElmB);
+	    }
+	
+	    /**
+	     * This fn returns false if any of the following is true:
+	     * a) animations on any parent element are disabled, and animations on the element aren't explicitly allowed
+	     * b) a parent element has an ongoing structural animation, and animateChildren is false
+	     * c) the element is not a child of the body
+	     * d) the element is not a child of the $rootElement
+	     */
+	    function areAnimationsAllowed(element, parentElement, event) {
+	      var bodyElement = jqLite($document[0].body);
+	      var bodyElementDetected = isMatchingElement(element, bodyElement) || element[0].nodeName === 'HTML';
+	      var rootElementDetected = isMatchingElement(element, $rootElement);
+	      var parentAnimationDetected = false;
+	      var animateChildren;
+	      var elementDisabled = disabledElementsLookup.get(getDomNode(element));
+	
+	      var parentHost = jqLite.data(element[0], NG_ANIMATE_PIN_DATA);
+	      if (parentHost) {
+	        parentElement = parentHost;
+	      }
+	
+	      parentElement = getDomNode(parentElement);
+	
+	      while (parentElement) {
+	        if (!rootElementDetected) {
+	          // angular doesn't want to attempt to animate elements outside of the application
+	          // therefore we need to ensure that the rootElement is an ancestor of the current element
+	          rootElementDetected = isMatchingElement(parentElement, $rootElement);
+	        }
+	
+	        if (parentElement.nodeType !== ELEMENT_NODE) {
+	          // no point in inspecting the #document element
+	          break;
+	        }
+	
+	        var details = activeAnimationsLookup.get(parentElement) || {};
+	        // either an enter, leave or move animation will commence
+	        // therefore we can't allow any animations to take place
+	        // but if a parent animation is class-based then that's ok
+	        if (!parentAnimationDetected) {
+	          var parentElementDisabled = disabledElementsLookup.get(parentElement);
+	
+	          if (parentElementDisabled === true && elementDisabled !== false) {
+	            // disable animations if the user hasn't explicitly enabled animations on the
+	            // current element
+	            elementDisabled = true;
+	            // element is disabled via parent element, no need to check anything else
+	            break;
+	          } else if (parentElementDisabled === false) {
+	            elementDisabled = false;
+	          }
+	          parentAnimationDetected = details.structural;
+	        }
+	
+	        if (isUndefined(animateChildren) || animateChildren === true) {
+	          var value = jqLite.data(parentElement, NG_ANIMATE_CHILDREN_DATA);
+	          if (isDefined(value)) {
+	            animateChildren = value;
+	          }
+	        }
+	
+	        // there is no need to continue traversing at this point
+	        if (parentAnimationDetected && animateChildren === false) break;
+	
+	        if (!bodyElementDetected) {
+	          // we also need to ensure that the element is or will be a part of the body element
+	          // otherwise it is pointless to even issue an animation to be rendered
+	          bodyElementDetected = isMatchingElement(parentElement, bodyElement);
+	        }
+	
+	        if (bodyElementDetected && rootElementDetected) {
+	          // If both body and root have been found, any other checks are pointless,
+	          // as no animation data should live outside the application
+	          break;
+	        }
+	
+	        if (!rootElementDetected) {
+	          // If no rootElement is detected, check if the parentElement is pinned to another element
+	          parentHost = jqLite.data(parentElement, NG_ANIMATE_PIN_DATA);
+	          if (parentHost) {
+	            // The pin target element becomes the next parent element
+	            parentElement = getDomNode(parentHost);
+	            continue;
+	          }
+	        }
+	
+	        parentElement = parentElement.parentNode;
+	      }
+	
+	      var allowAnimation = (!parentAnimationDetected || animateChildren) && elementDisabled !== true;
+	      return allowAnimation && rootElementDetected && bodyElementDetected;
+	    }
+	
+	    function markElementAnimationState(element, state, details) {
+	      details = details || {};
+	      details.state = state;
+	
+	      var node = getDomNode(element);
+	      node.setAttribute(NG_ANIMATE_ATTR_NAME, state);
+	
+	      var oldValue = activeAnimationsLookup.get(node);
+	      var newValue = oldValue
+	          ? extend(oldValue, details)
+	          : details;
+	      activeAnimationsLookup.put(node, newValue);
+	    }
+	  }];
+	}];
+	
+	var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
+	  var NG_ANIMATE_REF_ATTR = 'ng-animate-ref';
+	
+	  var drivers = this.drivers = [];
+	
+	  var RUNNER_STORAGE_KEY = '$$animationRunner';
+	
+	  function setRunner(element, runner) {
+	    element.data(RUNNER_STORAGE_KEY, runner);
+	  }
+	
+	  function removeRunner(element) {
+	    element.removeData(RUNNER_STORAGE_KEY);
+	  }
+	
+	  function getRunner(element) {
+	    return element.data(RUNNER_STORAGE_KEY);
+	  }
+	
+	  this.$get = ['$$jqLite', '$rootScope', '$injector', '$$AnimateRunner', '$$HashMap', '$$rAFScheduler',
+	       function($$jqLite,   $rootScope,   $injector,   $$AnimateRunner,   $$HashMap,   $$rAFScheduler) {
+	
+	    var animationQueue = [];
+	    var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+	
+	    function sortAnimations(animations) {
+	      var tree = { children: [] };
+	      var i, lookup = new $$HashMap();
+	
+	      // this is done first beforehand so that the hashmap
+	      // is filled with a list of the elements that will be animated
+	      for (i = 0; i < animations.length; i++) {
+	        var animation = animations[i];
+	        lookup.put(animation.domNode, animations[i] = {
+	          domNode: animation.domNode,
+	          fn: animation.fn,
+	          children: []
+	        });
+	      }
+	
+	      for (i = 0; i < animations.length; i++) {
+	        processNode(animations[i]);
+	      }
+	
+	      return flatten(tree);
+	
+	      function processNode(entry) {
+	        if (entry.processed) return entry;
+	        entry.processed = true;
+	
+	        var elementNode = entry.domNode;
+	        var parentNode = elementNode.parentNode;
+	        lookup.put(elementNode, entry);
+	
+	        var parentEntry;
+	        while (parentNode) {
+	          parentEntry = lookup.get(parentNode);
+	          if (parentEntry) {
+	            if (!parentEntry.processed) {
+	              parentEntry = processNode(parentEntry);
+	            }
+	            break;
+	          }
+	          parentNode = parentNode.parentNode;
+	        }
+	
+	        (parentEntry || tree).children.push(entry);
+	        return entry;
+	      }
+	
+	      function flatten(tree) {
+	        var result = [];
+	        var queue = [];
+	        var i;
+	
+	        for (i = 0; i < tree.children.length; i++) {
+	          queue.push(tree.children[i]);
+	        }
+	
+	        var remainingLevelEntries = queue.length;
+	        var nextLevelEntries = 0;
+	        var row = [];
+	
+	        for (i = 0; i < queue.length; i++) {
+	          var entry = queue[i];
+	          if (remainingLevelEntries <= 0) {
+	            remainingLevelEntries = nextLevelEntries;
+	            nextLevelEntries = 0;
+	            result.push(row);
+	            row = [];
+	          }
+	          row.push(entry.fn);
+	          entry.children.forEach(function(childEntry) {
+	            nextLevelEntries++;
+	            queue.push(childEntry);
+	          });
+	          remainingLevelEntries--;
+	        }
+	
+	        if (row.length) {
+	          result.push(row);
+	        }
+	
+	        return result;
+	      }
+	    }
+	
+	    // TODO(matsko): document the signature in a better way
+	    return function(element, event, options) {
+	      options = prepareAnimationOptions(options);
+	      var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
+	
+	      // there is no animation at the current moment, however
+	      // these runner methods will get later updated with the
+	      // methods leading into the driver's end/cancel methods
+	      // for now they just stop the animation from starting
+	      var runner = new $$AnimateRunner({
+	        end: function() { close(); },
+	        cancel: function() { close(true); }
+	      });
+	
+	      if (!drivers.length) {
+	        close();
+	        return runner;
+	      }
+	
+	      setRunner(element, runner);
+	
+	      var classes = mergeClasses(element.attr('class'), mergeClasses(options.addClass, options.removeClass));
+	      var tempClasses = options.tempClasses;
+	      if (tempClasses) {
+	        classes += ' ' + tempClasses;
+	        options.tempClasses = null;
+	      }
+	
+	      var prepareClassName;
+	      if (isStructural) {
+	        prepareClassName = 'ng-' + event + PREPARE_CLASS_SUFFIX;
+	        $$jqLite.addClass(element, prepareClassName);
+	      }
+	
+	      animationQueue.push({
+	        // this data is used by the postDigest code and passed into
+	        // the driver step function
+	        element: element,
+	        classes: classes,
+	        event: event,
+	        structural: isStructural,
+	        options: options,
+	        beforeStart: beforeStart,
+	        close: close
+	      });
+	
+	      element.on('$destroy', handleDestroyedElement);
+	
+	      // we only want there to be one function called within the post digest
+	      // block. This way we can group animations for all the animations that
+	      // were apart of the same postDigest flush call.
+	      if (animationQueue.length > 1) return runner;
+	
+	      $rootScope.$$postDigest(function() {
+	        var animations = [];
+	        forEach(animationQueue, function(entry) {
+	          // the element was destroyed early on which removed the runner
+	          // form its storage. This means we can't animate this element
+	          // at all and it already has been closed due to destruction.
+	          if (getRunner(entry.element)) {
+	            animations.push(entry);
+	          } else {
+	            entry.close();
+	          }
+	        });
+	
+	        // now any future animations will be in another postDigest
+	        animationQueue.length = 0;
+	
+	        var groupedAnimations = groupAnimations(animations);
+	        var toBeSortedAnimations = [];
+	
+	        forEach(groupedAnimations, function(animationEntry) {
+	          toBeSortedAnimations.push({
+	            domNode: getDomNode(animationEntry.from ? animationEntry.from.element : animationEntry.element),
+	            fn: function triggerAnimationStart() {
+	              // it's important that we apply the `ng-animate` CSS class and the
+	              // temporary classes before we do any driver invoking since these
+	              // CSS classes may be required for proper CSS detection.
+	              animationEntry.beforeStart();
+	
+	              var startAnimationFn, closeFn = animationEntry.close;
+	
+	              // in the event that the element was removed before the digest runs or
+	              // during the RAF sequencing then we should not trigger the animation.
+	              var targetElement = animationEntry.anchors
+	                  ? (animationEntry.from.element || animationEntry.to.element)
+	                  : animationEntry.element;
+	
+	              if (getRunner(targetElement)) {
+	                var operation = invokeFirstDriver(animationEntry);
+	                if (operation) {
+	                  startAnimationFn = operation.start;
+	                }
+	              }
+	
+	              if (!startAnimationFn) {
+	                closeFn();
+	              } else {
+	                var animationRunner = startAnimationFn();
+	                animationRunner.done(function(status) {
+	                  closeFn(!status);
+	                });
+	                updateAnimationRunners(animationEntry, animationRunner);
+	              }
+	            }
+	          });
+	        });
+	
+	        // we need to sort each of the animations in order of parent to child
+	        // relationships. This ensures that the child classes are applied at the
+	        // right time.
+	        $$rAFScheduler(sortAnimations(toBeSortedAnimations));
+	      });
+	
+	      return runner;
+	
+	      // TODO(matsko): change to reference nodes
+	      function getAnchorNodes(node) {
+	        var SELECTOR = '[' + NG_ANIMATE_REF_ATTR + ']';
+	        var items = node.hasAttribute(NG_ANIMATE_REF_ATTR)
+	              ? [node]
+	              : node.querySelectorAll(SELECTOR);
+	        var anchors = [];
+	        forEach(items, function(node) {
+	          var attr = node.getAttribute(NG_ANIMATE_REF_ATTR);
+	          if (attr && attr.length) {
+	            anchors.push(node);
+	          }
+	        });
+	        return anchors;
+	      }
+	
+	      function groupAnimations(animations) {
+	        var preparedAnimations = [];
+	        var refLookup = {};
+	        forEach(animations, function(animation, index) {
+	          var element = animation.element;
+	          var node = getDomNode(element);
+	          var event = animation.event;
+	          var enterOrMove = ['enter', 'move'].indexOf(event) >= 0;
+	          var anchorNodes = animation.structural ? getAnchorNodes(node) : [];
+	
+	          if (anchorNodes.length) {
+	            var direction = enterOrMove ? 'to' : 'from';
+	
+	            forEach(anchorNodes, function(anchor) {
+	              var key = anchor.getAttribute(NG_ANIMATE_REF_ATTR);
+	              refLookup[key] = refLookup[key] || {};
+	              refLookup[key][direction] = {
+	                animationID: index,
+	                element: jqLite(anchor)
+	              };
+	            });
+	          } else {
+	            preparedAnimations.push(animation);
+	          }
+	        });
+	
+	        var usedIndicesLookup = {};
+	        var anchorGroups = {};
+	        forEach(refLookup, function(operations, key) {
+	          var from = operations.from;
+	          var to = operations.to;
+	
+	          if (!from || !to) {
+	            // only one of these is set therefore we can't have an
+	            // anchor animation since all three pieces are required
+	            var index = from ? from.animationID : to.animationID;
+	            var indexKey = index.toString();
+	            if (!usedIndicesLookup[indexKey]) {
+	              usedIndicesLookup[indexKey] = true;
+	              preparedAnimations.push(animations[index]);
+	            }
+	            return;
+	          }
+	
+	          var fromAnimation = animations[from.animationID];
+	          var toAnimation = animations[to.animationID];
+	          var lookupKey = from.animationID.toString();
+	          if (!anchorGroups[lookupKey]) {
+	            var group = anchorGroups[lookupKey] = {
+	              structural: true,
+	              beforeStart: function() {
+	                fromAnimation.beforeStart();
+	                toAnimation.beforeStart();
+	              },
+	              close: function() {
+	                fromAnimation.close();
+	                toAnimation.close();
+	              },
+	              classes: cssClassesIntersection(fromAnimation.classes, toAnimation.classes),
+	              from: fromAnimation,
+	              to: toAnimation,
+	              anchors: [] // TODO(matsko): change to reference nodes
+	            };
+	
+	            // the anchor animations require that the from and to elements both have at least
+	            // one shared CSS class which effectively marries the two elements together to use
+	            // the same animation driver and to properly sequence the anchor animation.
+	            if (group.classes.length) {
+	              preparedAnimations.push(group);
+	            } else {
+	              preparedAnimations.push(fromAnimation);
+	              preparedAnimations.push(toAnimation);
+	            }
+	          }
+	
+	          anchorGroups[lookupKey].anchors.push({
+	            'out': from.element, 'in': to.element
+	          });
+	        });
+	
+	        return preparedAnimations;
+	      }
+	
+	      function cssClassesIntersection(a,b) {
+	        a = a.split(' ');
+	        b = b.split(' ');
+	        var matches = [];
+	
+	        for (var i = 0; i < a.length; i++) {
+	          var aa = a[i];
+	          if (aa.substring(0,3) === 'ng-') continue;
+	
+	          for (var j = 0; j < b.length; j++) {
+	            if (aa === b[j]) {
+	              matches.push(aa);
+	              break;
+	            }
+	          }
+	        }
+	
+	        return matches.join(' ');
+	      }
+	
+	      function invokeFirstDriver(animationDetails) {
+	        // we loop in reverse order since the more general drivers (like CSS and JS)
+	        // may attempt more elements, but custom drivers are more particular
+	        for (var i = drivers.length - 1; i >= 0; i--) {
+	          var driverName = drivers[i];
+	          if (!$injector.has(driverName)) continue; // TODO(matsko): remove this check
+	
+	          var factory = $injector.get(driverName);
+	          var driver = factory(animationDetails);
+	          if (driver) {
+	            return driver;
+	          }
+	        }
+	      }
+	
+	      function beforeStart() {
+	        element.addClass(NG_ANIMATE_CLASSNAME);
+	        if (tempClasses) {
+	          $$jqLite.addClass(element, tempClasses);
+	        }
+	        if (prepareClassName) {
+	          $$jqLite.removeClass(element, prepareClassName);
+	          prepareClassName = null;
+	        }
+	      }
+	
+	      function updateAnimationRunners(animation, newRunner) {
+	        if (animation.from && animation.to) {
+	          update(animation.from.element);
+	          update(animation.to.element);
+	        } else {
+	          update(animation.element);
+	        }
+	
+	        function update(element) {
+	          getRunner(element).setHost(newRunner);
+	        }
+	      }
+	
+	      function handleDestroyedElement() {
+	        var runner = getRunner(element);
+	        if (runner && (event !== 'leave' || !options.$$domOperationFired)) {
+	          runner.end();
+	        }
+	      }
+	
+	      function close(rejected) { // jshint ignore:line
+	        element.off('$destroy', handleDestroyedElement);
+	        removeRunner(element);
+	
+	        applyAnimationClasses(element, options);
+	        applyAnimationStyles(element, options);
+	        options.domOperation();
+	
+	        if (tempClasses) {
+	          $$jqLite.removeClass(element, tempClasses);
+	        }
+	
+	        element.removeClass(NG_ANIMATE_CLASSNAME);
+	        runner.complete(!rejected);
+	      }
+	    };
+	  }];
+	}];
+	
+	/**
+	 * @ngdoc directive
+	 * @name ngAnimateSwap
+	 * @restrict A
+	 * @scope
+	 *
+	 * @description
+	 *
+	 * ngAnimateSwap is a animation-oriented directive that allows for the container to
+	 * be removed and entered in whenever the associated expression changes. A
+	 * common usecase for this directive is a rotating banner or slider component which
+	 * contains one image being present at a time. When the active image changes
+	 * then the old image will perform a `leave` animation and the new element
+	 * will be inserted via an `enter` animation.
+	 *
+	 * @animations
+	 * | Animation                        | Occurs                               |
+	 * |----------------------------------|--------------------------------------|
+	 * | {@link ng.$animate#enter enter}  | when the new element is inserted to the DOM  |
+	 * | {@link ng.$animate#leave leave}  | when the old element is removed from the DOM |
+	 *
+	 * @example
+	 * <example name="ngAnimateSwap-directive" module="ngAnimateSwapExample"
+	 *          deps="angular-animate.js"
+	 *          animations="true" fixBase="true">
+	 *   <file name="index.html">
+	 *     <div class="container" ng-controller="AppCtrl">
+	 *       <div ng-animate-swap="number" class="cell swap-animation" ng-class="colorClass(number)">
+	 *         {{ number }}
+	 *       </div>
+	 *     </div>
+	 *   </file>
+	 *   <file name="script.js">
+	 *     angular.module('ngAnimateSwapExample', ['ngAnimate'])
+	 *       .controller('AppCtrl', ['$scope', '$interval', function($scope, $interval) {
+	 *         $scope.number = 0;
+	 *         $interval(function() {
+	 *           $scope.number++;
+	 *         }, 1000);
+	 *
+	 *         var colors = ['red','blue','green','yellow','orange'];
+	 *         $scope.colorClass = function(number) {
+	 *           return colors[number % colors.length];
+	 *         };
+	 *       }]);
+	 *   </file>
+	 *  <file name="animations.css">
+	 *  .container {
+	 *    height:250px;
+	 *    width:250px;
+	 *    position:relative;
+	 *    overflow:hidden;
+	 *    border:2px solid black;
+	 *  }
+	 *  .container .cell {
+	 *    font-size:150px;
+	 *    text-align:center;
+	 *    line-height:250px;
+	 *    position:absolute;
+	 *    top:0;
+	 *    left:0;
+	 *    right:0;
+	 *    border-bottom:2px solid black;
+	 *  }
+	 *  .swap-animation.ng-enter, .swap-animation.ng-leave {
+	 *    transition:0.5s linear all;
+	 *  }
+	 *  .swap-animation.ng-enter {
+	 *    top:-250px;
+	 *  }
+	 *  .swap-animation.ng-enter-active {
+	 *    top:0px;
+	 *  }
+	 *  .swap-animation.ng-leave {
+	 *    top:0px;
+	 *  }
+	 *  .swap-animation.ng-leave-active {
+	 *    top:250px;
+	 *  }
+	 *  .red { background:red; }
+	 *  .green { background:green; }
+	 *  .blue { background:blue; }
+	 *  .yellow { background:yellow; }
+	 *  .orange { background:orange; }
+	 *  </file>
+	 * </example>
+	 */
+	var ngAnimateSwapDirective = ['$animate', '$rootScope', function($animate, $rootScope) {
+	  return {
+	    restrict: 'A',
+	    transclude: 'element',
+	    terminal: true,
+	    priority: 600, // we use 600 here to ensure that the directive is caught before others
+	    link: function(scope, $element, attrs, ctrl, $transclude) {
+	      var previousElement, previousScope;
+	      scope.$watchCollection(attrs.ngAnimateSwap || attrs['for'], function(value) {
+	        if (previousElement) {
+	          $animate.leave(previousElement);
+	        }
+	        if (previousScope) {
+	          previousScope.$destroy();
+	          previousScope = null;
+	        }
+	        if (value || value === 0) {
+	          previousScope = scope.$new();
+	          $transclude(previousScope, function(element) {
+	            previousElement = element;
+	            $animate.enter(element, null, $element);
+	          });
+	        }
+	      });
+	    }
+	  };
+	}];
+	
+	/* global angularAnimateModule: true,
+	
+	   ngAnimateSwapDirective,
+	   $$AnimateAsyncRunFactory,
+	   $$rAFSchedulerFactory,
+	   $$AnimateChildrenDirective,
+	   $$AnimateQueueProvider,
+	   $$AnimationProvider,
+	   $AnimateCssProvider,
+	   $$AnimateCssDriverProvider,
+	   $$AnimateJsProvider,
+	   $$AnimateJsDriverProvider,
+	*/
+	
+	/**
+	 * @ngdoc module
+	 * @name ngAnimate
+	 * @description
+	 *
+	 * The `ngAnimate` module provides support for CSS-based animations (keyframes and transitions) as well as JavaScript-based animations via
+	 * callback hooks. Animations are not enabled by default, however, by including `ngAnimate` the animation hooks are enabled for an Angular app.
+	 *
+	 * <div doc-module-components="ngAnimate"></div>
+	 *
+	 * # Usage
+	 * Simply put, there are two ways to make use of animations when ngAnimate is used: by using **CSS** and **JavaScript**. The former works purely based
+	 * using CSS (by using matching CSS selectors/styles) and the latter triggers animations that are registered via `module.animation()`. For
+	 * both CSS and JS animations the sole requirement is to have a matching `CSS class` that exists both in the registered animation and within
+	 * the HTML element that the animation will be triggered on.
+	 *
+	 * ## Directive Support
+	 * The following directives are "animation aware":
+	 *
+	 * | Directive                                                                                                | Supported Animations                                                     |
+	 * |----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+	 * | {@link ng.directive:ngRepeat#animations ngRepeat}                                                        | enter, leave and move                                                    |
+	 * | {@link ngRoute.directive:ngView#animations ngView}                                                       | enter and leave                                                          |
+	 * | {@link ng.directive:ngInclude#animations ngInclude}                                                      | enter and leave                                                          |
+	 * | {@link ng.directive:ngSwitch#animations ngSwitch}                                                        | enter and leave                                                          |
+	 * | {@link ng.directive:ngIf#animations ngIf}                                                                | enter and leave                                                          |
+	 * | {@link ng.directive:ngClass#animations ngClass}                                                          | add and remove (the CSS class(es) present)                               |
+	 * | {@link ng.directive:ngShow#animations ngShow} & {@link ng.directive:ngHide#animations ngHide}            | add and remove (the ng-hide class value)                                 |
+	 * | {@link ng.directive:form#animation-hooks form} & {@link ng.directive:ngModel#animation-hooks ngModel}    | add and remove (dirty, pristine, valid, invalid & all other validations) |
+	 * | {@link module:ngMessages#animations ngMessages}                                                          | add and remove (ng-active & ng-inactive)                                 |
+	 * | {@link module:ngMessages#animations ngMessage}                                                           | enter and leave                                                          |
+	 *
+	 * (More information can be found by visiting each the documentation associated with each directive.)
+	 *
+	 * ## CSS-based Animations
+	 *
+	 * CSS-based animations with ngAnimate are unique since they require no JavaScript code at all. By using a CSS class that we reference between our HTML
+	 * and CSS code we can create an animation that will be picked up by Angular when an the underlying directive performs an operation.
+	 *
+	 * The example below shows how an `enter` animation can be made possible on an element using `ng-if`:
+	 *
+	 * ```html
+	 * <div ng-if="bool" class="fade">
+	 *    Fade me in out
+	 * </div>
+	 * <button ng-click="bool=true">Fade In!</button>
+	 * <button ng-click="bool=false">Fade Out!</button>
+	 * ```
+	 *
+	 * Notice the CSS class **fade**? We can now create the CSS transition code that references this class:
+	 *
+	 * ```css
+	 * /&#42; The starting CSS styles for the enter animation &#42;/
+	 * .fade.ng-enter {
+	 *   transition:0.5s linear all;
+	 *   opacity:0;
+	 * }
+	 *
+	 * /&#42; The finishing CSS styles for the enter animation &#42;/
+	 * .fade.ng-enter.ng-enter-active {
+	 *   opacity:1;
+	 * }
+	 * ```
+	 *
+	 * The key thing to remember here is that, depending on the animation event (which each of the directives above trigger depending on what's going on) two
+	 * generated CSS classes will be applied to the element; in the example above we have `.ng-enter` and `.ng-enter-active`. For CSS transitions, the transition
+	 * code **must** be defined within the starting CSS class (in this case `.ng-enter`). The destination class is what the transition will animate towards.
+	 *
+	 * If for example we wanted to create animations for `leave` and `move` (ngRepeat triggers move) then we can do so using the same CSS naming conventions:
+	 *
+	 * ```css
+	 * /&#42; now the element will fade out before it is removed from the DOM &#42;/
+	 * .fade.ng-leave {
+	 *   transition:0.5s linear all;
+	 *   opacity:1;
+	 * }
+	 * .fade.ng-leave.ng-leave-active {
+	 *   opacity:0;
+	 * }
+	 * ```
+	 *
+	 * We can also make use of **CSS Keyframes** by referencing the keyframe animation within the starting CSS class:
+	 *
+	 * ```css
+	 * /&#42; there is no need to define anything inside of the destination
+	 * CSS class since the keyframe will take charge of the animation &#42;/
+	 * .fade.ng-leave {
+	 *   animation: my_fade_animation 0.5s linear;
+	 *   -webkit-animation: my_fade_animation 0.5s linear;
+	 * }
+	 *
+	 * @keyframes my_fade_animation {
+	 *   from { opacity:1; }
+	 *   to { opacity:0; }
+	 * }
+	 *
+	 * @-webkit-keyframes my_fade_animation {
+	 *   from { opacity:1; }
+	 *   to { opacity:0; }
+	 * }
+	 * ```
+	 *
+	 * Feel free also mix transitions and keyframes together as well as any other CSS classes on the same element.
+	 *
+	 * ### CSS Class-based Animations
+	 *
+	 * Class-based animations (animations that are triggered via `ngClass`, `ngShow`, `ngHide` and some other directives) have a slightly different
+	 * naming convention. Class-based animations are basic enough that a standard transition or keyframe can be referenced on the class being added
+	 * and removed.
+	 *
+	 * For example if we wanted to do a CSS animation for `ngHide` then we place an animation on the `.ng-hide` CSS class:
+	 *
+	 * ```html
+	 * <div ng-show="bool" class="fade">
+	 *   Show and hide me
+	 * </div>
+	 * <button ng-click="bool=!bool">Toggle</button>
+	 *
+	 * <style>
+	 * .fade.ng-hide {
+	 *   transition:0.5s linear all;
+	 *   opacity:0;
+	 * }
+	 * </style>
+	 * ```
+	 *
+	 * All that is going on here with ngShow/ngHide behind the scenes is the `.ng-hide` class is added/removed (when the hidden state is valid). Since
+	 * ngShow and ngHide are animation aware then we can match up a transition and ngAnimate handles the rest.
+	 *
+	 * In addition the addition and removal of the CSS class, ngAnimate also provides two helper methods that we can use to further decorate the animation
+	 * with CSS styles.
+	 *
+	 * ```html
+	 * <div ng-class="{on:onOff}" class="highlight">
+	 *   Highlight this box
+	 * </div>
+	 * <button ng-click="onOff=!onOff">Toggle</button>
+	 *
+	 * <style>
+	 * .highlight {
+	 *   transition:0.5s linear all;
+	 * }
+	 * .highlight.on-add {
+	 *   background:white;
+	 * }
+	 * .highlight.on {
+	 *   background:yellow;
+	 * }
+	 * .highlight.on-remove {
+	 *   background:black;
+	 * }
+	 * </style>
+	 * ```
+	 *
+	 * We can also make use of CSS keyframes by placing them within the CSS classes.
+	 *
+	 *
+	 * ### CSS Staggering Animations
+	 * A Staggering animation is a collection of animations that are issued with a slight delay in between each successive operation resulting in a
+	 * curtain-like effect. The ngAnimate module (versions >=1.2) supports staggering animations and the stagger effect can be
+	 * performed by creating a **ng-EVENT-stagger** CSS class and attaching that class to the base CSS class used for
+	 * the animation. The style property expected within the stagger class can either be a **transition-delay** or an
+	 * **animation-delay** property (or both if your animation contains both transitions and keyframe animations).
+	 *
+	 * ```css
+	 * .my-animation.ng-enter {
+	 *   /&#42; standard transition code &#42;/
+	 *   transition: 1s linear all;
+	 *   opacity:0;
+	 * }
+	 * .my-animation.ng-enter-stagger {
+	 *   /&#42; this will have a 100ms delay between each successive leave animation &#42;/
+	 *   transition-delay: 0.1s;
+	 *
+	 *   /&#42; As of 1.4.4, this must always be set: it signals ngAnimate
+	 *     to not accidentally inherit a delay property from another CSS class &#42;/
+	 *   transition-duration: 0s;
+	 * }
+	 * .my-animation.ng-enter.ng-enter-active {
+	 *   /&#42; standard transition styles &#42;/
+	 *   opacity:1;
+	 * }
+	 * ```
+	 *
+	 * Staggering animations work by default in ngRepeat (so long as the CSS class is defined). Outside of ngRepeat, to use staggering animations
+	 * on your own, they can be triggered by firing multiple calls to the same event on $animate. However, the restrictions surrounding this
+	 * are that each of the elements must have the same CSS className value as well as the same parent element. A stagger operation
+	 * will also be reset if one or more animation frames have passed since the multiple calls to `$animate` were fired.
+	 *
+	 * The following code will issue the **ng-leave-stagger** event on the element provided:
+	 *
+	 * ```js
+	 * var kids = parent.children();
+	 *
+	 * $animate.leave(kids[0]); //stagger index=0
+	 * $animate.leave(kids[1]); //stagger index=1
+	 * $animate.leave(kids[2]); //stagger index=2
+	 * $animate.leave(kids[3]); //stagger index=3
+	 * $animate.leave(kids[4]); //stagger index=4
+	 *
+	 * window.requestAnimationFrame(function() {
+	 *   //stagger has reset itself
+	 *   $animate.leave(kids[5]); //stagger index=0
+	 *   $animate.leave(kids[6]); //stagger index=1
+	 *
+	 *   $scope.$digest();
+	 * });
+	 * ```
+	 *
+	 * Stagger animations are currently only supported within CSS-defined animations.
+	 *
+	 * ### The `ng-animate` CSS class
+	 *
+	 * When ngAnimate is animating an element it will apply the `ng-animate` CSS class to the element for the duration of the animation.
+	 * This is a temporary CSS class and it will be removed once the animation is over (for both JavaScript and CSS-based animations).
+	 *
+	 * Therefore, animations can be applied to an element using this temporary class directly via CSS.
+	 *
+	 * ```css
+	 * .zipper.ng-animate {
+	 *   transition:0.5s linear all;
+	 * }
+	 * .zipper.ng-enter {
+	 *   opacity:0;
+	 * }
+	 * .zipper.ng-enter.ng-enter-active {
+	 *   opacity:1;
+	 * }
+	 * .zipper.ng-leave {
+	 *   opacity:1;
+	 * }
+	 * .zipper.ng-leave.ng-leave-active {
+	 *   opacity:0;
+	 * }
+	 * ```
+	 *
+	 * (Note that the `ng-animate` CSS class is reserved and it cannot be applied on an element directly since ngAnimate will always remove
+	 * the CSS class once an animation has completed.)
+	 *
+	 *
+	 * ### The `ng-[event]-prepare` class
+	 *
+	 * This is a special class that can be used to prevent unwanted flickering / flash of content before
+	 * the actual animation starts. The class is added as soon as an animation is initialized, but removed
+	 * before the actual animation starts (after waiting for a $digest).
+	 * It is also only added for *structural* animations (`enter`, `move`, and `leave`).
+	 *
+	 * In practice, flickering can appear when nesting elements with structural animations such as `ngIf`
+	 * into elements that have class-based animations such as `ngClass`.
+	 *
+	 * ```html
+	 * <div ng-class="{red: myProp}">
+	 *   <div ng-class="{blue: myProp}">
+	 *     <div class="message" ng-if="myProp"></div>
+	 *   </div>
+	 * </div>
+	 * ```
+	 *
+	 * It is possible that during the `enter` animation, the `.message` div will be briefly visible before it starts animating.
+	 * In that case, you can add styles to the CSS that make sure the element stays hidden before the animation starts:
+	 *
+	 * ```css
+	 * .message.ng-enter-prepare {
+	 *   opacity: 0;
+	 * }
+	 *
+	 * ```
+	 *
+	 * ## JavaScript-based Animations
+	 *
+	 * ngAnimate also allows for animations to be consumed by JavaScript code. The approach is similar to CSS-based animations (where there is a shared
+	 * CSS class that is referenced in our HTML code) but in addition we need to register the JavaScript animation on the module. By making use of the
+	 * `module.animation()` module function we can register the animation.
+	 *
+	 * Let's see an example of a enter/leave animation using `ngRepeat`:
+	 *
+	 * ```html
+	 * <div ng-repeat="item in items" class="slide">
+	 *   {{ item }}
+	 * </div>
+	 * ```
+	 *
+	 * See the **slide** CSS class? Let's use that class to define an animation that we'll structure in our module code by using `module.animation`:
+	 *
+	 * ```js
+	 * myModule.animation('.slide', [function() {
+	 *   return {
+	 *     // make note that other events (like addClass/removeClass)
+	 *     // have different function input parameters
+	 *     enter: function(element, doneFn) {
+	 *       jQuery(element).fadeIn(1000, doneFn);
+	 *
+	 *       // remember to call doneFn so that angular
+	 *       // knows that the animation has concluded
+	 *     },
+	 *
+	 *     move: function(element, doneFn) {
+	 *       jQuery(element).fadeIn(1000, doneFn);
+	 *     },
+	 *
+	 *     leave: function(element, doneFn) {
+	 *       jQuery(element).fadeOut(1000, doneFn);
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * The nice thing about JS-based animations is that we can inject other services and make use of advanced animation libraries such as
+	 * greensock.js and velocity.js.
+	 *
+	 * If our animation code class-based (meaning that something like `ngClass`, `ngHide` and `ngShow` triggers it) then we can still define
+	 * our animations inside of the same registered animation, however, the function input arguments are a bit different:
+	 *
+	 * ```html
+	 * <div ng-class="color" class="colorful">
+	 *   this box is moody
+	 * </div>
+	 * <button ng-click="color='red'">Change to red</button>
+	 * <button ng-click="color='blue'">Change to blue</button>
+	 * <button ng-click="color='green'">Change to green</button>
+	 * ```
+	 *
+	 * ```js
+	 * myModule.animation('.colorful', [function() {
+	 *   return {
+	 *     addClass: function(element, className, doneFn) {
+	 *       // do some cool animation and call the doneFn
+	 *     },
+	 *     removeClass: function(element, className, doneFn) {
+	 *       // do some cool animation and call the doneFn
+	 *     },
+	 *     setClass: function(element, addedClass, removedClass, doneFn) {
+	 *       // do some cool animation and call the doneFn
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * ## CSS + JS Animations Together
+	 *
+	 * AngularJS 1.4 and higher has taken steps to make the amalgamation of CSS and JS animations more flexible. However, unlike earlier versions of Angular,
+	 * defining CSS and JS animations to work off of the same CSS class will not work anymore. Therefore the example below will only result in **JS animations taking
+	 * charge of the animation**:
+	 *
+	 * ```html
+	 * <div ng-if="bool" class="slide">
+	 *   Slide in and out
+	 * </div>
+	 * ```
+	 *
+	 * ```js
+	 * myModule.animation('.slide', [function() {
+	 *   return {
+	 *     enter: function(element, doneFn) {
+	 *       jQuery(element).slideIn(1000, doneFn);
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * ```css
+	 * .slide.ng-enter {
+	 *   transition:0.5s linear all;
+	 *   transform:translateY(-100px);
+	 * }
+	 * .slide.ng-enter.ng-enter-active {
+	 *   transform:translateY(0);
+	 * }
+	 * ```
+	 *
+	 * Does this mean that CSS and JS animations cannot be used together? Do JS-based animations always have higher priority? We can make up for the
+	 * lack of CSS animations by using the `$animateCss` service to trigger our own tweaked-out, CSS-based animations directly from
+	 * our own JS-based animation code:
+	 *
+	 * ```js
+	 * myModule.animation('.slide', ['$animateCss', function($animateCss) {
+	 *   return {
+	 *     enter: function(element) {
+	*        // this will trigger `.slide.ng-enter` and `.slide.ng-enter-active`.
+	 *       return $animateCss(element, {
+	 *         event: 'enter',
+	 *         structural: true
+	 *       });
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * The nice thing here is that we can save bandwidth by sticking to our CSS-based animation code and we don't need to rely on a 3rd-party animation framework.
+	 *
+	 * The `$animateCss` service is very powerful since we can feed in all kinds of extra properties that will be evaluated and fed into a CSS transition or
+	 * keyframe animation. For example if we wanted to animate the height of an element while adding and removing classes then we can do so by providing that
+	 * data into `$animateCss` directly:
+	 *
+	 * ```js
+	 * myModule.animation('.slide', ['$animateCss', function($animateCss) {
+	 *   return {
+	 *     enter: function(element) {
+	 *       return $animateCss(element, {
+	 *         event: 'enter',
+	 *         structural: true,
+	 *         addClass: 'maroon-setting',
+	 *         from: { height:0 },
+	 *         to: { height: 200 }
+	 *       });
+	 *     }
+	 *   }
+	 * }]);
+	 * ```
+	 *
+	 * Now we can fill in the rest via our transition CSS code:
+	 *
+	 * ```css
+	 * /&#42; the transition tells ngAnimate to make the animation happen &#42;/
+	 * .slide.ng-enter { transition:0.5s linear all; }
+	 *
+	 * /&#42; this extra CSS class will be absorbed into the transition
+	 * since the $animateCss code is adding the class &#42;/
+	 * .maroon-setting { background:red; }
+	 * ```
+	 *
+	 * And `$animateCss` will figure out the rest. Just make sure to have the `done()` callback fire the `doneFn` function to signal when the animation is over.
+	 *
+	 * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss service}.
+	 *
+	 * ## Animation Anchoring (via `ng-animate-ref`)
+	 *
+	 * ngAnimate in AngularJS 1.4 comes packed with the ability to cross-animate elements between
+	 * structural areas of an application (like views) by pairing up elements using an attribute
+	 * called `ng-animate-ref`.
+	 *
+	 * Let's say for example we have two views that are managed by `ng-view` and we want to show
+	 * that there is a relationship between two components situated in within these views. By using the
+	 * `ng-animate-ref` attribute we can identify that the two components are paired together and we
+	 * can then attach an animation, which is triggered when the view changes.
+	 *
+	 * Say for example we have the following template code:
+	 *
+	 * ```html
+	 * <!-- index.html -->
+	 * <div ng-view class="view-animation">
+	 * </div>
+	 *
+	 * <!-- home.html -->
+	 * <a href="#/banner-page">
+	 *   <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
+	 * </a>
+	 *
+	 * <!-- banner-page.html -->
+	 * <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
+	 * ```
+	 *
+	 * Now, when the view changes (once the link is clicked), ngAnimate will examine the
+	 * HTML contents to see if there is a match reference between any components in the view
+	 * that is leaving and the view that is entering. It will scan both the view which is being
+	 * removed (leave) and inserted (enter) to see if there are any paired DOM elements that
+	 * contain a matching ref value.
+	 *
+	 * The two images match since they share the same ref value. ngAnimate will now create a
+	 * transport element (which is a clone of the first image element) and it will then attempt
+	 * to animate to the position of the second image element in the next view. For the animation to
+	 * work a special CSS class called `ng-anchor` will be added to the transported element.
+	 *
+	 * We can now attach a transition onto the `.banner.ng-anchor` CSS class and then
+	 * ngAnimate will handle the entire transition for us as well as the addition and removal of
+	 * any changes of CSS classes between the elements:
+	 *
+	 * ```css
+	 * .banner.ng-anchor {
+	 *   /&#42; this animation will last for 1 second since there are
+	 *          two phases to the animation (an `in` and an `out` phase) &#42;/
+	 *   transition:0.5s linear all;
+	 * }
+	 * ```
+	 *
+	 * We also **must** include animations for the views that are being entered and removed
+	 * (otherwise anchoring wouldn't be possible since the new view would be inserted right away).
+	 *
+	 * ```css
+	 * .view-animation.ng-enter, .view-animation.ng-leave {
+	 *   transition:0.5s linear all;
+	 *   position:fixed;
+	 *   left:0;
+	 *   top:0;
+	 *   width:100%;
+	 * }
+	 * .view-animation.ng-enter {
+	 *   transform:translateX(100%);
+	 * }
+	 * .view-animation.ng-leave,
+	 * .view-animation.ng-enter.ng-enter-active {
+	 *   transform:translateX(0%);
+	 * }
+	 * .view-animation.ng-leave.ng-leave-active {
+	 *   transform:translateX(-100%);
+	 * }
+	 * ```
+	 *
+	 * Now we can jump back to the anchor animation. When the animation happens, there are two stages that occur:
+	 * an `out` and an `in` stage. The `out` stage happens first and that is when the element is animated away
+	 * from its origin. Once that animation is over then the `in` stage occurs which animates the
+	 * element to its destination. The reason why there are two animations is to give enough time
+	 * for the enter animation on the new element to be ready.
+	 *
+	 * The example above sets up a transition for both the in and out phases, but we can also target the out or
+	 * in phases directly via `ng-anchor-out` and `ng-anchor-in`.
+	 *
+	 * ```css
+	 * .banner.ng-anchor-out {
+	 *   transition: 0.5s linear all;
+	 *
+	 *   /&#42; the scale will be applied during the out animation,
+	 *          but will be animated away when the in animation runs &#42;/
+	 *   transform: scale(1.2);
+	 * }
+	 *
+	 * .banner.ng-anchor-in {
+	 *   transition: 1s linear all;
+	 * }
+	 * ```
+	 *
+	 *
+	 *
+	 *
+	 * ### Anchoring Demo
+	 *
+	  <example module="anchoringExample"
+	           name="anchoringExample"
+	           id="anchoringExample"
+	           deps="angular-animate.js;angular-route.js"
+	           animations="true">
+	    <file name="index.html">
+	      <a href="#/">Home</a>
+	      <hr />
+	      <div class="view-container">
+	        <div ng-view class="view"></div>
+	      </div>
+	    </file>
+	    <file name="script.js">
+	      angular.module('anchoringExample', ['ngAnimate', 'ngRoute'])
+	        .config(['$routeProvider', function($routeProvider) {
+	          $routeProvider.when('/', {
+	            templateUrl: 'home.html',
+	            controller: 'HomeController as home'
+	          });
+	          $routeProvider.when('/profile/:id', {
+	            templateUrl: 'profile.html',
+	            controller: 'ProfileController as profile'
+	          });
+	        }])
+	        .run(['$rootScope', function($rootScope) {
+	          $rootScope.records = [
+	            { id:1, title: "Miss Beulah Roob" },
+	            { id:2, title: "Trent Morissette" },
+	            { id:3, title: "Miss Ava Pouros" },
+	            { id:4, title: "Rod Pouros" },
+	            { id:5, title: "Abdul Rice" },
+	            { id:6, title: "Laurie Rutherford Sr." },
+	            { id:7, title: "Nakia McLaughlin" },
+	            { id:8, title: "Jordon Blanda DVM" },
+	            { id:9, title: "Rhoda Hand" },
+	            { id:10, title: "Alexandrea Sauer" }
+	          ];
+	        }])
+	        .controller('HomeController', [function() {
+	          //empty
+	        }])
+	        .controller('ProfileController', ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
+	          var index = parseInt($routeParams.id, 10);
+	          var record = $rootScope.records[index - 1];
+	
+	          this.title = record.title;
+	          this.id = record.id;
+	        }]);
+	    </file>
+	    <file name="home.html">
+	      <h2>Welcome to the home page</h1>
+	      <p>Please click on an element</p>
+	      <a class="record"
+	         ng-href="#/profile/{{ record.id }}"
+	         ng-animate-ref="{{ record.id }}"
+	         ng-repeat="record in records">
+	        {{ record.title }}
+	      </a>
+	    </file>
+	    <file name="profile.html">
+	      <div class="profile record" ng-animate-ref="{{ profile.id }}">
+	        {{ profile.title }}
+	      </div>
+	    </file>
+	    <file name="animations.css">
+	      .record {
+	        display:block;
+	        font-size:20px;
+	      }
+	      .profile {
+	        background:black;
+	        color:white;
+	        font-size:100px;
+	      }
+	      .view-container {
+	        position:relative;
+	      }
+	      .view-container > .view.ng-animate {
+	        position:absolute;
+	        top:0;
+	        left:0;
+	        width:100%;
+	        min-height:500px;
+	      }
+	      .view.ng-enter, .view.ng-leave,
+	      .record.ng-anchor {
+	        transition:0.5s linear all;
+	      }
+	      .view.ng-enter {
+	        transform:translateX(100%);
+	      }
+	      .view.ng-enter.ng-enter-active, .view.ng-leave {
+	        transform:translateX(0%);
+	      }
+	      .view.ng-leave.ng-leave-active {
+	        transform:translateX(-100%);
+	      }
+	      .record.ng-anchor-out {
+	        background:red;
+	      }
+	    </file>
+	  </example>
+	 *
+	 * ### How is the element transported?
+	 *
+	 * When an anchor animation occurs, ngAnimate will clone the starting element and position it exactly where the starting
+	 * element is located on screen via absolute positioning. The cloned element will be placed inside of the root element
+	 * of the application (where ng-app was defined) and all of the CSS classes of the starting element will be applied. The
+	 * element will then animate into the `out` and `in` animations and will eventually reach the coordinates and match
+	 * the dimensions of the destination element. During the entire animation a CSS class of `.ng-animate-shim` will be applied
+	 * to both the starting and destination elements in order to hide them from being visible (the CSS styling for the class
+	 * is: `visibility:hidden`). Once the anchor reaches its destination then it will be removed and the destination element
+	 * will become visible since the shim class will be removed.
+	 *
+	 * ### How is the morphing handled?
+	 *
+	 * CSS Anchoring relies on transitions and keyframes and the internal code is intelligent enough to figure out
+	 * what CSS classes differ between the starting element and the destination element. These different CSS classes
+	 * will be added/removed on the anchor element and a transition will be applied (the transition that is provided
+	 * in the anchor class). Long story short, ngAnimate will figure out what classes to add and remove which will
+	 * make the transition of the element as smooth and automatic as possible. Be sure to use simple CSS classes that
+	 * do not rely on DOM nesting structure so that the anchor element appears the same as the starting element (since
+	 * the cloned element is placed inside of root element which is likely close to the body element).
+	 *
+	 * Note that if the root element is on the `<html>` element then the cloned node will be placed inside of body.
+	 *
+	 *
+	 * ## Using $animate in your directive code
+	 *
+	 * So far we've explored how to feed in animations into an Angular application, but how do we trigger animations within our own directives in our application?
+	 * By injecting the `$animate` service into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let's
+	 * imagine we have a greeting box that shows and hides itself when the data changes
+	 *
+	 * ```html
+	 * <greeting-box active="onOrOff">Hi there</greeting-box>
+	 * ```
+	 *
+	 * ```js
+	 * ngModule.directive('greetingBox', ['$animate', function($animate) {
+	 *   return function(scope, element, attrs) {
+	 *     attrs.$observe('active', function(value) {
+	 *       value ? $animate.addClass(element, 'on') : $animate.removeClass(element, 'on');
+	 *     });
+	 *   });
+	 * }]);
+	 * ```
+	 *
+	 * Now the `on` CSS class is added and removed on the greeting box component. Now if we add a CSS class on top of the greeting box element
+	 * in our HTML code then we can trigger a CSS or JS animation to happen.
+	 *
+	 * ```css
+	 * /&#42; normally we would create a CSS class to reference on the element &#42;/
+	 * greeting-box.on { transition:0.5s linear all; background:green; color:white; }
+	 * ```
+	 *
+	 * The `$animate` service contains a variety of other methods like `enter`, `leave`, `animate` and `setClass`. To learn more about what's
+	 * possible be sure to visit the {@link ng.$animate $animate service API page}.
+	 *
+	 *
+	 * ## Callbacks and Promises
+	 *
+	 * When `$animate` is called it returns a promise that can be used to capture when the animation has ended. Therefore if we were to trigger
+	 * an animation (within our directive code) then we can continue performing directive and scope related activities after the animation has
+	 * ended by chaining onto the returned promise that animation method returns.
+	 *
+	 * ```js
+	 * // somewhere within the depths of the directive
+	 * $animate.enter(element, parent).then(function() {
+	 *   //the animation has completed
+	 * });
+	 * ```
+	 *
+	 * (Note that earlier versions of Angular prior to v1.4 required the promise code to be wrapped using `$scope.$apply(...)`. This is not the case
+	 * anymore.)
+	 *
+	 * In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
+	 * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our view
+	 * routing controller to hook into that:
+	 *
+	 * ```js
+	 * ngModule.controller('HomePageController', ['$animate', function($animate) {
+	 *   $animate.on('enter', ngViewElement, function(element) {
+	 *     // the animation for this route has completed
+	 *   }]);
+	 * }])
+	 * ```
+	 *
+	 * (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)
+	 */
+	
+	/**
+	 * @ngdoc service
+	 * @name $animate
+	 * @kind object
+	 *
+	 * @description
+	 * The ngAnimate `$animate` service documentation is the same for the core `$animate` service.
+	 *
+	 * Click here {@link ng.$animate to learn more about animations with `$animate`}.
+	 */
+	angular.module('ngAnimate', [])
+	  .directive('ngAnimateSwap', ngAnimateSwapDirective)
+	
+	  .directive('ngAnimateChildren', $$AnimateChildrenDirective)
+	  .factory('$$rAFScheduler', $$rAFSchedulerFactory)
+	
+	  .provider('$$animateQueue', $$AnimateQueueProvider)
+	  .provider('$$animation', $$AnimationProvider)
+	
+	  .provider('$animateCss', $AnimateCssProvider)
+	  .provider('$$animateCssDriver', $$AnimateCssDriverProvider)
+	
+	  .provider('$$animateJs', $$AnimateJsProvider)
+	  .provider('$$animateJsDriver', $$AnimateJsDriverProvider);
+	
+	
+	})(window, window.angular);
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(35);
+	
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	buf.push("<div ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto;\" class=\"animate-fade\"><div style=\"position:relative;\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%;\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial;\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px;\">x</div></div></div></div><table style=\"height:100%;\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/**
+	 * Merge two attribute objects giving precedence
+	 * to values in object `b`. Classes are special-cased
+	 * allowing for arrays and merging/joining appropriately
+	 * resulting in a string.
+	 *
+	 * @param {Object} a
+	 * @param {Object} b
+	 * @return {Object} a
+	 * @api private
+	 */
+	
+	exports.merge = function merge(a, b) {
+	  if (arguments.length === 1) {
+	    var attrs = a[0];
+	    for (var i = 1; i < a.length; i++) {
+	      attrs = merge(attrs, a[i]);
+	    }
+	    return attrs;
+	  }
+	  var ac = a['class'];
+	  var bc = b['class'];
+	
+	  if (ac || bc) {
+	    ac = ac || [];
+	    bc = bc || [];
+	    if (!Array.isArray(ac)) ac = [ac];
+	    if (!Array.isArray(bc)) bc = [bc];
+	    a['class'] = ac.concat(bc).filter(nulls);
+	  }
+	
+	  for (var key in b) {
+	    if (key != 'class') {
+	      a[key] = b[key];
+	    }
+	  }
+	
+	  return a;
+	};
+	
+	/**
+	 * Filter null `val`s.
+	 *
+	 * @param {*} val
+	 * @return {Boolean}
+	 * @api private
+	 */
+	
+	function nulls(val) {
+	  return val != null && val !== '';
+	}
+	
+	/**
+	 * join array as classes.
+	 *
+	 * @param {*} val
+	 * @return {String}
+	 */
+	exports.joinClasses = joinClasses;
+	function joinClasses(val) {
+	  return (Array.isArray(val) ? val.map(joinClasses) :
+	    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
+	    [val]).filter(nulls).join(' ');
+	}
+	
+	/**
+	 * Render the given classes.
+	 *
+	 * @param {Array} classes
+	 * @param {Array.<Boolean>} escaped
+	 * @return {String}
+	 */
+	exports.cls = function cls(classes, escaped) {
+	  var buf = [];
+	  for (var i = 0; i < classes.length; i++) {
+	    if (escaped && escaped[i]) {
+	      buf.push(exports.escape(joinClasses([classes[i]])));
+	    } else {
+	      buf.push(joinClasses(classes[i]));
+	    }
+	  }
+	  var text = joinClasses(buf);
+	  if (text.length) {
+	    return ' class="' + text + '"';
+	  } else {
+	    return '';
+	  }
+	};
+	
+	
+	exports.style = function (val) {
+	  if (val && typeof val === 'object') {
+	    return Object.keys(val).map(function (style) {
+	      return style + ':' + val[style];
+	    }).join(';');
+	  } else {
+	    return val;
+	  }
+	};
+	/**
+	 * Render the given attribute.
+	 *
+	 * @param {String} key
+	 * @param {String} val
+	 * @param {Boolean} escaped
+	 * @param {Boolean} terse
+	 * @return {String}
+	 */
+	exports.attr = function attr(key, val, escaped, terse) {
+	  if (key === 'style') {
+	    val = exports.style(val);
+	  }
+	  if ('boolean' == typeof val || null == val) {
+	    if (val) {
+	      return ' ' + (terse ? key : key + '="' + key + '"');
+	    } else {
+	      return '';
+	    }
+	  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
+	    if (JSON.stringify(val).indexOf('&') !== -1) {
+	      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
+	                   'will be escaped to `&amp;`');
+	    };
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will eliminate the double quotes around dates in ' +
+	                   'ISO form after 2.0.0');
+	    }
+	    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
+	  } else if (escaped) {
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
+	    }
+	    return ' ' + key + '="' + exports.escape(val) + '"';
+	  } else {
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
+	    }
+	    return ' ' + key + '="' + val + '"';
+	  }
+	};
+	
+	/**
+	 * Render the given attributes object.
+	 *
+	 * @param {Object} obj
+	 * @param {Object} escaped
+	 * @return {String}
+	 */
+	exports.attrs = function attrs(obj, terse){
+	  var buf = [];
+	
+	  var keys = Object.keys(obj);
+	
+	  if (keys.length) {
+	    for (var i = 0; i < keys.length; ++i) {
+	      var key = keys[i]
+	        , val = obj[key];
+	
+	      if ('class' == key) {
+	        if (val = joinClasses(val)) {
+	          buf.push(' ' + key + '="' + val + '"');
+	        }
+	      } else {
+	        buf.push(exports.attr(key, val, false, terse));
+	      }
+	    }
+	  }
+	
+	  return buf.join('');
+	};
+	
+	/**
+	 * Escape the given string of `html`.
+	 *
+	 * @param {String} html
+	 * @return {String}
+	 * @api private
+	 */
+	
+	var jade_encode_html_rules = {
+	  '&': '&amp;',
+	  '<': '&lt;',
+	  '>': '&gt;',
+	  '"': '&quot;'
+	};
+	var jade_match_html = /[&<>"]/g;
+	
+	function jade_encode_char(c) {
+	  return jade_encode_html_rules[c] || c;
+	}
+	
+	exports.escape = jade_escape;
+	function jade_escape(html){
+	  var result = String(html).replace(jade_match_html, jade_encode_char);
+	  if (result === '' + html) return html;
+	  else return result;
+	};
+	
+	/**
+	 * Re-throw the given `err` in context to the
+	 * the jade in `filename` at the given `lineno`.
+	 *
+	 * @param {Error} err
+	 * @param {String} filename
+	 * @param {String} lineno
+	 * @api private
+	 */
+	
+	exports.rethrow = function rethrow(err, filename, lineno, str){
+	  if (!(err instanceof Error)) throw err;
+	  if ((typeof window != 'undefined' || !filename) && !str) {
+	    err.message += ' on line ' + lineno;
+	    throw err;
+	  }
+	  try {
+	    str = str || __webpack_require__(36).readFileSync(filename, 'utf8')
+	  } catch (ex) {
+	    rethrow(err, null, lineno)
+	  }
+	  var context = 3
+	    , lines = str.split('\n')
+	    , start = Math.max(lineno - context, 0)
+	    , end = Math.min(lines.length, lineno + context);
+	
+	  // Error context
+	  var context = lines.slice(start, end).map(function(line, i){
+	    var curr = i + start + 1;
+	    return (curr == lineno ? '  > ' : '    ')
+	      + curr
+	      + '| '
+	      + line;
+	  }).join('\n');
+	
+	  // Alter exception message
+	  err.path = filename;
+	  err.message = (filename || 'Jade') + ':' + lineno
+	    + '\n' + context + '\n\n' + err.message;
+	  throw err;
+	};
+	
+	exports.DebugItem = function DebugItem(lineno, filename) {
+	  this.lineno = lineno;
+	  this.filename = filename;
+	}
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
 	// load the styles
-	var content = __webpack_require__(4);
+	var content = __webpack_require__(38);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(6)(content, {});
+	var update = __webpack_require__(40)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30956,21 +45141,21 @@
 	}
 
 /***/ },
-/* 4 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(5)();
+	exports = module.exports = __webpack_require__(39)();
 	// imports
-
-
+	
+	
 	// module
 	exports.push([module.id, "/* requires angular-animate */\n.animate-fade{\n  opacity:1;\n}\n\n.animate-fade.ng-hide-remove,\n.animate-fade.ng-hide-add,\n.animate-fade.ng-move,\n.animate-fade.ng-enter,\n.animate-fade.ng-leave{\n  transition: all linear 0.3s;\n}\n\n.animate-fade.ng-hide,\n.animate-fade.ng-leave,\n.animate-fade.ng-move.ng-move-active,\n.animate-fade.ng-enter.ng-enter-active{\n  opacity:0 !important;\n}\n\n.animate-all{\n  transition: all linear 0.3s;\n}\n\n.animate-v.ng-hide-remove,\n.animate-v.ng-move,\n.animate-v.ng-enter{\n  -webkit-transition:all linear 700ms;\n  transition:all linear 700ms;\n  overflow:hidden;vertical-align:top;\n}\n\n.animate-v.ng-hide-add,\n.animate-v.ng-leave{/* leave faster than they come in */\n  -webkit-transition:all linear 400ms;\n  transition:all linear 400ms;\n  overflow:hidden;vertical-align:top;\n}\n\n.animate-v.ng-hide-add,/* starts to hide */\n.animate-v.ng-hide-remove.ng-hide-remove-active,/* ends show */\n.animate-v.ng-leave,\n.animate-v.ng-move.ng-move-active,\n.animate-v.ng-enter.ng-enter-active{\n  max-height:1000px;\n  height:100%;\n}\n\n.animate-v.ng-hide-add.ng-hide-add-active,/* ends hide */\n.animate-v.ng-hide-remove,/* starts to show */\n.animate-v.ng-leave.ng-leave-active,\n.animate-v.ng-move,\n.animate-v.ng-enter{\n  max-height:0;\n  height:0;\n}\n\n.animate-v.ng-leave-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n\n.animate-v.ng-enter-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n\n\n\n\n.animate-h.ng-hide-remove,\n.animate-h.ng-move,\n.animate-h.ng-enter{\n  -webkit-transition:all linear 500ms;\n  transition:all linear 500ms;\n  overflow:hidden;white-space:nowrap;vertical-align:top;\n}\n\n.animate-h.ng-hide-add,\n.animate-h.ng-leave{/* leave faster than they come in */\n  -webkit-transition:all linear 400ms;\n  transition:all linear 400ms;\n  overflow:hidden;white-space:nowrap;vertical-align:top;\n}\n\n.animate-h.ng-hide-add,/* starts to hide */\n.animate-h.ng-hide-remove.ng-hide-remove-active,/* ends show */\n.animate-h.ng-leave,\n.animate-h.ng-move.ng-move-active,\n.animate-h.ng-enter.ng-enter-active{\n  width:100%;\n}\n\n.animate-h.ng-hide-add.ng-hide-add-active,/* ends hide */\n.animate-h.ng-hide-remove,/* starts to show */\n.animate-h.ng-leave.ng-leave-active,\n.animate-h.ng-move,\n.animate-h.ng-enter{\n  width:0;\n}\n\n.animate-h.ng-leave-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n\n.animate-h.ng-enter-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n\n\n\n\n/* animate diagonaly */\n.animate-d.ng-hide-remove,\n.animate-d.ng-move,\n.animate-d.ng-enter{\n  -webkit-transition:all linear 700ms;\n  transition:all linear 700ms;\n  overflow:hidden;\n}\n\n.animate-d.ng-hide-add,\n.animate-d.ng-leave{/* leave faster than they come in */\n  -webkit-transition:all linear 400ms;\n  transition:all linear 400ms;\n  overflow:hidden;\n}\n\n.animate-d.ng-hide-add,/* starts to hide */\n.animate-d.ng-hide-remove.ng-hide-remove-active,/* ends show */\n.animate-d.ng-leave,\n.animate-d.ng-move.ng-move-active,\n.animate-d.ng-enter.ng-enter-active{\n  width:100%;max-height:1000px;\n}\n\n.animate-d.ng-hide-add.ng-hide-add-active,/* ends hide */\n.animate-d.ng-hide-remove,/* starts to show */\n.animate-d.ng-leave.ng-leave-active,\n.animate-d.ng-move,\n.animate-d.ng-enter{\n  max-height:0;width:0;\n}\n\n.animate-d.ng-leave-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n\n.animate-d.ng-enter-stagger {\n    -webkit-transition-delay: 0.1s;\n    transition-delay: 0.1s;\n    -webkit-transition-duration: 0s;\n    transition-duration: 0s;\n}\n", ""]);
-
+	
 	// exports
 
 
 /***/ },
-/* 5 */
+/* 39 */
 /***/ function(module, exports) {
 
 	/*
@@ -30980,7 +45165,7 @@
 	// css base code, injected by the css-loader
 	module.exports = function() {
 		var list = [];
-
+	
 		// return the list of modules as css string
 		list.toString = function toString() {
 			var result = [];
@@ -30994,7 +45179,7 @@
 			}
 			return result.join("");
 		};
-
+	
 		// import a list of modules into the list
 		list.i = function(modules, mediaQuery) {
 			if(typeof modules === "string")
@@ -31026,7 +45211,7 @@
 
 
 /***/ },
-/* 6 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31050,23 +45235,23 @@
 		singletonElement = null,
 		singletonCounter = 0,
 		styleElementsInsertedAtTop = [];
-
+	
 	module.exports = function(list, options) {
 		if(false) {
 			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
 		}
-
+	
 		options = options || {};
 		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 		// tags it will allow on a page
 		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
+	
 		// By default, add <style> tags to the bottom of <head>.
 		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
+	
 		var styles = listToStyles(list);
 		addStylesToDom(styles, options);
-
+	
 		return function update(newList) {
 			var mayRemove = [];
 			for(var i = 0; i < styles.length; i++) {
@@ -31089,7 +45274,7 @@
 			}
 		};
 	}
-
+	
 	function addStylesToDom(styles, options) {
 		for(var i = 0; i < styles.length; i++) {
 			var item = styles[i];
@@ -31111,7 +45296,7 @@
 			}
 		}
 	}
-
+	
 	function listToStyles(list) {
 		var styles = [];
 		var newStyles = {};
@@ -31129,7 +45314,7 @@
 		}
 		return styles;
 	}
-
+	
 	function insertStyleElement(options, styleElement) {
 		var head = getHeadElement();
 		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
@@ -31148,7 +45333,7 @@
 			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
 		}
 	}
-
+	
 	function removeStyleElement(styleElement) {
 		styleElement.parentNode.removeChild(styleElement);
 		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
@@ -31156,24 +45341,24 @@
 			styleElementsInsertedAtTop.splice(idx, 1);
 		}
 	}
-
+	
 	function createStyleElement(options) {
 		var styleElement = document.createElement("style");
 		styleElement.type = "text/css";
 		insertStyleElement(options, styleElement);
 		return styleElement;
 	}
-
+	
 	function createLinkElement(options) {
 		var linkElement = document.createElement("link");
 		linkElement.rel = "stylesheet";
 		insertStyleElement(options, linkElement);
 		return linkElement;
 	}
-
+	
 	function addStyle(obj, options) {
 		var styleElement, update, remove;
-
+	
 		if (options.singleton) {
 			var styleIndex = singletonCounter++;
 			styleElement = singletonElement || (singletonElement = createStyleElement(options));
@@ -31199,9 +45384,9 @@
 				removeStyleElement(styleElement);
 			};
 		}
-
+	
 		update(obj);
-
+	
 		return function updateStyle(newObj) {
 			if(newObj) {
 				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
@@ -31212,19 +45397,19 @@
 			}
 		};
 	}
-
+	
 	var replaceText = (function () {
 		var textStore = [];
-
+	
 		return function (index, replacement) {
 			textStore[index] = replacement;
 			return textStore.filter(Boolean).join('\n');
 		};
 	})();
-
+	
 	function applyToSingletonTag(styleElement, index, remove, obj) {
 		var css = remove ? "" : obj.css;
-
+	
 		if (styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = replaceText(index, css);
 		} else {
@@ -31238,15 +45423,15 @@
 			}
 		}
 	}
-
+	
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
-
+	
 		if(media) {
 			styleElement.setAttribute("media", media)
 		}
-
+	
 		if(styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = css;
 		} else {
@@ -31256,38 +45441,38 @@
 			styleElement.appendChild(document.createTextNode(css));
 		}
 	}
-
+	
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
 		var sourceMap = obj.sourceMap;
-
+	
 		if(sourceMap) {
 			// http://stackoverflow.com/a/26603875
 			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
 		}
-
+	
 		var blob = new Blob([css], { type: "text/css" });
-
+	
 		var oldSrc = linkElement.href;
-
+	
 		linkElement.href = URL.createObjectURL(blob);
-
+	
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
 
 
 /***/ },
-/* 7 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
-
+	
 	// load the styles
-	var content = __webpack_require__(8);
+	var content = __webpack_require__(42);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(6)(content, {});
+	var update = __webpack_require__(40)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31304,18 +45489,19 @@
 	}
 
 /***/ },
-/* 8 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(5)();
+	exports = module.exports = __webpack_require__(39)();
 	// imports
-
-
+	
+	
 	// module
 	exports.push([module.id, ".text-overflow\n{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}\n\n.valign,.valign-top,.vert-align-top{vertical-align:top}\n.valign-middle,.valign-center,.vert-align-middle{vertical-align:middle}\n.valign-bottom,.vert-align-bottom{vertical-align:bottom}\n\n.nowrap{white-space:nowrap}\n\na,.cursor-pointer {cursor:pointer}\n\n.text-underline,.underline {text-decoration:underline}\n.strong, .bold, .text-bold {font-weight:bold}\n\n.text-left {text-align:left}\n.text-right {text-align:right}\n.text-center {text-align:center}\n\n.text-uppercase {text-transform: uppercase}\n.text-lowercase {text-transform: lowercase}\n.text-capitalize {text-transform: capitalize}\n\n.text-3x {font-size:160%}\n.text-2x {font-size:145%}\n.text-lg {font-size:130%}\n.text-md {font-size:115%}\n.text-sm {font-size:90%}\n.text-smx {font-size:85%}\n.text-xs {font-size:75%}\n.text-xxs {font-size:65%}\n\n.text-primary{color:#337ab7}\n.text-success{color:#3c763d}\n.text-info{color:#31708f}\n.text-warning{color:#8a6d3b}\n.text-danger{color:#a94442}\n.text-muted{color:#777}\n.text-muted-sm{color:#AAA}\n.text-muted-xs{color:#BAB}\n\n.text-green,.font-green{color: #060}\n.text-orange,.font-orange{color: #C60}\n.text-red,.font-red{color:#900}\n.text-blue,.font-blue{color: #009}\n.text-purple,.font-purple{color: #60C}\n.text-black,.font-black{color: #000}\n.text-white,.font-white{color: #FFF}\n\n.clear,.clear-both,.clear-fix {clear:both}\n\n.pos-absolute,.pos-abs{position:absolute}\n.pos-relative,.pos-rel{position:relative}\n.pos-fixed,.pos-fix{position:fixed}\n\n.z-index-1{z-index:1}\n.z-index-10{z-index:10}\n.top-0{top:0}\n.right-0{right:0}\n.bottom-0{bottom:0}\n.left-0{left:0}\n\n.inline-block, .display-inline-block {display:inline-block}\n\n.block, .display-block {display:block}\n\n.opacity-half {opacity: 0.5}\n\n.width-full{width:100%}\n.width-half{width:50%}\n\n\n.margin-0{margin:0}\n.margin-xxs{margin:0.2em}\n.margin-xs{margin:0.4em}\n.margin-sm{margin:0.6em}\n.margin{margin:0.8em}\n.margin-md{margin:1em}\n.margin-lg{margin:1.5em}\n\n.margin-v-0{margin-top:0;margin-bottom:0}\n.margin-v-xxs{margin-top:0.2em;margin-bottom:0.2em}\n.margin-v-xs{margin-top:0.4em;margin-bottom:0.4em}\n.margin-v-sm{margin-top:0.6em;margin-bottom:0.6em}\n.margin-v{margin-top:0.8em;margin-bottom:0.8em}\n.margin-v-md{margin-top:1em;margin-bottom:1em}\n.margin-v-lg{margin-top:1.5em;margin-bottom:1.5em}\n\n.margin-h-0{margin-left:0;margin-right:0}\n.margin-h-xxs{margin-left:0.2em;margin-right:0.2em}\n.margin-h-xs{margin-left:0.4em;margin-right:0.4em}\n.margin-h-sm{margin-left:0.6em;margin-right:0.6em}\n.margin-h{margin-left:0.8em;margin-right:0.8em}\n.margin-h-md{margin-left:1em;margin-right:1em}\n.margin-h-lg{margin-left:1.5em;margin-right:1.5em}\n\n.margin-top-0{margin-top:0}\n.margin-top-xxs{margin-top:0.2em}\n.margin-top-xs{margin-top:0.4em}\n.margin-top-sm{margin-top:0.6em}\n.margin-top{margin-top:0.8em}\n.margin-top-md{margin-top:1em}\n.margin-top-lg{margin-top:1.5em}\n\n.margin-bottom-0{margin-bottom:0}\n.margin-bottom-xxs{margin-bottom:0.2em}\n.margin-bottom-xs{margin-bottom:0.4em}\n.margin-bottom-sm{margin-bottom:0.6em}\n.margin-bottom{margin-bottom:0.8em}\n.margin-bottom-md{margin-bottom:1em}\n.margin-bottom-lg{margin-bottom:1.5em}\n\n.margin-left-0{margin-left:0}\n.margin-left-xxs{margin-left:0.2em}\n.margin-left-xs{margin-left:0.4em}\n.margin-left-sm{margin-left:0.6em}\n.margin-left{margin-left:0.8em}\n.margin-left-md{margin-left:1em}\n.margin-left-lg{margin-left:1.5em}\n\n.margin-right-0{margin-right:0}\n.margin-right-xxs{margin-right:0.2em}\n.margin-right-xs{margin-right:0.4em}\n.margin-right-sm{margin-right:0.6em}\n.margin-right{margin-right:0.8em}\n.margin-right-md{margin-right:1em}\n.margin-right-lg{margin-right:1.5em}\n\n.pad-0{padding:0}\n.pad-xxs{padding:0.2em}\n.pad-xs{padding:0.4em}\n.pad-sm{padding:0.6em}\n.pad{padding:0.8em}\n.pad-md{padding:1em}\n.pad-lg{padding:1.5em}\n\n.pad-v-0{padding-top:0;padding-bottom:0}\n.pad-v-xxs{padding-top:0.2em;padding-bottom:0.2em}\n.pad-v-xs{padding-top:0.4em;padding-bottom:0.4em}\n.pad-v-sm{padding-top:0.6em;padding-bottom:0.6em}\n.pad-v{padding-top:0.8em;padding-bottom:0.8em}\n.pad-v-md{padding-top:1em;padding-bottom:1em}\n.pad-v-lg{padding-top:1.5em;padding-bottom:1.5em}\n\n.pad-h-0{padding-left:0;padding-right:0}\n.pad-h-xxs{padding-left:0.2em;padding-right:0.2em}\n.pad-h-xs{padding-left:0.4em;padding-right:0.4em}\n.pad-h-sm{padding-left:0.6em;padding-right:0.6em}\n.pad-h{padding-left:0.8em;padding-right:0.8em}\n.pad-h-md{padding-left:1em;padding-right:1em}\n.pad-h-lg{padding-left:1.5em;padding-right:1.5em}\n\n.pad-top-0{padding-top:0}\n.pad-top-xxs{padding-top:0.2em}\n.pad-top-xs{padding-top:0.4em}\n.pad-top-sm{padding-top:0.6em}\n.pad-top{padding-top:0.8em}\n.pad-top-md{padding-top:1em}\n.pad-top-lg{padding-top:1.5em}\n\n.pad-bottom-0{padding-bottom:0}\n.pad-bottom-xxs{padding-bottom:0.2em}\n.pad-bottom-xs{padding-bottom:0.4em}\n.pad-bottom-sm{padding-bottom:0.6em}\n.pad-bottom{padding-bottom:0.8em}\n.pad-bottom-md{padding-bottom:1em}\n.pad-bottom-lg{padding-bottom:1.5em}\n\n.pad-left-0{padding-left:0}\n.pad-left-xxs{padding-left:0.2em}\n.pad-left-xs{padding-left:0.4em}\n.pad-left-sm{padding-left:0.6em}\n.pad-left{padding-left:0.8em}\n.pad-left-md{padding-left:1em}\n.pad-left-lg{padding-left:1.5em}\n\n.pad-right-0{padding-right:0}\n.pad-right-xxs{padding-right:0.2em}\n.pad-right-xs{padding-right:0.4em}\n.pad-right-sm{padding-right:0.6em}\n.pad-right{padding-right:0.8em}\n.pad-right-md{padding-right:1em}\n.pad-right-lg{padding-right:1.5em}\n\n\n.bg-primary{background-color:#337ab7}\n.bg-success{background-color:#dff0d8}\n.bg-info{background-color:#d9edf7}\n.bg-warning{background-color:#fcf8e3}\n.bg-danger{background-color:#f2dede}\n.bg-white{background-color:white}\n.bg-black{background-color:black}\n\n.float-right, .pull-right{float:right}\n.float-left, .pull-left{float:left}\n\n.border-radius-0{border-radius:0}\n.border-radius-half{border-radius:50%}", ""]);
-
+	
 	// exports
 
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=test.js.map

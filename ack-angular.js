@@ -17,6 +17,8 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .filter('ack', function(){
   return invokeRotator(ack)
 })
+.filter('capitalize', capitalize)
+.filter('capitalizeWords', capitalizeWords)
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
@@ -129,3 +131,28 @@ function invokeRotator(invoke){
   }
 }
 
+function capitalize() {
+  return function(input) {
+    input = capitalizeOne(input)
+    console.log('input',input)
+    var reg = /[.?!][\s\r\t]+\w/g
+    return (!!input) ? input.replace(reg, capitalizeAfterSentence) : ''
+  }
+}
+
+function capitalizeAfterSentence(input){
+  var reg = /[\s\r\t]\w/g
+  return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0) + txt.charAt(1).toUpperCase() + txt.substr(2).toLowerCase()}) : ''
+}
+
+function capitalizeOne(input) {
+  var reg = /[^\W_]+[^\s-]*/
+  return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
+}
+
+function capitalizeWords() {
+  return function(input) {
+    var reg = /[^\W_]+[^\s-]* */g
+    return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
+  }
+}
