@@ -81,6 +81,28 @@
 	})
 	.filter('capitalize', capitalize)
 	.filter('capitalizeWords', capitalizeWords)
+	.directive('modelFilter', function($filter) {
+	  return {
+	    restrict:'A',
+	    require: 'ngModel',
+	    scope: {
+	      modelFilter: "@"//will be evaled
+	    },
+	    link: function($scope, element, attrs, ngModelController) {
+	      ngModelController.$parsers.push(function(data) {
+	        return $scope.$parent.$eval( $scope.modelFilter )
+	        //convert data from view format to model format
+	        //return invoke(()=>$filter($scope.modelFilter))(data, scope.format); //converted
+	      });
+	
+	      ngModelController.$formatters.push(function(data) {
+	        return $scope.$parent.$eval( $scope.modelFilter )
+	        //convert data from model format to view format
+	        //return $filter($scope.modelFilter)(data, scope.format); //converted
+	      });
+	    }
+	  }
+	})
 	.directive('onEnterKey', function() {
 	  return {
 	    restrict:'A',

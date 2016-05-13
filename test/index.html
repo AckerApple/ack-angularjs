@@ -25,6 +25,11 @@
       <div style="border:1px solid black;">
         <h1>{{'random tests'|capitalizeWords}}</h1>
         <p>{{'all sentences should be capitalized. isn\'t that right? yup.'|capitalize}}</p>
+
+        <input type="text" ng-init="testModel='needs uppercase'" ng-model="testModel" model-filter="testModel|capitalizeWords" />
+
+        <br /><br />
+
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
         <br />
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
