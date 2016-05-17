@@ -48,11 +48,11 @@ var distWithFx = {
 }
 
 var distWithFxMin = {
-  entry: "./entry-with-fx-min.js",
+  entry: "./entry-with-fx.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
-    filename: "ack-angular-with-fx.js"
+    filename: "ack-angular-with-fx-min.js"
     //,publicPath:"dist/"
   },
   module: {loaders:loaders},
@@ -89,4 +89,4 @@ var distMin = {
   ]
 }
 
-module.exports = [test,dist,distMin,distWithFx];//,package
+module.exports = [test,dist,distMin,distWithFx,distWithFxMin];//,package
