@@ -1,11 +1,6 @@
 "use strict"
 
 var ack = require('ack-x/index-browser')
-//var ngFx = require('ng-fx')
-require('ng-fx')
-//var ngAnimate = require('angular-animate')
-require('angular-animate')
-
 
 //version: 1.2.1
 angular.module('ack-angular',['ngAnimate','ng-fx'])
