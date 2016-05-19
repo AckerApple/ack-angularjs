@@ -15,7 +15,7 @@ var loaders = [
 ]
 
 var test = {
-  entry: "./entry-test.js",
+  entry: "./webpack/entry-test.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'test'),
@@ -26,7 +26,7 @@ var test = {
 }
 
 var dist = {
-  entry: "./entry.js",
+  entry: "./webpack/entry.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
@@ -37,7 +37,7 @@ var dist = {
 }
 
 var distWithFx = {
-  entry: "./entry-with-fx.js",
+  entry: "./webpack/entry-with-fx.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
@@ -48,7 +48,7 @@ var distWithFx = {
 }
 
 var distWithFxMin = {
-  entry: "./entry-with-fx.js",
+  entry: "./webpack/entry-with-fx.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),
@@ -64,7 +64,7 @@ var distWithFxMin = {
 }
 /*
 var package = {
-  entry: "./entry.js",
+  entry: "./webpack/entry.js",
   output: {
     path: path.join(__dirname),
     filename: "ack-angular.js"
@@ -74,7 +74,7 @@ var package = {
 }
 */
 var distMin = {
-  entry: "./entry.js",
+  entry: "./webpack/entry.js",
   devtool:"#source-map",
   output: {
     path: path.join(__dirname,'dist'),

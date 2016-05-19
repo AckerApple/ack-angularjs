@@ -5,7 +5,7 @@ var ack = require('ack-x/index-browser')
 require('ng-fx')
 require('angular-animate')
 
-//version: 1.2.1
+//version: 1.2.4
 angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .filter('aMethod',a('method'))

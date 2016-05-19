@@ -60,8 +60,10 @@ a,.cursor-pointer {cursor:pointer}
 .left-0{left:0}
 
 .inline-block, .display-inline-block {display:inline-block}
-
 .block, .display-block {display:block}
+
+.flex, .display-flex {display:flex}
+.flex-1 {flex:1}
 
 .opacity-half {opacity: 0.5}
 
