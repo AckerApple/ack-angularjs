@@ -7563,6 +7563,9 @@
 	
 	var ack = __webpack_require__(7)
 	
+	__webpack_require__(1)
+	__webpack_require__(2)
+	
 	//version: 1.2.1
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
 	.service('ack', function(){return ack})
