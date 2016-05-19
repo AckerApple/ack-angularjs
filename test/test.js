@@ -31116,8 +31116,9 @@
 	    return $sce.trustAsHtml(text);
 	  };
 	}
-	
 	trustAsHtml.$inject = ['$sce']
+	
+	module.exports = 'ack-angular'
 
 /***/ },
 /* 4 */
