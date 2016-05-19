@@ -182,29 +182,4 @@ function trustAsHtml($sce){
 }
 trustAsHtml.$inject = ['$sce']
 
-/**
-  Greatly reduces steps required to properly satisfy angular dependency injections
-
-  Example:
-    var inject = injector(MyClass, ['$scope','$http']);
-    function MyClass(){
-      inject(this, arguments)
-      console.log(this.$scope, this.$http)
-    }
-*/
-function injector(jsClass, depArray){
-  return function(ths, args){
-    for(var x=depArray.length-1; x >= 0; --x){
-      var name = depArray[x]
-      if(args[x]){
-        ths[name] = args[x]
-      }
-    }
-  }
-}
-
-
-module.exports = {
-  name:'ack-angular',
-  injector:injector
-}
+module.exports = 'ack-angular'
