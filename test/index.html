@@ -30,6 +30,10 @@
 
         <br /><br />
 
+        <div ng-bind-html="'<strong>trustAsHtml</strong>' | trustAsHtml"></div>
+
+        <br /><br />
+
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
         <br />
         this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}

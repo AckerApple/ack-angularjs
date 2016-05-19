@@ -19,6 +19,8 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 })
 .filter('capitalize', capitalize)
 .filter('capitalizeWords', capitalizeWords)
+.filter('trustAsHtml', trustAsHtml)//requires use of ng-bind-html
+.filter('trustAsHTML', trustAsHtml)//requires use of ng-bind-html
 .directive('modelDisplay', function() {
   return {
     restrict:'A',
@@ -173,3 +175,12 @@ function capitalizeWords() {
     return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
   }
 }
+
+function trustAsHtml($sce){
+  return function(text){
+    if(!text || !text.toLowerCase)return '';
+    return $sce.trustAsHtml(text);
+  };
+}
+
+trustAsHtml.$inject = ['$sce']
