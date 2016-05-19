@@ -13,6 +13,7 @@ module.exports = injector
     }
 */
 function injector(jsClass, depArray){
+  jsClass.$inject = depArray
   return function(ths, args){
     for(var x=depArray.length-1; x >= 0; --x){
       var name = depArray[x]
