@@ -45,8 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(36);
-	__webpack_require__(40);
+	__webpack_require__(37);
+	__webpack_require__(41);
 
 /***/ },
 /* 1 */
@@ -244,7 +244,10 @@
 	}
 	trustAsHtml.$inject = ['$sce']
 	
-	module.exports = 'ack-angular'
+	module.exports = {
+	  name:'ack-angular',
+	  injector:__webpack_require__(36)
+	}
 
 /***/ },
 /* 3 */
@@ -14268,15 +14271,46 @@
 
 /***/ },
 /* 36 */
+/***/ function(module, exports) {
+
+	"use strict"
+	
+	module.exports = injector
+	
+	/**
+	  Greatly reduces steps required to properly satisfy angular dependency injections
+	
+	  Example:
+	    var inject = injector(MyClass, ['$scope','$http']);
+	    function MyClass(){
+	      inject(this, arguments)
+	      console.log(this.$scope, this.$http)
+	    }
+	*/
+	function injector(jsClass, depArray){
+	  jsClass.$inject = depArray
+	  return function(ths, args){
+	    for(var x=depArray.length-1; x >= 0; --x){
+	      var name = depArray[x]
+	      if(args[x]){
+	        ths[name] = args[x]
+	      }
+	    }
+	  }
+	}
+
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(37);
+	var content = __webpack_require__(38);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(39)(content, {});
+	var update = __webpack_require__(40)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -14293,10 +14327,10 @@
 	}
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(38)();
+	exports = module.exports = __webpack_require__(39)();
 	// imports
 	
 	
@@ -14307,7 +14341,7 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	/*
@@ -14363,7 +14397,7 @@
 
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -14615,16 +14649,16 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(41);
+	var content = __webpack_require__(42);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(39)(content, {});
+	var update = __webpack_require__(40)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -14641,10 +14675,10 @@
 	}
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(38)();
+	exports = module.exports = __webpack_require__(39)();
 	// imports
 	
 	

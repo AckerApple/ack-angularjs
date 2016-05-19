@@ -182,4 +182,7 @@ function trustAsHtml($sce){
 }
 trustAsHtml.$inject = ['$sce']
 
-module.exports = 'ack-angular'
+module.exports = {
+  name:'ack-angular',
+  injector:require('./injector.js')
+}
