@@ -35,6 +35,33 @@ var dist = {
   },
   module: {loaders:loaders}
 }
+
+var distWithFx = {
+  entry: "./entry-with-fx.js",
+  devtool:"#source-map",
+  output: {
+    path: path.join(__dirname,'dist'),
+    filename: "ack-angular-with-fx.js"
+    //,publicPath:"dist/"
+  },
+  module: {loaders:loaders}
+}
+
+var distWithFxMin = {
+  entry: "./entry-with-fx.js",
+  devtool:"#source-map",
+  output: {
+    path: path.join(__dirname,'dist'),
+    filename: "ack-angular-with-fx-min.js"
+    //,publicPath:"dist/"
+  },
+  module: {loaders:loaders},
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ]
+}
 /*
 var package = {
   entry: "./entry.js",
@@ -62,4 +89,4 @@ var distMin = {
   ]
 }
 
-module.exports = [test,dist,distMin];//,package
+module.exports = [test,dist,distMin,distWithFx,distWithFxMin];//,package
