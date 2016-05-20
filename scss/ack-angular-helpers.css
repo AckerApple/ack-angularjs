@@ -64,6 +64,9 @@ a,.cursor-pointer {cursor:pointer}
 
 .flex, .display-flex {display:flex}
 .flex-1 {flex:1}
+.flex-2 {flex:2}
+.flex-3 {flex:3}
+.flex-4 {flex:4}
 
 .opacity-half {opacity: 0.5}
 
