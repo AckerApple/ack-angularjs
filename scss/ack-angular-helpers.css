@@ -67,6 +67,11 @@ a,.cursor-pointer {cursor:pointer}
 .flex-2 {flex:2}
 .flex-3 {flex:3}
 .flex-4 {flex:4}
+.justify-left{justify-content:left}
+.justify-center{justify-content:center}
+.justify-right{justify-content:right}
+.align-center{align-items:center}
+.align-bottom,.align-baseline{align-items:baseline}
 
 .opacity-half {opacity: 0.5}
 
