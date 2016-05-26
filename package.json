@@ -1,12 +1,12 @@
 {
   "name": "ack-angular",
-  "version": "1.2.5",
+  "version": "1.3.0",
   "description": "Universal Angular base code suited for any web app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --progress",
-    "build": "npm run build:js & npm run build:css",
+    "build": "npm run build:js && npm run build:css",
     "build:js": "webpack --progress",
     "start": "webpack-dev-server --content-base ./test",
     "build:css": "node-sass scss/ -o dist/ --output-style compressed --source-map true"
