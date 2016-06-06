@@ -40,12 +40,14 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
-    scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+    bindToController:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+    controller:function(){},
+    controllerAs:'onEnterKeyScope',
     link: function($scope, jElm) {
       jElm[0].onkeydown = function(event){
         var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
         if(yesNo){
-          $scope.onEnterKey({event:event})
+          $scope.onEnterKeyScope.onEnterKey({event:event})
           $scope.$apply()
         }
       }
