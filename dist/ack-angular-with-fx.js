@@ -3391,7 +3391,7 @@
 /***/ function(module, exports) {
 
 	/**
-	 * @license AngularJS v1.5.5
+	 * @license AngularJS v1.5.6
 	 * (c) 2010-2016 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
@@ -3524,7 +3524,7 @@
 	  if (element instanceof jqLite) {
 	    switch (element.length) {
 	      case 0:
-	        return [];
+	        return element;
 	        break;
 	
 	      case 1:
@@ -6635,7 +6635,8 @@
 	        }
 	
 	        function update(element) {
-	          getRunner(element).setHost(newRunner);
+	          var runner = getRunner(element);
+	          if (runner) runner.setHost(newRunner);
 	        }
 	      }
 	
@@ -7601,12 +7602,14 @@
 	.directive('onEnterKey', function() {
 	  return {
 	    restrict:'A',
-	    scope:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+	    bindToController:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+	    controller:function(){},
+	    controllerAs:'onEnterKeyController',
 	    link: function($scope, jElm) {
 	      jElm[0].onkeydown = function(event){
 	        var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
 	        if(yesNo){
-	          $scope.onEnterKey({event:event})
+	          $scope.onEnterKeyController.onEnterKey({event:event})
 	          $scope.$apply()
 	        }
 	      }
@@ -7756,12 +7759,12 @@
 	
 	var ack = __webpack_require__(8)
 	
-	ack.error = __webpack_require__(16)
-	ack.number = __webpack_require__(17)
-	ack.string = __webpack_require__(18)
-	ack.binary = __webpack_require__(23)
-	ack.base64 = __webpack_require__(24)
-	ack.object = __webpack_require__(25)
+	ack.error = __webpack_require__(17)
+	ack.number = __webpack_require__(18)
+	ack.string = __webpack_require__(19)
+	ack.binary = __webpack_require__(24)
+	ack.base64 = __webpack_require__(25)
+	//ack.object = require('./js/Object')
 	ack.method = __webpack_require__(26)
 	ack.array = __webpack_require__(27)
 	ack.queryObject = __webpack_require__(28)
@@ -7794,9 +7797,10 @@
 		return new ackExpose($var)
 	}
 	
+	ack.object = __webpack_require__(15)
 	ack.Expose = ackExpose//Outsider's referense to expose factory
 	
-	/* MODULES */
+	/* CORE MODULES */
 		ack.modules = new ackInjector(ack)
 	
 		ack['class'] = function(cl, extendOrAccessors, accessors){
@@ -7811,6 +7815,7 @@
 			return new ackInjector($scope)
 		}
 	
+	
 		ack.promise = function(var0, var1, var2, var3){
 			var promise = partyModules.ackP.start()
 			return promise.set.apply(promise,arguments)
@@ -7819,8 +7824,11 @@
 		ack.Promise = function(resolver){
 			return new partyModules.ackP(resolver)
 		}
+	/* end: CORE MODULES */
 	
-		var indexSelector = __webpack_require__(15)
+	/* end: MODULES */
+		//?maybe deprecated and unused
+		var indexSelector = __webpack_require__(16)
 		ack.indexSelector = function(){
 			var $scope = {}
 			if(arguments.length){
@@ -7829,7 +7837,10 @@
 			return new indexSelector($scope)
 		}
 	
-		/** Organized debug logging. See npm debug for more information */
+		/**
+			- Organized debug logging that can be viewed ondemand by types of debug logging
+			- See npm "debug" package for more information
+		*/
 		var ackDebugMap = {}//create storage of all loggers created
 		ack.debug = function debug(name, log0, log1, log2){
 			var logger = partyModules.debug(name)
@@ -7897,7 +7908,7 @@
 	ackExpose.prototype.string = function(){return ack.string(this.$var)}
 	ackExpose.prototype.binary = function(){return ack.binary(this.$var)}
 	ackExpose.prototype.base64 = function(){return ack.base64(this.$var)}
-	ackExpose.prototype.object = function(){return ack.object(this.$var)}
+	ackExpose.prototype.object = function(){return new ackObject(this.$var)}
 	ackExpose.prototype.method = function(){return ack.method(this.$var)}
 	ackExpose.prototype['function'] = function(){return ack['function'](this.$var)}
 	ackExpose.prototype.array = function(){return ack.array(this.$var)}
@@ -10147,6 +10158,114 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	
+	function xObject(ob){
+		return new jXObject(ob)
+	}
+	
+	xObject.map = function(method){
+		return function(ob){
+			return map(ob,method)
+		}
+	}
+	
+	xObject.forEach = function(method){
+		return function(ob){
+			return forEach(ob,method)
+		}
+	}
+	
+	
+	function jXObject(object){
+		this.object = object
+		return this
+	}
+	
+	/** @method(item, index, object) */
+	jXObject.prototype.forEach = function(method){
+		xObject.forEach(method)(this.object)
+		return this
+	}
+	
+	/**
+		this.object will be the map result
+		@method(item, index, object)
+	*/
+	jXObject.prototype.map = function(method){
+		xObject.map(method)(this.object)
+		return this
+	}
+	
+	jXObject.prototype.isCyclic = function() {
+		var seenObjects = [];
+	
+		function detect (obj) {
+			if (obj && typeof obj === 'object') {
+				if (seenObjects.indexOf(obj) !== -1) {
+					return true;
+				}
+				seenObjects.push(obj);
+				for(var key in obj) {
+					if(obj.hasOwnProperty(key) && detect(obj[key])) {
+				//console.log(obj, 'cycle at ' + key);
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	
+		return detect(this.object);
+	}
+	
+	jXObject.prototype.toCookieString = function(){
+		var cookies = this.object
+		var cookieNameArray = Object.keys(cookies)
+		if(cookieNameArray.length){
+			var cookieString = '';
+			cookieNameArray.forEach(function(name,i){
+				cookieString += '; '+name+'='+cookies[name]
+			})
+			cookieString = cookieString.substring(2, cookieString.length)//remove "; "
+			return cookieString
+		}
+		return ''
+	}
+	
+	
+	module.exports = xObject
+	
+	
+	function map(ob, method){
+		if(ob.map){
+			return ob.map(method)
+		}
+	
+		var res = {}
+		for(var x in ob){
+			res[x] = method(ob[x], x, ob)
+		}
+	
+		return res
+	}
+	
+	function forEach(ob, method){
+		if(ob.forEach){
+			ob.forEach(method)
+		}else{
+			for(var x in ob){
+				method(ob[x], x, ob)
+			}
+		}
+	
+		return ob
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	"use strict";
 	//Helps in the goal of selecting and defining states of properties on indexable data (object & arrays). The indexable data is not to be polluted by the defined properties (data and states seperate)
 	function IndexSelector($scope){
 	  this.data = $scope||{}
@@ -10267,7 +10386,7 @@
 	module.exports = IndexSelector
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10489,7 +10608,7 @@
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10553,7 +10672,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -10632,10 +10751,10 @@
 	}
 	rtn.Class = ExString
 	module.exports = rtn
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20).Buffer))
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
@@ -10648,9 +10767,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(20)
-	var ieee754 = __webpack_require__(21)
-	var isArray = __webpack_require__(22)
+	var base64 = __webpack_require__(21)
+	var ieee754 = __webpack_require__(22)
+	var isArray = __webpack_require__(23)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -12187,10 +12306,10 @@
 	  return i
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19).Buffer, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20).Buffer, (function() { return this; }())))
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -12320,7 +12439,7 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -12410,7 +12529,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -12421,7 +12540,7 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12445,7 +12564,7 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12495,62 +12614,6 @@
 		module.exports = rtn
 	}else if(typeof(jX)!='undefined'){
 		jX.modules.define('base64', rtn)
-	}
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	"use strict";
-	var jXObject = function jXObject(object){
-		this.object = object
-		return this
-	}
-	
-	jXObject.prototype.isCyclic = function() {
-		var seenObjects = [];
-	
-		function detect (obj) {
-			if (obj && typeof obj === 'object') {
-				if (seenObjects.indexOf(obj) !== -1) {
-					return true;
-				}
-				seenObjects.push(obj);
-				for(var key in obj) {
-					if(obj.hasOwnProperty(key) && detect(obj[key])) {
-				//console.log(obj, 'cycle at ' + key);
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-	
-		return detect(this.object);
-	}
-	
-	jXObject.prototype.toCookieString = function(){
-		var cookies = this.object
-		var cookieNameArray = Object.keys(cookies)
-		if(cookieNameArray.length){
-			var cookieString = '';
-			cookieNameArray.forEach(function(name,i){
-				cookieString += '; '+name+'='+cookies[name]
-			})
-			cookieString = cookieString.substring(2, cookieString.length)//remove "; "
-			return cookieString
-		}
-		return ''
-	}
-	
-	
-	var rtn = function(path){return new jXObject(path)}
-	if(typeof(module)!='undefined' && module.exports){
-		rtn.Class = jXObject
-		module.exports = rtn
-	}else if(typeof(jX)!='undefined'){
-		jX.modules.define('object', rtn)
 	}
 
 
