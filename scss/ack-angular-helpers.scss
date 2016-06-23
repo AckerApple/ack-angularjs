@@ -72,12 +72,15 @@ a,.cursor-pointer {cursor:pointer}
 .flex-4 {flex:4}
 .flex-5 {flex:5}
 .flex-6 {flex:6}
-.flex-flow-inline{flex-flow:row wrap}
 .justify-left{justify-content:flex-start}
 .justify-center{justify-content:center}
 .justify-right{justify-content:flex-end}
 .align-center{align-items:center}
 .align-bottom,.align-baseline{align-items:baseline}
+.flex-flow-inline, .flex-wrap{
+  flex-flow:row wrap;
+  flex-wrap:wrap;flex-wrap:wrap;/*required for safari*/
+}
 
 .opacity-half {opacity: 0.5}
 
@@ -217,3 +220,10 @@ a,.cursor-pointer {cursor:pointer}
 
 .border-radius-0{border-radius:0}
 .border-radius-half{border-radius:50%}
+
+.line-height-0{line-height:0}
+.line-height-half{line-height:50%}
+.line-height-third{line-height:33.3%}
+.line-height-quarter{line-height:25%}
+.line-height-2x{line-height:150%}
+.line-height-3x{line-height:200%}
