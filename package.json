@@ -47,7 +47,8 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-x": "npm:ack-x@^1.2.9"
+      "ack-x": "npm:ack-x@^1.2.9",
+      "ng-fx": "npm:ng-fx@^2.0.4"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
