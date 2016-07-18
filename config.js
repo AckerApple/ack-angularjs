@@ -14,7 +14,7 @@ System.config({
   },
 
   map: {
-    "ack-x": "github:ackerapple/ack-x@master",
+    "ack-x": "npm:ack-x@1.2.9",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
@@ -35,6 +35,16 @@ System.config({
     },
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
+    },
+    "npm:ack-p@0.0.3": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:ack-x@1.2.9": {
+      "ack-p": "npm:ack-p@0.0.3",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "debug": "npm:debug@2.2.0",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:assert@1.4.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -58,6 +68,9 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
+    },
+    "npm:debug@2.2.0": {
+      "ms": "npm:ms@0.7.1"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
