@@ -27,16 +27,16 @@ export default class SomeClass{
 
 const inject = injector(SomeClass,['SomeOtherClass'])
 ```
+
 > The above example is the same as the following. The following code requires typing SomeOtherClass three times, as opposed to once in above code
 ```
-export default class SomeClass{
-  constructor(SomeOtherClass){
-    this.SomeOtherClass = SomeOtherClass
-    console.log('SomeOtherClass', this.SomeOtherClass)
+  export default class SomeClass{
+    constructor(SomeOtherClass){
+      this.SomeOtherClass = SomeOtherClass
+      console.log('SomeOtherClass', this.SomeOtherClass)
+    }
   }
-}
-
-SomeOtherClass.$inject = ['SomeOtherClass']
+  SomeOtherClass.$inject = ['SomeOtherClass']
 ```
 
 
