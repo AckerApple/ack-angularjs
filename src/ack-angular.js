@@ -1,6 +1,7 @@
 "use strict"
 
 var ack = require('ack-x/index-browser')
+var whiteOutModalTemplate = require('./white-out-modal.jade')
 
 require('ng-fx')
 require('angular-animate')
@@ -87,7 +88,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     restrict:'E'
     ,scope:{show:'=', size:'=?'}
     ,transclude:true
-    ,template:require('./white-out-modal.jade')
+    ,template:whiteOutModalTemplate
     ,bindToController:true
     ,controllerAs:'wom'
     ,controller:function(){}

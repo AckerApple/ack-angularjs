@@ -11,6 +11,7 @@
     "start": "webpack-dev-server --content-base ./test",
     "build:css": "node-sass scss/ -o test/ dist/ --output-style compressed --source-map true",
     "build:index": "jade ./src/index.jade --out ./test/",
+    "build:pug": "node ./scripts/build-pug",
     "build:test": "npm run build:index && npm run build:css",
     "watch:index": "watch --wait=1 'npm run build:index' src",
     "watch:test": "npm run watch:css & npm run watch:index",
@@ -33,6 +34,7 @@
   "homepage": "https://github.com/AckerApple/ack-angular",
   "dependencies": {},
   "devDependencies": {
+    "ack-pug-bundler": "^1.0.2",
     "ack-x": "https://github.com/AckerApple/ack-x.git",
     "angular": "^1.5.3",
     "angular-animate": "^1.5.3",
