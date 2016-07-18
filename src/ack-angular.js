@@ -16,10 +16,53 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .filter('ack', function(){
   return invokeRotator(ack)
 })
-.filter('capitalize', capitalize)
+.filter('capitalize', capitalize)//first letter capitalization
 .filter('capitalizeWords', capitalizeWords)
 .filter('trustAsHtml', trustAsHtml)//requires use of ng-bind-html
 .filter('trustAsHTML', trustAsHtml)//requires use of ng-bind-html
+
+.directive('selectOn', function($timeout) {
+  return {
+    bindToController:{
+      selectOn:'&',selectOnDelay:'=?'
+    },
+    controller:function(){},
+    controllerAs:'selectOnController',
+    link: function($scope, element, attrs) {
+      $scope.selectOnController.selectOnDelay = $scope.selectOnController.selectOnDelay || 0
+      $scope.$watch($scope.selectOnController.selectOn, function(value) {
+        if(value === true) {
+          $timeout(function() {
+            element[0].select();
+            $scope.selectOnController.selectOn = false;
+          },$scope.selectOnController.selectOnDelay);
+        }
+      });
+    }
+  };
+})
+
+.directive('focusOn', function($timeout) {
+  return {
+    bindToController:{
+      focusOn:'&', focusOnDelay:'=?'
+    },
+    controller:function(){},
+    controllerAs:'focusOnController',
+    link: function($scope, element, attrs) {
+      $scope.focusOnController.focusOnDelay = $scope.focusOnController.focusOnDelay || 0
+      $scope.$watch($scope.focusOnController.focusOn, function(value) {
+        if(value === true) {
+          $timeout(function() {
+            element[0].focus();
+            $scope.focusOnController.focusOn = false;
+          },$scope.focusOnController.focusOnDelay);
+        }
+      });
+    }
+  };
+})
+
 .directive('modelDisplay', function() {
   return {
     restrict:'A',
@@ -55,6 +98,8 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     }
   }
 })
+
+/** Disallow keyboard access to the backspace key */
 .directive('preventBackKey', function() {
   return {
     restrict:'AE',
