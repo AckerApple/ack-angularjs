@@ -3,7 +3,7 @@
 var ack = require('ack-x/index-browser')
 var whiteOutModalTemplate = require('./white-out-modal.jade')
 
-require('ng-fx')
+require('ng-fx/dist/ng-fx.min.js')
 require('angular-animate')
 
 //version: 1.2.4
