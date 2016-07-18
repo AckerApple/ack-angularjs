@@ -1,5 +1,5 @@
 # ack-angular, the Acker Way of Fullfilling Our Everyday Angular Needs
-Extra special directives, services and filters to aide in completeting everyday interface development needs.
+Extra special directives, services and filters to aide in completeting everyday interface development needs in AngularJs v1.5+
 
 ## May Contain More Functionality Than You Need
 The following packages are pre-bundled into ack-angular
@@ -12,6 +12,33 @@ This code was born out of countless past production projects that were implement
 At this time, the documentation is just now evolving as this package is just now becoming a publically consumed piece of software. The demand for this code to be available for immediate use as a public package, has out weighed producing proper documentation.
 
 Use this package at will, use with caution. PLEASE watch our version numbers as this package upgrades. Breaking changes will always be illustrated in a major version number change (IE. v1.0.0 versus v1.1.0)
+
+## Using the Helpful Injector Tool
+Reduce the name duplication that comes with injection-dependency-by-name
+```
+import injector from "ack-angular/injector"
+
+export default class SomeClass{
+  constructor(){
+    inject(arguments, this)//inject var is created below class declaration
+    console.log('SomeOtherClass', this.SomeOtherClass)
+  }
+}
+
+const inject = injector(SomeClass,['SomeOtherClass'])
+```
+> The above example is the same as the following. The following code requires typing SomeOtherClass three times, as opposed to once in above code
+```
+export default class SomeClass{
+  constructor(SomeOtherClass){
+    this.SomeOtherClass = SomeOtherClass
+    console.log('SomeOtherClass', this.SomeOtherClass)
+  }
+}
+
+SomeOtherClass.$inject = ['SomeOtherClass']
+```
+
 
 ## Simple Filter Example
 ```
