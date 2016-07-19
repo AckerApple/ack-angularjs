@@ -9,7 +9,8 @@
     "build": "npm run build:test & npm run build:js && npm run build:css",
     "build:js": "webpack --progress",
     "start": "webpack-dev-server --content-base ./test",
-    "build:css": "node-sass scss/ -o test/ dist/ --output-style compressed --source-map true",
+    "build:css": "npm run build:ack-css-boot && node-sass scss/ -o test/ dist/ --output-style compressed --source-map true --importer node_modules/sass-jspm-importer/src/importer.js",
+    "build:ack-css-boot": "node-sass src/styles/ack-css-boot/ack-css-boot.scss -o scss/ --output-style compressed --importer node_modules/sass-jspm-importer/src/importer.js",
     "build:index": "jade ./src/index.jade --out ./test/",
     "build:pug": "node ./scripts/build-pug",
     "build:test": "npm run build:index && npm run build:css",
@@ -41,14 +42,17 @@
     "css-loader": "^0.23.1",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
+    "jspm": "^0.16.39",
     "ng-fx": "^2.0.4",
     "node-sass": "^3.7.0",
+    "sass-jspm-importer": "0.0.6",
     "style-loader": "^0.13.0",
     "watch": "^0.19.1",
     "webpack": "^1.12.14"
   },
   "jspm": {
     "dependencies": {
+      "ack-css-boot": "github:ackerapple/ack-css-boot@master",
       "ack-x": "npm:ack-x@^1.2.9",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "ng-fx": "npm:ng-fx@^2.0.4"

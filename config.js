@@ -14,6 +14,7 @@ System.config({
   },
 
   map: {
+    "ack-css-boot": "github:ackerapple/ack-css-boot@master",
     "ack-x": "npm:ack-x@1.2.9",
     "angular-animate": "github:angular/bower-angular-animate@1.5.7",
     "babel": "npm:babel-core@5.8.38",
