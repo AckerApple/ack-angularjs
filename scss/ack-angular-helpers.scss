@@ -261,3 +261,14 @@ a,.cursor-pointer {cursor:pointer}
 .line-height-quarter{line-height:25%}
 .line-height-2x{line-height:150%}
 .line-height-3x{line-height:200%}
+
+
+.form-group.has-error label:first-child{
+  color:#d43f3a;
+}
+
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea{
+  border:1px solid #d43f3a;
+}
