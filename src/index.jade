@@ -4,27 +4,35 @@ html.font-helvetica.bg-black(lang="en" ng-app="ack-angular")
     meta(charset="UTF-8")
     meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0")
     script(src="test.js" type="text/javascript")
-    link(href="ack-angular-animations.css" type="text/css" rel="stylesheet")
-    link(href="ack-angular-helpers.css" type="text/css" rel="stylesheet")
+    link(href="styles.css" type="text/css" rel="stylesheet")
+    //-
+      link(href="ack-angular-animations.css" type="text/css" rel="stylesheet")
+      link(href="ack-angular-helpers.css" type="text/css" rel="stylesheet")
     style.
       html,body{margin:0;padding:0;}
 
   body.margin
     .text-white
       .margin-bottom-lg
+        h2 Animation Examples
+
+        h3 shake-on Directive Examples
+        label(shake-model="shake") shake this text&nbsp;
+        button(ng-click="shake=true") shake {{shake}}
+
         h3 Hide Show Examples
-        button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
-        button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
-        .text-white
-          .fx-fade-up(ng-show="showFx")
-            h2 ng-fx
-            hr
-            hr
-            hr
-            hr
-            hr
-            hr
-            h3 Awesomeness
+          button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
+          button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
+          .text-white
+            .fx-fade-up(ng-show="showFx")
+              h2 ng-fx
+              hr
+              hr
+              hr
+              hr
+              hr
+              hr
+              h3 Awesomeness
 
       .margin-bottom-lg
         h2 CSS Examples

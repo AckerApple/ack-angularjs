@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "Universal Angular base code suited for any web app",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "npm run build:test & npm run build:js && npm run build:css",
     "build:js": "webpack --progress",
     "start": "webpack-dev-server --content-base ./test",
-    "build:css": "npm run build:ack-css-boot && node-sass scss/ -o test/ dist/ --output-style compressed --source-map true --importer node_modules/sass-jspm-importer/src/importer.js",
+    "build:css": "node scripts/scss",
     "build:ack-css-boot": "node-sass src/styles/ack-css-boot/ack-css-boot.scss -o scss/ --output-style compressed --importer node_modules/sass-jspm-importer/src/importer.js",
     "build:index": "jade ./src/index.jade --out ./test/",
     "build:pug": "node ./scripts/build-pug",
@@ -36,10 +36,12 @@
   "dependencies": {},
   "devDependencies": {
     "ack-pug-bundler": "^1.0.2",
+    "ack-sass": "^1.0.3",
     "ack-x": "https://github.com/AckerApple/ack-x.git",
     "angular": "^1.5.3",
     "angular-animate": "^1.5.3",
     "css-loader": "^0.23.1",
+    "csshake": "^1.5.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "jspm": "^0.16.39",
@@ -52,7 +54,7 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-css-boot": "github:ackerapple/ack-css-boot@master",
+      "ack-css-boot": "npm:ack-css-boot@^1.0.1",
       "ack-x": "npm:ack-x@^1.2.9",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "ng-fx": "npm:ng-fx@^2.0.4"

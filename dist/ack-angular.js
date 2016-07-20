@@ -83,6 +83,48 @@
 	.filter('trustAsHtml', trustAsHtml)//requires use of ng-bind-html
 	.filter('trustAsHTML', trustAsHtml)//requires use of ng-bind-html
 	
+	.directive('shakeModel', function($timeout) {
+	  return {
+	    restrict:'A',
+	    bindToController:{
+	      shakeModel:'=?', shakeForMs:'=?', shakeType:'=?'
+	    },
+	    controller:function(){},
+	    controllerAs:'shakeModelController',
+	    link: function($scope, element, attrs) {
+	      $scope.shakeModelController.shakeForMs = $scope.shakeModelController.shakeForMs || 2000
+	      $scope.shakeModelController.shakeType = $scope.shakeModelController.shakeType || 'shake-slow'
+	
+	      function onTrue(){
+	        element.addClass('shake-constant')
+	        element.addClass($scope.shakeModelController.shakeType)
+	
+	        $timeout(function() {
+	          $scope.shakeModelController.shakeModel = false
+	          element.removeClass('shake-constant')
+	          element.removeClass($scope.shakeModelController.shakeType)
+	          $scope.$apply()
+	        }, $scope.shakeModelController.shakeForMs);
+	      }
+	
+	      function onChange(value) {
+	        if(value === true) {
+	          onTrue()
+	        }else{
+	          element.removeClass('shake-constant')
+	          element.removeClass($scope.shakeModelController.shakeType)
+	        }
+	      }
+	
+	      function watch(){
+	        return $scope.shakeModelController.shakeModel
+	      }
+	
+	      $scope.$watch(watch, onChange);
+	    }
+	  };
+	})
+	
 	.directive('selectOn', function($timeout) {
 	  return {
 	    bindToController:{
