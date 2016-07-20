@@ -45,7 +45,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
       }
 
       function onChange(value) {
-        if(value === true) {
+        if(value == true) {
           onTrue()
         }else{
           element.removeClass('shake-constant')
@@ -88,7 +88,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
       }
 
       function onChange(value) {
-        if(value === true) {
+        if(value == true) {
           onTrue()
         }else{
           element.removeClass('shake-constant')
