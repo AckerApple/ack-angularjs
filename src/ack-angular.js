@@ -6,7 +6,7 @@ var whiteOutModalTemplate = require('./white-out-modal.jade')
 require('ng-fx/dist/ng-fx.min.js')
 require('angular-animate')
 
-//version: 1.2.4
+//version: 1.4.1
 angular.module('ack-angular',['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .filter('aMethod',a('method'))
@@ -32,6 +32,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     controllerAs:'shakeOnController',
     link: function($scope, element, attrs) {
       function onTrue(){
+        console.log(66)
         element.addClass('shake-constant')
         element.addClass($scope.shakeOnController.shakeType)
 
@@ -45,7 +46,8 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
       }
 
       function onChange(value) {
-        if(value == true) {
+        if(value) {
+          console.log(586)
           onTrue()
         }else{
           element.removeClass('shake-constant')
@@ -88,7 +90,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
       }
 
       function onChange(value) {
-        if(value == true) {
+        if(value) {
           onTrue()
         }else{
           element.removeClass('shake-constant')
