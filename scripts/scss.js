@@ -1,9 +1,9 @@
 var path = require('path')
 var ackSass = require('ack-sass')
 
-var filePath = path.join(__dirname,'../','scss','styles.scss')
-var outFilePath0 = path.join(__dirname,'../','test','styles.css')
-var outFilePath1 = path.join(__dirname,'../','test','styles.css')
+var filePath = path.join(__dirname,'../','scss')
+var outFilePath0 = path.join(__dirname,'../','test')
+var outFilePath1 = path.join(__dirname,'../','dist')
 
 var sassJspm = require('sass-jspm-importer')
 
@@ -15,7 +15,8 @@ var options={
 console.log('compiling sass')
 
 require('./scss-csshake')
-.then(()=>ackSass.compileFile(filePath, outFilePath0, options))
-.then(()=>ackSass.compileFile(filePath, outFilePath1, options))
+.then(()=>require('./scss-ack-css-boot'))
+.then(()=>ackSass.compilePath(filePath, outFilePath0, options))
+.then(()=>ackSass.compilePath(filePath, outFilePath1, options))
 .then(()=>console.log('compiling completed'))
 .catch(err=>console.log(err))

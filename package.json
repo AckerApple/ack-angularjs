@@ -35,8 +35,9 @@
   "homepage": "https://github.com/AckerApple/ack-angular",
   "dependencies": {},
   "devDependencies": {
+    "ack-css-boot": "^1.0.1",
     "ack-pug-bundler": "^1.0.2",
-    "ack-sass": "^1.0.3",
+    "ack-sass": "^1.0.5",
     "ack-x": "https://github.com/AckerApple/ack-x.git",
     "angular": "^1.5.3",
     "angular-animate": "^1.5.3",
@@ -54,7 +55,6 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-css-boot": "npm:ack-css-boot@^1.0.1",
       "ack-x": "npm:ack-x@^1.2.9",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "ng-fx": "npm:ng-fx@^2.0.4"

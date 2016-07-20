@@ -21,13 +21,55 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .filter('trustAsHtml', trustAsHtml)//requires use of ng-bind-html
 .filter('trustAsHTML', trustAsHtml)//requires use of ng-bind-html
 
+.directive('shakeOn', function($timeout) {
+  return {
+    restrict:'A',
+    scope:{},
+    bindToController:{
+      shakeOn:'=?', shakeForMs:'=?', shakeType:'=?', shakeThen:'&', shakeController:'=?'
+    },
+    controller:shakeOn,
+    controllerAs:'shakeOnController',
+    link: function($scope, element, attrs) {
+      function onTrue(){
+        element.addClass('shake-constant')
+        element.addClass($scope.shakeOnController.shakeType)
+
+        $timeout(function() {
+          $scope.shakeOnController.shakeThen()
+          //$scope.shakeOnController.shakeOn = false
+          element.removeClass('shake-constant')
+          element.removeClass($scope.shakeOnController.shakeType)
+          $scope.$apply()
+        }, $scope.shakeOnController.shakeForMs);
+      }
+
+      function onChange(value) {
+        if(value === true) {
+          onTrue()
+        }else{
+          element.removeClass('shake-constant')
+          element.removeClass($scope.shakeOnController.shakeType)
+        }
+      }
+
+      function watch(){
+        return $scope.shakeOnController.shakeOn
+      }
+
+      $scope.$watch(watch, onChange);
+    }
+  };
+})
+
 .directive('shakeModel', function($timeout) {
   return {
     restrict:'A',
+    scope:{},
     bindToController:{
-      shakeModel:'=?', shakeForMs:'=?', shakeType:'=?'
+      shakeModel:'=?', shakeForMs:'=?', shakeType:'=?', shakeController:'=?'
     },
-    controller:function(){},
+    controller:shakeOn,
     controllerAs:'shakeModelController',
     link: function($scope, element, attrs) {
       $scope.shakeModelController.shakeForMs = $scope.shakeModelController.shakeForMs || 2000
@@ -65,18 +107,21 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 
 .directive('selectOn', function($timeout) {
   return {
+    scope:{},
     bindToController:{
-      selectOn:'&',selectOnDelay:'=?'
+      selectOn:'&', selectOnDelay:'=?', selectThen:'&'
     },
     controller:function(){},
     controllerAs:'selectOnController',
     link: function($scope, element, attrs) {
       $scope.selectOnController.selectOnDelay = $scope.selectOnController.selectOnDelay || 0
-      $scope.$watch($scope.selectOnController.selectOn, function(value) {
+      $scope.$watch(function(){
+        return $scope.selectOnController.selectOn()
+      }, function(value) {
         if(value === true) {
           $timeout(function() {
             element[0].select();
-            $scope.selectOnController.selectOn = false;
+            $scope.selectOnController.selectThen();
           },$scope.selectOnController.selectOnDelay);
         }
       });
@@ -86,18 +131,21 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 
 .directive('focusOn', function($timeout) {
   return {
+    scope:{},
     bindToController:{
-      focusOn:'&', focusOnDelay:'=?'
+      focusOn:'&', focusOnDelay:'=?', focusThen:'&'
     },
     controller:function(){},
     controllerAs:'focusOnController',
     link: function($scope, element, attrs) {
       $scope.focusOnController.focusOnDelay = $scope.focusOnController.focusOnDelay || 0
-      $scope.$watch($scope.focusOnController.focusOn, function(value) {
+      $scope.$watch(function(){
+        return $scope.focusOnController.focusOn()
+      }, function(value) {
         if(value === true) {
           $timeout(function() {
             element[0].focus();
-            $scope.focusOnController.focusOn = false;
+            $scope.focusOnController.focusThen();
           },$scope.focusOnController.focusOnDelay);
         }
       });
@@ -126,6 +174,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
+    scope:{},
     bindToController:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
     controller:function(){},
     controllerAs:'onEnterKeyController',
@@ -271,6 +320,14 @@ function trustAsHtml($sce){
   };
 }
 trustAsHtml.$inject = ['$sce']
+
+
+function shakeOn(){
+  this.shakeForMs = this.shakeForMs || 2000
+  this.shakeType = this.shakeType || 'shake-slow'
+  this.shakeController = this
+  this.shakeTypes = ['shake-hard','shake-slow','shake-little','shake-horizontal','shake-vertical','shake-rotate','shake-opacity','shake-crazy']
+}
 
 module.exports = {
   name:'ack-angular',

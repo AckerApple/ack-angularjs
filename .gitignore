@@ -1,6 +1,3 @@
-#following file is made during bundle but must be renamed to ack-css-boot.scss
-ack-css-boot.css
-
 jspm_packages
 .DS_Store
 updaters

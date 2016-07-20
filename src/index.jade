@@ -14,13 +14,44 @@ html.font-helvetica.bg-black(lang="en" ng-app="ack-angular")
   body.margin
     .text-white
       .margin-bottom-lg
+        h2 General Directives
+
+        h3 select-on
+        .pad
+          input(select-on="selectOn" select-then="selectOn=false" value="text to select")
+          button(ng-click="selectOn=true") selectOn
+
+        h3 focus-on
+        .pad
+          input(focus-on="focusOn" focus-then="focusOn=false" placeholder="focus")
+          button(ng-click="focusOn=true") focusOn
+
+        h3 prevent-back-key
+        .pad
+          input(prevent-back-key value="you cant backspace")
+
+        h3 prevent-enter-key
+        .pad
+          textarea(prevent-enter-key value="you cant use enter key")
+
         h2 Animation Examples
 
         h3 shake-on Directive Examples
-        label(shake-model="shake") shake this text&nbsp;
-        button(ng-click="shake=true") shake {{shake}}
+        .pad
+          label(shake-on="shakeOn" shake-then="shakeOn=false" shake-type="shakeOnType" shake-controller="shakeController") shake this text&nbsp;
+          button(ng-click="shakeOn=true") shake:{{shakeOn||false}}
+          select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeOnType" ng-change="shakeOn=true")
+          input(ng-model="shakeController.shakeForMs" ng-change="shakeOn=true")
+
+        h3 shake-model Directive Examples
+        .pad
+          label(shake-model="shakeModel" shake-type="shakeModelType" shake-controller="shakeModelController") shake this text&nbsp;
+          button(ng-click="shakeModel=true") shake:{{shakeModel||false}}
+          select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeModelType" ng-change="shakeModel=true")
+          input(ng-model="shakeModelController.shakeForMs" ng-change="shakeModel=true")
 
         h3 Hide Show Examples
+        .pad
           button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
           button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
           .text-white
@@ -38,6 +69,7 @@ html.font-helvetica.bg-black(lang="en" ng-app="ack-angular")
         h2 CSS Examples
 
         h3 Form Examples
+        .pad
           .form-group.has-error
             label First Name
             input
