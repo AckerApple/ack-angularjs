@@ -32,7 +32,6 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
     controllerAs:'shakeOnController',
     link: function($scope, element, attrs) {
       function onTrue(){
-        console.log(66)
         element.addClass('shake-constant')
         element.addClass($scope.shakeOnController.shakeType)
 
@@ -47,7 +46,6 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
 
       function onChange(value) {
         if(value) {
-          console.log(586)
           onTrue()
         }else{
           element.removeClass('shake-constant')
