@@ -68,7 +68,7 @@
 	__webpack_require__(33)
 	__webpack_require__(34)
 	
-	//version: 1.2.4
+	//version: 1.4.1
 	angular.module('ack-angular',['ngAnimate','ng-fx'])
 	.service('ack', function(){return ack})
 	.filter('aMethod',a('method'))
@@ -107,7 +107,7 @@
 	      }
 	
 	      function onChange(value) {
-	        if(value === true) {
+	        if(value) {
 	          onTrue()
 	        }else{
 	          element.removeClass('shake-constant')
@@ -150,7 +150,7 @@
 	      }
 	
 	      function onChange(value) {
-	        if(value === true) {
+	        if(value) {
 	          onTrue()
 	        }else{
 	          element.removeClass('shake-constant')
@@ -1225,6 +1225,22 @@
 	  return new ackP()
 	}
 	
+	/** Expects a function, where that function expects that it's last argument will be a callback. Returns wrapper of defined function, that when called, returns a promise of calling defined function */
+	ackPromise.promisify = function(method){
+	  return function(){
+	    var args = Array.prototype.slice.apply(arguments)
+	    
+	    return new ackPromise(function(res, rej){
+	      args.push(function(err){
+	        if(err)return rej(err)
+	        var args = Array.prototype.slice.apply(arguments)
+	        args.shift(args)//remove first
+	        res.apply(this, args)
+	      })
+	      method.apply(this, args)
+	    })
+	  }
+	}
 	
 	ackPromise.method = function(method){
 	  return function(){
@@ -7044,25 +7060,11 @@
 /***/ function(module, exports) {
 
 	/**
-	 * @license AngularJS v1.5.7
+	 * @license AngularJS v1.5.8
 	 * (c) 2010-2016 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
 	(function(window, angular) {'use strict';
-	
-	/* jshint ignore:start */
-	var noop        = angular.noop;
-	var copy        = angular.copy;
-	var extend      = angular.extend;
-	var jqLite      = angular.element;
-	var forEach     = angular.forEach;
-	var isArray     = angular.isArray;
-	var isString    = angular.isString;
-	var isObject    = angular.isObject;
-	var isUndefined = angular.isUndefined;
-	var isDefined   = angular.isDefined;
-	var isFunction  = angular.isFunction;
-	var isElement   = angular.isElement;
 	
 	var ELEMENT_NODE = 1;
 	var COMMENT_NODE = 8;
@@ -7088,7 +7090,7 @@
 	// Also, the only modern browser that uses vendor prefixes for transitions/keyframes is webkit
 	// therefore there is no reason to test anymore for other vendor prefixes:
 	// http://caniuse.com/#search=transition
-	if (isUndefined(window.ontransitionend) && isDefined(window.onwebkittransitionend)) {
+	if ((window.ontransitionend === void 0) && (window.onwebkittransitionend !== void 0)) {
 	  CSS_PREFIX = '-webkit-';
 	  TRANSITION_PROP = 'WebkitTransition';
 	  TRANSITIONEND_EVENT = 'webkitTransitionEnd transitionend';
@@ -7097,7 +7099,7 @@
 	  TRANSITIONEND_EVENT = 'transitionend';
 	}
 	
-	if (isUndefined(window.onanimationend) && isDefined(window.onwebkitanimationend)) {
+	if ((window.onanimationend === void 0) && (window.onwebkitanimationend !== void 0)) {
 	  CSS_PREFIX = '-webkit-';
 	  ANIMATION_PROP = 'WebkitAnimation';
 	  ANIMATIONEND_EVENT = 'webkitAnimationEnd animationend';
@@ -7118,10 +7120,6 @@
 	var ANIMATION_DURATION_PROP = ANIMATION_PROP + DURATION_KEY;
 	var TRANSITION_DELAY_PROP = TRANSITION_PROP + DELAY_KEY;
 	var TRANSITION_DURATION_PROP = TRANSITION_PROP + DURATION_KEY;
-	
-	var isPromiseLike = function(p) {
-	  return p && p.then ? true : false;
-	};
 	
 	var ngMinErr = angular.$$minErr('ng');
 	function assertArg(arg, name, reason) {
@@ -7178,7 +7176,6 @@
 	    switch (element.length) {
 	      case 0:
 	        return element;
-	        break;
 	
 	      case 1:
 	        // there is no point of stripping anything if the element
@@ -7191,7 +7188,6 @@
 	
 	      default:
 	        return jqLite(extractElementNode(element));
-	        break;
 	    }
 	  }
 	
@@ -7232,7 +7228,7 @@
 	      $$removeClass($$jqLite, element, options.removeClass);
 	      options.removeClass = null;
 	    }
-	  }
+	  };
 	}
 	
 	function prepareAnimationOptions(options) {
@@ -7335,10 +7331,10 @@
 	    var prop, allow;
 	    if (val === ADD_CLASS) {
 	      prop = 'addClass';
-	      allow = !existing[klass];
+	      allow = !existing[klass] || existing[klass + REMOVE_CLASS_SUFFIX];
 	    } else if (val === REMOVE_CLASS) {
 	      prop = 'removeClass';
-	      allow = existing[klass];
+	      allow = existing[klass] || existing[klass + ADD_CLASS_SUFFIX];
 	    }
 	    if (allow) {
 	      if (classes[prop].length) {
@@ -7368,7 +7364,7 @@
 	}
 	
 	function getDomNode(element) {
-	  return (element instanceof angular.element) ? element[0] : element;
+	  return (element instanceof jqLite) ? element[0] : element;
 	}
 	
 	function applyGeneratedPreparationClasses(element, event, options) {
@@ -7558,7 +7554,7 @@
 	  return {
 	    link: function(scope, element, attrs) {
 	      var val = attrs.ngAnimateChildren;
-	      if (angular.isString(val) && val.length === 0) { //empty attribute
+	      if (isString(val) && val.length === 0) { //empty attribute
 	        element.data(NG_ANIMATE_CHILDREN_DATA, true);
 	      } else {
 	        // Interpolate and set the value, so that it is available to
@@ -9344,7 +9340,7 @@
 	      }
 	    );
 	
-	    var callbackRegistry = {};
+	    var callbackRegistry = Object.create(null);
 	
 	    // remember that the classNameFilter is set during the provider/config
 	    // stage therefore we can optimize here and setup a helper function
@@ -9427,7 +9423,7 @@
 	      },
 	
 	      off: function(event, container, callback) {
-	        if (arguments.length === 1 && !angular.isString(arguments[0])) {
+	        if (arguments.length === 1 && !isString(arguments[0])) {
 	          container = arguments[0];
 	          for (var eventType in callbackRegistry) {
 	            callbackRegistry[eventType] = filterFromRegistry(callbackRegistry[eventType], container);
@@ -9475,11 +9471,10 @@
 	            bool = animationsEnabled = !!element;
 	          } else {
 	            var node = getDomNode(element);
-	            var recordExists = disabledElementsLookup.get(node);
 	
 	            if (argCount === 1) {
 	              // (element) - Element getter
-	              bool = !recordExists;
+	              bool = !disabledElementsLookup.get(node);
 	            } else {
 	              // (element, bool) - Element setter
 	              disabledElementsLookup.put(node, !bool);
@@ -10432,20 +10427,6 @@
 	  };
 	}];
 	
-	/* global angularAnimateModule: true,
-	
-	   ngAnimateSwapDirective,
-	   $$AnimateAsyncRunFactory,
-	   $$rAFSchedulerFactory,
-	   $$AnimateChildrenDirective,
-	   $$AnimateQueueProvider,
-	   $$AnimationProvider,
-	   $AnimateCssProvider,
-	   $$AnimateCssDriverProvider,
-	   $$AnimateJsProvider,
-	   $$AnimateJsDriverProvider,
-	*/
-	
 	/**
 	 * @ngdoc module
 	 * @name ngAnimate
@@ -11162,6 +11143,19 @@
 	 * (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)
 	 */
 	
+	var copy;
+	var extend;
+	var forEach;
+	var isArray;
+	var isDefined;
+	var isElement;
+	var isFunction;
+	var isObject;
+	var isString;
+	var isUndefined;
+	var jqLite;
+	var noop;
+	
 	/**
 	 * @ngdoc service
 	 * @name $animate
@@ -11172,7 +11166,22 @@
 	 *
 	 * Click here {@link ng.$animate to learn more about animations with `$animate`}.
 	 */
-	angular.module('ngAnimate', [])
+	angular.module('ngAnimate', [], function initAngularHelpers() {
+	  // Access helpers from angular core.
+	  // Do it inside a `config` block to ensure `window.angular` is available.
+	  noop        = angular.noop;
+	  copy        = angular.copy;
+	  extend      = angular.extend;
+	  jqLite      = angular.element;
+	  forEach     = angular.forEach;
+	  isArray     = angular.isArray;
+	  isString    = angular.isString;
+	  isObject    = angular.isObject;
+	  isUndefined = angular.isUndefined;
+	  isDefined   = angular.isDefined;
+	  isFunction  = angular.isFunction;
+	  isElement   = angular.isElement;
+	})
 	  .directive('ngAnimateSwap', ngAnimateSwapDirective)
 	
 	  .directive('ngAnimateChildren', $$AnimateChildrenDirective)
