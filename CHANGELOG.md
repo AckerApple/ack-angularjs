@@ -1,6 +1,9 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.4.4] - 2016-08-03
+### Updated
+- ack-css-boot
 
 ## [1.4.1] - 2016-07-12
 ### Added
