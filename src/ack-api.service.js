@@ -45,15 +45,15 @@ export default class AckApi {
     Object.assign(cfg, this.config)
 
     if (cfg.queModel) {
-      const cache = cfg.queModel.name
+      const cacheName = cfg.queModel.config.name
       //const { ...cacheOptions } = cfg.queModel
       if (method === "GET") {
-        return this.AckOffline.getCache(cache, cfg.queModel)
+        return this.AckOffline.getCache(cacheName, cfg.queModel)
         .catch(() => this._fetch(cfg))
-        .catch(() => this.AckOffline.getCache(cache))
+        .catch(() => this.AckOffline.getCache(cacheName))
       } else {
         return this._fetch(cfg)
-        .catch(() => this.AckOffline.enqueue(cache, cfg))
+        .catch(() => this.AckOffline.enqueue(cacheName, cfg))
       }
     } else {
       return this._fetch(cfg)
