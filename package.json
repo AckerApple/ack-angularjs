@@ -50,7 +50,7 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-x": "github:ackerapple/ack-x@master",
+      "ack-x": "npm:ack-x@^1.2.15",
       "angular": "github:angular/bower-angular@^1.5.5",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "localforage": "npm:localforage@^1.4.2"

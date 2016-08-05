@@ -13,7 +13,7 @@ System.config({
   },
 
   map: {
-    "ack-x": "github:ackerapple/ack-x@master",
+    "ack-x": "npm:ack-x@1.2.15",
     "angular": "github:angular/bower-angular@1.5.8",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.8",
@@ -54,6 +54,16 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
+    "npm:ack-p@1.0.6": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:ack-x@1.2.15": {
+      "ack-p": "npm:ack-p@1.0.6",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "debug": "npm:debug@2.2.0",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:acorn@1.2.2": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -91,6 +101,9 @@ System.config({
     },
     "npm:core-util-is@1.0.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
+    },
+    "npm:debug@2.2.0": {
+      "ms": "npm:ms@0.7.1"
     },
     "npm:es3ify@0.1.4": {
       "esprima-fb": "npm:esprima-fb@3001.1.0-dev-harmony-fb",
