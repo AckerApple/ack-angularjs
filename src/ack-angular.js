@@ -10,6 +10,7 @@ import 'angular-animate'
 export default angular.module('ack-angular', ['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .service('AckOffline', AckOffline)
+.service('AckApi', AckApi)
 .filter('aMethod',a('method'))
 .filter('aFunction',a('method'))//alias
 .filter('aDate',a('date'))

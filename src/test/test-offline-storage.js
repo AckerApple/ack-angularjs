@@ -70,10 +70,8 @@ export default function() {
           testBasicSetCache(data)
           expect(typeof data.cache).toEqual('undefined')
         })
-        .then(()=>ackOffline.getCache("foo"))
-        .then(cache => {
-          expect(typeof cache).toEqual("undefined")
-        })
+        .then( ()=>ackOffline.getCache("foo") )
+        .then( cache => expect(typeof cache).toEqual("undefined") )
       ))
     })
 

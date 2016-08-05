@@ -80,6 +80,7 @@ export default class AckOffline{
       return prom.catch(e=>this.ErrorHandler.record(e))
     })
   }
+  
   getCache(name, options={}){
     return this.get(name)
     .then(data => {
@@ -88,7 +89,7 @@ export default class AckOffline{
       }
 
       if(data){
-        if(Object.keys(data).indexOf('cache')<0){
+        if(data.cache==null && data._timestamp==null){
           return data
         }
         
