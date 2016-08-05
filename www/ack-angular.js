@@ -4718,7 +4718,7 @@ $__System.register("16", ["17", "18", "19"], function (_export) {
 
             return this.$http(cfg).then(function (response) {
               if (cfg.method === "GET" && cfg.queModel) {
-                _this.AckOffline.cacheResponse(cfg.queModel.name, response);
+                _this.AckOffline.cacheResponse(cfg.queModel.config.name, response);
               }
               return response;
             });
@@ -4752,20 +4752,20 @@ $__System.register("16", ["17", "18", "19"], function (_export) {
 
             if (cfg.queModel) {
               var _ret = (function () {
-                var cache = cfg.queModel.name;
+                var cacheName = cfg.queModel.config.name;
                 //const { ...cacheOptions } = cfg.queModel
                 if (method === "GET") {
                   return {
-                    v: _this2.AckOffline.getCache(cache, cfg.queModel)["catch"](function () {
+                    v: _this2.AckOffline.getCache(cacheName, cfg.queModel)["catch"](function () {
                       return _this2._fetch(cfg);
                     })["catch"](function () {
-                      return _this2.AckOffline.getCache(cache);
+                      return _this2.AckOffline.getCache(cacheName);
                     })
                   };
                 } else {
                   return {
                     v: _this2._fetch(cfg)["catch"](function () {
-                      return _this2.AckOffline.enqueue(cache, cfg);
+                      return _this2.AckOffline.enqueue(cacheName, cfg);
                     })
                   };
                 }
