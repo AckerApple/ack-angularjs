@@ -18,7 +18,7 @@ export default class AckApi {
       if (cfg.method === "GET" && cfg.queModel) {
         this.AckOffline.cacheResponse(cfg.queModel.config.name, response)
       }
-      return response
+      return response.data
     })
   }
 
