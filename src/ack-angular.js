@@ -1,5 +1,5 @@
 //import angular from 'angular'
-import ack from 'ack-x'
+import ack from 'ack-x/dist/ack-x-min'
 import whiteOutModalTemplate from './white-out-modal.pug'
 import AckApi from './ack-api.service'
 import AckOffline from './ack-offline.service'
