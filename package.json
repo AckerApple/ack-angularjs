@@ -52,8 +52,8 @@
   "jspm": {
     "dependencies": {
       "ack-x": "npm:ack-x@^1.2.15",
-      "angular": "github:angular/bower-angular@^1.5.5",
-      "angular-animate": "github:angular/bower-angular-animate@^1.5.7"
+      "angular": "github:angular/bower-angular@^1.5.8",
+      "angular-animate": "github:angular/bower-angular-animate@^1.5.8"
     },
     "devDependencies": {
       "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
