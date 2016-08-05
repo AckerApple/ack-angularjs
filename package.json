@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Universal Angular base code suited for any web app",
   "main": "index.js",
   "private": true,
@@ -50,7 +50,7 @@
   },
   "jspm": {
     "dependencies": {
-      "ack-x": "npm:ack-x@^1.2.9",
+      "ack-x": "npm:ack-x@^1.2.13",
       "angular": "github:angular/bower-angular@^1.5.5",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "localforage": "npm:localforage@^1.4.2"
