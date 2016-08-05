@@ -1,23 +1,24 @@
 {
   "name": "ack-angular",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "description": "Universal Angular base code suited for any web app",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch --progress",
-    "build": "npm run build:test & npm run build:js && npm run build:css",
-    "build:js": "webpack --progress",
-    "start": "webpack-dev-server --content-base ./test",
+    "test": "ionic serve",
+    "build:ng-fx": "node scripts/build-ng-fx",
+    "build": "npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:js && npm run build:css",
     "build:css": "node scripts/scss",
-    "build:ack-css-boot": "node-sass src/styles/ack-css-boot/ack-css-boot.scss -o scss/ --output-style compressed --importer node_modules/sass-jspm-importer/src/importer.js",
-    "build:index": "jade ./src/index.jade --out ./test/",
+    "build:test:index": "pug ./src/test/index.pug --out ./www/",
+    "build:examples": "npm run build:examples:js && pug ./src/examples.pug --out ./www/",
     "build:pug": "node ./scripts/build-pug",
-    "build:test": "npm run build:index && npm run build:css",
-    "watch:index": "watch --wait=1 'npm run build:index' src",
-    "watch:test": "npm run watch:css & npm run watch:index",
-    "watch:css": "watch --wait=1 'npm run build:css' scss"
+    "build:test": "npm run build:test:index && npm run build:css && npm run build:test:js",
+    "build:js": "jspm bundle-sfx src/ack-angular.js dist/ack-angular.js",
+    "build:examples:js": "jspm bundle-sfx src/ack-angular.js www/ack-angular.js",
+    "build:test:js": "jspm bundle-sfx src/test/test.js www/test.js",
+    "watch:test": "npm run watch:test:index & npm run watch:test:js",
+    "watch:test:js": "watch 'npm run build:test:js' src",
+    "watch:test:index": "watch 'npm run build:test:index' src"
   },
   "repository": {
     "type": "git",
@@ -34,33 +35,28 @@
     "url": "https://github.com/AckerApple/ack-angular/issues"
   },
   "homepage": "https://github.com/AckerApple/ack-angular",
-  "dependencies": {},
   "devDependencies": {
     "ack-css-boot": "^1.0.4",
     "ack-pug-bundler": "^1.1.2",
     "ack-sass": "^1.0.8",
-    "ack-x": "^1.2.10",
-    "angular": "^1.5.3",
-    "angular-animate": "^1.5.8",
-    "css-loader": "^0.23.1",
     "csshake": "^1.5.0",
-    "jade": "^1.11.0",
-    "jade-loader": "^0.8.0",
     "jspm": "^0.16.39",
+    "jspm-resolve": "^2.1.0",
     "ng-fx": "^2.0.4",
     "node-sass": "^3.7.0",
+    "pug": "^2.0.0-beta4",
     "sass-jspm-importer": "0.0.6",
-    "style-loader": "^0.13.0",
-    "watch": "^0.19.1",
-    "webpack": "^1.12.14"
+    "watch": "^0.19.1"
   },
   "jspm": {
     "dependencies": {
       "ack-x": "npm:ack-x@^1.2.9",
+      "angular": "github:angular/bower-angular@^1.5.5",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
-      "ng-fx": "npm:ng-fx@^2.0.4"
+      "localforage": "npm:localforage@^1.4.2"
     },
     "devDependencies": {
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"

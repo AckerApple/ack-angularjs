@@ -1,14 +1,15 @@
-"use strict"
+//import angular from 'angular'
+import ack from 'ack-x/index-browser'
+import whiteOutModalTemplate from './white-out-modal.pug'
+import AckOffline from './ack-offline.service'
 
-var ack = require('ack-x/index-browser')
-var whiteOutModalTemplate = require('./white-out-modal.jade')
+import ngFx from './ng-fx-build'
+import 'angular-animate'
 
-require('ng-fx/dist/ng-fx.min.js')
-require('angular-animate')
-
-//version: 1.4.1
-angular.module('ack-angular',['ngAnimate','ng-fx'])
+//version: 1.5.0
+export default angular.module('ack-angular', ['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
+.service('AckOffline', AckOffline)
 .filter('aMethod',a('method'))
 .filter('aFunction',a('method'))//alias
 .filter('aDate',a('date'))
@@ -251,7 +252,7 @@ angular.module('ack-angular',['ngAnimate','ng-fx'])
       })
     }
   }
-})
+}).name
 
 function a(name){
   return ['ack',function(ack){
@@ -327,9 +328,4 @@ function shakeOn(){
   this.shakeType = this.shakeType || 'shake-slow'
   this.shakeController = this
   this.shakeTypes = ['shake-hard','shake-slow','shake-little','shake-horizontal','shake-vertical','shake-rotate','shake-opacity','shake-crazy']
-}
-
-module.exports = {
-  name:'ack-angular',
-  injector:require('./injector.js')
 }
