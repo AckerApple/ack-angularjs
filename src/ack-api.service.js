@@ -16,7 +16,7 @@ export default class AckApi {
     return this.$http(cfg)
     .then(response => {
       if (cfg.method === "GET" && cfg.queModel) {
-        this.AckOffline.cacheResponse(cfg.queModel.name, response)
+        this.AckOffline.cacheResponse(cfg.queModel.config.name, response)
       }
       return response
     })
