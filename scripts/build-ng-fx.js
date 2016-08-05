@@ -1,4 +1,3 @@
-var jspmResolve = require('jspm-resolve')
 var path = require('path')
 var fs = require('fs')
 var ngFxPath = require.resolve('ng-fx')

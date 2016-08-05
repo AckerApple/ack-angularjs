@@ -1,4 +1,4 @@
-import localForage from "localforage"
+import localForage from "../localforage-build"
 import {sync, promise} from "../mock-injects"
 import AckOffline from "../ack-offline.service"
 

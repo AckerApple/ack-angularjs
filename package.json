@@ -7,7 +7,8 @@
   "scripts": {
     "test": "ionic serve",
     "build:ng-fx": "node scripts/build-ng-fx",
-    "build": "npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:js && npm run build:css",
+    "build:localforage": "node scripts/build-localforage",
+    "build": "npm run build:localforage && npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:css",
     "build:css": "node scripts/scss",
     "build:test:index": "pug ./src/test/index.pug --out ./www/",
     "build:examples": "npm run build:examples:js && pug ./src/examples.pug --out ./www/",
@@ -41,7 +42,7 @@
     "ack-sass": "^1.0.8",
     "csshake": "^1.5.0",
     "jspm": "^0.16.39",
-    "jspm-resolve": "^2.1.0",
+    "localforage": "^1.4.2",
     "ng-fx": "^2.0.4",
     "node-sass": "^3.7.0",
     "pug": "^2.0.0-beta4",
@@ -52,8 +53,7 @@
     "dependencies": {
       "ack-x": "npm:ack-x@^1.2.15",
       "angular": "github:angular/bower-angular@^1.5.5",
-      "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
-      "localforage": "npm:localforage@^1.4.2"
+      "angular-animate": "github:angular/bower-angular-animate@^1.5.7"
     },
     "devDependencies": {
       "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
