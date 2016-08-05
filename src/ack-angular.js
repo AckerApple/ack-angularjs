@@ -7,11 +7,33 @@ import AckOffline from './ack-offline.service'
 import ngFx from './ng-fx-build'
 import 'angular-animate'
 
-//version: 1.5.0
+//version: 1.5.2
 export default angular.module('ack-angular', ['ngAnimate','ng-fx'])
 .service('ack', function(){return ack})
 .service('AckOffline', AckOffline)
 .service('AckApi', AckApi)
+
+.filter('typeof', function(){
+  return function(x){
+      return typeof(x)
+  }
+})
+
+.filter('keys', function(){
+  return function(x){
+      if(x){
+        return Object.keys(x)
+      }
+  }
+})
+
+.filter('yesNo', function(){
+  return function(input){
+    if(input==null)return input
+    return input ? 'yes' : 'no';
+  }
+})
+
 .filter('aMethod',a('method'))
 .filter('aFunction',a('method'))//alias
 .filter('aDate',a('date'))
