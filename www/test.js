@@ -4,7 +4,1728 @@
 var require = this.require, exports = this.exports, module = this.module;
 !function(e){function r(e,r){for(var n=e.split(".");n.length;)r=r[n.shift()];return r}function n(n){if("string"==typeof n)return r(n,e);if(!(n instanceof Array))throw new Error("Global exports must be a string or array.");for(var t={},o=!0,f=0;f<n.length;f++){var i=r(n[f],e);o&&(t["default"]=i,o=!1),t[n[f].split(".").pop()]=i}return t}function t(r){if(Object.keys)Object.keys(e).forEach(r);else for(var n in e)a.call(e,n)&&r(n)}function o(r){t(function(n){if(-1==l.call(s,n)){try{var t=e[n]}catch(o){s.push(n)}r(n,t)}})}var f,i=$__System,a=Object.prototype.hasOwnProperty,l=Array.prototype.indexOf||function(e){for(var r=0,n=this.length;n>r;r++)if(this[r]===e)return r;return-1},s=["_g","sessionStorage","localStorage","clipboardData","frames","frameElement","external","mozAnimationStartTime","webkitStorageInfo","webkitIndexedDB","mozInnerScreenY","mozInnerScreenX"];i.set("@@global-helpers",i.newModule({prepareGlobal:function(r,t,i){var a=e.define;e.define=void 0;var l;if(i){l={};for(var s in i)l[s]=e[s],e[s]=i[s]}return t||(f={},o(function(e,r){f[e]=r})),function(){var r;if(t)r=n(t);else{r={};var i,s;o(function(e,n){f[e]!==n&&"undefined"!=typeof n&&(r[e]=n,"undefined"!=typeof i?s||i===n||(s=!0):i=n)}),r=s?r:i}if(l)for(var u in l)e[u]=l[u];return e.define=a,r}}}))}("undefined"!=typeof self?self:global);
 !function(e){function n(e,n){e=e.replace(l,"");var r=e.match(u),t=(r[1].split(",")[n]||"require").replace(s,""),i=p[t]||(p[t]=new RegExp(a+t+f,"g"));i.lastIndex=0;for(var o,c=[];o=i.exec(e);)c.push(o[2]||o[3]);return c}function r(e,n,t,o){if("object"==typeof e&&!(e instanceof Array))return r.apply(null,Array.prototype.splice.call(arguments,1,arguments.length-1));if("string"==typeof e&&"function"==typeof n&&(e=[e]),!(e instanceof Array)){if("string"==typeof e){var l=i.get(e);return l.__useDefault?l["default"]:l}throw new TypeError("Invalid require")}for(var a=[],f=0;f<e.length;f++)a.push(i["import"](e[f],o));Promise.all(a).then(function(e){n&&n.apply(null,e)},t)}function t(t,l,a){"string"!=typeof t&&(a=l,l=t,t=null),l instanceof Array||(a=l,l=["require","exports","module"].splice(0,a.length)),"function"!=typeof a&&(a=function(e){return function(){return e}}(a)),void 0===l[l.length-1]&&l.pop();var f,u,s;-1!=(f=o.call(l,"require"))&&(l.splice(f,1),t||(l=l.concat(n(a.toString(),f)))),-1!=(u=o.call(l,"exports"))&&l.splice(u,1),-1!=(s=o.call(l,"module"))&&l.splice(s,1);var p={name:t,deps:l,execute:function(n,t,o){for(var p=[],c=0;c<l.length;c++)p.push(n(l[c]));o.uri=o.id,o.config=function(){},-1!=s&&p.splice(s,0,o),-1!=u&&p.splice(u,0,t),-1!=f&&p.splice(f,0,function(e,t,l){return"string"==typeof e&&"function"!=typeof t?n(e):r.call(i,e,t,l,o.id)});var d=a.apply(-1==u?e:t,p);return"undefined"==typeof d&&o&&(d=o.exports),"undefined"!=typeof d?d:void 0}};if(t)c.anonDefine||c.isBundle?c.anonDefine&&c.anonDefine.name&&(c.anonDefine=null):c.anonDefine=p,c.isBundle=!0,i.registerDynamic(p.name,p.deps,!1,p.execute);else{if(c.anonDefine&&!c.anonDefine.name)throw new Error("Multiple anonymous defines in module "+t);c.anonDefine=p}}var i=$__System,o=Array.prototype.indexOf||function(e){for(var n=0,r=this.length;r>n;n++)if(this[n]===e)return n;return-1},l=/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm,a="(?:^|[^$_a-zA-Z\\xA0-\\uFFFF.])",f="\\s*\\(\\s*(\"([^\"]+)\"|'([^']+)')\\s*\\)",u=/\(([^\)]*)\)/,s=/^\s+|\s+$/g,p={};t.amd={};var c={isBundle:!1,anonDefine:null};i.amdDefine=t,i.amdRequire=r}("undefined"!=typeof self?self:global);
-$__System.registerDynamic("2", [], false, function ($__require, $__exports, $__module) {
+(function() {
+var define = $__System.amdDefine;
+(function(f) {
+  if (typeof exports === "object" && typeof module !== "undefined") {
+    module.exports = f();
+  } else if (typeof define === "function" && define.amd) {
+    define("2", [], f);
+  } else {
+    var g;
+    if (typeof window !== "undefined") {
+      g = window;
+    } else if (typeof global !== "undefined") {
+      g = global;
+    } else if (typeof self !== "undefined") {
+      g = self;
+    } else {
+      g = this;
+    }
+    g.localforage = f();
+  }
+})(function() {
+  var define,
+      module,
+      exports;
+  return (function e(t, n, r) {
+    function s(o, u) {
+      if (!n[o]) {
+        if (!t[o]) {
+          var a = typeof require == "function" && require;
+          if (!u && a)
+            return a(o, !0);
+          if (i)
+            return i(o, !0);
+          var f = new Error("Cannot find module '" + o + "'");
+          throw (f.code = "MODULE_NOT_FOUND", f);
+        }
+        var l = n[o] = {exports: {}};
+        t[o][0].call(l.exports, function(e) {
+          var n = t[o][1][e];
+          return s(n ? n : e);
+        }, l, l.exports, e, t, n, r);
+      }
+      return n[o].exports;
+    }
+    var i = typeof require == "function" && require;
+    for (var o = 0; o < r.length; o++)
+      s(r[o]);
+    return s;
+  })({
+    1: [function(_dereq_, module, exports) {
+      'use strict';
+      var immediate = _dereq_(2);
+      function INTERNAL() {}
+      var handlers = {};
+      var REJECTED = ['REJECTED'];
+      var FULFILLED = ['FULFILLED'];
+      var PENDING = ['PENDING'];
+      module.exports = exports = Promise;
+      function Promise(resolver) {
+        if (typeof resolver !== 'function') {
+          throw new TypeError('resolver must be a function');
+        }
+        this.state = PENDING;
+        this.queue = [];
+        this.outcome = void 0;
+        if (resolver !== INTERNAL) {
+          safelyResolveThenable(this, resolver);
+        }
+      }
+      Promise.prototype["catch"] = function(onRejected) {
+        return this.then(null, onRejected);
+      };
+      Promise.prototype.then = function(onFulfilled, onRejected) {
+        if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
+          return this;
+        }
+        var promise = new this.constructor(INTERNAL);
+        if (this.state !== PENDING) {
+          var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
+          unwrap(promise, resolver, this.outcome);
+        } else {
+          this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
+        }
+        return promise;
+      };
+      function QueueItem(promise, onFulfilled, onRejected) {
+        this.promise = promise;
+        if (typeof onFulfilled === 'function') {
+          this.onFulfilled = onFulfilled;
+          this.callFulfilled = this.otherCallFulfilled;
+        }
+        if (typeof onRejected === 'function') {
+          this.onRejected = onRejected;
+          this.callRejected = this.otherCallRejected;
+        }
+      }
+      QueueItem.prototype.callFulfilled = function(value) {
+        handlers.resolve(this.promise, value);
+      };
+      QueueItem.prototype.otherCallFulfilled = function(value) {
+        unwrap(this.promise, this.onFulfilled, value);
+      };
+      QueueItem.prototype.callRejected = function(value) {
+        handlers.reject(this.promise, value);
+      };
+      QueueItem.prototype.otherCallRejected = function(value) {
+        unwrap(this.promise, this.onRejected, value);
+      };
+      function unwrap(promise, func, value) {
+        immediate(function() {
+          var returnValue;
+          try {
+            returnValue = func(value);
+          } catch (e) {
+            return handlers.reject(promise, e);
+          }
+          if (returnValue === promise) {
+            handlers.reject(promise, new TypeError('Cannot resolve promise with itself'));
+          } else {
+            handlers.resolve(promise, returnValue);
+          }
+        });
+      }
+      handlers.resolve = function(self, value) {
+        var result = tryCatch(getThen, value);
+        if (result.status === 'error') {
+          return handlers.reject(self, result.value);
+        }
+        var thenable = result.value;
+        if (thenable) {
+          safelyResolveThenable(self, thenable);
+        } else {
+          self.state = FULFILLED;
+          self.outcome = value;
+          var i = -1;
+          var len = self.queue.length;
+          while (++i < len) {
+            self.queue[i].callFulfilled(value);
+          }
+        }
+        return self;
+      };
+      handlers.reject = function(self, error) {
+        self.state = REJECTED;
+        self.outcome = error;
+        var i = -1;
+        var len = self.queue.length;
+        while (++i < len) {
+          self.queue[i].callRejected(error);
+        }
+        return self;
+      };
+      function getThen(obj) {
+        var then = obj && obj.then;
+        if (obj && typeof obj === 'object' && typeof then === 'function') {
+          return function appyThen() {
+            then.apply(obj, arguments);
+          };
+        }
+      }
+      function safelyResolveThenable(self, thenable) {
+        var called = false;
+        function onError(value) {
+          if (called) {
+            return;
+          }
+          called = true;
+          handlers.reject(self, value);
+        }
+        function onSuccess(value) {
+          if (called) {
+            return;
+          }
+          called = true;
+          handlers.resolve(self, value);
+        }
+        function tryToUnwrap() {
+          thenable(onSuccess, onError);
+        }
+        var result = tryCatch(tryToUnwrap);
+        if (result.status === 'error') {
+          onError(result.value);
+        }
+      }
+      function tryCatch(func, value) {
+        var out = {};
+        try {
+          out.value = func(value);
+          out.status = 'success';
+        } catch (e) {
+          out.status = 'error';
+          out.value = e;
+        }
+        return out;
+      }
+      exports.resolve = resolve;
+      function resolve(value) {
+        if (value instanceof this) {
+          return value;
+        }
+        return handlers.resolve(new this(INTERNAL), value);
+      }
+      exports.reject = reject;
+      function reject(reason) {
+        var promise = new this(INTERNAL);
+        return handlers.reject(promise, reason);
+      }
+      exports.all = all;
+      function all(iterable) {
+        var self = this;
+        if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+          return this.reject(new TypeError('must be an array'));
+        }
+        var len = iterable.length;
+        var called = false;
+        if (!len) {
+          return this.resolve([]);
+        }
+        var values = new Array(len);
+        var resolved = 0;
+        var i = -1;
+        var promise = new this(INTERNAL);
+        while (++i < len) {
+          allResolver(iterable[i], i);
+        }
+        return promise;
+        function allResolver(value, i) {
+          self.resolve(value).then(resolveFromAll, function(error) {
+            if (!called) {
+              called = true;
+              handlers.reject(promise, error);
+            }
+          });
+          function resolveFromAll(outValue) {
+            values[i] = outValue;
+            if (++resolved === len && !called) {
+              called = true;
+              handlers.resolve(promise, values);
+            }
+          }
+        }
+      }
+      exports.race = race;
+      function race(iterable) {
+        var self = this;
+        if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+          return this.reject(new TypeError('must be an array'));
+        }
+        var len = iterable.length;
+        var called = false;
+        if (!len) {
+          return this.resolve([]);
+        }
+        var i = -1;
+        var promise = new this(INTERNAL);
+        while (++i < len) {
+          resolver(iterable[i]);
+        }
+        return promise;
+        function resolver(value) {
+          self.resolve(value).then(function(response) {
+            if (!called) {
+              called = true;
+              handlers.resolve(promise, response);
+            }
+          }, function(error) {
+            if (!called) {
+              called = true;
+              handlers.reject(promise, error);
+            }
+          });
+        }
+      }
+    }, {"2": 2}],
+    2: [function(_dereq_, module, exports) {
+      (function(global) {
+        'use strict';
+        var Mutation = global.MutationObserver || global.WebKitMutationObserver;
+        var scheduleDrain;
+        {
+          if (Mutation) {
+            var called = 0;
+            var observer = new Mutation(nextTick);
+            var element = global.document.createTextNode('');
+            observer.observe(element, {characterData: true});
+            scheduleDrain = function() {
+              element.data = (called = ++called % 2);
+            };
+          } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
+            var channel = new global.MessageChannel();
+            channel.port1.onmessage = nextTick;
+            scheduleDrain = function() {
+              channel.port2.postMessage(0);
+            };
+          } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
+            scheduleDrain = function() {
+              var scriptEl = global.document.createElement('script');
+              scriptEl.onreadystatechange = function() {
+                nextTick();
+                scriptEl.onreadystatechange = null;
+                scriptEl.parentNode.removeChild(scriptEl);
+                scriptEl = null;
+              };
+              global.document.documentElement.appendChild(scriptEl);
+            };
+          } else {
+            scheduleDrain = function() {
+              setTimeout(nextTick, 0);
+            };
+          }
+        }
+        var draining;
+        var queue = [];
+        function nextTick() {
+          draining = true;
+          var i,
+              oldQueue;
+          var len = queue.length;
+          while (len) {
+            oldQueue = queue;
+            queue = [];
+            i = -1;
+            while (++i < len) {
+              oldQueue[i]();
+            }
+            len = queue.length;
+          }
+          draining = false;
+        }
+        module.exports = immediate;
+        function immediate(task) {
+          if (queue.push(task) === 1 && !draining) {
+            scheduleDrain();
+          }
+        }
+      }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+    }, {}],
+    3: [function(_dereq_, module, exports) {
+      (function(global) {
+        'use strict';
+        if (typeof global.Promise !== 'function') {
+          global.Promise = _dereq_(1);
+        }
+      }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+    }, {"1": 1}],
+    4: [function(_dereq_, module, exports) {
+      'use strict';
+      var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+        return typeof obj;
+      } : function(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+      };
+      function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+          throw new TypeError("Cannot call a class as a function");
+        }
+      }
+      function getIDB() {
+        if (typeof indexedDB !== 'undefined') {
+          return indexedDB;
+        }
+        if (typeof webkitIndexedDB !== 'undefined') {
+          return webkitIndexedDB;
+        }
+        if (typeof mozIndexedDB !== 'undefined') {
+          return mozIndexedDB;
+        }
+        if (typeof OIndexedDB !== 'undefined') {
+          return OIndexedDB;
+        }
+        if (typeof msIndexedDB !== 'undefined') {
+          return msIndexedDB;
+        }
+      }
+      var idb = getIDB();
+      function isIndexedDBValid() {
+        try {
+          if (!idb) {
+            return false;
+          }
+          if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' && navigator.userAgent && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+            return false;
+          }
+          return idb && typeof idb.open === 'function' && typeof IDBKeyRange !== 'undefined';
+        } catch (e) {
+          return false;
+        }
+      }
+      function isWebSQLValid() {
+        return typeof openDatabase === 'function';
+      }
+      function isLocalStorageValid() {
+        try {
+          return typeof localStorage !== 'undefined' && 'setItem' in localStorage && localStorage.setItem;
+        } catch (e) {
+          return false;
+        }
+      }
+      function createBlob(parts, properties) {
+        parts = parts || [];
+        properties = properties || {};
+        try {
+          return new Blob(parts, properties);
+        } catch (e) {
+          if (e.name !== 'TypeError') {
+            throw e;
+          }
+          var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder : typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder : typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : WebKitBlobBuilder;
+          var builder = new Builder();
+          for (var i = 0; i < parts.length; i += 1) {
+            builder.append(parts[i]);
+          }
+          return builder.getBlob(properties.type);
+        }
+      }
+      if (typeof Promise === 'undefined' && typeof _dereq_ !== 'undefined') {
+        _dereq_(3);
+      }
+      var Promise$1 = Promise;
+      function executeCallback(promise, callback) {
+        if (callback) {
+          promise.then(function(result) {
+            callback(null, result);
+          }, function(error) {
+            callback(error);
+          });
+        }
+      }
+      var DETECT_BLOB_SUPPORT_STORE = 'local-forage-detect-blob-support';
+      var supportsBlobs;
+      var dbContexts;
+      function _binStringToArrayBuffer(bin) {
+        var length = bin.length;
+        var buf = new ArrayBuffer(length);
+        var arr = new Uint8Array(buf);
+        for (var i = 0; i < length; i++) {
+          arr[i] = bin.charCodeAt(i);
+        }
+        return buf;
+      }
+      function _checkBlobSupportWithoutCaching(txn) {
+        return new Promise$1(function(resolve) {
+          var blob = createBlob(['']);
+          txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
+          txn.onabort = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            resolve(false);
+          };
+          txn.oncomplete = function() {
+            var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
+            var matchedEdge = navigator.userAgent.match(/Edge\//);
+            resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
+          };
+        })["catch"](function() {
+          return false;
+        });
+      }
+      function _checkBlobSupport(idb) {
+        if (typeof supportsBlobs === 'boolean') {
+          return Promise$1.resolve(supportsBlobs);
+        }
+        return _checkBlobSupportWithoutCaching(idb).then(function(value) {
+          supportsBlobs = value;
+          return supportsBlobs;
+        });
+      }
+      function _deferReadiness(dbInfo) {
+        var dbContext = dbContexts[dbInfo.name];
+        var deferredOperation = {};
+        deferredOperation.promise = new Promise$1(function(resolve) {
+          deferredOperation.resolve = resolve;
+        });
+        dbContext.deferredOperations.push(deferredOperation);
+        if (!dbContext.dbReady) {
+          dbContext.dbReady = deferredOperation.promise;
+        } else {
+          dbContext.dbReady = dbContext.dbReady.then(function() {
+            return deferredOperation.promise;
+          });
+        }
+      }
+      function _advanceReadiness(dbInfo) {
+        var dbContext = dbContexts[dbInfo.name];
+        var deferredOperation = dbContext.deferredOperations.pop();
+        if (deferredOperation) {
+          deferredOperation.resolve();
+        }
+      }
+      function _getConnection(dbInfo, upgradeNeeded) {
+        return new Promise$1(function(resolve, reject) {
+          if (dbInfo.db) {
+            if (upgradeNeeded) {
+              _deferReadiness(dbInfo);
+              dbInfo.db.close();
+            } else {
+              return resolve(dbInfo.db);
+            }
+          }
+          var dbArgs = [dbInfo.name];
+          if (upgradeNeeded) {
+            dbArgs.push(dbInfo.version);
+          }
+          var openreq = idb.open.apply(idb, dbArgs);
+          if (upgradeNeeded) {
+            openreq.onupgradeneeded = function(e) {
+              var db = openreq.result;
+              try {
+                db.createObjectStore(dbInfo.storeName);
+                if (e.oldVersion <= 1) {
+                  db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
+                }
+              } catch (ex) {
+                if (ex.name === 'ConstraintError') {
+                  console.warn('The database "' + dbInfo.name + '"' + ' has been upgraded from version ' + e.oldVersion + ' to version ' + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
+                } else {
+                  throw ex;
+                }
+              }
+            };
+          }
+          openreq.onerror = function() {
+            reject(openreq.error);
+          };
+          openreq.onsuccess = function() {
+            resolve(openreq.result);
+            _advanceReadiness(dbInfo);
+          };
+        });
+      }
+      function _getOriginalConnection(dbInfo) {
+        return _getConnection(dbInfo, false);
+      }
+      function _getUpgradedConnection(dbInfo) {
+        return _getConnection(dbInfo, true);
+      }
+      function _isUpgradeNeeded(dbInfo, defaultVersion) {
+        if (!dbInfo.db) {
+          return true;
+        }
+        var isNewStore = !dbInfo.db.objectStoreNames.contains(dbInfo.storeName);
+        var isDowngrade = dbInfo.version < dbInfo.db.version;
+        var isUpgrade = dbInfo.version > dbInfo.db.version;
+        if (isDowngrade) {
+          if (dbInfo.version !== defaultVersion) {
+            console.warn('The database "' + dbInfo.name + '"' + ' can\'t be downgraded from version ' + dbInfo.db.version + ' to version ' + dbInfo.version + '.');
+          }
+          dbInfo.version = dbInfo.db.version;
+        }
+        if (isUpgrade || isNewStore) {
+          if (isNewStore) {
+            var incVersion = dbInfo.db.version + 1;
+            if (incVersion > dbInfo.version) {
+              dbInfo.version = incVersion;
+            }
+          }
+          return true;
+        }
+        return false;
+      }
+      function _encodeBlob(blob) {
+        return new Promise$1(function(resolve, reject) {
+          var reader = new FileReader();
+          reader.onerror = reject;
+          reader.onloadend = function(e) {
+            var base64 = btoa(e.target.result || '');
+            resolve({
+              __local_forage_encoded_blob: true,
+              data: base64,
+              type: blob.type
+            });
+          };
+          reader.readAsBinaryString(blob);
+        });
+      }
+      function _decodeBlob(encodedBlob) {
+        var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
+        return createBlob([arrayBuff], {type: encodedBlob.type});
+      }
+      function _isEncodedBlob(value) {
+        return value && value.__local_forage_encoded_blob;
+      }
+      function _fullyReady(callback) {
+        var self = this;
+        var promise = self._initReady().then(function() {
+          var dbContext = dbContexts[self._dbInfo.name];
+          if (dbContext && dbContext.dbReady) {
+            return dbContext.dbReady;
+          }
+        });
+        promise.then(callback, callback);
+        return promise;
+      }
+      function _initStorage(options) {
+        var self = this;
+        var dbInfo = {db: null};
+        if (options) {
+          for (var i in options) {
+            dbInfo[i] = options[i];
+          }
+        }
+        if (!dbContexts) {
+          dbContexts = {};
+        }
+        var dbContext = dbContexts[dbInfo.name];
+        if (!dbContext) {
+          dbContext = {
+            forages: [],
+            db: null,
+            dbReady: null,
+            deferredOperations: []
+          };
+          dbContexts[dbInfo.name] = dbContext;
+        }
+        dbContext.forages.push(self);
+        if (!self._initReady) {
+          self._initReady = self.ready;
+          self.ready = _fullyReady;
+        }
+        var initPromises = [];
+        function ignoreErrors() {
+          return Promise$1.resolve();
+        }
+        for (var j = 0; j < dbContext.forages.length; j++) {
+          var forage = dbContext.forages[j];
+          if (forage !== self) {
+            initPromises.push(forage._initReady()["catch"](ignoreErrors));
+          }
+        }
+        var forages = dbContext.forages.slice(0);
+        return Promise$1.all(initPromises).then(function() {
+          dbInfo.db = dbContext.db;
+          return _getOriginalConnection(dbInfo);
+        }).then(function(db) {
+          dbInfo.db = db;
+          if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
+            return _getUpgradedConnection(dbInfo);
+          }
+          return db;
+        }).then(function(db) {
+          dbInfo.db = dbContext.db = db;
+          self._dbInfo = dbInfo;
+          for (var k = 0; k < forages.length; k++) {
+            var forage = forages[k];
+            if (forage !== self) {
+              forage._dbInfo.db = dbInfo.db;
+              forage._dbInfo.version = dbInfo.version;
+            }
+          }
+        });
+      }
+      function getItem(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+            var req = store.get(key);
+            req.onsuccess = function() {
+              var value = req.result;
+              if (value === undefined) {
+                value = null;
+              }
+              if (_isEncodedBlob(value)) {
+                value = _decodeBlob(value);
+              }
+              resolve(value);
+            };
+            req.onerror = function() {
+              reject(req.error);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function iterate(iterator, callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+            var req = store.openCursor();
+            var iterationNumber = 1;
+            req.onsuccess = function() {
+              var cursor = req.result;
+              if (cursor) {
+                var value = cursor.value;
+                if (_isEncodedBlob(value)) {
+                  value = _decodeBlob(value);
+                }
+                var result = iterator(value, cursor.key, iterationNumber++);
+                if (result !== void 0) {
+                  resolve(result);
+                } else {
+                  cursor["continue"]();
+                }
+              } else {
+                resolve();
+              }
+            };
+            req.onerror = function() {
+              reject(req.error);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function setItem(key, value, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          var dbInfo;
+          self.ready().then(function() {
+            dbInfo = self._dbInfo;
+            if (value instanceof Blob) {
+              return _checkBlobSupport(dbInfo.db).then(function(blobSupport) {
+                if (blobSupport) {
+                  return value;
+                }
+                return _encodeBlob(value);
+              });
+            }
+            return value;
+          }).then(function(value) {
+            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+            var store = transaction.objectStore(dbInfo.storeName);
+            if (value === null) {
+              value = undefined;
+            }
+            transaction.oncomplete = function() {
+              if (value === undefined) {
+                value = null;
+              }
+              resolve(value);
+            };
+            transaction.onabort = transaction.onerror = function() {
+              var err = req.error ? req.error : req.transaction.error;
+              reject(err);
+            };
+            var req = store.put(value, key);
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function removeItem(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+            var store = transaction.objectStore(dbInfo.storeName);
+            var req = store["delete"](key);
+            transaction.oncomplete = function() {
+              resolve();
+            };
+            transaction.onerror = function() {
+              reject(req.error);
+            };
+            transaction.onabort = function() {
+              var err = req.error ? req.error : req.transaction.error;
+              reject(err);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function clear(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+            var store = transaction.objectStore(dbInfo.storeName);
+            var req = store.clear();
+            transaction.oncomplete = function() {
+              resolve();
+            };
+            transaction.onabort = transaction.onerror = function() {
+              var err = req.error ? req.error : req.transaction.error;
+              reject(err);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function length(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+            var req = store.count();
+            req.onsuccess = function() {
+              resolve(req.result);
+            };
+            req.onerror = function() {
+              reject(req.error);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function key(n, callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          if (n < 0) {
+            resolve(null);
+            return;
+          }
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+            var advanced = false;
+            var req = store.openCursor();
+            req.onsuccess = function() {
+              var cursor = req.result;
+              if (!cursor) {
+                resolve(null);
+                return;
+              }
+              if (n === 0) {
+                resolve(cursor.key);
+              } else {
+                if (!advanced) {
+                  advanced = true;
+                  cursor.advance(n);
+                } else {
+                  resolve(cursor.key);
+                }
+              }
+            };
+            req.onerror = function() {
+              reject(req.error);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function keys(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+            var req = store.openCursor();
+            var keys = [];
+            req.onsuccess = function() {
+              var cursor = req.result;
+              if (!cursor) {
+                resolve(keys);
+                return;
+              }
+              keys.push(cursor.key);
+              cursor["continue"]();
+            };
+            req.onerror = function() {
+              reject(req.error);
+            };
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      var asyncStorage = {
+        _driver: 'asyncStorage',
+        _initStorage: _initStorage,
+        iterate: iterate,
+        getItem: getItem,
+        setItem: setItem,
+        removeItem: removeItem,
+        clear: clear,
+        length: length,
+        key: key,
+        keys: keys
+      };
+      var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+      var BLOB_TYPE_PREFIX = '~~local_forage_type~';
+      var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
+      var SERIALIZED_MARKER = '__lfsc__:';
+      var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
+      var TYPE_ARRAYBUFFER = 'arbf';
+      var TYPE_BLOB = 'blob';
+      var TYPE_INT8ARRAY = 'si08';
+      var TYPE_UINT8ARRAY = 'ui08';
+      var TYPE_UINT8CLAMPEDARRAY = 'uic8';
+      var TYPE_INT16ARRAY = 'si16';
+      var TYPE_INT32ARRAY = 'si32';
+      var TYPE_UINT16ARRAY = 'ur16';
+      var TYPE_UINT32ARRAY = 'ui32';
+      var TYPE_FLOAT32ARRAY = 'fl32';
+      var TYPE_FLOAT64ARRAY = 'fl64';
+      var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length;
+      function stringToBuffer(serializedString) {
+        var bufferLength = serializedString.length * 0.75;
+        var len = serializedString.length;
+        var i;
+        var p = 0;
+        var encoded1,
+            encoded2,
+            encoded3,
+            encoded4;
+        if (serializedString[serializedString.length - 1] === '=') {
+          bufferLength--;
+          if (serializedString[serializedString.length - 2] === '=') {
+            bufferLength--;
+          }
+        }
+        var buffer = new ArrayBuffer(bufferLength);
+        var bytes = new Uint8Array(buffer);
+        for (i = 0; i < len; i += 4) {
+          encoded1 = BASE_CHARS.indexOf(serializedString[i]);
+          encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
+          encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
+          encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
+          bytes[p++] = encoded1 << 2 | encoded2 >> 4;
+          bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
+          bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
+        }
+        return buffer;
+      }
+      function bufferToString(buffer) {
+        var bytes = new Uint8Array(buffer);
+        var base64String = '';
+        var i;
+        for (i = 0; i < bytes.length; i += 3) {
+          base64String += BASE_CHARS[bytes[i] >> 2];
+          base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
+          base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
+          base64String += BASE_CHARS[bytes[i + 2] & 63];
+        }
+        if (bytes.length % 3 === 2) {
+          base64String = base64String.substring(0, base64String.length - 1) + '=';
+        } else if (bytes.length % 3 === 1) {
+          base64String = base64String.substring(0, base64String.length - 2) + '==';
+        }
+        return base64String;
+      }
+      function serialize(value, callback) {
+        var valueString = '';
+        if (value) {
+          valueString = value.toString();
+        }
+        if (value && (value.toString() === '[object ArrayBuffer]' || value.buffer && value.buffer.toString() === '[object ArrayBuffer]')) {
+          var buffer;
+          var marker = SERIALIZED_MARKER;
+          if (value instanceof ArrayBuffer) {
+            buffer = value;
+            marker += TYPE_ARRAYBUFFER;
+          } else {
+            buffer = value.buffer;
+            if (valueString === '[object Int8Array]') {
+              marker += TYPE_INT8ARRAY;
+            } else if (valueString === '[object Uint8Array]') {
+              marker += TYPE_UINT8ARRAY;
+            } else if (valueString === '[object Uint8ClampedArray]') {
+              marker += TYPE_UINT8CLAMPEDARRAY;
+            } else if (valueString === '[object Int16Array]') {
+              marker += TYPE_INT16ARRAY;
+            } else if (valueString === '[object Uint16Array]') {
+              marker += TYPE_UINT16ARRAY;
+            } else if (valueString === '[object Int32Array]') {
+              marker += TYPE_INT32ARRAY;
+            } else if (valueString === '[object Uint32Array]') {
+              marker += TYPE_UINT32ARRAY;
+            } else if (valueString === '[object Float32Array]') {
+              marker += TYPE_FLOAT32ARRAY;
+            } else if (valueString === '[object Float64Array]') {
+              marker += TYPE_FLOAT64ARRAY;
+            } else {
+              callback(new Error('Failed to get type for BinaryArray'));
+            }
+          }
+          callback(marker + bufferToString(buffer));
+        } else if (valueString === '[object Blob]') {
+          var fileReader = new FileReader();
+          fileReader.onload = function() {
+            var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
+            callback(SERIALIZED_MARKER + TYPE_BLOB + str);
+          };
+          fileReader.readAsArrayBuffer(value);
+        } else {
+          try {
+            callback(JSON.stringify(value));
+          } catch (e) {
+            console.error("Couldn't convert value into a JSON string: ", value);
+            callback(null, e);
+          }
+        }
+      }
+      function deserialize(value) {
+        if (value.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
+          return JSON.parse(value);
+        }
+        var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
+        var type = value.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH);
+        var blobType;
+        if (type === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(serializedString)) {
+          var matcher = serializedString.match(BLOB_TYPE_PREFIX_REGEX);
+          blobType = matcher[1];
+          serializedString = serializedString.substring(matcher[0].length);
+        }
+        var buffer = stringToBuffer(serializedString);
+        switch (type) {
+          case TYPE_ARRAYBUFFER:
+            return buffer;
+          case TYPE_BLOB:
+            return createBlob([buffer], {type: blobType});
+          case TYPE_INT8ARRAY:
+            return new Int8Array(buffer);
+          case TYPE_UINT8ARRAY:
+            return new Uint8Array(buffer);
+          case TYPE_UINT8CLAMPEDARRAY:
+            return new Uint8ClampedArray(buffer);
+          case TYPE_INT16ARRAY:
+            return new Int16Array(buffer);
+          case TYPE_UINT16ARRAY:
+            return new Uint16Array(buffer);
+          case TYPE_INT32ARRAY:
+            return new Int32Array(buffer);
+          case TYPE_UINT32ARRAY:
+            return new Uint32Array(buffer);
+          case TYPE_FLOAT32ARRAY:
+            return new Float32Array(buffer);
+          case TYPE_FLOAT64ARRAY:
+            return new Float64Array(buffer);
+          default:
+            throw new Error('Unkown type: ' + type);
+        }
+      }
+      var localforageSerializer = {
+        serialize: serialize,
+        deserialize: deserialize,
+        stringToBuffer: stringToBuffer,
+        bufferToString: bufferToString
+      };
+      function _initStorage$1(options) {
+        var self = this;
+        var dbInfo = {db: null};
+        if (options) {
+          for (var i in options) {
+            dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
+          }
+        }
+        var dbInfoPromise = new Promise$1(function(resolve, reject) {
+          try {
+            dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
+          } catch (e) {
+            return reject(e);
+          }
+          dbInfo.db.transaction(function(t) {
+            t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function() {
+              self._dbInfo = dbInfo;
+              resolve();
+            }, function(t, error) {
+              reject(error);
+            });
+          });
+        });
+        dbInfo.serializer = localforageSerializer;
+        return dbInfoPromise;
+      }
+      function getItem$1(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function(t, results) {
+                var result = results.rows.length ? results.rows.item(0).value : null;
+                if (result) {
+                  result = dbInfo.serializer.deserialize(result);
+                }
+                resolve(result);
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function iterate$1(iterator, callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function(t, results) {
+                var rows = results.rows;
+                var length = rows.length;
+                for (var i = 0; i < length; i++) {
+                  var item = rows.item(i);
+                  var result = item.value;
+                  if (result) {
+                    result = dbInfo.serializer.deserialize(result);
+                  }
+                  result = iterator(result, item.key, i + 1);
+                  if (result !== void 0) {
+                    resolve(result);
+                    return;
+                  }
+                }
+                resolve();
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function setItem$1(key, value, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            if (value === undefined) {
+              value = null;
+            }
+            var originalValue = value;
+            var dbInfo = self._dbInfo;
+            dbInfo.serializer.serialize(value, function(value, error) {
+              if (error) {
+                reject(error);
+              } else {
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function() {
+                    resolve(originalValue);
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                }, function(sqlError) {
+                  if (sqlError.code === sqlError.QUOTA_ERR) {
+                    reject(sqlError);
+                  }
+                });
+              }
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function removeItem$1(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function() {
+                resolve();
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function clear$1(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function() {
+                resolve();
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function length$1(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function(t, results) {
+                var result = results.rows.item(0).c;
+                resolve(result);
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function key$1(n, callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function(t, results) {
+                var result = results.rows.length ? results.rows.item(0).key : null;
+                resolve(result);
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function keys$1(callback) {
+        var self = this;
+        var promise = new Promise$1(function(resolve, reject) {
+          self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            dbInfo.db.transaction(function(t) {
+              t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function(t, results) {
+                var keys = [];
+                for (var i = 0; i < results.rows.length; i++) {
+                  keys.push(results.rows.item(i).key);
+                }
+                resolve(keys);
+              }, function(t, error) {
+                reject(error);
+              });
+            });
+          })["catch"](reject);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      var webSQLStorage = {
+        _driver: 'webSQLStorage',
+        _initStorage: _initStorage$1,
+        iterate: iterate$1,
+        getItem: getItem$1,
+        setItem: setItem$1,
+        removeItem: removeItem$1,
+        clear: clear$1,
+        length: length$1,
+        key: key$1,
+        keys: keys$1
+      };
+      function _initStorage$2(options) {
+        var self = this;
+        var dbInfo = {};
+        if (options) {
+          for (var i in options) {
+            dbInfo[i] = options[i];
+          }
+        }
+        dbInfo.keyPrefix = dbInfo.name + '/';
+        if (dbInfo.storeName !== self._defaultConfig.storeName) {
+          dbInfo.keyPrefix += dbInfo.storeName + '/';
+        }
+        self._dbInfo = dbInfo;
+        dbInfo.serializer = localforageSerializer;
+        return Promise$1.resolve();
+      }
+      function clear$2(callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+          var keyPrefix = self._dbInfo.keyPrefix;
+          for (var i = localStorage.length - 1; i >= 0; i--) {
+            var key = localStorage.key(i);
+            if (key.indexOf(keyPrefix) === 0) {
+              localStorage.removeItem(key);
+            }
+          }
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function getItem$2(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = self.ready().then(function() {
+          var dbInfo = self._dbInfo;
+          var result = localStorage.getItem(dbInfo.keyPrefix + key);
+          if (result) {
+            result = dbInfo.serializer.deserialize(result);
+          }
+          return result;
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function iterate$2(iterator, callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+          var dbInfo = self._dbInfo;
+          var keyPrefix = dbInfo.keyPrefix;
+          var keyPrefixLength = keyPrefix.length;
+          var length = localStorage.length;
+          var iterationNumber = 1;
+          for (var i = 0; i < length; i++) {
+            var key = localStorage.key(i);
+            if (key.indexOf(keyPrefix) !== 0) {
+              continue;
+            }
+            var value = localStorage.getItem(key);
+            if (value) {
+              value = dbInfo.serializer.deserialize(value);
+            }
+            value = iterator(value, key.substring(keyPrefixLength), iterationNumber++);
+            if (value !== void 0) {
+              return value;
+            }
+          }
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function key$2(n, callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+          var dbInfo = self._dbInfo;
+          var result;
+          try {
+            result = localStorage.key(n);
+          } catch (error) {
+            result = null;
+          }
+          if (result) {
+            result = result.substring(dbInfo.keyPrefix.length);
+          }
+          return result;
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function keys$2(callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+          var dbInfo = self._dbInfo;
+          var length = localStorage.length;
+          var keys = [];
+          for (var i = 0; i < length; i++) {
+            if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
+              keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
+            }
+          }
+          return keys;
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function length$2(callback) {
+        var self = this;
+        var promise = self.keys().then(function(keys) {
+          return keys.length;
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function removeItem$2(key, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = self.ready().then(function() {
+          var dbInfo = self._dbInfo;
+          localStorage.removeItem(dbInfo.keyPrefix + key);
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      function setItem$2(key, value, callback) {
+        var self = this;
+        if (typeof key !== 'string') {
+          console.warn(key + ' used as a key, but it is not a string.');
+          key = String(key);
+        }
+        var promise = self.ready().then(function() {
+          if (value === undefined) {
+            value = null;
+          }
+          var originalValue = value;
+          return new Promise$1(function(resolve, reject) {
+            var dbInfo = self._dbInfo;
+            dbInfo.serializer.serialize(value, function(value, error) {
+              if (error) {
+                reject(error);
+              } else {
+                try {
+                  localStorage.setItem(dbInfo.keyPrefix + key, value);
+                  resolve(originalValue);
+                } catch (e) {
+                  if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                    reject(e);
+                  }
+                  reject(e);
+                }
+              }
+            });
+          });
+        });
+        executeCallback(promise, callback);
+        return promise;
+      }
+      var localStorageWrapper = {
+        _driver: 'localStorageWrapper',
+        _initStorage: _initStorage$2,
+        iterate: iterate$2,
+        getItem: getItem$2,
+        setItem: setItem$2,
+        removeItem: removeItem$2,
+        clear: clear$2,
+        length: length$2,
+        key: key$2,
+        keys: keys$2
+      };
+      function executeTwoCallbacks(promise, callback, errorCallback) {
+        if (typeof callback === 'function') {
+          promise.then(callback);
+        }
+        if (typeof errorCallback === 'function') {
+          promise["catch"](errorCallback);
+        }
+      }
+      var CustomDrivers = {};
+      var DriverType = {
+        INDEXEDDB: 'asyncStorage',
+        LOCALSTORAGE: 'localStorageWrapper',
+        WEBSQL: 'webSQLStorage'
+      };
+      var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
+      var LibraryMethods = ['clear', 'getItem', 'iterate', 'key', 'keys', 'length', 'removeItem', 'setItem'];
+      var DefaultConfig = {
+        description: '',
+        driver: DefaultDriverOrder.slice(),
+        name: 'localforage',
+        size: 4980736,
+        storeName: 'keyvaluepairs',
+        version: 1.0
+      };
+      var driverSupport = {};
+      driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
+      driverSupport[DriverType.WEBSQL] = isWebSQLValid();
+      driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
+      var isArray = Array.isArray || function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+      };
+      function callWhenReady(localForageInstance, libraryMethod) {
+        localForageInstance[libraryMethod] = function() {
+          var _args = arguments;
+          return localForageInstance.ready().then(function() {
+            return localForageInstance[libraryMethod].apply(localForageInstance, _args);
+          });
+        };
+      }
+      function extend() {
+        for (var i = 1; i < arguments.length; i++) {
+          var arg = arguments[i];
+          if (arg) {
+            for (var key in arg) {
+              if (arg.hasOwnProperty(key)) {
+                if (isArray(arg[key])) {
+                  arguments[0][key] = arg[key].slice();
+                } else {
+                  arguments[0][key] = arg[key];
+                }
+              }
+            }
+          }
+        }
+        return arguments[0];
+      }
+      function isLibraryDriver(driverName) {
+        for (var driver in DriverType) {
+          if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
+            return true;
+          }
+        }
+        return false;
+      }
+      var LocalForage = function() {
+        function LocalForage(options) {
+          _classCallCheck(this, LocalForage);
+          this.INDEXEDDB = DriverType.INDEXEDDB;
+          this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
+          this.WEBSQL = DriverType.WEBSQL;
+          this._defaultConfig = extend({}, DefaultConfig);
+          this._config = extend({}, this._defaultConfig, options);
+          this._driverSet = null;
+          this._initDriver = null;
+          this._ready = false;
+          this._dbInfo = null;
+          this._wrapLibraryMethodsWithReady();
+          this.setDriver(this._config.driver);
+        }
+        LocalForage.prototype.config = function config(options) {
+          if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+            if (this._ready) {
+              return new Error("Can't call config() after localforage " + 'has been used.');
+            }
+            for (var i in options) {
+              if (i === 'storeName') {
+                options[i] = options[i].replace(/\W/g, '_');
+              }
+              this._config[i] = options[i];
+            }
+            if ('driver' in options && options.driver) {
+              this.setDriver(this._config.driver);
+            }
+            return true;
+          } else if (typeof options === 'string') {
+            return this._config[options];
+          } else {
+            return this._config;
+          }
+        };
+        LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
+          var promise = new Promise$1(function(resolve, reject) {
+            try {
+              var driverName = driverObject._driver;
+              var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
+              var namingError = new Error('Custom driver name already in use: ' + driverObject._driver);
+              if (!driverObject._driver) {
+                reject(complianceError);
+                return;
+              }
+              if (isLibraryDriver(driverObject._driver)) {
+                reject(namingError);
+                return;
+              }
+              var customDriverMethods = LibraryMethods.concat('_initStorage');
+              for (var i = 0; i < customDriverMethods.length; i++) {
+                var customDriverMethod = customDriverMethods[i];
+                if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
+                  reject(complianceError);
+                  return;
+                }
+              }
+              var supportPromise = Promise$1.resolve(true);
+              if ('_support' in driverObject) {
+                if (driverObject._support && typeof driverObject._support === 'function') {
+                  supportPromise = driverObject._support();
+                } else {
+                  supportPromise = Promise$1.resolve(!!driverObject._support);
+                }
+              }
+              supportPromise.then(function(supportResult) {
+                driverSupport[driverName] = supportResult;
+                CustomDrivers[driverName] = driverObject;
+                resolve();
+              }, reject);
+            } catch (e) {
+              reject(e);
+            }
+          });
+          executeTwoCallbacks(promise, callback, errorCallback);
+          return promise;
+        };
+        LocalForage.prototype.driver = function driver() {
+          return this._driver || null;
+        };
+        LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
+          var self = this;
+          var getDriverPromise = Promise$1.resolve().then(function() {
+            if (isLibraryDriver(driverName)) {
+              switch (driverName) {
+                case self.INDEXEDDB:
+                  return asyncStorage;
+                case self.LOCALSTORAGE:
+                  return localStorageWrapper;
+                case self.WEBSQL:
+                  return webSQLStorage;
+              }
+            } else if (CustomDrivers[driverName]) {
+              return CustomDrivers[driverName];
+            } else {
+              throw new Error('Driver not found.');
+            }
+          });
+          executeTwoCallbacks(getDriverPromise, callback, errorCallback);
+          return getDriverPromise;
+        };
+        LocalForage.prototype.getSerializer = function getSerializer(callback) {
+          var serializerPromise = Promise$1.resolve(localforageSerializer);
+          executeTwoCallbacks(serializerPromise, callback);
+          return serializerPromise;
+        };
+        LocalForage.prototype.ready = function ready(callback) {
+          var self = this;
+          var promise = self._driverSet.then(function() {
+            if (self._ready === null) {
+              self._ready = self._initDriver();
+            }
+            return self._ready;
+          });
+          executeTwoCallbacks(promise, callback, callback);
+          return promise;
+        };
+        LocalForage.prototype.setDriver = function setDriver(drivers, callback, errorCallback) {
+          var self = this;
+          if (!isArray(drivers)) {
+            drivers = [drivers];
+          }
+          var supportedDrivers = this._getSupportedDrivers(drivers);
+          function setDriverToConfig() {
+            self._config.driver = self.driver();
+          }
+          function initDriver(supportedDrivers) {
+            return function() {
+              var currentDriverIndex = 0;
+              function driverPromiseLoop() {
+                while (currentDriverIndex < supportedDrivers.length) {
+                  var driverName = supportedDrivers[currentDriverIndex];
+                  currentDriverIndex++;
+                  self._dbInfo = null;
+                  self._ready = null;
+                  return self.getDriver(driverName).then(function(driver) {
+                    self._extend(driver);
+                    setDriverToConfig();
+                    self._ready = self._initStorage(self._config);
+                    return self._ready;
+                  })["catch"](driverPromiseLoop);
+                }
+                setDriverToConfig();
+                var error = new Error('No available storage method found.');
+                self._driverSet = Promise$1.reject(error);
+                return self._driverSet;
+              }
+              return driverPromiseLoop();
+            };
+          }
+          var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function() {
+            return Promise$1.resolve();
+          }) : Promise$1.resolve();
+          this._driverSet = oldDriverSetDone.then(function() {
+            var driverName = supportedDrivers[0];
+            self._dbInfo = null;
+            self._ready = null;
+            return self.getDriver(driverName).then(function(driver) {
+              self._driver = driver._driver;
+              setDriverToConfig();
+              self._wrapLibraryMethodsWithReady();
+              self._initDriver = initDriver(supportedDrivers);
+            });
+          })["catch"](function() {
+            setDriverToConfig();
+            var error = new Error('No available storage method found.');
+            self._driverSet = Promise$1.reject(error);
+            return self._driverSet;
+          });
+          executeTwoCallbacks(this._driverSet, callback, errorCallback);
+          return this._driverSet;
+        };
+        LocalForage.prototype.supports = function supports(driverName) {
+          return !!driverSupport[driverName];
+        };
+        LocalForage.prototype._extend = function _extend(libraryMethodsAndProperties) {
+          extend(this, libraryMethodsAndProperties);
+        };
+        LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
+          var supportedDrivers = [];
+          for (var i = 0,
+              len = drivers.length; i < len; i++) {
+            var driverName = drivers[i];
+            if (this.supports(driverName)) {
+              supportedDrivers.push(driverName);
+            }
+          }
+          return supportedDrivers;
+        };
+        LocalForage.prototype._wrapLibraryMethodsWithReady = function _wrapLibraryMethodsWithReady() {
+          for (var i = 0; i < LibraryMethods.length; i++) {
+            callWhenReady(this, LibraryMethods[i]);
+          }
+        };
+        LocalForage.prototype.createInstance = function createInstance(options) {
+          return new LocalForage(options);
+        };
+        return LocalForage;
+      }();
+      var localforage_js = new LocalForage();
+      module.exports = localforage_js;
+    }, {"3": 3}]
+  }, {}, [4])(4);
+});
+
+})();
+$__System.registerDynamic("3", [], false, function ($__require, $__exports, $__module) {
   var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, "angular", null);
 
   (function ($__global) {
@@ -31122,16 +32843,16 @@ $__System.registerDynamic("2", [], false, function ($__require, $__exports, $__m
 
   return _retrieveGlobal();
 });
-$__System.registerDynamic("3", ["2"], true, function($__require, exports, module) {
+$__System.registerDynamic("4", ["3"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('2');
+  module.exports = $__require('3');
   return module.exports;
 });
 
-$__System.registerDynamic("4", ["3"], false, function ($__require, $__exports, $__module) {
+$__System.registerDynamic("5", ["4"], false, function ($__require, $__exports, $__module) {
   var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, null, null);
 
   (function ($__global) {
@@ -34211,16 +35932,16 @@ $__System.registerDynamic("4", ["3"], false, function ($__require, $__exports, $
 
   return _retrieveGlobal();
 });
-$__System.registerDynamic("5", ["4"], true, function($__require, exports, module) {
+$__System.registerDynamic("6", ["5"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('4');
+  module.exports = $__require('5');
   return module.exports;
 });
 
-$__System.register('6', ['5'], function (_export) {
+$__System.register('7', ['6'], function (_export) {
   'use strict';
 
   var mocks, _module;
@@ -34378,37 +36099,37 @@ $__System.register('6', ['5'], function (_export) {
     }
   };
 });
-$__System.registerDynamic("7", ["8"], true, function($__require, exports, module) {
+$__System.registerDynamic("8", ["9"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $ = $__require('8');
+  var $ = $__require('9');
   module.exports = function defineProperty(it, key, desc) {
     return $.setDesc(it, key, desc);
   };
   return module.exports;
 });
 
-$__System.registerDynamic("9", ["7"], true, function($__require, exports, module) {
+$__System.registerDynamic("a", ["8"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
   module.exports = {
-    "default": $__require('7'),
+    "default": $__require('8'),
     __esModule: true
   };
   return module.exports;
 });
 
-$__System.registerDynamic("a", ["9"], true, function($__require, exports, module) {
+$__System.registerDynamic("b", ["a"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var _Object$defineProperty = $__require('9')["default"];
+  var _Object$defineProperty = $__require('a')["default"];
   exports["default"] = (function() {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
@@ -34432,7 +36153,7 @@ $__System.registerDynamic("a", ["9"], true, function($__require, exports, module
   return module.exports;
 });
 
-$__System.registerDynamic("b", [], true, function($__require, exports, module) {
+$__System.registerDynamic("c", [], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
@@ -34447,7 +36168,7 @@ $__System.registerDynamic("b", [], true, function($__require, exports, module) {
   return module.exports;
 });
 
-$__System.registerDynamic("c", [], true, function($__require, exports, module) {
+$__System.registerDynamic("d", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34456,13 +36177,13 @@ $__System.registerDynamic("c", [], true, function($__require, exports, module) {
   return module.exports;
 });
 
-$__System.registerDynamic("d", ["e", "f"], true, function($__require, exports, module) {
+$__System.registerDynamic("e", ["f", "10"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var toInteger = $__require('e'),
-      defined = $__require('f');
+  var toInteger = $__require('f'),
+      defined = $__require('10');
   module.exports = function(TO_STRING) {
     return function(that, pos) {
       var s = String(defined(that)),
@@ -34479,14 +36200,14 @@ $__System.registerDynamic("d", ["e", "f"], true, function($__require, exports, m
   return module.exports;
 });
 
-$__System.registerDynamic("10", ["d", "11"], true, function($__require, exports, module) {
+$__System.registerDynamic("11", ["e", "12"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $at = $__require('d')(true);
-  $__require('11')(String, 'String', function(iterated) {
+  var $at = $__require('e')(true);
+  $__require('12')(String, 'String', function(iterated) {
     this._t = String(iterated);
     this._i = 0;
   }, function() {
@@ -34508,7 +36229,7 @@ $__System.registerDynamic("10", ["d", "11"], true, function($__require, exports,
   return module.exports;
 });
 
-$__System.registerDynamic("12", [], true, function($__require, exports, module) {
+$__System.registerDynamic("13", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34517,7 +36238,7 @@ $__System.registerDynamic("12", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("13", [], true, function($__require, exports, module) {
+$__System.registerDynamic("14", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34531,30 +36252,30 @@ $__System.registerDynamic("13", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("14", ["15", "f"], true, function($__require, exports, module) {
+$__System.registerDynamic("15", ["16", "10"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var IObject = $__require('15'),
-      defined = $__require('f');
+  var IObject = $__require('16'),
+      defined = $__require('10');
   module.exports = function(it) {
     return IObject(defined(it));
   };
   return module.exports;
 });
 
-$__System.registerDynamic("16", ["8", "17", "18", "19", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("17", ["9", "18", "19", "1a", "1b"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $ = $__require('8'),
-      descriptor = $__require('17'),
-      setToStringTag = $__require('18'),
+  var $ = $__require('9'),
+      descriptor = $__require('18'),
+      setToStringTag = $__require('19'),
       IteratorPrototype = {};
-  $__require('19')(IteratorPrototype, $__require('1a')('iterator'), function() {
+  $__require('1a')(IteratorPrototype, $__require('1b')('iterator'), function() {
     return this;
   });
   module.exports = function(Constructor, NAME, next) {
@@ -34564,22 +36285,22 @@ $__System.registerDynamic("16", ["8", "17", "18", "19", "1a"], true, function($_
   return module.exports;
 });
 
-$__System.registerDynamic("11", ["1b", "1c", "1d", "19", "1e", "1f", "16", "18", "8", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("12", ["1c", "1d", "1e", "1a", "1f", "20", "17", "19", "9", "1b"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var LIBRARY = $__require('1b'),
-      $export = $__require('1c'),
-      redefine = $__require('1d'),
-      hide = $__require('19'),
-      has = $__require('1e'),
-      Iterators = $__require('1f'),
-      $iterCreate = $__require('16'),
-      setToStringTag = $__require('18'),
-      getProto = $__require('8').getProto,
-      ITERATOR = $__require('1a')('iterator'),
+  var LIBRARY = $__require('1c'),
+      $export = $__require('1d'),
+      redefine = $__require('1e'),
+      hide = $__require('1a'),
+      has = $__require('1f'),
+      Iterators = $__require('20'),
+      $iterCreate = $__require('17'),
+      setToStringTag = $__require('19'),
+      getProto = $__require('9').getProto,
+      ITERATOR = $__require('1b')('iterator'),
       BUGGY = !([].keys && 'next' in [].keys()),
       FF_ITERATOR = '@@iterator',
       KEYS = 'keys',
@@ -34650,17 +36371,17 @@ $__System.registerDynamic("11", ["1b", "1c", "1d", "19", "1e", "1f", "16", "18",
   return module.exports;
 });
 
-$__System.registerDynamic("20", ["12", "13", "1f", "14", "11"], true, function($__require, exports, module) {
+$__System.registerDynamic("21", ["13", "14", "20", "15", "12"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var addToUnscopables = $__require('12'),
-      step = $__require('13'),
-      Iterators = $__require('1f'),
-      toIObject = $__require('14');
-  module.exports = $__require('11')(Array, 'Array', function(iterated, kind) {
+  var addToUnscopables = $__require('13'),
+      step = $__require('14'),
+      Iterators = $__require('20'),
+      toIObject = $__require('15');
+  module.exports = $__require('12')(Array, 'Array', function(iterated, kind) {
     this._t = toIObject(iterated);
     this._i = 0;
     this._k = kind;
@@ -34685,18 +36406,18 @@ $__System.registerDynamic("20", ["12", "13", "1f", "14", "11"], true, function($
   return module.exports;
 });
 
-$__System.registerDynamic("21", ["20", "1f"], true, function($__require, exports, module) {
+$__System.registerDynamic("22", ["21", "20"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  $__require('20');
-  var Iterators = $__require('1f');
+  $__require('21');
+  var Iterators = $__require('20');
   Iterators.NodeList = Iterators.HTMLCollection = Iterators.Array;
   return module.exports;
 });
 
-$__System.registerDynamic("1b", [], true, function($__require, exports, module) {
+$__System.registerDynamic("1c", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34705,7 +36426,7 @@ $__System.registerDynamic("1b", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("22", [], true, function($__require, exports, module) {
+$__System.registerDynamic("23", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34718,12 +36439,12 @@ $__System.registerDynamic("22", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("23", ["24"], true, function($__require, exports, module) {
+$__System.registerDynamic("24", ["25"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var anObject = $__require('24');
+  var anObject = $__require('25');
   module.exports = function(iterator, fn, value, entries) {
     try {
       return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -34737,13 +36458,13 @@ $__System.registerDynamic("23", ["24"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("25", ["1f", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("26", ["20", "1b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var Iterators = $__require('1f'),
-      ITERATOR = $__require('1a')('iterator'),
+  var Iterators = $__require('20'),
+      ITERATOR = $__require('1b')('iterator'),
       ArrayProto = Array.prototype;
   module.exports = function(it) {
     return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
@@ -34751,7 +36472,7 @@ $__System.registerDynamic("25", ["1f", "1a"], true, function($__require, exports
   return module.exports;
 });
 
-$__System.registerDynamic("e", [], true, function($__require, exports, module) {
+$__System.registerDynamic("f", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34764,12 +36485,12 @@ $__System.registerDynamic("e", [], true, function($__require, exports, module) {
   return module.exports;
 });
 
-$__System.registerDynamic("26", ["e"], true, function($__require, exports, module) {
+$__System.registerDynamic("27", ["f"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var toInteger = $__require('e'),
+  var toInteger = $__require('f'),
       min = Math.min;
   module.exports = function(it) {
     return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0;
@@ -34777,13 +36498,13 @@ $__System.registerDynamic("26", ["e"], true, function($__require, exports, modul
   return module.exports;
 });
 
-$__System.registerDynamic("27", ["28", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("28", ["29", "1b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var cof = $__require('28'),
-      TAG = $__require('1a')('toStringTag'),
+  var cof = $__require('29'),
+      TAG = $__require('1b')('toStringTag'),
       ARG = cof(function() {
         return arguments;
       }()) == 'Arguments';
@@ -34796,7 +36517,7 @@ $__System.registerDynamic("27", ["28", "1a"], true, function($__require, exports
   return module.exports;
 });
 
-$__System.registerDynamic("1f", [], true, function($__require, exports, module) {
+$__System.registerDynamic("20", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34805,32 +36526,32 @@ $__System.registerDynamic("1f", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("29", ["27", "1a", "1f", "2a"], true, function($__require, exports, module) {
+$__System.registerDynamic("2a", ["28", "1b", "20", "2b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var classof = $__require('27'),
-      ITERATOR = $__require('1a')('iterator'),
-      Iterators = $__require('1f');
-  module.exports = $__require('2a').getIteratorMethod = function(it) {
+  var classof = $__require('28'),
+      ITERATOR = $__require('1b')('iterator'),
+      Iterators = $__require('20');
+  module.exports = $__require('2b').getIteratorMethod = function(it) {
     if (it != undefined)
       return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
   };
   return module.exports;
 });
 
-$__System.registerDynamic("2b", ["2c", "23", "25", "24", "26", "29"], true, function($__require, exports, module) {
+$__System.registerDynamic("2c", ["2d", "24", "26", "25", "27", "2a"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var ctx = $__require('2c'),
-      call = $__require('23'),
-      isArrayIter = $__require('25'),
-      anObject = $__require('24'),
-      toLength = $__require('26'),
-      getIterFn = $__require('29');
+  var ctx = $__require('2d'),
+      call = $__require('24'),
+      isArrayIter = $__require('26'),
+      anObject = $__require('25'),
+      toLength = $__require('27'),
+      getIterFn = $__require('2a');
   module.exports = function(iterable, entries, fn, that) {
     var iterFn = getIterFn(iterable),
         f = ctx(fn, that, entries ? 2 : 1),
@@ -34852,14 +36573,14 @@ $__System.registerDynamic("2b", ["2c", "23", "25", "24", "26", "29"], true, func
   return module.exports;
 });
 
-$__System.registerDynamic("2d", ["8", "2e", "24", "2c"], true, function($__require, exports, module) {
+$__System.registerDynamic("2e", ["9", "2f", "25", "2d"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var getDesc = $__require('8').getDesc,
-      isObject = $__require('2e'),
-      anObject = $__require('24');
+  var getDesc = $__require('9').getDesc,
+      isObject = $__require('2f'),
+      anObject = $__require('25');
   var check = function(O, proto) {
     anObject(O);
     if (!isObject(proto) && proto !== null)
@@ -34868,7 +36589,7 @@ $__System.registerDynamic("2d", ["8", "2e", "24", "2c"], true, function($__requi
   module.exports = {
     set: Object.setPrototypeOf || ('__proto__' in {} ? function(test, buggy, set) {
       try {
-        set = $__require('2c')(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
+        set = $__require('2d')(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
         set(test, []);
         buggy = !(test instanceof Array);
       } catch (e) {
@@ -34888,7 +36609,7 @@ $__System.registerDynamic("2d", ["8", "2e", "24", "2c"], true, function($__requi
   return module.exports;
 });
 
-$__System.registerDynamic("2f", [], true, function($__require, exports, module) {
+$__System.registerDynamic("30", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34899,12 +36620,12 @@ $__System.registerDynamic("2f", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("24", ["2e"], true, function($__require, exports, module) {
+$__System.registerDynamic("25", ["2f"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var isObject = $__require('2e');
+  var isObject = $__require('2f');
   module.exports = function(it) {
     if (!isObject(it))
       throw TypeError(it + ' is not an object!');
@@ -34913,14 +36634,14 @@ $__System.registerDynamic("24", ["2e"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("30", ["24", "31", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("31", ["25", "32", "1b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var anObject = $__require('24'),
-      aFunction = $__require('31'),
-      SPECIES = $__require('1a')('species');
+  var anObject = $__require('25'),
+      aFunction = $__require('32'),
+      SPECIES = $__require('1b')('species');
   module.exports = function(O, D) {
     var C = anObject(O).constructor,
         S;
@@ -34929,7 +36650,7 @@ $__System.registerDynamic("30", ["24", "31", "1a"], true, function($__require, e
   return module.exports;
 });
 
-$__System.registerDynamic("32", [], true, function($__require, exports, module) {
+$__System.registerDynamic("33", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34953,16 +36674,16 @@ $__System.registerDynamic("32", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("33", ["34"], true, function($__require, exports, module) {
+$__System.registerDynamic("34", ["35"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('34').document && document.documentElement;
+  module.exports = $__require('35').document && document.documentElement;
   return module.exports;
 });
 
-$__System.registerDynamic("2e", [], true, function($__require, exports, module) {
+$__System.registerDynamic("2f", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -34973,13 +36694,13 @@ $__System.registerDynamic("2e", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("35", ["2e", "34"], true, function($__require, exports, module) {
+$__System.registerDynamic("36", ["2f", "35"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var isObject = $__require('2e'),
-      document = $__require('34').document,
+  var isObject = $__require('2f'),
+      document = $__require('35').document,
       is = isObject(document) && isObject(document.createElement);
   module.exports = function(it) {
     return is ? document.createElement(it) : {};
@@ -34987,17 +36708,17 @@ $__System.registerDynamic("35", ["2e", "34"], true, function($__require, exports
   return module.exports;
 });
 
-$__System.registerDynamic("36", ["2c", "32", "33", "35", "34", "28", "37"], true, function($__require, exports, module) {
+$__System.registerDynamic("37", ["2d", "33", "34", "36", "35", "29", "38"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
   (function(process) {
-    var ctx = $__require('2c'),
-        invoke = $__require('32'),
-        html = $__require('33'),
-        cel = $__require('35'),
-        global = $__require('34'),
+    var ctx = $__require('2d'),
+        invoke = $__require('33'),
+        html = $__require('34'),
+        cel = $__require('36'),
+        global = $__require('35'),
         process = global.process,
         setTask = global.setImmediate,
         clearTask = global.clearImmediate,
@@ -35034,7 +36755,7 @@ $__System.registerDynamic("36", ["2c", "32", "33", "35", "34", "28", "37"], true
       clearTask = function clearImmediate(id) {
         delete queue[id];
       };
-      if ($__require('28')(process) == 'process') {
+      if ($__require('29')(process) == 'process') {
         defer = function(id) {
           process.nextTick(ctx(run, id, 1));
         };
@@ -35065,22 +36786,22 @@ $__System.registerDynamic("36", ["2c", "32", "33", "35", "34", "28", "37"], true
       set: setTask,
       clear: clearTask
     };
-  })($__require('37'));
+  })($__require('38'));
   return module.exports;
 });
 
-$__System.registerDynamic("38", ["34", "36", "28", "37"], true, function($__require, exports, module) {
+$__System.registerDynamic("39", ["35", "37", "29", "38"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
   (function(process) {
-    var global = $__require('34'),
-        macrotask = $__require('36').set,
+    var global = $__require('35'),
+        macrotask = $__require('37').set,
         Observer = global.MutationObserver || global.WebKitMutationObserver,
         process = global.process,
         Promise = global.Promise,
-        isNode = $__require('28')(process) == 'process',
+        isNode = $__require('29')(process) == 'process',
         head,
         last,
         notify;
@@ -35140,11 +36861,11 @@ $__System.registerDynamic("38", ["34", "36", "28", "37"], true, function($__requ
       }
       last = task;
     };
-  })($__require('37'));
+  })($__require('38'));
   return module.exports;
 });
 
-$__System.registerDynamic("17", [], true, function($__require, exports, module) {
+$__System.registerDynamic("18", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35160,14 +36881,14 @@ $__System.registerDynamic("17", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("19", ["8", "17", "39"], true, function($__require, exports, module) {
+$__System.registerDynamic("1a", ["9", "18", "3a"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $ = $__require('8'),
-      createDesc = $__require('17');
-  module.exports = $__require('39') ? function(object, key, value) {
+  var $ = $__require('9'),
+      createDesc = $__require('18');
+  module.exports = $__require('3a') ? function(object, key, value) {
     return $.setDesc(object, key, createDesc(1, value));
   } : function(object, key, value) {
     object[key] = value;
@@ -35176,21 +36897,21 @@ $__System.registerDynamic("19", ["8", "17", "39"], true, function($__require, ex
   return module.exports;
 });
 
-$__System.registerDynamic("1d", ["19"], true, function($__require, exports, module) {
+$__System.registerDynamic("1e", ["1a"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('19');
+  module.exports = $__require('1a');
   return module.exports;
 });
 
-$__System.registerDynamic("3a", ["1d"], true, function($__require, exports, module) {
+$__System.registerDynamic("3b", ["1e"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var redefine = $__require('1d');
+  var redefine = $__require('1e');
   module.exports = function(target, src) {
     for (var key in src)
       redefine(target, key, src[key]);
@@ -35199,7 +36920,7 @@ $__System.registerDynamic("3a", ["1d"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("1e", [], true, function($__require, exports, module) {
+$__System.registerDynamic("1f", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35211,14 +36932,14 @@ $__System.registerDynamic("1e", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("18", ["8", "1e", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("19", ["9", "1f", "1b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var def = $__require('8').setDesc,
-      has = $__require('1e'),
-      TAG = $__require('1a')('toStringTag');
+  var def = $__require('9').setDesc,
+      has = $__require('1f'),
+      TAG = $__require('1b')('toStringTag');
   module.exports = function(it, tag, stat) {
     if (it && !has(it = stat ? it : it.prototype, TAG))
       def(it, TAG, {
@@ -35229,12 +36950,12 @@ $__System.registerDynamic("18", ["8", "1e", "1a"], true, function($__require, ex
   return module.exports;
 });
 
-$__System.registerDynamic("39", ["3b"], true, function($__require, exports, module) {
+$__System.registerDynamic("3a", ["3c"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = !$__require('3b')(function() {
+  module.exports = !$__require('3c')(function() {
     return Object.defineProperty({}, 'a', {get: function() {
         return 7;
       }}).a != 7;
@@ -35242,16 +36963,16 @@ $__System.registerDynamic("39", ["3b"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("3c", ["2a", "8", "39", "1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("3d", ["2b", "9", "3a", "1b"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var core = $__require('2a'),
-      $ = $__require('8'),
-      DESCRIPTORS = $__require('39'),
-      SPECIES = $__require('1a')('species');
+  var core = $__require('2b'),
+      $ = $__require('9'),
+      DESCRIPTORS = $__require('3a'),
+      SPECIES = $__require('1b')('species');
   module.exports = function(KEY) {
     var C = core[KEY];
     if (DESCRIPTORS && C && !C[SPECIES])
@@ -35265,12 +36986,12 @@ $__System.registerDynamic("3c", ["2a", "8", "39", "1a"], true, function($__requi
   return module.exports;
 });
 
-$__System.registerDynamic("3d", ["34"], true, function($__require, exports, module) {
+$__System.registerDynamic("3e", ["35"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var global = $__require('34'),
+  var global = $__require('35'),
       SHARED = '__core-js_shared__',
       store = global[SHARED] || (global[SHARED] = {});
   module.exports = function(key) {
@@ -35279,7 +37000,7 @@ $__System.registerDynamic("3d", ["34"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("3e", [], true, function($__require, exports, module) {
+$__System.registerDynamic("3f", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35292,26 +37013,26 @@ $__System.registerDynamic("3e", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("1a", ["3d", "3e", "34"], true, function($__require, exports, module) {
+$__System.registerDynamic("1b", ["3e", "3f", "35"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var store = $__require('3d')('wks'),
-      uid = $__require('3e'),
-      Symbol = $__require('34').Symbol;
+  var store = $__require('3e')('wks'),
+      uid = $__require('3f'),
+      Symbol = $__require('35').Symbol;
   module.exports = function(name) {
     return store[name] || (store[name] = Symbol && Symbol[name] || (Symbol || uid)('Symbol.' + name));
   };
   return module.exports;
 });
 
-$__System.registerDynamic("3f", ["1a"], true, function($__require, exports, module) {
+$__System.registerDynamic("40", ["1b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var ITERATOR = $__require('1a')('iterator'),
+  var ITERATOR = $__require('1b')('iterator'),
       SAFE_CLOSING = false;
   try {
     var riter = [7][ITERATOR]();
@@ -35342,182 +37063,29 @@ $__System.registerDynamic("3f", ["1a"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("40", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var process = module.exports = {};
-  var cachedSetTimeout;
-  var cachedClearTimeout;
-  (function() {
-    try {
-      cachedSetTimeout = setTimeout;
-    } catch (e) {
-      cachedSetTimeout = function() {
-        throw new Error('setTimeout is not defined');
-      };
-    }
-    try {
-      cachedClearTimeout = clearTimeout;
-    } catch (e) {
-      cachedClearTimeout = function() {
-        throw new Error('clearTimeout is not defined');
-      };
-    }
-  }());
-  function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-      return setTimeout(fun, 0);
-    } else {
-      return cachedSetTimeout.call(null, fun, 0);
-    }
-  }
-  function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-      clearTimeout(marker);
-    } else {
-      cachedClearTimeout.call(null, marker);
-    }
-  }
-  var queue = [];
-  var draining = false;
-  var currentQueue;
-  var queueIndex = -1;
-  function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-      return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-      queue = currentQueue.concat(queue);
-    } else {
-      queueIndex = -1;
-    }
-    if (queue.length) {
-      drainQueue();
-    }
-  }
-  function drainQueue() {
-    if (draining) {
-      return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-    var len = queue.length;
-    while (len) {
-      currentQueue = queue;
-      queue = [];
-      while (++queueIndex < len) {
-        if (currentQueue) {
-          currentQueue[queueIndex].run();
-        }
-      }
-      queueIndex = -1;
-      len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-  }
-  process.nextTick = function(fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-      for (var i = 1; i < arguments.length; i++) {
-        args[i - 1] = arguments[i];
-      }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-      runTimeout(drainQueue);
-    }
-  };
-  function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-  }
-  Item.prototype.run = function() {
-    this.fun.apply(null, this.array);
-  };
-  process.title = 'browser';
-  process.browser = true;
-  process.env = {};
-  process.argv = [];
-  process.version = '';
-  process.versions = {};
-  function noop() {}
-  process.on = noop;
-  process.addListener = noop;
-  process.once = noop;
-  process.off = noop;
-  process.removeListener = noop;
-  process.removeAllListeners = noop;
-  process.emit = noop;
-  process.binding = function(name) {
-    throw new Error('process.binding is not supported');
-  };
-  process.cwd = function() {
-    return '/';
-  };
-  process.chdir = function(dir) {
-    throw new Error('process.chdir is not supported');
-  };
-  process.umask = function() {
-    return 0;
-  };
-  return module.exports;
-});
-
-$__System.registerDynamic("41", ["40"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require('40');
-  return module.exports;
-});
-
-$__System.registerDynamic("42", ["41"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__System._nodeRequire ? process : $__require('41');
-  return module.exports;
-});
-
-$__System.registerDynamic("37", ["42"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require('42');
-  return module.exports;
-});
-
-$__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", "31", "22", "2b", "2d", "2f", "1a", "30", "38", "39", "3a", "18", "3c", "2a", "3f", "37"], true, function($__require, exports, module) {
+$__System.registerDynamic("41", ["9", "1c", "35", "2d", "28", "1d", "2f", "25", "32", "23", "2c", "2e", "30", "1b", "31", "39", "3a", "3b", "19", "3d", "2b", "40", "38"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
   (function(process) {
     'use strict';
-    var $ = $__require('8'),
-        LIBRARY = $__require('1b'),
-        global = $__require('34'),
-        ctx = $__require('2c'),
-        classof = $__require('27'),
-        $export = $__require('1c'),
-        isObject = $__require('2e'),
-        anObject = $__require('24'),
-        aFunction = $__require('31'),
-        strictNew = $__require('22'),
-        forOf = $__require('2b'),
-        setProto = $__require('2d').set,
-        same = $__require('2f'),
-        SPECIES = $__require('1a')('species'),
-        speciesConstructor = $__require('30'),
-        asap = $__require('38'),
+    var $ = $__require('9'),
+        LIBRARY = $__require('1c'),
+        global = $__require('35'),
+        ctx = $__require('2d'),
+        classof = $__require('28'),
+        $export = $__require('1d'),
+        isObject = $__require('2f'),
+        anObject = $__require('25'),
+        aFunction = $__require('32'),
+        strictNew = $__require('23'),
+        forOf = $__require('2c'),
+        setProto = $__require('2e').set,
+        same = $__require('30'),
+        SPECIES = $__require('1b')('species'),
+        speciesConstructor = $__require('31'),
+        asap = $__require('39'),
         PROMISE = 'Promise',
         process = global.process,
         isNode = classof(process) == 'process',
@@ -35548,7 +37116,7 @@ $__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", 
         if (!(P2.resolve(5).then(function() {}) instanceof P2)) {
           works = false;
         }
-        if (works && $__require('39')) {
+        if (works && $__require('3a')) {
           var thenableThenGotten = false;
           P.resolve($.setDesc({}, 'then', {get: function() {
               thenableThenGotten = true;
@@ -35726,7 +37294,7 @@ $__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", 
           $reject.call(record, err);
         }
       };
-      $__require('3a')(P.prototype, {
+      $__require('3b')(P.prototype, {
         then: function then(onFulfilled, onRejected) {
           var reaction = new PromiseCapability(speciesConstructor(this, P)),
               promise = reaction.promise,
@@ -35746,9 +37314,9 @@ $__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", 
       });
     }
     $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: P});
-    $__require('18')(P, PROMISE);
-    $__require('3c')(PROMISE);
-    Wrapper = $__require('2a')[PROMISE];
+    $__require('19')(P, PROMISE);
+    $__require('3d')(PROMISE);
+    Wrapper = $__require('2b')[PROMISE];
     $export($export.S + $export.F * !USE_NATIVE, PROMISE, {reject: function reject(r) {
         var capability = new PromiseCapability(this),
             $$reject = capability.reject;
@@ -35763,7 +37331,7 @@ $__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", 
         $$resolve(x);
         return capability.promise;
       }});
-    $export($export.S + $export.F * !(USE_NATIVE && $__require('3f')(function(iter) {
+    $export($export.S + $export.F * !(USE_NATIVE && $__require('40')(function(iter) {
       P.all(iter)['catch'](function() {});
     })), PROMISE, {
       all: function all(iterable) {
@@ -35808,36 +37376,36 @@ $__System.registerDynamic("43", ["8", "1b", "34", "2c", "27", "1c", "2e", "24", 
         return capability.promise;
       }
     });
-  })($__require('37'));
+  })($__require('38'));
   return module.exports;
 });
 
-$__System.registerDynamic("44", ["c", "10", "21", "43", "2a"], true, function($__require, exports, module) {
+$__System.registerDynamic("42", ["d", "11", "22", "41", "2b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  $__require('c');
-  $__require('10');
-  $__require('21');
-  $__require('43');
-  module.exports = $__require('2a').Promise;
+  $__require('d');
+  $__require('11');
+  $__require('22');
+  $__require('41');
+  module.exports = $__require('2b').Promise;
   return module.exports;
 });
 
-$__System.registerDynamic("45", ["44"], true, function($__require, exports, module) {
+$__System.registerDynamic("43", ["42"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
   module.exports = {
-    "default": $__require('44'),
+    "default": $__require('42'),
     __esModule: true
   };
   return module.exports;
 });
 
-$__System.registerDynamic("34", [], true, function($__require, exports, module) {
+$__System.registerDynamic("35", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35848,7 +37416,7 @@ $__System.registerDynamic("34", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("31", [], true, function($__require, exports, module) {
+$__System.registerDynamic("32", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35861,12 +37429,12 @@ $__System.registerDynamic("31", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("2c", ["31"], true, function($__require, exports, module) {
+$__System.registerDynamic("2d", ["32"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var aFunction = $__require('31');
+  var aFunction = $__require('32');
   module.exports = function(fn, that, length) {
     aFunction(fn);
     if (that === undefined)
@@ -35892,14 +37460,14 @@ $__System.registerDynamic("2c", ["31"], true, function($__require, exports, modu
   return module.exports;
 });
 
-$__System.registerDynamic("1c", ["34", "2a", "2c"], true, function($__require, exports, module) {
+$__System.registerDynamic("1d", ["35", "2b", "2d"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var global = $__require('34'),
-      core = $__require('2a'),
-      ctx = $__require('2c'),
+  var global = $__require('35'),
+      core = $__require('2b'),
+      ctx = $__require('2d'),
       PROTOTYPE = 'prototype';
   var $export = function(type, name, source) {
     var IS_FORCED = type & $export.F,
@@ -35941,7 +37509,7 @@ $__System.registerDynamic("1c", ["34", "2a", "2c"], true, function($__require, e
   return module.exports;
 });
 
-$__System.registerDynamic("8", [], true, function($__require, exports, module) {
+$__System.registerDynamic("9", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35962,7 +37530,7 @@ $__System.registerDynamic("8", [], true, function($__require, exports, module) {
   return module.exports;
 });
 
-$__System.registerDynamic("f", [], true, function($__require, exports, module) {
+$__System.registerDynamic("10", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35975,19 +37543,19 @@ $__System.registerDynamic("f", [], true, function($__require, exports, module) {
   return module.exports;
 });
 
-$__System.registerDynamic("46", ["f"], true, function($__require, exports, module) {
+$__System.registerDynamic("44", ["10"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var defined = $__require('f');
+  var defined = $__require('10');
   module.exports = function(it) {
     return Object(defined(it));
   };
   return module.exports;
 });
 
-$__System.registerDynamic("28", [], true, function($__require, exports, module) {
+$__System.registerDynamic("29", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -35999,19 +37567,19 @@ $__System.registerDynamic("28", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("15", ["28"], true, function($__require, exports, module) {
+$__System.registerDynamic("16", ["29"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var cof = $__require('28');
+  var cof = $__require('29');
   module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it) {
     return cof(it) == 'String' ? it.split('') : Object(it);
   };
   return module.exports;
 });
 
-$__System.registerDynamic("3b", [], true, function($__require, exports, module) {
+$__System.registerDynamic("3c", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -36026,15 +37594,15 @@ $__System.registerDynamic("3b", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("47", ["8", "46", "15", "3b"], true, function($__require, exports, module) {
+$__System.registerDynamic("45", ["9", "44", "16", "3c"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $ = $__require('8'),
-      toObject = $__require('46'),
-      IObject = $__require('15');
-  module.exports = $__require('3b')(function() {
+  var $ = $__require('9'),
+      toObject = $__require('44'),
+      IObject = $__require('16');
+  module.exports = $__require('3c')(function() {
     var a = Object.assign,
         A = {},
         B = {},
@@ -36068,17 +37636,17 @@ $__System.registerDynamic("47", ["8", "46", "15", "3b"], true, function($__requi
   return module.exports;
 });
 
-$__System.registerDynamic("48", ["1c", "47"], true, function($__require, exports, module) {
+$__System.registerDynamic("46", ["1d", "45"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $export = $__require('1c');
-  $export($export.S + $export.F, 'Object', {assign: $__require('47')});
+  var $export = $__require('1d');
+  $export($export.S + $export.F, 'Object', {assign: $__require('45')});
   return module.exports;
 });
 
-$__System.registerDynamic("2a", [], true, function($__require, exports, module) {
+$__System.registerDynamic("2b", [], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
@@ -36089,13 +37657,151 @@ $__System.registerDynamic("2a", [], true, function($__require, exports, module) 
   return module.exports;
 });
 
-$__System.registerDynamic("49", ["48", "2a"], true, function($__require, exports, module) {
+$__System.registerDynamic("47", ["46", "2b"], true, function($__require, exports, module) {
   ;
   var define,
       global = this || self,
       GLOBAL = global;
-  $__require('48');
-  module.exports = $__require('2a').Object.assign;
+  $__require('46');
+  module.exports = $__require('2b').Object.assign;
+  return module.exports;
+});
+
+$__System.registerDynamic("48", ["47"], true, function($__require, exports, module) {
+  ;
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  module.exports = {
+    "default": $__require('47'),
+    __esModule: true
+  };
+  return module.exports;
+});
+
+$__System.registerDynamic("49", [], true, function($__require, exports, module) {
+  ;
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  var process = module.exports = {};
+  var cachedSetTimeout;
+  var cachedClearTimeout;
+  (function() {
+    try {
+      cachedSetTimeout = setTimeout;
+    } catch (e) {
+      cachedSetTimeout = function() {
+        throw new Error('setTimeout is not defined');
+      };
+    }
+    try {
+      cachedClearTimeout = clearTimeout;
+    } catch (e) {
+      cachedClearTimeout = function() {
+        throw new Error('clearTimeout is not defined');
+      };
+    }
+  }());
+  function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+      return setTimeout(fun, 0);
+    } else {
+      return cachedSetTimeout.call(null, fun, 0);
+    }
+  }
+  function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+      clearTimeout(marker);
+    } else {
+      cachedClearTimeout.call(null, marker);
+    }
+  }
+  var queue = [];
+  var draining = false;
+  var currentQueue;
+  var queueIndex = -1;
+  function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+      return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+      queue = currentQueue.concat(queue);
+    } else {
+      queueIndex = -1;
+    }
+    if (queue.length) {
+      drainQueue();
+    }
+  }
+  function drainQueue() {
+    if (draining) {
+      return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+    var len = queue.length;
+    while (len) {
+      currentQueue = queue;
+      queue = [];
+      while (++queueIndex < len) {
+        if (currentQueue) {
+          currentQueue[queueIndex].run();
+        }
+      }
+      queueIndex = -1;
+      len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+  }
+  process.nextTick = function(fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+      for (var i = 1; i < arguments.length; i++) {
+        args[i - 1] = arguments[i];
+      }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+      runTimeout(drainQueue);
+    }
+  };
+  function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+  }
+  Item.prototype.run = function() {
+    this.fun.apply(null, this.array);
+  };
+  process.title = 'browser';
+  process.browser = true;
+  process.env = {};
+  process.argv = [];
+  process.version = '';
+  process.versions = {};
+  function noop() {}
+  process.on = noop;
+  process.addListener = noop;
+  process.once = noop;
+  process.off = noop;
+  process.removeListener = noop;
+  process.removeAllListeners = noop;
+  process.emit = noop;
+  process.binding = function(name) {
+    throw new Error('process.binding is not supported');
+  };
+  process.cwd = function() {
+    return '/';
+  };
+  process.chdir = function(dir) {
+    throw new Error('process.chdir is not supported');
+  };
+  process.umask = function() {
+    return 0;
+  };
   return module.exports;
 });
 
@@ -36104,1750 +37810,1783 @@ $__System.registerDynamic("4a", ["49"], true, function($__require, exports, modu
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('49'),
-    __esModule: true
-  };
+  module.exports = $__require('49');
   return module.exports;
 });
 
-(function() {
-var define = $__System.amdDefine;
-(function(f) {
-  if (typeof exports === "object" && typeof module !== "undefined") {
-    module.exports = f();
-  } else if (typeof define === "function" && define.amd) {
-    define("4b", [], f);
-  } else {
-    var g;
-    if (typeof window !== "undefined") {
-      g = window;
-    } else if (typeof global !== "undefined") {
-      g = global;
-    } else if (typeof self !== "undefined") {
-      g = self;
-    } else {
-      g = this;
-    }
-    g.localforage = f();
-  }
-})(function() {
+$__System.registerDynamic("4b", ["4a"], true, function($__require, exports, module) {
+  ;
   var define,
-      module,
-      exports;
-  return (function e(t, n, r) {
-    function s(o, u) {
-      if (!n[o]) {
-        if (!t[o]) {
-          var a = typeof require == "function" && require;
-          if (!u && a)
-            return a(o, !0);
-          if (i)
-            return i(o, !0);
-          var f = new Error("Cannot find module '" + o + "'");
-          throw (f.code = "MODULE_NOT_FOUND", f);
-        }
-        var l = n[o] = {exports: {}};
-        t[o][0].call(l.exports, function(e) {
-          var n = t[o][1][e];
-          return s(n ? n : e);
-        }, l, l.exports, e, t, n, r);
-      }
-      return n[o].exports;
-    }
-    var i = typeof require == "function" && require;
-    for (var o = 0; o < r.length; o++)
-      s(r[o]);
-    return s;
-  })({
-    1: [function(_dereq_, module, exports) {
-      'use strict';
-      var immediate = _dereq_(2);
-      function INTERNAL() {}
-      var handlers = {};
-      var REJECTED = ['REJECTED'];
-      var FULFILLED = ['FULFILLED'];
-      var PENDING = ['PENDING'];
-      module.exports = exports = Promise;
-      function Promise(resolver) {
-        if (typeof resolver !== 'function') {
-          throw new TypeError('resolver must be a function');
-        }
-        this.state = PENDING;
-        this.queue = [];
-        this.outcome = void 0;
-        if (resolver !== INTERNAL) {
-          safelyResolveThenable(this, resolver);
-        }
-      }
-      Promise.prototype["catch"] = function(onRejected) {
-        return this.then(null, onRejected);
-      };
-      Promise.prototype.then = function(onFulfilled, onRejected) {
-        if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
-          return this;
-        }
-        var promise = new this.constructor(INTERNAL);
-        if (this.state !== PENDING) {
-          var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
-          unwrap(promise, resolver, this.outcome);
+      global = this || self,
+      GLOBAL = global;
+  module.exports = $__System._nodeRequire ? process : $__require('4a');
+  return module.exports;
+});
+
+$__System.registerDynamic("38", ["4b"], true, function($__require, exports, module) {
+  ;
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  module.exports = $__require('4b');
+  return module.exports;
+});
+
+$__System.registerDynamic("4c", ["38"], true, function($__require, exports, module) {
+  ;
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  "format cjs";
+  (function(process) {
+    (function(f) {
+      if (typeof exports === "object" && typeof module !== "undefined") {
+        module.exports = f();
+      } else if (typeof define === "function" && define.amd) {
+        define([], f);
+      } else {
+        var g;
+        if (typeof window !== "undefined") {
+          g = window;
+        } else if (typeof global !== "undefined") {
+          g = global;
+        } else if (typeof self !== "undefined") {
+          g = self;
         } else {
-          this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
+          g = this;
         }
-        return promise;
-      };
-      function QueueItem(promise, onFulfilled, onRejected) {
-        this.promise = promise;
-        if (typeof onFulfilled === 'function') {
-          this.onFulfilled = onFulfilled;
-          this.callFulfilled = this.otherCallFulfilled;
-        }
-        if (typeof onRejected === 'function') {
-          this.onRejected = onRejected;
-          this.callRejected = this.otherCallRejected;
-        }
+        g.localforage = f();
       }
-      QueueItem.prototype.callFulfilled = function(value) {
-        handlers.resolve(this.promise, value);
-      };
-      QueueItem.prototype.otherCallFulfilled = function(value) {
-        unwrap(this.promise, this.onFulfilled, value);
-      };
-      QueueItem.prototype.callRejected = function(value) {
-        handlers.reject(this.promise, value);
-      };
-      QueueItem.prototype.otherCallRejected = function(value) {
-        unwrap(this.promise, this.onRejected, value);
-      };
-      function unwrap(promise, func, value) {
-        immediate(function() {
-          var returnValue;
-          try {
-            returnValue = func(value);
-          } catch (e) {
-            return handlers.reject(promise, e);
+    })(function() {
+      var define,
+          module,
+          exports;
+      return (function e(t, n, r) {
+        function s(o, u) {
+          if (!n[o]) {
+            if (!t[o]) {
+              var a = typeof $__require == "function" && $__require;
+              if (!u && a)
+                return a(o, !0);
+              if (i)
+                return i(o, !0);
+              var f = new Error("Cannot find module '" + o + "'");
+              throw (f.code = "MODULE_NOT_FOUND", f);
+            }
+            var l = n[o] = {exports: {}};
+            t[o][0].call(l.exports, function(e) {
+              var n = t[o][1][e];
+              return s(n ? n : e);
+            }, l, l.exports, e, t, n, r);
           }
-          if (returnValue === promise) {
-            handlers.reject(promise, new TypeError('Cannot resolve promise with itself'));
-          } else {
-            handlers.resolve(promise, returnValue);
+          return n[o].exports;
+        }
+        var i = typeof $__require == "function" && $__require;
+        for (var o = 0; o < r.length; o++)
+          s(r[o]);
+        return s;
+      })({
+        1: [function(_dereq_, module, exports) {
+          'use strict';
+          var immediate = _dereq_(2);
+          function INTERNAL() {}
+          var handlers = {};
+          var REJECTED = ['REJECTED'];
+          var FULFILLED = ['FULFILLED'];
+          var PENDING = ['PENDING'];
+          module.exports = exports = Promise;
+          function Promise(resolver) {
+            if (typeof resolver !== 'function') {
+              throw new TypeError('resolver must be a function');
+            }
+            this.state = PENDING;
+            this.queue = [];
+            this.outcome = void 0;
+            if (resolver !== INTERNAL) {
+              safelyResolveThenable(this, resolver);
+            }
           }
-        });
-      }
-      handlers.resolve = function(self, value) {
-        var result = tryCatch(getThen, value);
-        if (result.status === 'error') {
-          return handlers.reject(self, result.value);
-        }
-        var thenable = result.value;
-        if (thenable) {
-          safelyResolveThenable(self, thenable);
-        } else {
-          self.state = FULFILLED;
-          self.outcome = value;
-          var i = -1;
-          var len = self.queue.length;
-          while (++i < len) {
-            self.queue[i].callFulfilled(value);
-          }
-        }
-        return self;
-      };
-      handlers.reject = function(self, error) {
-        self.state = REJECTED;
-        self.outcome = error;
-        var i = -1;
-        var len = self.queue.length;
-        while (++i < len) {
-          self.queue[i].callRejected(error);
-        }
-        return self;
-      };
-      function getThen(obj) {
-        var then = obj && obj.then;
-        if (obj && typeof obj === 'object' && typeof then === 'function') {
-          return function appyThen() {
-            then.apply(obj, arguments);
+          Promise.prototype["catch"] = function(onRejected) {
+            return this.then(null, onRejected);
           };
-        }
-      }
-      function safelyResolveThenable(self, thenable) {
-        var called = false;
-        function onError(value) {
-          if (called) {
-            return;
-          }
-          called = true;
-          handlers.reject(self, value);
-        }
-        function onSuccess(value) {
-          if (called) {
-            return;
-          }
-          called = true;
-          handlers.resolve(self, value);
-        }
-        function tryToUnwrap() {
-          thenable(onSuccess, onError);
-        }
-        var result = tryCatch(tryToUnwrap);
-        if (result.status === 'error') {
-          onError(result.value);
-        }
-      }
-      function tryCatch(func, value) {
-        var out = {};
-        try {
-          out.value = func(value);
-          out.status = 'success';
-        } catch (e) {
-          out.status = 'error';
-          out.value = e;
-        }
-        return out;
-      }
-      exports.resolve = resolve;
-      function resolve(value) {
-        if (value instanceof this) {
-          return value;
-        }
-        return handlers.resolve(new this(INTERNAL), value);
-      }
-      exports.reject = reject;
-      function reject(reason) {
-        var promise = new this(INTERNAL);
-        return handlers.reject(promise, reason);
-      }
-      exports.all = all;
-      function all(iterable) {
-        var self = this;
-        if (Object.prototype.toString.call(iterable) !== '[object Array]') {
-          return this.reject(new TypeError('must be an array'));
-        }
-        var len = iterable.length;
-        var called = false;
-        if (!len) {
-          return this.resolve([]);
-        }
-        var values = new Array(len);
-        var resolved = 0;
-        var i = -1;
-        var promise = new this(INTERNAL);
-        while (++i < len) {
-          allResolver(iterable[i], i);
-        }
-        return promise;
-        function allResolver(value, i) {
-          self.resolve(value).then(resolveFromAll, function(error) {
-            if (!called) {
-              called = true;
-              handlers.reject(promise, error);
+          Promise.prototype.then = function(onFulfilled, onRejected) {
+            if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
+              return this;
             }
-          });
-          function resolveFromAll(outValue) {
-            values[i] = outValue;
-            if (++resolved === len && !called) {
-              called = true;
-              handlers.resolve(promise, values);
-            }
-          }
-        }
-      }
-      exports.race = race;
-      function race(iterable) {
-        var self = this;
-        if (Object.prototype.toString.call(iterable) !== '[object Array]') {
-          return this.reject(new TypeError('must be an array'));
-        }
-        var len = iterable.length;
-        var called = false;
-        if (!len) {
-          return this.resolve([]);
-        }
-        var i = -1;
-        var promise = new this(INTERNAL);
-        while (++i < len) {
-          resolver(iterable[i]);
-        }
-        return promise;
-        function resolver(value) {
-          self.resolve(value).then(function(response) {
-            if (!called) {
-              called = true;
-              handlers.resolve(promise, response);
-            }
-          }, function(error) {
-            if (!called) {
-              called = true;
-              handlers.reject(promise, error);
-            }
-          });
-        }
-      }
-    }, {"2": 2}],
-    2: [function(_dereq_, module, exports) {
-      (function(global) {
-        'use strict';
-        var Mutation = global.MutationObserver || global.WebKitMutationObserver;
-        var scheduleDrain;
-        {
-          if (Mutation) {
-            var called = 0;
-            var observer = new Mutation(nextTick);
-            var element = global.document.createTextNode('');
-            observer.observe(element, {characterData: true});
-            scheduleDrain = function() {
-              element.data = (called = ++called % 2);
-            };
-          } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
-            var channel = new global.MessageChannel();
-            channel.port1.onmessage = nextTick;
-            scheduleDrain = function() {
-              channel.port2.postMessage(0);
-            };
-          } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
-            scheduleDrain = function() {
-              var scriptEl = global.document.createElement('script');
-              scriptEl.onreadystatechange = function() {
-                nextTick();
-                scriptEl.onreadystatechange = null;
-                scriptEl.parentNode.removeChild(scriptEl);
-                scriptEl = null;
-              };
-              global.document.documentElement.appendChild(scriptEl);
-            };
-          } else {
-            scheduleDrain = function() {
-              setTimeout(nextTick, 0);
-            };
-          }
-        }
-        var draining;
-        var queue = [];
-        function nextTick() {
-          draining = true;
-          var i,
-              oldQueue;
-          var len = queue.length;
-          while (len) {
-            oldQueue = queue;
-            queue = [];
-            i = -1;
-            while (++i < len) {
-              oldQueue[i]();
-            }
-            len = queue.length;
-          }
-          draining = false;
-        }
-        module.exports = immediate;
-        function immediate(task) {
-          if (queue.push(task) === 1 && !draining) {
-            scheduleDrain();
-          }
-        }
-      }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-    }, {}],
-    3: [function(_dereq_, module, exports) {
-      (function(global) {
-        'use strict';
-        if (typeof global.Promise !== 'function') {
-          global.Promise = _dereq_(1);
-        }
-      }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-    }, {"1": 1}],
-    4: [function(_dereq_, module, exports) {
-      'use strict';
-      var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-        return typeof obj;
-      } : function(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-      };
-      function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-          throw new TypeError("Cannot call a class as a function");
-        }
-      }
-      function getIDB() {
-        if (typeof indexedDB !== 'undefined') {
-          return indexedDB;
-        }
-        if (typeof webkitIndexedDB !== 'undefined') {
-          return webkitIndexedDB;
-        }
-        if (typeof mozIndexedDB !== 'undefined') {
-          return mozIndexedDB;
-        }
-        if (typeof OIndexedDB !== 'undefined') {
-          return OIndexedDB;
-        }
-        if (typeof msIndexedDB !== 'undefined') {
-          return msIndexedDB;
-        }
-      }
-      var idb = getIDB();
-      function isIndexedDBValid() {
-        try {
-          if (!idb) {
-            return false;
-          }
-          if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' && navigator.userAgent && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-            return false;
-          }
-          return idb && typeof idb.open === 'function' && typeof IDBKeyRange !== 'undefined';
-        } catch (e) {
-          return false;
-        }
-      }
-      function isWebSQLValid() {
-        return typeof openDatabase === 'function';
-      }
-      function isLocalStorageValid() {
-        try {
-          return typeof localStorage !== 'undefined' && 'setItem' in localStorage && localStorage.setItem;
-        } catch (e) {
-          return false;
-        }
-      }
-      function createBlob(parts, properties) {
-        parts = parts || [];
-        properties = properties || {};
-        try {
-          return new Blob(parts, properties);
-        } catch (e) {
-          if (e.name !== 'TypeError') {
-            throw e;
-          }
-          var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder : typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder : typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : WebKitBlobBuilder;
-          var builder = new Builder();
-          for (var i = 0; i < parts.length; i += 1) {
-            builder.append(parts[i]);
-          }
-          return builder.getBlob(properties.type);
-        }
-      }
-      if (typeof Promise === 'undefined' && typeof _dereq_ !== 'undefined') {
-        _dereq_(3);
-      }
-      var Promise$1 = Promise;
-      function executeCallback(promise, callback) {
-        if (callback) {
-          promise.then(function(result) {
-            callback(null, result);
-          }, function(error) {
-            callback(error);
-          });
-        }
-      }
-      var DETECT_BLOB_SUPPORT_STORE = 'local-forage-detect-blob-support';
-      var supportsBlobs;
-      var dbContexts;
-      function _binStringToArrayBuffer(bin) {
-        var length = bin.length;
-        var buf = new ArrayBuffer(length);
-        var arr = new Uint8Array(buf);
-        for (var i = 0; i < length; i++) {
-          arr[i] = bin.charCodeAt(i);
-        }
-        return buf;
-      }
-      function _checkBlobSupportWithoutCaching(txn) {
-        return new Promise$1(function(resolve) {
-          var blob = createBlob(['']);
-          txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
-          txn.onabort = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            resolve(false);
-          };
-          txn.oncomplete = function() {
-            var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
-            var matchedEdge = navigator.userAgent.match(/Edge\//);
-            resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
-          };
-        })["catch"](function() {
-          return false;
-        });
-      }
-      function _checkBlobSupport(idb) {
-        if (typeof supportsBlobs === 'boolean') {
-          return Promise$1.resolve(supportsBlobs);
-        }
-        return _checkBlobSupportWithoutCaching(idb).then(function(value) {
-          supportsBlobs = value;
-          return supportsBlobs;
-        });
-      }
-      function _deferReadiness(dbInfo) {
-        var dbContext = dbContexts[dbInfo.name];
-        var deferredOperation = {};
-        deferredOperation.promise = new Promise$1(function(resolve) {
-          deferredOperation.resolve = resolve;
-        });
-        dbContext.deferredOperations.push(deferredOperation);
-        if (!dbContext.dbReady) {
-          dbContext.dbReady = deferredOperation.promise;
-        } else {
-          dbContext.dbReady = dbContext.dbReady.then(function() {
-            return deferredOperation.promise;
-          });
-        }
-      }
-      function _advanceReadiness(dbInfo) {
-        var dbContext = dbContexts[dbInfo.name];
-        var deferredOperation = dbContext.deferredOperations.pop();
-        if (deferredOperation) {
-          deferredOperation.resolve();
-        }
-      }
-      function _getConnection(dbInfo, upgradeNeeded) {
-        return new Promise$1(function(resolve, reject) {
-          if (dbInfo.db) {
-            if (upgradeNeeded) {
-              _deferReadiness(dbInfo);
-              dbInfo.db.close();
+            var promise = new this.constructor(INTERNAL);
+            if (this.state !== PENDING) {
+              var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
+              unwrap(promise, resolver, this.outcome);
             } else {
-              return resolve(dbInfo.db);
+              this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
+            }
+            return promise;
+          };
+          function QueueItem(promise, onFulfilled, onRejected) {
+            this.promise = promise;
+            if (typeof onFulfilled === 'function') {
+              this.onFulfilled = onFulfilled;
+              this.callFulfilled = this.otherCallFulfilled;
+            }
+            if (typeof onRejected === 'function') {
+              this.onRejected = onRejected;
+              this.callRejected = this.otherCallRejected;
             }
           }
-          var dbArgs = [dbInfo.name];
-          if (upgradeNeeded) {
-            dbArgs.push(dbInfo.version);
-          }
-          var openreq = idb.open.apply(idb, dbArgs);
-          if (upgradeNeeded) {
-            openreq.onupgradeneeded = function(e) {
-              var db = openreq.result;
+          QueueItem.prototype.callFulfilled = function(value) {
+            handlers.resolve(this.promise, value);
+          };
+          QueueItem.prototype.otherCallFulfilled = function(value) {
+            unwrap(this.promise, this.onFulfilled, value);
+          };
+          QueueItem.prototype.callRejected = function(value) {
+            handlers.reject(this.promise, value);
+          };
+          QueueItem.prototype.otherCallRejected = function(value) {
+            unwrap(this.promise, this.onRejected, value);
+          };
+          function unwrap(promise, func, value) {
+            immediate(function() {
+              var returnValue;
               try {
-                db.createObjectStore(dbInfo.storeName);
-                if (e.oldVersion <= 1) {
-                  db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
-                }
-              } catch (ex) {
-                if (ex.name === 'ConstraintError') {
-                  console.warn('The database "' + dbInfo.name + '"' + ' has been upgraded from version ' + e.oldVersion + ' to version ' + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
-                } else {
-                  throw ex;
-                }
+                returnValue = func(value);
+              } catch (e) {
+                return handlers.reject(promise, e);
               }
-            };
-          }
-          openreq.onerror = function() {
-            reject(openreq.error);
-          };
-          openreq.onsuccess = function() {
-            resolve(openreq.result);
-            _advanceReadiness(dbInfo);
-          };
-        });
-      }
-      function _getOriginalConnection(dbInfo) {
-        return _getConnection(dbInfo, false);
-      }
-      function _getUpgradedConnection(dbInfo) {
-        return _getConnection(dbInfo, true);
-      }
-      function _isUpgradeNeeded(dbInfo, defaultVersion) {
-        if (!dbInfo.db) {
-          return true;
-        }
-        var isNewStore = !dbInfo.db.objectStoreNames.contains(dbInfo.storeName);
-        var isDowngrade = dbInfo.version < dbInfo.db.version;
-        var isUpgrade = dbInfo.version > dbInfo.db.version;
-        if (isDowngrade) {
-          if (dbInfo.version !== defaultVersion) {
-            console.warn('The database "' + dbInfo.name + '"' + ' can\'t be downgraded from version ' + dbInfo.db.version + ' to version ' + dbInfo.version + '.');
-          }
-          dbInfo.version = dbInfo.db.version;
-        }
-        if (isUpgrade || isNewStore) {
-          if (isNewStore) {
-            var incVersion = dbInfo.db.version + 1;
-            if (incVersion > dbInfo.version) {
-              dbInfo.version = incVersion;
-            }
-          }
-          return true;
-        }
-        return false;
-      }
-      function _encodeBlob(blob) {
-        return new Promise$1(function(resolve, reject) {
-          var reader = new FileReader();
-          reader.onerror = reject;
-          reader.onloadend = function(e) {
-            var base64 = btoa(e.target.result || '');
-            resolve({
-              __local_forage_encoded_blob: true,
-              data: base64,
-              type: blob.type
-            });
-          };
-          reader.readAsBinaryString(blob);
-        });
-      }
-      function _decodeBlob(encodedBlob) {
-        var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
-        return createBlob([arrayBuff], {type: encodedBlob.type});
-      }
-      function _isEncodedBlob(value) {
-        return value && value.__local_forage_encoded_blob;
-      }
-      function _fullyReady(callback) {
-        var self = this;
-        var promise = self._initReady().then(function() {
-          var dbContext = dbContexts[self._dbInfo.name];
-          if (dbContext && dbContext.dbReady) {
-            return dbContext.dbReady;
-          }
-        });
-        promise.then(callback, callback);
-        return promise;
-      }
-      function _initStorage(options) {
-        var self = this;
-        var dbInfo = {db: null};
-        if (options) {
-          for (var i in options) {
-            dbInfo[i] = options[i];
-          }
-        }
-        if (!dbContexts) {
-          dbContexts = {};
-        }
-        var dbContext = dbContexts[dbInfo.name];
-        if (!dbContext) {
-          dbContext = {
-            forages: [],
-            db: null,
-            dbReady: null,
-            deferredOperations: []
-          };
-          dbContexts[dbInfo.name] = dbContext;
-        }
-        dbContext.forages.push(self);
-        if (!self._initReady) {
-          self._initReady = self.ready;
-          self.ready = _fullyReady;
-        }
-        var initPromises = [];
-        function ignoreErrors() {
-          return Promise$1.resolve();
-        }
-        for (var j = 0; j < dbContext.forages.length; j++) {
-          var forage = dbContext.forages[j];
-          if (forage !== self) {
-            initPromises.push(forage._initReady()["catch"](ignoreErrors));
-          }
-        }
-        var forages = dbContext.forages.slice(0);
-        return Promise$1.all(initPromises).then(function() {
-          dbInfo.db = dbContext.db;
-          return _getOriginalConnection(dbInfo);
-        }).then(function(db) {
-          dbInfo.db = db;
-          if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
-            return _getUpgradedConnection(dbInfo);
-          }
-          return db;
-        }).then(function(db) {
-          dbInfo.db = dbContext.db = db;
-          self._dbInfo = dbInfo;
-          for (var k = 0; k < forages.length; k++) {
-            var forage = forages[k];
-            if (forage !== self) {
-              forage._dbInfo.db = dbInfo.db;
-              forage._dbInfo.version = dbInfo.version;
-            }
-          }
-        });
-      }
-      function getItem(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-            var req = store.get(key);
-            req.onsuccess = function() {
-              var value = req.result;
-              if (value === undefined) {
-                value = null;
-              }
-              if (_isEncodedBlob(value)) {
-                value = _decodeBlob(value);
-              }
-              resolve(value);
-            };
-            req.onerror = function() {
-              reject(req.error);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function iterate(iterator, callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-            var req = store.openCursor();
-            var iterationNumber = 1;
-            req.onsuccess = function() {
-              var cursor = req.result;
-              if (cursor) {
-                var value = cursor.value;
-                if (_isEncodedBlob(value)) {
-                  value = _decodeBlob(value);
-                }
-                var result = iterator(value, cursor.key, iterationNumber++);
-                if (result !== void 0) {
-                  resolve(result);
-                } else {
-                  cursor["continue"]();
-                }
+              if (returnValue === promise) {
+                handlers.reject(promise, new TypeError('Cannot resolve promise with itself'));
               } else {
-                resolve();
+                handlers.resolve(promise, returnValue);
               }
-            };
-            req.onerror = function() {
-              reject(req.error);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function setItem(key, value, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          var dbInfo;
-          self.ready().then(function() {
-            dbInfo = self._dbInfo;
-            if (value instanceof Blob) {
-              return _checkBlobSupport(dbInfo.db).then(function(blobSupport) {
-                if (blobSupport) {
-                  return value;
+            });
+          }
+          handlers.resolve = function(self, value) {
+            var result = tryCatch(getThen, value);
+            if (result.status === 'error') {
+              return handlers.reject(self, result.value);
+            }
+            var thenable = result.value;
+            if (thenable) {
+              safelyResolveThenable(self, thenable);
+            } else {
+              self.state = FULFILLED;
+              self.outcome = value;
+              var i = -1;
+              var len = self.queue.length;
+              while (++i < len) {
+                self.queue[i].callFulfilled(value);
+              }
+            }
+            return self;
+          };
+          handlers.reject = function(self, error) {
+            self.state = REJECTED;
+            self.outcome = error;
+            var i = -1;
+            var len = self.queue.length;
+            while (++i < len) {
+              self.queue[i].callRejected(error);
+            }
+            return self;
+          };
+          function getThen(obj) {
+            var then = obj && obj.then;
+            if (obj && typeof obj === 'object' && typeof then === 'function') {
+              return function appyThen() {
+                then.apply(obj, arguments);
+              };
+            }
+          }
+          function safelyResolveThenable(self, thenable) {
+            var called = false;
+            function onError(value) {
+              if (called) {
+                return;
+              }
+              called = true;
+              handlers.reject(self, value);
+            }
+            function onSuccess(value) {
+              if (called) {
+                return;
+              }
+              called = true;
+              handlers.resolve(self, value);
+            }
+            function tryToUnwrap() {
+              thenable(onSuccess, onError);
+            }
+            var result = tryCatch(tryToUnwrap);
+            if (result.status === 'error') {
+              onError(result.value);
+            }
+          }
+          function tryCatch(func, value) {
+            var out = {};
+            try {
+              out.value = func(value);
+              out.status = 'success';
+            } catch (e) {
+              out.status = 'error';
+              out.value = e;
+            }
+            return out;
+          }
+          exports.resolve = resolve;
+          function resolve(value) {
+            if (value instanceof this) {
+              return value;
+            }
+            return handlers.resolve(new this(INTERNAL), value);
+          }
+          exports.reject = reject;
+          function reject(reason) {
+            var promise = new this(INTERNAL);
+            return handlers.reject(promise, reason);
+          }
+          exports.all = all;
+          function all(iterable) {
+            var self = this;
+            if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+              return this.reject(new TypeError('must be an array'));
+            }
+            var len = iterable.length;
+            var called = false;
+            if (!len) {
+              return this.resolve([]);
+            }
+            var values = new Array(len);
+            var resolved = 0;
+            var i = -1;
+            var promise = new this(INTERNAL);
+            while (++i < len) {
+              allResolver(iterable[i], i);
+            }
+            return promise;
+            function allResolver(value, i) {
+              self.resolve(value).then(resolveFromAll, function(error) {
+                if (!called) {
+                  called = true;
+                  handlers.reject(promise, error);
                 }
-                return _encodeBlob(value);
+              });
+              function resolveFromAll(outValue) {
+                values[i] = outValue;
+                if (++resolved === len && !called) {
+                  called = true;
+                  handlers.resolve(promise, values);
+                }
+              }
+            }
+          }
+          exports.race = race;
+          function race(iterable) {
+            var self = this;
+            if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+              return this.reject(new TypeError('must be an array'));
+            }
+            var len = iterable.length;
+            var called = false;
+            if (!len) {
+              return this.resolve([]);
+            }
+            var i = -1;
+            var promise = new this(INTERNAL);
+            while (++i < len) {
+              resolver(iterable[i]);
+            }
+            return promise;
+            function resolver(value) {
+              self.resolve(value).then(function(response) {
+                if (!called) {
+                  called = true;
+                  handlers.resolve(promise, response);
+                }
+              }, function(error) {
+                if (!called) {
+                  called = true;
+                  handlers.reject(promise, error);
+                }
               });
             }
-            return value;
-          }).then(function(value) {
-            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-            var store = transaction.objectStore(dbInfo.storeName);
-            if (value === null) {
-              value = undefined;
-            }
-            transaction.oncomplete = function() {
-              if (value === undefined) {
-                value = null;
-              }
-              resolve(value);
-            };
-            transaction.onabort = transaction.onerror = function() {
-              var err = req.error ? req.error : req.transaction.error;
-              reject(err);
-            };
-            var req = store.put(value, key);
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function removeItem(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-            var store = transaction.objectStore(dbInfo.storeName);
-            var req = store["delete"](key);
-            transaction.oncomplete = function() {
-              resolve();
-            };
-            transaction.onerror = function() {
-              reject(req.error);
-            };
-            transaction.onabort = function() {
-              var err = req.error ? req.error : req.transaction.error;
-              reject(err);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function clear(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-            var store = transaction.objectStore(dbInfo.storeName);
-            var req = store.clear();
-            transaction.oncomplete = function() {
-              resolve();
-            };
-            transaction.onabort = transaction.onerror = function() {
-              var err = req.error ? req.error : req.transaction.error;
-              reject(err);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function length(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-            var req = store.count();
-            req.onsuccess = function() {
-              resolve(req.result);
-            };
-            req.onerror = function() {
-              reject(req.error);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function key(n, callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          if (n < 0) {
-            resolve(null);
-            return;
           }
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-            var advanced = false;
-            var req = store.openCursor();
-            req.onsuccess = function() {
-              var cursor = req.result;
-              if (!cursor) {
+        }, {"2": 2}],
+        2: [function(_dereq_, module, exports) {
+          (function(global) {
+            'use strict';
+            var Mutation = global.MutationObserver || global.WebKitMutationObserver;
+            var scheduleDrain;
+            {
+              if (Mutation) {
+                var called = 0;
+                var observer = new Mutation(nextTick);
+                var element = global.document.createTextNode('');
+                observer.observe(element, {characterData: true});
+                scheduleDrain = function() {
+                  element.data = (called = ++called % 2);
+                };
+              } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
+                var channel = new global.MessageChannel();
+                channel.port1.onmessage = nextTick;
+                scheduleDrain = function() {
+                  channel.port2.postMessage(0);
+                };
+              } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
+                scheduleDrain = function() {
+                  var scriptEl = global.document.createElement('script');
+                  scriptEl.onreadystatechange = function() {
+                    nextTick();
+                    scriptEl.onreadystatechange = null;
+                    scriptEl.parentNode.removeChild(scriptEl);
+                    scriptEl = null;
+                  };
+                  global.document.documentElement.appendChild(scriptEl);
+                };
+              } else {
+                scheduleDrain = function() {
+                  setTimeout(nextTick, 0);
+                };
+              }
+            }
+            var draining;
+            var queue = [];
+            function nextTick() {
+              draining = true;
+              var i,
+                  oldQueue;
+              var len = queue.length;
+              while (len) {
+                oldQueue = queue;
+                queue = [];
+                i = -1;
+                while (++i < len) {
+                  oldQueue[i]();
+                }
+                len = queue.length;
+              }
+              draining = false;
+            }
+            module.exports = immediate;
+            function immediate(task) {
+              if (queue.push(task) === 1 && !draining) {
+                scheduleDrain();
+              }
+            }
+          }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+        }, {}],
+        3: [function(_dereq_, module, exports) {
+          (function(global) {
+            'use strict';
+            if (typeof global.Promise !== 'function') {
+              global.Promise = _dereq_(1);
+            }
+          }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+        }, {"1": 1}],
+        4: [function(_dereq_, module, exports) {
+          'use strict';
+          var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+            return typeof obj;
+          } : function(obj) {
+            return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+          };
+          function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+              throw new TypeError("Cannot call a class as a function");
+            }
+          }
+          function getIDB() {
+            if (typeof indexedDB !== 'undefined') {
+              return indexedDB;
+            }
+            if (typeof webkitIndexedDB !== 'undefined') {
+              return webkitIndexedDB;
+            }
+            if (typeof mozIndexedDB !== 'undefined') {
+              return mozIndexedDB;
+            }
+            if (typeof OIndexedDB !== 'undefined') {
+              return OIndexedDB;
+            }
+            if (typeof msIndexedDB !== 'undefined') {
+              return msIndexedDB;
+            }
+          }
+          var idb = getIDB();
+          function isIndexedDBValid() {
+            try {
+              if (!idb) {
+                return false;
+              }
+              if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' && navigator.userAgent && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+                return false;
+              }
+              return idb && typeof idb.open === 'function' && typeof IDBKeyRange !== 'undefined';
+            } catch (e) {
+              return false;
+            }
+          }
+          function isWebSQLValid() {
+            return typeof openDatabase === 'function';
+          }
+          function isLocalStorageValid() {
+            try {
+              return typeof localStorage !== 'undefined' && 'setItem' in localStorage && localStorage.setItem;
+            } catch (e) {
+              return false;
+            }
+          }
+          function createBlob(parts, properties) {
+            parts = parts || [];
+            properties = properties || {};
+            try {
+              return new Blob(parts, properties);
+            } catch (e) {
+              if (e.name !== 'TypeError') {
+                throw e;
+              }
+              var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder : typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder : typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : WebKitBlobBuilder;
+              var builder = new Builder();
+              for (var i = 0; i < parts.length; i += 1) {
+                builder.append(parts[i]);
+              }
+              return builder.getBlob(properties.type);
+            }
+          }
+          if (typeof Promise === 'undefined' && typeof _dereq_ !== 'undefined') {
+            _dereq_(3);
+          }
+          var Promise$1 = Promise;
+          function executeCallback(promise, callback) {
+            if (callback) {
+              promise.then(function(result) {
+                callback(null, result);
+              }, function(error) {
+                callback(error);
+              });
+            }
+          }
+          var DETECT_BLOB_SUPPORT_STORE = 'local-forage-detect-blob-support';
+          var supportsBlobs;
+          var dbContexts;
+          function _binStringToArrayBuffer(bin) {
+            var length = bin.length;
+            var buf = new ArrayBuffer(length);
+            var arr = new Uint8Array(buf);
+            for (var i = 0; i < length; i++) {
+              arr[i] = bin.charCodeAt(i);
+            }
+            return buf;
+          }
+          function _checkBlobSupportWithoutCaching(txn) {
+            return new Promise$1(function(resolve) {
+              var blob = createBlob(['']);
+              txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
+              txn.onabort = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                resolve(false);
+              };
+              txn.oncomplete = function() {
+                var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
+                var matchedEdge = navigator.userAgent.match(/Edge\//);
+                resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
+              };
+            })["catch"](function() {
+              return false;
+            });
+          }
+          function _checkBlobSupport(idb) {
+            if (typeof supportsBlobs === 'boolean') {
+              return Promise$1.resolve(supportsBlobs);
+            }
+            return _checkBlobSupportWithoutCaching(idb).then(function(value) {
+              supportsBlobs = value;
+              return supportsBlobs;
+            });
+          }
+          function _deferReadiness(dbInfo) {
+            var dbContext = dbContexts[dbInfo.name];
+            var deferredOperation = {};
+            deferredOperation.promise = new Promise$1(function(resolve) {
+              deferredOperation.resolve = resolve;
+            });
+            dbContext.deferredOperations.push(deferredOperation);
+            if (!dbContext.dbReady) {
+              dbContext.dbReady = deferredOperation.promise;
+            } else {
+              dbContext.dbReady = dbContext.dbReady.then(function() {
+                return deferredOperation.promise;
+              });
+            }
+          }
+          function _advanceReadiness(dbInfo) {
+            var dbContext = dbContexts[dbInfo.name];
+            var deferredOperation = dbContext.deferredOperations.pop();
+            if (deferredOperation) {
+              deferredOperation.resolve();
+            }
+          }
+          function _getConnection(dbInfo, upgradeNeeded) {
+            return new Promise$1(function(resolve, reject) {
+              if (dbInfo.db) {
+                if (upgradeNeeded) {
+                  _deferReadiness(dbInfo);
+                  dbInfo.db.close();
+                } else {
+                  return resolve(dbInfo.db);
+                }
+              }
+              var dbArgs = [dbInfo.name];
+              if (upgradeNeeded) {
+                dbArgs.push(dbInfo.version);
+              }
+              var openreq = idb.open.apply(idb, dbArgs);
+              if (upgradeNeeded) {
+                openreq.onupgradeneeded = function(e) {
+                  var db = openreq.result;
+                  try {
+                    db.createObjectStore(dbInfo.storeName);
+                    if (e.oldVersion <= 1) {
+                      db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
+                    }
+                  } catch (ex) {
+                    if (ex.name === 'ConstraintError') {
+                      console.warn('The database "' + dbInfo.name + '"' + ' has been upgraded from version ' + e.oldVersion + ' to version ' + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
+                    } else {
+                      throw ex;
+                    }
+                  }
+                };
+              }
+              openreq.onerror = function() {
+                reject(openreq.error);
+              };
+              openreq.onsuccess = function() {
+                resolve(openreq.result);
+                _advanceReadiness(dbInfo);
+              };
+            });
+          }
+          function _getOriginalConnection(dbInfo) {
+            return _getConnection(dbInfo, false);
+          }
+          function _getUpgradedConnection(dbInfo) {
+            return _getConnection(dbInfo, true);
+          }
+          function _isUpgradeNeeded(dbInfo, defaultVersion) {
+            if (!dbInfo.db) {
+              return true;
+            }
+            var isNewStore = !dbInfo.db.objectStoreNames.contains(dbInfo.storeName);
+            var isDowngrade = dbInfo.version < dbInfo.db.version;
+            var isUpgrade = dbInfo.version > dbInfo.db.version;
+            if (isDowngrade) {
+              if (dbInfo.version !== defaultVersion) {
+                console.warn('The database "' + dbInfo.name + '"' + ' can\'t be downgraded from version ' + dbInfo.db.version + ' to version ' + dbInfo.version + '.');
+              }
+              dbInfo.version = dbInfo.db.version;
+            }
+            if (isUpgrade || isNewStore) {
+              if (isNewStore) {
+                var incVersion = dbInfo.db.version + 1;
+                if (incVersion > dbInfo.version) {
+                  dbInfo.version = incVersion;
+                }
+              }
+              return true;
+            }
+            return false;
+          }
+          function _encodeBlob(blob) {
+            return new Promise$1(function(resolve, reject) {
+              var reader = new FileReader();
+              reader.onerror = reject;
+              reader.onloadend = function(e) {
+                var base64 = btoa(e.target.result || '');
+                resolve({
+                  __local_forage_encoded_blob: true,
+                  data: base64,
+                  type: blob.type
+                });
+              };
+              reader.readAsBinaryString(blob);
+            });
+          }
+          function _decodeBlob(encodedBlob) {
+            var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
+            return createBlob([arrayBuff], {type: encodedBlob.type});
+          }
+          function _isEncodedBlob(value) {
+            return value && value.__local_forage_encoded_blob;
+          }
+          function _fullyReady(callback) {
+            var self = this;
+            var promise = self._initReady().then(function() {
+              var dbContext = dbContexts[self._dbInfo.name];
+              if (dbContext && dbContext.dbReady) {
+                return dbContext.dbReady;
+              }
+            });
+            promise.then(callback, callback);
+            return promise;
+          }
+          function _initStorage(options) {
+            var self = this;
+            var dbInfo = {db: null};
+            if (options) {
+              for (var i in options) {
+                dbInfo[i] = options[i];
+              }
+            }
+            if (!dbContexts) {
+              dbContexts = {};
+            }
+            var dbContext = dbContexts[dbInfo.name];
+            if (!dbContext) {
+              dbContext = {
+                forages: [],
+                db: null,
+                dbReady: null,
+                deferredOperations: []
+              };
+              dbContexts[dbInfo.name] = dbContext;
+            }
+            dbContext.forages.push(self);
+            if (!self._initReady) {
+              self._initReady = self.ready;
+              self.ready = _fullyReady;
+            }
+            var initPromises = [];
+            function ignoreErrors() {
+              return Promise$1.resolve();
+            }
+            for (var j = 0; j < dbContext.forages.length; j++) {
+              var forage = dbContext.forages[j];
+              if (forage !== self) {
+                initPromises.push(forage._initReady()["catch"](ignoreErrors));
+              }
+            }
+            var forages = dbContext.forages.slice(0);
+            return Promise$1.all(initPromises).then(function() {
+              dbInfo.db = dbContext.db;
+              return _getOriginalConnection(dbInfo);
+            }).then(function(db) {
+              dbInfo.db = db;
+              if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
+                return _getUpgradedConnection(dbInfo);
+              }
+              return db;
+            }).then(function(db) {
+              dbInfo.db = dbContext.db = db;
+              self._dbInfo = dbInfo;
+              for (var k = 0; k < forages.length; k++) {
+                var forage = forages[k];
+                if (forage !== self) {
+                  forage._dbInfo.db = dbInfo.db;
+                  forage._dbInfo.version = dbInfo.version;
+                }
+              }
+            });
+          }
+          function getItem(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                var req = store.get(key);
+                req.onsuccess = function() {
+                  var value = req.result;
+                  if (value === undefined) {
+                    value = null;
+                  }
+                  if (_isEncodedBlob(value)) {
+                    value = _decodeBlob(value);
+                  }
+                  resolve(value);
+                };
+                req.onerror = function() {
+                  reject(req.error);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function iterate(iterator, callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                var req = store.openCursor();
+                var iterationNumber = 1;
+                req.onsuccess = function() {
+                  var cursor = req.result;
+                  if (cursor) {
+                    var value = cursor.value;
+                    if (_isEncodedBlob(value)) {
+                      value = _decodeBlob(value);
+                    }
+                    var result = iterator(value, cursor.key, iterationNumber++);
+                    if (result !== void 0) {
+                      resolve(result);
+                    } else {
+                      cursor["continue"]();
+                    }
+                  } else {
+                    resolve();
+                  }
+                };
+                req.onerror = function() {
+                  reject(req.error);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function setItem(key, value, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = new Promise$1(function(resolve, reject) {
+              var dbInfo;
+              self.ready().then(function() {
+                dbInfo = self._dbInfo;
+                if (value instanceof Blob) {
+                  return _checkBlobSupport(dbInfo.db).then(function(blobSupport) {
+                    if (blobSupport) {
+                      return value;
+                    }
+                    return _encodeBlob(value);
+                  });
+                }
+                return value;
+              }).then(function(value) {
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+                if (value === null) {
+                  value = undefined;
+                }
+                transaction.oncomplete = function() {
+                  if (value === undefined) {
+                    value = null;
+                  }
+                  resolve(value);
+                };
+                transaction.onabort = transaction.onerror = function() {
+                  var err = req.error ? req.error : req.transaction.error;
+                  reject(err);
+                };
+                var req = store.put(value, key);
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function removeItem(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+                var req = store["delete"](key);
+                transaction.oncomplete = function() {
+                  resolve();
+                };
+                transaction.onerror = function() {
+                  reject(req.error);
+                };
+                transaction.onabort = function() {
+                  var err = req.error ? req.error : req.transaction.error;
+                  reject(err);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function clear(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+                var req = store.clear();
+                transaction.oncomplete = function() {
+                  resolve();
+                };
+                transaction.onabort = transaction.onerror = function() {
+                  var err = req.error ? req.error : req.transaction.error;
+                  reject(err);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function length(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                var req = store.count();
+                req.onsuccess = function() {
+                  resolve(req.result);
+                };
+                req.onerror = function() {
+                  reject(req.error);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function key(n, callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              if (n < 0) {
                 resolve(null);
                 return;
               }
-              if (n === 0) {
-                resolve(cursor.key);
-              } else {
-                if (!advanced) {
-                  advanced = true;
-                  cursor.advance(n);
-                } else {
-                  resolve(cursor.key);
-                }
-              }
-            };
-            req.onerror = function() {
-              reject(req.error);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function keys(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-            var req = store.openCursor();
-            var keys = [];
-            req.onsuccess = function() {
-              var cursor = req.result;
-              if (!cursor) {
-                resolve(keys);
-                return;
-              }
-              keys.push(cursor.key);
-              cursor["continue"]();
-            };
-            req.onerror = function() {
-              reject(req.error);
-            };
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      var asyncStorage = {
-        _driver: 'asyncStorage',
-        _initStorage: _initStorage,
-        iterate: iterate,
-        getItem: getItem,
-        setItem: setItem,
-        removeItem: removeItem,
-        clear: clear,
-        length: length,
-        key: key,
-        keys: keys
-      };
-      var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-      var BLOB_TYPE_PREFIX = '~~local_forage_type~';
-      var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
-      var SERIALIZED_MARKER = '__lfsc__:';
-      var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
-      var TYPE_ARRAYBUFFER = 'arbf';
-      var TYPE_BLOB = 'blob';
-      var TYPE_INT8ARRAY = 'si08';
-      var TYPE_UINT8ARRAY = 'ui08';
-      var TYPE_UINT8CLAMPEDARRAY = 'uic8';
-      var TYPE_INT16ARRAY = 'si16';
-      var TYPE_INT32ARRAY = 'si32';
-      var TYPE_UINT16ARRAY = 'ur16';
-      var TYPE_UINT32ARRAY = 'ui32';
-      var TYPE_FLOAT32ARRAY = 'fl32';
-      var TYPE_FLOAT64ARRAY = 'fl64';
-      var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length;
-      function stringToBuffer(serializedString) {
-        var bufferLength = serializedString.length * 0.75;
-        var len = serializedString.length;
-        var i;
-        var p = 0;
-        var encoded1,
-            encoded2,
-            encoded3,
-            encoded4;
-        if (serializedString[serializedString.length - 1] === '=') {
-          bufferLength--;
-          if (serializedString[serializedString.length - 2] === '=') {
-            bufferLength--;
-          }
-        }
-        var buffer = new ArrayBuffer(bufferLength);
-        var bytes = new Uint8Array(buffer);
-        for (i = 0; i < len; i += 4) {
-          encoded1 = BASE_CHARS.indexOf(serializedString[i]);
-          encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
-          encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
-          encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
-          bytes[p++] = encoded1 << 2 | encoded2 >> 4;
-          bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
-          bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
-        }
-        return buffer;
-      }
-      function bufferToString(buffer) {
-        var bytes = new Uint8Array(buffer);
-        var base64String = '';
-        var i;
-        for (i = 0; i < bytes.length; i += 3) {
-          base64String += BASE_CHARS[bytes[i] >> 2];
-          base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
-          base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
-          base64String += BASE_CHARS[bytes[i + 2] & 63];
-        }
-        if (bytes.length % 3 === 2) {
-          base64String = base64String.substring(0, base64String.length - 1) + '=';
-        } else if (bytes.length % 3 === 1) {
-          base64String = base64String.substring(0, base64String.length - 2) + '==';
-        }
-        return base64String;
-      }
-      function serialize(value, callback) {
-        var valueString = '';
-        if (value) {
-          valueString = value.toString();
-        }
-        if (value && (value.toString() === '[object ArrayBuffer]' || value.buffer && value.buffer.toString() === '[object ArrayBuffer]')) {
-          var buffer;
-          var marker = SERIALIZED_MARKER;
-          if (value instanceof ArrayBuffer) {
-            buffer = value;
-            marker += TYPE_ARRAYBUFFER;
-          } else {
-            buffer = value.buffer;
-            if (valueString === '[object Int8Array]') {
-              marker += TYPE_INT8ARRAY;
-            } else if (valueString === '[object Uint8Array]') {
-              marker += TYPE_UINT8ARRAY;
-            } else if (valueString === '[object Uint8ClampedArray]') {
-              marker += TYPE_UINT8CLAMPEDARRAY;
-            } else if (valueString === '[object Int16Array]') {
-              marker += TYPE_INT16ARRAY;
-            } else if (valueString === '[object Uint16Array]') {
-              marker += TYPE_UINT16ARRAY;
-            } else if (valueString === '[object Int32Array]') {
-              marker += TYPE_INT32ARRAY;
-            } else if (valueString === '[object Uint32Array]') {
-              marker += TYPE_UINT32ARRAY;
-            } else if (valueString === '[object Float32Array]') {
-              marker += TYPE_FLOAT32ARRAY;
-            } else if (valueString === '[object Float64Array]') {
-              marker += TYPE_FLOAT64ARRAY;
-            } else {
-              callback(new Error('Failed to get type for BinaryArray'));
-            }
-          }
-          callback(marker + bufferToString(buffer));
-        } else if (valueString === '[object Blob]') {
-          var fileReader = new FileReader();
-          fileReader.onload = function() {
-            var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
-            callback(SERIALIZED_MARKER + TYPE_BLOB + str);
-          };
-          fileReader.readAsArrayBuffer(value);
-        } else {
-          try {
-            callback(JSON.stringify(value));
-          } catch (e) {
-            console.error("Couldn't convert value into a JSON string: ", value);
-            callback(null, e);
-          }
-        }
-      }
-      function deserialize(value) {
-        if (value.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
-          return JSON.parse(value);
-        }
-        var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
-        var type = value.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH);
-        var blobType;
-        if (type === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(serializedString)) {
-          var matcher = serializedString.match(BLOB_TYPE_PREFIX_REGEX);
-          blobType = matcher[1];
-          serializedString = serializedString.substring(matcher[0].length);
-        }
-        var buffer = stringToBuffer(serializedString);
-        switch (type) {
-          case TYPE_ARRAYBUFFER:
-            return buffer;
-          case TYPE_BLOB:
-            return createBlob([buffer], {type: blobType});
-          case TYPE_INT8ARRAY:
-            return new Int8Array(buffer);
-          case TYPE_UINT8ARRAY:
-            return new Uint8Array(buffer);
-          case TYPE_UINT8CLAMPEDARRAY:
-            return new Uint8ClampedArray(buffer);
-          case TYPE_INT16ARRAY:
-            return new Int16Array(buffer);
-          case TYPE_UINT16ARRAY:
-            return new Uint16Array(buffer);
-          case TYPE_INT32ARRAY:
-            return new Int32Array(buffer);
-          case TYPE_UINT32ARRAY:
-            return new Uint32Array(buffer);
-          case TYPE_FLOAT32ARRAY:
-            return new Float32Array(buffer);
-          case TYPE_FLOAT64ARRAY:
-            return new Float64Array(buffer);
-          default:
-            throw new Error('Unkown type: ' + type);
-        }
-      }
-      var localforageSerializer = {
-        serialize: serialize,
-        deserialize: deserialize,
-        stringToBuffer: stringToBuffer,
-        bufferToString: bufferToString
-      };
-      function _initStorage$1(options) {
-        var self = this;
-        var dbInfo = {db: null};
-        if (options) {
-          for (var i in options) {
-            dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
-          }
-        }
-        var dbInfoPromise = new Promise$1(function(resolve, reject) {
-          try {
-            dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
-          } catch (e) {
-            return reject(e);
-          }
-          dbInfo.db.transaction(function(t) {
-            t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function() {
-              self._dbInfo = dbInfo;
-              resolve();
-            }, function(t, error) {
-              reject(error);
-            });
-          });
-        });
-        dbInfo.serializer = localforageSerializer;
-        return dbInfoPromise;
-      }
-      function getItem$1(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function(t, results) {
-                var result = results.rows.length ? results.rows.item(0).value : null;
-                if (result) {
-                  result = dbInfo.serializer.deserialize(result);
-                }
-                resolve(result);
-              }, function(t, error) {
-                reject(error);
-              });
-            });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function iterate$1(iterator, callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function(t, results) {
-                var rows = results.rows;
-                var length = rows.length;
-                for (var i = 0; i < length; i++) {
-                  var item = rows.item(i);
-                  var result = item.value;
-                  if (result) {
-                    result = dbInfo.serializer.deserialize(result);
-                  }
-                  result = iterator(result, item.key, i + 1);
-                  if (result !== void 0) {
-                    resolve(result);
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                var advanced = false;
+                var req = store.openCursor();
+                req.onsuccess = function() {
+                  var cursor = req.result;
+                  if (!cursor) {
+                    resolve(null);
                     return;
                   }
+                  if (n === 0) {
+                    resolve(cursor.key);
+                  } else {
+                    if (!advanced) {
+                      advanced = true;
+                      cursor.advance(n);
+                    } else {
+                      resolve(cursor.key);
+                    }
+                  }
+                };
+                req.onerror = function() {
+                  reject(req.error);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function keys(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                var req = store.openCursor();
+                var keys = [];
+                req.onsuccess = function() {
+                  var cursor = req.result;
+                  if (!cursor) {
+                    resolve(keys);
+                    return;
+                  }
+                  keys.push(cursor.key);
+                  cursor["continue"]();
+                };
+                req.onerror = function() {
+                  reject(req.error);
+                };
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          var asyncStorage = {
+            _driver: 'asyncStorage',
+            _initStorage: _initStorage,
+            iterate: iterate,
+            getItem: getItem,
+            setItem: setItem,
+            removeItem: removeItem,
+            clear: clear,
+            length: length,
+            key: key,
+            keys: keys
+          };
+          var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+          var BLOB_TYPE_PREFIX = '~~local_forage_type~';
+          var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
+          var SERIALIZED_MARKER = '__lfsc__:';
+          var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
+          var TYPE_ARRAYBUFFER = 'arbf';
+          var TYPE_BLOB = 'blob';
+          var TYPE_INT8ARRAY = 'si08';
+          var TYPE_UINT8ARRAY = 'ui08';
+          var TYPE_UINT8CLAMPEDARRAY = 'uic8';
+          var TYPE_INT16ARRAY = 'si16';
+          var TYPE_INT32ARRAY = 'si32';
+          var TYPE_UINT16ARRAY = 'ur16';
+          var TYPE_UINT32ARRAY = 'ui32';
+          var TYPE_FLOAT32ARRAY = 'fl32';
+          var TYPE_FLOAT64ARRAY = 'fl64';
+          var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length;
+          function stringToBuffer(serializedString) {
+            var bufferLength = serializedString.length * 0.75;
+            var len = serializedString.length;
+            var i;
+            var p = 0;
+            var encoded1,
+                encoded2,
+                encoded3,
+                encoded4;
+            if (serializedString[serializedString.length - 1] === '=') {
+              bufferLength--;
+              if (serializedString[serializedString.length - 2] === '=') {
+                bufferLength--;
+              }
+            }
+            var buffer = new ArrayBuffer(bufferLength);
+            var bytes = new Uint8Array(buffer);
+            for (i = 0; i < len; i += 4) {
+              encoded1 = BASE_CHARS.indexOf(serializedString[i]);
+              encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
+              encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
+              encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
+              bytes[p++] = encoded1 << 2 | encoded2 >> 4;
+              bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
+              bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
+            }
+            return buffer;
+          }
+          function bufferToString(buffer) {
+            var bytes = new Uint8Array(buffer);
+            var base64String = '';
+            var i;
+            for (i = 0; i < bytes.length; i += 3) {
+              base64String += BASE_CHARS[bytes[i] >> 2];
+              base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
+              base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
+              base64String += BASE_CHARS[bytes[i + 2] & 63];
+            }
+            if (bytes.length % 3 === 2) {
+              base64String = base64String.substring(0, base64String.length - 1) + '=';
+            } else if (bytes.length % 3 === 1) {
+              base64String = base64String.substring(0, base64String.length - 2) + '==';
+            }
+            return base64String;
+          }
+          function serialize(value, callback) {
+            var valueString = '';
+            if (value) {
+              valueString = value.toString();
+            }
+            if (value && (value.toString() === '[object ArrayBuffer]' || value.buffer && value.buffer.toString() === '[object ArrayBuffer]')) {
+              var buffer;
+              var marker = SERIALIZED_MARKER;
+              if (value instanceof ArrayBuffer) {
+                buffer = value;
+                marker += TYPE_ARRAYBUFFER;
+              } else {
+                buffer = value.buffer;
+                if (valueString === '[object Int8Array]') {
+                  marker += TYPE_INT8ARRAY;
+                } else if (valueString === '[object Uint8Array]') {
+                  marker += TYPE_UINT8ARRAY;
+                } else if (valueString === '[object Uint8ClampedArray]') {
+                  marker += TYPE_UINT8CLAMPEDARRAY;
+                } else if (valueString === '[object Int16Array]') {
+                  marker += TYPE_INT16ARRAY;
+                } else if (valueString === '[object Uint16Array]') {
+                  marker += TYPE_UINT16ARRAY;
+                } else if (valueString === '[object Int32Array]') {
+                  marker += TYPE_INT32ARRAY;
+                } else if (valueString === '[object Uint32Array]') {
+                  marker += TYPE_UINT32ARRAY;
+                } else if (valueString === '[object Float32Array]') {
+                  marker += TYPE_FLOAT32ARRAY;
+                } else if (valueString === '[object Float64Array]') {
+                  marker += TYPE_FLOAT64ARRAY;
+                } else {
+                  callback(new Error('Failed to get type for BinaryArray'));
                 }
-                resolve();
-              }, function(t, error) {
-                reject(error);
+              }
+              callback(marker + bufferToString(buffer));
+            } else if (valueString === '[object Blob]') {
+              var fileReader = new FileReader();
+              fileReader.onload = function() {
+                var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
+                callback(SERIALIZED_MARKER + TYPE_BLOB + str);
+              };
+              fileReader.readAsArrayBuffer(value);
+            } else {
+              try {
+                callback(JSON.stringify(value));
+              } catch (e) {
+                console.error("Couldn't convert value into a JSON string: ", value);
+                callback(null, e);
+              }
+            }
+          }
+          function deserialize(value) {
+            if (value.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
+              return JSON.parse(value);
+            }
+            var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
+            var type = value.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH);
+            var blobType;
+            if (type === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(serializedString)) {
+              var matcher = serializedString.match(BLOB_TYPE_PREFIX_REGEX);
+              blobType = matcher[1];
+              serializedString = serializedString.substring(matcher[0].length);
+            }
+            var buffer = stringToBuffer(serializedString);
+            switch (type) {
+              case TYPE_ARRAYBUFFER:
+                return buffer;
+              case TYPE_BLOB:
+                return createBlob([buffer], {type: blobType});
+              case TYPE_INT8ARRAY:
+                return new Int8Array(buffer);
+              case TYPE_UINT8ARRAY:
+                return new Uint8Array(buffer);
+              case TYPE_UINT8CLAMPEDARRAY:
+                return new Uint8ClampedArray(buffer);
+              case TYPE_INT16ARRAY:
+                return new Int16Array(buffer);
+              case TYPE_UINT16ARRAY:
+                return new Uint16Array(buffer);
+              case TYPE_INT32ARRAY:
+                return new Int32Array(buffer);
+              case TYPE_UINT32ARRAY:
+                return new Uint32Array(buffer);
+              case TYPE_FLOAT32ARRAY:
+                return new Float32Array(buffer);
+              case TYPE_FLOAT64ARRAY:
+                return new Float64Array(buffer);
+              default:
+                throw new Error('Unkown type: ' + type);
+            }
+          }
+          var localforageSerializer = {
+            serialize: serialize,
+            deserialize: deserialize,
+            stringToBuffer: stringToBuffer,
+            bufferToString: bufferToString
+          };
+          function _initStorage$1(options) {
+            var self = this;
+            var dbInfo = {db: null};
+            if (options) {
+              for (var i in options) {
+                dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
+              }
+            }
+            var dbInfoPromise = new Promise$1(function(resolve, reject) {
+              try {
+                dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
+              } catch (e) {
+                return reject(e);
+              }
+              dbInfo.db.transaction(function(t) {
+                t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function() {
+                  self._dbInfo = dbInfo;
+                  resolve();
+                }, function(t, error) {
+                  reject(error);
+                });
               });
             });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function setItem$1(key, value, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            if (value === undefined) {
-              value = null;
+            dbInfo.serializer = localforageSerializer;
+            return dbInfoPromise;
+          }
+          function getItem$1(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
             }
-            var originalValue = value;
-            var dbInfo = self._dbInfo;
-            dbInfo.serializer.serialize(value, function(value, error) {
-              if (error) {
-                reject(error);
-              } else {
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
                 dbInfo.db.transaction(function(t) {
-                  t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function() {
-                    resolve(originalValue);
+                  t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function(t, results) {
+                    var result = results.rows.length ? results.rows.item(0).value : null;
+                    if (result) {
+                      result = dbInfo.serializer.deserialize(result);
+                    }
+                    resolve(result);
                   }, function(t, error) {
                     reject(error);
                   });
-                }, function(sqlError) {
-                  if (sqlError.code === sqlError.QUOTA_ERR) {
-                    reject(sqlError);
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function iterate$1(iterator, callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function(t, results) {
+                    var rows = results.rows;
+                    var length = rows.length;
+                    for (var i = 0; i < length; i++) {
+                      var item = rows.item(i);
+                      var result = item.value;
+                      if (result) {
+                        result = dbInfo.serializer.deserialize(result);
+                      }
+                      result = iterator(result, item.key, i + 1);
+                      if (result !== void 0) {
+                        resolve(result);
+                        return;
+                      }
+                    }
+                    resolve();
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function setItem$1(key, value, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                if (value === undefined) {
+                  value = null;
+                }
+                var originalValue = value;
+                var dbInfo = self._dbInfo;
+                dbInfo.serializer.serialize(value, function(value, error) {
+                  if (error) {
+                    reject(error);
+                  } else {
+                    dbInfo.db.transaction(function(t) {
+                      t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function() {
+                        resolve(originalValue);
+                      }, function(t, error) {
+                        reject(error);
+                      });
+                    }, function(sqlError) {
+                      if (sqlError.code === sqlError.QUOTA_ERR) {
+                        reject(sqlError);
+                      }
+                    });
                   }
                 });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function removeItem$1(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function() {
+                    resolve();
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function clear$1(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function() {
+                    resolve();
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function length$1(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function(t, results) {
+                    var result = results.rows.item(0).c;
+                    resolve(result);
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function key$1(n, callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function(t, results) {
+                    var result = results.rows.length ? results.rows.item(0).key : null;
+                    resolve(result);
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function keys$1(callback) {
+            var self = this;
+            var promise = new Promise$1(function(resolve, reject) {
+              self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                  t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function(t, results) {
+                    var keys = [];
+                    for (var i = 0; i < results.rows.length; i++) {
+                      keys.push(results.rows.item(i).key);
+                    }
+                    resolve(keys);
+                  }, function(t, error) {
+                    reject(error);
+                  });
+                });
+              })["catch"](reject);
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          var webSQLStorage = {
+            _driver: 'webSQLStorage',
+            _initStorage: _initStorage$1,
+            iterate: iterate$1,
+            getItem: getItem$1,
+            setItem: setItem$1,
+            removeItem: removeItem$1,
+            clear: clear$1,
+            length: length$1,
+            key: key$1,
+            keys: keys$1
+          };
+          function _initStorage$2(options) {
+            var self = this;
+            var dbInfo = {};
+            if (options) {
+              for (var i in options) {
+                dbInfo[i] = options[i];
+              }
+            }
+            dbInfo.keyPrefix = dbInfo.name + '/';
+            if (dbInfo.storeName !== self._defaultConfig.storeName) {
+              dbInfo.keyPrefix += dbInfo.storeName + '/';
+            }
+            self._dbInfo = dbInfo;
+            dbInfo.serializer = localforageSerializer;
+            return Promise$1.resolve();
+          }
+          function clear$2(callback) {
+            var self = this;
+            var promise = self.ready().then(function() {
+              var keyPrefix = self._dbInfo.keyPrefix;
+              for (var i = localStorage.length - 1; i >= 0; i--) {
+                var key = localStorage.key(i);
+                if (key.indexOf(keyPrefix) === 0) {
+                  localStorage.removeItem(key);
+                }
               }
             });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function removeItem$1(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function() {
-                resolve();
-              }, function(t, error) {
-                reject(error);
-              });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function getItem$2(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
+            }
+            var promise = self.ready().then(function() {
+              var dbInfo = self._dbInfo;
+              var result = localStorage.getItem(dbInfo.keyPrefix + key);
+              if (result) {
+                result = dbInfo.serializer.deserialize(result);
+              }
+              return result;
             });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function clear$1(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function() {
-                resolve();
-              }, function(t, error) {
-                reject(error);
-              });
-            });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function length$1(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function(t, results) {
-                var result = results.rows.item(0).c;
-                resolve(result);
-              }, function(t, error) {
-                reject(error);
-              });
-            });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function key$1(n, callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function(t, results) {
-                var result = results.rows.length ? results.rows.item(0).key : null;
-                resolve(result);
-              }, function(t, error) {
-                reject(error);
-              });
-            });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function keys$1(callback) {
-        var self = this;
-        var promise = new Promise$1(function(resolve, reject) {
-          self.ready().then(function() {
-            var dbInfo = self._dbInfo;
-            dbInfo.db.transaction(function(t) {
-              t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function(t, results) {
-                var keys = [];
-                for (var i = 0; i < results.rows.length; i++) {
-                  keys.push(results.rows.item(i).key);
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function iterate$2(iterator, callback) {
+            var self = this;
+            var promise = self.ready().then(function() {
+              var dbInfo = self._dbInfo;
+              var keyPrefix = dbInfo.keyPrefix;
+              var keyPrefixLength = keyPrefix.length;
+              var length = localStorage.length;
+              var iterationNumber = 1;
+              for (var i = 0; i < length; i++) {
+                var key = localStorage.key(i);
+                if (key.indexOf(keyPrefix) !== 0) {
+                  continue;
                 }
-                resolve(keys);
-              }, function(t, error) {
-                reject(error);
-              });
+                var value = localStorage.getItem(key);
+                if (value) {
+                  value = dbInfo.serializer.deserialize(value);
+                }
+                value = iterator(value, key.substring(keyPrefixLength), iterationNumber++);
+                if (value !== void 0) {
+                  return value;
+                }
+              }
             });
-          })["catch"](reject);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      var webSQLStorage = {
-        _driver: 'webSQLStorage',
-        _initStorage: _initStorage$1,
-        iterate: iterate$1,
-        getItem: getItem$1,
-        setItem: setItem$1,
-        removeItem: removeItem$1,
-        clear: clear$1,
-        length: length$1,
-        key: key$1,
-        keys: keys$1
-      };
-      function _initStorage$2(options) {
-        var self = this;
-        var dbInfo = {};
-        if (options) {
-          for (var i in options) {
-            dbInfo[i] = options[i];
+            executeCallback(promise, callback);
+            return promise;
           }
-        }
-        dbInfo.keyPrefix = dbInfo.name + '/';
-        if (dbInfo.storeName !== self._defaultConfig.storeName) {
-          dbInfo.keyPrefix += dbInfo.storeName + '/';
-        }
-        self._dbInfo = dbInfo;
-        dbInfo.serializer = localforageSerializer;
-        return Promise$1.resolve();
-      }
-      function clear$2(callback) {
-        var self = this;
-        var promise = self.ready().then(function() {
-          var keyPrefix = self._dbInfo.keyPrefix;
-          for (var i = localStorage.length - 1; i >= 0; i--) {
-            var key = localStorage.key(i);
-            if (key.indexOf(keyPrefix) === 0) {
-              localStorage.removeItem(key);
+          function key$2(n, callback) {
+            var self = this;
+            var promise = self.ready().then(function() {
+              var dbInfo = self._dbInfo;
+              var result;
+              try {
+                result = localStorage.key(n);
+              } catch (error) {
+                result = null;
+              }
+              if (result) {
+                result = result.substring(dbInfo.keyPrefix.length);
+              }
+              return result;
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function keys$2(callback) {
+            var self = this;
+            var promise = self.ready().then(function() {
+              var dbInfo = self._dbInfo;
+              var length = localStorage.length;
+              var keys = [];
+              for (var i = 0; i < length; i++) {
+                if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
+                  keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
+                }
+              }
+              return keys;
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function length$2(callback) {
+            var self = this;
+            var promise = self.keys().then(function(keys) {
+              return keys.length;
+            });
+            executeCallback(promise, callback);
+            return promise;
+          }
+          function removeItem$2(key, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
             }
+            var promise = self.ready().then(function() {
+              var dbInfo = self._dbInfo;
+              localStorage.removeItem(dbInfo.keyPrefix + key);
+            });
+            executeCallback(promise, callback);
+            return promise;
           }
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function getItem$2(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = self.ready().then(function() {
-          var dbInfo = self._dbInfo;
-          var result = localStorage.getItem(dbInfo.keyPrefix + key);
-          if (result) {
-            result = dbInfo.serializer.deserialize(result);
-          }
-          return result;
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function iterate$2(iterator, callback) {
-        var self = this;
-        var promise = self.ready().then(function() {
-          var dbInfo = self._dbInfo;
-          var keyPrefix = dbInfo.keyPrefix;
-          var keyPrefixLength = keyPrefix.length;
-          var length = localStorage.length;
-          var iterationNumber = 1;
-          for (var i = 0; i < length; i++) {
-            var key = localStorage.key(i);
-            if (key.indexOf(keyPrefix) !== 0) {
-              continue;
+          function setItem$2(key, value, callback) {
+            var self = this;
+            if (typeof key !== 'string') {
+              console.warn(key + ' used as a key, but it is not a string.');
+              key = String(key);
             }
-            var value = localStorage.getItem(key);
-            if (value) {
-              value = dbInfo.serializer.deserialize(value);
-            }
-            value = iterator(value, key.substring(keyPrefixLength), iterationNumber++);
-            if (value !== void 0) {
-              return value;
-            }
-          }
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function key$2(n, callback) {
-        var self = this;
-        var promise = self.ready().then(function() {
-          var dbInfo = self._dbInfo;
-          var result;
-          try {
-            result = localStorage.key(n);
-          } catch (error) {
-            result = null;
-          }
-          if (result) {
-            result = result.substring(dbInfo.keyPrefix.length);
-          }
-          return result;
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function keys$2(callback) {
-        var self = this;
-        var promise = self.ready().then(function() {
-          var dbInfo = self._dbInfo;
-          var length = localStorage.length;
-          var keys = [];
-          for (var i = 0; i < length; i++) {
-            if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
-              keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
-            }
-          }
-          return keys;
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function length$2(callback) {
-        var self = this;
-        var promise = self.keys().then(function(keys) {
-          return keys.length;
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function removeItem$2(key, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = self.ready().then(function() {
-          var dbInfo = self._dbInfo;
-          localStorage.removeItem(dbInfo.keyPrefix + key);
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      function setItem$2(key, value, callback) {
-        var self = this;
-        if (typeof key !== 'string') {
-          console.warn(key + ' used as a key, but it is not a string.');
-          key = String(key);
-        }
-        var promise = self.ready().then(function() {
-          if (value === undefined) {
-            value = null;
-          }
-          var originalValue = value;
-          return new Promise$1(function(resolve, reject) {
-            var dbInfo = self._dbInfo;
-            dbInfo.serializer.serialize(value, function(value, error) {
-              if (error) {
-                reject(error);
-              } else {
-                try {
-                  localStorage.setItem(dbInfo.keyPrefix + key, value);
-                  resolve(originalValue);
-                } catch (e) {
-                  if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-                    reject(e);
+            var promise = self.ready().then(function() {
+              if (value === undefined) {
+                value = null;
+              }
+              var originalValue = value;
+              return new Promise$1(function(resolve, reject) {
+                var dbInfo = self._dbInfo;
+                dbInfo.serializer.serialize(value, function(value, error) {
+                  if (error) {
+                    reject(error);
+                  } else {
+                    try {
+                      localStorage.setItem(dbInfo.keyPrefix + key, value);
+                      resolve(originalValue);
+                    } catch (e) {
+                      if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                        reject(e);
+                      }
+                      reject(e);
+                    }
                   }
-                  reject(e);
-                }
-              }
+                });
+              });
             });
-          });
-        });
-        executeCallback(promise, callback);
-        return promise;
-      }
-      var localStorageWrapper = {
-        _driver: 'localStorageWrapper',
-        _initStorage: _initStorage$2,
-        iterate: iterate$2,
-        getItem: getItem$2,
-        setItem: setItem$2,
-        removeItem: removeItem$2,
-        clear: clear$2,
-        length: length$2,
-        key: key$2,
-        keys: keys$2
-      };
-      function executeTwoCallbacks(promise, callback, errorCallback) {
-        if (typeof callback === 'function') {
-          promise.then(callback);
-        }
-        if (typeof errorCallback === 'function') {
-          promise["catch"](errorCallback);
-        }
-      }
-      var CustomDrivers = {};
-      var DriverType = {
-        INDEXEDDB: 'asyncStorage',
-        LOCALSTORAGE: 'localStorageWrapper',
-        WEBSQL: 'webSQLStorage'
-      };
-      var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
-      var LibraryMethods = ['clear', 'getItem', 'iterate', 'key', 'keys', 'length', 'removeItem', 'setItem'];
-      var DefaultConfig = {
-        description: '',
-        driver: DefaultDriverOrder.slice(),
-        name: 'localforage',
-        size: 4980736,
-        storeName: 'keyvaluepairs',
-        version: 1.0
-      };
-      var driverSupport = {};
-      driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
-      driverSupport[DriverType.WEBSQL] = isWebSQLValid();
-      driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
-      var isArray = Array.isArray || function(arg) {
-        return Object.prototype.toString.call(arg) === '[object Array]';
-      };
-      function callWhenReady(localForageInstance, libraryMethod) {
-        localForageInstance[libraryMethod] = function() {
-          var _args = arguments;
-          return localForageInstance.ready().then(function() {
-            return localForageInstance[libraryMethod].apply(localForageInstance, _args);
-          });
-        };
-      }
-      function extend() {
-        for (var i = 1; i < arguments.length; i++) {
-          var arg = arguments[i];
-          if (arg) {
-            for (var key in arg) {
-              if (arg.hasOwnProperty(key)) {
-                if (isArray(arg[key])) {
-                  arguments[0][key] = arg[key].slice();
-                } else {
-                  arguments[0][key] = arg[key];
+            executeCallback(promise, callback);
+            return promise;
+          }
+          var localStorageWrapper = {
+            _driver: 'localStorageWrapper',
+            _initStorage: _initStorage$2,
+            iterate: iterate$2,
+            getItem: getItem$2,
+            setItem: setItem$2,
+            removeItem: removeItem$2,
+            clear: clear$2,
+            length: length$2,
+            key: key$2,
+            keys: keys$2
+          };
+          function executeTwoCallbacks(promise, callback, errorCallback) {
+            if (typeof callback === 'function') {
+              promise.then(callback);
+            }
+            if (typeof errorCallback === 'function') {
+              promise["catch"](errorCallback);
+            }
+          }
+          var CustomDrivers = {};
+          var DriverType = {
+            INDEXEDDB: 'asyncStorage',
+            LOCALSTORAGE: 'localStorageWrapper',
+            WEBSQL: 'webSQLStorage'
+          };
+          var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
+          var LibraryMethods = ['clear', 'getItem', 'iterate', 'key', 'keys', 'length', 'removeItem', 'setItem'];
+          var DefaultConfig = {
+            description: '',
+            driver: DefaultDriverOrder.slice(),
+            name: 'localforage',
+            size: 4980736,
+            storeName: 'keyvaluepairs',
+            version: 1.0
+          };
+          var driverSupport = {};
+          driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
+          driverSupport[DriverType.WEBSQL] = isWebSQLValid();
+          driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
+          var isArray = Array.isArray || function(arg) {
+            return Object.prototype.toString.call(arg) === '[object Array]';
+          };
+          function callWhenReady(localForageInstance, libraryMethod) {
+            localForageInstance[libraryMethod] = function() {
+              var _args = arguments;
+              return localForageInstance.ready().then(function() {
+                return localForageInstance[libraryMethod].apply(localForageInstance, _args);
+              });
+            };
+          }
+          function extend() {
+            for (var i = 1; i < arguments.length; i++) {
+              var arg = arguments[i];
+              if (arg) {
+                for (var key in arg) {
+                  if (arg.hasOwnProperty(key)) {
+                    if (isArray(arg[key])) {
+                      arguments[0][key] = arg[key].slice();
+                    } else {
+                      arguments[0][key] = arg[key];
+                    }
+                  }
                 }
               }
             }
+            return arguments[0];
           }
-        }
-        return arguments[0];
-      }
-      function isLibraryDriver(driverName) {
-        for (var driver in DriverType) {
-          if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
-            return true;
-          }
-        }
-        return false;
-      }
-      var LocalForage = function() {
-        function LocalForage(options) {
-          _classCallCheck(this, LocalForage);
-          this.INDEXEDDB = DriverType.INDEXEDDB;
-          this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
-          this.WEBSQL = DriverType.WEBSQL;
-          this._defaultConfig = extend({}, DefaultConfig);
-          this._config = extend({}, this._defaultConfig, options);
-          this._driverSet = null;
-          this._initDriver = null;
-          this._ready = false;
-          this._dbInfo = null;
-          this._wrapLibraryMethodsWithReady();
-          this.setDriver(this._config.driver);
-        }
-        LocalForage.prototype.config = function config(options) {
-          if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-            if (this._ready) {
-              return new Error("Can't call config() after localforage " + 'has been used.');
-            }
-            for (var i in options) {
-              if (i === 'storeName') {
-                options[i] = options[i].replace(/\W/g, '_');
+          function isLibraryDriver(driverName) {
+            for (var driver in DriverType) {
+              if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
+                return true;
               }
-              this._config[i] = options[i];
             }
-            if ('driver' in options && options.driver) {
+            return false;
+          }
+          var LocalForage = function() {
+            function LocalForage(options) {
+              _classCallCheck(this, LocalForage);
+              this.INDEXEDDB = DriverType.INDEXEDDB;
+              this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
+              this.WEBSQL = DriverType.WEBSQL;
+              this._defaultConfig = extend({}, DefaultConfig);
+              this._config = extend({}, this._defaultConfig, options);
+              this._driverSet = null;
+              this._initDriver = null;
+              this._ready = false;
+              this._dbInfo = null;
+              this._wrapLibraryMethodsWithReady();
               this.setDriver(this._config.driver);
             }
-            return true;
-          } else if (typeof options === 'string') {
-            return this._config[options];
-          } else {
-            return this._config;
-          }
-        };
-        LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
-          var promise = new Promise$1(function(resolve, reject) {
-            try {
-              var driverName = driverObject._driver;
-              var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
-              var namingError = new Error('Custom driver name already in use: ' + driverObject._driver);
-              if (!driverObject._driver) {
-                reject(complianceError);
-                return;
-              }
-              if (isLibraryDriver(driverObject._driver)) {
-                reject(namingError);
-                return;
-              }
-              var customDriverMethods = LibraryMethods.concat('_initStorage');
-              for (var i = 0; i < customDriverMethods.length; i++) {
-                var customDriverMethod = customDriverMethods[i];
-                if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
-                  reject(complianceError);
-                  return;
+            LocalForage.prototype.config = function config(options) {
+              if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+                if (this._ready) {
+                  return new Error("Can't call config() after localforage " + 'has been used.');
                 }
+                for (var i in options) {
+                  if (i === 'storeName') {
+                    options[i] = options[i].replace(/\W/g, '_');
+                  }
+                  this._config[i] = options[i];
+                }
+                if ('driver' in options && options.driver) {
+                  this.setDriver(this._config.driver);
+                }
+                return true;
+              } else if (typeof options === 'string') {
+                return this._config[options];
+              } else {
+                return this._config;
               }
-              var supportPromise = Promise$1.resolve(true);
-              if ('_support' in driverObject) {
-                if (driverObject._support && typeof driverObject._support === 'function') {
-                  supportPromise = driverObject._support();
+            };
+            LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
+              var promise = new Promise$1(function(resolve, reject) {
+                try {
+                  var driverName = driverObject._driver;
+                  var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
+                  var namingError = new Error('Custom driver name already in use: ' + driverObject._driver);
+                  if (!driverObject._driver) {
+                    reject(complianceError);
+                    return;
+                  }
+                  if (isLibraryDriver(driverObject._driver)) {
+                    reject(namingError);
+                    return;
+                  }
+                  var customDriverMethods = LibraryMethods.concat('_initStorage');
+                  for (var i = 0; i < customDriverMethods.length; i++) {
+                    var customDriverMethod = customDriverMethods[i];
+                    if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
+                      reject(complianceError);
+                      return;
+                    }
+                  }
+                  var supportPromise = Promise$1.resolve(true);
+                  if ('_support' in driverObject) {
+                    if (driverObject._support && typeof driverObject._support === 'function') {
+                      supportPromise = driverObject._support();
+                    } else {
+                      supportPromise = Promise$1.resolve(!!driverObject._support);
+                    }
+                  }
+                  supportPromise.then(function(supportResult) {
+                    driverSupport[driverName] = supportResult;
+                    CustomDrivers[driverName] = driverObject;
+                    resolve();
+                  }, reject);
+                } catch (e) {
+                  reject(e);
+                }
+              });
+              executeTwoCallbacks(promise, callback, errorCallback);
+              return promise;
+            };
+            LocalForage.prototype.driver = function driver() {
+              return this._driver || null;
+            };
+            LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
+              var self = this;
+              var getDriverPromise = Promise$1.resolve().then(function() {
+                if (isLibraryDriver(driverName)) {
+                  switch (driverName) {
+                    case self.INDEXEDDB:
+                      return asyncStorage;
+                    case self.LOCALSTORAGE:
+                      return localStorageWrapper;
+                    case self.WEBSQL:
+                      return webSQLStorage;
+                  }
+                } else if (CustomDrivers[driverName]) {
+                  return CustomDrivers[driverName];
                 } else {
-                  supportPromise = Promise$1.resolve(!!driverObject._support);
+                  throw new Error('Driver not found.');
                 }
+              });
+              executeTwoCallbacks(getDriverPromise, callback, errorCallback);
+              return getDriverPromise;
+            };
+            LocalForage.prototype.getSerializer = function getSerializer(callback) {
+              var serializerPromise = Promise$1.resolve(localforageSerializer);
+              executeTwoCallbacks(serializerPromise, callback);
+              return serializerPromise;
+            };
+            LocalForage.prototype.ready = function ready(callback) {
+              var self = this;
+              var promise = self._driverSet.then(function() {
+                if (self._ready === null) {
+                  self._ready = self._initDriver();
+                }
+                return self._ready;
+              });
+              executeTwoCallbacks(promise, callback, callback);
+              return promise;
+            };
+            LocalForage.prototype.setDriver = function setDriver(drivers, callback, errorCallback) {
+              var self = this;
+              if (!isArray(drivers)) {
+                drivers = [drivers];
               }
-              supportPromise.then(function(supportResult) {
-                driverSupport[driverName] = supportResult;
-                CustomDrivers[driverName] = driverObject;
-                resolve();
-              }, reject);
-            } catch (e) {
-              reject(e);
-            }
-          });
-          executeTwoCallbacks(promise, callback, errorCallback);
-          return promise;
-        };
-        LocalForage.prototype.driver = function driver() {
-          return this._driver || null;
-        };
-        LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
-          var self = this;
-          var getDriverPromise = Promise$1.resolve().then(function() {
-            if (isLibraryDriver(driverName)) {
-              switch (driverName) {
-                case self.INDEXEDDB:
-                  return asyncStorage;
-                case self.LOCALSTORAGE:
-                  return localStorageWrapper;
-                case self.WEBSQL:
-                  return webSQLStorage;
+              var supportedDrivers = this._getSupportedDrivers(drivers);
+              function setDriverToConfig() {
+                self._config.driver = self.driver();
               }
-            } else if (CustomDrivers[driverName]) {
-              return CustomDrivers[driverName];
-            } else {
-              throw new Error('Driver not found.');
-            }
-          });
-          executeTwoCallbacks(getDriverPromise, callback, errorCallback);
-          return getDriverPromise;
-        };
-        LocalForage.prototype.getSerializer = function getSerializer(callback) {
-          var serializerPromise = Promise$1.resolve(localforageSerializer);
-          executeTwoCallbacks(serializerPromise, callback);
-          return serializerPromise;
-        };
-        LocalForage.prototype.ready = function ready(callback) {
-          var self = this;
-          var promise = self._driverSet.then(function() {
-            if (self._ready === null) {
-              self._ready = self._initDriver();
-            }
-            return self._ready;
-          });
-          executeTwoCallbacks(promise, callback, callback);
-          return promise;
-        };
-        LocalForage.prototype.setDriver = function setDriver(drivers, callback, errorCallback) {
-          var self = this;
-          if (!isArray(drivers)) {
-            drivers = [drivers];
-          }
-          var supportedDrivers = this._getSupportedDrivers(drivers);
-          function setDriverToConfig() {
-            self._config.driver = self.driver();
-          }
-          function initDriver(supportedDrivers) {
-            return function() {
-              var currentDriverIndex = 0;
-              function driverPromiseLoop() {
-                while (currentDriverIndex < supportedDrivers.length) {
-                  var driverName = supportedDrivers[currentDriverIndex];
-                  currentDriverIndex++;
-                  self._dbInfo = null;
-                  self._ready = null;
-                  return self.getDriver(driverName).then(function(driver) {
-                    self._extend(driver);
+              function initDriver(supportedDrivers) {
+                return function() {
+                  var currentDriverIndex = 0;
+                  function driverPromiseLoop() {
+                    while (currentDriverIndex < supportedDrivers.length) {
+                      var driverName = supportedDrivers[currentDriverIndex];
+                      currentDriverIndex++;
+                      self._dbInfo = null;
+                      self._ready = null;
+                      return self.getDriver(driverName).then(function(driver) {
+                        self._extend(driver);
+                        setDriverToConfig();
+                        self._ready = self._initStorage(self._config);
+                        return self._ready;
+                      })["catch"](driverPromiseLoop);
+                    }
                     setDriverToConfig();
-                    self._ready = self._initStorage(self._config);
-                    return self._ready;
-                  })["catch"](driverPromiseLoop);
-                }
+                    var error = new Error('No available storage method found.');
+                    self._driverSet = Promise$1.reject(error);
+                    return self._driverSet;
+                  }
+                  return driverPromiseLoop();
+                };
+              }
+              var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function() {
+                return Promise$1.resolve();
+              }) : Promise$1.resolve();
+              this._driverSet = oldDriverSetDone.then(function() {
+                var driverName = supportedDrivers[0];
+                self._dbInfo = null;
+                self._ready = null;
+                return self.getDriver(driverName).then(function(driver) {
+                  self._driver = driver._driver;
+                  setDriverToConfig();
+                  self._wrapLibraryMethodsWithReady();
+                  self._initDriver = initDriver(supportedDrivers);
+                });
+              })["catch"](function() {
                 setDriverToConfig();
                 var error = new Error('No available storage method found.');
                 self._driverSet = Promise$1.reject(error);
                 return self._driverSet;
-              }
-              return driverPromiseLoop();
+              });
+              executeTwoCallbacks(this._driverSet, callback, errorCallback);
+              return this._driverSet;
             };
-          }
-          var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function() {
-            return Promise$1.resolve();
-          }) : Promise$1.resolve();
-          this._driverSet = oldDriverSetDone.then(function() {
-            var driverName = supportedDrivers[0];
-            self._dbInfo = null;
-            self._ready = null;
-            return self.getDriver(driverName).then(function(driver) {
-              self._driver = driver._driver;
-              setDriverToConfig();
-              self._wrapLibraryMethodsWithReady();
-              self._initDriver = initDriver(supportedDrivers);
-            });
-          })["catch"](function() {
-            setDriverToConfig();
-            var error = new Error('No available storage method found.');
-            self._driverSet = Promise$1.reject(error);
-            return self._driverSet;
-          });
-          executeTwoCallbacks(this._driverSet, callback, errorCallback);
-          return this._driverSet;
-        };
-        LocalForage.prototype.supports = function supports(driverName) {
-          return !!driverSupport[driverName];
-        };
-        LocalForage.prototype._extend = function _extend(libraryMethodsAndProperties) {
-          extend(this, libraryMethodsAndProperties);
-        };
-        LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
-          var supportedDrivers = [];
-          for (var i = 0,
-              len = drivers.length; i < len; i++) {
-            var driverName = drivers[i];
-            if (this.supports(driverName)) {
-              supportedDrivers.push(driverName);
-            }
-          }
-          return supportedDrivers;
-        };
-        LocalForage.prototype._wrapLibraryMethodsWithReady = function _wrapLibraryMethodsWithReady() {
-          for (var i = 0; i < LibraryMethods.length; i++) {
-            callWhenReady(this, LibraryMethods[i]);
-          }
-        };
-        LocalForage.prototype.createInstance = function createInstance(options) {
-          return new LocalForage(options);
-        };
-        return LocalForage;
-      }();
-      var localforage_js = new LocalForage();
-      module.exports = localforage_js;
-    }, {"3": 3}]
-  }, {}, [4])(4);
+            LocalForage.prototype.supports = function supports(driverName) {
+              return !!driverSupport[driverName];
+            };
+            LocalForage.prototype._extend = function _extend(libraryMethodsAndProperties) {
+              extend(this, libraryMethodsAndProperties);
+            };
+            LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
+              var supportedDrivers = [];
+              for (var i = 0,
+                  len = drivers.length; i < len; i++) {
+                var driverName = drivers[i];
+                if (this.supports(driverName)) {
+                  supportedDrivers.push(driverName);
+                }
+              }
+              return supportedDrivers;
+            };
+            LocalForage.prototype._wrapLibraryMethodsWithReady = function _wrapLibraryMethodsWithReady() {
+              for (var i = 0; i < LibraryMethods.length; i++) {
+                callWhenReady(this, LibraryMethods[i]);
+              }
+            };
+            LocalForage.prototype.createInstance = function createInstance(options) {
+              return new LocalForage(options);
+            };
+            return LocalForage;
+          }();
+          var localforage_js = new LocalForage();
+          module.exports = localforage_js;
+        }, {"3": 3}]
+      }, {}, [4])(4);
+    });
+  })($__require('38'));
+  return module.exports;
 });
 
-})();
-$__System.register("4c", ["45", "a", "b", "4a", "4b"], function (_export) {
-  var _Promise, _createClass, _classCallCheck, _Object$assign, localForage, supportsNav, AckOffline, QueModel;
+$__System.registerDynamic("4d", ["4c"], true, function($__require, exports, module) {
+  ;
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  module.exports = $__require('4c');
+  return module.exports;
+});
+
+$__System.register("4e", ["43", "48", "b", "c", "4d"], function (_export) {
+  var _Promise, _Object$assign, _createClass, _classCallCheck, localForage, supportsNav, AckOffline, QueModel;
 
   return {
     setters: [function (_2) {
       _Promise = _2["default"];
-    }, function (_a) {
-      _createClass = _a["default"];
+    }, function (_3) {
+      _Object$assign = _3["default"];
     }, function (_b) {
-      _classCallCheck = _b["default"];
-    }, function (_a2) {
-      _Object$assign = _a2["default"];
-    }, function (_b2) {
-      localForage = _b2["default"];
+      _createClass = _b["default"];
+    }, function (_c) {
+      _classCallCheck = _c["default"];
+    }, function (_d) {
+      localForage = _d["default"];
     }],
     execute: function () {
+      //import localForage from "./localforage-build"
+
       "use strict";
 
       supportsNav = typeof navigator != 'undefined';
@@ -38199,10 +39938,10 @@ $__System.register("4c", ["45", "a", "b", "4a", "4b"], function (_export) {
     }
   };
 });
-$__System.register("4d", ["6", "4b", "4c"], function (_export) {
+$__System.register("4f", ["2", "7", "4e"], function (_export) {
   "use strict";
 
-  var sync, promise, localForage, AckOffline;
+  var localForage, sync, promise, AckOffline;
 
   function testBasicSetCache(data) {
     expect(typeof data).toEqual('object');
@@ -38211,12 +39950,12 @@ $__System.register("4d", ["6", "4b", "4c"], function (_export) {
 
   return {
     setters: [function (_) {
-      sync = _.sync;
-      promise = _.promise;
-    }, function (_b) {
-      localForage = _b["default"];
-    }, function (_c) {
-      AckOffline = _c["default"];
+      localForage = _["default"];
+    }, function (_2) {
+      sync = _2.sync;
+      promise = _2.promise;
+    }, function (_e) {
+      AckOffline = _e["default"];
     }],
     execute: function () {
       _export("default", function () {
@@ -38543,7 +40282,7 @@ $__System.register("4d", ["6", "4b", "4c"], function (_export) {
     }
   };
 });
-$__System.register("1", ["6", "4d"], function (_export) {
+$__System.register("1", ["7", "4f"], function (_export) {
   "use strict";
 
   var _module, testOfflineStorage, testApp;
@@ -38551,8 +40290,8 @@ $__System.register("1", ["6", "4d"], function (_export) {
   return {
     setters: [function (_) {
       _module = _.module;
-    }, function (_d) {
-      testOfflineStorage = _d["default"];
+    }, function (_f) {
+      testOfflineStorage = _f["default"];
     }],
     execute: function () {
       testApp = angular.module('test-ack-angular', ['ngMockE2E']).name;
