@@ -35944,7 +35944,7 @@ $__System.registerDynamic("6", ["5"], true, function($__require, exports, module
 $__System.register('7', ['6'], function (_export) {
   'use strict';
 
-  var mocks, _module;
+  var mocks, _module, inject;
 
   _export('createDepject', createDepject);
 
@@ -36087,6 +36087,10 @@ $__System.register('7', ['6'], function (_export) {
 
       _export('module', _module);
 
+      inject = mocks.inject;
+
+      _export('inject', inject);
+
       _export('default', {
         sync: sync,
         async: async,
@@ -36094,7 +36098,8 @@ $__System.register('7', ['6'], function (_export) {
         syncject: syncject,
         asyncject: asyncject,
         promiseject: promiseject,
-        module: mocks.module
+        module: mocks.module,
+        inject: mocks.inject
       });
     }
   };
