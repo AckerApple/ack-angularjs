@@ -120,6 +120,7 @@ export function promiseject(args, callback){
 }
 
 export let module = mocks.module;
+export let inject = mocks.inject;
 
 export default {
   sync: sync,
@@ -128,5 +129,6 @@ export default {
   syncject: syncject,
   asyncject: asyncject,
   promiseject: promiseject,
-  module: mocks.module
+  module: mocks.module,
+  inject: mocks.inject
 }
