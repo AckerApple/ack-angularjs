@@ -1,6 +1,12 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.5.3] - 2016-08-03
+### Breaking Change
+- removed webpack
+### Added
+- height/width/max-height/max-width transition classes
+
 ## [1.4.4] - 2016-08-03
 ### Updated
 - ack-css-boot

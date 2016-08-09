@@ -1,3 +1,16 @@
+.animate-max-width{
+  transition: max-width linear 0.3s;
+}
+.animate-max-height{
+  transition: max-height linear 0.3s;
+}
+.animate-width{
+  transition: width linear 0.3s;
+}
+.animate-height{
+  transition: height linear 0.3s;
+}
+
 /* requires angular-animate */
 .animate-fade{
   opacity:1;

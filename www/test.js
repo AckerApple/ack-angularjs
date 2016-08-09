@@ -37711,15 +37711,29 @@ $__System.registerDynamic("49", [], true, function($__require, exports, module) 
   function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
       return setTimeout(fun, 0);
-    } else {
-      return cachedSetTimeout.call(null, fun, 0);
+    }
+    try {
+      return cachedSetTimeout(fun, 0);
+    } catch (e) {
+      try {
+        return cachedSetTimeout.call(null, fun, 0);
+      } catch (e) {
+        return cachedSetTimeout.call(this, fun, 0);
+      }
     }
   }
   function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
-      clearTimeout(marker);
-    } else {
-      cachedClearTimeout.call(null, marker);
+      return clearTimeout(marker);
+    }
+    try {
+      return cachedClearTimeout(marker);
+    } catch (e) {
+      try {
+        return cachedClearTimeout.call(null, marker);
+      } catch (e) {
+        return cachedClearTimeout.call(this, marker);
+      }
     }
   }
   var queue = [];
