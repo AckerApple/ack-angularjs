@@ -16,6 +16,10 @@ html.font-helvetica.bg-black(lang="en" ng-app="ack-angular")
       .margin-bottom-lg
         h2 General Directives
 
+        h3 screen-width-model
+        .pad(screen-width-model="screenSize")
+          |Current Screen Size: {{ screenSize }}
+
         h3 select-on
         .pad
           input(select-on="selectOn" select-then="selectOn=false" value="text to select")

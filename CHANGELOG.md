@@ -1,6 +1,11 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.5.3] - 2016-08-09
+### Added
+- module structure
+- directive screen-width-model
+
 ## [1.5.3] - 2016-08-03
 ### Breaking Change
 - removed webpack
