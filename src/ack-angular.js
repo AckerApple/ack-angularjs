@@ -13,6 +13,7 @@ export default angular.module('ack-angular', [
   'ngAnimate',
   'ng-fx',
   ackNgDirectives,
-  ackNgFilters
+  ackNgFilters,
+  ackNgServices
 ])
 .name

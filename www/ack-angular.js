@@ -48891,7 +48891,7 @@ $__System.register('1', ['68', '81', '3c', '6a', '7d'], function (_export) {
       ngFx = _d['default'];
     }],
     execute: function () {
-      _export('default', angular.module('ack-angular', ['ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters]).name);
+      _export('default', angular.module('ack-angular', ['ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters, ackNgServices]).name);
     }
   };
 });
