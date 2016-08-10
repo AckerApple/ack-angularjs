@@ -1,12 +1,9 @@
-const apiConfig = {
-  baseUrl:'',
-  config:{}
-}
-
-
 export default class AckApi {
   constructor($http, AckOffline){
-    this.config = apiConfig
+    this.config = {
+      baseUrl:'',
+      config:{}
+    }
     this.$http = $http
     this.AckOffline = AckOffline
   }

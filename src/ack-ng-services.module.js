@@ -6,5 +6,4 @@ export default angular.module('ack-ng-services', [])
 .service('ack', function(){return ack})
 .service('AckOffline', AckOffline)
 .service('AckApi', AckApi)
-.controller('AckApiControl', AckApi)
 .name
