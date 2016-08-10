@@ -3057,7 +3057,7 @@ $__System.registerDynamic("2", ["3"], true, function($__require, exports, module
 });
 
 $__System.register("4", ["5", "6", "7"], function (_export) {
-  var _createClass, _classCallCheck, _Object$assign, apiConfig, AckApi;
+  var _createClass, _classCallCheck, _Object$assign, AckApi;
 
   return {
     setters: [function (_) {
@@ -3070,16 +3070,14 @@ $__System.register("4", ["5", "6", "7"], function (_export) {
     execute: function () {
       "use strict";
 
-      apiConfig = {
-        baseUrl: '',
-        config: {}
-      };
-
       AckApi = (function () {
         function AckApi($http, AckOffline) {
           _classCallCheck(this, AckApi);
 
-          this.config = apiConfig;
+          this.config = {
+            baseUrl: '',
+            config: {}
+          };
           this.$http = $http;
           this.AckOffline = AckOffline;
         }
@@ -6219,6 +6217,29 @@ $__System.register('3c', ['2', '4', '3b'], function (_export) {
   'use strict';
 
   var ack, AckApi, AckOffline;
+
+  function urlVars($window) {
+    var fetcher = function fetcher() {
+      var regex = /[?&]([^=#]+)=([^&#]*)/g,
+          url = $window.location.href,
+          params = {},
+          match;
+
+      while (match = regex.exec(url)) {
+        params[match[1]] = match[2];
+      }
+      return params;
+    };
+
+    /** case in-sensative variable search */
+    fetcher.get = function (name, param) {
+      var a = ack(fetcher());
+      return a.apply.get(a, arguments);
+    };
+
+    return fetcher;
+  }
+
   return {
     setters: [function (_) {
       ack = _['default'];
@@ -6230,7 +6251,9 @@ $__System.register('3c', ['2', '4', '3b'], function (_export) {
     execute: function () {
       _export('default', angular.module('ack-ng-services', []).service('ack', function () {
         return ack;
-      }).service('AckOffline', AckOffline).service('AckApi', AckApi).name);
+      }).service('AckOffline', AckOffline).service('AckApi', AckApi).service('urlVars', urlVars).name);
+
+      urlVars.$inject = ['$window'];
     }
   };
 });
