@@ -1,4 +1,4 @@
-import ack from 'ack-x/dist/ack-x-min'
+import ack from 'ack-x/index-browser'
 import AckApi from './ack-api.service'
 import AckOffline from './ack-offline.service'
 
@@ -25,7 +25,7 @@ function urlVars($window){
   /** case in-sensative variable search */
   fetcher.get = function(name, param){
     const a = ack( fetcher() )
-    return a.apply.get(a, arguments)
+    return a.get.apply(a, arguments)
   }
 
   return fetcher
