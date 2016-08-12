@@ -39649,23 +39649,6 @@ $__System.register("4e", ["43", "48", "b", "c", "4d"], function (_export) {
             var expired = stamp <= diff;
             return expires && expired ? true : false;
           }
-        }, {
-          key: "paramCache",
-          value: function paramCache(name) {
-            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-            options.param = options.param || [];
-            return this.getCache(name, options);
-          }
-        }, {
-          key: "paramSaveCache",
-          value: function paramSaveCache(name, options) {
-            var _this = this;
-
-            return this.paramCache(name, options).then(function (items) {
-              return _this.setCache(name, items);
-            });
-          }
 
           /**
             Creates que handler. Returns self. Most likely, use newQueModel
@@ -39695,12 +39678,12 @@ $__System.register("4e", ["43", "48", "b", "c", "4d"], function (_export) {
         }, {
           key: "addQueModel",
           value: function addQueModel(name) {
-            var _this2 = this;
+            var _this = this;
 
             var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
             return this.registerQueueHandler(name, function (trans) {
-              var prom = _this2.$http(trans);
+              var prom = _this.$http(trans);
 
               if (options.onData) {
                 prom = prom.then(function (response) {
@@ -39711,8 +39694,25 @@ $__System.register("4e", ["43", "48", "b", "c", "4d"], function (_export) {
               }
 
               return prom["catch"](function (e) {
-                return _this2.ErrorHandler.record(e);
+                return _this.ErrorHandler.record(e);
               });
+            });
+          }
+        }, {
+          key: "paramCache",
+          value: function paramCache(name) {
+            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+            options.param = options.param || [];
+            return this.getCache(name, options);
+          }
+        }, {
+          key: "paramSaveCache",
+          value: function paramSaveCache(name, options) {
+            var _this2 = this;
+
+            return this.paramCache(name, options).then(function (items) {
+              return _this2.setCache(name, items);
             });
           }
         }, {

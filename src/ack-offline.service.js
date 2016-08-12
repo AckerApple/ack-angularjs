@@ -34,17 +34,6 @@ export default class AckOffline{
     return expires && expired ? true : false
   }
 
-  paramCache(name, options={}){
-    options.param = options.param || []
-    return this.getCache(name, options)
-  }
-
-  paramSaveCache(name, options){
-    return this.paramCache(name, options)
-    .then(items=>this.setCache(name,items))
-  }
-
-
   /**
     Creates que handler. Returns self. Most likely, use newQueModel
     @options - {
@@ -81,7 +70,17 @@ export default class AckOffline{
       return prom.catch(e=>this.ErrorHandler.record(e))
     })
   }
-  
+
+  paramCache(name, options={}){
+    options.param = options.param || []
+    return this.getCache(name, options)
+  }
+
+  paramSaveCache(name, options){
+    return this.paramCache(name, options)
+    .then(items=>this.setCache(name,items))
+  }
+
   getCache(name, options={}){
     return this.get(name)
     .then(data => {

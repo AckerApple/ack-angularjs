@@ -47,14 +47,15 @@ export default class AckApi {
       if (method === "GET") {
         return this.AckOffline.getCache(cacheName, cfg.queModel)
         .catch(() => this._fetch(cfg))
-        .catch(() => this.AckOffline.getCache(cacheName))
-      } else {
-        return this._fetch(cfg)
-        .catch(() => this.AckOffline.enqueue(cacheName, cfg))
+        //.catch(() => this.AckOffline.getCache(cacheName))
       }
-    } else {
+
+      //request is a PUT, POST, or DELETE
       return this._fetch(cfg)
+      .catch(() => this.AckOffline.enqueue(cacheName, cfg))//if fail, save for later
     }
+    
+    return this._fetch(cfg)
   }
 
   get(path, config) {
