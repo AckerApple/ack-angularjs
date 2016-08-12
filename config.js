@@ -13,7 +13,7 @@ System.config({
   },
 
   map: {
-    "ack-x": "npm:ack-x@1.2.15",
+    "ack-x": "npm:ack-x@1.2.17",
     "angular": "github:angular/bower-angular@1.5.8",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.8",
@@ -57,7 +57,7 @@ System.config({
     "npm:ack-p@1.0.6": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:ack-x@1.2.15": {
+    "npm:ack-x@1.2.17": {
       "ack-p": "npm:ack-p@1.0.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "debug": "npm:debug@2.2.0",

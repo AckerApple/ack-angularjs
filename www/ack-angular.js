@@ -7503,8 +7503,8 @@ $__System.registerDynamic("4c", [], true, function($__require, exports, module) 
   var define,
       global = this || self,
       GLOBAL = global;
-  var __filename = 'jspm_packages/npm/ack-x@1.2.15/js/jc.js',
-      __dirname = 'jspm_packages/npm/ack-x@1.2.15/js';
+  var __filename = 'jspm_packages/npm/ack-x@1.2.17/js/jc.js',
+      __dirname = 'jspm_packages/npm/ack-x@1.2.17/js';
   "use strict";
   function jC(initOrStruct, parentOrStruct, struct) {
     initOrStruct = jC.$(initOrStruct, parentOrStruct, struct);
@@ -8081,6 +8081,8 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     return ('0' + n).slice(-2);
   };
   ackDate.isDate = function(date) {
+    if (!date)
+      return false;
     var isRawDate = date.constructor == Date && !isNaN(date.getTime());
     if (isRawDate)
       return true;
