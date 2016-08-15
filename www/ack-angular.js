@@ -8845,6 +8845,27 @@ $__System.register('69', ['68'], function (_export) {
 
   var whiteOutModalTemplate;
 
+  function screenScrollModelY($window) {
+    return {
+      restrict: 'A',
+      scope: {
+        screenScrollModelY: '=?'
+      },
+      link: function link($scope, jElm, attrs) {
+        function onScroll() {
+          $scope.screenScrollModelY = this.pageYOffset;
+          $scope.$parent.$digest();
+        }
+
+        function cleanUp() {
+          angular.element($window).off("scroll", onScroll);
+        }
+
+        angular.element($window).on("scroll", onScroll);
+      }
+    };
+  }
+
   function shakeOn() {
     this.shakeForMs = this.shakeForMs || 2000;
     this.shakeType = this.shakeType || 'shake-slow';
@@ -9016,7 +9037,9 @@ $__System.register('69', ['68'], function (_export) {
           controllerAs: 'screenWidthModel',
           controller: ScreenWidthModel
         };
-      }).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn).directive('modelDisplay', function () {
+      }).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
+      /** used on an input that has ng-model to display a different value */
+      .directive('modelDisplay', function () {
         return {
           restrict: 'A',
           require: 'ngModel',
@@ -9112,9 +9135,9 @@ $__System.register('69', ['68'], function (_export) {
             });
           }
         };
-      }).name);
+      }).directive("screenScrollModelY", screenScrollModelY).name);
 
-      ScreenWidthModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      screenScrollModelY.$inject = ['$window'];ScreenWidthModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
     }
   };
 });

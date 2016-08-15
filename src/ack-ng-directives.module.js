@@ -17,7 +17,7 @@ export default angular.module('ack-ng-directives', [])
 .directive('shakeModel', shakeModel)
 .directive('selectOn', selectOn)
 .directive('focusOn', focusOn)
-
+/** used on an input that has ng-model to display a different value */
 .directive('modelDisplay', function() {
   return {
     restrict:'A',
@@ -36,6 +36,7 @@ export default angular.module('ack-ng-directives', [])
     }
   }
 })
+
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
@@ -116,7 +117,32 @@ export default angular.module('ack-ng-directives', [])
       })
     }
   }
-}).name
+})
+
+.directive("screenScrollModelY", screenScrollModelY)
+.name
+
+function screenScrollModelY($window){
+  return {
+    restrict:'A',
+    scope:{
+      screenScrollModelY:'=?'
+    },
+    link:function($scope, jElm, attrs){
+      function onScroll() {
+        $scope.screenScrollModelY = this.pageYOffset
+        $scope.$parent.$digest()
+      }
+
+      function cleanUp() {
+        angular.element($window).off("scroll", onScroll)
+      }
+
+      angular.element($window).on("scroll", onScroll)
+    }
+  }
+}
+screenScrollModelY.$inject = ['$window']
 
 function shakeOn(){
   this.shakeForMs = this.shakeForMs || 2000

@@ -1,14 +1,8 @@
 .animate-max-width{
-  transition-property: max-width;
-  transition-duration: 0.3s;
-  transition-delay: 0;
-  transition-timing-function: linear;
+  transition: max-width linear 0.3s;
 }
 .animate-max-height{
-  transition-property: max-height;
-  transition-duration: 0.3s;
-  transition-delay: 0;
-  transition-timing-function: linear;
+  transition: max-height linear 0.3s;
 }
 
 .transition-1s, .transition-1000{
