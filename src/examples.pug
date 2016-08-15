@@ -12,11 +12,11 @@ html.font-helvetica(lang="en" ng-app="ack-angular")
       html,body{margin:0;padding:0;}
 
   body
-    .pos-fixed.top-0.width-full.bg-white.animate-height
+    .pos-fixed.top-0.width-full.bg-white.animate-height(on-screen-scroll="isShrinkHead=y>55")
       .pad-sm
-        h1.animate-all.margin-0(ng-class="{'text-sm':screenScrollModelY>55&&screenSize<768}") ack-angular
-        .animate-height.overflow-hidden(ng-style="{height:screenScrollModelY>55?0:'100px'}")
-          p.text-grey.fx-fade-up.fx-stagger-200(ng-hide="screenScrollModelY>55")
+        h1.animate-all.margin-0(ng-class="{'text-sm':isShrinkHead&&screenSize<768}") ack-angular
+        .animate-height.overflow-hidden(ng-style="{height:isShrinkHead?0:'100px'}")
+          p.text-grey.fx-fade-up.fx-stagger-200(ng-hide="isShrinkHead")
             |A library of commonly used web-app display and functionality techniques
     .bg-black.pad(style="padding-top:200px;")
       .text-white

@@ -119,8 +119,31 @@ export default angular.module('ack-ng-directives', [])
   }
 })
 
+.directive("onScreenScroll", onScreenScroll)
 .directive("screenScrollModelY", screenScrollModelY)
 .name
+
+function onScreenScroll($window){
+  return {
+    restrict:'A',
+    scope:{
+      onScreenScroll:'&'//{x,y}
+    },
+    link:function($scope, jElm, attrs){
+      function onScroll() {
+        $scope.onScreenScroll({x:this.pageXOffset, y:this.pageYOffset})
+        $scope.$parent.$digest()
+      }
+
+      function cleanUp() {
+        angular.element($window).off("scroll", onScroll)
+      }
+
+      angular.element($window).on("scroll", onScroll)
+    }
+  }
+}
+screenScrollModelY.$inject = ['$window']
 
 function screenScrollModelY($window){
   return {

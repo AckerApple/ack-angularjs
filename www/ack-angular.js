@@ -8845,6 +8845,27 @@ $__System.register('69', ['68'], function (_export) {
 
   var whiteOutModalTemplate;
 
+  function onScreenScroll($window) {
+    return {
+      restrict: 'A',
+      scope: {
+        onScreenScroll: '&' //{x,y}
+      },
+      link: function link($scope, jElm, attrs) {
+        function onScroll() {
+          $scope.onScreenScroll({ x: this.pageXOffset, y: this.pageYOffset });
+          $scope.$parent.$digest();
+        }
+
+        function cleanUp() {
+          angular.element($window).off("scroll", onScroll);
+        }
+
+        angular.element($window).on("scroll", onScroll);
+      }
+    };
+  }
+
   function screenScrollModelY($window) {
     return {
       restrict: 'A',
@@ -9135,9 +9156,9 @@ $__System.register('69', ['68'], function (_export) {
             });
           }
         };
-      }).directive("screenScrollModelY", screenScrollModelY).name);
+      }).directive("onScreenScroll", onScreenScroll).directive("screenScrollModelY", screenScrollModelY).name);
 
-      screenScrollModelY.$inject = ['$window'];ScreenWidthModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      screenScrollModelY.$inject = ['$window'];screenScrollModelY.$inject = ['$window'];ScreenWidthModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
     }
   };
 });
