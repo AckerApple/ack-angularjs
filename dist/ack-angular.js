@@ -8836,7 +8836,7 @@ $__System.register("68", [], function (_export) {
   return {
     setters: [],
     execute: function () {
-      _export("default", "<div class=\"animate-fade\" ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;background-color:rgba(255,255,255,.95);overflow:auto\"><div style=\"position:relative\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px\">x</div></div></div></div><table style=\"height:100%\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude=\"ng-transclude\"></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");
+      _export("default", "<div class=\"animate-fade\" ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;overflow:auto\" ng-style=\"{'background-color':wom.backgroundColor}\"><div style=\"position:relative\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px\">x</div></div></div></div><table style=\"height:100%\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude=\"ng-transclude\"></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");
     }
   };
 });
@@ -9127,12 +9127,18 @@ $__System.register('69', ['68'], function (_export) {
         //white-out-modal
         return {
           restrict: 'E',
-          scope: { show: '=', size: '=?' },
+          scope: {
+            show: '=',
+            size: '=?',
+            backgroundColor: '=?' //rgba(255,255,255,.95)
+          },
           transclude: true,
           template: whiteOutModalTemplate,
           bindToController: true,
           controllerAs: 'wom',
-          controller: function controller() {},
+          controller: function controller() {
+            this.backgroundColor = this.backgroundColor || 'rgba(255,255,255,.95)';
+          },
           link: function link($scope, jElm, attrs) {
             var handler = function handler(event) {
               //already showing

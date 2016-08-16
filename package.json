@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/AckerApple/ack-angular",
   "devDependencies": {
-    "ack-css-boot": "^1.1.1",
+    "ack-css-boot": "^1.2.0",
     "ack-pug-bundler": "^1.1.2",
     "ack-sass": "^1.0.8",
     "csshake": "^1.5.0",

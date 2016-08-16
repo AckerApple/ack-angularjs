@@ -88,12 +88,18 @@ export default angular.module('ack-ng-directives', [])
 .directive('whiteOutModal',function(){//white-out-modal
   return {
     restrict:'E'
-    ,scope:{show:'=', size:'=?'}
+    ,scope:{
+      show:'=',
+      size:'=?',
+      backgroundColor:'=?'//rgba(255,255,255,.95)
+    }
     ,transclude:true
     ,template:whiteOutModalTemplate
     ,bindToController:true
     ,controllerAs:'wom'
-    ,controller:function(){}
+    ,controller:function(){
+      this.backgroundColor = this.backgroundColor || 'rgba(255,255,255,.95)'
+    }
     ,link:function($scope, jElm, attrs){
       var handler = function(event){
         //already showing
