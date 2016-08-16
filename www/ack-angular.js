@@ -8863,7 +8863,8 @@ $__System.register('69', ['68'], function (_export) {
 
   function ScreenHeightExcessModel($scope, $window, $document) {
     var apply = (function () {
-      this.screenHeightExcessModel = $window.innerHeight - $document[0].body.scrollHeight;
+      this.screenHeightExcessModel = $document[0].body.scrollHeight - $window.innerHeight;
+      if (this.screenHeightExcessModel < 0) this.screenHeightExcessModel = 0;
     }).bind(this);
 
     function on() {
