@@ -69,6 +69,7 @@ html.font-helvetica(lang="en" ng-app="ack-angular")
           .pad
             button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
             button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
+            button(type="button" ng-click="showBlackModal=!showBlackModal") hide/show black white-out-modal
             .text-white
               .fx-fade-up(ng-show="showFx")
                 h2 ng-fx
@@ -136,6 +137,10 @@ html.font-helvetica(lang="en" ng-app="ack-angular")
                   |part-{{$index}} : {{size}}
                 .bg-primary.flex.align-center.justify-center(style="height:100px")
                   |part-{{$index}} : {{size}}
+
+      white-out-modal(show="showBlackModal" background-color="'rgba(0,0,0,.95)'")
+        .text-white
+          h1 Not much to see here
 
       white-out-modal(show="showModal")
         div(style="border:1px solid black;")
