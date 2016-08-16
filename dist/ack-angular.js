@@ -8845,46 +8845,76 @@ $__System.register('69', ['68'], function (_export) {
 
   var whiteOutModalTemplate;
 
-  function onScreenScroll($window) {
-    return {
-      restrict: 'A',
-      scope: {
-        onScreenScroll: '&' //{x,y}
-      },
-      link: function link($scope, jElm, attrs) {
-        function onScroll() {
-          $scope.onScreenScroll({ x: this.pageXOffset, y: this.pageYOffset });
-          $scope.$parent.$digest();
-        }
+  function OnScreenScroll($scope, $window) {
+    var $this = this;
 
-        function cleanUp() {
-          angular.element($window).off("scroll", onScroll);
-        }
+    function onScroll() {
+      $this.onScreenScroll({ x: this.pageXOffset, y: this.pageYOffset });
+      $scope.$digest();
+    }
 
-        angular.element($window).on("scroll", onScroll);
-      }
-    };
+    function cleanUp() {
+      angular.element($window).off("scroll", onScroll);
+    }
+
+    angular.element($window).on("scroll", onScroll);
+    $scope.$on('$destroy', cleanUp);
   }
 
-  function screenScrollModelY($window) {
-    return {
-      restrict: 'A',
-      scope: {
-        screenScrollModelY: '=?'
-      },
-      link: function link($scope, jElm, attrs) {
-        function onScroll() {
-          $scope.screenScrollModelY = this.pageYOffset;
-          $scope.$parent.$digest();
-        }
+  function ScreenHeightExcessModel($scope, $window, $document) {
+    var apply = (function () {
+      this.screenHeightExcessModel = $window.innerHeight - $document[0].body.scrollHeight;
+    }).bind(this);
 
-        function cleanUp() {
-          angular.element($window).off("scroll", onScroll);
-        }
+    function on() {
+      apply();
+      $scope.$digest();
+    }
 
-        angular.element($window).on("scroll", onScroll);
-      }
-    };
+    function cleanUp() {
+      angular.element($window).off("scroll", on);
+      angular.element($window).off("resize", on);
+    }
+
+    angular.element($window).on("scroll", on);
+    angular.element($window).on("resize", on);
+    $scope.$on('$destroy', cleanUp);
+    apply();
+  }
+
+  function ScreenScrollHeightModel($scope, $window, $document) {
+    var apply = (function () {
+      this.screenScrollHeightModel = $document[0].body.scrollHeight;
+    }).bind(this);
+
+    function onResize() {
+      apply();
+      $scope.$digest();
+    }
+
+    function cleanUp() {
+      angular.element($window).off("scroll", onResize);
+      angular.element($window).off("resize", onResize);
+    }
+
+    angular.element($window).on("scroll", onResize);
+    angular.element($window).on("resize", onResize);
+    $scope.$on('$destroy', cleanUp);
+    apply();
+  }
+
+  function ScreenScrollModelY($scope, $window) {
+    function onScroll() {
+      $scope.screenScrollModelY = this.pageYOffset;
+      $scope.$digest();
+    }
+
+    function cleanUp() {
+      angular.element($window).off("scroll", onScroll);
+    }
+
+    angular.element($window).on("scroll", onScroll);
+    $scope.$on('$destroy', cleanUp);
   }
 
   function shakeOn() {
@@ -8900,7 +8930,25 @@ $__System.register('69', ['68'], function (_export) {
     var onResize = (function () {
       if (this.screenWidthModel !== $window.innerWidth) {
         this.screenWidthModel = $window.innerWidth;
-        $scope.$parent.$digest();
+        $scope.$digest();
+      }
+    }).bind(this);
+
+    function cleanUp() {
+      angular.element($window).off('resize', onResize);
+    }
+
+    angular.element($window).on('resize', onResize);
+    $scope.$on('$destroy', cleanUp);
+  }
+
+  function ScreenHeightModel($window, $scope) {
+    this.screenHeightModel = $window.innerHeight;
+
+    var onResize = (function () {
+      if (this.screenHeightModel !== $window.innerHeight) {
+        this.screenHeightModel = $window.innerHeight;
+        $scope.$digest();
       }
     }).bind(this);
 
@@ -9048,17 +9096,7 @@ $__System.register('69', ['68'], function (_export) {
       whiteOutModalTemplate = _['default'];
     }],
     execute: function () {
-      _export('default', angular.module('ack-ng-directives', []).directive('screenWidthModel', function () {
-        return {
-          restrict: 'A',
-          scope: {
-            screenWidthModel: '=?'
-          },
-          bindToController: true,
-          controllerAs: 'screenWidthModel',
-          controller: ScreenWidthModel
-        };
-      }).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
+      _export('default', angular.module('ack-ng-directives', []).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
       /** used on an input that has ng-model to display a different value */
       .directive('modelDisplay', function () {
         return {
@@ -9162,9 +9200,63 @@ $__System.register('69', ['68'], function (_export) {
             });
           }
         };
-      }).directive("onScreenScroll", onScreenScroll).directive("screenScrollModelY", screenScrollModelY).name);
+      }).directive('screenScrollHeightModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenScrollHeightModel: '=?'
+          },
+          controllerAs: 'ScreenScrollHeightModel',
+          controller: ScreenScrollHeightModel
+        };
+      }).directive('screenHeightExcessModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenHeightExcessModel: '=?'
+          },
+          controllerAs: 'ScreenHeightExcessModel',
+          controller: ScreenHeightExcessModel
+        };
+      }).directive('screenHeightModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenHeightModel: '=?'
+          },
+          controllerAs: 'ScreenHeightModel',
+          controller: ScreenHeightModel
+        };
+      }).directive('screenWidthModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenWidthModel: '=?'
+          },
+          controllerAs: 'ScreenWidthModel',
+          controller: ScreenWidthModel
+        };
+      }).directive("onScreenScroll", function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            onScreenScroll: '&' //{x,y}
+          },
+          controllerAs: 'OnScreenScroll',
+          controller: OnScreenScroll
+        };
+      }).directive("screenScrollModelY", function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenScrollModelY: '=?'
+          },
+          controllerAs: 'ScreenScrollModelY',
+          controller: ScreenScrollModelY
+        };
+      }).name);
 
-      screenScrollModelY.$inject = ['$window'];screenScrollModelY.$inject = ['$window'];ScreenWidthModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      OnScreenScroll.$inject = ['$scope', '$window'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
     }
   };
 });

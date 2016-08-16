@@ -1,18 +1,6 @@
 import whiteOutModalTemplate from './white-out-modal.pug'
 
 export default angular.module('ack-ng-directives', [])
-.directive('screenWidthModel',function(){
-  return {
-    restrict:'A'
-    ,scope:{
-      screenWidthModel:'=?'
-    }
-    ,bindToController:true
-    ,controllerAs:'screenWidthModel'
-    ,controller:ScreenWidthModel
-  }
-})
-
 .directive('shakeOn', shakeOnDirective)
 .directive('shakeModel', shakeModel)
 .directive('selectOn', selectOn)
@@ -124,54 +112,143 @@ export default angular.module('ack-ng-directives', [])
     }
   }
 })
-
-.directive("onScreenScroll", onScreenScroll)
-.directive("screenScrollModelY", screenScrollModelY)
-.name
-
-function onScreenScroll($window){
+.directive('screenScrollHeightModel',function(){
+  return {
+    restrict:'A'
+    ,bindToController:{
+      screenScrollHeightModel:'=?'
+    }
+    ,controllerAs:'ScreenScrollHeightModel'
+    ,controller:ScreenScrollHeightModel
+  }
+})
+.directive('screenHeightExcessModel',function(){
+  return {
+    restrict:'A'
+    ,bindToController:{
+      screenHeightExcessModel:'=?'
+    }
+    ,controllerAs:'ScreenHeightExcessModel'
+    ,controller:ScreenHeightExcessModel
+  }
+})
+.directive('screenHeightModel',function(){
+  return {
+    restrict:'A'
+    ,bindToController:{
+      screenHeightModel:'=?'
+    }
+    ,controllerAs:'ScreenHeightModel'
+    ,controller:ScreenHeightModel
+  }
+})
+.directive('screenWidthModel',function(){
+  return {
+    restrict:'A'
+    ,bindToController:{
+      screenWidthModel:'=?'
+    }
+    ,controllerAs:'ScreenWidthModel'
+    ,controller:ScreenWidthModel
+  }
+})
+.directive("onScreenScroll", function(){
   return {
     restrict:'A',
-    scope:{
+    bindToController:{
       onScreenScroll:'&'//{x,y}
     },
-    link:function($scope, jElm, attrs){
-      function onScroll() {
-        $scope.onScreenScroll({x:this.pageXOffset, y:this.pageYOffset})
-        $scope.$parent.$digest()
-      }
-
-      function cleanUp() {
-        angular.element($window).off("scroll", onScroll)
-      }
-
-      angular.element($window).on("scroll", onScroll)
-    }
+    controllerAs:'OnScreenScroll',
+    controller:OnScreenScroll
   }
-}
-screenScrollModelY.$inject = ['$window']
-
-function screenScrollModelY($window){
+})
+.directive("screenScrollModelY", function(){
   return {
     restrict:'A',
-    scope:{
+    bindToController:{
       screenScrollModelY:'=?'
     },
-    link:function($scope, jElm, attrs){
-      function onScroll() {
-        $scope.screenScrollModelY = this.pageYOffset
-        $scope.$parent.$digest()
-      }
-
-      function cleanUp() {
-        angular.element($window).off("scroll", onScroll)
-      }
-
-      angular.element($window).on("scroll", onScroll)
-    }
+    controllerAs:'ScreenScrollModelY',
+    controller:ScreenScrollModelY
   }
+})
+.name
+
+function OnScreenScroll($scope, $window){
+  var $this = this
+
+  function onScroll() {
+    $this.onScreenScroll({x:this.pageXOffset, y:this.pageYOffset})
+    $scope.$digest()
+  }
+
+  function cleanUp() {
+    angular.element($window).off("scroll", onScroll)
+  }
+
+  angular.element($window).on("scroll", onScroll)
+  $scope.$on('$destroy', cleanUp)
 }
-screenScrollModelY.$inject = ['$window']
+OnScreenScroll.$inject = ['$scope','$window']
+
+function ScreenHeightExcessModel($scope, $window, $document){
+  var apply = function(){
+    this.screenHeightExcessModel = $window.innerHeight - $document[0].body.scrollHeight
+  }.bind(this)
+
+  function on() {
+    apply()
+    $scope.$digest()
+  }
+
+  function cleanUp() {
+    angular.element($window).off("scroll", on)
+    angular.element($window).off("resize", on)
+  }
+
+  angular.element($window).on("scroll", on)
+  angular.element($window).on("resize", on)
+  $scope.$on('$destroy', cleanUp)
+  apply()
+}
+ScreenHeightExcessModel.$inject = ['$scope','$window','$document']
+
+function ScreenScrollHeightModel($scope, $window, $document){
+  var apply = function(){
+    this.screenScrollHeightModel = $document[0].body.scrollHeight
+  }.bind(this)
+
+  function onResize() {
+    apply()
+    $scope.$digest()
+  }
+
+  function cleanUp() {
+    angular.element($window).off("scroll", onResize)
+    angular.element($window).off("resize", onResize)
+  }
+
+  angular.element($window).on("scroll", onResize)
+  angular.element($window).on("resize", onResize)
+  $scope.$on('$destroy', cleanUp)
+  apply()
+}
+ScreenScrollHeightModel.$inject = ['$scope','$window','$document']
+
+function ScreenScrollModelY($scope, $window){
+  function onScroll() {
+    $scope.screenScrollModelY = this.pageYOffset
+    $scope.$digest()
+  }
+
+  function cleanUp() {
+    angular.element($window).off("scroll", onScroll)
+  }
+
+  angular.element($window).on("scroll", onScroll)
+  $scope.$on('$destroy', cleanUp)
+}
+ScreenScrollModelY.$inject = ['$scope','$window']
 
 function shakeOn(){
   this.shakeForMs = this.shakeForMs || 2000
@@ -186,7 +263,7 @@ function ScreenWidthModel($window, $scope){
   const onResize = function(){
     if(this.screenWidthModel !== $window.innerWidth){
       this.screenWidthModel = $window.innerWidth
-      $scope.$parent.$digest()
+      $scope.$digest()
     }
   }.bind(this)
 
@@ -199,6 +276,26 @@ function ScreenWidthModel($window, $scope){
 
 }
 ScreenWidthModel.$inject = ['$window', '$scope']
+
+function ScreenHeightModel($window, $scope){
+  this.screenHeightModel = $window.innerHeight
+
+  const onResize = function(){
+    if(this.screenHeightModel !== $window.innerHeight){
+      this.screenHeightModel = $window.innerHeight
+      $scope.$digest()
+    }
+  }.bind(this)
+
+  function cleanUp() {
+    angular.element($window).off('resize', onResize)
+  }
+
+  angular.element($window).on('resize', onResize)
+  $scope.$on('$destroy', cleanUp)
+
+}
+ScreenHeightModel.$inject = ['$window', '$scope']
 
 function selectOn($timeout) {
   return {
