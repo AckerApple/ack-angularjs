@@ -8846,12 +8846,10 @@ $__System.register('69', ['68'], function (_export) {
   var whiteOutModalTemplate;
 
   function OnScreenScroll($scope, $window) {
-    var $this = this;
-
-    function onScroll() {
-      $this.onScreenScroll({ x: this.pageXOffset, y: this.pageYOffset });
+    var onScroll = (function () {
+      this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
       $scope.$digest();
-    }
+    }).bind(this);
 
     function cleanUp() {
       angular.element($window).off("scroll", onScroll);
@@ -8859,6 +8857,7 @@ $__System.register('69', ['68'], function (_export) {
 
     angular.element($window).on("scroll", onScroll);
     $scope.$on('$destroy', cleanUp);
+    this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
   }
 
   function ScreenHeightExcessModel($scope, $window, $document) {
@@ -8905,10 +8904,10 @@ $__System.register('69', ['68'], function (_export) {
   }
 
   function ScreenScrollModelY($scope, $window) {
-    function onScroll() {
-      $scope.screenScrollModelY = this.pageYOffset;
+    var onScroll = (function () {
+      this.screenScrollModelY = $window.pageYOffset;
       $scope.$digest();
-    }
+    }).bind(this);
 
     function cleanUp() {
       angular.element($window).off("scroll", onScroll);
@@ -8916,6 +8915,7 @@ $__System.register('69', ['68'], function (_export) {
 
     angular.element($window).on("scroll", onScroll);
     $scope.$on('$destroy', cleanUp);
+    this.screenScrollModelY = $window.pageYOffset;
   }
 
   function shakeOn() {

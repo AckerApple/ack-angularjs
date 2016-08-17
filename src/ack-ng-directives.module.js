@@ -175,12 +175,10 @@ export default angular.module('ack-ng-directives', [])
 .name
 
 function OnScreenScroll($scope, $window){
-  var $this = this
-
-  function onScroll() {
-    $this.onScreenScroll({x:this.pageXOffset, y:this.pageYOffset})
+  var onScroll = function() {
+    this.onScreenScroll({x:$window.pageXOffset, y:$window.pageYOffset})
     $scope.$digest()
-  }
+  }.bind(this)
 
   function cleanUp() {
     angular.element($window).off("scroll", onScroll)
@@ -188,6 +186,7 @@ function OnScreenScroll($scope, $window){
 
   angular.element($window).on("scroll", onScroll)
   $scope.$on('$destroy', cleanUp)
+  this.onScreenScroll({x:$window.pageXOffset, y:$window.pageYOffset})
 }
 OnScreenScroll.$inject = ['$scope','$window']
 
@@ -237,10 +236,10 @@ function ScreenScrollHeightModel($scope, $window, $document){
 ScreenScrollHeightModel.$inject = ['$scope','$window','$document']
 
 function ScreenScrollModelY($scope, $window){
-  function onScroll() {
-    $scope.screenScrollModelY = this.pageYOffset
+  var onScroll = function(){
+    this.screenScrollModelY = $window.pageYOffset
     $scope.$digest()
-  }
+  }.bind(this)
 
   function cleanUp() {
     angular.element($window).off("scroll", onScroll)
@@ -248,6 +247,7 @@ function ScreenScrollModelY($scope, $window){
 
   angular.element($window).on("scroll", onScroll)
   $scope.$on('$destroy', cleanUp)
+  this.screenScrollModelY = $window.pageYOffset
 }
 ScreenScrollModelY.$inject = ['$scope','$window']
 
