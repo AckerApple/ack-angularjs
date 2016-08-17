@@ -157,6 +157,7 @@ export default angular.module('ack-ng-directives', [])
     restrict:'A',
     bindToController:{
       onScreenScroll:'&'//{x,y}
+      ,initScreenScroll:'='//Number. Causes onScreenScroll to be called on $scope init. Specify milisecs to wait before calling onScreenScroll after $scope init.
     },
     controllerAs:'OnScreenScroll',
     controller:OnScreenScroll
@@ -174,7 +175,7 @@ export default angular.module('ack-ng-directives', [])
 })
 .name
 
-function OnScreenScroll($scope, $window){
+function OnScreenScroll($scope, $window, $timeout){
   var onScroll = function() {
     this.onScreenScroll({x:$window.pageXOffset, y:$window.pageYOffset})
     $scope.$digest()
@@ -186,9 +187,12 @@ function OnScreenScroll($scope, $window){
 
   angular.element($window).on("scroll", onScroll)
   $scope.$on('$destroy', cleanUp)
-  this.onScreenScroll({x:$window.pageXOffset, y:$window.pageYOffset})
+
+  if(this.initScreenScroll!=null && !isNaN(Number(this.initScreenScroll))){
+    $timeout(()=>this.onScreenScroll({x:$window.pageXOffset, y:$window.pageYOffset}), Number(this.initScreenScroll))
+  }
 }
-OnScreenScroll.$inject = ['$scope','$window']
+OnScreenScroll.$inject = ['$scope','$window', '$timeout']
 
 function ScreenHeightExcessModel($scope, $window, $document){
   var apply = function(){

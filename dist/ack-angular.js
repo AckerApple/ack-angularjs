@@ -8845,7 +8845,9 @@ $__System.register('69', ['68'], function (_export) {
 
   var whiteOutModalTemplate;
 
-  function OnScreenScroll($scope, $window) {
+  function OnScreenScroll($scope, $window, $timeout) {
+    var _this = this;
+
     var onScroll = (function () {
       this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
       $scope.$digest();
@@ -8857,7 +8859,12 @@ $__System.register('69', ['68'], function (_export) {
 
     angular.element($window).on("scroll", onScroll);
     $scope.$on('$destroy', cleanUp);
-    this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
+
+    if (this.initScreenScroll != null && !isNaN(Number(this.initScreenScroll))) {
+      $timeout(function () {
+        return _this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
+      }, Number(this.initScreenScroll));
+    }
   }
 
   function ScreenHeightExcessModel($scope, $window, $document) {
@@ -9241,7 +9248,8 @@ $__System.register('69', ['68'], function (_export) {
         return {
           restrict: 'A',
           bindToController: {
-            onScreenScroll: '&' //{x,y}
+            onScreenScroll: '&', //{x,y}
+            initScreenScroll: '=' //Number. Causes onScreenScroll to be called on $scope init. Specify milisecs to wait before calling onScreenScroll after $scope init.
           },
           controllerAs: 'OnScreenScroll',
           controller: OnScreenScroll
@@ -9257,7 +9265,7 @@ $__System.register('69', ['68'], function (_export) {
         };
       }).name);
 
-      OnScreenScroll.$inject = ['$scope', '$window'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
     }
   };
 });
