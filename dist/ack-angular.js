@@ -10072,8 +10072,6 @@ $__System.registerDynamic('6a', ['6b'], true, function ($__require, exports, mod
                 DOMevents: ['mousemove', 'mousedown', 'mouseup', 'keypress', 'wheel', 'touchstart', 'scroll'] /* list of DOM events to determine user's activity */
             };
 
-            var DOMevents = service.options.DOMevents.join(' ');
-
             /* user activity */
             service.user = {
                 action: Date.now(), /* timestamp of the users' last action */
@@ -10109,20 +10107,22 @@ $__System.registerDynamic('6a', ['6b'], true, function ($__require, exports, mod
 
                 disableIntervals();
 
-                $document.off(DOMevents, activity);
+                $document.off(service.options.DOMevents.join(' '), activity);
             }
 
             function disableIntervals() {
                 clearInterval(timer.inactivity);
+                clearInterval(timer.keepAlive);
                 delete timer.inactivity;
                 delete timer.keepAlive;
             }
 
             function enable() {
-                $document.on(DOMevents, activity);
+                $document.on(service.options.DOMevents.join(' '), activity);
                 service.options.enabled = true;
                 service.user.warning = false;
-                if (Number(service.options.monitor) != 0) enableIntervals();
+
+                enableIntervals();
             }
 
             function enableIntervals() {

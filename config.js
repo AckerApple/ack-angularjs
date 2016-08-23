@@ -15,7 +15,7 @@ System.config({
   map: {
     "ack-x": "npm:ack-x@1.2.17",
     "angular": "github:angular/bower-angular@1.5.8",
-    "angular-activity-monitor": "npm:angular-activity-monitor@1.0.1",
+    "angular-activity-monitor": "npm:angular-activity-monitor@1.1.0",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.8",
     "babel": "npm:babel-core@5.8.38",
@@ -94,7 +94,7 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:angular-activity-monitor@1.0.1": {
+    "npm:angular-activity-monitor@1.1.0": {
       "eslint": "npm:eslint@1.10.3",
       "uglify-js": "npm:uglify-js@2.6.4"
     },
