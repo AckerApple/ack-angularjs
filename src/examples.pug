@@ -1,5 +1,5 @@
 doctype html
-html.font-helvetica(lang="en" ng-app="ack-angular")
+html.font-helvetica(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0")
@@ -11,200 +11,202 @@ html.font-helvetica(lang="en" ng-app="ack-angular")
     style.
       html,body{margin:0;padding:0;}
 
-  body
+    script.
+      angular.module('demoApp',['ack-angular'])
+  body(ng-app="demoApp")
     .pos-fixed.top-0.width-full.bg-white.animate-height(on-screen-scroll="isShrinkHead=y>55")
       .pad-sm
         h1.animate-all.margin-0(ng-class="{'text-sm':isShrinkHead&&screenWidth<768}") ack-angular
         .animate-height.overflow-hidden(ng-style="{height:isShrinkHead?0:'100px'}")
           p.text-grey.fx-fade-up.fx-stagger-200(ng-hide="isShrinkHead")
             |A library of commonly used web-app display and functionality techniques
-    .bg-black.pad(style="padding-top:200px;")
-      .text-white
-        .margin-bottom-lg
-          h2 General Directives
-          .flex.flex-wrap
-            .flex-1.pad.margin.border-info.nowrap
-              h3 screen-width-model
-              .pad(screen-width-model="$ctrl.screenWidth")
-                |Screen Width: {{ $ctrl.screenWidth }}
+    .bg-black.pad.text-white(style="padding-top:200px;")
+      user-inactive-trigger(inactive-seconds="10" warn-seconds="5")
+      .margin-bottom-lg
+        h2 General Directives
+        .flex.flex-wrap
+          .flex-1.pad.margin.border-info.nowrap
+            h3 screen-width-model
+            .pad(screen-width-model="$ctrl.screenWidth")
+              |Screen Width: {{ $ctrl.screenWidth }}
 
-            .flex-1.pad.margin.border-info.nowrap
-              h3 screen-height-model
-              .pad(screen-height-model="$ctrl.screenHeight")
-                |Screen Height: {{ $ctrl.screenHeight }}
+          .flex-1.pad.margin.border-info.nowrap
+            h3 screen-height-model
+            .pad(screen-height-model="$ctrl.screenHeight")
+              |Screen Height: {{ $ctrl.screenHeight }}
 
-            .flex-1.pad.margin.border-info.nowrap
-              h3 screen-scroll-height-model
-              .pad(screen-scroll-height-model="$ctrl.screenScrollHeight")
-                |height: {{ $ctrl.screenScrollHeight }}
-              
-            .flex-1.pad.margin.border-info.nowrap
-              h3 on-screen-scroll
-              .pad(on-screen-scroll="$ctrl.scrollX=x;$ctrl.scrollY=y")
-                |Screen Scroll: {{$ctrl.scrollX}}x{{$ctrl.scrollY}}
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 screen-scroll-model-y
-              .pad(screen-scroll-model-y="screenScrollModelY")
-                |Screen Y Scroll: {{ screenScrollModelY }}
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 screen-height-excess-model
-              .pad(screen-height-excess-model="$ctrl.screenHeightExcess")
-                |Screen Height Excess: {{ $ctrl.screenHeightExcess }}
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 select-on
-              .pad
-                input(select-on="selectOn" select-then="selectOn=false" value="text to select")
-                button(ng-click="selectOn=true") selectOn
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 focus-on
-              .pad
-                input(focus-on="focusOn" focus-then="focusOn=false" placeholder="focus")
-                button(ng-click="focusOn=true") focusOn
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 prevent-back-key
-              .pad
-                input(prevent-back-key value="you cant backspace")
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 prevent-enter-key
-              .pad
-                textarea(prevent-enter-key value="you cant use enter key")
-
-          h2 Animation Examples
-          .flex.flex-wrap
-            .flex-1.pad.margin.border-info.nowrap
-              h3 shake-on Directive Examples
-              .pad
-                .pad
-                  label(shake-on="shakeOn" shake-then="shakeOn=false" shake-type="shakeOnType" shake-controller="shakeController")
-                    |shake this text
-                button(ng-click="shakeOn=true") shake:{{shakeOn||false}}
-                select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeOnType" ng-change="shakeOn=true")
-                input(ng-model="shakeController.shakeForMs" ng-change="shakeOn=true")
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 shake-model Directive Examples
-              .pad
-                .pad
-                  label(shake-model="shakeModel" shake-type="shakeModelType" shake-controller="shakeModelController")
-                    |shake this text
-                button(ng-click="shakeModel=true") shake:{{shakeModel||false}}
-                select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeModelType" ng-change="shakeModel=true")
-                input(ng-model="shakeModelController.shakeForMs" ng-change="shakeModel=true")
-
-            .flex-1.pad.margin.border-info.nowrap
-              h3 Hide Show Examples
-              .pad
-                button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
-                button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
-                button(type="button" ng-click="showBlackModal=!showBlackModal") hide/show black white-out-modal
-                .text-white
-                  .fx-fade-up(ng-show="showFx")
-                    h2 ng-fx
-                    hr
-                    hr
-                    hr
-                    hr
-                    hr
-                    hr
-                    h3 Awesomeness
-
-        .margin-bottom-lg
-          h2 CSS Examples
-
-          h3 Form Examples
-          .pad
-            .form-group.has-error
-              label First Name
-              input
-
-            .form-group.has-error
-              label Last Name
-              input
+          .flex-1.pad.margin.border-info.nowrap
+            h3 screen-scroll-height-model
+            .pad(screen-scroll-height-model="$ctrl.screenScrollHeight")
+              |height: {{ $ctrl.screenScrollHeight }}
             
-            .form-group.has-error
-              label Select Checkboxes
-              label(for="input-x-0")
-                input(type="checkbox" id="input-x-0")
-                |&nbsp;Choice 0
-              label(for="input-x-0")
-                input(type="checkbox" id="input-x-0")
-                |&nbsp;Choice 1
+          .flex-1.pad.margin.border-info.nowrap
+            h3 on-screen-scroll
+            .pad(on-screen-scroll="$ctrl.scrollX=x;$ctrl.scrollY=y")
+              |Screen Scroll: {{$ctrl.scrollX}}x{{$ctrl.scrollY}}
 
-      white-out-modal(show="showBlackModal" background-color="'rgba(0,0,0,.95)'")
-        .text-white
-          h1 Not much to see here
+          .flex-1.pad.margin.border-info.nowrap
+            h3 screen-scroll-model-y
+            .pad(screen-scroll-model-y="screenScrollModelY")
+              |Screen Y Scroll: {{ screenScrollModelY }}
 
-      white-out-modal(show="showModal")
-        div(style="border:1px solid black;")
-          h1 {{'random tests'|capitalizeWords}}
-          p {{'all sentences should be capitalized. isn\'t that right? yup.'|capitalize}}
+          .flex-1.pad.margin.border-info.nowrap
+            h3 screen-height-excess-model
+            .pad(screen-height-excess-model="$ctrl.screenHeightExcess")
+              |Screen Height Excess: {{ $ctrl.screenHeightExcess }}
 
-          input(type="text" ng-init="testModel='needs uppercase'" ng-model="testModel" model-display="testModel|capitalizeWords")
-          br
-          br
+          .flex-1.pad.margin.border-info.nowrap
+            h3 select-on
+            .pad
+              input(select-on="selectOn" select-then="selectOn=false" value="text to select")
+              button(ng-click="selectOn=true") selectOn
 
-          div(ng-bind-html="'<strong>trustAsHtml</strong>' | trustAsHtml")
-          br
-          br
+          .flex-1.pad.margin.border-info.nowrap
+            h3 focus-on
+            .pad
+              input(focus-on="focusOn" focus-then="focusOn=false" placeholder="focus")
+              button(ng-click="focusOn=true") focusOn
 
-          |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
-          br
-          |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
-          br
-          br
+          .flex-1.pad.margin.border-info.nowrap
+            h3 prevent-back-key
+            .pad
+              input(prevent-back-key value="you cant backspace")
 
-          h4 ackFilter
-          ul
-            li
-              |time: "{{0|aDate:'now':'hmmtt'}}"
-            li
-              |time: "{{0|aDate:'now':'hhmmtt'}}"
-            li
-              |empty-string: "{{null|aDate:'hmmtt'}}"
-            li
-              |empty-string: "{{null|aDate:'hhmmtt'}}"
-            li
-              |date-diff: {{0|aDate:'now':['addSeconds',60]:'dateSecondDiff'}} == 60
-            li
-              |time: {{'13:30'|aTime:'hhmmtt'}} == 01:30 PM
-            li
-              |time: {{'1:30 pm'|aTime:'hhmmtt'}} == 01:30 PM
-            li
-              |time: {{'12:00 am'|aTime:'hhmmtt'}} == 12:00 AM
-            li
-              |time: {{'12:00 pm'|aTime:'hhmmtt'}} == 12:00 PM
-            li
-              |minuteDiff: {{'01/01/2014 2:00 am'|aDate:['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
+          .flex-1.pad.margin.border-info.nowrap
+            h3 prevent-enter-key
+            .pad
+              textarea(prevent-enter-key value="you cant use enter key")
+
+        h2 Animation Examples
+        .flex.flex-wrap
+          .flex-1.pad.margin.border-info.nowrap
+            h3 shake-on Directive Examples
+            .pad
+              .pad
+                label(shake-on="shakeOn" shake-then="shakeOn=false" shake-type="shakeOnType" shake-controller="shakeController")
+                  |shake this text
+              button(ng-click="shakeOn=true") shake:{{shakeOn||false}}
+              select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeOnType" ng-change="shakeOn=true")
+              input(ng-model="shakeController.shakeForMs" ng-change="shakeOn=true")
+
+          .flex-1.pad.margin.border-info.nowrap
+            h3 shake-model Directive Examples
+            .pad
+              .pad
+                label(shake-model="shakeModel" shake-type="shakeModelType" shake-controller="shakeModelController")
+                  |shake this text
+              button(ng-click="shakeModel=true") shake:{{shakeModel||false}}
+              select(ng-options="item for item in shakeController.shakeTypes" ng-model="shakeModelType" ng-change="shakeModel=true")
+              input(ng-model="shakeModelController.shakeForMs" ng-change="shakeModel=true")
+
+          .flex-1.pad.margin.border-info.nowrap
+            h3 Hide Show Examples
+            .pad
+              button(type="button" ng-click="showFx=!showFx") hide/show ng-fx
+              button(type="button" ng-click="showModal=!showModal") hide/show white-out-modal
+              button(type="button" ng-click="showBlackModal=!showBlackModal") hide/show black white-out-modal
+              .text-white
+                .fx-fade-up(ng-show="showFx")
+                  h2 ng-fx
+                  hr
+                  hr
+                  hr
+                  hr
+                  hr
+                  hr
+                  h3 Awesomeness
+
+      .margin-bottom-lg
+        h2 CSS Examples
+
+        h3 Form Examples
+        .pad
+          .form-group.has-error
+            label First Name
+            input
+
+          .form-group.has-error
+            label Last Name
+            input
+          
+          .form-group.has-error
+            label Select Checkboxes
+            label(for="input-x-0")
+              input(type="checkbox" id="input-x-0")
+              |&nbsp;Choice 0
+            label(for="input-x-0")
+              input(type="checkbox" id="input-x-0")
+              |&nbsp;Choice 1
+
+    white-out-modal(show="showBlackModal" background-color="'rgba(0,0,0,.95)'")
+      .text-white
+        h1 Not much to see here
+
+    white-out-modal(show="showModal")
+      div(style="border:1px solid black;")
+        h1 {{'random tests'|capitalizeWords}}
+        p {{'all sentences should be capitalized. isn\'t that right? yup.'|capitalize}}
+
+        input(type="text" ng-init="testModel='needs uppercase'" ng-model="testModel" model-display="testModel|capitalizeWords")
+        br
+        br
+
+        div(ng-bind-html="'<strong>trustAsHtml</strong>' | trustAsHtml")
+        br
+        br
+
+        |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
+        br
+        |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
+        br
+        br
+
+        h4 ackFilter
+        ul
+          li
+            |time: "{{0|aDate:'now':'hmmtt'}}"
+          li
+            |time: "{{0|aDate:'now':'hhmmtt'}}"
+          li
+            |empty-string: "{{null|aDate:'hmmtt'}}"
+          li
+            |empty-string: "{{null|aDate:'hhmmtt'}}"
+          li
+            |date-diff: {{0|aDate:'now':['addSeconds',60]:'dateSecondDiff'}} == 60
+          li
+            |time: {{'13:30'|aTime:'hhmmtt'}} == 01:30 PM
+          li
+            |time: {{'1:30 pm'|aTime:'hhmmtt'}} == 01:30 PM
+          li
+            |time: {{'12:00 am'|aTime:'hhmmtt'}} == 12:00 AM
+          li
+            |time: {{'12:00 pm'|aTime:'hhmmtt'}} == 12:00 PM
+          li
+            |minuteDiff: {{'01/01/2014 2:00 am'|aDate:['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
 
 
-          h4 ack:filter
-          ul
-            li
-              |time: "{{0|ack:'date':'now':'hmmtt'}}"
-            li
-              |time: "{{0|ack:'date':'now':'hhmmtt'}}"
-            li
-              |empty-string: "{{null|ack:'date':'hmmtt'}}"
-            li
-              |empty-string: "{{null|ack:'date':'hhmmtt'}}"
-            li
-              |date-diff: {{0|ack:'date':'now':['addSeconds',60]:'dateSecondDiff'}} == 60
-            li
-              |time: {{'13:30'|ack:'time':'hhmmtt'}} == 01:30 PM
-            li
-              |time: {{'1:30 pm'|ack:'time':'hhmmtt'}} == 01:30 PM
-            li
-              |time: {{'12:00 am'|ack:'time':'hhmmtt'}} == 12:00 AM
-            li
-              |time: {{'12:00 pm'|ack:'time':'hhmmtt'}} == 12:00 PM
-            li
-              |minuteDiff: {{'01/01/2014 2:00 am'|ack:'date':['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
-          hr
-          div(style="text-align:center;")
-            |tap outside of here to close
+        h4 ack:filter
+        ul
+          li
+            |time: "{{0|ack:'date':'now':'hmmtt'}}"
+          li
+            |time: "{{0|ack:'date':'now':'hhmmtt'}}"
+          li
+            |empty-string: "{{null|ack:'date':'hmmtt'}}"
+          li
+            |empty-string: "{{null|ack:'date':'hhmmtt'}}"
+          li
+            |date-diff: {{0|ack:'date':'now':['addSeconds',60]:'dateSecondDiff'}} == 60
+          li
+            |time: {{'13:30'|ack:'time':'hhmmtt'}} == 01:30 PM
+          li
+            |time: {{'1:30 pm'|ack:'time':'hhmmtt'}} == 01:30 PM
+          li
+            |time: {{'12:00 am'|ack:'time':'hhmmtt'}} == 12:00 AM
+          li
+            |time: {{'12:00 pm'|ack:'time':'hhmmtt'}} == 12:00 PM
+          li
+            |minuteDiff: {{'01/01/2014 2:00 am'|ack:'date':['dateMinuteDiff','01/02/2014 2:00 am']}} == 1440
+        hr
+        div(style="text-align:center;")
+          |tap outside of here to close

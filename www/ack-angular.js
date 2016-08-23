@@ -129,190 +129,171 @@ $__System.register("2", ["3", "4", "5"], function (_export) {
     }
   };
 });
-$__System.registerDynamic("6", ["7"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('6', ['7'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var $ = $__require('7');
   module.exports = function defineProperty(it, key, desc) {
     return $.setDesc(it, key, desc);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("8", ["6"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("8", ["6"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('6'),
-    __esModule: true
-  };
+  /* */
+  module.exports = { "default": $__require("6"), __esModule: true };
   return module.exports;
 });
-
-$__System.registerDynamic("3", ["8"], true, function($__require, exports, module) {
+$__System.registerDynamic("3", ["8"], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
-  var _Object$defineProperty = $__require('8')["default"];
-  exports["default"] = (function() {
+  var _Object$defineProperty = $__require("8")["default"];
+  exports["default"] = function () {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if ("value" in descriptor)
-          descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         _Object$defineProperty(target, descriptor.key, descriptor);
       }
     }
-    return function(Constructor, protoProps, staticProps) {
-      if (protoProps)
-        defineProperties(Constructor.prototype, protoProps);
-      if (staticProps)
-        defineProperties(Constructor, staticProps);
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
       return Constructor;
     };
-  })();
+  }();
   exports.__esModule = true;
   return module.exports;
 });
-
-$__System.registerDynamic("4", [], true, function($__require, exports, module) {
+$__System.registerDynamic("4", [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
-  exports["default"] = function(instance, Constructor) {
+  exports["default"] = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   };
+
   exports.__esModule = true;
   return module.exports;
 });
+$__System.registerDynamic("9", [], true, function ($__require, exports, module) {
+  /* */
+  "format cjs";
 
-$__System.registerDynamic("9", [], true, function($__require, exports, module) {
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
-  "format cjs";
   return module.exports;
 });
-
-$__System.registerDynamic("a", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("a", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(it, Constructor, name) {
-    if (!(it instanceof Constructor))
-      throw TypeError(name + ": use the 'new' operator!");
+  /* */
+  module.exports = function (it, Constructor, name) {
+    if (!(it instanceof Constructor)) throw TypeError(name + ": use the 'new' operator!");
     return it;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("b", ["c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('b', ['c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var anObject = $__require('c');
-  module.exports = function(iterator, fn, value, entries) {
+  module.exports = function (iterator, fn, value, entries) {
     try {
       return entries ? fn(anObject(value)[0], value[1]) : fn(value);
     } catch (e) {
       var ret = iterator['return'];
-      if (ret !== undefined)
-        anObject(ret.call(iterator));
+      if (ret !== undefined) anObject(ret.call(iterator));
       throw e;
     }
   };
   return module.exports;
 });
-
-$__System.registerDynamic("d", ["e", "f"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var Iterators = $__require('e'),
-      ITERATOR = $__require('f')('iterator'),
-      ArrayProto = Array.prototype;
-  module.exports = function(it) {
-    return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-  };
-  return module.exports;
+$__System.registerDynamic('d', ['e', 'f'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var Iterators = $__require('e'),
+        ITERATOR = $__require('f')('iterator'),
+        ArrayProto = Array.prototype;
+    module.exports = function (it) {
+        return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("10", ["11"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('10', ['11'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var toInteger = $__require('11'),
       min = Math.min;
-  module.exports = function(it) {
+  module.exports = function (it) {
     return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("12", ["13", "b", "d", "c", "10", "14"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('12', ['13', 'b', 'd', 'c', '10', '14'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var ctx = $__require('13'),
       call = $__require('b'),
       isArrayIter = $__require('d'),
       anObject = $__require('c'),
       toLength = $__require('10'),
       getIterFn = $__require('14');
-  module.exports = function(iterable, entries, fn, that) {
+  module.exports = function (iterable, entries, fn, that) {
     var iterFn = getIterFn(iterable),
         f = ctx(fn, that, entries ? 2 : 1),
         index = 0,
         length,
         step,
         iterator;
-    if (typeof iterFn != 'function')
-      throw TypeError(iterable + ' is not iterable!');
-    if (isArrayIter(iterFn))
-      for (length = toLength(iterable.length); length > index; index++) {
-        entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-      }
-    else
-      for (iterator = iterFn.call(iterable); !(step = iterator.next()).done; ) {
-        call(iterator, f, step.value, entries);
-      }
+    if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+    if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+      entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+      call(iterator, f, step.value, entries);
+    }
   };
   return module.exports;
 });
-
-$__System.registerDynamic("15", ["7", "16", "c", "13"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('15', ['7', '16', 'c', '13'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var getDesc = $__require('7').getDesc,
       isObject = $__require('16'),
       anObject = $__require('c');
-  var check = function(O, proto) {
+  var check = function (O, proto) {
     anObject(O);
-    if (!isObject(proto) && proto !== null)
-      throw TypeError(proto + ": can't set as prototype!");
+    if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
   };
   module.exports = {
-    set: Object.setPrototypeOf || ('__proto__' in {} ? function(test, buggy, set) {
+    set: Object.setPrototypeOf || ('__proto__' in {} ? function (test, buggy, set) {
       try {
         set = $__require('13')(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
         set(test, []);
@@ -322,10 +303,7 @@ $__System.registerDynamic("15", ["7", "16", "c", "13"], true, function($__requir
       }
       return function setPrototypeOf(O, proto) {
         check(O, proto);
-        if (buggy)
-          O.__proto__ = proto;
-        else
-          set(O, proto);
+        if (buggy) O.__proto__ = proto;else set(O, proto);
         return O;
       };
     }({}, false) : undefined),
@@ -333,87 +311,80 @@ $__System.registerDynamic("15", ["7", "16", "c", "13"], true, function($__requir
   };
   return module.exports;
 });
-
-$__System.registerDynamic("17", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("17", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  // 7.2.9 SameValue(x, y)
   module.exports = Object.is || function is(x, y) {
     return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("18", ["c", "19", "f"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var anObject = $__require('c'),
-      aFunction = $__require('19'),
-      SPECIES = $__require('f')('species');
-  module.exports = function(O, D) {
-    var C = anObject(O).constructor,
-        S;
-    return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-  };
-  return module.exports;
+$__System.registerDynamic('18', ['c', '19', 'f'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var anObject = $__require('c'),
+        aFunction = $__require('19'),
+        SPECIES = $__require('f')('species');
+    module.exports = function (O, D) {
+        var C = anObject(O).constructor,
+            S;
+        return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("1a", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = function(fn, args, that) {
-    var un = that === undefined;
-    switch (args.length) {
-      case 0:
-        return un ? fn() : fn.call(that);
-      case 1:
-        return un ? fn(args[0]) : fn.call(that, args[0]);
-      case 2:
-        return un ? fn(args[0], args[1]) : fn.call(that, args[0], args[1]);
-      case 3:
-        return un ? fn(args[0], args[1], args[2]) : fn.call(that, args[0], args[1], args[2]);
-      case 4:
-        return un ? fn(args[0], args[1], args[2], args[3]) : fn.call(that, args[0], args[1], args[2], args[3]);
-    }
-    return fn.apply(that, args);
-  };
-  return module.exports;
+$__System.registerDynamic("1a", [], true, function ($__require, exports, module) {
+                  var define,
+                      global = this || self,
+                      GLOBAL = global;
+                  // fast apply, http://jsperf.lnkit.com/fast-apply/5
+                  module.exports = function (fn, args, that) {
+                                    var un = that === undefined;
+                                    switch (args.length) {
+                                                      case 0:
+                                                                        return un ? fn() : fn.call(that);
+                                                      case 1:
+                                                                        return un ? fn(args[0]) : fn.call(that, args[0]);
+                                                      case 2:
+                                                                        return un ? fn(args[0], args[1]) : fn.call(that, args[0], args[1]);
+                                                      case 3:
+                                                                        return un ? fn(args[0], args[1], args[2]) : fn.call(that, args[0], args[1], args[2]);
+                                                      case 4:
+                                                                        return un ? fn(args[0], args[1], args[2], args[3]) : fn.call(that, args[0], args[1], args[2], args[3]);
+                                    }return fn.apply(that, args);
+                  };
+                  return module.exports;
 });
-
-$__System.registerDynamic("1b", ["1c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('1b', ['1c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   module.exports = $__require('1c').document && document.documentElement;
   return module.exports;
 });
-
-$__System.registerDynamic("1d", ["16", "1c"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var isObject = $__require('16'),
-      document = $__require('1c').document,
-      is = isObject(document) && isObject(document.createElement);
-  module.exports = function(it) {
-    return is ? document.createElement(it) : {};
-  };
-  return module.exports;
+$__System.registerDynamic('1d', ['16', '1c'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var isObject = $__require('16'),
+        document = $__require('1c').document,
+        is = isObject(document) && isObject(document.createElement);
+    module.exports = function (it) {
+        return is ? document.createElement(it) : {};
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("1e", ["13", "1a", "1b", "1d", "1c", "1f", "20"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('1e', ['13', '1a', '1b', '1d', '1c', '1f', '20'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(process) {
+  /* */
+  (function (process) {
     var ctx = $__require('13'),
         invoke = $__require('1a'),
         html = $__require('1b'),
@@ -429,7 +400,7 @@ $__System.registerDynamic("1e", ["13", "1a", "1b", "1d", "1c", "1f", "20"], true
         defer,
         channel,
         port;
-    var run = function() {
+    var run = function () {
       var id = +this;
       if (queue.hasOwnProperty(id)) {
         var fn = queue[id];
@@ -437,16 +408,15 @@ $__System.registerDynamic("1e", ["13", "1a", "1b", "1d", "1c", "1f", "20"], true
         fn();
       }
     };
-    var listner = function(event) {
+    var listner = function (event) {
       run.call(event.data);
     };
     if (!setTask || !clearTask) {
       setTask = function setImmediate(fn) {
         var args = [],
             i = 1;
-        while (arguments.length > i)
-          args.push(arguments[i++]);
-        queue[++counter] = function() {
+        while (arguments.length > i) args.push(arguments[i++]);
+        queue[++counter] = function () {
           invoke(typeof fn == 'function' ? fn : Function(fn), args);
         };
         defer(counter);
@@ -456,28 +426,28 @@ $__System.registerDynamic("1e", ["13", "1a", "1b", "1d", "1c", "1f", "20"], true
         delete queue[id];
       };
       if ($__require('1f')(process) == 'process') {
-        defer = function(id) {
+        defer = function (id) {
           process.nextTick(ctx(run, id, 1));
         };
       } else if (MessageChannel) {
-        channel = new MessageChannel;
+        channel = new MessageChannel();
         port = channel.port2;
         channel.port1.onmessage = listner;
         defer = ctx(port.postMessage, port, 1);
       } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-        defer = function(id) {
+        defer = function (id) {
           global.postMessage(id + '', '*');
         };
         global.addEventListener('message', listner, false);
       } else if (ONREADYSTATECHANGE in cel('script')) {
-        defer = function(id) {
-          html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function() {
+        defer = function (id) {
+          html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
             html.removeChild(this);
             run.call(id);
           };
         };
       } else {
-        defer = function(id) {
+        defer = function (id) {
           setTimeout(ctx(run, id, 1), 0);
         };
       }
@@ -489,13 +459,12 @@ $__System.registerDynamic("1e", ["13", "1a", "1b", "1d", "1c", "1f", "20"], true
   })($__require('20'));
   return module.exports;
 });
-
-$__System.registerDynamic("21", ["1c", "1e", "1f", "20"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('21', ['1c', '1e', '1f', '20'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(process) {
+  /* */
+  (function (process) {
     var global = $__require('1c'),
         macrotask = $__require('1e').set,
         Observer = global.MutationObserver || global.WebKitMutationObserver,
@@ -505,10 +474,8 @@ $__System.registerDynamic("21", ["1c", "1e", "1f", "20"], true, function($__requ
         head,
         last,
         notify;
-    var flush = function() {
-      var parent,
-          domain,
-          fn;
+    var flush = function () {
+      var parent, domain, fn;
       if (isNode && (parent = process.domain)) {
         process.domain = null;
         parent.exit();
@@ -516,34 +483,31 @@ $__System.registerDynamic("21", ["1c", "1e", "1f", "20"], true, function($__requ
       while (head) {
         domain = head.domain;
         fn = head.fn;
-        if (domain)
-          domain.enter();
+        if (domain) domain.enter();
         fn();
-        if (domain)
-          domain.exit();
+        if (domain) domain.exit();
         head = head.next;
       }
       last = undefined;
-      if (parent)
-        parent.enter();
+      if (parent) parent.enter();
     };
     if (isNode) {
-      notify = function() {
+      notify = function () {
         process.nextTick(flush);
       };
     } else if (Observer) {
       var toggle = 1,
           node = document.createTextNode('');
-      new Observer(flush).observe(node, {characterData: true});
-      notify = function() {
+      new Observer(flush).observe(node, { characterData: true });
+      notify = function () {
         node.data = toggle = -toggle;
       };
     } else if (Promise && Promise.resolve) {
-      notify = function() {
+      notify = function () {
         Promise.resolve().then(flush);
       };
     } else {
-      notify = function() {
+      notify = function () {
         macrotask.call(global, flush);
       };
     }
@@ -553,8 +517,7 @@ $__System.registerDynamic("21", ["1c", "1e", "1f", "20"], true, function($__requ
         next: undefined,
         domain: isNode && process.domain
       };
-      if (last)
-        last.next = task;
+      if (last) last.next = task;
       if (!head) {
         head = task;
         notify();
@@ -564,24 +527,22 @@ $__System.registerDynamic("21", ["1c", "1e", "1f", "20"], true, function($__requ
   })($__require('20'));
   return module.exports;
 });
-
-$__System.registerDynamic("22", ["23"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('22', ['23'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var redefine = $__require('23');
-  module.exports = function(target, src) {
-    for (var key in src)
-      redefine(target, key, src[key]);
+  module.exports = function (target, src) {
+    for (var key in src) redefine(target, key, src[key]);
     return target;
   };
   return module.exports;
 });
+$__System.registerDynamic('24', ['25', '7', '26', 'f'], true, function ($__require, exports, module) {
+  /* */
+  'use strict';
 
-$__System.registerDynamic("24", ["25", "7", "26", "f"], true, function($__require, exports, module) {
-  "use strict";
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
@@ -589,46 +550,43 @@ $__System.registerDynamic("24", ["25", "7", "26", "f"], true, function($__requir
       $ = $__require('7'),
       DESCRIPTORS = $__require('26'),
       SPECIES = $__require('f')('species');
-  module.exports = function(KEY) {
+  module.exports = function (KEY) {
     var C = core[KEY];
-    if (DESCRIPTORS && C && !C[SPECIES])
-      $.setDesc(C, SPECIES, {
-        configurable: true,
-        get: function() {
-          return this;
-        }
-      });
+    if (DESCRIPTORS && C && !C[SPECIES]) $.setDesc(C, SPECIES, {
+      configurable: true,
+      get: function () {
+        return this;
+      }
+    });
   };
   return module.exports;
 });
-
-$__System.registerDynamic("27", ["f"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('27', ['f'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var ITERATOR = $__require('f')('iterator'),
       SAFE_CLOSING = false;
   try {
     var riter = [7][ITERATOR]();
-    riter['return'] = function() {
+    riter['return'] = function () {
       SAFE_CLOSING = true;
     };
-    Array.from(riter, function() {
+    Array.from(riter, function () {
       throw 2;
     });
   } catch (e) {}
-  module.exports = function(exec, skipClosing) {
-    if (!skipClosing && !SAFE_CLOSING)
-      return false;
+  module.exports = function (exec, skipClosing) {
+    if (!skipClosing && !SAFE_CLOSING) return false;
     var safe = false;
     try {
       var arr = [7],
           iter = arr[ITERATOR]();
-      iter.next = function() {
-        return {done: safe = true};
+      iter.next = function () {
+        return { done: safe = true };
       };
-      arr[ITERATOR] = function() {
+      arr[ITERATOR] = function () {
         return iter;
       };
       exec(arr);
@@ -637,14 +595,14 @@ $__System.registerDynamic("27", ["f"], true, function($__require, exports, modul
   };
   return module.exports;
 });
-
-$__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "19", "a", "12", "15", "17", "f", "18", "21", "26", "22", "2c", "24", "25", "27", "20"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('28', ['7', '29', '1c', '13', '2a', '2b', '16', 'c', '19', 'a', '12', '15', '17', 'f', '18', '21', '26', '22', '2c', '24', '25', '27', '20'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(process) {
+  /* */
+  (function (process) {
     'use strict';
+
     var $ = $__require('7'),
         LIBRARY = $__require('29'),
         global = $__require('1c'),
@@ -665,19 +623,18 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
         process = global.process,
         isNode = classof(process) == 'process',
         P = global[PROMISE],
-        empty = function() {},
+        empty = function () {},
         Wrapper;
-    var testResolve = function(sub) {
+    var testResolve = function (sub) {
       var test = new P(empty),
           promise;
-      if (sub)
-        test.constructor = function(exec) {
-          exec(empty, empty);
-        };
+      if (sub) test.constructor = function (exec) {
+        exec(empty, empty);
+      };
       (promise = P.resolve(test))['catch'](empty);
       return promise === test;
     };
-    var USE_NATIVE = function() {
+    var USE_NATIVE = function () {
       var works = false;
       function P2(x) {
         var self = new P(x);
@@ -687,15 +644,15 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
       try {
         works = P && P.resolve && testResolve();
         setProto(P2, P);
-        P2.prototype = $.create(P.prototype, {constructor: {value: P2}});
-        if (!(P2.resolve(5).then(function() {}) instanceof P2)) {
+        P2.prototype = $.create(P.prototype, { constructor: { value: P2 } });
+        if (!(P2.resolve(5).then(function () {}) instanceof P2)) {
           works = false;
         }
         if (works && $__require('26')) {
           var thenableThenGotten = false;
-          P.resolve($.setDesc({}, 'then', {get: function() {
+          P.resolve($.setDesc({}, 'then', { get: function () {
               thenableThenGotten = true;
-            }}));
+            } }));
           works = thenableThenGotten;
         }
       } catch (e) {
@@ -703,47 +660,43 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
       }
       return works;
     }();
-    var sameConstructor = function(a, b) {
-      if (LIBRARY && a === P && b === Wrapper)
-        return true;
+    var sameConstructor = function (a, b) {
+      if (LIBRARY && a === P && b === Wrapper) return true;
       return same(a, b);
     };
-    var getConstructor = function(C) {
+    var getConstructor = function (C) {
       var S = anObject(C)[SPECIES];
       return S != undefined ? S : C;
     };
-    var isThenable = function(it) {
+    var isThenable = function (it) {
       var then;
-      return isObject(it) && typeof(then = it.then) == 'function' ? then : false;
+      return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
     };
-    var PromiseCapability = function(C) {
-      var resolve,
-          reject;
-      this.promise = new C(function($$resolve, $$reject) {
-        if (resolve !== undefined || reject !== undefined)
-          throw TypeError('Bad Promise constructor');
+    var PromiseCapability = function (C) {
+      var resolve, reject;
+      this.promise = new C(function ($$resolve, $$reject) {
+        if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
         resolve = $$resolve;
         reject = $$reject;
       });
       this.resolve = aFunction(resolve), this.reject = aFunction(reject);
     };
-    var perform = function(exec) {
+    var perform = function (exec) {
       try {
         exec();
       } catch (e) {
-        return {error: e};
+        return { error: e };
       }
     };
-    var notify = function(record, isReject) {
-      if (record.n)
-        return;
+    var notify = function (record, isReject) {
+      if (record.n) return;
       record.n = true;
       var chain = record.c;
-      asap(function() {
+      asap(function () {
         var value = record.v,
             ok = record.s == 1,
             i = 0;
-        var run = function(reaction) {
+        var run = function (reaction) {
           var handler = ok ? reaction.ok : reaction.fail,
               resolve = reaction.resolve,
               reject = reaction.reject,
@@ -751,64 +704,56 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
               then;
           try {
             if (handler) {
-              if (!ok)
-                record.h = true;
+              if (!ok) record.h = true;
               result = handler === true ? value : handler(value);
               if (result === reaction.promise) {
                 reject(TypeError('Promise-chain cycle'));
               } else if (then = isThenable(result)) {
                 then.call(result, resolve, reject);
-              } else
-                resolve(result);
-            } else
-              reject(value);
+              } else resolve(result);
+            } else reject(value);
           } catch (e) {
             reject(e);
           }
         };
-        while (chain.length > i)
-          run(chain[i++]);
+        while (chain.length > i) run(chain[i++]);
         chain.length = 0;
         record.n = false;
-        if (isReject)
-          setTimeout(function() {
-            var promise = record.p,
-                handler,
-                console;
-            if (isUnhandled(promise)) {
-              if (isNode) {
-                process.emit('unhandledRejection', value, promise);
-              } else if (handler = global.onunhandledrejection) {
-                handler({
-                  promise: promise,
-                  reason: value
-                });
-              } else if ((console = global.console) && console.error) {
-                console.error('Unhandled promise rejection', value);
-              }
+        if (isReject) setTimeout(function () {
+          var promise = record.p,
+              handler,
+              console;
+          if (isUnhandled(promise)) {
+            if (isNode) {
+              process.emit('unhandledRejection', value, promise);
+            } else if (handler = global.onunhandledrejection) {
+              handler({
+                promise: promise,
+                reason: value
+              });
+            } else if ((console = global.console) && console.error) {
+              console.error('Unhandled promise rejection', value);
             }
-            record.a = undefined;
-          }, 1);
+          }
+          record.a = undefined;
+        }, 1);
       });
     };
-    var isUnhandled = function(promise) {
+    var isUnhandled = function (promise) {
       var record = promise._d,
           chain = record.a || record.c,
           i = 0,
           reaction;
-      if (record.h)
-        return false;
+      if (record.h) return false;
       while (chain.length > i) {
         reaction = chain[i++];
-        if (reaction.fail || !isUnhandled(reaction.promise))
-          return false;
+        if (reaction.fail || !isUnhandled(reaction.promise)) return false;
       }
       return true;
     };
-    var $reject = function(value) {
+    var $reject = function (value) {
       var record = this;
-      if (record.d)
-        return;
+      if (record.d) return;
       record.d = true;
       record = record.r || record;
       record.v = value;
@@ -816,18 +761,16 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
       record.a = record.c.slice();
       notify(record, true);
     };
-    var $resolve = function(value) {
+    var $resolve = function (value) {
       var record = this,
           then;
-      if (record.d)
-        return;
+      if (record.d) return;
       record.d = true;
       record = record.r || record;
       try {
-        if (record.p === value)
-          throw TypeError("Promise can't be resolved itself");
+        if (record.p === value) throw TypeError("Promise can't be resolved itself");
         if (then = isThenable(value)) {
-          asap(function() {
+          asap(function () {
             var wrapper = {
               r: record,
               d: false
@@ -877,37 +820,34 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
           reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
           reaction.fail = typeof onRejected == 'function' && onRejected;
           record.c.push(reaction);
-          if (record.a)
-            record.a.push(reaction);
-          if (record.s)
-            notify(record, false);
+          if (record.a) record.a.push(reaction);
+          if (record.s) notify(record, false);
           return promise;
         },
-        'catch': function(onRejected) {
+        'catch': function (onRejected) {
           return this.then(undefined, onRejected);
         }
       });
     }
-    $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: P});
+    $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: P });
     $__require('2c')(P, PROMISE);
     $__require('24')(PROMISE);
     Wrapper = $__require('25')[PROMISE];
-    $export($export.S + $export.F * !USE_NATIVE, PROMISE, {reject: function reject(r) {
+    $export($export.S + $export.F * !USE_NATIVE, PROMISE, { reject: function reject(r) {
         var capability = new PromiseCapability(this),
             $$reject = capability.reject;
         $$reject(r);
         return capability.promise;
-      }});
-    $export($export.S + $export.F * (!USE_NATIVE || testResolve(true)), PROMISE, {resolve: function resolve(x) {
-        if (x instanceof P && sameConstructor(x.constructor, this))
-          return x;
+      } });
+    $export($export.S + $export.F * (!USE_NATIVE || testResolve(true)), PROMISE, { resolve: function resolve(x) {
+        if (x instanceof P && sameConstructor(x.constructor, this)) return x;
         var capability = new PromiseCapability(this),
             $$resolve = capability.resolve;
         $$resolve(x);
         return capability.promise;
-      }});
-    $export($export.S + $export.F * !(USE_NATIVE && $__require('27')(function(iter) {
-      P.all(iter)['catch'](function() {});
+      } });
+    $export($export.S + $export.F * !(USE_NATIVE && $__require('27')(function (iter) {
+      P.all(iter)['catch'](function () {});
     })), PROMISE, {
       all: function all(iterable) {
         var C = getConstructor(this),
@@ -915,51 +855,44 @@ $__System.registerDynamic("28", ["7", "29", "1c", "13", "2a", "2b", "16", "c", "
             resolve = capability.resolve,
             reject = capability.reject,
             values = [];
-        var abrupt = perform(function() {
+        var abrupt = perform(function () {
           forOf(iterable, false, values.push, values);
           var remaining = values.length,
               results = Array(remaining);
-          if (remaining)
-            $.each.call(values, function(promise, index) {
-              var alreadyCalled = false;
-              C.resolve(promise).then(function(value) {
-                if (alreadyCalled)
-                  return;
-                alreadyCalled = true;
-                results[index] = value;
-                --remaining || resolve(results);
-              }, reject);
-            });
-          else
-            resolve(results);
+          if (remaining) $.each.call(values, function (promise, index) {
+            var alreadyCalled = false;
+            C.resolve(promise).then(function (value) {
+              if (alreadyCalled) return;
+              alreadyCalled = true;
+              results[index] = value;
+              --remaining || resolve(results);
+            }, reject);
+          });else resolve(results);
         });
-        if (abrupt)
-          reject(abrupt.error);
+        if (abrupt) reject(abrupt.error);
         return capability.promise;
       },
       race: function race(iterable) {
         var C = getConstructor(this),
             capability = new PromiseCapability(C),
             reject = capability.reject;
-        var abrupt = perform(function() {
-          forOf(iterable, false, function(promise) {
+        var abrupt = perform(function () {
+          forOf(iterable, false, function (promise) {
             C.resolve(promise).then(capability.resolve, reject);
           });
         });
-        if (abrupt)
-          reject(abrupt.error);
+        if (abrupt) reject(abrupt.error);
         return capability.promise;
       }
     });
   })($__require('20'));
   return module.exports;
 });
-
-$__System.registerDynamic("2d", ["9", "2e", "2f", "28", "25"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('2d', ['9', '2e', '2f', '28', '25'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   $__require('9');
   $__require('2e');
   $__require('2f');
@@ -967,35 +900,30 @@ $__System.registerDynamic("2d", ["9", "2e", "2f", "28", "25"], true, function($_
   module.exports = $__require('25').Promise;
   return module.exports;
 });
-
-$__System.registerDynamic("30", ["2d"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("30", ["2d"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('2d'),
-    __esModule: true
-  };
+  /* */
+  module.exports = { "default": $__require("2d"), __esModule: true };
   return module.exports;
 });
-
-$__System.registerDynamic("31", ["7", "32", "33", "34"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('31', ['7', '32', '33', '34'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var $ = $__require('7'),
       toObject = $__require('32'),
       IObject = $__require('33');
-  module.exports = $__require('34')(function() {
+  module.exports = $__require('34')(function () {
     var a = Object.assign,
         A = {},
         B = {},
         S = Symbol(),
         K = 'abcdefghijklmnopqrst';
     A[S] = 7;
-    K.split('').forEach(function(k) {
+    K.split('').forEach(function (k) {
       B[k] = k;
     });
     return a({}, A)[S] != 7 || Object.keys(a({}, B)).join('') != K;
@@ -1013,55 +941,47 @@ $__System.registerDynamic("31", ["7", "32", "33", "34"], true, function($__requi
           length = keys.length,
           j = 0,
           key;
-      while (length > j)
-        if (isEnum.call(S, key = keys[j++]))
-          T[key] = S[key];
+      while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
     }
     return T;
   } : Object.assign;
   return module.exports;
 });
-
-$__System.registerDynamic("35", ["2b", "31"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('35', ['2b', '31'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var $export = $__require('2b');
-  $export($export.S + $export.F, 'Object', {assign: $__require('31')});
+  $export($export.S + $export.F, 'Object', { assign: $__require('31') });
   return module.exports;
 });
-
-$__System.registerDynamic("36", ["35", "25"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('36', ['35', '25'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   $__require('35');
   module.exports = $__require('25').Object.assign;
   return module.exports;
 });
-
-$__System.registerDynamic("5", ["36"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("5", ["36"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('36'),
-    __esModule: true
-  };
+  /* */
+  module.exports = { "default": $__require("36"), __esModule: true };
   return module.exports;
 });
+$__System.registerDynamic("37", ["20"], true, function ($__require, exports, module) {
+  /* */
+  "format cjs";
 
-$__System.registerDynamic("37", ["20"], true, function($__require, exports, module) {
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
-  "format cjs";
-  (function(process) {
-    (function(f) {
+  (function (process) {
+    (function (f) {
       if (typeof exports === "object" && typeof module !== "undefined") {
         module.exports = f();
       } else if (typeof define === "function" && define.amd) {
@@ -1079,24 +999,20 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
         }
         g.localforage = f();
       }
-    })(function() {
-      var define,
-          module,
-          exports;
-      return (function e(t, n, r) {
+    })(function () {
+      var define, module, exports;
+      return function e(t, n, r) {
         function s(o, u) {
           if (!n[o]) {
             if (!t[o]) {
               var a = typeof $__require == "function" && $__require;
-              if (!u && a)
-                return a(o, !0);
-              if (i)
-                return i(o, !0);
+              if (!u && a) return a(o, !0);
+              if (i) return i(o, !0);
               var f = new Error("Cannot find module '" + o + "'");
-              throw (f.code = "MODULE_NOT_FOUND", f);
+              throw f.code = "MODULE_NOT_FOUND", f;
             }
-            var l = n[o] = {exports: {}};
-            t[o][0].call(l.exports, function(e) {
+            var l = n[o] = { exports: {} };
+            t[o][0].call(l.exports, function (e) {
               var n = t[o][1][e];
               return s(n ? n : e);
             }, l, l.exports, e, t, n, r);
@@ -1104,12 +1020,12 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           return n[o].exports;
         }
         var i = typeof $__require == "function" && $__require;
-        for (var o = 0; o < r.length; o++)
-          s(r[o]);
+        for (var o = 0; o < r.length; o++) s(r[o]);
         return s;
-      })({
-        1: [function(_dereq_, module, exports) {
+      }({
+        1: [function (_dereq_, module, exports) {
           'use strict';
+
           var immediate = _dereq_(2);
           function INTERNAL() {}
           var handlers = {};
@@ -1128,10 +1044,10 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               safelyResolveThenable(this, resolver);
             }
           }
-          Promise.prototype["catch"] = function(onRejected) {
+          Promise.prototype["catch"] = function (onRejected) {
             return this.then(null, onRejected);
           };
-          Promise.prototype.then = function(onFulfilled, onRejected) {
+          Promise.prototype.then = function (onFulfilled, onRejected) {
             if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
               return this;
             }
@@ -1155,20 +1071,20 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               this.callRejected = this.otherCallRejected;
             }
           }
-          QueueItem.prototype.callFulfilled = function(value) {
+          QueueItem.prototype.callFulfilled = function (value) {
             handlers.resolve(this.promise, value);
           };
-          QueueItem.prototype.otherCallFulfilled = function(value) {
+          QueueItem.prototype.otherCallFulfilled = function (value) {
             unwrap(this.promise, this.onFulfilled, value);
           };
-          QueueItem.prototype.callRejected = function(value) {
+          QueueItem.prototype.callRejected = function (value) {
             handlers.reject(this.promise, value);
           };
-          QueueItem.prototype.otherCallRejected = function(value) {
+          QueueItem.prototype.otherCallRejected = function (value) {
             unwrap(this.promise, this.onRejected, value);
           };
           function unwrap(promise, func, value) {
-            immediate(function() {
+            immediate(function () {
               var returnValue;
               try {
                 returnValue = func(value);
@@ -1182,7 +1098,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               }
             });
           }
-          handlers.resolve = function(self, value) {
+          handlers.resolve = function (self, value) {
             var result = tryCatch(getThen, value);
             if (result.status === 'error') {
               return handlers.reject(self, result.value);
@@ -1201,7 +1117,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
             return self;
           };
-          handlers.reject = function(self, error) {
+          handlers.reject = function (self, error) {
             self.state = REJECTED;
             self.outcome = error;
             var i = -1;
@@ -1286,7 +1202,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
             return promise;
             function allResolver(value, i) {
-              self.resolve(value).then(resolveFromAll, function(error) {
+              self.resolve(value).then(resolveFromAll, function (error) {
                 if (!called) {
                   called = true;
                   handlers.reject(promise, error);
@@ -1319,12 +1235,12 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
             return promise;
             function resolver(value) {
-              self.resolve(value).then(function(response) {
+              self.resolve(value).then(function (response) {
                 if (!called) {
                   called = true;
                   handlers.resolve(promise, response);
                 }
-              }, function(error) {
+              }, function (error) {
                 if (!called) {
                   called = true;
                   handlers.reject(promise, error);
@@ -1332,10 +1248,11 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               });
             }
           }
-        }, {"2": 2}],
-        2: [function(_dereq_, module, exports) {
-          (function(global) {
+        }, { "2": 2 }],
+        2: [function (_dereq_, module, exports) {
+          (function (global) {
             'use strict';
+
             var Mutation = global.MutationObserver || global.WebKitMutationObserver;
             var scheduleDrain;
             {
@@ -1343,20 +1260,20 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                 var called = 0;
                 var observer = new Mutation(nextTick);
                 var element = global.document.createTextNode('');
-                observer.observe(element, {characterData: true});
-                scheduleDrain = function() {
-                  element.data = (called = ++called % 2);
+                observer.observe(element, { characterData: true });
+                scheduleDrain = function () {
+                  element.data = called = ++called % 2;
                 };
               } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
                 var channel = new global.MessageChannel();
                 channel.port1.onmessage = nextTick;
-                scheduleDrain = function() {
+                scheduleDrain = function () {
                   channel.port2.postMessage(0);
                 };
               } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
-                scheduleDrain = function() {
+                scheduleDrain = function () {
                   var scriptEl = global.document.createElement('script');
-                  scriptEl.onreadystatechange = function() {
+                  scriptEl.onreadystatechange = function () {
                     nextTick();
                     scriptEl.onreadystatechange = null;
                     scriptEl.parentNode.removeChild(scriptEl);
@@ -1365,7 +1282,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   global.document.documentElement.appendChild(scriptEl);
                 };
               } else {
-                scheduleDrain = function() {
+                scheduleDrain = function () {
                   setTimeout(nextTick, 0);
                 };
               }
@@ -1374,8 +1291,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             var queue = [];
             function nextTick() {
               draining = true;
-              var i,
-                  oldQueue;
+              var i, oldQueue;
               var len = queue.length;
               while (len) {
                 oldQueue = queue;
@@ -1396,19 +1312,21 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
           }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
         }, {}],
-        3: [function(_dereq_, module, exports) {
-          (function(global) {
+        3: [function (_dereq_, module, exports) {
+          (function (global) {
             'use strict';
+
             if (typeof global.Promise !== 'function') {
               global.Promise = _dereq_(1);
             }
           }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-        }, {"1": 1}],
-        4: [function(_dereq_, module, exports) {
+        }, { "1": 1 }],
+        4: [function (_dereq_, module, exports) {
           'use strict';
-          var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+
+          var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
             return typeof obj;
-          } : function(obj) {
+          } : function (obj) {
             return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
           };
           function _classCallCheck(instance, Constructor) {
@@ -1480,9 +1398,9 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           var Promise$1 = Promise;
           function executeCallback(promise, callback) {
             if (callback) {
-              promise.then(function(result) {
+              promise.then(function (result) {
                 callback(null, result);
-              }, function(error) {
+              }, function (error) {
                 callback(error);
               });
             }
@@ -1500,20 +1418,20 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             return buf;
           }
           function _checkBlobSupportWithoutCaching(txn) {
-            return new Promise$1(function(resolve) {
+            return new Promise$1(function (resolve) {
               var blob = createBlob(['']);
               txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
-              txn.onabort = function(e) {
+              txn.onabort = function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 resolve(false);
               };
-              txn.oncomplete = function() {
+              txn.oncomplete = function () {
                 var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
                 var matchedEdge = navigator.userAgent.match(/Edge\//);
                 resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
               };
-            })["catch"](function() {
+            })["catch"](function () {
               return false;
             });
           }
@@ -1521,7 +1439,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             if (typeof supportsBlobs === 'boolean') {
               return Promise$1.resolve(supportsBlobs);
             }
-            return _checkBlobSupportWithoutCaching(idb).then(function(value) {
+            return _checkBlobSupportWithoutCaching(idb).then(function (value) {
               supportsBlobs = value;
               return supportsBlobs;
             });
@@ -1529,14 +1447,14 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           function _deferReadiness(dbInfo) {
             var dbContext = dbContexts[dbInfo.name];
             var deferredOperation = {};
-            deferredOperation.promise = new Promise$1(function(resolve) {
+            deferredOperation.promise = new Promise$1(function (resolve) {
               deferredOperation.resolve = resolve;
             });
             dbContext.deferredOperations.push(deferredOperation);
             if (!dbContext.dbReady) {
               dbContext.dbReady = deferredOperation.promise;
             } else {
-              dbContext.dbReady = dbContext.dbReady.then(function() {
+              dbContext.dbReady = dbContext.dbReady.then(function () {
                 return deferredOperation.promise;
               });
             }
@@ -1549,7 +1467,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
           }
           function _getConnection(dbInfo, upgradeNeeded) {
-            return new Promise$1(function(resolve, reject) {
+            return new Promise$1(function (resolve, reject) {
               if (dbInfo.db) {
                 if (upgradeNeeded) {
                   _deferReadiness(dbInfo);
@@ -1564,7 +1482,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               }
               var openreq = idb.open.apply(idb, dbArgs);
               if (upgradeNeeded) {
-                openreq.onupgradeneeded = function(e) {
+                openreq.onupgradeneeded = function (e) {
                   var db = openreq.result;
                   try {
                     db.createObjectStore(dbInfo.storeName);
@@ -1580,10 +1498,10 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   }
                 };
               }
-              openreq.onerror = function() {
+              openreq.onerror = function () {
                 reject(openreq.error);
               };
-              openreq.onsuccess = function() {
+              openreq.onsuccess = function () {
                 resolve(openreq.result);
                 _advanceReadiness(dbInfo);
               };
@@ -1620,10 +1538,10 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             return false;
           }
           function _encodeBlob(blob) {
-            return new Promise$1(function(resolve, reject) {
+            return new Promise$1(function (resolve, reject) {
               var reader = new FileReader();
               reader.onerror = reject;
-              reader.onloadend = function(e) {
+              reader.onloadend = function (e) {
                 var base64 = btoa(e.target.result || '');
                 resolve({
                   __local_forage_encoded_blob: true,
@@ -1636,14 +1554,14 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function _decodeBlob(encodedBlob) {
             var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
-            return createBlob([arrayBuff], {type: encodedBlob.type});
+            return createBlob([arrayBuff], { type: encodedBlob.type });
           }
           function _isEncodedBlob(value) {
             return value && value.__local_forage_encoded_blob;
           }
           function _fullyReady(callback) {
             var self = this;
-            var promise = self._initReady().then(function() {
+            var promise = self._initReady().then(function () {
               var dbContext = dbContexts[self._dbInfo.name];
               if (dbContext && dbContext.dbReady) {
                 return dbContext.dbReady;
@@ -1654,7 +1572,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function _initStorage(options) {
             var self = this;
-            var dbInfo = {db: null};
+            var dbInfo = { db: null };
             if (options) {
               for (var i in options) {
                 dbInfo[i] = options[i];
@@ -1689,16 +1607,16 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               }
             }
             var forages = dbContext.forages.slice(0);
-            return Promise$1.all(initPromises).then(function() {
+            return Promise$1.all(initPromises).then(function () {
               dbInfo.db = dbContext.db;
               return _getOriginalConnection(dbInfo);
-            }).then(function(db) {
+            }).then(function (db) {
               dbInfo.db = db;
               if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
                 return _getUpgradedConnection(dbInfo);
               }
               return db;
-            }).then(function(db) {
+            }).then(function (db) {
               dbInfo.db = dbContext.db = db;
               self._dbInfo = dbInfo;
               for (var k = 0; k < forages.length; k++) {
@@ -1716,12 +1634,12 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
                 var req = store.get(key);
-                req.onsuccess = function() {
+                req.onsuccess = function () {
                   var value = req.result;
                   if (value === undefined) {
                     value = null;
@@ -1731,7 +1649,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   }
                   resolve(value);
                 };
-                req.onerror = function() {
+                req.onerror = function () {
                   reject(req.error);
                 };
               })["catch"](reject);
@@ -1741,13 +1659,13 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function iterate(iterator, callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
                 var req = store.openCursor();
                 var iterationNumber = 1;
-                req.onsuccess = function() {
+                req.onsuccess = function () {
                   var cursor = req.result;
                   if (cursor) {
                     var value = cursor.value;
@@ -1764,7 +1682,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                     resolve();
                   }
                 };
-                req.onerror = function() {
+                req.onerror = function () {
                   reject(req.error);
                 };
               })["catch"](reject);
@@ -1778,12 +1696,12 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
+            var promise = new Promise$1(function (resolve, reject) {
               var dbInfo;
-              self.ready().then(function() {
+              self.ready().then(function () {
                 dbInfo = self._dbInfo;
                 if (value instanceof Blob) {
-                  return _checkBlobSupport(dbInfo.db).then(function(blobSupport) {
+                  return _checkBlobSupport(dbInfo.db).then(function (blobSupport) {
                     if (blobSupport) {
                       return value;
                     }
@@ -1791,19 +1709,19 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   });
                 }
                 return value;
-              }).then(function(value) {
+              }).then(function (value) {
                 var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
                 var store = transaction.objectStore(dbInfo.storeName);
                 if (value === null) {
                   value = undefined;
                 }
-                transaction.oncomplete = function() {
+                transaction.oncomplete = function () {
                   if (value === undefined) {
                     value = null;
                   }
                   resolve(value);
                 };
-                transaction.onabort = transaction.onerror = function() {
+                transaction.onabort = transaction.onerror = function () {
                   var err = req.error ? req.error : req.transaction.error;
                   reject(err);
                 };
@@ -1819,19 +1737,19 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
                 var store = transaction.objectStore(dbInfo.storeName);
                 var req = store["delete"](key);
-                transaction.oncomplete = function() {
+                transaction.oncomplete = function () {
                   resolve();
                 };
-                transaction.onerror = function() {
+                transaction.onerror = function () {
                   reject(req.error);
                 };
-                transaction.onabort = function() {
+                transaction.onabort = function () {
                   var err = req.error ? req.error : req.transaction.error;
                   reject(err);
                 };
@@ -1842,16 +1760,16 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function clear(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
                 var store = transaction.objectStore(dbInfo.storeName);
                 var req = store.clear();
-                transaction.oncomplete = function() {
+                transaction.oncomplete = function () {
                   resolve();
                 };
-                transaction.onabort = transaction.onerror = function() {
+                transaction.onabort = transaction.onerror = function () {
                   var err = req.error ? req.error : req.transaction.error;
                   reject(err);
                 };
@@ -1862,15 +1780,15 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function length(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
                 var req = store.count();
-                req.onsuccess = function() {
+                req.onsuccess = function () {
                   resolve(req.result);
                 };
-                req.onerror = function() {
+                req.onerror = function () {
                   reject(req.error);
                 };
               })["catch"](reject);
@@ -1880,17 +1798,17 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function key(n, callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
+            var promise = new Promise$1(function (resolve, reject) {
               if (n < 0) {
                 resolve(null);
                 return;
               }
-              self.ready().then(function() {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
                 var advanced = false;
                 var req = store.openCursor();
-                req.onsuccess = function() {
+                req.onsuccess = function () {
                   var cursor = req.result;
                   if (!cursor) {
                     resolve(null);
@@ -1907,7 +1825,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                     }
                   }
                 };
-                req.onerror = function() {
+                req.onerror = function () {
                   reject(req.error);
                 };
               })["catch"](reject);
@@ -1917,13 +1835,13 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function keys(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
                 var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
                 var req = store.openCursor();
                 var keys = [];
-                req.onsuccess = function() {
+                req.onsuccess = function () {
                   var cursor = req.result;
                   if (!cursor) {
                     resolve(keys);
@@ -1932,7 +1850,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   keys.push(cursor.key);
                   cursor["continue"]();
                 };
-                req.onerror = function() {
+                req.onerror = function () {
                   reject(req.error);
                 };
               })["catch"](reject);
@@ -1974,10 +1892,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             var len = serializedString.length;
             var i;
             var p = 0;
-            var encoded1,
-                encoded2,
-                encoded3,
-                encoded4;
+            var encoded1, encoded2, encoded3, encoded4;
             if (serializedString[serializedString.length - 1] === '=') {
               bufferLength--;
               if (serializedString[serializedString.length - 2] === '=') {
@@ -2052,7 +1967,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               callback(marker + bufferToString(buffer));
             } else if (valueString === '[object Blob]') {
               var fileReader = new FileReader();
-              fileReader.onload = function() {
+              fileReader.onload = function () {
                 var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
                 callback(SERIALIZED_MARKER + TYPE_BLOB + str);
               };
@@ -2083,7 +1998,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               case TYPE_ARRAYBUFFER:
                 return buffer;
               case TYPE_BLOB:
-                return createBlob([buffer], {type: blobType});
+                return createBlob([buffer], { type: blobType });
               case TYPE_INT8ARRAY:
                 return new Int8Array(buffer);
               case TYPE_UINT8ARRAY:
@@ -2114,23 +2029,23 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           };
           function _initStorage$1(options) {
             var self = this;
-            var dbInfo = {db: null};
+            var dbInfo = { db: null };
             if (options) {
               for (var i in options) {
                 dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
               }
             }
-            var dbInfoPromise = new Promise$1(function(resolve, reject) {
+            var dbInfoPromise = new Promise$1(function (resolve, reject) {
               try {
                 dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
               } catch (e) {
                 return reject(e);
               }
-              dbInfo.db.transaction(function(t) {
-                t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function() {
+              dbInfo.db.transaction(function (t) {
+                t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function () {
                   self._dbInfo = dbInfo;
                   resolve();
-                }, function(t, error) {
+                }, function (t, error) {
                   reject(error);
                 });
               });
@@ -2144,17 +2059,17 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function(t, results) {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function (t, results) {
                     var result = results.rows.length ? results.rows.item(0).value : null;
                     if (result) {
                       result = dbInfo.serializer.deserialize(result);
                     }
                     resolve(result);
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2165,11 +2080,11 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function iterate$1(iterator, callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function(t, results) {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function (t, results) {
                     var rows = results.rows;
                     var length = rows.length;
                     for (var i = 0; i < length; i++) {
@@ -2185,7 +2100,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                       }
                     }
                     resolve();
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2200,24 +2115,24 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 if (value === undefined) {
                   value = null;
                 }
                 var originalValue = value;
                 var dbInfo = self._dbInfo;
-                dbInfo.serializer.serialize(value, function(value, error) {
+                dbInfo.serializer.serialize(value, function (value, error) {
                   if (error) {
                     reject(error);
                   } else {
-                    dbInfo.db.transaction(function(t) {
-                      t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function() {
+                    dbInfo.db.transaction(function (t) {
+                      t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function () {
                         resolve(originalValue);
-                      }, function(t, error) {
+                      }, function (t, error) {
                         reject(error);
                       });
-                    }, function(sqlError) {
+                    }, function (sqlError) {
                       if (sqlError.code === sqlError.QUOTA_ERR) {
                         reject(sqlError);
                       }
@@ -2235,13 +2150,13 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function() {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function () {
                     resolve();
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2252,13 +2167,13 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function clear$1(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function() {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function () {
                     resolve();
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2269,14 +2184,14 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function length$1(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function(t, results) {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function (t, results) {
                     var result = results.rows.item(0).c;
                     resolve(result);
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2287,14 +2202,14 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function key$1(n, callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function(t, results) {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function (t, results) {
                     var result = results.rows.length ? results.rows.item(0).key : null;
                     resolve(result);
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2305,17 +2220,17 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function keys$1(callback) {
             var self = this;
-            var promise = new Promise$1(function(resolve, reject) {
-              self.ready().then(function() {
+            var promise = new Promise$1(function (resolve, reject) {
+              self.ready().then(function () {
                 var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function(t) {
-                  t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function(t, results) {
+                dbInfo.db.transaction(function (t) {
+                  t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function (t, results) {
                     var keys = [];
                     for (var i = 0; i < results.rows.length; i++) {
                       keys.push(results.rows.item(i).key);
                     }
                     resolve(keys);
-                  }, function(t, error) {
+                  }, function (t, error) {
                     reject(error);
                   });
                 });
@@ -2354,7 +2269,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function clear$2(callback) {
             var self = this;
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var keyPrefix = self._dbInfo.keyPrefix;
               for (var i = localStorage.length - 1; i >= 0; i--) {
                 var key = localStorage.key(i);
@@ -2372,7 +2287,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var dbInfo = self._dbInfo;
               var result = localStorage.getItem(dbInfo.keyPrefix + key);
               if (result) {
@@ -2385,7 +2300,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function iterate$2(iterator, callback) {
             var self = this;
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var dbInfo = self._dbInfo;
               var keyPrefix = dbInfo.keyPrefix;
               var keyPrefixLength = keyPrefix.length;
@@ -2411,7 +2326,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function key$2(n, callback) {
             var self = this;
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var dbInfo = self._dbInfo;
               var result;
               try {
@@ -2429,7 +2344,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function keys$2(callback) {
             var self = this;
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var dbInfo = self._dbInfo;
               var length = localStorage.length;
               var keys = [];
@@ -2445,7 +2360,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }
           function length$2(callback) {
             var self = this;
-            var promise = self.keys().then(function(keys) {
+            var promise = self.keys().then(function (keys) {
               return keys.length;
             });
             executeCallback(promise, callback);
@@ -2457,7 +2372,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               var dbInfo = self._dbInfo;
               localStorage.removeItem(dbInfo.keyPrefix + key);
             });
@@ -2470,14 +2385,14 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               console.warn(key + ' used as a key, but it is not a string.');
               key = String(key);
             }
-            var promise = self.ready().then(function() {
+            var promise = self.ready().then(function () {
               if (value === undefined) {
                 value = null;
               }
               var originalValue = value;
-              return new Promise$1(function(resolve, reject) {
+              return new Promise$1(function (resolve, reject) {
                 var dbInfo = self._dbInfo;
-                dbInfo.serializer.serialize(value, function(value, error) {
+                dbInfo.serializer.serialize(value, function (value, error) {
                   if (error) {
                     reject(error);
                   } else {
@@ -2537,13 +2452,13 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
           driverSupport[DriverType.WEBSQL] = isWebSQLValid();
           driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
-          var isArray = Array.isArray || function(arg) {
+          var isArray = Array.isArray || function (arg) {
             return Object.prototype.toString.call(arg) === '[object Array]';
           };
           function callWhenReady(localForageInstance, libraryMethod) {
-            localForageInstance[libraryMethod] = function() {
+            localForageInstance[libraryMethod] = function () {
               var _args = arguments;
-              return localForageInstance.ready().then(function() {
+              return localForageInstance.ready().then(function () {
                 return localForageInstance[libraryMethod].apply(localForageInstance, _args);
               });
             };
@@ -2573,7 +2488,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             }
             return false;
           }
-          var LocalForage = function() {
+          var LocalForage = function () {
             function LocalForage(options) {
               _classCallCheck(this, LocalForage);
               this.INDEXEDDB = DriverType.INDEXEDDB;
@@ -2610,7 +2525,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
               }
             };
             LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
-              var promise = new Promise$1(function(resolve, reject) {
+              var promise = new Promise$1(function (resolve, reject) {
                 try {
                   var driverName = driverObject._driver;
                   var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
@@ -2639,7 +2554,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                       supportPromise = Promise$1.resolve(!!driverObject._support);
                     }
                   }
-                  supportPromise.then(function(supportResult) {
+                  supportPromise.then(function (supportResult) {
                     driverSupport[driverName] = supportResult;
                     CustomDrivers[driverName] = driverObject;
                     resolve();
@@ -2656,7 +2571,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             };
             LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
               var self = this;
-              var getDriverPromise = Promise$1.resolve().then(function() {
+              var getDriverPromise = Promise$1.resolve().then(function () {
                 if (isLibraryDriver(driverName)) {
                   switch (driverName) {
                     case self.INDEXEDDB:
@@ -2682,7 +2597,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             };
             LocalForage.prototype.ready = function ready(callback) {
               var self = this;
-              var promise = self._driverSet.then(function() {
+              var promise = self._driverSet.then(function () {
                 if (self._ready === null) {
                   self._ready = self._initDriver();
                 }
@@ -2701,7 +2616,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                 self._config.driver = self.driver();
               }
               function initDriver(supportedDrivers) {
-                return function() {
+                return function () {
                   var currentDriverIndex = 0;
                   function driverPromiseLoop() {
                     while (currentDriverIndex < supportedDrivers.length) {
@@ -2709,7 +2624,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                       currentDriverIndex++;
                       self._dbInfo = null;
                       self._ready = null;
-                      return self.getDriver(driverName).then(function(driver) {
+                      return self.getDriver(driverName).then(function (driver) {
                         self._extend(driver);
                         setDriverToConfig();
                         self._ready = self._initStorage(self._config);
@@ -2724,20 +2639,20 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
                   return driverPromiseLoop();
                 };
               }
-              var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function() {
+              var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function () {
                 return Promise$1.resolve();
               }) : Promise$1.resolve();
-              this._driverSet = oldDriverSetDone.then(function() {
+              this._driverSet = oldDriverSetDone.then(function () {
                 var driverName = supportedDrivers[0];
                 self._dbInfo = null;
                 self._ready = null;
-                return self.getDriver(driverName).then(function(driver) {
+                return self.getDriver(driverName).then(function (driver) {
                   self._driver = driver._driver;
                   setDriverToConfig();
                   self._wrapLibraryMethodsWithReady();
                   self._initDriver = initDriver(supportedDrivers);
                 });
-              })["catch"](function() {
+              })["catch"](function () {
                 setDriverToConfig();
                 var error = new Error('No available storage method found.');
                 self._driverSet = Promise$1.reject(error);
@@ -2754,8 +2669,7 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
             };
             LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
               var supportedDrivers = [];
-              for (var i = 0,
-                  len = drivers.length; i < len; i++) {
+              for (var i = 0, len = drivers.length; i < len; i++) {
                 var driverName = drivers[i];
                 if (this.supports(driverName)) {
                   supportedDrivers.push(driverName);
@@ -2775,22 +2689,19 @@ $__System.registerDynamic("37", ["20"], true, function($__require, exports, modu
           }();
           var localforage_js = new LocalForage();
           module.exports = localforage_js;
-        }, {"3": 3}]
+        }, { "3": 3 }]
       }, {}, [4])(4);
     });
-  })($__require('20'));
+  })($__require("20"));
   return module.exports;
 });
-
-$__System.registerDynamic("38", ["37"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("38", ["37"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('37');
+  module.exports = $__require("37");
   return module.exports;
 });
-
 $__System.register("39", ["3", "4", "5", "30", "38"], function (_export) {
   var _createClass, _classCallCheck, _Object$assign, _Promise, localForage, supportsNav, AckOffline, QueModel;
 
@@ -3204,76 +3115,69 @@ $__System.register('3a', ['2', '39', '3b'], function (_export) {
     }
   };
 });
-$__System.registerDynamic("32", ["3c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('32', ['3c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var defined = $__require('3c');
-  module.exports = function(it) {
+  module.exports = function (it) {
     return Object(defined(it));
   };
   return module.exports;
 });
-
-$__System.registerDynamic("3d", ["2b", "25", "34"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var $export = $__require('2b'),
-      core = $__require('25'),
-      fails = $__require('34');
-  module.exports = function(KEY, exec) {
-    var fn = (core.Object || {})[KEY] || Object[KEY],
-        exp = {};
-    exp[KEY] = exec(fn);
-    $export($export.S + $export.F * fails(function() {
-      fn(1);
-    }), 'Object', exp);
-  };
-  return module.exports;
+$__System.registerDynamic('3d', ['2b', '25', '34'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var $export = $__require('2b'),
+        core = $__require('25'),
+        fails = $__require('34');
+    module.exports = function (KEY, exec) {
+        var fn = (core.Object || {})[KEY] || Object[KEY],
+            exp = {};
+        exp[KEY] = exec(fn);
+        $export($export.S + $export.F * fails(function () {
+            fn(1);
+        }), 'Object', exp);
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("3e", ["32", "3d"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('3e', ['32', '3d'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var toObject = $__require('32');
-  $__require('3d')('keys', function($keys) {
+  $__require('3d')('keys', function ($keys) {
     return function keys(it) {
       return $keys(toObject(it));
     };
   });
   return module.exports;
 });
-
-$__System.registerDynamic("3f", ["3e", "25"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('3f', ['3e', '25'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   $__require('3e');
   module.exports = $__require('25').Object.keys;
   return module.exports;
 });
-
-$__System.registerDynamic("40", ["3f"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("40", ["3f"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('3f'),
-    __esModule: true
-  };
+  /* */
+  module.exports = { "default": $__require("3f"), __esModule: true };
   return module.exports;
 });
-
-$__System.registerDynamic("41", [], true, function($__require, exports, module) {
+$__System.registerDynamic('41', [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -3282,50 +3186,63 @@ $__System.registerDynamic("41", [], true, function($__require, exports, module) 
     this.$scope = $scope || this;
     return this;
   };
-  ackInjector.prototype.define = function(name, $module, initInjectArray) {
+
+  ackInjector.prototype.define = function (name, $module, initInjectArray) {
     var $this = this;
-    var method = function() {
+    var method = function () {
       return $this.LoadModule(name, $module, arguments, initInjectArray);
     };
-    this.$scope[name] = method;
+
+    this.$scope[name] = method; //this.functionName . example: ack.mail()
     return this;
   };
-  ackInjector.prototype.definePath = function(name, path, initInjectArray) {
+
+  ackInjector.prototype.definePath = function (name, path, initInjectArray) {
     var $this = this;
-    var fetcher = function() {
+    var fetcher = function () {
       var $module = $this.getModule(name, path);
       return $this.LoadModule(name, $module, arguments, initInjectArray);
     };
-    this.$scope[name] = fetcher;
+
+    this.$scope[name] = fetcher; //this.functionName . example: ack.mail()
     return this;
   };
-  ackInjector.prototype.LoadModule = function(name, $module, $args, injectArray) {
+
+  ackInjector.prototype.LoadModule = function (name, $module, $args, injectArray) {
     if ($module.constructor != Function) {
       return $module;
     }
+
     if (!injectArray) {
-      var r = $module.apply($module, $args);
+      var r = $module.apply($module, $args); //no dependencies
       return r;
     }
-    var isInjectInit = typeof(injectArray) == 'function',
+
+    var isInjectInit = typeof injectArray == 'function',
         init = isInjectInit ? injectArray : injectArray[injectArray.length - 1],
         args = [];
+
     if (!isInjectInit) {
       var tar;
       for (var i = 0; i < injectArray.length - 1; ++i) {
+        //all but last, last was init
         switch (injectArray[i].toLowerCase()) {
           case '$arg0':
             tar = $args[0];
             break;
+
           case '$injector':
-            tar = this.$scope;
+            tar = this.$scope; //this
             break;
+
           case '$module':
             tar = $module;
             break;
+
           case '$args':
             tar = Array.prototype.slice.call($args);
             break;
+
           default:
             if (this.$scope[injectArray[i]] != null) {
               tar = this.$scope[injectArray[i]];
@@ -3336,12 +3253,16 @@ $__System.registerDynamic("41", [], true, function($__require, exports, module) 
         args.push(tar);
       }
     }
+
     args = args.concat(Array.prototype.slice.call($args));
-    if (typeof(init) == 'string') {
+
+    if (typeof init == 'string') {
+      //last arg is module to return
       switch (init) {
         case '$module':
           return $module.apply($module, args);
           break;
+
         default:
           throw 'should not get here. Last argument of injector was not a function NOR "$module"';
           return $module.apply(this.$scope[init], args);
@@ -3349,60 +3270,60 @@ $__System.registerDynamic("41", [], true, function($__require, exports, module) 
     }
     return init.apply(init, args);
   };
-  ackInjector.prototype.getModule = function(name, path) {
-    if (this.$storage[name])
-      return this.$storage[name];
+
+  ackInjector.prototype.getModule = function (name, path) {
+    if (this.$storage[name]) return this.$storage[name];
     throw new Error('Module not defined (' + name + '). Valid modules: "' + Object.keys(this.$storage).join(',') + '"');
   };
-  ackInjector.prototype.newModule = function(name, path, arg) {
+
+  ackInjector.prototype.newModule = function (name, path, arg) {
     var Module = this.getModule(name, path);
     return new Module(arg);
   };
+
   module.exports = ackInjector;
   return module.exports;
 });
-
-$__System.registerDynamic("42", ["20"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('42', ['20'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(process) {
+  /* */
+  (function (process) {
     "use strict";
+
     var isPromiseLike = function isPromiseLike(potentialPromise, notThisPromise) {
       return potentialPromise && potentialPromise.then && potentialPromise != notThisPromise;
     };
     function objectKeys(ob) {
       var x,
           array = [];
-      for (x in ob)
-        array.push(x);
+      for (x in ob) array.push(x);
       return array;
     }
     function ackPromise(resolver) {
-      return new ackP().next(function(next) {
+      return new ackP().next(function (next) {
         resolver(next, next.throw);
       });
     }
-    ackPromise.resolve = function(v0, v1, v2, v3) {
+    ackPromise.resolve = function (v0, v1, v2, v3) {
       var promise = new ackP();
       promise = promise.set.apply(promise, arguments);
       return promise;
     };
-    ackPromise.start = function() {
+    ackPromise.start = function () {
       return new ackP();
     };
-    ackPromise.all = function() {
+    ackPromise.all = function () {
       var p = ackPromise.start();
       return p.all.apply(p, arguments);
     };
-    ackPromise.promisify = function(method) {
-      return function() {
+    ackPromise.promisify = function (method) {
+      return function () {
         var args = Array.prototype.slice.apply(arguments);
-        return new ackPromise(function(res, rej) {
-          args.push(function(err) {
-            if (err)
-              return rej(err);
+        return new ackPromise(function (res, rej) {
+          args.push(function (err) {
+            if (err) return rej(err);
             var args = Array.prototype.slice.apply(arguments);
             args.shift(args);
             res.apply(this, args);
@@ -3411,13 +3332,13 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         });
       };
     };
-    ackPromise.method = function(method) {
-      return function() {
+    ackPromise.method = function (method) {
+      return function () {
         var Promise = new ackPromise.start();
         return Promise.set.apply(Promise, arguments).then(method);
       };
     };
-    ackPromise.getErrorType = function(error) {
+    ackPromise.getErrorType = function (error) {
       var isNamed = error.name && error.name.toLowerCase != null;
       var isCode = error.code && (error.code.toLowerCase != null || Number(error.code));
       if (isCode && error.name == 'Error') {
@@ -3427,19 +3348,17 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         return error.name;
       }
     };
-    ackPromise.isErrorType = function(error, type) {
-      if (error == null)
-        return false;
-      if (error.constructor && type == error.constructor)
-        return true;
+    ackPromise.isErrorType = function (error, type) {
+      if (error == null) return false;
+      if (error.constructor && type == error.constructor) return true;
       var eName = ackPromise.getErrorType(error);
-      if (eName && (eName == type || (eName.toLowerCase && eName.toLowerCase() == type.toLowerCase()))) {
+      if (eName && (eName == type || eName.toLowerCase && eName.toLowerCase() == type.toLowerCase())) {
         return true;
       }
       return false;
     };
-    ackPromise.callback4callback = function(method, promise, bind) {
-      return function() {
+    ackPromise.callback4callback = function (method, promise, bind) {
+      return function () {
         var args = Array.prototype.slice.call(arguments);
         var next = args.pop();
         var processor = ackPromise.getNextCallback(next, promise);
@@ -3451,24 +3370,24 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         method.apply(bind || this, args);
       };
     };
-    ackPromise.createIf = function(promise, condition, $scope, onTrue, isTruthMode) {
+    ackPromise.createIf = function (promise, condition, $scope, onTrue, isTruthMode) {
       isTruthMode = isTruthMode == null ? true : isTruthMode;
       var isMethod = condition && condition.constructor && condition.constructor == Function;
       if (isMethod) {
-        var processCondition = function(args, next, scope) {
+        var processCondition = function (args, next, scope) {
           next.call(scope, condition.apply(scope, args));
         };
       } else {
-        var processCondition = function(args, next, scope) {
+        var processCondition = function (args, next, scope) {
           var result = args[0] === condition;
           next.call(scope, result);
         };
       }
-      var ifMethod = function() {
+      var ifMethod = function () {
         var args = Array.prototype.slice.call(arguments);
         var next = args.pop();
-        processCondition(args, function(result) {
-          var isVal = (isTruthMode && result == true) || (!isTruthMode && result == false);
+        processCondition(args, function (result) {
+          var isVal = isTruthMode && result == true || !isTruthMode && result == false;
           if (isVal) {
             onTrue.call(this, args, next);
           } else {
@@ -3478,8 +3397,8 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       };
       return promise.next(ifMethod, $scope);
     };
-    ackPromise.getNextCallback = function(next, promise) {
-      return function() {
+    ackPromise.getNextCallback = function (next, promise) {
+      return function () {
         if (arguments[0] != null) {
           return promise['throw'].call(promise, arguments[0]);
         }
@@ -3490,15 +3409,15 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
     };
     function ackP() {
       this._promise0 = true;
-      this.data = {waiting: 0};
+      this.data = { waiting: 0 };
       return this.processor();
     }
-    ackP.prototype.processor = function() {
+    ackP.prototype.processor = function () {
       this.values = Array.prototype.slice.apply(arguments);
       if (!this.data || !this.data.task) {
         return;
       }
-      var $scope = {args: Array.prototype.slice.call(arguments)};
+      var $scope = { args: Array.prototype.slice.call(arguments) };
       var thisTask = this.data.task;
       var context = thisTask.context || this.data.context || this.nextContext || this;
       this.data.waiting = 1;
@@ -3506,9 +3425,9 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       if (thisTask.isAsync === true) {
         var nPos = thisTask.method.length === 0 ? -1 : thisTask.method.length - 1;
         var oneTimeCall = false;
-        var oneTimeMethod = function() {
+        var oneTimeMethod = function () {
           var args = Array.prototype.slice.call(arguments);
-          var then = function() {
+          var then = function () {
             if ($this.inpass) {
               --$this.inpass.count;
               if ($this.inpass.count > 0) {
@@ -3527,24 +3446,20 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
             then();
           }
         };
-        oneTimeMethod['throw'] = function() {
+        oneTimeMethod['throw'] = function () {
           return $this['throw'].apply($this, arguments);
         };
-        if (nPos >= 0)
-          $scope.args[nPos] = oneTimeMethod;
-        else
-          $scope.args.push(oneTimeMethod);
+        if (nPos >= 0) $scope.args[nPos] = oneTimeMethod;else $scope.args.push(oneTimeMethod);
       }
       if (thisTask.isPass === true) {
         if (thisTask.isAsync === true) {
           if (!this.inpass) {
-            this.inpass = {count: 1};
+            this.inpass = { count: 1 };
           } else {
             ++this.inpass.count;
           }
         }
-        if (this.inpass)
-          this.inpass.lastProm = this;
+        if (this.inpass) this.inpass.lastProm = this;
       }
       try {
         var result = thisTask.method.apply(context, $scope.args);
@@ -3566,10 +3481,9 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       if (thisTask.isPass === true) {
         return this.runNextPromise();
       }
-      if (thisTask.isAsync === true)
-        return;
+      if (thisTask.isAsync === true) return;
       if (isPromiseLike(result, this)) {
-        return this.runSubPromise(result, thisTask).then(function() {
+        return this.runSubPromise(result, thisTask).then(function () {
           $this.runNextPromise();
         });
       }
@@ -3581,7 +3495,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         this.inpass.lastProm = null;
         this.inpass = null;
       }
-      if (result == this || result == null && typeof(result) === 'undefined') {
+      if (result == this || result == null && typeof result === 'undefined') {
         this.values = null;
       } else {
         this.values = [result];
@@ -3593,7 +3507,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       this.clearMem();
       return;
     };
-    ackP.prototype['throw'] = function(err) {
+    ackP.prototype['throw'] = function (err) {
       if (err && err.constructor == String) {
         var s = err;
         err = new Error(err);
@@ -3601,8 +3515,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       this._rejected = err;
       this._rejectedCaught = false;
-      if (nativePromiseThen)
-        this.then = ackP.rejectedThen;
+      if (nativePromiseThen) this.then = ackP.rejectedThen;
       var $this = this;
       var promiseCatcher = this.seekPromiseCatcher();
       if (promiseCatcher) {
@@ -3613,19 +3526,19 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         return np['throw'].call(np, err);
       }
     };
-    ackP.prototype.runSubPromise = function(result, thisTask) {
+    ackP.prototype.runSubPromise = function (result, thisTask) {
       var $this = this,
-          closingTask = function() {
-            if (thisTask && !thisTask.isPass) {
-              $this.values = Array.prototype.slice.call(arguments);
-            }
-          };
-      result = result.then(closingTask)['catch'](function(e) {
+          closingTask = function () {
+        if (thisTask && !thisTask.isPass) {
+          $this.values = Array.prototype.slice.call(arguments);
+        }
+      };
+      result = result.then(closingTask)['catch'](function (e) {
         $this['throw'].call($this, e);
       });
       return result;
     };
-    ackP.prototype.runNextPromise = function() {
+    ackP.prototype.runNextPromise = function () {
       if (this._rejected) {
         return;
       }
@@ -3634,7 +3547,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       return this.runNextPromiseWithValueArray();
     };
-    ackP.prototype.runNextPromiseWithValueArray = function(valueArray) {
+    ackP.prototype.runNextPromiseWithValueArray = function (valueArray) {
       if (!this.data) {
         return;
       }
@@ -3655,11 +3568,11 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       var r = np.processor.apply(np, valueArray);
       return r;
     };
-    ackP.prototype.runCatch = function(err, catcher) {
+    ackP.prototype.runCatch = function (err, catcher) {
       var caught = catcher.call(this.nextContext || this, err);
       if (isPromiseLike(caught)) {
         var $this = this;
-        return caught.then(function() {
+        return caught.then(function () {
           $this.runNextPromiseWithValueArray(Array.prototype.slice.call(arguments));
         });
       }
@@ -3672,14 +3585,14 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       this.clearMem();
       return r;
     };
-    ackP.prototype.getLastPromise = function() {
+    ackP.prototype.getLastPromise = function () {
       if (!this.data || !this.data.getNextPromise) {
         return this;
       }
       return this.data.getNextPromise().getLastPromise();
     };
-    ackP.prototype['catch'] = function(typeOrMethod, method) {
-      var newProm = this.next(function() {
+    ackP.prototype['catch'] = function (typeOrMethod, method) {
+      var newProm = this.next(function () {
         var args = Array.prototype.slice.call(arguments);
         var next = args.pop();
         next.apply(this, args);
@@ -3687,7 +3600,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       newProm._rejected = null;
       this.catchers = this.catchers || {};
       if (method) {
-        switch (typeof(typeOrMethod)) {
+        switch (typeof typeOrMethod) {
           case 'string':
             var type = typeOrMethod.toLowerCase();
             this.catchers['catch' + type] = method;
@@ -3719,27 +3632,26 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       if (this._rejected && !this._rejectedCaught) {
         newProm._rejected = this._rejected;
-        if (nativePromiseThen)
-          this.then = ackP.rejectedThen;
+        if (nativePromiseThen) this.then = ackP.rejectedThen;
       }
       return newProm;
     };
     ackP.prototype.caught = ackP.prototype['catch'];
-    ackP.prototype['if'] = function(condition, method, scope) {
-      return ackPromise.createIf(this, condition, scope, function(args, next) {
+    ackP.prototype['if'] = function (condition, method, scope) {
+      return ackPromise.createIf(this, condition, scope, function (args, next) {
         var mr = method.apply(this, args);
         next.call(next, mr);
       });
     };
-    ackP.prototype.ifNot = function(condition, method, scope) {
-      var processor = function(args, next) {
+    ackP.prototype.ifNot = function (condition, method, scope) {
+      var processor = function (args, next) {
         var mr = method.apply(this, args);
         next.call(next, mr);
       };
       return ackPromise.createIf(this, condition, scope, processor, false);
     };
-    ackP.prototype.ifNext = function(condition, method, scope) {
-      var processor = function(args, next) {
+    ackP.prototype.ifNext = function (condition, method, scope) {
+      var processor = function (args, next) {
         if (method.length) {
           args[method.length - 1] = next;
         } else {
@@ -3749,36 +3661,32 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       };
       return ackPromise.createIf(this, condition, scope, processor);
     };
-    ackP.prototype.ifCallback = function(condition, method, scope) {
-      return ackPromise.createIf(this, condition, scope, function(args, next) {
+    ackP.prototype.ifCallback = function (condition, method, scope) {
+      return ackPromise.createIf(this, condition, scope, function (args, next) {
         var cb = ackPromise.getNextCallback(next, this);
-        if (method.length)
-          args[method.length - 1] = cb;
-        else
-          args.push(cb);
+        if (method.length) args[method.length - 1] = cb;else args.push(cb);
         method.apply(this, args);
       });
     };
-    ackP.prototype.getNewData = function() {
-      return {waiting: 0};
+    ackP.prototype.getNewData = function () {
+      return { waiting: 0 };
     };
-    ackP.prototype.paramData = function() {
+    ackP.prototype.paramData = function () {
       this.data = this.data || this.getNewData();
       return this;
     };
-    ackP.prototype.setNextPromise = function(np) {
-      this.data.getNextPromise = function() {
+    ackP.prototype.setNextPromise = function (np) {
+      this.data.getNextPromise = function () {
         return np;
       };
       np.nextContext = this.nextContext;
       if (this._rejected) {
         np._rejected = this._rejected;
-        if (nativePromiseThen)
-          np.then = ackP.rejectedThen;
+        if (nativePromiseThen) np.then = ackP.rejectedThen;
       }
       return np;
     };
-    ackP.prototype.assertMethod = function(method) {
+    ackP.prototype.assertMethod = function (method) {
       if (method == null) {
         var msg = 'Promise thenable undefined. Most likely due to a Promise.then() that is an undefined variable.';
         this['throw'].call(this, msg);
@@ -3787,12 +3695,12 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         throw e;
       }
     };
-    ackP.prototype.add = function(options) {
+    ackP.prototype.add = function (options) {
       this.assertMethod(options.method);
       this.paramData();
       if (isPromiseLike(options.method)) {
         var nextp = options.method;
-        options.method = function() {
+        options.method = function () {
           return nextp;
         };
         var newp = ackPromise.start().add(options);
@@ -3816,7 +3724,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       return this;
     };
-    ackP.prototype.pass = function(method, scope) {
+    ackP.prototype.pass = function (method, scope) {
       return this.add({
         method: method,
         context: scope,
@@ -3833,10 +3741,10 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       return array.join(',');
     }
-    ackP.prototype.call = function(name) {
+    ackP.prototype.call = function (name) {
       var args = Array.prototype.slice.call(arguments);
       args.shift();
-      return this.then(function() {
+      return this.then(function () {
         if (arguments.length && arguments[0][name]) {
           return arguments[0][name].apply(arguments[0], args);
         }
@@ -3849,10 +3757,10 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         throw e;
       });
     };
-    ackP.prototype.bindCall = function(name) {
+    ackP.prototype.bindCall = function (name) {
       var args = Array.prototype.slice.call(arguments);
       args.shift();
-      return this.then(function() {
+      return this.then(function () {
         if (this[name]) {
           return this[name].apply(this, args);
         }
@@ -3863,16 +3771,16 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         throw e;
       });
     };
-    ackP.prototype.bindResult = function() {
-      return this.then(function(v) {
+    ackP.prototype.bindResult = function () {
+      return this.then(function (v) {
         this.bind(v);
         return ackPromise.start().set(Array.prototype.slice.call(arguments)).spread();
       });
     };
-    ackP.prototype.bind = function($this) {
+    ackP.prototype.bind = function ($this) {
       if ($this != this && isPromiseLike($this)) {
         var passon = {};
-        return this.then(function() {
+        return this.then(function () {
           passon.result = Array.prototype.slice.call(arguments);
         }).then($this).bindResult().set(passon).get('result').spread();
       }
@@ -3883,20 +3791,20 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       this.nextContext = $this;
       return this;
     };
-    ackP.prototype.singleGet = function(name) {
+    ackP.prototype.singleGet = function (name) {
       if (!isNaN(name) && name < 0) {
-        return this.then(function(v) {
+        return this.then(function (v) {
           if (v && v.constructor == Array) {
             return v[v.length + name];
           }
           return v[name];
         });
       }
-      return this.then(function(v) {
+      return this.then(function (v) {
         return v[name];
       });
     };
-    ackP.prototype.get = function() {
+    ackP.prototype.get = function () {
       var args = Array.prototype.slice.call(arguments);
       var promise = this;
       for (var aIndex = 0; aIndex < args.length; ++aIndex) {
@@ -3904,24 +3812,24 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       }
       return promise;
     };
-    ackP.prototype.set = function() {
+    ackP.prototype.set = function () {
       var args = Array.prototype.slice.call(arguments);
-      return this.next(function(next) {
+      return this.next(function (next) {
         next.apply(next, args);
       });
     };
     ackP.prototype.return = ackP.prototype.set;
     ackP.prototype.resolve = ackP.prototype.set;
-    ackP.prototype.delay = function(t) {
-      return this.next(function() {
+    ackP.prototype.delay = function (t) {
+      return this.next(function () {
         var args = Array.prototype.slice.call(arguments),
             next = args.pop();
-        setTimeout(function() {
+        setTimeout(function () {
           next.apply(next, args);
         }, t);
       });
     };
-    ackP.prototype.past = function(method, scope) {
+    ackP.prototype.past = function (method, scope) {
       return this.add({
         method: method,
         context: scope,
@@ -3930,8 +3838,8 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       });
     };
     ackP.prototype.tap = ackP.prototype.past;
-    ackP.prototype.reflect = function(method, scope) {
-      var reflect = function() {
+    ackP.prototype.reflect = function (method, scope) {
+      var reflect = function () {
         var args = Array.prototype.slice.call(arguments);
         args.unshift(this);
         method.apply(scope || this, args);
@@ -3943,14 +3851,14 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         isAsync: false
       });
     };
-    ackP.prototype.next = function(method, scope) {
+    ackP.prototype.next = function (method, scope) {
       return this.add({
         method: method,
         context: scope,
         isAsync: true
       });
     };
-    ackP.prototype.then = function(method, scope) {
+    ackP.prototype.then = function (method, scope) {
       return this.add({
         method: method,
         context: scope,
@@ -3958,7 +3866,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       });
     };
     ackP.prototype.method = ackP.prototype.then;
-    ackP.rejectedThen = function(method, scope) {
+    ackP.rejectedThen = function (method, scope) {
       if (this._rejected && method.toString() == nativePromiseThen.toString()) {
         throw this._rejected;
       }
@@ -3968,10 +3876,10 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         isAsync: false
       });
     };
-    ackP.prototype.spread = function(method, scope) {
+    ackP.prototype.spread = function (method, scope) {
       if (!method) {
         return this.add({
-          method: function(a, next) {
+          method: function (a, next) {
             next.apply(next, a);
           },
           context: this,
@@ -3979,7 +3887,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         });
       } else {
         return this.add({
-          method: function(a) {
+          method: function (a) {
             return method.apply(this, a);
           },
           context: scope,
@@ -3987,8 +3895,8 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         });
       }
     };
-    ackP.prototype.spreadCallback = function(method, scope) {
-      return this.callback(function() {
+    ackP.prototype.spreadCallback = function (method, scope) {
+      return this.callback(function () {
         var args = Array.prototype.slice.call(arguments);
         var callback = args[args.length - 1];
         if (args.length) {
@@ -4009,14 +3917,14 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         method.apply(this, args);
       }, scope);
     };
-    ackP.prototype.callback = function(method, scope) {
+    ackP.prototype.callback = function (method, scope) {
       this.assertMethod(method);
-      var fireMethod = function() {
+      var fireMethod = function () {
         var bind = scope || this;
         var prom = ackPromise.start();
         prom.set.apply(prom, arguments).spread();
         var myMethod = ackPromise.callback4callback(method, prom, bind);
-        return prom.next(function() {
+        return prom.next(function () {
           return myMethod.apply(bind, arguments);
         });
         return prom;
@@ -4027,11 +3935,11 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         isAsync: false
       });
     };
-    ackP.prototype.clearMem = function() {
+    ackP.prototype.clearMem = function () {
       this.data = null;
       return this;
     };
-    ackP.prototype.seekPromiseCatcher = function(allowSelf) {
+    ackP.prototype.seekPromiseCatcher = function (allowSelf) {
       if (this.catchers && allowSelf == null) {
         return this;
       }
@@ -4039,7 +3947,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         return this.data.getNextPromise().seekPromiseCatcher();
       }
     };
-    ackP.prototype.throwPromiseCatcher = function(e, promiseCatcher) {
+    ackP.prototype.throwPromiseCatcher = function (e, promiseCatcher) {
       if (promiseCatcher.catchers.catch_type_array) {
         for (var i = 0; i < promiseCatcher.catchers.catch_type_array.length; ++i) {
           var isType = ackPromise.isErrorType(e, promiseCatcher.catchers.catch_type_array[i].type);
@@ -4092,9 +4000,9 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         return this.throwPromiseCatcher(e, promiseCatcher);
       }
     };
-    ackP.prototype.all = function() {
+    ackP.prototype.all = function () {
       var args = Array.prototype.slice.call(arguments);
-      args.push(function() {
+      args.push(function () {
         if (arguments.length) {
           var args = Array.prototype.slice.call(arguments);
           return args;
@@ -4102,7 +4010,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       });
       return this.join.apply(this, args);
     };
-    ackP.prototype.join = function() {
+    ackP.prototype.join = function () {
       var joinPromise,
           next,
           $this = this;
@@ -4114,18 +4022,18 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
           promiseArray = isArg0Array ? arguments[0] : argSlice;
       if (argSlice[argSlice.length - 1] && argSlice[argSlice.length - 1].constructor == Function) {
         var controller = argSlice.pop();
-        var done = function() {
+        var done = function () {
           var controlResult = ackPromise.start().set(resultArray).spread(controller, $this);
-          controlResult.then(function() {
+          controlResult.then(function () {
             next.apply(next, Array.prototype.slice.call(arguments));
           });
         };
       } else {
-        var done = function() {
+        var done = function () {
           next.apply(next, [resultArray]);
         };
       }
-      var nextMethod = function() {
+      var nextMethod = function () {
         var runTimeArgs = Array.prototype.slice.call(arguments);
         next = runTimeArgs.pop();
         if (!isArg0Array && isPromMode) {
@@ -4135,19 +4043,19 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
           done();
           return;
         }
-        var processResult = function(i, v) {
+        var processResult = function (i, v) {
           resultArray[i] = v;
           ++count;
           if (count == promiseArray.length) {
             done();
           }
         };
-        var catcher = function(e) {
+        var catcher = function (e) {
           next['throw'](e);
         };
-        promiseArray.forEach(function(v, i) {
+        promiseArray.forEach(function (v, i) {
           if (isPromiseLike(v)) {
-            v.then(function(v) {
+            v.then(function (v) {
               processResult(i, v);
             })['catch'](catcher);
           } else {
@@ -4157,21 +4065,21 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
       };
       return $this.next(nextMethod);
     };
-    ackP.prototype.map = function() {
+    ackP.prototype.map = function () {
       var args = Array.prototype.slice.call(arguments);
-      if (typeof(args[args.length - 1]) === 'object') {
+      if (typeof args[args.length - 1] === 'object') {
         var options = args.pop();
       } else {
-        var options = {concurrency: 0};
+        var options = { concurrency: 0 };
       }
       var conc = options.concurrency == null || isNaN(options.concurrency) ? 0 : options.concurrency;
       var controller = args.pop();
       var newArray = [];
-      var per = function(v, i, len) {
-        return ackPromise.start().then(function() {
+      var per = function (v, i, len) {
+        return ackPromise.start().then(function () {
           var r = controller.call(this, v, i, len);
           if (r && r.then) {
-            return r.then(function(newItem) {
+            return r.then(function (newItem) {
               newArray[i] = newItem;
             });
           } else {
@@ -4179,7 +4087,7 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
           }
         }, this);
       };
-      var loopArray = function(arrOrOb, callback) {
+      var loopArray = function (arrOrOb, callback) {
         if (!arrOrOb) {
           return callback(null);
         }
@@ -4191,11 +4099,11 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
           if (!len) {
             callback(null, []);
           }
-          var next = function(nx, i, $this) {
+          var next = function (nx, i, $this) {
             if (i == len) {
               return;
             }
-            var prom = per.call($this, arrOrOb[i], i, len).then(function() {
+            var prom = per.call($this, arrOrOb[i], i, len).then(function () {
               ++counter;
               if (counter == len) {
                 callback(null, newArray);
@@ -4204,19 +4112,19 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
             if (conc > 0) {
               var rotation = (i + 1) % conc;
               if (rotation == 0) {
-                return prom.then(function() {
+                return prom.then(function () {
                   nx(nx, i + 1, $this);
                 });
               }
               ++wait;
-              return nx(nx, i + 1, $this).then(function() {
+              return nx(nx, i + 1, $this).then(function () {
                 --wait;
                 if (wait == 0) {
                   nx(nx, i + 1, $this);
                 }
               });
             }
-            return prom.then(function() {
+            return prom.then(function () {
               nx(nx, i + 1, $this);
             });
           };
@@ -4224,11 +4132,10 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
           return;
         }
         var len = objectKeys(arrOrOb).length;
-        if (!len)
-          callback(null, {});
+        if (!len) callback(null, {});
         for (var x in arrOrOb) {
           v = arrOrOb[x];
-          per.call(this, v, x, len).then(function() {
+          per.call(this, v, x, len).then(function () {
             ++counter;
             if (counter == len) {
               callback(null, newArray);
@@ -4237,16 +4144,16 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         }
       };
       if (args[0] && args[0].constructor !== Function) {
-        return this.callback(function(callback) {
+        return this.callback(function (callback) {
           loopArray.call(this, args[0], callback);
         });
       }
-      return this.callback(function(array, callback) {
+      return this.callback(function (array, callback) {
         loopArray.call(this, array, callback);
       });
     };
-    ackP.prototype.each = function(func) {
-      return this.then(function(a) {
+    ackP.prototype.each = function (func) {
+      return this.then(function (a) {
         var prom = ackPromise.start();
         for (var i = 0; i < a.length; ++i) {
           prom = prom.set(a[i], i, a).then(func);
@@ -4254,17 +4161,17 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
         return prom.set.apply(prom, arguments);
       });
     };
-    ackP.prototype._then = function(didFulfill, didReject, didProgress, receiver, internalData) {
+    ackP.prototype._then = function (didFulfill, didReject, didProgress, receiver, internalData) {
       return this.add({
-        method: function() {
+        method: function () {
           didFulfill.apply(receiver, arguments);
         },
         isAsync: false
-      }).catch(function() {
+      }).catch(function () {
         didReject.apply(receiver, arguments);
       });
     };
-    if (typeof(module) != 'undefined') {
+    if (typeof module != 'undefined') {
       module.exports = ackPromise;
     }
     var toString = Object.prototype.toString;
@@ -4273,55 +4180,75 @@ $__System.registerDynamic("42", ["20"], true, function($__require, exports, modu
     var reNative = RegExp('^' + String(toString).replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&').replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
     function isNative(value) {
       var type = typeof value;
-      return type == 'function' ? reNative.test(fnToString.call(value)) : (value && type == 'object' && reHostCtor.test(toString.call(value))) || false;
+      return type == 'function' ? reNative.test(fnToString.call(value)) : value && type == 'object' && reHostCtor.test(toString.call(value)) || false;
     }
     var nativePromiseThen;
-    var isNativePromised = typeof(Promise) != 'undefined' && Promise && Promise.resolve;
+    var isNativePromised = typeof Promise != 'undefined' && Promise && Promise.resolve;
     if (isNativePromised) {
-      Promise.resolve().then(function() {
+      Promise.resolve().then(function () {
         var testerP = {};
-        testerP.then = function(nativeThen) {
+        testerP.then = function (nativeThen) {
           nativePromiseThen = nativeThen;
         };
         return testerP;
-      }).then(function() {});
+      }).then(function () {});
     }
   })($__require('20'));
   return module.exports;
 });
-
-$__System.registerDynamic("43", ["42"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("43", ["42"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('42');
+  module.exports = $__require("42");
   return module.exports;
 });
-
-$__System.registerDynamic("44", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('44', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /**
+   * Helpers.
+   */
+
   var s = 1000;
   var m = s * 60;
   var h = m * 60;
   var d = h * 24;
   var y = d * 365.25;
-  module.exports = function(val, options) {
+
+  /**
+   * Parse or format the given `val`.
+   *
+   * Options:
+   *
+   *  - `long` verbose formatting [false]
+   *
+   * @param {String|Number} val
+   * @param {Object} options
+   * @return {String|Number}
+   * @api public
+   */
+
+  module.exports = function (val, options) {
     options = options || {};
-    if ('string' == typeof val)
-      return parse(val);
+    if ('string' == typeof val) return parse(val);
     return options.long ? long(val) : short(val);
   };
+
+  /**
+   * Parse the given `str` and return milliseconds.
+   *
+   * @param {String} str
+   * @return {Number}
+   * @api private
+   */
+
   function parse(str) {
     str = '' + str;
-    if (str.length > 10000)
-      return;
+    if (str.length > 10000) return;
     var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
-    if (!match)
-      return;
+    if (!match) return;
     var n = parseFloat(match[1]);
     var type = (match[2] || 'ms').toLowerCase();
     switch (type) {
@@ -4361,92 +4288,168 @@ $__System.registerDynamic("44", [], true, function($__require, exports, module) 
         return n;
     }
   }
+
+  /**
+   * Short format for `ms`.
+   *
+   * @param {Number} ms
+   * @return {String}
+   * @api private
+   */
+
   function short(ms) {
-    if (ms >= d)
-      return Math.round(ms / d) + 'd';
-    if (ms >= h)
-      return Math.round(ms / h) + 'h';
-    if (ms >= m)
-      return Math.round(ms / m) + 'm';
-    if (ms >= s)
-      return Math.round(ms / s) + 's';
+    if (ms >= d) return Math.round(ms / d) + 'd';
+    if (ms >= h) return Math.round(ms / h) + 'h';
+    if (ms >= m) return Math.round(ms / m) + 'm';
+    if (ms >= s) return Math.round(ms / s) + 's';
     return ms + 'ms';
   }
+
+  /**
+   * Long format for `ms`.
+   *
+   * @param {Number} ms
+   * @return {String}
+   * @api private
+   */
+
   function long(ms) {
     return plural(ms, d, 'day') || plural(ms, h, 'hour') || plural(ms, m, 'minute') || plural(ms, s, 'second') || ms + ' ms';
   }
+
+  /**
+   * Pluralization helper.
+   */
+
   function plural(ms, n, name) {
-    if (ms < n)
-      return;
-    if (ms < n * 1.5)
-      return Math.floor(ms / n) + ' ' + name;
+    if (ms < n) return;
+    if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
     return Math.ceil(ms / n) + ' ' + name + 's';
   }
   return module.exports;
 });
-
-$__System.registerDynamic("45", ["44"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("45", ["44"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('44');
+  module.exports = $__require("44");
   return module.exports;
 });
-
-$__System.registerDynamic("46", ["45"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('46', ['45'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+
+  /**
+   * This is the common logic for both the Node.js and web browser
+   * implementations of `debug()`.
+   *
+   * Expose `debug()` as the module.
+   */
+
   exports = module.exports = debug;
   exports.coerce = coerce;
   exports.disable = disable;
   exports.enable = enable;
   exports.enabled = enabled;
   exports.humanize = $__require('45');
+
+  /**
+   * The currently active debug mode names, and names to skip.
+   */
+
   exports.names = [];
   exports.skips = [];
+
+  /**
+   * Map of special "%n" handling functions, for the debug "format" argument.
+   *
+   * Valid key names are a single, lowercased letter, i.e. "n".
+   */
+
   exports.formatters = {};
+
+  /**
+   * Previously assigned color.
+   */
+
   var prevColor = 0;
+
+  /**
+   * Previous log timestamp.
+   */
+
   var prevTime;
+
+  /**
+   * Select a color.
+   *
+   * @return {Number}
+   * @api private
+   */
+
   function selectColor() {
     return exports.colors[prevColor++ % exports.colors.length];
   }
+
+  /**
+   * Create a debugger with the given `namespace`.
+   *
+   * @param {String} namespace
+   * @return {Function}
+   * @api public
+   */
+
   function debug(namespace) {
+
+    // define the `disabled` version
     function disabled() {}
     disabled.enabled = false;
+
+    // define the `enabled` version
     function enabled() {
+
       var self = enabled;
+
+      // set `diff` timestamp
       var curr = +new Date();
       var ms = curr - (prevTime || curr);
       self.diff = ms;
       self.prev = prevTime;
       self.curr = curr;
       prevTime = curr;
-      if (null == self.useColors)
-        self.useColors = exports.useColors();
-      if (null == self.color && self.useColors)
-        self.color = selectColor();
+
+      // add the `color` if not set
+      if (null == self.useColors) self.useColors = exports.useColors();
+      if (null == self.color && self.useColors) self.color = selectColor();
+
       var args = Array.prototype.slice.call(arguments);
+
       args[0] = exports.coerce(args[0]);
+
       if ('string' !== typeof args[0]) {
+        // anything else let's inspect with %o
         args = ['%o'].concat(args);
       }
+
+      // apply any `formatters` transformations
       var index = 0;
-      args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
-        if (match === '%%')
-          return match;
+      args[0] = args[0].replace(/%([a-z%])/g, function (match, format) {
+        // if we encounter an escaped % then don't increase the array index
+        if (match === '%%') return match;
         index++;
         var formatter = exports.formatters[format];
         if ('function' === typeof formatter) {
           var val = args[index];
           match = formatter.call(self, val);
+
+          // now we need to remove `args[index]` since it's inlined in the `format`
           args.splice(index, 1);
           index--;
         }
         return match;
       });
+
       if ('function' === typeof exports.formatArgs) {
         args = exports.formatArgs.apply(self, args);
       }
@@ -4454,17 +4457,30 @@ $__System.registerDynamic("46", ["45"], true, function($__require, exports, modu
       logFn.apply(self, args);
     }
     enabled.enabled = true;
+
     var fn = exports.enabled(namespace) ? enabled : disabled;
+
     fn.namespace = namespace;
+
     return fn;
   }
+
+  /**
+   * Enables a debug mode by namespaces. This can include modes
+   * separated by a colon and wildcards.
+   *
+   * @param {String} namespaces
+   * @api public
+   */
+
   function enable(namespaces) {
     exports.save(namespaces);
+
     var split = (namespaces || '').split(/[\s,]+/);
     var len = split.length;
+
     for (var i = 0; i < len; i++) {
-      if (!split[i])
-        continue;
+      if (!split[i]) continue; // ignore empty strings
       namespaces = split[i].replace(/\*/g, '.*?');
       if (namespaces[0] === '-') {
         exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
@@ -4473,12 +4489,27 @@ $__System.registerDynamic("46", ["45"], true, function($__require, exports, modu
       }
     }
   }
+
+  /**
+   * Disable debug output.
+   *
+   * @api public
+   */
+
   function disable() {
     exports.enable('');
   }
+
+  /**
+   * Returns true if the given mode name is enabled, false otherwise.
+   *
+   * @param {String} name
+   * @return {Boolean}
+   * @api public
+   */
+
   function enabled(name) {
-    var i,
-        len;
+    var i, len;
     for (i = 0, len = exports.skips.length; i < len; i++) {
       if (exports.skips[i].test(name)) {
         return false;
@@ -4491,19 +4522,32 @@ $__System.registerDynamic("46", ["45"], true, function($__require, exports, modu
     }
     return false;
   }
+
+  /**
+   * Coerce `val`.
+   *
+   * @param {Mixed} val
+   * @return {Mixed}
+   * @api private
+   */
+
   function coerce(val) {
-    if (val instanceof Error)
-      return val.stack || val.message;
+    if (val instanceof Error) return val.stack || val.message;
     return val;
   }
   return module.exports;
 });
-
-$__System.registerDynamic("47", ["46"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('47', ['46'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+
+  /**
+   * This is the web browser implementation of `debug()`.
+   *
+   * Expose `debug()` as the module.
+   */
+
   exports = module.exports = $__require('46');
   exports.log = log;
   exports.formatArgs = formatArgs;
@@ -4511,37 +4555,95 @@ $__System.registerDynamic("47", ["46"], true, function($__require, exports, modu
   exports.load = load;
   exports.useColors = useColors;
   exports.storage = 'undefined' != typeof chrome && 'undefined' != typeof chrome.storage ? chrome.storage.local : localstorage();
+
+  /**
+   * Colors.
+   */
+
   exports.colors = ['lightseagreen', 'forestgreen', 'goldenrod', 'dodgerblue', 'darkorchid', 'crimson'];
+
+  /**
+   * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+   * and the Firebug extension (any Firefox version) are known
+   * to support "%c" CSS customizations.
+   *
+   * TODO: add a `localStorage` variable to explicitly enable/disable colors
+   */
+
   function useColors() {
-    return ('WebkitAppearance' in document.documentElement.style) || (window.console && (console.firebug || (console.exception && console.table))) || (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
+    // is webkit? http://stackoverflow.com/a/16459606/376773
+    return 'WebkitAppearance' in document.documentElement.style ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    window.console && (console.firebug || console.exception && console.table) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31;
   }
-  exports.formatters.j = function(v) {
+
+  /**
+   * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+   */
+
+  exports.formatters.j = function (v) {
     return JSON.stringify(v);
   };
+
+  /**
+   * Colorize log arguments if enabled.
+   *
+   * @api public
+   */
+
   function formatArgs() {
     var args = arguments;
     var useColors = this.useColors;
+
     args[0] = (useColors ? '%c' : '') + this.namespace + (useColors ? ' %c' : ' ') + args[0] + (useColors ? '%c ' : ' ') + '+' + exports.humanize(this.diff);
-    if (!useColors)
-      return args;
+
+    if (!useColors) return args;
+
     var c = 'color: ' + this.color;
     args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
+
+    // the final "%c" is somewhat tricky, because there could be other
+    // arguments passed either before or after the %c, so we need to
+    // figure out the correct index to insert the CSS into
     var index = 0;
     var lastC = 0;
-    args[0].replace(/%[a-z%]/g, function(match) {
-      if ('%%' === match)
-        return;
+    args[0].replace(/%[a-z%]/g, function (match) {
+      if ('%%' === match) return;
       index++;
       if ('%c' === match) {
+        // we only are interested in the *last* %c
+        // (the user may have provided their own)
         lastC = index;
       }
     });
+
     args.splice(lastC, 0, c);
     return args;
   }
+
+  /**
+   * Invokes `console.log()` when available.
+   * No-op when `console.log` is not a "function".
+   *
+   * @api public
+   */
+
   function log() {
+    // this hackery is required for IE8/9, where
+    // the `console.log` function doesn't have 'apply'
     return 'object' === typeof console && console.log && Function.prototype.apply.call(console.log, console, arguments);
   }
+
+  /**
+   * Save `namespaces`.
+   *
+   * @param {String} namespaces
+   * @api private
+   */
+
   function save(namespaces) {
     try {
       if (null == namespaces) {
@@ -4551,6 +4653,14 @@ $__System.registerDynamic("47", ["46"], true, function($__require, exports, modu
       }
     } catch (e) {}
   }
+
+  /**
+   * Load `namespaces`.
+   *
+   * @return {String} returns the previously persisted debug modes
+   * @api private
+   */
+
   function load() {
     var r;
     try {
@@ -4558,7 +4668,24 @@ $__System.registerDynamic("47", ["46"], true, function($__require, exports, modu
     } catch (e) {}
     return r;
   }
+
+  /**
+   * Enable namespaces listed in `localStorage.debug` initially.
+   */
+
   exports.enable(load());
+
+  /**
+   * Localstorage attempts to return the localstorage.
+   *
+   * This is necessary because safari throws
+   * when a user disables cookies/localstorage
+   * and you attempt to access it.
+   *
+   * @return {LocalStorage}
+   * @api private
+   */
+
   function localstorage() {
     try {
       return window.localStorage;
@@ -4566,123 +4693,154 @@ $__System.registerDynamic("47", ["46"], true, function($__require, exports, modu
   }
   return module.exports;
 });
-
-$__System.registerDynamic("48", ["47"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("48", ["47"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('47');
+  module.exports = $__require("47");
   return module.exports;
 });
+$__System.registerDynamic('49', [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("49", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  function jXObject(object) {
-    this.object = object;
-    return this;
-  }
-  jXObject.prototype.forEach = function(method) {
-    xObject.forEach(method)(this.object);
-    return this;
-  };
-  jXObject.prototype.map = function(method) {
-    xObject.map(method)(this.object);
-    return this;
-  };
-  jXObject.prototype.isCyclic = function() {
-    var seenObjects = [];
-    function detect(obj) {
-      if (obj && typeof obj === 'object') {
-        if (seenObjects.indexOf(obj) !== -1) {
-          return true;
-        }
-        seenObjects.push(obj);
-        for (var key in obj) {
-          if (obj.hasOwnProperty(key) && detect(obj[key])) {
-            return true;
-          }
-        }
-      }
-      return false;
-    }
-    return detect(this.object);
-  };
-  jXObject.prototype.toCookieString = function() {
-    var cookies = this.object;
-    var cookieNameArray = Object.keys(cookies);
-    if (cookieNameArray.length) {
-      var cookieString = '';
-      cookieNameArray.forEach(function(name, i) {
-        cookieString += '; ' + name + '=' + cookies[name];
-      });
-      cookieString = cookieString.substring(2, cookieString.length);
-      return cookieString;
-    }
-    return '';
-  };
-  module.exports = xObject;
-  function xObject(ob) {
-    return new jXObject(ob);
-  }
-  xObject.map = function(method) {
-    return function(ob) {
-      return map(ob, method);
-    };
-  };
-  xObject.forEach = function(method) {
-    return function(ob) {
-      return forEach(ob, method);
-    };
-  };
-  function map(ob, method) {
-    if (ob.map) {
-      return ob.map(method);
-    }
-    var res = {};
-    for (var x in ob) {
-      res[x] = method(ob[x], x, ob);
-    }
-    return res;
-  }
-  function forEach(ob, method) {
-    if (ob.forEach) {
-      ob.forEach(method);
-    } else {
-      for (var x in ob) {
-        method(ob[x], x, ob);
-      }
-    }
-    return ob;
-  }
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	function jXObject(object) {
+		this.object = object;
+		return this;
+	}
+
+	/** @method(item, index, object) */
+	jXObject.prototype.forEach = function (method) {
+		xObject.forEach(method)(this.object);
+		return this;
+	};
+
+	/** this.object will be the map result
+ 	@method(item, index, object)
+ */
+	jXObject.prototype.map = function (method) {
+		xObject.map(method)(this.object);
+		return this;
+	};
+
+	/** tests Object for circular references */
+	jXObject.prototype.isCyclic = function () {
+		var seenObjects = [];
+
+		function detect(obj) {
+			if (obj && typeof obj === 'object') {
+				if (seenObjects.indexOf(obj) !== -1) {
+					return true;
+				}
+				seenObjects.push(obj);
+				for (var key in obj) {
+					if (obj.hasOwnProperty(key) && detect(obj[key])) {
+						//console.log(obj, 'cycle at ' + key);
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		return detect(this.object);
+	};
+
+	/** like JSON.stringify but converts all to cookie definition */
+	jXObject.prototype.toCookieString = function () {
+		var cookies = this.object;
+		var cookieNameArray = Object.keys(cookies);
+		if (cookieNameArray.length) {
+			var cookieString = '';
+			cookieNameArray.forEach(function (name, i) {
+				cookieString += '; ' + name + '=' + cookies[name];
+			});
+			cookieString = cookieString.substring(2, cookieString.length); //remove "; "
+			return cookieString;
+		}
+		return '';
+	};
+
+	module.exports = xObject;
+
+	function xObject(ob) {
+		return new jXObject(ob);
+	}
+
+	/** loop an object
+ 	@method(var, index, object)
+ */
+	xObject.map = function (method) {
+		return function (ob) {
+			return map(ob, method);
+		};
+	};
+
+	/** loop an object
+ 	@method(var, index, object)
+ */
+	xObject.forEach = function (method) {
+		return function (ob) {
+			return forEach(ob, method);
+		};
+	};
+
+	/** @method(var, index, object) */
+	function map(ob, method) {
+		if (ob.map) {
+			return ob.map(method);
+		}
+
+		var res = {};
+		for (var x in ob) {
+			res[x] = method(ob[x], x, ob);
+		}
+
+		return res;
+	}
+
+	/** @method(var, index, object) */
+	function forEach(ob, method) {
+		if (ob.forEach) {
+			ob.forEach(method);
+		} else {
+			for (var x in ob) {
+				method(ob[x], x, ob);
+			}
+		}
+
+		return ob;
+	}
+	return module.exports;
 });
-
-$__System.registerDynamic("4a", [], true, function($__require, exports, module) {
+$__System.registerDynamic("4a", [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+  //Helps in the goal of selecting and defining states of properties on indexable data (object & arrays). The indexable data is not to be polluted by the defined properties (data and states seperate)
+
   var define,
       global = this || self,
       GLOBAL = global;
   function IndexSelector($scope) {
     this.data = $scope || {};
-    this.data.indexes = this.data.indexes || [];
+
+    this.data.indexes = this.data.indexes || []; //any object will do
     this.data.selected = this.data.selected || [];
     this.data.states = this.data.states || [];
     return this;
   }
-  IndexSelector.prototype.isIndexSelected = function(index) {
+
+  IndexSelector.prototype.isIndexSelected = function (index) {
     for (var i = this.data.states.length - 1; i >= 0; --i) {
-      if (this.data.states[i].index == index)
-        return true;
+      if (this.data.states[i].index == index) return true;
     }
     return false;
   };
-  IndexSelector.prototype.selectByIndex = function(index) {
+
+  IndexSelector.prototype.selectByIndex = function (index) {
     var selected = this.data.indexes[index];
     if (selected) {
       this.data.states.push(this.newStateByIndex(index));
@@ -4690,9 +4848,9 @@ $__System.registerDynamic("4a", [], true, function($__require, exports, module) 
     }
     return this;
   };
-  IndexSelector.prototype.deselectByIndex = function(index) {
-    var i,
-        state;
+
+  IndexSelector.prototype.deselectByIndex = function (index) {
+    var i, state;
     for (i = this.data.states.length - 1; i >= 0; --i) {
       var state = this.data.states[i];
       if (state.index == index) {
@@ -4703,109 +4861,124 @@ $__System.registerDynamic("4a", [], true, function($__require, exports, module) 
     }
     return this;
   };
-  IndexSelector.prototype.deselectState = function(state) {
-    this.deselectByIndex(state.index);
-    return this;
+
+  IndexSelector.prototype.deselectState = function (state) {
+    this.deselectByIndex(state.index);return this;
   };
-  IndexSelector.prototype.deselectAll = function() {
+
+  IndexSelector.prototype.deselectAll = function () {
     this.data.selected.length = 0;
     this.data.states.length = 0;
     return this;
   };
-  IndexSelector.prototype.selectAll = function() {
-    if (!this.data.indexes)
-      return this;
+
+  IndexSelector.prototype.selectAll = function () {
+    if (!this.data.indexes) return this;
+
     for (var i = 0; i < this.data.indexes.length; ++i) {
       this.selectByIndex(i);
     }
+
     return this;
   };
-  IndexSelector.prototype.selectorByIndex = function(index) {
+
+  //getter/setter. Getter for determining if selected. Setter to set if selected or not
+  IndexSelector.prototype.selectorByIndex = function (index) {
     var $this = this;
-    return function(yesNo) {
+    return function (yesNo) {
       if (yesNo != null) {
         yesNo ? $this.selectByIndex(index) : $this.deselectByIndex(index);
         return yesNo;
       }
+
       return $this.isIndexSelected(index);
     };
   };
-  IndexSelector.prototype.newStateByIndex = function(index) {
+
+  IndexSelector.prototype.newStateByIndex = function (index) {
     var state = {
       data: this.data.indexes[index],
       state: {},
       index: index
     };
+
     return state;
   };
-  IndexSelector.prototype.selectStateByIndex = function(index) {
+
+  IndexSelector.prototype.selectStateByIndex = function (index) {
     var i = this.data.states.length;
     this.selectByIndex(index);
     return this.data.states[i].state;
   };
-  IndexSelector.prototype.deselectOldest = function() {
+
+  IndexSelector.prototype.deselectOldest = function () {
     this.data.selected.splice(0, 1);
     this.data.states.splice(0, 1);
     return this;
   };
-  IndexSelector.prototype.getOldestIndex = function() {
-    if (this.data.states.length)
-      return this.data.states[0].index;
+
+  IndexSelector.prototype.getOldestIndex = function () {
+    if (this.data.states.length) return this.data.states[0].index;
   };
-  IndexSelector.prototype.pairSelectedToState = function() {
+
+  //when IndexSelector has been init with selectives but no states, blank states can be built
+  IndexSelector.prototype.pairSelectedToState = function () {
     for (var i = 0; i < this.data.states.length; ++i) {
       var state = this.data.states[i];
       this.data.selected[i] = this.data.selected[i] || this.data.indexes[state.index];
     }
     return this;
   };
-  IndexSelector.prototype.pairStateToSelected = function() {
+
+  //when IndexSelector has been init with selectives but no states, blank states can be built
+  IndexSelector.prototype.pairStateToSelected = function () {
     for (var i = 0; i < this.data.selected.length; ++i) {
       var selected = this.data.selected[i];
       this.data.states[i] = this.data.states[i] || this.newStateByIndex(i);
     }
     return this;
   };
+
   module.exports = IndexSelector;
   return module.exports;
 });
-
-$__System.registerDynamic("4b", ["4c", "41", "43", "48", "49", "4a"], true, function($__require, exports, module) {
+$__System.registerDynamic('4b', ['4c', '41', '43', '48', '49', '4a'], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
   var jc = $__require('4c'),
       ackInjector = $__require('41'),
       partyModules = {
-        ackP: $__require('43'),
-        debug: $__require('48')
-      };
+    ackP: $__require('43'),
+    debug: $__require('48')
+  };
   function ack($var) {
     return new ackExpose($var);
   }
   ack.object = $__require('49');
   ack.Expose = ackExpose;
   ack.modules = new ackInjector(ack);
-  ack['class'] = function(cl, extendOrAccessors, accessors) {
+  ack['class'] = function (cl, extendOrAccessors, accessors) {
     return new jc(cl, extendOrAccessors, accessors);
   };
-  ack.accessors = function($scope) {
+  ack.accessors = function ($scope) {
     return new jc.Vm($scope);
   };
-  ack.injector = function($scope) {
+  ack.injector = function ($scope) {
     return new ackInjector($scope);
   };
-  ack.promise = function(var0, var1, var2, var3) {
+  ack.promise = function (var0, var1, var2, var3) {
     var promise = partyModules.ackP.start();
     return promise.set.apply(promise, arguments);
   };
-  ack.Promise = function(resolver) {
+  ack.Promise = function (resolver) {
     return new partyModules.ackP(resolver);
   };
   var indexSelector = $__require('4a');
-  ack.indexSelector = function() {
+  ack.indexSelector = function () {
     var $scope = {};
     if (arguments.length) {
       $scope.indexes = arguments[0];
@@ -4821,7 +4994,7 @@ $__System.registerDynamic("4b", ["4c", "41", "43", "48", "49", "4a"], true, func
       args.shift();
       logger.apply(logger, args);
     }
-    logger.debug = function(subname, log0, log1, log2) {
+    logger.debug = function (subname, log0, log1, log2) {
       arguments[0] = name + ':' + subname;
       return ack.debug.apply(ack, arguments);
     };
@@ -4829,119 +5002,113 @@ $__System.registerDynamic("4b", ["4c", "41", "43", "48", "49", "4a"], true, func
     return logger;
   };
   ack.debug.map = ackDebugMap;
-  ack.throwBy = function(ob, msg) {
+  ack.throwBy = function (ob, msg) {
     if (ob) {
-      throw (ob);
+      throw ob;
     } else if (msg) {
       throw new Error(msg);
     } else {
       throw new Error('An unexpected error has occured');
     }
   };
-  ack.logArrayTo = function(array, logTo) {
+  ack.logArrayTo = function (array, logTo) {
     logTo.apply(logTo, array);
   };
-  ack.logError = function(err, msg, logTo) {
+  ack.logError = function (err, msg, logTo) {
     logTo = logTo || console.log;
     var drray = [];
     if (msg == null && err && err.stack) {
       msg = msg || err.stack.replace(/(\n|\t|\r)/g, '').split(/\s+at\s+/).shift();
     }
-    if (msg != null)
-      drray.push(msg);
-    if (err != null)
-      drray.push(err);
+    if (msg != null) drray.push(msg);
+    if (err != null) drray.push(err);
     ack.logErrorArray(drray, logTo);
   };
   function ackExpose($var) {
     this.$var = $var;
     return this;
   }
-  ackExpose.prototype.error = function() {
+  ackExpose.prototype.error = function () {
     return ack.error(this.$var);
   };
-  ackExpose.prototype.number = function() {
+  ackExpose.prototype.number = function () {
     return ack.number(this.$var);
   };
-  ackExpose.prototype.string = function() {
+  ackExpose.prototype.string = function () {
     return ack.string(this.$var);
   };
-  ackExpose.prototype.binary = function() {
+  ackExpose.prototype.binary = function () {
     return ack.binary(this.$var);
   };
-  ackExpose.prototype.base64 = function() {
+  ackExpose.prototype.base64 = function () {
     return ack.base64(this.$var);
   };
-  ackExpose.prototype.object = function() {
+  ackExpose.prototype.object = function () {
     return new ackObject(this.$var);
   };
-  ackExpose.prototype.method = function() {
+  ackExpose.prototype.method = function () {
     return ack.method(this.$var);
   };
-  ackExpose.prototype['function'] = function() {
+  ackExpose.prototype['function'] = function () {
     return ack['function'](this.$var);
   };
-  ackExpose.prototype.array = function() {
+  ackExpose.prototype.array = function () {
     return ack.array(this.$var);
   };
-  ackExpose.prototype.queryObject = function() {
+  ackExpose.prototype.queryObject = function () {
     return ack.queryObject(this.$var);
   };
-  ackExpose.prototype.week = function() {
+  ackExpose.prototype.week = function () {
     return ack.week(this.$var);
   };
-  ackExpose.prototype.month = function() {
+  ackExpose.prototype.month = function () {
     return ack.month(this.$var);
   };
-  ackExpose.prototype.year = function() {
+  ackExpose.prototype.year = function () {
     return ack.year(this.$var);
   };
-  ackExpose.prototype.date = function() {
+  ackExpose.prototype.date = function () {
     return ack.date(this.$var);
   };
-  ackExpose.prototype.time = function() {
+  ackExpose.prototype.time = function () {
     return ack.time(this.$var);
   };
-  ackExpose.prototype.getSimpleClone = function() {
+  ackExpose.prototype.getSimpleClone = function () {
     var target = {};
     for (var i in this.$var) {
       target[i] = this.$var[i];
     }
     return target;
   };
-  ackExpose.prototype.get = function(name, def) {
-    if (!name)
-      return this.$var;
-    if (this.$var && this.$var[name] != null)
-      return this.$var[name];
+  ackExpose.prototype.get = function (name, def) {
+    if (!name) return this.$var;
+    if (this.$var && this.$var[name] != null) return this.$var[name];
     var lcase = name.toLowerCase();
     for (var key in this.$var) {
-      if (lcase == key.toLowerCase())
-        return this.$var[key];
+      if (lcase == key.toLowerCase()) return this.$var[key];
     }
     return def;
   };
-  ackExpose.prototype.byName = function(name) {
+  ackExpose.prototype.byName = function (name) {
     var v = this.get(name);
-    if (v != null)
-      return ack(v);
+    if (v != null) return ack(v);
   };
-  ackExpose.prototype['throw'] = function(msg, logTo) {
+  ackExpose.prototype['throw'] = function (msg, logTo) {
     ack.logError(this.$var, msg, logTo);
     ack.throwBy(this.$var, msg);
     return this;
   };
-  ackExpose.prototype.dump = function() {
+  ackExpose.prototype.dump = function () {
     return JSON.stringify(this.$var);
   };
-  ackExpose.prototype.getBit = function() {
+  ackExpose.prototype.getBit = function () {
     var b = this.getBoolean();
     if (b && b.constructor == Number && b < 0) {
       b = 0;
     }
     return b ? 1 : 0;
   };
-  ackExpose.prototype.nullsToEmptyString = function() {
+  ackExpose.prototype.nullsToEmptyString = function () {
     for (var key in this.$var) {
       if (this.$var[key] == null) {
         this.$var[key] = '';
@@ -4949,9 +5116,8 @@ $__System.registerDynamic("4b", ["4c", "41", "43", "48", "49", "4a"], true, func
     }
     return this;
   };
-  ackExpose.prototype.getBoolean = function() {
-    if (this.$var == null || !this.$var.constructor)
-      return false;
+  ackExpose.prototype.getBoolean = function () {
+    if (this.$var == null || !this.$var.constructor) return false;
     var a = this.$var;
     if (a.constructor == String) {
       a = a.toLowerCase();
@@ -4972,60 +5138,73 @@ $__System.registerDynamic("4b", ["4c", "41", "43", "48", "49", "4a"], true, func
     }
     return null;
   };
-  ackExpose.prototype.isBooleanLike = function() {
-    if (this.$var == null || !this.$var.constructor)
-      return false;
+  ackExpose.prototype.isBooleanLike = function () {
+    if (this.$var == null || !this.$var.constructor) return false;
     return this.getBoolean() !== null;
   };
   module.exports = ack;
   return module.exports;
 });
-
-$__System.registerDynamic("4d", [], true, function($__require, exports, module) {
+$__System.registerDynamic('4d', [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(errorObject) {
+  module.exports = function (errorObject) {
     return new jError(errorObject);
   };
+
   var jError = function jError(errorObject) {
     this.types = jError.types;
-    this.errorObject = errorObject;
-    return this;
+    this.errorObject = errorObject;return this;
   };
-  jError.prototype.getKeys = function() {
+
+  /** returns all object keys of an error which is takes extra steps */
+  jError.prototype.getKeys = function () {
     return Object.getOwnPropertyNames(this.errorObject);
   };
-  jError.prototype.getStackArray = function(amount) {
+
+  /** converts error.stack into array via stack.split(' at ') */
+  jError.prototype.getStackArray = function (amount) {
     if (this.stackArray) {
       return this.stackArray;
     }
+
     if (this.errorObject.stack) {
       if (this.errorObject.stack.split) {
         this.stackArray = this.errorObject.stack.split(' at ');
       } else if (this.errorObject.stack.splice) {
+        //?already an array?
         this.stackArray = this.errorObject.stack;
       }
       return this.stackArray;
     }
+
     return [];
   };
-  jError.prototype.getTraceArray = function(amount) {
+
+  /** dig out just the stack trace from error */
+  jError.prototype.getTraceArray = function (amount) {
     var stackArray = [];
     stackArray.push.apply(stackArray, this.getStackArray());
     stackArray.shift();
+
     if (amount) {
       stackArray.splice(amount, stackArray.length);
     }
+
     return stackArray;
   };
-  jError.prototype.getFirstTrace = function(amount) {
+
+  /** dig out only just the first trace of errors stack trace */
+  jError.prototype.getFirstTrace = function (amount) {
     var stackArray = this.getStackArray();
-    if (!stackArray)
-      return;
+    if (!stackArray) return;
+
     amount = amount || 1;
+
     if (stackArray.length == 1) {
       var rtn = [stackArray[0]];
     } else {
@@ -5034,41 +5213,55 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
         rtn.push(stackArray[i]);
       }
     }
+
     return rtn.join(' at ');
   };
-  jError.prototype.setStackArray = function(stackArray) {
+
+  jError.prototype.setStackArray = function (stackArray) {
     this.errorObject.stack = stackArray.join(' at ');
     this.stackArray = stackArray;
     return this;
   };
-  jError.prototype.cutFirstTrace = function() {
+
+  /** analyzes stack to remove 1st trace (leaves error message in stack). Essentially calls .splice(1,1) on stack array  */
+  jError.prototype.cutFirstTrace = function () {
     var stackArray = this.getStackArray();
     if (stackArray && stackArray.length > 1) {
       stackArray.splice(1, 1);
       this.setStackArray(stackArray);
     }
+
     return this;
   };
-  jError.prototype.getLineNum = function() {
+
+  /** attempt to extract a line number from the error */
+  jError.prototype.getLineNum = function () {
     var string = this.getFirstTrace().split(':')[1];
     return Number(string);
   };
-  jError.prototype.getFilePath = function() {
+
+  /** attempt to extract a file path from the error */
+  jError.prototype.getFilePath = function () {
     var trace = this.getFirstTrace();
     return trace.split(':')[0].split('(').pop();
   };
-  jError.prototype.getName = function() {
-    if (this.errorObject.name)
-      return this.errorObject.name;
+
+  /** attempt to extract the error's name */
+  jError.prototype.getName = function () {
+    if (this.errorObject.name) return this.errorObject.name;
     return this.getFailingObjectName();
   };
-  jError.prototype.getFailingObjectName = function() {
+
+  /** attempt to extract the named function or code that is running */
+  jError.prototype.getFailingObjectName = function () {
     var trace = this.getFirstTrace();
     return trace.split(/\(|@/)[0].trim();
   };
-  jError.prototype.getMessage = function() {
-    if (this.errorObject.message)
-      return this.errorObject.message;
+
+  /** get a message from the error even if it has no message */
+  jError.prototype.getMessage = function () {
+    if (this.errorObject.message) return this.errorObject.message;
+
     var fTrace = this.getFirstTrace();
     if (fTrace) {
       var fSpaceArray = fTrace.split(' ');
@@ -5076,43 +5269,56 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
         return fSpaceArray.splice(0, 1)[0];
       }
     }
+
     if (this.errorObject.constructor == String) {
       return this.errorObject;
     }
   };
-  jError.prototype.getType = function() {
+
+  /** attempt to extract the error's type */
+  jError.prototype.getType = function () {
     var isNamed = this.errorObject.name && this.errorObject.name.toLowerCase != null;
     var isCode = this.errorObject.code && this.errorObject.code.toLowerCase != null;
+
     if (isCode && this.errorObject.name == 'Error') {
       return this.errorObject.code;
     }
+
     if (isNamed) {
       return this.errorObject.name;
     }
   };
-  jError.prototype.isType = function(type) {
-    if (this.errorObject == null)
-      return false;
+
+  /** attempt to compare error with another error or another type of an error */
+  jError.prototype.isType = function (type) {
+    if (this.errorObject == null) return false;
+
     if (this.errorObject.constructor && type == this.errorObject.constructor) {
       return true;
     }
+
     var eName = this.getType();
     if (eName && eName.toLowerCase() == type.toLowerCase()) {
       return true;
     }
+
     if (type.constructor == String) {
       if (this.errorObject.constructor == String) {
         return this.errorObject.toLowerCase() === type.toLowerCase();
       }
+
       var mess = this.getMessage();
       if (mess && type.toLowerCase() == mess.toLowerCase()) {
         return true;
       }
     }
+
     return false;
   };
+
   jError.types = {};
-  jError.types.NotFound = function(message) {
+
+  jError.types.NotFound = function (message) {
     Error.captureStackTrace(this, this.constructor);
     this.name = this.constructor.name;
     this.status = 404;
@@ -5120,10 +5326,11 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
     this.message = message || "Could Not Find Requested Resource";
   };
   jError.types.NotFound.prototype = Object.create(Error.prototype);
-  jError.types.notFound = function(message) {
+  jError.types.notFound = function (message) {
     return new jError.types.NotFound(message);
   };
-  jError.types.LocalNetworkRequired = function(message) {
+
+  jError.types.LocalNetworkRequired = function (message) {
     Error.captureStackTrace(this, this.constructor);
     this.name = this.constructor.name;
     this.status = 403;
@@ -5131,10 +5338,11 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
     this.message = message || "Local Network Connection Required";
   };
   jError.types.LocalNetworkRequired.prototype = Object.create(Error.prototype);
-  jError.types.localNetworkRequired = function(message) {
+  jError.types.localNetworkRequired = function (message) {
     return new jError.types.LocalNetworkRequired(message);
   };
-  jError.types.Unauthorized = function(message) {
+
+  jError.types.Unauthorized = function (message) {
     Error.captureStackTrace(this, this.constructor);
     this.name = this.constructor.name;
     this.status = 401;
@@ -5142,10 +5350,11 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
     this.message = message || "No authorization token was found";
   };
   jError.types.Unauthorized.prototype = Object.create(Error.prototype);
-  jError.types.unauthorized = function(message) {
+  jError.types.unauthorized = function (message) {
     return new jError.types.Unauthorized(message);
   };
-  jError.types.BadRequest = function(message) {
+
+  jError.types.BadRequest = function (message) {
     Error.captureStackTrace(this, this.constructor);
     this.name = this.constructor.name;
     this.status = 400;
@@ -5153,10 +5362,11 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
     this.message = message || "Bad Request";
   };
   jError.types.BadRequest.prototype = Object.create(Error.prototype);
-  jError.types.badRequest = function(message) {
+  jError.types.badRequest = function (message) {
     return new jError.types.BadRequest(message);
   };
-  jError.types.MethodNotAllowed = function(message) {
+
+  jError.types.MethodNotAllowed = function (message) {
     Error.captureStackTrace(this, this.constructor);
     this.name = this.constructor.name;
     this.status = 405;
@@ -5164,15 +5374,15 @@ $__System.registerDynamic("4d", [], true, function($__require, exports, module) 
     this.message = message || "Method Not Allowed";
   };
   jError.types.MethodNotAllowed.prototype = Object.create(Error.prototype);
-  jError.types.methodNotAllowed = function(message) {
+  jError.types.methodNotAllowed = function (message) {
     return new jError.types.MethodNotAllowed(message);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("4e", [], true, function($__require, exports, module) {
+$__System.registerDynamic('4e', [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -5180,20 +5390,33 @@ $__System.registerDynamic("4e", [], true, function($__require, exports, module) 
     this.number = number;
     return this;
   };
-  jXNumber.prototype.decimalFormat = function(p) {
+
+  /** @p - decimal places */
+  jXNumber.prototype.decimalFormat = function (p) {
     p = p == null ? 2 : p;
     var m = Math.pow(10, p),
         n = this.number;
     return (Math.round(n * m) / m).toFixed(p);
   };
-  jXNumber.prototype.asMinutesToDateTime = function(options) {
+
+  /** convert set number into how many minutes into a date. Ex: 60 = new Date('2016-01-16 1:00:00.0')
+    @options - {}
+    @options.date - default=new Date()
+  */
+  jXNumber.prototype.asMinutesToDateTime = function (options) {
     options = options || {};
     var minute = this.number;
     var iDate = options.date || new Date();
     var date = new Date(iDate.getFullYear(), iDate.getMonth(), iDate.getDate(), 0, minute);
     return date;
   };
-  jXNumber.prototype.asMinutesToTime = function(options) {
+
+  /** convert set number into how many minutes into a string date. Ex: 60 = 1:00 AM')
+    @options = {}
+    @options.timeDelim - default=':'
+    @optiosn.dayPeriodDelim - default=' '
+  */
+  jXNumber.prototype.asMinutesToTime = function (options) {
     options = options || {};
     options.timeDelim = options.timeDelim || ':';
     options.dayPeriodDelim = options.dayPeriodDelim || ' ';
@@ -5201,185 +5424,208 @@ $__System.registerDynamic("4e", [], true, function($__require, exports, module) 
     var hour = d.getHours();
     var tt = 'AM';
     var mins = d.getMinutes();
+
     if (hour > 12) {
       tt = 'PM';
       hour = hour - 12;
     }
+
     mins = mins.toString().length == 1 ? '0' + mins : mins;
+
     return hour + options.timeDelim + mins + options.dayPeriodDelim + tt;
   };
-  var rtn = function(path) {
+
+  var rtn = function (path) {
     return new jXNumber(path);
   };
-  if (typeof(module) != 'undefined' && module.exports) {
+  if (typeof module != 'undefined' && module.exports) {
     rtn.Class = jXNumber;
     module.exports = rtn;
-  } else if (typeof(jX) != 'undefined') {
+  } else if (typeof jX != 'undefined') {
     jX.modules.define('number', rtn);
   }
   return module.exports;
 });
+$__System.registerDynamic('4f', [], true, function ($__require, exports, module) {
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	/* */
+	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-$__System.registerDynamic("4f", [], true, function($__require, exports, module) {
-  ;
+	;(function (exports) {
+		'use strict';
+
+		var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+
+		var PLUS = '+'.charCodeAt(0);
+		var SLASH = '/'.charCodeAt(0);
+		var NUMBER = '0'.charCodeAt(0);
+		var LOWER = 'a'.charCodeAt(0);
+		var UPPER = 'A'.charCodeAt(0);
+		var PLUS_URL_SAFE = '-'.charCodeAt(0);
+		var SLASH_URL_SAFE = '_'.charCodeAt(0);
+
+		function decode(elt) {
+			var code = elt.charCodeAt(0);
+			if (code === PLUS || code === PLUS_URL_SAFE) return 62; // '+'
+			if (code === SLASH || code === SLASH_URL_SAFE) return 63; // '/'
+			if (code < NUMBER) return -1; //no match
+			if (code < NUMBER + 10) return code - NUMBER + 26 + 26;
+			if (code < UPPER + 26) return code - UPPER;
+			if (code < LOWER + 26) return code - LOWER + 26;
+		}
+
+		function b64ToByteArray(b64) {
+			var i, j, l, tmp, placeHolders, arr;
+
+			if (b64.length % 4 > 0) {
+				throw new Error('Invalid string. Length must be a multiple of 4');
+			}
+
+			// the number of equal signs (place holders)
+			// if there are two placeholders, than the two characters before it
+			// represent one byte
+			// if there is only one, then the three characters before it represent 2 bytes
+			// this is just a cheap hack to not do indexOf twice
+			var len = b64.length;
+			placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0;
+
+			// base64 is 4/3 + up to two characters of the original data
+			arr = new Arr(b64.length * 3 / 4 - placeHolders);
+
+			// if there are placeholders, only get up to the last complete 4 chars
+			l = placeHolders > 0 ? b64.length - 4 : b64.length;
+
+			var L = 0;
+
+			function push(v) {
+				arr[L++] = v;
+			}
+
+			for (i = 0, j = 0; i < l; i += 4, j += 3) {
+				tmp = decode(b64.charAt(i)) << 18 | decode(b64.charAt(i + 1)) << 12 | decode(b64.charAt(i + 2)) << 6 | decode(b64.charAt(i + 3));
+				push((tmp & 0xFF0000) >> 16);
+				push((tmp & 0xFF00) >> 8);
+				push(tmp & 0xFF);
+			}
+
+			if (placeHolders === 2) {
+				tmp = decode(b64.charAt(i)) << 2 | decode(b64.charAt(i + 1)) >> 4;
+				push(tmp & 0xFF);
+			} else if (placeHolders === 1) {
+				tmp = decode(b64.charAt(i)) << 10 | decode(b64.charAt(i + 1)) << 4 | decode(b64.charAt(i + 2)) >> 2;
+				push(tmp >> 8 & 0xFF);
+				push(tmp & 0xFF);
+			}
+
+			return arr;
+		}
+
+		function uint8ToBase64(uint8) {
+			var i,
+			    extraBytes = uint8.length % 3,
+			    // if we have 1 byte left, pad 2 bytes
+			output = "",
+			    temp,
+			    length;
+
+			function encode(num) {
+				return lookup.charAt(num);
+			}
+
+			function tripletToBase64(num) {
+				return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F);
+			}
+
+			// go through the array every three bytes, we'll deal with trailing stuff later
+			for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
+				temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + uint8[i + 2];
+				output += tripletToBase64(temp);
+			}
+
+			// pad the end with zeros, but make sure to not forget the extra bytes
+			switch (extraBytes) {
+				case 1:
+					temp = uint8[uint8.length - 1];
+					output += encode(temp >> 2);
+					output += encode(temp << 4 & 0x3F);
+					output += '==';
+					break;
+				case 2:
+					temp = (uint8[uint8.length - 2] << 8) + uint8[uint8.length - 1];
+					output += encode(temp >> 10);
+					output += encode(temp >> 4 & 0x3F);
+					output += encode(temp << 2 & 0x3F);
+					output += '=';
+					break;
+			}
+
+			return output;
+		}
+
+		exports.toByteArray = b64ToByteArray;
+		exports.fromByteArray = uint8ToBase64;
+	})(typeof exports === 'undefined' ? this.base64js = {} : exports);
+	return module.exports;
+});
+$__System.registerDynamic("50", ["4f"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-  ;
-  (function(exports) {
-    'use strict';
-    var Arr = (typeof Uint8Array !== 'undefined') ? Uint8Array : Array;
-    var PLUS = '+'.charCodeAt(0);
-    var SLASH = '/'.charCodeAt(0);
-    var NUMBER = '0'.charCodeAt(0);
-    var LOWER = 'a'.charCodeAt(0);
-    var UPPER = 'A'.charCodeAt(0);
-    var PLUS_URL_SAFE = '-'.charCodeAt(0);
-    var SLASH_URL_SAFE = '_'.charCodeAt(0);
-    function decode(elt) {
-      var code = elt.charCodeAt(0);
-      if (code === PLUS || code === PLUS_URL_SAFE)
-        return 62;
-      if (code === SLASH || code === SLASH_URL_SAFE)
-        return 63;
-      if (code < NUMBER)
-        return -1;
-      if (code < NUMBER + 10)
-        return code - NUMBER + 26 + 26;
-      if (code < UPPER + 26)
-        return code - UPPER;
-      if (code < LOWER + 26)
-        return code - LOWER + 26;
-    }
-    function b64ToByteArray(b64) {
-      var i,
-          j,
-          l,
-          tmp,
-          placeHolders,
-          arr;
-      if (b64.length % 4 > 0) {
-        throw new Error('Invalid string. Length must be a multiple of 4');
-      }
-      var len = b64.length;
-      placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0;
-      arr = new Arr(b64.length * 3 / 4 - placeHolders);
-      l = placeHolders > 0 ? b64.length - 4 : b64.length;
-      var L = 0;
-      function push(v) {
-        arr[L++] = v;
-      }
-      for (i = 0, j = 0; i < l; i += 4, j += 3) {
-        tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3));
-        push((tmp & 0xFF0000) >> 16);
-        push((tmp & 0xFF00) >> 8);
-        push(tmp & 0xFF);
-      }
-      if (placeHolders === 2) {
-        tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4);
-        push(tmp & 0xFF);
-      } else if (placeHolders === 1) {
-        tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2);
-        push((tmp >> 8) & 0xFF);
-        push(tmp & 0xFF);
-      }
-      return arr;
-    }
-    function uint8ToBase64(uint8) {
-      var i,
-          extraBytes = uint8.length % 3,
-          output = "",
-          temp,
-          length;
-      function encode(num) {
-        return lookup.charAt(num);
-      }
-      function tripletToBase64(num) {
-        return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F);
-      }
-      for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
-        temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
-        output += tripletToBase64(temp);
-      }
-      switch (extraBytes) {
-        case 1:
-          temp = uint8[uint8.length - 1];
-          output += encode(temp >> 2);
-          output += encode((temp << 4) & 0x3F);
-          output += '==';
-          break;
-        case 2:
-          temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1]);
-          output += encode(temp >> 10);
-          output += encode((temp >> 4) & 0x3F);
-          output += encode((temp << 2) & 0x3F);
-          output += '=';
-          break;
-      }
-      return output;
-    }
-    exports.toByteArray = b64ToByteArray;
-    exports.fromByteArray = uint8ToBase64;
-  }(typeof exports === 'undefined' ? (this.base64js = {}) : exports));
+  module.exports = $__require("4f");
   return module.exports;
 });
-
-$__System.registerDynamic("50", ["4f"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("51", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('4f');
-  return module.exports;
-});
-
-$__System.registerDynamic("51", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  exports.read = function(buffer, offset, isLE, mLen, nBytes) {
-    var e,
-        m;
+  /* */
+  exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+    var e, m;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
     var nBits = -7;
-    var i = isLE ? (nBytes - 1) : 0;
+    var i = isLE ? nBytes - 1 : 0;
     var d = isLE ? -1 : 1;
     var s = buffer[offset + i];
+
     i += d;
-    e = s & ((1 << (-nBits)) - 1);
-    s >>= (-nBits);
+
+    e = s & (1 << -nBits) - 1;
+    s >>= -nBits;
     nBits += eLen;
     for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-    m = e & ((1 << (-nBits)) - 1);
-    e >>= (-nBits);
+
+    m = e & (1 << -nBits) - 1;
+    e >>= -nBits;
     nBits += mLen;
     for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
     if (e === 0) {
       e = 1 - eBias;
     } else if (e === eMax) {
-      return m ? NaN : ((s ? -1 : 1) * Infinity);
+      return m ? NaN : (s ? -1 : 1) * Infinity;
     } else {
       m = m + Math.pow(2, mLen);
       e = e - eBias;
     }
     return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
   };
-  exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
-    var e,
-        m,
-        c;
+
+  exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+    var e, m, c;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
-    var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
-    var i = isLE ? 0 : (nBytes - 1);
+    var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
+    var i = isLE ? 0 : nBytes - 1;
     var d = isLE ? 1 : -1;
-    var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
+    var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+
     value = Math.abs(value);
+
     if (isNaN(value) || value === Infinity) {
       m = isNaN(value) ? 1 : 0;
       e = eMax;
@@ -5398,6 +5644,7 @@ $__System.registerDynamic("51", [], true, function($__require, exports, module) 
         e++;
         c /= 2;
       }
+
       if (e + eBias >= eMax) {
         m = 0;
         e = eMax;
@@ -5409,94 +5656,156 @@ $__System.registerDynamic("51", [], true, function($__require, exports, module) 
         e = 0;
       }
     }
+
     for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-    e = (e << mLen) | m;
+
+    e = e << mLen | m;
     eLen += mLen;
     for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
     buffer[offset + i - d] |= s * 128;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("52", ["51"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("52", ["51"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('51');
+  module.exports = $__require("51");
   return module.exports;
 });
-
-$__System.registerDynamic("53", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('53', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var toString = {}.toString;
-  module.exports = Array.isArray || function(arr) {
+
+  module.exports = Array.isArray || function (arr) {
     return toString.call(arr) == '[object Array]';
   };
   return module.exports;
 });
-
-$__System.registerDynamic("54", ["53"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("54", ["53"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('53');
+  module.exports = $__require("53");
   return module.exports;
 });
+$__System.registerDynamic('55', ['50', '52', '54'], true, function ($__require, exports, module) {
+  /*!
+   * The buffer module from node.js, for the browser.
+   *
+   * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+   * @license  MIT
+   */
+  /* eslint-disable no-proto */
 
-$__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, exports, module) {
-  "use strict";
-  ;
+  'use strict';
+
   var define,
       global = this || self,
       GLOBAL = global;
   var base64 = $__require('50');
   var ieee754 = $__require('52');
   var isArray = $__require('54');
+
   exports.Buffer = Buffer;
   exports.SlowBuffer = SlowBuffer;
   exports.INSPECT_MAX_BYTES = 50;
-  Buffer.poolSize = 8192;
+  Buffer.poolSize = 8192; // not used by this implementation
+
   var rootParent = {};
+
+  /**
+   * If `Buffer.TYPED_ARRAY_SUPPORT`:
+   *   === true    Use Uint8Array implementation (fastest)
+   *   === false   Use Object implementation (most compatible, even IE6)
+   *
+   * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+   * Opera 11.6+, iOS 4.2+.
+   *
+   * Due to various browser bugs, sometimes the Object implementation will be used even
+   * when the browser supports typed arrays.
+   *
+   * Note:
+   *
+   *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+   *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+   *
+   *   - Safari 5-7 lacks support for changing the `Object.prototype.constructor` property
+   *     on objects.
+   *
+   *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+   *
+   *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+   *     incorrect length in some situations.
+  
+   * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+   * get the Object implementation, which is slower but behaves correctly.
+   */
   Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined ? global.TYPED_ARRAY_SUPPORT : typedArraySupport();
+
   function typedArraySupport() {
     function Bar() {}
     try {
       var arr = new Uint8Array(1);
-      arr.foo = function() {
+      arr.foo = function () {
         return 42;
       };
       arr.constructor = Bar;
-      return arr.foo() === 42 && arr.constructor === Bar && typeof arr.subarray === 'function' && arr.subarray(1, 1).byteLength === 0;
+      return arr.foo() === 42 && // typed array instances can be augmented
+      arr.constructor === Bar && // constructor can be set
+      typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
+      arr.subarray(1, 1).byteLength === 0; // ie10 has broken `subarray`
     } catch (e) {
       return false;
     }
   }
+
   function kMaxLength() {
     return Buffer.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
   }
+
+  /**
+   * Class: Buffer
+   * =============
+   *
+   * The Buffer constructor returns instances of `Uint8Array` that are augmented
+   * with function properties for all the node `Buffer` API functions. We use
+   * `Uint8Array` so that square bracket notation works as expected -- it returns
+   * a single octet.
+   *
+   * By augmenting the instances, we can avoid modifying the `Uint8Array`
+   * prototype.
+   */
   function Buffer(arg) {
     if (!(this instanceof Buffer)) {
-      if (arguments.length > 1)
-        return new Buffer(arg, arguments[1]);
+      // Avoid going through an ArgumentsAdaptorTrampoline in the common case.
+      if (arguments.length > 1) return new Buffer(arg, arguments[1]);
       return new Buffer(arg);
     }
+
     if (!Buffer.TYPED_ARRAY_SUPPORT) {
       this.length = 0;
       this.parent = undefined;
     }
+
+    // Common case.
     if (typeof arg === 'number') {
       return fromNumber(this, arg);
     }
+
+    // Slightly less common case.
     if (typeof arg === 'string') {
       return fromString(this, arg, arguments.length > 1 ? arguments[1] : 'utf8');
     }
+
+    // Unusual.
     return fromObject(this, arg);
   }
+
   function fromNumber(that, length) {
     that = allocate(that, length < 0 ? 0 : checked(length) | 0);
     if (!Buffer.TYPED_ARRAY_SUPPORT) {
@@ -5506,22 +5815,27 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return that;
   }
+
   function fromString(that, string, encoding) {
-    if (typeof encoding !== 'string' || encoding === '')
-      encoding = 'utf8';
+    if (typeof encoding !== 'string' || encoding === '') encoding = 'utf8';
+
+    // Assumption: byteLength() return value is always < kMaxLength.
     var length = byteLength(string, encoding) | 0;
     that = allocate(that, length);
+
     that.write(string, encoding);
     return that;
   }
+
   function fromObject(that, object) {
-    if (Buffer.isBuffer(object))
-      return fromBuffer(that, object);
-    if (isArray(object))
-      return fromArray(that, object);
+    if (Buffer.isBuffer(object)) return fromBuffer(that, object);
+
+    if (isArray(object)) return fromArray(that, object);
+
     if (object == null) {
       throw new TypeError('must start with number, buffer, array or string');
     }
+
     if (typeof ArrayBuffer !== 'undefined') {
       if (object.buffer instanceof ArrayBuffer) {
         return fromTypedArray(that, object);
@@ -5530,16 +5844,19 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         return fromArrayBuffer(that, object);
       }
     }
-    if (object.length)
-      return fromArrayLike(that, object);
+
+    if (object.length) return fromArrayLike(that, object);
+
     return fromJsonObject(that, object);
   }
+
   function fromBuffer(that, buffer) {
     var length = checked(buffer.length) | 0;
     that = allocate(that, length);
     buffer.copy(that, 0, 0, length);
     return that;
   }
+
   function fromArray(that, array) {
     var length = checked(array.length) | 0;
     that = allocate(that, length);
@@ -5548,23 +5865,32 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return that;
   }
+
+  // Duplicate of fromArray() to keep fromArray() monomorphic.
   function fromTypedArray(that, array) {
     var length = checked(array.length) | 0;
     that = allocate(that, length);
+    // Truncating the elements is probably not what people expect from typed
+    // arrays with BYTES_PER_ELEMENT > 1 but it's compatible with the behavior
+    // of the old Buffer constructor.
     for (var i = 0; i < length; i += 1) {
       that[i] = array[i] & 255;
     }
     return that;
   }
+
   function fromArrayBuffer(that, array) {
     if (Buffer.TYPED_ARRAY_SUPPORT) {
+      // Return an augmented `Uint8Array` instance, for best performance
       array.byteLength;
       that = Buffer._augment(new Uint8Array(array));
     } else {
+      // Fallback: Return an object instance of the Buffer class
       that = fromTypedArray(that, new Uint8Array(array));
     }
     return that;
   }
+
   function fromArrayLike(that, array) {
     var length = checked(array.length) | 0;
     that = allocate(that, length);
@@ -5573,80 +5899,100 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return that;
   }
+
+  // Deserialize { type: 'Buffer', data: [1,2,3,...] } into a Buffer object.
+  // Returns a zero-length buffer for inputs that don't conform to the spec.
   function fromJsonObject(that, object) {
     var array;
     var length = 0;
+
     if (object.type === 'Buffer' && isArray(object.data)) {
       array = object.data;
       length = checked(array.length) | 0;
     }
     that = allocate(that, length);
+
     for (var i = 0; i < length; i += 1) {
       that[i] = array[i] & 255;
     }
     return that;
   }
+
   if (Buffer.TYPED_ARRAY_SUPPORT) {
     Buffer.prototype.__proto__ = Uint8Array.prototype;
     Buffer.__proto__ = Uint8Array;
   } else {
+    // pre-set for values that may exist in the future
     Buffer.prototype.length = undefined;
     Buffer.prototype.parent = undefined;
   }
+
   function allocate(that, length) {
     if (Buffer.TYPED_ARRAY_SUPPORT) {
+      // Return an augmented `Uint8Array` instance, for best performance
       that = Buffer._augment(new Uint8Array(length));
       that.__proto__ = Buffer.prototype;
     } else {
+      // Fallback: Return an object instance of the Buffer class
       that.length = length;
       that._isBuffer = true;
     }
+
     var fromPool = length !== 0 && length <= Buffer.poolSize >>> 1;
-    if (fromPool)
-      that.parent = rootParent;
+    if (fromPool) that.parent = rootParent;
+
     return that;
   }
+
   function checked(length) {
+    // Note: cannot use `length < kMaxLength` here because that fails when
+    // length is NaN (which is otherwise coerced to zero.)
     if (length >= kMaxLength()) {
       throw new RangeError('Attempt to allocate Buffer larger than maximum ' + 'size: 0x' + kMaxLength().toString(16) + ' bytes');
     }
     return length | 0;
   }
+
   function SlowBuffer(subject, encoding) {
-    if (!(this instanceof SlowBuffer))
-      return new SlowBuffer(subject, encoding);
+    if (!(this instanceof SlowBuffer)) return new SlowBuffer(subject, encoding);
+
     var buf = new Buffer(subject, encoding);
     delete buf.parent;
     return buf;
   }
+
   Buffer.isBuffer = function isBuffer(b) {
     return !!(b != null && b._isBuffer);
   };
+
   Buffer.compare = function compare(a, b) {
     if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
       throw new TypeError('Arguments must be Buffers');
     }
-    if (a === b)
-      return 0;
+
+    if (a === b) return 0;
+
     var x = a.length;
     var y = b.length;
+
     var i = 0;
     var len = Math.min(x, y);
     while (i < len) {
-      if (a[i] !== b[i])
-        break;
+      if (a[i] !== b[i]) break;
+
       ++i;
     }
+
     if (i !== len) {
       x = a[i];
       y = b[i];
     }
-    if (x < y)
-      return -1;
-    if (y < x)
-      return 1;
+
+    if (x < y) return -1;
+    if (y < x) return 1;
     return 0;
   };
+
   Buffer.isEncoding = function isEncoding(encoding) {
     switch (String(encoding).toLowerCase()) {
       case 'hex':
@@ -5665,12 +6011,14 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         return false;
     }
   };
+
   Buffer.concat = function concat(list, length) {
-    if (!isArray(list))
-      throw new TypeError('list argument must be an Array of Buffers.');
+    if (!isArray(list)) throw new TypeError('list argument must be an Array of Buffers.');
+
     if (list.length === 0) {
       return new Buffer(0);
     }
+
     var i;
     if (length === undefined) {
       length = 0;
@@ -5678,6 +6026,7 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         length += list[i].length;
       }
     }
+
     var buf = new Buffer(length);
     var pos = 0;
     for (i = 0; i < list.length; i++) {
@@ -5687,17 +6036,20 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return buf;
   };
+
   function byteLength(string, encoding) {
-    if (typeof string !== 'string')
-      string = '' + string;
+    if (typeof string !== 'string') string = '' + string;
+
     var len = string.length;
-    if (len === 0)
-      return 0;
+    if (len === 0) return 0;
+
+    // Use a for loop to avoid recursion
     var loweredCase = false;
-    for (; ; ) {
+    for (;;) {
       switch (encoding) {
         case 'ascii':
         case 'binary':
+        // Deprecated
         case 'raw':
         case 'raws':
           return len;
@@ -5714,99 +6066,98 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         case 'base64':
           return base64ToBytes(string).length;
         default:
-          if (loweredCase)
-            return utf8ToBytes(string).length;
+          if (loweredCase) return utf8ToBytes(string).length; // assume utf8
           encoding = ('' + encoding).toLowerCase();
           loweredCase = true;
       }
     }
   }
   Buffer.byteLength = byteLength;
+
   function slowToString(encoding, start, end) {
     var loweredCase = false;
+
     start = start | 0;
     end = end === undefined || end === Infinity ? this.length : end | 0;
-    if (!encoding)
-      encoding = 'utf8';
-    if (start < 0)
-      start = 0;
-    if (end > this.length)
-      end = this.length;
-    if (end <= start)
-      return '';
+
+    if (!encoding) encoding = 'utf8';
+    if (start < 0) start = 0;
+    if (end > this.length) end = this.length;
+    if (end <= start) return '';
+
     while (true) {
       switch (encoding) {
         case 'hex':
           return hexSlice(this, start, end);
+
         case 'utf8':
         case 'utf-8':
           return utf8Slice(this, start, end);
+
         case 'ascii':
           return asciiSlice(this, start, end);
+
         case 'binary':
           return binarySlice(this, start, end);
+
         case 'base64':
           return base64Slice(this, start, end);
+
         case 'ucs2':
         case 'ucs-2':
         case 'utf16le':
         case 'utf-16le':
           return utf16leSlice(this, start, end);
+
         default:
-          if (loweredCase)
-            throw new TypeError('Unknown encoding: ' + encoding);
+          if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
           encoding = (encoding + '').toLowerCase();
           loweredCase = true;
       }
     }
   }
+
   Buffer.prototype.toString = function toString() {
     var length = this.length | 0;
-    if (length === 0)
-      return '';
-    if (arguments.length === 0)
-      return utf8Slice(this, 0, length);
+    if (length === 0) return '';
+    if (arguments.length === 0) return utf8Slice(this, 0, length);
     return slowToString.apply(this, arguments);
   };
+
   Buffer.prototype.equals = function equals(b) {
-    if (!Buffer.isBuffer(b))
-      throw new TypeError('Argument must be a Buffer');
-    if (this === b)
-      return true;
+    if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer');
+    if (this === b) return true;
     return Buffer.compare(this, b) === 0;
   };
+
   Buffer.prototype.inspect = function inspect() {
     var str = '';
     var max = exports.INSPECT_MAX_BYTES;
     if (this.length > 0) {
       str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
-      if (this.length > max)
-        str += ' ... ';
+      if (this.length > max) str += ' ... ';
     }
     return '<Buffer ' + str + '>';
   };
+
   Buffer.prototype.compare = function compare(b) {
-    if (!Buffer.isBuffer(b))
-      throw new TypeError('Argument must be a Buffer');
-    if (this === b)
-      return 0;
+    if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer');
+    if (this === b) return 0;
     return Buffer.compare(this, b);
   };
+
   Buffer.prototype.indexOf = function indexOf(val, byteOffset) {
-    if (byteOffset > 0x7fffffff)
-      byteOffset = 0x7fffffff;
-    else if (byteOffset < -0x80000000)
-      byteOffset = -0x80000000;
+    if (byteOffset > 0x7fffffff) byteOffset = 0x7fffffff;else if (byteOffset < -0x80000000) byteOffset = -0x80000000;
     byteOffset >>= 0;
-    if (this.length === 0)
-      return -1;
-    if (byteOffset >= this.length)
-      return -1;
-    if (byteOffset < 0)
-      byteOffset = Math.max(this.length + byteOffset, 0);
+
+    if (this.length === 0) return -1;
+    if (byteOffset >= this.length) return -1;
+
+    // Negative offsets start from the end of the buffer
+    if (byteOffset < 0) byteOffset = Math.max(this.length + byteOffset, 0);
+
     if (typeof val === 'string') {
-      if (val.length === 0)
-        return -1;
+      if (val.length === 0) return -1; // special case: looking for empty string always fails
       return String.prototype.indexOf.call(this, val, byteOffset);
     }
     if (Buffer.isBuffer(val)) {
@@ -5818,30 +6169,35 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
       }
       return arrayIndexOf(this, [val], byteOffset);
     }
+
     function arrayIndexOf(arr, val, byteOffset) {
       var foundIndex = -1;
       for (var i = 0; byteOffset + i < arr.length; i++) {
         if (arr[byteOffset + i] === val[foundIndex === -1 ? 0 : i - foundIndex]) {
-          if (foundIndex === -1)
-            foundIndex = i;
-          if (i - foundIndex + 1 === val.length)
-            return byteOffset + foundIndex;
+          if (foundIndex === -1) foundIndex = i;
+          if (i - foundIndex + 1 === val.length) return byteOffset + foundIndex;
         } else {
           foundIndex = -1;
         }
       }
       return -1;
     }
+
     throw new TypeError('val must be string, number or Buffer');
   };
+
+  // `get` is deprecated
   Buffer.prototype.get = function get(offset) {
     console.log('.get() is deprecated. Access using array indexes instead.');
     return this.readUInt8(offset);
   };
+
+  // `set` is deprecated
   Buffer.prototype.set = function set(v, offset) {
     console.log('.set() is deprecated. Access using array indexes instead.');
     return this.writeUInt8(v, offset);
   };
+
   function hexWrite(buf, string, offset, length) {
     offset = Number(offset) || 0;
     var remaining = buf.length - offset;
@@ -5853,101 +6209,121 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         length = remaining;
       }
     }
+
+    // must be an even number of digits
     var strLen = string.length;
-    if (strLen % 2 !== 0)
-      throw new Error('Invalid hex string');
+    if (strLen % 2 !== 0) throw new Error('Invalid hex string');
+
     if (length > strLen / 2) {
       length = strLen / 2;
     }
     for (var i = 0; i < length; i++) {
       var parsed = parseInt(string.substr(i * 2, 2), 16);
-      if (isNaN(parsed))
-        throw new Error('Invalid hex string');
+      if (isNaN(parsed)) throw new Error('Invalid hex string');
       buf[offset + i] = parsed;
     }
     return i;
   }
+
   function utf8Write(buf, string, offset, length) {
     return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length);
   }
+
   function asciiWrite(buf, string, offset, length) {
     return blitBuffer(asciiToBytes(string), buf, offset, length);
   }
+
   function binaryWrite(buf, string, offset, length) {
     return asciiWrite(buf, string, offset, length);
   }
+
   function base64Write(buf, string, offset, length) {
     return blitBuffer(base64ToBytes(string), buf, offset, length);
   }
+
   function ucs2Write(buf, string, offset, length) {
     return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
   }
+
   Buffer.prototype.write = function write(string, offset, length, encoding) {
+    // Buffer#write(string)
     if (offset === undefined) {
       encoding = 'utf8';
       length = this.length;
       offset = 0;
+      // Buffer#write(string, encoding)
     } else if (length === undefined && typeof offset === 'string') {
       encoding = offset;
       length = this.length;
       offset = 0;
+      // Buffer#write(string, offset[, length][, encoding])
     } else if (isFinite(offset)) {
       offset = offset | 0;
       if (isFinite(length)) {
         length = length | 0;
-        if (encoding === undefined)
-          encoding = 'utf8';
+        if (encoding === undefined) encoding = 'utf8';
       } else {
         encoding = length;
         length = undefined;
       }
+      // legacy write(string, encoding, offset, length) - remove in v0.13
     } else {
       var swap = encoding;
       encoding = offset;
       offset = length | 0;
       length = swap;
     }
+
     var remaining = this.length - offset;
-    if (length === undefined || length > remaining)
-      length = remaining;
-    if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+    if (length === undefined || length > remaining) length = remaining;
+
+    if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length) {
       throw new RangeError('attempt to write outside buffer bounds');
     }
-    if (!encoding)
-      encoding = 'utf8';
+
+    if (!encoding) encoding = 'utf8';
+
     var loweredCase = false;
-    for (; ; ) {
+    for (;;) {
       switch (encoding) {
         case 'hex':
           return hexWrite(this, string, offset, length);
+
         case 'utf8':
         case 'utf-8':
           return utf8Write(this, string, offset, length);
+
         case 'ascii':
           return asciiWrite(this, string, offset, length);
+
         case 'binary':
           return binaryWrite(this, string, offset, length);
+
         case 'base64':
+          // Warning: maxLength not taken into account in base64Write
           return base64Write(this, string, offset, length);
+
         case 'ucs2':
         case 'ucs-2':
         case 'utf16le':
         case 'utf-16le':
           return ucs2Write(this, string, offset, length);
+
         default:
-          if (loweredCase)
-            throw new TypeError('Unknown encoding: ' + encoding);
+          if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
           encoding = ('' + encoding).toLowerCase();
           loweredCase = true;
       }
     }
   };
+
   Buffer.prototype.toJSON = function toJSON() {
     return {
       type: 'Buffer',
       data: Array.prototype.slice.call(this._arr || this, 0)
     };
   };
+
   function base64Slice(buf, start, end) {
     if (start === 0 && end === buf.length) {
       return base64.fromByteArray(buf);
@@ -5955,19 +6331,20 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
       return base64.fromByteArray(buf.slice(start, end));
     }
   }
+
   function utf8Slice(buf, start, end) {
     end = Math.min(buf.length, end);
     var res = [];
+
     var i = start;
     while (i < end) {
       var firstByte = buf[i];
       var codePoint = null;
-      var bytesPerSequence = (firstByte > 0xEF) ? 4 : (firstByte > 0xDF) ? 3 : (firstByte > 0xBF) ? 2 : 1;
+      var bytesPerSequence = firstByte > 0xEF ? 4 : firstByte > 0xDF ? 3 : firstByte > 0xBF ? 2 : 1;
+
       if (i + bytesPerSequence <= end) {
-        var secondByte,
-            thirdByte,
-            fourthByte,
-            tempCodePoint;
+        var secondByte, thirdByte, fourthByte, tempCodePoint;
+
         switch (bytesPerSequence) {
           case 1:
             if (firstByte < 0x80) {
@@ -5977,7 +6354,7 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
           case 2:
             secondByte = buf[i + 1];
             if ((secondByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
+              tempCodePoint = (firstByte & 0x1F) << 0x6 | secondByte & 0x3F;
               if (tempCodePoint > 0x7F) {
                 codePoint = tempCodePoint;
               }
@@ -5987,7 +6364,7 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
             secondByte = buf[i + 1];
             thirdByte = buf[i + 2];
             if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
+              tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | thirdByte & 0x3F;
               if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
                 codePoint = tempCodePoint;
               }
@@ -5998,32 +6375,45 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
             thirdByte = buf[i + 2];
             fourthByte = buf[i + 3];
             if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
+              tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | fourthByte & 0x3F;
               if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
                 codePoint = tempCodePoint;
               }
             }
         }
       }
+
       if (codePoint === null) {
+        // we did not generate a valid codePoint so insert a
+        // replacement char (U+FFFD) and advance only 1 byte
         codePoint = 0xFFFD;
         bytesPerSequence = 1;
       } else if (codePoint > 0xFFFF) {
+        // encode to utf16 (surrogate pair dance)
         codePoint -= 0x10000;
         res.push(codePoint >>> 10 & 0x3FF | 0xD800);
         codePoint = 0xDC00 | codePoint & 0x3FF;
       }
+
       res.push(codePoint);
       i += bytesPerSequence;
     }
+
     return decodeCodePointsArray(res);
   }
+
+  // Based on http://stackoverflow.com/a/22747272/680742, the browser with
+  // the lowest limit is Chrome, with 0x10000 args.
+  // We go 1 magnitude less, for safety
   var MAX_ARGUMENTS_LENGTH = 0x1000;
+
   function decodeCodePointsArray(codePoints) {
     var len = codePoints.length;
     if (len <= MAX_ARGUMENTS_LENGTH) {
-      return String.fromCharCode.apply(String, codePoints);
+      return String.fromCharCode.apply(String, codePoints); // avoid extra slice()
     }
+
+    // Decode in chunks to avoid "call stack size exceeded".
     var res = '';
     var i = 0;
     while (i < len) {
@@ -6031,34 +6421,40 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return res;
   }
+
   function asciiSlice(buf, start, end) {
     var ret = '';
     end = Math.min(buf.length, end);
+
     for (var i = start; i < end; i++) {
       ret += String.fromCharCode(buf[i] & 0x7F);
     }
     return ret;
   }
+
   function binarySlice(buf, start, end) {
     var ret = '';
     end = Math.min(buf.length, end);
+
     for (var i = start; i < end; i++) {
       ret += String.fromCharCode(buf[i]);
     }
     return ret;
   }
+
   function hexSlice(buf, start, end) {
     var len = buf.length;
-    if (!start || start < 0)
-      start = 0;
-    if (!end || end < 0 || end > len)
-      end = len;
+
+    if (!start || start < 0) start = 0;
+    if (!end || end < 0 || end > len) end = len;
+
     var out = '';
     for (var i = start; i < end; i++) {
       out += toHex(buf[i]);
     }
     return out;
   }
+
   function utf16leSlice(buf, start, end) {
     var bytes = buf.slice(start, end);
     var res = '';
@@ -6067,26 +6463,28 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     }
     return res;
   }
+
   Buffer.prototype.slice = function slice(start, end) {
     var len = this.length;
     start = ~~start;
     end = end === undefined ? len : ~~end;
+
     if (start < 0) {
       start += len;
-      if (start < 0)
-        start = 0;
+      if (start < 0) start = 0;
     } else if (start > len) {
       start = len;
     }
+
     if (end < 0) {
       end += len;
-      if (end < 0)
-        end = 0;
+      if (end < 0) end = 0;
     } else if (end > len) {
       end = len;
     }
-    if (end < start)
-      end = start;
+
+    if (end < start) end = start;
+
     var newBuf;
     if (Buffer.TYPED_ARRAY_SUPPORT) {
       newBuf = Buffer._augment(this.subarray(start, end));
@@ -6097,72 +6495,83 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         newBuf[i] = this[i + start];
       }
     }
-    if (newBuf.length)
-      newBuf.parent = this.parent || this;
+
+    if (newBuf.length) newBuf.parent = this.parent || this;
+
     return newBuf;
   };
+
+  /*
+   * Need to make sure that buffer isn't trying to write out of bounds.
+   */
   function checkOffset(offset, ext, length) {
-    if ((offset % 1) !== 0 || offset < 0)
-      throw new RangeError('offset is not uint');
-    if (offset + ext > length)
-      throw new RangeError('Trying to access beyond buffer length');
+    if (offset % 1 !== 0 || offset < 0) throw new RangeError('offset is not uint');
+    if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length');
   }
+
   Buffer.prototype.readUIntLE = function readUIntLE(offset, byteLength, noAssert) {
     offset = offset | 0;
     byteLength = byteLength | 0;
-    if (!noAssert)
-      checkOffset(offset, byteLength, this.length);
+    if (!noAssert) checkOffset(offset, byteLength, this.length);
+
     var val = this[offset];
     var mul = 1;
     var i = 0;
     while (++i < byteLength && (mul *= 0x100)) {
       val += this[offset + i] * mul;
     }
+
     return val;
   };
+
   Buffer.prototype.readUIntBE = function readUIntBE(offset, byteLength, noAssert) {
     offset = offset | 0;
     byteLength = byteLength | 0;
     if (!noAssert) {
       checkOffset(offset, byteLength, this.length);
     }
+
     var val = this[offset + --byteLength];
     var mul = 1;
     while (byteLength > 0 && (mul *= 0x100)) {
       val += this[offset + --byteLength] * mul;
     }
+
     return val;
   };
+
   Buffer.prototype.readUInt8 = function readUInt8(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 1, this.length);
+    if (!noAssert) checkOffset(offset, 1, this.length);
     return this[offset];
   };
+
   Buffer.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 2, this.length);
-    return this[offset] | (this[offset + 1] << 8);
+    if (!noAssert) checkOffset(offset, 2, this.length);
+    return this[offset] | this[offset + 1] << 8;
   };
+
   Buffer.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 2, this.length);
-    return (this[offset] << 8) | this[offset + 1];
+    if (!noAssert) checkOffset(offset, 2, this.length);
+    return this[offset] << 8 | this[offset + 1];
   };
+
   Buffer.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
-    return ((this[offset]) | (this[offset + 1] << 8) | (this[offset + 2] << 16)) + (this[offset + 3] * 0x1000000);
+    if (!noAssert) checkOffset(offset, 4, this.length);
+
+    return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 0x1000000;
   };
+
   Buffer.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
-    return (this[offset] * 0x1000000) + ((this[offset + 1] << 16) | (this[offset + 2] << 8) | this[offset + 3]);
+    if (!noAssert) checkOffset(offset, 4, this.length);
+
+    return this[offset] * 0x1000000 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
   };
+
   Buffer.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
     offset = offset | 0;
     byteLength = byteLength | 0;
-    if (!noAssert)
-      checkOffset(offset, byteLength, this.length);
+    if (!noAssert) checkOffset(offset, byteLength, this.length);
+
     var val = this[offset];
     var mul = 1;
     var i = 0;
@@ -6170,15 +6579,17 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
       val += this[offset + i] * mul;
     }
     mul *= 0x80;
-    if (val >= mul)
-      val -= Math.pow(2, 8 * byteLength);
+
+    if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
     return val;
   };
+
   Buffer.prototype.readIntBE = function readIntBE(offset, byteLength, noAssert) {
     offset = offset | 0;
     byteLength = byteLength | 0;
-    if (!noAssert)
-      checkOffset(offset, byteLength, this.length);
+    if (!noAssert) checkOffset(offset, byteLength, this.length);
+
     var i = byteLength;
     var mul = 1;
     var val = this[offset + --i];
@@ -6186,287 +6597,292 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
       val += this[offset + --i] * mul;
     }
     mul *= 0x80;
-    if (val >= mul)
-      val -= Math.pow(2, 8 * byteLength);
+
+    if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
     return val;
   };
+
   Buffer.prototype.readInt8 = function readInt8(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 1, this.length);
-    if (!(this[offset] & 0x80))
-      return (this[offset]);
-    return ((0xff - this[offset] + 1) * -1);
+    if (!noAssert) checkOffset(offset, 1, this.length);
+    if (!(this[offset] & 0x80)) return this[offset];
+    return (0xff - this[offset] + 1) * -1;
   };
+
   Buffer.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 2, this.length);
-    var val = this[offset] | (this[offset + 1] << 8);
-    return (val & 0x8000) ? val | 0xFFFF0000 : val;
+    if (!noAssert) checkOffset(offset, 2, this.length);
+    var val = this[offset] | this[offset + 1] << 8;
+    return val & 0x8000 ? val | 0xFFFF0000 : val;
   };
+
   Buffer.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 2, this.length);
-    var val = this[offset + 1] | (this[offset] << 8);
-    return (val & 0x8000) ? val | 0xFFFF0000 : val;
+    if (!noAssert) checkOffset(offset, 2, this.length);
+    var val = this[offset + 1] | this[offset] << 8;
+    return val & 0x8000 ? val | 0xFFFF0000 : val;
   };
+
   Buffer.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
-    return (this[offset]) | (this[offset + 1] << 8) | (this[offset + 2] << 16) | (this[offset + 3] << 24);
+    if (!noAssert) checkOffset(offset, 4, this.length);
+
+    return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
   };
+
   Buffer.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
-    return (this[offset] << 24) | (this[offset + 1] << 16) | (this[offset + 2] << 8) | (this[offset + 3]);
+    if (!noAssert) checkOffset(offset, 4, this.length);
+
+    return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
   };
+
   Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
+    if (!noAssert) checkOffset(offset, 4, this.length);
     return ieee754.read(this, offset, true, 23, 4);
   };
+
   Buffer.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 4, this.length);
+    if (!noAssert) checkOffset(offset, 4, this.length);
     return ieee754.read(this, offset, false, 23, 4);
   };
+
   Buffer.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 8, this.length);
+    if (!noAssert) checkOffset(offset, 8, this.length);
     return ieee754.read(this, offset, true, 52, 8);
   };
+
   Buffer.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
-    if (!noAssert)
-      checkOffset(offset, 8, this.length);
+    if (!noAssert) checkOffset(offset, 8, this.length);
     return ieee754.read(this, offset, false, 52, 8);
   };
+
   function checkInt(buf, value, offset, ext, max, min) {
-    if (!Buffer.isBuffer(buf))
-      throw new TypeError('buffer must be a Buffer instance');
-    if (value > max || value < min)
-      throw new RangeError('value is out of bounds');
-    if (offset + ext > buf.length)
-      throw new RangeError('index out of range');
+    if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance');
+    if (value > max || value < min) throw new RangeError('value is out of bounds');
+    if (offset + ext > buf.length) throw new RangeError('index out of range');
   }
+
   Buffer.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength, noAssert) {
     value = +value;
     offset = offset | 0;
     byteLength = byteLength | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
+    if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
+
     var mul = 1;
     var i = 0;
     this[offset] = value & 0xFF;
     while (++i < byteLength && (mul *= 0x100)) {
-      this[offset + i] = (value / mul) & 0xFF;
+      this[offset + i] = value / mul & 0xFF;
     }
+
     return offset + byteLength;
   };
+
   Buffer.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength, noAssert) {
     value = +value;
     offset = offset | 0;
     byteLength = byteLength | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
+    if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
+
     var i = byteLength - 1;
     var mul = 1;
     this[offset + i] = value & 0xFF;
     while (--i >= 0 && (mul *= 0x100)) {
-      this[offset + i] = (value / mul) & 0xFF;
+      this[offset + i] = value / mul & 0xFF;
     }
+
     return offset + byteLength;
   };
+
   Buffer.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 1, 0xff, 0);
-    if (!Buffer.TYPED_ARRAY_SUPPORT)
-      value = Math.floor(value);
-    this[offset] = (value & 0xff);
+    if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
+    if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+    this[offset] = value & 0xff;
     return offset + 1;
   };
+
   function objectWriteUInt16(buf, value, offset, littleEndian) {
-    if (value < 0)
-      value = 0xffff + value + 1;
-    for (var i = 0,
-        j = Math.min(buf.length - offset, 2); i < j; i++) {
-      buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>> (littleEndian ? i : 1 - i) * 8;
+    if (value < 0) value = 0xffff + value + 1;
+    for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
+      buf[offset + i] = (value & 0xff << 8 * (littleEndian ? i : 1 - i)) >>> (littleEndian ? i : 1 - i) * 8;
     }
   }
+
   Buffer.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 2, 0xffff, 0);
+    if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value & 0xff);
-      this[offset + 1] = (value >>> 8);
+      this[offset] = value & 0xff;
+      this[offset + 1] = value >>> 8;
     } else {
       objectWriteUInt16(this, value, offset, true);
     }
     return offset + 2;
   };
+
   Buffer.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 2, 0xffff, 0);
+    if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value >>> 8);
-      this[offset + 1] = (value & 0xff);
+      this[offset] = value >>> 8;
+      this[offset + 1] = value & 0xff;
     } else {
       objectWriteUInt16(this, value, offset, false);
     }
     return offset + 2;
   };
+
   function objectWriteUInt32(buf, value, offset, littleEndian) {
-    if (value < 0)
-      value = 0xffffffff + value + 1;
-    for (var i = 0,
-        j = Math.min(buf.length - offset, 4); i < j; i++) {
-      buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
+    if (value < 0) value = 0xffffffff + value + 1;
+    for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; i++) {
+      buf[offset + i] = value >>> (littleEndian ? i : 3 - i) * 8 & 0xff;
     }
   }
+
   Buffer.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 4, 0xffffffff, 0);
+    if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset + 3] = (value >>> 24);
-      this[offset + 2] = (value >>> 16);
-      this[offset + 1] = (value >>> 8);
-      this[offset] = (value & 0xff);
+      this[offset + 3] = value >>> 24;
+      this[offset + 2] = value >>> 16;
+      this[offset + 1] = value >>> 8;
+      this[offset] = value & 0xff;
     } else {
       objectWriteUInt32(this, value, offset, true);
     }
     return offset + 4;
   };
+
   Buffer.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 4, 0xffffffff, 0);
+    if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value >>> 24);
-      this[offset + 1] = (value >>> 16);
-      this[offset + 2] = (value >>> 8);
-      this[offset + 3] = (value & 0xff);
+      this[offset] = value >>> 24;
+      this[offset + 1] = value >>> 16;
+      this[offset + 2] = value >>> 8;
+      this[offset + 3] = value & 0xff;
     } else {
       objectWriteUInt32(this, value, offset, false);
     }
     return offset + 4;
   };
+
   Buffer.prototype.writeIntLE = function writeIntLE(value, offset, byteLength, noAssert) {
     value = +value;
     offset = offset | 0;
     if (!noAssert) {
       var limit = Math.pow(2, 8 * byteLength - 1);
+
       checkInt(this, value, offset, byteLength, limit - 1, -limit);
     }
+
     var i = 0;
     var mul = 1;
     var sub = value < 0 ? 1 : 0;
     this[offset] = value & 0xFF;
     while (++i < byteLength && (mul *= 0x100)) {
-      this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+      this[offset + i] = (value / mul >> 0) - sub & 0xFF;
     }
+
     return offset + byteLength;
   };
+
   Buffer.prototype.writeIntBE = function writeIntBE(value, offset, byteLength, noAssert) {
     value = +value;
     offset = offset | 0;
     if (!noAssert) {
       var limit = Math.pow(2, 8 * byteLength - 1);
+
       checkInt(this, value, offset, byteLength, limit - 1, -limit);
     }
+
     var i = byteLength - 1;
     var mul = 1;
     var sub = value < 0 ? 1 : 0;
     this[offset + i] = value & 0xFF;
     while (--i >= 0 && (mul *= 0x100)) {
-      this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+      this[offset + i] = (value / mul >> 0) - sub & 0xFF;
     }
+
     return offset + byteLength;
   };
+
   Buffer.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 1, 0x7f, -0x80);
-    if (!Buffer.TYPED_ARRAY_SUPPORT)
-      value = Math.floor(value);
-    if (value < 0)
-      value = 0xff + value + 1;
-    this[offset] = (value & 0xff);
+    if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
+    if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+    if (value < 0) value = 0xff + value + 1;
+    this[offset] = value & 0xff;
     return offset + 1;
   };
+
   Buffer.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+    if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value & 0xff);
-      this[offset + 1] = (value >>> 8);
+      this[offset] = value & 0xff;
+      this[offset + 1] = value >>> 8;
     } else {
       objectWriteUInt16(this, value, offset, true);
     }
     return offset + 2;
   };
+
   Buffer.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+    if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value >>> 8);
-      this[offset + 1] = (value & 0xff);
+      this[offset] = value >>> 8;
+      this[offset + 1] = value & 0xff;
     } else {
       objectWriteUInt16(this, value, offset, false);
     }
     return offset + 2;
   };
+
   Buffer.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+    if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value & 0xff);
-      this[offset + 1] = (value >>> 8);
-      this[offset + 2] = (value >>> 16);
-      this[offset + 3] = (value >>> 24);
+      this[offset] = value & 0xff;
+      this[offset + 1] = value >>> 8;
+      this[offset + 2] = value >>> 16;
+      this[offset + 3] = value >>> 24;
     } else {
       objectWriteUInt32(this, value, offset, true);
     }
     return offset + 4;
   };
+
   Buffer.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
     value = +value;
     offset = offset | 0;
-    if (!noAssert)
-      checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
-    if (value < 0)
-      value = 0xffffffff + value + 1;
+    if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+    if (value < 0) value = 0xffffffff + value + 1;
     if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = (value >>> 24);
-      this[offset + 1] = (value >>> 16);
-      this[offset + 2] = (value >>> 8);
-      this[offset + 3] = (value & 0xff);
+      this[offset] = value >>> 24;
+      this[offset + 1] = value >>> 16;
+      this[offset + 2] = value >>> 8;
+      this[offset + 3] = value & 0xff;
     } else {
       objectWriteUInt32(this, value, offset, false);
     }
     return offset + 4;
   };
+
   function checkIEEE754(buf, value, offset, ext, max, min) {
-    if (value > max || value < min)
-      throw new RangeError('value is out of bounds');
-    if (offset + ext > buf.length)
-      throw new RangeError('index out of range');
-    if (offset < 0)
-      throw new RangeError('index out of range');
+    if (value > max || value < min) throw new RangeError('value is out of bounds');
+    if (offset + ext > buf.length) throw new RangeError('index out of range');
+    if (offset < 0) throw new RangeError('index out of range');
   }
+
   function writeFloat(buf, value, offset, littleEndian, noAssert) {
     if (!noAssert) {
       checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38);
@@ -6474,12 +6890,15 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     ieee754.write(buf, value, offset, littleEndian, 23, 4);
     return offset + 4;
   }
+
   Buffer.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
     return writeFloat(this, value, offset, true, noAssert);
   };
+
   Buffer.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
     return writeFloat(this, value, offset, false, noAssert);
   };
+
   function writeDouble(buf, value, offset, littleEndian, noAssert) {
     if (!noAssert) {
       checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308);
@@ -6487,71 +6906,75 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     ieee754.write(buf, value, offset, littleEndian, 52, 8);
     return offset + 8;
   }
+
   Buffer.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
     return writeDouble(this, value, offset, true, noAssert);
   };
+
   Buffer.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
     return writeDouble(this, value, offset, false, noAssert);
   };
+
+  // copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
   Buffer.prototype.copy = function copy(target, targetStart, start, end) {
-    if (!start)
-      start = 0;
-    if (!end && end !== 0)
-      end = this.length;
-    if (targetStart >= target.length)
-      targetStart = target.length;
-    if (!targetStart)
-      targetStart = 0;
-    if (end > 0 && end < start)
-      end = start;
-    if (end === start)
-      return 0;
-    if (target.length === 0 || this.length === 0)
-      return 0;
+    if (!start) start = 0;
+    if (!end && end !== 0) end = this.length;
+    if (targetStart >= target.length) targetStart = target.length;
+    if (!targetStart) targetStart = 0;
+    if (end > 0 && end < start) end = start;
+
+    // Copy 0 bytes; we're done
+    if (end === start) return 0;
+    if (target.length === 0 || this.length === 0) return 0;
+
+    // Fatal error conditions
     if (targetStart < 0) {
       throw new RangeError('targetStart out of bounds');
     }
-    if (start < 0 || start >= this.length)
-      throw new RangeError('sourceStart out of bounds');
-    if (end < 0)
-      throw new RangeError('sourceEnd out of bounds');
-    if (end > this.length)
-      end = this.length;
+    if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds');
+    if (end < 0) throw new RangeError('sourceEnd out of bounds');
+
+    // Are we oob?
+    if (end > this.length) end = this.length;
     if (target.length - targetStart < end - start) {
       end = target.length - targetStart + start;
     }
+
     var len = end - start;
     var i;
+
     if (this === target && start < targetStart && targetStart < end) {
+      // descending copy from end
       for (i = len - 1; i >= 0; i--) {
         target[i + targetStart] = this[i + start];
       }
     } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+      // ascending copy from start
       for (i = 0; i < len; i++) {
         target[i + targetStart] = this[i + start];
       }
     } else {
       target._set(this.subarray(start, start + len), targetStart);
     }
+
     return len;
   };
+
+  // fill(value, start=0, end=buffer.length)
   Buffer.prototype.fill = function fill(value, start, end) {
-    if (!value)
-      value = 0;
-    if (!start)
-      start = 0;
-    if (!end)
-      end = this.length;
-    if (end < start)
-      throw new RangeError('end < start');
-    if (end === start)
-      return;
-    if (this.length === 0)
-      return;
-    if (start < 0 || start >= this.length)
-      throw new RangeError('start out of bounds');
-    if (end < 0 || end > this.length)
-      throw new RangeError('end out of bounds');
+    if (!value) value = 0;
+    if (!start) start = 0;
+    if (!end) end = this.length;
+
+    if (end < start) throw new RangeError('end < start');
+
+    // Fill 0 bytes; we're done
+    if (end === start) return;
+    if (this.length === 0) return;
+
+    if (start < 0 || start >= this.length) throw new RangeError('start out of bounds');
+    if (end < 0 || end > this.length) throw new RangeError('end out of bounds');
+
     var i;
     if (typeof value === 'number') {
       for (i = start; i < end; i++) {
@@ -6564,16 +6987,21 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
         this[i] = bytes[i % len];
       }
     }
+
     return this;
   };
+
+  /**
+   * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
+   * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
+   */
   Buffer.prototype.toArrayBuffer = function toArrayBuffer() {
     if (typeof Uint8Array !== 'undefined') {
       if (Buffer.TYPED_ARRAY_SUPPORT) {
-        return (new Buffer(this)).buffer;
+        return new Buffer(this).buffer;
       } else {
         var buf = new Uint8Array(this.length);
-        for (var i = 0,
-            len = buf.length; i < len; i += 1) {
+        for (var i = 0, len = buf.length; i < len; i += 1) {
           buf[i] = this[i];
         }
         return buf.buffer;
@@ -6582,13 +7010,26 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
       throw new TypeError('Buffer.toArrayBuffer not supported in this browser');
     }
   };
+
+  // HELPER FUNCTIONS
+  // ================
+
   var BP = Buffer.prototype;
+
+  /**
+   * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
+   */
   Buffer._augment = function _augment(arr) {
     arr.constructor = Buffer;
     arr._isBuffer = true;
+
+    // save reference to original Uint8Array set method before overwriting
     arr._set = arr.set;
+
+    // deprecated
     arr.get = BP.get;
     arr.set = BP.set;
+
     arr.write = BP.write;
     arr.toString = BP.toString;
     arr.toLocaleString = BP.toString;
@@ -6637,185 +7078,193 @@ $__System.registerDynamic("55", ["50", "52", "54"], true, function($__require, e
     arr.fill = BP.fill;
     arr.inspect = BP.inspect;
     arr.toArrayBuffer = BP.toArrayBuffer;
+
     return arr;
   };
+
   var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
+
   function base64clean(str) {
+    // Node strips out invalid characters like \n and \t from the string, base64-js does not
     str = stringtrim(str).replace(INVALID_BASE64_RE, '');
-    if (str.length < 2)
-      return '';
+    // Node converts strings with length < 2 to ''
+    if (str.length < 2) return '';
+    // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
     while (str.length % 4 !== 0) {
       str = str + '=';
     }
     return str;
   }
+
   function stringtrim(str) {
-    if (str.trim)
-      return str.trim();
+    if (str.trim) return str.trim();
     return str.replace(/^\s+|\s+$/g, '');
   }
+
   function toHex(n) {
-    if (n < 16)
-      return '0' + n.toString(16);
+    if (n < 16) return '0' + n.toString(16);
     return n.toString(16);
   }
+
   function utf8ToBytes(string, units) {
     units = units || Infinity;
     var codePoint;
     var length = string.length;
     var leadSurrogate = null;
     var bytes = [];
+
     for (var i = 0; i < length; i++) {
       codePoint = string.charCodeAt(i);
+
+      // is surrogate component
       if (codePoint > 0xD7FF && codePoint < 0xE000) {
+        // last char was a lead
         if (!leadSurrogate) {
+          // no lead yet
           if (codePoint > 0xDBFF) {
-            if ((units -= 3) > -1)
-              bytes.push(0xEF, 0xBF, 0xBD);
+            // unexpected trail
+            if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
             continue;
           } else if (i + 1 === length) {
-            if ((units -= 3) > -1)
-              bytes.push(0xEF, 0xBF, 0xBD);
+            // unpaired lead
+            if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
             continue;
           }
+
+          // valid lead
           leadSurrogate = codePoint;
+
           continue;
         }
+
+        // 2 leads in a row
         if (codePoint < 0xDC00) {
-          if ((units -= 3) > -1)
-            bytes.push(0xEF, 0xBF, 0xBD);
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
           leadSurrogate = codePoint;
           continue;
         }
+
+        // valid surrogate pair
         codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
       } else if (leadSurrogate) {
-        if ((units -= 3) > -1)
-          bytes.push(0xEF, 0xBF, 0xBD);
+        // valid bmp char, but last char was a lead
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
       }
+
       leadSurrogate = null;
+
+      // encode utf8
       if (codePoint < 0x80) {
-        if ((units -= 1) < 0)
-          break;
+        if ((units -= 1) < 0) break;
         bytes.push(codePoint);
       } else if (codePoint < 0x800) {
-        if ((units -= 2) < 0)
-          break;
+        if ((units -= 2) < 0) break;
         bytes.push(codePoint >> 0x6 | 0xC0, codePoint & 0x3F | 0x80);
       } else if (codePoint < 0x10000) {
-        if ((units -= 3) < 0)
-          break;
+        if ((units -= 3) < 0) break;
         bytes.push(codePoint >> 0xC | 0xE0, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
       } else if (codePoint < 0x110000) {
-        if ((units -= 4) < 0)
-          break;
+        if ((units -= 4) < 0) break;
         bytes.push(codePoint >> 0x12 | 0xF0, codePoint >> 0xC & 0x3F | 0x80, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
       } else {
         throw new Error('Invalid code point');
       }
     }
+
     return bytes;
   }
+
   function asciiToBytes(str) {
     var byteArray = [];
     for (var i = 0; i < str.length; i++) {
+      // Node's code seems to be doing this and not & 0x7F..
       byteArray.push(str.charCodeAt(i) & 0xFF);
     }
     return byteArray;
   }
+
   function utf16leToBytes(str, units) {
-    var c,
-        hi,
-        lo;
+    var c, hi, lo;
     var byteArray = [];
     for (var i = 0; i < str.length; i++) {
-      if ((units -= 2) < 0)
-        break;
+      if ((units -= 2) < 0) break;
+
       c = str.charCodeAt(i);
       hi = c >> 8;
       lo = c % 256;
       byteArray.push(lo);
       byteArray.push(hi);
     }
+
     return byteArray;
   }
+
   function base64ToBytes(str) {
     return base64.toByteArray(base64clean(str));
   }
+
   function blitBuffer(src, dst, offset, length) {
     for (var i = 0; i < length; i++) {
-      if ((i + offset >= dst.length) || (i >= src.length))
-        break;
+      if (i + offset >= dst.length || i >= src.length) break;
       dst[i + offset] = src[i];
     }
     return i;
   }
   return module.exports;
 });
-
-$__System.registerDynamic("56", ["55"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("56", ["55"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('55');
+  module.exports = $__require("55");
   return module.exports;
 });
-
-$__System.registerDynamic("57", ["56"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('57', ['56'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__System._nodeRequire ? $__System._nodeRequire('buffer') : $__require('56');
+  /* */
+  module.exports = System._nodeRequire ? $__System._nodeRequire('buffer') : $__require('56');
   return module.exports;
 });
-
-$__System.registerDynamic("58", ["57"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("58", ["57"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('57');
+  module.exports = $__require("57");
   return module.exports;
 });
-
-$__System.registerDynamic("59", ["58"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("59", ["58"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(Buffer) {
+  /* */
+  (function (Buffer) {
     "use strict";
+
     var ExString = function ExString(string) {
       this.string = string;
       return this;
     };
     ExString._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    ExString.prototype.isEmail = function() {
+    ExString.prototype.isEmail = function () {
       return this.string.search(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) >= 0;
     };
-    ExString.prototype.repeat = function(num) {
+    ExString.prototype.repeat = function (num) {
       var x,
           s = '';
-      for (x = 0; x < num; ++x)
-        s = s + this.string;
+      for (x = 0; x < num; ++x) s = s + this.string;
       return s;
     };
-    ExString.prototype.htmlFormat = function() {
+    ExString.prototype.htmlFormat = function () {
       var v = this.string;
       v = v.replace(/</g, '&lt;').replace(/>/g, '&gt;');
       return v;
     };
-    ExString.prototype.toBase64 = function() {
+    ExString.prototype.toBase64 = function () {
       var e = this._utf8_encode();
       var t = "";
-      var n,
-          r,
-          i,
-          s,
-          o,
-          u,
-          a;
+      var n, r, i, s, o, u, a;
       var f = 0;
       while (f < e.length) {
         n = e.charCodeAt(f++);
@@ -6834,7 +7283,7 @@ $__System.registerDynamic("59", ["58"], true, function($__require, exports, modu
       }
       return t;
     };
-    ExString.prototype._utf8_encode = function() {
+    ExString.prototype._utf8_encode = function () {
       var e = this.string.replace ? this.string : this.string.toString();
       e = e.replace(/\r\n/g, "\n");
       var t = "";
@@ -6853,321 +7302,330 @@ $__System.registerDynamic("59", ["58"], true, function($__require, exports, modu
       }
       return t;
     };
-    if (typeof(Buffer) != 'undefined') {
-      ExString.prototype.toHex = function(encType) {
+    if (typeof Buffer != 'undefined') {
+      ExString.prototype.toHex = function (encType) {
         encType = encType || 'hex';
         return new Buffer(this.string, encType).toString('hex');
       };
-      ExString.prototype.toBinary = function(encType) {
+      ExString.prototype.toBinary = function (encType) {
         encType = encType || 'binary';
         return new Buffer(this.string, encType);
       };
     }
-    var rtn = function(path) {
+    var rtn = function (path) {
       return new ExString(path);
     };
     rtn.Class = ExString;
     module.exports = rtn;
-  })($__require('58').Buffer);
+  })($__require("58").Buffer);
   return module.exports;
 });
+$__System.registerDynamic('5a', [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("5a", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jXBinary = function jXBinary(binary) {
-    this.binary = binary;
-    return this;
-  };
-  jXBinary.prototype.is = function() {
-    return /^[01]+$/.test(this.binary);
-  };
-  var rtn = function(path) {
-    return new jXBinary(path);
-  };
-  if (typeof(module) != 'undefined' && module.exports) {
-    rtn.Class = jXBinary;
-    module.exports = rtn;
-  } else if (typeof(jX) != 'undefined') {
-    jX.modules.define('binary', rtn);
-  }
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jXBinary = function jXBinary(binary) {
+		this.binary = binary;
+		return this;
+	};
+
+	jXBinary.prototype.is = function () {
+		return (/^[01]+$/.test(this.binary)
+		);
+	};
+
+	var rtn = function (path) {
+		return new jXBinary(path);
+	};
+	if (typeof module != 'undefined' && module.exports) {
+		rtn.Class = jXBinary;
+		module.exports = rtn;
+	} else if (typeof jX != 'undefined') {
+		jX.modules.define('binary', rtn);
+	}
+	return module.exports;
 });
+$__System.registerDynamic("5b", [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("5b", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jXBase64 = function jXBase64(base64) {
-    this.base64 = base64;
-    return this;
-  };
-  jXBase64._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-  jXBase64.prototype.toString = function(e) {
-    var e = this.base64.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-    var t = "";
-    var n,
-        r,
-        i;
-    var s,
-        o,
-        u,
-        a;
-    var f = 0;
-    while (f < e.length) {
-      s = jXBase64._keyStr.indexOf(e.charAt(f++));
-      o = jXBase64._keyStr.indexOf(e.charAt(f++));
-      u = jXBase64._keyStr.indexOf(e.charAt(f++));
-      a = jXBase64._keyStr.indexOf(e.charAt(f++));
-      n = s << 2 | o >> 4;
-      r = (o & 15) << 4 | u >> 2;
-      i = (u & 3) << 6 | a;
-      t = t + String.fromCharCode(n);
-      if (u != 64) {
-        t = t + String.fromCharCode(r);
-      }
-      if (a != 64) {
-        t = t + String.fromCharCode(i);
-      }
-    }
-    t = this._utf8_decode(t);
-    return t;
-  };
-  jXBase64.prototype._utf8_decode = function(e) {
-    var t = "";
-    var n = 0;
-    var r = 0,
-        c2 = 0;
-    while (n < e.length) {
-      r = e.charCodeAt(n);
-      if (r < 128) {
-        t += String.fromCharCode(r);
-        n++;
-      } else if (r > 191 && r < 224) {
-        c2 = e.charCodeAt(n + 1);
-        t += String.fromCharCode((r & 31) << 6 | c2 & 63);
-        n += 2;
-      } else {
-        c2 = e.charCodeAt(n + 1);
-        c3 = e.charCodeAt(n + 2);
-        t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
-        n += 3;
-      }
-    }
-    return t;
-  };
-  var rtn = function(path) {
-    return new jXBase64(path);
-  };
-  if (typeof(module) != 'undefined' && module.exports) {
-    rtn.Class = jXBase64;
-    module.exports = rtn;
-  } else if (typeof(jX) != 'undefined') {
-    jX.modules.define('base64', rtn);
-  }
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jXBase64 = function jXBase64(base64) {
+		this.base64 = base64;
+		return this;
+	};
+
+	jXBase64._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+	jXBase64.prototype.toString = function (e) {
+		var e = this.base64.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+		var t = "";var n, r, i;var s, o, u, a;var f = 0;
+		while (f < e.length) {
+			s = jXBase64._keyStr.indexOf(e.charAt(f++));
+			o = jXBase64._keyStr.indexOf(e.charAt(f++));
+			u = jXBase64._keyStr.indexOf(e.charAt(f++));
+			a = jXBase64._keyStr.indexOf(e.charAt(f++));
+			n = s << 2 | o >> 4;r = (o & 15) << 4 | u >> 2;i = (u & 3) << 6 | a;
+			t = t + String.fromCharCode(n);
+			if (u != 64) {
+				t = t + String.fromCharCode(r);
+			}
+			if (a != 64) {
+				t = t + String.fromCharCode(i);
+			}
+		}
+		t = this._utf8_decode(t);
+		return t;
+	};
+
+	jXBase64.prototype._utf8_decode = function (e) {
+		var t = "";var n = 0;var r = 0,
+		    c2 = 0;
+		while (n < e.length) {
+			r = e.charCodeAt(n);
+			if (r < 128) {
+				t += String.fromCharCode(r);n++;
+			} else if (r > 191 && r < 224) {
+				c2 = e.charCodeAt(n + 1);t += String.fromCharCode((r & 31) << 6 | c2 & 63);n += 2;
+			} else {
+				c2 = e.charCodeAt(n + 1);c3 = e.charCodeAt(n + 2);
+				t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);n += 3;
+			}
+		}
+		return t;
+	};
+
+	var rtn = function (path) {
+		return new jXBase64(path);
+	};
+	if (typeof module != 'undefined' && module.exports) {
+		rtn.Class = jXBase64;
+		module.exports = rtn;
+	} else if (typeof jX != 'undefined') {
+		jX.modules.define('base64', rtn);
+	}
+	return module.exports;
 });
+$__System.registerDynamic('5c', [], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    // shim for using process in browser
+    var process = module.exports = {};
 
-$__System.registerDynamic("5c", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var process = module.exports = {};
-  var cachedSetTimeout;
-  var cachedClearTimeout;
-  (function() {
-    try {
-      cachedSetTimeout = setTimeout;
-    } catch (e) {
-      cachedSetTimeout = function() {
-        throw new Error('setTimeout is not defined');
-      };
-    }
-    try {
-      cachedClearTimeout = clearTimeout;
-    } catch (e) {
-      cachedClearTimeout = function() {
-        throw new Error('clearTimeout is not defined');
-      };
-    }
-  }());
-  function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-      return setTimeout(fun, 0);
-    }
-    try {
-      return cachedSetTimeout(fun, 0);
-    } catch (e) {
-      try {
-        return cachedSetTimeout.call(null, fun, 0);
-      } catch (e) {
-        return cachedSetTimeout.call(this, fun, 0);
-      }
-    }
-  }
-  function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-      return clearTimeout(marker);
-    }
-    try {
-      return cachedClearTimeout(marker);
-    } catch (e) {
-      try {
-        return cachedClearTimeout.call(null, marker);
-      } catch (e) {
-        return cachedClearTimeout.call(this, marker);
-      }
-    }
-  }
-  var queue = [];
-  var draining = false;
-  var currentQueue;
-  var queueIndex = -1;
-  function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-      return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-      queue = currentQueue.concat(queue);
-    } else {
-      queueIndex = -1;
-    }
-    if (queue.length) {
-      drainQueue();
-    }
-  }
-  function drainQueue() {
-    if (draining) {
-      return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-    var len = queue.length;
-    while (len) {
-      currentQueue = queue;
-      queue = [];
-      while (++queueIndex < len) {
-        if (currentQueue) {
-          currentQueue[queueIndex].run();
+    // cached from whatever global is present so that test runners that stub it
+    // don't break things.  But we need to wrap it in a try catch in case it is
+    // wrapped in strict mode code which doesn't define any globals.  It's inside a
+    // function because try/catches deoptimize in certain engines.
+
+    var cachedSetTimeout;
+    var cachedClearTimeout;
+
+    (function () {
+        try {
+            cachedSetTimeout = setTimeout;
+        } catch (e) {
+            cachedSetTimeout = function () {
+                throw new Error('setTimeout is not defined');
+            };
         }
-      }
-      queueIndex = -1;
-      len = queue.length;
+        try {
+            cachedClearTimeout = clearTimeout;
+        } catch (e) {
+            cachedClearTimeout = function () {
+                throw new Error('clearTimeout is not defined');
+            };
+        }
+    })();
+    function runTimeout(fun) {
+        if (cachedSetTimeout === setTimeout) {
+            //normal enviroments in sane situations
+            return setTimeout(fun, 0);
+        }
+        try {
+            // when when somebody has screwed with setTimeout but no I.E. maddness
+            return cachedSetTimeout(fun, 0);
+        } catch (e) {
+            try {
+                // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+                return cachedSetTimeout.call(null, fun, 0);
+            } catch (e) {
+                // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+                return cachedSetTimeout.call(this, fun, 0);
+            }
+        }
     }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-  }
-  process.nextTick = function(fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-      for (var i = 1; i < arguments.length; i++) {
-        args[i - 1] = arguments[i];
-      }
+    function runClearTimeout(marker) {
+        if (cachedClearTimeout === clearTimeout) {
+            //normal enviroments in sane situations
+            return clearTimeout(marker);
+        }
+        try {
+            // when when somebody has screwed with setTimeout but no I.E. maddness
+            return cachedClearTimeout(marker);
+        } catch (e) {
+            try {
+                // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+                return cachedClearTimeout.call(null, marker);
+            } catch (e) {
+                // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+                // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+                return cachedClearTimeout.call(this, marker);
+            }
+        }
     }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-      runTimeout(drainQueue);
+    var queue = [];
+    var draining = false;
+    var currentQueue;
+    var queueIndex = -1;
+
+    function cleanUpNextTick() {
+        if (!draining || !currentQueue) {
+            return;
+        }
+        draining = false;
+        if (currentQueue.length) {
+            queue = currentQueue.concat(queue);
+        } else {
+            queueIndex = -1;
+        }
+        if (queue.length) {
+            drainQueue();
+        }
     }
-  };
-  function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-  }
-  Item.prototype.run = function() {
-    this.fun.apply(null, this.array);
-  };
-  process.title = 'browser';
-  process.browser = true;
-  process.env = {};
-  process.argv = [];
-  process.version = '';
-  process.versions = {};
-  function noop() {}
-  process.on = noop;
-  process.addListener = noop;
-  process.once = noop;
-  process.off = noop;
-  process.removeListener = noop;
-  process.removeAllListeners = noop;
-  process.emit = noop;
-  process.binding = function(name) {
-    throw new Error('process.binding is not supported');
-  };
-  process.cwd = function() {
-    return '/';
-  };
-  process.chdir = function(dir) {
-    throw new Error('process.chdir is not supported');
-  };
-  process.umask = function() {
-    return 0;
-  };
-  return module.exports;
-});
 
-$__System.registerDynamic("5d", ["5c"], true, function($__require, exports, module) {
-  ;
+    function drainQueue() {
+        if (draining) {
+            return;
+        }
+        var timeout = runTimeout(cleanUpNextTick);
+        draining = true;
+
+        var len = queue.length;
+        while (len) {
+            currentQueue = queue;
+            queue = [];
+            while (++queueIndex < len) {
+                if (currentQueue) {
+                    currentQueue[queueIndex].run();
+                }
+            }
+            queueIndex = -1;
+            len = queue.length;
+        }
+        currentQueue = null;
+        draining = false;
+        runClearTimeout(timeout);
+    }
+
+    process.nextTick = function (fun) {
+        var args = new Array(arguments.length - 1);
+        if (arguments.length > 1) {
+            for (var i = 1; i < arguments.length; i++) {
+                args[i - 1] = arguments[i];
+            }
+        }
+        queue.push(new Item(fun, args));
+        if (queue.length === 1 && !draining) {
+            runTimeout(drainQueue);
+        }
+    };
+
+    // v8 likes predictible objects
+    function Item(fun, array) {
+        this.fun = fun;
+        this.array = array;
+    }
+    Item.prototype.run = function () {
+        this.fun.apply(null, this.array);
+    };
+    process.title = 'browser';
+    process.browser = true;
+    process.env = {};
+    process.argv = [];
+    process.version = ''; // empty string to avoid regexp issues
+    process.versions = {};
+
+    function noop() {}
+
+    process.on = noop;
+    process.addListener = noop;
+    process.once = noop;
+    process.off = noop;
+    process.removeListener = noop;
+    process.removeAllListeners = noop;
+    process.emit = noop;
+
+    process.binding = function (name) {
+        throw new Error('process.binding is not supported');
+    };
+
+    process.cwd = function () {
+        return '/';
+    };
+    process.chdir = function (dir) {
+        throw new Error('process.chdir is not supported');
+    };
+    process.umask = function () {
+        return 0;
+    };
+    return module.exports;
+});
+$__System.registerDynamic("5d", ["5c"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('5c');
+  module.exports = $__require("5c");
   return module.exports;
 });
-
-$__System.registerDynamic("5e", ["5d"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('5e', ['5d'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__System._nodeRequire ? process : $__require('5d');
+  module.exports = System._nodeRequire ? process : $__require('5d');
   return module.exports;
 });
-
-$__System.registerDynamic("20", ["5e"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("20", ["5e"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('5e');
+  module.exports = $__require("5e");
   return module.exports;
 });
-
-$__System.registerDynamic("5f", ["20"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('5f', ['20'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  (function(process) {
+  /* */
+  (function (process) {
     "use strict";
+
     var jXMethod = function jXMethod(method, name) {
       this.method = method;
       this.name = name;
       return this;
     };
-    jXMethod.prototype.runInMs = function(ms) {
+    jXMethod.prototype.runInMs = function (ms) {
       setTimeout(this.method, ms);
       return this;
     };
     if (jXMethod.name && jXMethod.name === 'jXMethod') {
-      jXMethod.prototype.getName = function() {
+      jXMethod.prototype.getName = function () {
         return this.name || (this.method.name.length ? this.method.name : null);
       };
     } else {
-      jXMethod.prototype.getName = function() {
+      jXMethod.prototype.getName = function () {
         var funcNameRegex = /function\s+(.{1,})\(/;
-        var results = (funcNameRegex).exec(this.method.toString());
-        return this.name || ((results && results.length > 1) ? results[1] : null);
+        var results = funcNameRegex.exec(this.method.toString());
+        return this.name || (results && results.length > 1 ? results[1] : null);
       };
     }
-    jXMethod.prototype.getArgNameArray = function() {
+    jXMethod.prototype.getArgNameArray = function () {
       var string = this.getDefinition();
       var argDef = /\(.+\)/.exec(string)[0];
       argDef = argDef.substring(1, argDef.length);
@@ -7175,12 +7633,12 @@ $__System.registerDynamic("5f", ["20"], true, function($__require, exports, modu
       argDef = argDef.replace(/\s|\t|\r|\n/g, '');
       return argDef.split(',');
     };
-    jXMethod.prototype.getDefinition = function() {
+    jXMethod.prototype.getDefinition = function () {
       var funcNameRegex = /(.*function[^\)]+\))/;
-      var results = (funcNameRegex).exec(this.method.toString());
-      return (results && results.length > 1) ? results[1] : null;
+      var results = funcNameRegex.exec(this.method.toString());
+      return results && results.length > 1 ? results[1] : null;
     };
-    jXMethod.prototype.expect = function(nameOrMap, value, requiredOrType, type) {
+    jXMethod.prototype.expect = function (nameOrMap, value, requiredOrType, type) {
       if (nameOrMap && nameOrMap.constructor == String) {
         return this.expectOne(nameOrMap, value, requiredOrType, type);
       }
@@ -7196,7 +7654,7 @@ $__System.registerDynamic("5f", ["20"], true, function($__require, exports, modu
       }
       return this;
     };
-    jXMethod.prototype.expectOne = function(name, value, requiredOrType, type) {
+    jXMethod.prototype.expectOne = function (name, value, requiredOrType, type) {
       var isReqDefined = requiredOrType != null && requiredOrType.constructor == Boolean;
       var isRequired = isReqDefined ? requiredOrType : true;
       type = type || (isReqDefined ? null : requiredOrType);
@@ -7226,19 +7684,19 @@ $__System.registerDynamic("5f", ["20"], true, function($__require, exports, modu
       }
       return this;
     };
-    jXMethod.prototype.arguments = function(args) {
+    jXMethod.prototype.arguments = function (args) {
       return new jXArgs(this, args);
     };
-    var rtn = function(path) {
+    var rtn = function (path) {
       return new jXMethod(path);
     };
-    if (typeof(module) != 'undefined' && module.exports) {
+    if (typeof module != 'undefined' && module.exports) {
       rtn.Class = jXMethod;
       module.exports = rtn;
-    } else if (typeof(jX) != 'undefined') {
+    } else if (typeof jX != 'undefined') {
       jX.modules.define('method', rtn);
     }
-    var jXArgs = function(jXMethod, args) {
+    var jXArgs = function (jXMethod, args) {
       this.args = args;
       this.jXMethod = jXMethod;
       return this;
@@ -7246,582 +7704,709 @@ $__System.registerDynamic("5f", ["20"], true, function($__require, exports, modu
   })($__require('20'));
   return module.exports;
 });
+$__System.registerDynamic('60', [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("60", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jXArray = function jXArray(array) {
-    this.array = array;
-    return this;
-  };
-  jXArray.prototype.each = function(method0, method1, method2, method3) {
-    if (!this.array)
-      return this;
-    for (var x = 0; x < this.array.length; ++x) {
-      for (var a = 0; a < arguments.length; ++a) {
-        arguments[a].call(null, this.array[x], x, this.array.length);
-      }
-      this.array[x];
-    }
-    return this;
-  };
-  jXArray.prototype.distinct = function(method) {
-    if (!this.array)
-      return this;
-    var distincts = [];
-    method = method || function(v) {
-      return v;
-    };
-    for (var x = 0; x < this.array.length; ++x) {
-      var a0 = this.array[x];
-      var isDef = false;
-      for (var xd = distincts.length - 1; xd >= 0; --xd) {
-        var item = distincts[xd];
-        if (method(a0) == method(item)) {
-          isDef = true;
-          break;
-        }
-      }
-      if (!isDef)
-        distincts.push(a0);
-    }
-    this.array = distincts;
-    return this;
-  };
-  jXArray.prototype.objectify = function() {
-    if (!this.array.length)
-      return {};
-    var x,
-        n,
-        s,
-        r = {};
-    s = this.array[0];
-    for (n in s) {
-      r[n] = [];
-    }
-    for (x = this.array.length - 1; x >= 0; --x) {
-      s = this.array[x];
-      for (n in s) {
-        r[n].unshift(s[n]);
-      }
-    }
-    return r;
-  };
-  jXArray.prototype.appendArray = function() {
-    for (var argIn = 0; argIn < arguments.length; ++argIn) {
-      var array = arguments[argIn];
-      for (var aI = 0; aI < array.length; ++aI) {
-        this.array.push(array[aI]);
-      }
-    }
-    return this;
-  };
-  jXArray.prototype.union = jXArray.prototype.appendArray;
-  jXArray.prototype.prependArray = function() {
-    for (var argIn = 0; argIn < arguments.length; ++argIn) {
-      var array = arguments[argIn];
-      for (var aI = array.length - 1; aI >= 0; --aI) {
-        this.array.unshift(array[aI]);
-      }
-    }
-    return this;
-  };
-  jXArray.prototype.sum = function(method) {
-    var n = 0,
-        a = this.array;
-    method = method || function(v, i) {
-      return v;
-    };
-    for (var i = a.length - 1; i >= 0; --i) {
-      n = n + Number(method(a[i], i));
-    }
-    return n;
-  };
-  jXArray.prototype.group = function(method, isIndexValue, grouptype) {
-    method = method ? method : function(v) {
-      return v;
-    };
-    grouptype = grouptype ? grouptype : 'sequence';
-    isIndexValue = isIndexValue == null ? 0 : isIndexValue;
-    var array = this.array;
-    if (grouptype == 'struct') {
-      var struct = {};
-      for (var x = 0; x < array.length; ++x) {
-        var a = array[x];
-        var v = method(a);
-        if (struct[v] == null)
-          struct[v] = [];
-        struct[v].push(isIndexValue ? x : a);
-      }
-      return struct;
-    }
-    var rArray = [[]];
-    var cVal = 0;
-    for (var x = 0; x < array.length; ++x) {
-      var a = array[x];
-      var v = method(a);
-      if (cVal != v && x > 1)
-        rArray.push([]);
-      cVal = v;
-      rArray[rArray.length - 1].push(isIndexValue ? x : a);
-    }
-    return rArray;
-  };
-  var rtn = function(path) {
-    return new jXArray(path);
-  };
-  if (typeof(module) != 'undefined' && module.exports) {
-    rtn.Class = jXArray;
-    module.exports = rtn;
-  } else if (typeof(jX) != 'undefined') {
-    jX.modules.define('array', rtn);
-  }
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jXArray = function jXArray(array) {
+		this.array = array;
+		return this;
+	};
+
+	/**
+ 	Intended for high performance by looping an array only once but performing multiple actions.
+ 	Run multiple functions for each iteration of an array.
+ 
+ 	Example: array.each(countTeacher, countChild) instead of two loops array.each(countTeacher) + array.each(countChild)
+ */
+	jXArray.prototype.each = function (method0, method1, method2, method3) {
+		if (!this.array) return this;
+		for (var x = 0; x < this.array.length; ++x) {
+			for (var a = 0; a < arguments.length; ++a) {
+				arguments[a].call(null, this.array[x], x, this.array.length);
+			}
+			this.array[x];
+		}
+		return this;
+	};
+
+	/** reduce array down to only distinct items
+ 	@method - optional, returned value is used to determine distinctness
+ */
+	jXArray.prototype.distinct = function (method) {
+		if (!this.array) return this;
+
+		var distincts = [];
+		method = method || function (v) {
+			return v;
+		};
+
+		for (var x = 0; x < this.array.length; ++x) {
+			var a0 = this.array[x];
+			var isDef = false;
+			for (var xd = distincts.length - 1; xd >= 0; --xd) {
+				var item = distincts[xd];
+				if (method(a0) == method(item)) {
+					isDef = true;
+					break;
+				}
+			}
+			if (!isDef) distincts.push(a0);
+		}
+		this.array = distincts;
+		return this;
+	};
+
+	//pivets array of objects to object of arrays
+	jXArray.prototype.objectify = function () {
+		if (!this.array.length) return {};
+
+		var x,
+		    n,
+		    s,
+		    r = {};
+
+		s = this.array[0];
+		for (n in s) {
+			r[n] = [];
+		}
+
+		for (x = this.array.length - 1; x >= 0; --x) {
+			s = this.array[x];
+			for (n in s) {
+				r[n].unshift(s[n]);
+			}
+		}
+		return r;
+	};
+
+	//append an array's items onto the end of this array
+	jXArray.prototype.appendArray = function () {
+		//each argument maybe another array
+		for (var argIn = 0; argIn < arguments.length; ++argIn) {
+			var array = arguments[argIn];
+			for (var aI = 0; aI < array.length; ++aI) {
+				this.array.push(array[aI]);
+			}
+		}
+
+		return this;
+	};
+	jXArray.prototype.union = jXArray.prototype.appendArray;
+
+	//prepend an array's items onto the front of this array
+	jXArray.prototype.prependArray = function () {
+		//each argument maybe another array
+		for (var argIn = 0; argIn < arguments.length; ++argIn) {
+			var array = arguments[argIn];
+			for (var aI = array.length - 1; aI >= 0; --aI) {
+				this.array.unshift(array[aI]);
+			}
+		}
+
+		return this;
+	};
+
+	/** ads an array all up
+ 	@method - optional. Returned value is used to sum
+ */
+	jXArray.prototype.sum = function (method) {
+		var n = 0,
+		    a = this.array;
+		method = method || function (v, i) {
+			return v;
+		};
+		for (var i = a.length - 1; i >= 0; --i) {
+			n = n + Number(method(a[i], i));
+		}
+		return n;
+	};
+
+	/** break an array into buckets of arrays
+ 	@isIndexValue=false - when true, buckets of arrays will be corresponding index values back to original array
+ 	@grouptype='sequence' - ('sequence'||'struct') . sequence, array of arrays = [ [],[],[] ] . struct = {value0:[buckets...], value1:[buckets...]}
+ */
+	jXArray.prototype.group = function (method, isIndexValue, grouptype) {
+		method = method ? method : function (v) {
+			return v;
+		};
+		grouptype = grouptype ? grouptype : 'sequence';
+		isIndexValue = isIndexValue == null ? 0 : isIndexValue;
+
+		var array = this.array;
+
+		if (grouptype == 'struct') {
+			var struct = {};
+			for (var x = 0; x < array.length; ++x) {
+				var a = array[x];
+				var v = method(a);
+				if (struct[v] == null) struct[v] = [];
+				struct[v].push(isIndexValue ? x : a);
+			}
+			return struct;
+		}
+
+		var rArray = [[]];
+		var cVal = 0;
+		for (var x = 0; x < array.length; ++x) {
+			var a = array[x];
+			var v = method(a);
+			if (cVal != v && x > 1) rArray.push([]);
+			cVal = v;
+			rArray[rArray.length - 1].push(isIndexValue ? x : a);
+		}
+
+		return rArray;
+	};
+
+	var rtn = function (path) {
+		return new jXArray(path);
+	};
+	if (typeof module != 'undefined' && module.exports) {
+		rtn.Class = jXArray;
+		module.exports = rtn;
+	} else if (typeof jX != 'undefined') {
+		jX.modules.define('array', rtn);
+	}
+	return module.exports;
 });
+$__System.registerDynamic('61', [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("61", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jXQueryObject = function jXQueryObject(object) {
-    this.queryObject = object;
-    return this;
-  };
-  jXQueryObject.prototype.getNameArray = function() {
-    return Object.keys(this.queryObject);
-  };
-  jXQueryObject.prototype.toCsv = function(delimOrOptions, textQualifier, titleArray) {
-    return this.Csv.apply(this, arguments).output();
-  };
-  jXQueryObject.prototype.Csv = function(delimOrOptions, textQualifier, titleArray) {
-    if (typeof(delimOrOptions) == 'string')
-      delimOrOptions = {delimiter: delimOrOptions};
-    else if (delimOrOptions == null)
-      delimOrOptions = {};
-    if (textQualifier)
-      delimOrOptions.textQualifier = textQualifier;
-    if (titleArray)
-      delimOrOptions.titleArray = titleArray;
-    return new jXQueryObjectCsv(this.queryObject, delimOrOptions);
-  };
-  function jXQueryObjectCsv(queryObject, $scope) {
-    this.data = $scope || {};
-    this.data.isNameFirstRow = this.data.isNameFirstRow == null ? true : this.data.isNameFirstRow;
-    this.data.delimiter = this.data.delimiter || ',';
-    this.data.queryObject = queryObject || this.data.queryObject || {};
-    return this;
-  }
-  jXQueryObjectCsv.prototype.getTitleArray = function() {
-    if (this.data.titleArray)
-      return this.data.titleArray;
-    if (this.data.isNameFirstRow)
-      return Object.keys(this.data.queryObject);
-  };
-  jXQueryObjectCsv.prototype.output = function() {
-    return this.toArray().join(this.data.lineDelim || '\r\n');
-  };
-  jXQueryObjectCsv.prototype.toArray = function() {
-    var columnLoop,
-        columnCount,
-        tempContent,
-        newValue,
-        newTitle,
-        returnText = [],
-        titleArray = this.getTitleArray(),
-        nameArray = titleArray;
-    var options = this.data;
-    if (options.textQualifier && options.textQualifier.length) {
-      var nr = new RegExp('/' + options.textQualifier + '/', 'gi');
-      var getCsvValueOf = function(val) {
-        if (val == null)
-          return '';
-        val = val.toString().replace(nr, options.textQualifier + options.textQualifier);
-        val = options.textQualifier + val + options.textQualifier;
-        return val;
-      };
-    } else
-      var getCsvValueOf = function(val) {
-        return val;
-      };
-    var tempContent = [];
-    for (columnLoop = 0; columnLoop < titleArray.length; ++columnLoop) {
-      if (typeof(titleArray[columnLoop]) == 'object') {
-        newTitle = titleArray[columnLoop][1];
-        titleArray[columnLoop] = newTitle;
-        nameArray[columnLoop] = titleArray[columnLoop][0];
-      } else {
-        newTitle = titleArray[columnLoop];
-      }
-      newValue = getCsvValueOf(newTitle);
-      tempContent.push(newValue);
-    }
-    if (this.data.isNameFirstRow) {
-      tempContent = tempContent.join(this.data.delimiter);
-      if (tempContent) {
-        returnText.push(tempContent);
-      }
-    }
-    var rowLoop,
-        columnName,
-        firstColumn = this.data.queryObject[nameArray[0]];
-    if (firstColumn) {
-      var len = firstColumn.length;
-      for (rowLoop = 0; rowLoop < len; ++rowLoop) {
-        tempContent = [];
-        columnCount = nameArray.length;
-        for (columnLoop = 0; columnLoop < columnCount; ++columnLoop) {
-          columnName = nameArray[columnLoop];
-          newValue = this.data.queryObject[columnName][rowLoop];
-          newValue = getCsvValueOf(newValue);
-          tempContent.push(newValue);
-        }
-        tempContent = tempContent.join(this.data.delimiter);
-        returnText.push(tempContent);
-      }
-    }
-    return returnText;
-  };
-  var rtn = function(path) {
-    return new jXQueryObject(path);
-  };
-  if (typeof(module) != 'undefined' && module.exports) {
-    rtn.Class = jXQueryObject;
-    module.exports = rtn;
-  } else if (typeof(jX) != 'undefined') {
-    jX.modules.define('queryObject', rtn);
-  }
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jXQueryObject = function jXQueryObject(object) {
+		this.queryObject = object;
+		return this;
+	};
+
+	jXQueryObject.prototype.getNameArray = function () {
+		return Object.keys(this.queryObject);
+	};
+
+	//{delimiter,isNameFirstRow,textQualifier,titleArray}
+	jXQueryObject.prototype.toCsv = function (delimOrOptions, textQualifier, titleArray) {
+		return this.Csv.apply(this, arguments).output();
+	};
+
+	jXQueryObject.prototype.Csv = function (delimOrOptions, textQualifier, titleArray) {
+		if (typeof delimOrOptions == 'string') delimOrOptions = { delimiter: delimOrOptions };else if (delimOrOptions == null) delimOrOptions = {};
+
+		if (textQualifier) delimOrOptions.textQualifier = textQualifier;
+		if (titleArray) delimOrOptions.titleArray = titleArray;
+
+		return new jXQueryObjectCsv(this.queryObject, delimOrOptions);
+	};
+
+	//{delimiter,isNameFirstRow,textQualifier,titleArray}
+	function jXQueryObjectCsv(queryObject, $scope) {
+		this.data = $scope || {};
+		this.data.isNameFirstRow = this.data.isNameFirstRow == null ? true : this.data.isNameFirstRow;
+		this.data.delimiter = this.data.delimiter || ',';
+		this.data.queryObject = queryObject || this.data.queryObject || {};
+		return this;
+	}
+
+	jXQueryObjectCsv.prototype.getTitleArray = function () {
+		if (this.data.titleArray) return this.data.titleArray;
+		if (this.data.isNameFirstRow) return Object.keys(this.data.queryObject);
+	};
+
+	jXQueryObjectCsv.prototype.output = function () {
+		return this.toArray().join(this.data.lineDelim || '\r\n');
+	};
+
+	jXQueryObjectCsv.prototype.toArray = function () {
+		//textQualifier = textQualifier || '"'
+		var columnLoop,
+		    columnCount,
+		    tempContent,
+		    newValue,
+		    newTitle,
+		    returnText = [],
+		    titleArray = this.getTitleArray(),
+		    nameArray = titleArray;
+
+		var options = this.data;
+		if (options.textQualifier && options.textQualifier.length) {
+			var nr = new RegExp('/' + options.textQualifier + '/', 'gi');
+			var getCsvValueOf = function (val) {
+				if (val == null) return '';
+				val = val.toString().replace(nr, options.textQualifier + options.textQualifier);
+				val = options.textQualifier + val + options.textQualifier;
+				return val;
+			};
+		} else var getCsvValueOf = function (val) {
+			return val;
+		};
+
+		/* figure headers */
+		var tempContent = [];
+
+		for (columnLoop = 0; columnLoop < titleArray.length; ++columnLoop) {
+			if (typeof titleArray[columnLoop] == 'object') {
+				newTitle = titleArray[columnLoop][1];
+				titleArray[columnLoop] = newTitle;
+				nameArray[columnLoop] = titleArray[columnLoop][0];
+			} else {
+				newTitle = titleArray[columnLoop];
+			}
+			newValue = getCsvValueOf(newTitle);
+			tempContent.push(newValue);
+		}
+		/* end: figure headers */
+
+		if (this.data.isNameFirstRow) {
+			tempContent = tempContent.join(this.data.delimiter);
+			if (tempContent) {
+				returnText.push(tempContent);
+			}
+		}
+
+		/* build CSV content */
+		//console.log('nameArray[0]', nameArray[0], nameArray, this.data.isNameFirstRow, this.data.queryObject)
+
+		var rowLoop,
+		    columnName,
+		    firstColumn = this.data.queryObject[nameArray[0]];
+
+		if (firstColumn) {
+			//when no data provided, firstColumn is null
+			var len = firstColumn.length; //get array len from first column
+			for (rowLoop = 0; rowLoop < len; ++rowLoop) {
+				tempContent = [];
+				columnCount = nameArray.length;
+				for (columnLoop = 0; columnLoop < columnCount; ++columnLoop) {
+					columnName = nameArray[columnLoop];
+					newValue = this.data.queryObject[columnName][rowLoop];
+					newValue = getCsvValueOf(newValue);
+					//if(isBinary(newValue))newValue = toString(newValue);
+					tempContent.push(newValue);
+				}
+				tempContent = tempContent.join(this.data.delimiter);
+				returnText.push(tempContent);
+			}
+		}
+		/* end */
+
+		return returnText;
+	};
+
+	var rtn = function (path) {
+		return new jXQueryObject(path);
+	};
+	if (typeof module != 'undefined' && module.exports) {
+		rtn.Class = jXQueryObject;
+		module.exports = rtn;
+	} else if (typeof jX != 'undefined') {
+		jX.modules.define('queryObject', rtn);
+	}
+	return module.exports;
 });
+$__System.registerDynamic('4c', [], true, function ($__require, exports, module) {
+	/* */
+	"use strict";
 
-$__System.registerDynamic("4c", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var __filename = 'jspm_packages/npm/ack-x@1.2.17/js/jc.js',
-      __dirname = 'jspm_packages/npm/ack-x@1.2.17/js';
-  "use strict";
-  function jC(initOrStruct, parentOrStruct, struct) {
-    initOrStruct = jC.$(initOrStruct, parentOrStruct, struct);
-    var f = function f() {
-      initOrStruct.jC.prop.apply(initOrStruct.jC, arguments);
-      return f;
-    };
-    return f;
+	//Entry point to accessors framework
+	//argMap : 0:'init-function or accessor-map', 1:'extend-from or accessor-map', 2:'accessor-map'
+	//accessor-map: if-string:'property-name' if-array:array-of-accessor-maps if-object:{keyname:defaultMethod || keyName:property-map || keyName:simple-value-default}
+	//per-accessor-property-map:{preset:function-to-examine-a-set-call-to-return-what-to-actually-set, typeset:set-variable-must-be-constructor-of, default:funcForValue-or-value}
+
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var __filename = 'jspm_packages/npm/ack-x@1.2.17/js/jc.js',
+	    __dirname = 'jspm_packages/npm/ack-x@1.2.17/js';
+	function jC(initOrStruct, parentOrStruct, struct) {
+		initOrStruct = jC.$(initOrStruct, parentOrStruct, struct);
+		var f = function f() {
+			//function to add more accessor definitions
+			initOrStruct.jC.prop.apply(initOrStruct.jC, arguments);
+			return f;
+		};
+		return f;
+	}
+
+	//function controller for entry point
+	jC.$ = function (initOrStruct, parentOrStruct, struct) {
+		//arg0 is struct
+		if (initOrStruct != null && !jC.isF(initOrStruct)) {
+			struct = initOrStruct;
+			initOrStruct = null;
+		}
+
+		//arg1 is struct
+		if (parentOrStruct != null && !jC.isF(parentOrStruct)) {
+			struct = parentOrStruct;
+			parentOrStruct = null;
+		}
+
+		if (initOrStruct == null) //provide constructor
+			initOrStruct = function ($scope) {
+				return jC.F.prototype.init.call(this, $scope);
+			}; //DONT function initOrStruct(){} AND DONT var initOrStruct = function initOrStruct(){} for IE8
+
+		if (parentOrStruct == null) //provide parent constructor
+			parentOrStruct = function () {} /*jC*/ //DONT function parentOrStruct(){} AND DONT var parentOrStruct = function parentOrStruct(){} for IE8
+
+			;initOrStruct.jC = new jC.F(initOrStruct, parentOrStruct, struct); //return has jC reference
+
+		return initOrStruct;
+	};
+
+	//very specific and tuned function to set variables using setMethods
+	jC.setByAccessor = function (nameOrInitStruct, value) {
+		//params data then sets a "set" method and calls it
+		if (typeof nameOrInitStruct == 'string') {
+			if (this['set' + nameOrInitStruct]) {
+				//exact key case found
+				this['set' + nameOrInitStruct].call(this, value);
+				return this;
+			}
+
+			/* look at all keys for set function */
+			var lCaseKey = nameOrInitStruct.toLowerCase();
+			var mySetKey = 'set' + lCaseKey;
+			for (var key in this) if (key.length == mySetKey.length && key.toLowerCase() == mySetKey) {
+				this[key].call(this, value);
+				return this;
+			}
+
+			//may require updating as they use implied scope (perhaps 3rd argument is $scope)
+			jC.F.paramdata.call(this);
+			this.data[nameOrInitStruct] = value;
+			//this.data[lCaseKey] = value
+			/* end */
+		} else jC.each(nameOrInitStruct, jC.setByAccessor, this); //arg1 is object||array
+
+		return this;
+	};
+
+	//Accessors building framework
+	jC.F = function (C, parent, prop) {
+		//what is called to add accessors but ONCE AN OBJECT it becomes is the init and ONLY HAS 1 argument
+		this.init.call(this).setC(C) //set base Class aka main init method
+		.setParent(parent); //inheritance
+
+		//C.prototype = new parent//creates data scope and such cause it invokes init function
+		for (var x in parent.prototype) C.prototype[x] = parent.prototype[x];
+
+		//deprecate these, don't add methods to an object
+		/*
+  C.prototype.set = function(){//deprecated. Use self destructing init method
+  	console.log('jC: this.set is deprecated. Use self destructing method this.init or if you need this.set, have your class extend jC.Vm',arguments.callee.caller)
+  	return jC.setByAccessor.apply(this,arguments)
   }
-  jC.$ = function(initOrStruct, parentOrStruct, struct) {
-    if (initOrStruct != null && !jC.isF(initOrStruct)) {
-      struct = initOrStruct;
-      initOrStruct = null;
-    }
-    if (parentOrStruct != null && !jC.isF(parentOrStruct)) {
-      struct = parentOrStruct;
-      parentOrStruct = null;
-    }
-    if (initOrStruct == null)
-      initOrStruct = function($scope) {
-        return jC.F.prototype.init.call(this, $scope);
-      };
-    if (parentOrStruct == null)
-      parentOrStruct = function() {};
-    initOrStruct.jC = new jC.F(initOrStruct, parentOrStruct, struct);
-    return initOrStruct;
-  };
-  jC.setByAccessor = function(nameOrInitStruct, value) {
-    if (typeof(nameOrInitStruct) == 'string') {
-      if (this['set' + nameOrInitStruct]) {
-        this['set' + nameOrInitStruct].call(this, value);
-        return this;
-      }
-      var lCaseKey = nameOrInitStruct.toLowerCase();
-      var mySetKey = 'set' + lCaseKey;
-      for (var key in this)
-        if (key.length == mySetKey.length && key.toLowerCase() == mySetKey) {
-          this[key].call(this, value);
-          return this;
-        }
-      jC.F.paramdata.call(this);
-      this.data[nameOrInitStruct] = value;
-    } else
-      jC.each(nameOrInitStruct, jC.setByAccessor, this);
-    return this;
-  };
-  jC.F = function(C, parent, prop) {
-    this.init.call(this).setC(C).setParent(parent);
-    for (var x in parent.prototype)
-      C.prototype[x] = parent.prototype[x];
-    C.prototype.init = jC.F.prototype.init;
-    this.prop(prop);
-    return this;
-  };
-  jC.F.prototype.init = function($scope) {
-    this.data = $scope == null ? {} : $scope;
-    jC.setByAccessor.call(this, $scope);
-    this.init = null;
-    delete this.init;
-    return this;
-  };
-  jC.F.paramdata = function() {
-    if (this.data == null)
-      this.data = {};
-    return this;
-  };
-  jC.F.set = function(nameOrInitStruct, value) {
-    if (typeof(nameOrInitStruct) == 'string') {
-      jC.F.paramdata.call(this);
-      var keyName = nameOrInitStruct;
-      this.data[keyName] = value;
-    } else {
-      jC.each(nameOrInitStruct, jC.F.set, this);
-    }
-    return this;
-  };
-  jC.F.get = function(name, def, stick, nullop) {
-    return jC.F.param.call(this, name, def, stick, nullop);
-  };
-  jC.F.param = function(name, def, stick, nullop) {
-    this.data = this.data != null ? this.data : {};
-    if (typeof(this.data[name]) == 'undefined')
-      var r = nullop ? nullop.call(this, def, stick) : jC.F.runNullOp.call(this, name, def, stick);
-    else {
-      var r = this.data[name];
-    }
-    return r;
-  };
-  jC.F.getSet = function(name, options) {
-    var useArray = [],
-        keyName = options && options.as ? options.as : name,
-        fireSet = function(v) {
-          jC.F.set.call(this, keyName, v);
-          return this;
-        };
-    if (options) {
-      if (options.typeset) {
-        useArray.push(function(v) {
-          if (v && v.constructor === options.typeset)
-            return v;
-          var etn = jC.getMethodName(options.typeset),
-              oName = jC.getConName(this),
-              oOwnName = jC.getMethodName(options.original.owner),
-              msg = 'Invalid Constructor Passed to set' + options.original.name + '().';
-          msg += ' ExpectTypeName:' + etn + '. GotTypeName:' + jC.getConName(v) + '. OwnerName:' + oName + '.';
-          if (oName != oOwnName)
-            msg += ' OriginalOwnerName:' + oOwnName;
-          console.error(msg);
-          return v;
-        });
-      }
-      if (options.preset)
-        useArray.push(function(v) {
-          return options.preset.apply(this, arguments);
-        });
-      if (useArray.length)
-        fireSet = function(v) {
-          for (var x = 0; x < useArray.length; ++x)
-            v = useArray[x].call(this, v);
-          jC.F.set.call(this, keyName, v);
-          return this;
-        };
-    }
-    return fireSet;
-  };
-  jC.F.getGet = function(name, defOrDefFunc) {
-    var nullop = jC.F.getNullOp(name, defOrDefFunc);
-    return function(def, stick) {
-      var r = jC.F.get.call(this, name, def, stick, nullop);
-      return r;
-    };
-  };
-  jC.F.getNullOp = function(name, defOrDefFunc) {
-    return function(def, stick) {
-      return jC.F.runNullOp.call(this, name, def, stick, defOrDefFunc);
-    };
-  };
-  jC.F.runNullOp = function(name, def, stick, dM) {
-    if (dM == null)
-      var dm = function() {};
-    else if (jC.isF(dM))
-      var dm = dM;
-    else
-      var dm = function() {
-        return dM;
-      };
-    var r = def == null ? dm.call(this) : def;
-    if ((stick == null || stick) && (r != null || this.data[name] != null)) {
-      jC.setByAccessor.call(this, name, r);
-    }
-    return r;
-  };
-  jC.F.prototype.set = jC.F.set;
-  jC.F.prototype.get = jC.F.get;
-  jC.F.prototype.param = jC.F.param;
-  jC.F.prototype.setC = jC.F.getSet('c');
-  jC.F.prototype.getC = jC.F.getGet('c');
-  jC.F.prototype.setParent = jC.F.getSet('parent');
-  jC.F.prototype.getParent = jC.F.getGet('parent');
-  jC.F.prototype.setter = function(name, config) {
-    var isSubDef = config && config.constructor == Object && config.constructor != Array,
-        method = jC.F.getSet(name, config),
-        Cls = this.getC();
-    name = name.substring(0, 1).toUpperCase() + name.substring(1, name.length);
-    Cls.prototype['set' + name] = method;
-    if (isSubDef && config.setAka)
-      Cls.prototype[config.setAka] = method;
-    return this;
-  };
-  jC.F.prototype.getter = function(name, defOrDefFunc) {
-    var isSubDef = defOrDefFunc != null && defOrDefFunc.constructor == Object && defOrDefFunc.constructor != Array,
-        def;
-    if (isSubDef) {
-      if (defOrDefFunc['default'] != null)
-        def = defOrDefFunc['default'];
-    } else
-      def = defOrDefFunc;
-    var keyName = defOrDefFunc && defOrDefFunc.as ? defOrDefFunc.as : name,
-        method = jC.F.getGet(keyName, def),
-        Cls = this.getC();
-    name = name.substring(0, 1).toUpperCase() + name.substring(1, name.length);
-    Cls.prototype['get' + name] = method;
-    if (isSubDef && defOrDefFunc.getAka)
-      Cls.prototype[defOrDefFunc.getAka] = method;
-    return this;
-  };
-  jC.F.prototype.prop = function(naOrStOrAr, defOrDefFunc) {
-    switch (typeof(naOrStOrAr)) {
-      case 'string':
-        defOrDefFunc = defOrDefFunc == null ? {} : defOrDefFunc;
-        var typ = typeof(defOrDefFunc),
-            typArray = ['number', 'boolean', 'string'];
-        for (var x = typArray.length - 1; x >= 0; --x) {
-          if (typArray[x] == typ) {
-            defOrDefFunc = {
-              'default': defOrDefFunc,
-              original: {
-                owner: this.getC(),
-                name: naOrStOrAr
-              }
-            };
-            break;
-          }
-        }
-        return this.getter(naOrStOrAr, defOrDefFunc).setter(naOrStOrAr, defOrDefFunc);
-      case 'undefined':
-      case 'function':
-        return this;
-    }
-    if (naOrStOrAr.constructor == Array) {
-      for (var x = naOrStOrAr.length - 1; x >= 0; --x)
-        this.prop(naOrStOrAr[x]);
-    } else
-      jC.each(naOrStOrAr, this.prop, this);
-    return this;
-  };
-  if (jC.name && jC.name === 'jC')
-    jC.getMethodName = function(method) {
-      return method.name;
-    };
-  else
-    jC.getMethodName = function(method) {
-      var funcNameRegex = /function (.{1,})\(/;
-      var results = (funcNameRegex).exec(method.toString());
-      return (results && results.length > 1) ? results[1] : "";
-    };
-  if ({}.constructor.name)
-    jC.getConName = function(obj) {
-      return obj.constructor.name;
-    };
-  else
-    jC.getConName = function(obj) {
-      return jC.getMethodName((obj).constructor);
-    };
-  jC.isF = function(f) {
-    return typeof(f) == 'function';
-  };
-  jC.clear = function(s) {
-    for (var x in s)
-      delete s[x];
-  };
-  jC.each = function(a, meth, context) {
-    if (!a)
-      return;
-    if (a.constructor == Array) {
-      var m = (context == null) ? meth : function(v, i) {
-        meth.call(context, v, i);
-      };
-      for (var x = 0; x < a.length; ++x)
-        m(a[x], x);
-    } else {
-      var m = (context == null) ? meth : function(n, v) {
-        meth.call(context, n, v);
-      };
-      for (var n in a)
-        m(n, a[n]);
-    }
-    return a;
-  };
-  jC.Vm = function Vm(a) {
-    return this.init.apply(this, arguments);
-  };
-  jC(jC.Vm);
-  jC.Vm.prototype.set = jC.setByAccessor;
-  jC.Vm.prototype.get = function(name) {
-    var r = jC.F.get.apply(this, arguments);
-    if (r != null)
-      return r;
-    var eName = this.defined(name);
-    return this.data[eName];
-  };
-  jC.Vm.prototype.defined = function(name) {
-    if (this.data[name] != null)
-      return name;
-    var n = name.toLowerCase();
-    for (var x in this.data) {
-      if (x.toLowerCase() == n) {
-        return x;
-      }
-    }
-  };
-  jC.Vm.prototype.getExactName = jC.Vm.prototype.defined;
-  jC.Vm.prototype.param = function(name, def) {
-    var r = this.get(name);
-    if (r != null)
-      return r;
-    return jC.F.param.apply(this, arguments);
-  };
-  jC.Vm.prototype.remove = function(name) {
-    var n = name.toLowerCase();
-    for (var x in this.data) {
-      if (x.toLowerCase() == n) {
-        this.data[x] = null;
-        delete this.data[x];
-      }
-    }
-    return this;
-  };
-  jC.Vm.prototype.clearVars = function() {
-    jC.clear(this.data);
-    return this;
-  };
-  jC.Vm.prototype.setNewData = function(value) {
-    this.clearVars();
-    jC.F.set.call(this, value);
-    return this;
-  };
-  if (typeof(module) != 'undefined') {
-    module.exports = jC;
-    module.exports.__dirname = __dirname;
-  }
-  return module.exports;
+  */
+
+		C.prototype.init = jC.F.prototype.init;
+		this.prop(prop);
+
+		return this;
+	};
+
+	jC.F.prototype.init = function ($scope) {
+		//main function that creates data scope
+		this.data = $scope == null ? {} : $scope;
+		jC.setByAccessor.call(this, $scope); //convert keys to case
+		this.init = null;delete this.init; //self destruct init method
+		return this;
+	};
+
+	jC.F.paramdata = function () {
+		if (this.data == null) this.data = {};return this;
+	};
+
+	//assumptions: .data exists && keyName will be found in lowercase
+	jC.F.set = function (nameOrInitStruct, value) {
+		if (typeof nameOrInitStruct == 'string') {
+			//is arg1 name
+			jC.F.paramdata.call(this); //ensure this.data is defined
+			var keyName = nameOrInitStruct; //nameOrInitStruct.toLowerCase()
+			this.data[keyName] = value;
+		} else {
+			jC.each(nameOrInitStruct, jC.F.set, this); //arg1 is object||array
+		}
+		return this;
+	};
+
+	jC.F.get = function (name, def, stick, nullop) {
+		//!!!!TODO:This should no longer param and just get the value regardless of null or anything else
+		return jC.F.param.call(this, name, def, stick, nullop);
+	};
+
+	jC.F.param = function (name, def, stick, nullop) {
+		this.data = this.data != null ? this.data : {}; //param data scope
+		if (typeof this.data[name] == 'undefined') var r = nullop ? nullop.call(this, def, stick) : jC.F.runNullOp.call(this, name, def, stick);else {
+			var r = this.data[name];
+		}
+
+		return r;
+	};
+
+	//returns set closured function
+	jC.F.getSet = function (name, options) {
+		var useArray = [],
+		    keyName = options && options.as ? options.as : name,
+		    fireSet = function (v) {
+			jC.F.set.call(this, keyName, v);return this;
+		};
+
+		if (options) {
+			if (options.typeset) {
+				useArray.push(function (v) {
+					if (v && v.constructor === options.typeset) return v;
+
+					var etn = jC.getMethodName(options.typeset),
+					    oName = jC.getConName(this),
+					    oOwnName = jC.getMethodName(options.original.owner),
+					    msg = 'Invalid Constructor Passed to set' + options.original.name + '().';
+					msg += ' ExpectTypeName:' + etn + '. GotTypeName:' + jC.getConName(v) + '. OwnerName:' + oName + '.'; //details
+					if (oName != oOwnName) //?original owner has changed?
+						msg += ' OriginalOwnerName:' + oOwnName;
+					console.error(msg);
+					return v;
+				});
+			}
+
+			if (options.preset) useArray.push(function (v) {
+				return options.preset.apply(this, arguments);
+			});
+
+			//options last action
+			if (useArray.length) fireSet = function (v) {
+				for (var x = 0; x < useArray.length; ++x) v = useArray[x].call(this, v);
+
+				jC.F.set.call(this, keyName, v);return this;
+			};
+		}
+
+		return fireSet;
+	};
+
+	//returns a get closured function
+	jC.F.getGet = function (name, defOrDefFunc) {
+		var nullop = jC.F.getNullOp(name, defOrDefFunc);
+		return function (def, stick) {
+			//!!!TODO:This function shouldn't try to param, just get
+			var r = jC.F.get.call(this, name, def, stick, nullop);
+			return r;
+		};
+	};
+
+	//returns function to call when no default avail
+	jC.F.getNullOp = function (name, defOrDefFunc) {
+		return function (def, stick) {
+			return jC.F.runNullOp.call(this, name, def, stick, defOrDefFunc);
+		};
+	};
+
+	//if name-value undefined, return value based on defaulting defintiion
+	jC.F.runNullOp = function (name, def, stick, dM) {
+		if (dM == null) var dm = function () {}; //make dm reliable as always something
+		else if (jC.isF(dM)) var dm = dM; //dm is already function
+			else var dm = function () {
+					return dM;
+				}; //dm will return a static value
+
+		var r = def == null ? dm.call(this) : def;
+
+		if ((stick == null || stick) && (r != null || this.data[name] != null)) {
+			jC.setByAccessor.call(this, name, r); //call this['set'+name] incase it has a preset
+			//this.data[name.toLowerCase()] = r//this wont call this['set'+name]
+		}
+
+		return r;
+	};
+
+	jC.F.prototype.set = jC.F.set; //?deprecated
+	jC.F.prototype.get = jC.F.get;
+	jC.F.prototype.param = jC.F.param;
+	jC.F.prototype.setC = jC.F.getSet('c');
+	jC.F.prototype.getC = jC.F.getGet('c');
+	jC.F.prototype.setParent = jC.F.getSet('parent');
+	jC.F.prototype.getParent = jC.F.getGet('parent');
+
+	jC.F.prototype.setter = function (name, config) {
+		var isSubDef = config && config.constructor == Object && config.constructor != Array,
+		    method = jC.F.getSet(name, config),
+		    Cls = this.getC();
+
+		name = name.substring(0, 1).toUpperCase() + name.substring(1, name.length); //first letter must be capital
+		Cls.prototype['set' + name] = method;
+
+		if (isSubDef && config.setAka) Cls.prototype[config.setAka] = method;
+
+		return this;
+	};
+
+	jC.F.prototype.getter = function (name, defOrDefFunc) {
+		var isSubDef = defOrDefFunc != null && defOrDefFunc.constructor == Object && defOrDefFunc.constructor != Array,
+		    def;
+
+		if (isSubDef) {
+			if (defOrDefFunc['default'] != null) def = defOrDefFunc['default'];
+		} else def = defOrDefFunc;
+
+		var keyName = defOrDefFunc && defOrDefFunc.as ? defOrDefFunc.as : name,
+		    method = jC.F.getGet(keyName, def) //sequence sensative
+		,
+		    Cls = this.getC();
+
+		name = name.substring(0, 1).toUpperCase() + name.substring(1, name.length); //first letter must be capital
+		Cls.prototype['get' + name] = method;
+
+		if (isSubDef && defOrDefFunc.getAka) Cls.prototype[defOrDefFunc.getAka] = method;
+
+		return this;
+	};
+
+	jC.F.prototype.prop = function (naOrStOrAr, defOrDefFunc) {
+		switch (typeof naOrStOrAr) {
+			case 'string':
+				//create a setter/getter just based on name alond
+				defOrDefFunc = defOrDefFunc == null ? {} : defOrDefFunc;
+
+				var typ = typeof defOrDefFunc,
+				    typArray = ['number', 'boolean', 'string'];
+				for (var x = typArray.length - 1; x >= 0; --x) {
+					if (typArray[x] == typ) {
+						defOrDefFunc = {
+							'default': defOrDefFunc,
+							original: { owner: this.getC(), name: naOrStOrAr } //record Object metadata
+						};
+						break;
+					}
+				}
+				//below breaks in ie8
+				//if(typArray.indexOf(typ) < 0)//ensure Object/Array/Function
+				//	defOrDefFunc.original = {owner:this.getC(), name:naOrStOrAr}//record Object metadata
+
+				return this.getter(naOrStOrAr, defOrDefFunc).setter(naOrStOrAr, defOrDefFunc); //name
+			case 'undefined':
+			case 'function':
+				return this;
+		}
+
+		if (naOrStOrAr.constructor == Array) {
+			//array of definitions
+			for (var x = naOrStOrAr.length - 1; x >= 0; --x) this.prop(naOrStOrAr[x]);
+		} else jC.each(naOrStOrAr, this.prop, this);
+
+		return this;
+	};
+
+	if (jC.name && jC.name === 'jC') //device supports function.name
+		jC.getMethodName = function (method) {
+			return method.name;
+		};else jC.getMethodName = function (method) {
+		var funcNameRegex = /function (.{1,})\(/;
+		var results = funcNameRegex.exec(method.toString());
+		return results && results.length > 1 ? results[1] : "";
+	};
+
+	if ({}.constructor.name) //device supports new Function().constructor.name
+		jC.getConName = function (obj) {
+			return obj.constructor.name;
+		};else jC.getConName = function (obj) {
+		return jC.getMethodName(obj.constructor);
+	};
+
+	jC.isF = function (f) {
+		return typeof f == 'function';
+	};
+
+	jC.clear = function (s) {
+		for (var x in s) delete s[x];
+	};
+
+	//loops arrays(value,index,context) or objects(name,value,context)
+	jC.each = function (a, meth, context) {
+		if (!a) return; //null abort
+		if (a.constructor == Array) {
+			var m = context == null ? meth : function (v, i) {
+				meth.call(context, v, i);
+			};
+			for (var x = 0; x < a.length; ++x) m(a[x], x);
+		} else {
+			var m = context == null ? meth : function (n, v) {
+				meth.call(context, n, v);
+			};
+			for (var n in a) m(n, a[n]);
+		}return a;
+	};
+
+	//ValueMemory: Object for case-insensitive name/value pair management
+	jC.Vm = function Vm(a) {
+		return this.init.apply(this, arguments);
+	};
+	jC(jC.Vm); //?maybe deprecated with no get/set/param methods
+
+	jC.Vm.prototype.set = jC.setByAccessor;
+	jC.Vm.prototype.get = function (name) {
+		var r = jC.F.get.apply(this, arguments);
+		if (r != null) return r;
+
+		var eName = this.defined(name);
+		return this.data[eName];
+	};
+
+	/** if name is defined, returns actual case sensative name */
+	jC.Vm.prototype.defined = function (name) {
+		if (this.data[name] != null) return name;
+
+		//get by lowercase keyname match
+		var n = name.toLowerCase();
+		for (var x in this.data) {
+			if (x.toLowerCase() == n) {
+				return x;
+			}
+		}
+	};
+	/** deprecated name alias */
+	jC.Vm.prototype.getExactName = jC.Vm.prototype.defined;
+
+	jC.Vm.prototype.param = function (name, def) {
+		var r = this.get(name);
+		if (r != null) return r;
+		return jC.F.param.apply(this, arguments);
+	};
+
+	//removes all case-insensative matching keys
+	jC.Vm.prototype.remove = function (name) {
+		var n = name.toLowerCase();
+		for (var x in this.data) {
+			if (x.toLowerCase() == n) {
+				this.data[x] = null;delete this.data[x];
+			}
+		}
+		return this;
+	};
+
+	jC.Vm.prototype.clearVars = function () {
+		jC.clear(this.data);return this;
+	};
+
+	jC.Vm.prototype.setNewData = function (value) {
+		this.clearVars();
+		jC.F.set.call(this, value);return this;
+	};
+
+	if (typeof module != 'undefined') {
+		module.exports = jC;
+		module.exports.__dirname = __dirname;
+	}
+	return module.exports;
 });
-
-$__System.registerDynamic("62", ["4c", "63", "64"], true, function($__require, exports, module) {
+$__System.registerDynamic('62', ['4c', '63', '64'], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -7829,51 +8414,42 @@ $__System.registerDynamic("62", ["4c", "63", "64"], true, function($__require, e
       xMonth = $__require('63'),
       ExDate = $__require('64');
   var Week = function Week(num) {
-    if (num != null)
-      this.setStartDate(num);
+    if (num != null) this.setStartDate(num);
     return this;
   };
   jc(Week, xMonth.Class);
-  Week.prototype.getEndDate = function() {
-    if (this.endDate)
-      return this.endDate;
+  Week.prototype.getEndDate = function () {
+    if (this.endDate) return this.endDate;
     this.endDate = new Date(this.getStartDate().getDate() + 6);
     return this.endDate;
   };
-  Week.prototype.setEndDate = function(date) {
-    if (!ExDate(date).isDate() && !isNaN(date))
-      endDate = ExDate(new Date()).setMonth(date).getLastDateOfMonth();
-    else
-      this.endDate = date;
+  Week.prototype.setEndDate = function (date) {
+    if (!ExDate(date).isDate() && !isNaN(date)) endDate = ExDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
     return this;
   };
-  Week.prototype.setStartDate = function(date) {
-    if (!isNaN(date) && date.constructor != Date)
-      this.date = ExDate(new Date()).gotoWeek(date).date;
-    else
-      this.date = date;
+  Week.prototype.setStartDate = function (date) {
+    if (!isNaN(date) && date.constructor != Date) this.date = ExDate(new Date()).gotoWeek(date).date;else this.date = date;
     return this;
   };
-  Week.prototype.getStartDate = function() {
-    if (!this.date)
-      this.date = ExDate(new Date()).getDateWeekStart();
+  Week.prototype.getStartDate = function () {
+    if (!this.date) this.date = ExDate(new Date()).getDateWeekStart();
     return this.date;
   };
-  var rtn = function(path) {
+  var rtn = function (path) {
     return new Week(path);
   };
   rtn.Class = Week;
   module.exports = rtn;
   return module.exports;
 });
-
-$__System.registerDynamic("63", ["64"], true, function($__require, exports, module) {
+$__System.registerDynamic("63", ["64"], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
-  var xDate = $__require('64');
+  var xDate = $__require("64");
   var xMonth = function xMonth(num) {
     if (num != null) {
       this.setStartDate(num);
@@ -7881,10 +8457,10 @@ $__System.registerDynamic("63", ["64"], true, function($__require, exports, modu
     return this;
   };
   xMonth.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-  xMonth.getMonthIndexByString = function(mon) {
+  xMonth.getMonthIndexByString = function (mon) {
     return xMonth.monthLcaseNameArray.indexOf(mon.toLowerCase());
   };
-  xMonth.prototype.setStartDate = function(date) {
+  xMonth.prototype.setStartDate = function (date) {
     var jDate = xDate();
     if (!jDate.isDate(date)) {
       var num = Number(date);
@@ -7898,114 +8474,102 @@ $__System.registerDynamic("63", ["64"], true, function($__require, exports, modu
     this.date = date;
     return this;
   };
-  xMonth.prototype.StartDate = function(isClone) {
+  xMonth.prototype.StartDate = function (isClone) {
     var startDate = !isClone ? this.getStartDate() : this.getStartDate();
     return xDate(startDate);
   };
-  xMonth.prototype.xDate = function() {
+  xMonth.prototype.xDate = function () {
     return xDate(this.getStartDate());
   };
-  xMonth.prototype.getStartDate = function() {
-    if (this.date)
-      return this.date;
+  xMonth.prototype.getStartDate = function () {
+    if (this.date) return this.date;
     this.date = new Date(new Date().setDate(1));
     return this;
   };
-  xMonth.prototype.setEndDate = function(date) {
-    if (!xDate(v).isDate() && !isNaN(v))
-      this.endDate = xDate(new Date()).setMonth(date).getLastDateOfMonth();
-    else
-      this.endDate = date;
+  xMonth.prototype.setEndDate = function (date) {
+    if (!xDate(v).isDate() && !isNaN(v)) this.endDate = xDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
     return this;
   };
-  xMonth.prototype.getEndDate = function() {
-    if (this.endDate)
-      return this.endDate;
+  xMonth.prototype.getEndDate = function () {
+    if (this.endDate) return this.endDate;
     var d = '12/31/' + this.getYear();
     this.endDate = new Date(d);
     return this.endDate;
   };
-  var rtn = function(num) {
+  var rtn = function (num) {
     return new xMonth(num);
   };
   rtn.Class = xMonth;
   module.exports = rtn;
   return module.exports;
 });
-
-$__System.registerDynamic("65", ["64"], true, function($__require, exports, module) {
+$__System.registerDynamic('65', ['64'], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
   var xDate = $__require('64');
   var ackYear = function ackYear(yyyy) {
-    if (yyyy != null)
-      this.setStartDate(yyyy);
+    if (yyyy != null) this.setStartDate(yyyy);
     return this;
   };
-  ackYear.prototype.setStartDate = function(date) {
-    var isObject = typeof(date) == 'object',
+  ackYear.prototype.setStartDate = function (date) {
+    var isObject = typeof date == 'object',
         isYearString = !isObject && !isNaN(Number(date)),
-        isYear = isYearString || (!xDate(date).isDate() && !isNaN(date));
+        isYear = isYearString || !xDate(date).isDate() && !isNaN(date);
     if (isYear) {
       date = new Date(new Date('1/1/2011').setYear(date));
     }
     this.date = date;
     return this;
   };
-  ackYear.prototype.getStartDate = function() {
-    if (this.date)
-      return this.date;
+  ackYear.prototype.getStartDate = function () {
+    if (this.date) return this.date;
     var d = '1/1/' + xDate(new Date()).year();
     this.date = new Date(d);
     return this.date;
   };
-  ackYear.prototype.setEndDate = function(date) {
-    if (!xDate(date).isDate() && !isNaN(date))
-      this.date = new Date('12/31/' + date);
-    else
-      this.date = date;
+  ackYear.prototype.setEndDate = function (date) {
+    if (!xDate(date).isDate() && !isNaN(date)) this.date = new Date('12/31/' + date);else this.date = date;
     return this;
   };
-  ackYear.prototype.getEndDate = function() {
-    if (this.endDate)
-      return this.endDate;
+  ackYear.prototype.getEndDate = function () {
+    if (this.endDate) return this.endDate;
     var d = '12/31/' + this.getYear();
     this.endDate = new Date(d);
     return this.endDate;
   };
-  ackYear.prototype.StartDate = function(isClone) {
+  ackYear.prototype.StartDate = function (isClone) {
     var startDate = !isClone ? this.getStartDate() : this.getStartDate();
     return xDate(startDate);
   };
-  ackYear.prototype.xDate = function() {
+  ackYear.prototype.xDate = function () {
     return xDate(this.getStartDate());
   };
-  ackYear.prototype.month = function() {
+  ackYear.prototype.month = function () {
     return this.StartDate().month();
   };
   ackYear.prototype.getMonth = ackYear.prototype.month;
-  ackYear.prototype.week = function() {
+  ackYear.prototype.week = function () {
     return this.StartDate().week();
   };
   ackYear.prototype.getWeek = ackYear.prototype.week;
-  ackYear.prototype.getYear = function() {
+  ackYear.prototype.getYear = function () {
     var d = this.getStartDate();
     return xDate(d).year();
   };
   ackYear.prototype.year = ackYear.prototype.getYear;
-  ackYear.prototype.setYear = function(yyyy) {
+  ackYear.prototype.setYear = function (yyyy) {
     var ExYy = xDate(yyyy);
-    if (isNaN(yyyy) && ExYy.isDate())
-      yyyy = ExYy.year();
+    if (isNaN(yyyy) && ExYy.isDate()) yyyy = ExYy.year();
     var date = this.getStartDate();
     date = new Date(date.setYear(yyyy));
     this.setStartDate(date);
     return this;
   };
-  ackYear.prototype.getDateOfLastWeekday = function() {
+  ackYear.prototype.getDateOfLastWeekday = function () {
     var d = getStartDate(),
         addAmount = -xDate(d).dayOfWeek() + 6,
         dateA = new Date(d.setDate(d.getDate() + addAmount));
@@ -8014,17 +8578,19 @@ $__System.registerDynamic("65", ["64"], true, function($__require, exports, modu
     dateA = new Date(dateA.setSeconds(59));
     return dateA;
   };
-  var rtn = function(path) {
+  var rtn = function (path) {
     return new ackYear(path);
   };
   rtn.Class = ackYear;
   module.exports = rtn;
   return module.exports;
 });
-
-$__System.registerDynamic("64", [], true, function($__require, exports, module) {
+$__System.registerDynamic("64", [], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
+  /* everything operates on a scale of 1-12 NOT 0-11 OR 1-31 NOT 0-30 ... Weeks are 1-53 */
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -8032,7 +8598,8 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     this.date = ackDate.toDate(date);
     return this;
   }
-  ackDate.suffixByNumber = function(i) {
+
+  ackDate.suffixByNumber = function (i) {
     var j = i % 10,
         k = i % 100;
     if (j == 1 && k != 11) {
@@ -8046,90 +8613,113 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     }
     return i + "th";
   };
-  ackDate.dateAddDay = function(d, amount) {
+
+  ackDate.dateAddDay = function (d, amount) {
     amount = amount == null ? 1 : amount;
     var dat = new Date(d);
     dat.setDate(dat.getDate() + amount);
     return dat;
   };
-  ackDate.startOfDateDay = function(date) {
+
+  ackDate.startOfDateDay = function (date) {
     date = new Date(new Date(date).setHours(0));
     date = new Date(date.setMinutes(0));
     date = new Date(date.setSeconds(0));
     return new Date(date.setMilliseconds(0));
   };
-  ackDate.endOfDateDay = function(date) {
+
+  ackDate.endOfDateDay = function (date) {
     date = new Date(new Date(date).setHours(23));
     date = new Date(date.setMinutes(59));
     date = new Date(date.setSeconds(59));
     return new Date(date.setMilliseconds(999));
   };
-  ackDate.dateObjectBy = function(date) {
+
+  ackDate.dateObjectBy = function (date) {
     if (date) {
-      if (date.constructor == ackDate)
-        return date.date;
-      if (date.constructor == Date)
-        return date;
-      return new Date(date);
+      if (date.constructor == ackDate) return date.date;
+
+      if (date.constructor == Date) return date;
+
+      //if(['string','number'].indexOf(typeof(date)))
+      return new Date(date); //convert string to date object
     }
+
     return date || new Date();
   };
-  ackDate.toDate = function(date) {
+
+  ackDate.toDate = function (date) {
     return date != null ? ackDate.dateObjectBy(date) : null;
   };
-  ackDate.twoDigit = function(n) {
+
+  //NON PROTOTYPE METHODS
+  ackDate.twoDigit = function (n) {
     return ('0' + n).slice(-2);
   };
-  ackDate.isDate = function(date) {
-    if (!date)
-      return false;
+
+  ackDate.isDate = function (date) {
+    if (!date) return false;
+
     var isRawDate = date.constructor == Date && !isNaN(date.getTime());
-    if (isRawDate)
-      return true;
-    if (date.search)
+    if (isRawDate) return true;
+
+    if (date.search) //string
       return date.search(/^([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0-9]{4}|[0-9]{2})$/) >= 0;
+
     return false;
   };
-  ackDate.yearByDate = function(d) {
+
+  ackDate.yearByDate = function (d) {
     return d.getFullYear();
   };
-  ackDate.getMonthIndexByString = function(mon) {
+
+  ackDate.getMonthIndexByString = function (mon) {
     return ackDate.monthLcaseNameArray.indexOf(mon.toLowerCase());
   };
+
   ackDate.monthNameArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   ackDate.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
   ackDate.monthAbbrArray = ['Jan', 'Feb', 'Mar', 'Apr', 'Ma', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
   ackDate.dayNameArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   ackDate.dayAbbrArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  ackDate.dateYearDiff = function(d0, d1) {
+
+  ackDate.dateYearDiff = function (d0, d1) {
     return Math.abs(d0.getFullYear() - d1.getFullYear());
   };
-  ackDate.prototype.now = function() {
-    this.date = new Date();
-    return this;
+
+  /*
+    PROTOTYPES
+  */
+
+  ackDate.prototype.now = function () {
+    this.date = new Date();return this;
   };
-  ackDate.prototype.param = function() {
-    this.date = this.date || new Date();
-    return this;
+
+  ackDate.prototype.param = function () {
+    this.date = this.date || new Date();return this;
   };
-  var stdTimezoneOffset = function() {
+
+  var stdTimezoneOffset = function () {
     var d = new Date();
     var jan = new Date(d.getFullYear(), 0, 1);
     var jul = new Date(d.getFullYear(), 6, 1);
     return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
   }();
-  ackDate.prototype.isDaylightSavings = function() {
-    if (!this.date)
-      return;
+  ackDate.prototype.isDaylightSavings = function () {
+    if (!this.date) return;
     return this.date.getTimezoneOffset() < stdTimezoneOffset;
   };
-  ackDate.prototype.getAgeDisplay = function() {
+
+  //returns years.months (32.11 is 32 years and 11 months && 32.1 is 32 years 1 month)
+  ackDate.prototype.getAgeDisplay = function () {
     var d = this.date,
         toDate = new Date(),
         local = {};
+
     local.isValBirthdate = d != null && ackDate.isDate(d);
-    if (!local.isValBirthdate)
-      return 0;
+
+    if (!local.isValBirthdate) return 0;
+
     local.isBorn = d < toDate;
     if (local.isBorn) {
       local.lesserDate = d;
@@ -8138,239 +8728,301 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
       local.lesserDate = toDate;
       local.greaterDate = d;
     }
+
     local.cYear = ackDate.yearByDate(local.greaterDate);
     local.lastBirthdate = ackDate.dateAddDay(local.lesserDate, -365);
     local.years = ackDate.dateYearDiff(local.lesserDate, local.greaterDate);
     local.months = ackDate.dateMonthDiff(local.lastBirthdate, local.greaterDate);
-    if (local.months >= 12)
-      local.months = local.months % 12;
+
+    if (local.months >= 12) local.months = local.months % 12;
+
     local.format = 1;
-    if (local.months >= 10)
-      local.format = 2;
+    if (local.months >= 10) local.format = 2;
+
     var rtnNum = local.years + '.' + local.months;
-    local.result = (function(n, p) {
-      var m = Math.pow(10, p);
-      return (Math.round(n * m) / m).toFixed(p);
-    })(rtnNum, local.format);
-    if (!local.isBorn)
-      local.result = -local.result;
+
+    local.result = function (n, p) {
+      var m = Math.pow(10, p);return (Math.round(n * m) / m).toFixed(p);
+    }(rtnNum, local.format);
+
+    if (!local.isBorn) local.result = -local.result;
+
     return local.result;
   };
-  ackDate.prototype.gt = function(date) {
+
+  ackDate.prototype.gt = function (date) {
     date = ackDate.dateObjectBy(date);
     return this.date > date;
   };
-  ackDate.prototype.lt = function(date) {
+
+  ackDate.prototype.lt = function (date) {
     date = ackDate.dateObjectBy(date);
     return this.date < date;
   };
-  ackDate.prototype['new'] = function() {
+
+  ackDate.prototype['new'] = function () {
     return new ackDate(new Date(this.date));
   };
-  ackDate.prototype.isDate = function(date) {
+
+  ackDate.prototype.isDate = function (date) {
     return ackDate.isDate(date || this.date);
   };
-  ackDate.prototype.getDate = function() {
+
+  //return natural Date object
+  ackDate.prototype.getDate = function () {
     return this.date.getDate();
   };
-  ackDate.prototype.setDate = function(n) {
+
+  //sets day of month
+  ackDate.prototype.setDate = function (n) {
     var d = this.date;
     d = d.setDate(n);
     this.date = new Date(d);
     return this;
   };
   ackDate.prototype.setDayOfMonth = ackDate.prototype.setDate;
-  ackDate.prototype.Year = function() {
+
+  /* YEARS */
+  ackDate.prototype.Year = function () {
     return ack.year(this.date);
   };
-  ackDate.prototype.year = function() {
+
+  ackDate.prototype.year = function () {
     return ackDate.yearByDate(this.date);
   };
   ackDate.prototype.getYear = ackDate.prototype.year;
-  ackDate.prototype.setYear = function(n) {
+
+  ackDate.prototype.setYear = function (n) {
     this.date.setYear(n);
     return this;
   };
-  ackDate.prototype.dayOfYear = function() {
+
+  ackDate.prototype.dayOfYear = function () {
     var d = this.date;
     return Math.ceil((d - new Date(d.getFullYear(), 0, 1)) / 86400000);
   };
-  ackDate.prototype.getNextYear = function(y) {
+
+  ackDate.prototype.getNextYear = function (y) {
     y = y == null ? 1 : Number(y);
     return this.year() + y;
   };
-  ackDate.prototype.nextYear = function(y) {
+  ackDate.prototype.nextYear = function (y) {
     this.setYear(this.getNextYear(y));
     return this;
   };
-  ackDate.prototype.getPriorYear = function(y) {
+  ackDate.prototype.getPriorYear = function (y) {
     y = y == null ? 1 : Number(y);
     return this.year() - Math.abs(y);
   };
-  ackDate.prototype.priorYear = function(y) {
+  ackDate.prototype.priorYear = function (y) {
     this.setYear(this.getPriorYear(y));
     return this;
   };
   ackDate.prototype.addYear = ackDate.prototype.nextYear;
-  ackDate.prototype.dateYearDiff = function(date) {
+
+  ackDate.prototype.dateYearDiff = function (date) {
     date = ackDate.toDate(date);
     return ackDate.dateYearDiff(date, this.date);
   };
-  ackDate.prototype.getMonthAbbr = function() {
+
+  /* MONTHS */
+
+  /** 1st 2nd 3rd of the month */
+  ackDate.prototype.getMonthAbbr = function () {
     return ackDate.monthAbbrArray[this.date.getMonth()];
   };
-  ackDate.prototype.getMonthDateProperNumber = function() {
+
+  ackDate.prototype.getMonthDateProperNumber = function () {
     return ackDate.suffixByNumber(this.date.getDate());
   };
-  ackDate.prototype.fullWeeksLeftInMonth = function() {
+
+  ackDate.prototype.fullWeeksLeftInMonth = function () {
     var eDate = this.getLastDateOfMonth();
     var diff = this.dateDayDiff(eDate);
     return Math.floor(diff / 7);
   };
-  ackDate.prototype.weekInMonth = function() {
+
+  ackDate.prototype.weekInMonth = function () {
     var firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
     return Math.ceil((this.date.getDate() + firstDay) / 7);
   };
-  ackDate.prototype.getMonthDayCount = function() {
+
+  ackDate.prototype.getMonthDayCount = function () {
     return new Date(this.year(), this.month(), 0).getDate();
   };
-  ackDate.prototype.getMonthName = function() {
+
+  ackDate.prototype.getMonthName = function () {
     return ackDate.monthNameArray[this.month() - 1];
   };
-  ackDate.prototype.getMonthNameArray = function() {
+
+  ackDate.prototype.getMonthNameArray = function () {
     return ackDate.monthNameArray;
   };
-  ackDate.prototype.dateMonthDiff = function(date) {
+
+  ackDate.prototype.dateMonthDiff = function (date) {
     return ackDate.dateMonthDiff(this.date, date);
   };
-  ackDate.dateMonthDiff = function(date0, date1) {
-    date0 = new Date(date0);
-    date1 = new Date(date1);
-    return Math.abs((date1.getMonth() + 12 * date1.getFullYear()) - (date0.getMonth() + 12 * date0.getFullYear()));
+
+  ackDate.dateMonthDiff = function (date0, date1) {
+    date0 = new Date(date0);date1 = new Date(date1);
+    return Math.abs(date1.getMonth() + 12 * date1.getFullYear() - (date0.getMonth() + 12 * date0.getFullYear()));
   };
-  ackDate.prototype.month = function() {
+
+  ackDate.prototype.month = function () {
     return this.date.getMonth() + 1;
   };
   ackDate.prototype.getMonth = ackDate.prototype.month;
-  ackDate.prototype.priorMonth = function(amount) {
+
+  ackDate.prototype.priorMonth = function (amount) {
     amount = amount || 1;
     return this.nextMonth(-Math.abs(amount));
   };
-  ackDate.prototype.nextMonth = function(amount) {
+
+  ackDate.prototype.nextMonth = function (amount) {
     amount = amount || 1;
     this.date = new Date(this.date.setMonth(this.date.getMonth() + amount));
     return this;
   };
-  ackDate.prototype.getLastDateOfMonth = function() {
+
+  ackDate.prototype.getLastDateOfMonth = function () {
     var nd = new Date(this.date),
         EDate = new ackDate(nd);
     return EDate.nextMonth().gotoFirstDayOfMonth().prevDay().date;
   };
-  ackDate.prototype.setMonth = function(n) {
+
+  ackDate.prototype.setMonth = function (n) {
     var d = this.date.setMonth(n - 1);
     this.date = new Date(d);
     return this;
   };
-  ackDate.prototype.gotoFirstDayOfMonth = function() {
-    this.prevDay(this.date.getDate() - 1);
-    return this;
+
+  ackDate.prototype.gotoFirstDayOfMonth = function () {
+    this.prevDay(this.date.getDate() - 1);return this;
   };
-  ackDate.prototype.dateDayDiff = function(date) {
+
+  /* DAYS */
+
+  /** always absolute number */
+  ackDate.prototype.dateDayDiff = function (date) {
+    //return Math.abs(parseInt((this.date - ackDate.toDate(date))/(24*3600*1000)))
     return Math.abs(Math.floor((this.date - ackDate.toDate(date)) / 86400000));
   };
-  ackDate.prototype.daysInMonth = function() {
+
+  ackDate.prototype.daysInMonth = function () {
     return new Date(this.year(), this.month(), 0).getDate();
   };
-  ackDate.prototype.addDays = function(amount) {
+
+  ackDate.prototype.addDays = function (amount) {
     var nd = ackDate.dateAddDay(this.date, amount);
     this.date = new Date(nd);
     return this;
   };
-  ackDate.prototype.nextDay = ackDate.prototype.addDays;
-  ackDate.prototype.prevDay = function(amount) {
+  ackDate.prototype.nextDay = ackDate.prototype.addDays; //multi alias
+
+  ackDate.prototype.prevDay = function (amount) {
     amount = amount == null ? 1 : amount;
     var d = new Date(this.date),
         d = d.setDate(d.getDate() - amount);
     this.date = new Date(d);
     return this;
   };
-  ackDate.prototype.priorDay = ackDate.prototype.prevDay;
-  ackDate.prototype.isWeekend = function() {
+  ackDate.prototype.priorDay = ackDate.prototype.prevDay; //aka for naming consistency
+
+
+  /* WEEKS */
+
+  ackDate.prototype.isWeekend = function () {
     return [1, 7].indexOf(this.dayOfWeek()) >= 0;
   };
-  ackDate.prototype.week = function() {
-    var d = new Date(this.date);
+
+  /** getWeekInYear */
+  ackDate.prototype.week = function () {
+    var d = new Date(this.date); //could be number
     var onejan = new Date(d.getFullYear(), 0, 1);
     var nowDate = new Date(d);
-    return Math.ceil((((nowDate - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    return Math.ceil(((nowDate - onejan) / 86400000 + onejan.getDay() + 1) / 7);
   };
   ackDate.prototype.getWeek = ackDate.prototype.week;
-  ackDate.prototype.dayOfWeek = function() {
+
+  ackDate.prototype.dayOfWeek = function () {
     var d = this.date;
     return d.getDay() + 1;
   };
-  ackDate.prototype.gotoSunday = function() {
-    this.prevDay(this.dayOfWeek() - 1);
-    return this;
+
+  ackDate.prototype.gotoSunday = function () {
+    this.prevDay(this.dayOfWeek() - 1);return this;
   };
   ackDate.prototype.gotoFirstDayOfWeek = ackDate.prototype.gotoSunday;
-  ackDate.prototype.gotoMonday = function() {
-    this.gotoFirstDayOfWeek().nextDay();
-    return this;
+
+  ackDate.prototype.gotoMonday = function () {
+    this.gotoFirstDayOfWeek().nextDay();return this;
   };
   ackDate.prototype.gotoMondayOfWeek = ackDate.prototype.gotoMonday;
-  ackDate.prototype.gotoFriday = function() {
-    this.gotoFirstDayOfWeek().nextDay(5);
-    return this;
+
+  ackDate.prototype.gotoFriday = function () {
+    this.gotoFirstDayOfWeek().nextDay(5);return this;
   };
   ackDate.prototype.gotoFridayOfWeek = ackDate.prototype.gotoFriday;
-  ackDate.prototype.gotoWeek = function(week) {
+
+  ackDate.prototype.gotoWeek = function (week) {
     var thisWk = this.week();
     this.nextWeek(week - thisWk);
     return this;
   };
-  ackDate.prototype.priorWeek = function(amount) {
+
+  ackDate.prototype.priorWeek = function (amount) {
     amount = amount == null ? 1 : amount;
     return this.nextWeek(-Math.abs(amount));
   };
-  ackDate.prototype.nextWeek = function(amount) {
+
+  ackDate.prototype.nextWeek = function (amount) {
     amount = amount == null ? 1 : amount;
     this.nextDay(amount * 7);
     return this;
   };
-  ackDate.prototype.getDateWeekStart = function() {
+
+  ackDate.prototype.getDateWeekStart = function () {
     var date = this.date,
         dw = this.dayOfWeek() - 1;
     return new Date(date.setDate(date.getDate() - dw));
   };
-  ackDate.prototype.getDateWeekStop = function() {
+
+  ackDate.prototype.getDateWeekStop = function () {
     var date = this.getDateWeekStart();
     date = date.setDate(date.getDate() + 6);
     return ackDate.endOfDateDay(date);
   };
-  ackDate.prototype.gotoEod = function(date) {
-    this.date = ackDate.endOfDateDay(date || this.date);
-    return this;
+
+  /** goto end of day. Just sets time to 23:59:59.999 */
+  ackDate.prototype.gotoEod = function (date) {
+    this.date = ackDate.endOfDateDay(date || this.date);return this;
   };
   ackDate.prototype.gotoEndOfDate = ackDate.prototype.gotoEod;
-  ackDate.prototype.gotoSod = function(date) {
-    this.date = ackDate.startOfDateDay(date || this.date);
-    return this;
+
+  /** goto start of day. Just sets time to 0:0:0.0 */
+  ackDate.prototype.gotoSod = function (date) {
+    this.date = ackDate.startOfDateDay(date || this.date);return this;
   };
   ackDate.prototype.gotoStartOfDate = ackDate.prototype.gotoSod;
-  ackDate.prototype.FirstWeekday = function() {
+
+  ackDate.prototype.FirstWeekday = function () {
     var amount = -this.dayOfWeek() + 2,
         nd = this.date,
-        nd = new Date(nd),
+        nd = new Date(nd) //clone
+    ,
         Nd = new ackDate(nd).nextDay(amount);
     return Nd;
   };
-  ackDate.prototype.getDateOfFirstWeekday = function() {
+
+  ackDate.prototype.getDateOfFirstWeekday = function () {
     return new Date(this.FirstWeekday().date);
   };
-  ackDate.prototype.eachWeekInYear = function(method) {
+
+  /** method(weekNum, ackDate) */
+  ackDate.prototype.eachWeekInYear = function (method) {
     var num = this.getWeeksInYear(),
         year = this.year();
+
     for (var x = 1; x <= num; ++x) {
       var ExD = new ackDate(this.date).setYear(year).gotoWeek(x);
       ExD.gotoFirstDayOfWeek();
@@ -8378,37 +9030,49 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     }
     return this;
   };
-  ackDate.prototype.eachWeekWithMondayInYear = function(method) {
-    this.eachWeekInYear(function(num, ackDate) {
+
+  ackDate.prototype.eachWeekWithMondayInYear = function (method) {
+    this.eachWeekInYear(function (num, ackDate) {
       method(num, ackDate.gotoMondayOfWeek());
     });
     return this;
   };
-  ackDate.prototype.getWeeksWithMondayInYearExposedArray = function() {
+
+  /** returns array of date exposed objects representing each week in a year */
+  ackDate.prototype.getWeeksWithMondayInYearExposedArray = function () {
     var rtnArray = [];
-    this.eachWeekWithMondayInYear(function(weekNum, ackDate) {
+    this.eachWeekWithMondayInYear(function (weekNum, ackDate) {
       rtnArray.push(ackDate);
     });
     return rtnArray;
   };
-  ackDate.prototype.getWeeksWithMondayInYearArray = function() {
+
+  /** returns array of date objects representing each week in a year */
+  ackDate.prototype.getWeeksWithMondayInYearArray = function () {
     var rtnArray = [];
-    this.eachWeekWithMondayInYear(function(weekNum, ackDate) {
+    this.eachWeekWithMondayInYear(function (weekNum, ackDate) {
       rtnArray.push(ackDate.date);
     });
     return rtnArray;
   };
-  ackDate.prototype.getWeeksInYear = function(y) {
+
+  ackDate.prototype.getWeeksInYear = function (y) {
     y = y ? y : this.year();
-    var d,
-        isLeap;
+    var d, isLeap;
+
     d = new Date(y, 0, 1);
     isLeap = new Date(y, 1, 29).getMonth() === 1;
+
+    //check for a Jan 1 that's a Thursday or a leap year that has a
+    //Wednesday jan 1. Otherwise it's 52
     return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52;
   };
-  ackDate.prototype.setTimeByString = function(string) {
-    if (!this.date || !string)
-      return this;
+
+  /* ! TIME METHODS ! */
+
+  ackDate.prototype.setTimeByString = function (string) {
+    if (!this.date || !string) return this;
+
     if (string.split) {
       var parsed = eackDate.parseTimeString(string);
       this.date = this.date.setHours(parsed.hour);
@@ -8416,76 +9080,98 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
       this.date = this.date.setMinutes(parsed.minute);
       this.date = new Date(this.date);
     }
+
     return this;
   };
-  ackDate.prototype.addHours = function(n) {
-    if (this.date)
-      this.date.setHours(this.date.getHours() + n);
+
+  /** alters this.date and return this */
+  ackDate.prototype.addHours = function (n) {
+    if (this.date) this.date.setHours(this.date.getHours() + n);
     return this;
   };
-  ackDate.prototype.addMinutes = function(n) {
-    if (this.date)
-      this.date = new Date(this.date.getTime() + n * 60000);
+
+  /** alters this.date and return this */
+  ackDate.prototype.addMinutes = function (n) {
+    if (this.date) this.date = new Date(this.date.getTime() + n * 60000);
     return this;
   };
-  ackDate.prototype.minuteOfDay = function() {
-    return (60 * this.date.getHours()) + this.date.getMinutes();
+
+  ackDate.prototype.minuteOfDay = function () {
+    return 60 * this.date.getHours() + this.date.getMinutes();
   };
-  ackDate.prototype.addSeconds = function(n) {
+
+  /** alters this.date and return this */
+  ackDate.prototype.addSeconds = function (n) {
     return this.addMilliseconds(n * 1000);
   };
-  ackDate.prototype.addMilliseconds = function(n) {
-    if (this.date)
-      this.date = new Date(this.date.getTime() + n);
+
+  /** alters this.date and return this */
+  ackDate.prototype.addMilliseconds = function (n) {
+    if (this.date) this.date = new Date(this.date.getTime() + n);
     return this;
   };
-  ackDate.prototype.dateHourDiff = function(date) {
+
+  /** returns no negative numbers */
+  ackDate.prototype.dateHourDiff = function (date) {
     return Math.abs(this.date - ackDate.dateObjectBy(date || new Date())) / 36e5;
   };
-  ackDate.prototype.dateHoursDiff = ackDate.prototype.dateHourDiff;
-  ackDate.prototype.dateSecondDiff = function(date, decimals) {
+  ackDate.prototype.dateHoursDiff = ackDate.prototype.dateHourDiff; //alias
+
+  /** Does not return negative numbers.
+    @date - not required, default = new Date()
+    @decimals - not required, default = false (no decimals causes decimal rounding)
+  */
+  ackDate.prototype.dateSecondDiff = function (date, decimals) {
     date = ackDate.dateObjectBy(date || new Date());
     var dif = this.date.getTime() - date.getTime();
     var Seconds_from_T1_to_T2 = dif / 1000;
     var rtn = Math.abs(Seconds_from_T1_to_T2);
+
     if (decimals) {
       decimals = Number(decimals) && !isNaN(decimals) ? decimals : 2;
       rtn = toDecimal(rtn, decimals);
     } else {
       rtn = Math.round(rtn);
     }
+
     return rtn;
   };
-  ackDate.prototype.dateSecondsDiff = ackDate.prototype.dateSecondDiff;
-  ackDate.prototype.dateMinuteDiff = function(date) {
+  ackDate.prototype.dateSecondsDiff = ackDate.prototype.dateSecondDiff; //alias
+
+  //no negative numbers
+  ackDate.prototype.dateMinuteDiff = function (date) {
     date = ackDate.toDate(date || new Date());
-    var hourDiff = date - this.date;
-    var secDiff = hourDiff / 1000;
-    var minDiff = hourDiff / 60 / 1000;
-    var hDiff = hourDiff / 3600 / 1000;
+    var hourDiff = date - this.date; //in ms
+    var secDiff = hourDiff / 1000; //in s
+    var minDiff = hourDiff / 60 / 1000; //in minutes
+    var hDiff = hourDiff / 3600 / 1000; //in hours
     var hours = Math.floor(hDiff);
     var mins = minDiff - 60 * hours;
     return Math.round(Math.abs(hours * 60 + mins), 0);
   };
-  ackDate.prototype.dateMinutesDiff = ackDate.prototype.dateMinuteDiff;
-  ackDate.prototype.getDayName = function() {
-    if (!this.date)
-      return '';
+  ackDate.prototype.dateMinutesDiff = ackDate.prototype.dateMinuteDiff; //alias
+
+
+  /* FORMATTING */
+  ackDate.prototype.getDayName = function () {
+    if (!this.date) return '';
     return ackDate.dayNameArray[this.date.getDay()];
   };
-  ackDate.prototype.getDayAbbr = function() {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.getDayAbbr = function () {
+    if (!this.date) return '';
     return ackDate.dayAbbrArray[this.date.getDay()];
   };
-  ackDate.prototype.mmmmdyyyy = function() {
-    if (!this.date)
-      return '';
+
+  /** Febuary 24th 2016 */
+  ackDate.prototype.mmmmdyyyy = function () {
+    if (!this.date) return '';
     return this.getMonthName() + ' ' + this.getMonthDateProperNumber() + ' ' + this.date.getFullYear();
   };
-  ackDate.prototype.hhmmssl = function(timeSep, milsecSep) {
-    if (!this.date)
-      return '';
+
+  /** 01:20.220 */
+  ackDate.prototype.hhmmssl = function (timeSep, milsecSep) {
+    if (!this.date) return '';
     timeSep = timeSep || ':';
     milsecSep = milsecSep || '.';
     var d = this.date,
@@ -8496,9 +9182,9 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     var s = ('0' + d.getSeconds()).slice(-2);
     return h + timeSep + m + timeSep + s + milsecSep + d.getMilliseconds();
   };
-  ackDate.prototype.hhmmsl = function(timeSep, milsecSep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.hhmmsl = function (timeSep, milsecSep) {
+    if (!this.date) return '';
     var d = this.date,
         timeSep = timeSep || ':',
         milsecSep = milsecSep || '.',
@@ -8508,111 +9194,113 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
     h = ('0' + h).slice(-2);
     return h + timeSep + m + timeSep + d.getSeconds() + milsecSep + d.getMilliseconds();
   };
-  ackDate.prototype.hmmtt = function() {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.hmmtt = function () {
+    if (!this.date) return '';
     var d = this.date,
         h = d.getHours(),
         t = 'AM',
         m = d.getMinutes();
+
     m = m < 10 ? '0' + m : m;
     h = h >= 12 ? (t = 'PM', h - 12 || 12) : h == 0 ? 12 : h;
     return h + ':' + m + ' ' + t;
   };
-  ackDate.prototype.mmddyyyyhhmmtt = function(dateSep, spaceSep, timeSep, ttSep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mmddyyyyhhmmtt = function (dateSep, spaceSep, timeSep, ttSep) {
+    if (!this.date) return '';
     spaceSep = spaceSep == null ? ' ' : spaceSep;
     return this.mmddyyyy(dateSep) + spaceSep + this.hhmmtt(timeSep, ttSep);
   };
-  ackDate.prototype.hhmmtt = function(timeSep, ttSep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.hhmmtt = function (timeSep, ttSep) {
+    if (!this.date) return '';
     var d = this.date,
         timeSep = timeSep || ':',
         ttSep = ttSep == null ? ' ' : ttSep,
         h = d.getHours(),
         t = 'AM',
         m = d.getMinutes();
+
     m = m < 10 ? '0' + m : m;
     h = h >= 12 ? (t = 'PM', h - 12 || 12) : h == 0 ? 12 : h;
     return ('0' + h).slice(-2) + timeSep + m + ttSep + t;
   };
-  ackDate.prototype.storageFormat = function(dateSep, spaceSep, timeSep, milsecSep) {
-    if (!this.date)
-      return '';
+
+  //yyyy-mm-dd hh:nn:ss:l
+  ackDate.prototype.storageFormat = function (dateSep, spaceSep, timeSep, milsecSep) {
+    if (!this.date) return '';
     dateSep = dateSep || '-';
     spaceSep = spaceSep || ' ';
     return this.date.getFullYear() + dateSep + this.mmdd(dateSep) + spaceSep + this.hhmmssl(timeSep, milsecSep);
   };
-  ackDate.prototype.yyyymmdd = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.yyyymmdd = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '' : sep;
     return this.year() + sep + this.mmdd(sep);
   };
-  ackDate.prototype.mmddyyyy = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mmddyyyy = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '/' : sep;
     var d = this.date;
     return this.mmdd(sep) + sep + d.getFullYear();
   };
-  ackDate.prototype.mdyyyy = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mdyyyy = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '/' : sep;
     var d = this.date;
     return this.md(sep) + sep + d.getFullYear();
   };
-  ackDate.prototype.mdyy = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mdyy = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '/' : sep;
     var d = this.date;
     return this.md(sep) + sep + this.yy();
   };
-  ackDate.prototype.mmddyy = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mmddyy = function (sep) {
+    if (!this.date) return '';
     var r = this.mmddyyyy();
     return r.substring(0, r.length - 4) + r.substring(r.length - 2, r.length);
   };
-  ackDate.prototype.yy = function() {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.yy = function () {
+    if (!this.date) return '';
     return this.date.getFullYear().toString().substring(2, 4);
   };
-  ackDate.prototype.mmdd = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.mmdd = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '/' : sep;
     var d = this.date;
     return ackDate.twoDigit(d.getMonth() + 1) + sep + ackDate.twoDigit(d.getDate());
   };
-  ackDate.prototype.md = function(sep) {
-    if (!this.date)
-      return '';
+
+  ackDate.prototype.md = function (sep) {
+    if (!this.date) return '';
     sep = sep == null ? '/' : sep;
     var d = this.date;
-    return (d.getMonth() + 1) + sep + d.getDate();
+    return d.getMonth() + 1 + sep + d.getDate();
   };
-  var eackDate = function(date) {
+
+  var eackDate = function (date) {
     return new ackDate(date);
   };
-  eackDate.parseTimeString = function(date) {
+
+  eackDate.parseTimeString = function (date) {
     var dDate = new Date(date);
     if (dDate != 'Invalid Date') {
-      return {
-        hour: dDate.getHours(),
-        minute: dDate.getMinutes()
-      };
+      return { hour: dDate.getHours(), minute: dDate.getMinutes() };
     }
-    var hour,
-        minute,
-        tt;
+
+    var hour, minute, tt;
     var tArray = date.split(':');
     var hour = tArray[0];
+
     if (tArray.length > 1) {
       minute = tArray[1];
       minute = minute.split(' ');
@@ -8625,25 +9313,25 @@ $__System.registerDynamic("64", [], true, function($__require, exports, module) 
           hour = 0;
         }
       }
+
       minute = Number(minute[0]);
     }
-    return {
-      hour: hour,
-      minute: minute
-    };
+
+    return { hour: hour, minute: minute };
   };
+
   function toDecimal(n, p) {
-    var m = Math.pow(10, p);
-    return (Math.round(n * m) / m).toFixed(p);
+    var m = Math.pow(10, p);return (Math.round(n * m) / m).toFixed(p);
   }
+
   eackDate.Class = ackDate;
   module.exports = eackDate;
   return module.exports;
 });
-
-$__System.registerDynamic("66", ["64"], true, function($__require, exports, module) {
+$__System.registerDynamic('66', ['64'], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -8652,13 +9340,12 @@ $__System.registerDynamic("66", ["64"], true, function($__require, exports, modu
     this.date = ackTime.toDate(date);
     return this;
   }
-  ackTime.dateObjectBy = function(date) {
+  ackTime.dateObjectBy = function (date) {
     if (date) {
       if (date.constructor == ackTime) {
         return date.date;
       }
-      if (date.constructor == Date)
-        return date;
+      if (date.constructor == Date) return date;
       if (date.split) {
         return stringToDate(date);
       }
@@ -8666,7 +9353,7 @@ $__System.registerDynamic("66", ["64"], true, function($__require, exports, modu
     }
     return date || new Date();
   };
-  ackTime.toDate = function(date) {
+  ackTime.toDate = function (date) {
     return date != null ? ackTime.dateObjectBy(date) : null;
   };
   function stringToDate(date) {
@@ -8679,7 +9366,7 @@ $__System.registerDynamic("66", ["64"], true, function($__require, exports, modu
     newDate = new Date(newDate).setMinutes(parsed.minute);
     return new Date(newDate);
   }
-  var eackTime = function(date) {
+  var eackTime = function (date) {
     var date = new ackTime(date).date;
     return ackDate(date);
   };
@@ -8687,10 +9374,10 @@ $__System.registerDynamic("66", ["64"], true, function($__require, exports, modu
   module.exports = eackTime;
   return module.exports;
 });
-
-$__System.registerDynamic("3b", ["4b", "4d", "4e", "59", "5a", "5b", "5f", "60", "61", "62", "63", "65", "64", "66"], true, function($__require, exports, module) {
+$__System.registerDynamic('3b', ['4b', '4d', '4e', '59', '5a', '5b', '5f', '60', '61', '62', '63', '65', '64', '66'], true, function ($__require, exports, module) {
+  /* */
   "use strict";
-  ;
+
   var define,
       global = this || self,
       GLOBAL = global;
@@ -8712,7 +9399,6 @@ $__System.registerDynamic("3b", ["4b", "4d", "4e", "59", "5a", "5b", "5f", "60",
   module.exports = ack;
   return module.exports;
 });
-
 $__System.register('67', ['40', '3b'], function (_export) {
   var _Object$keys, ack;
 
@@ -8845,8 +9531,68 @@ $__System.register('69', ['68'], function (_export) {
 
   var whiteOutModalTemplate;
 
-  function OnScreenScroll($scope, $window, $timeout) {
+  function UserInactiveTrigger(ActivityMonitor, $scope) {
     var _this = this;
+
+    var isActive = true;
+    var isWarned = false;
+
+    ActivityMonitor.options.disableOnInactive = false;
+
+    var applyOptions = function applyOptions() {
+      ActivityMonitor.options.inactive = _this.inactiveSeconds;
+      ActivityMonitor.options.warning = _this.warnSeconds;
+    };
+
+    function onActivity() {}
+
+    function activityMonitor() {}
+
+    var reactiveMonitor = (function () {
+      this.onReactive();
+      isActive = true;
+      isWarned = false;
+      onActivity = activityMonitor;
+      $scope.$parent.$digest();
+    }).bind(this);
+
+    function every() {
+      onActivity();
+    }
+
+    var onInactive = function onInactive() {
+      console.log(686);
+      isActive = false;
+      $scope.$parent.$digest();
+      applyOptions();
+      onActivity = reactiveMonitor;
+    };
+
+    function onWarn() {
+      isWarned = true;
+      $scope.$digest();
+    }
+
+    this.state = ActivityMonitor.user;
+    applyOptions();
+
+    ActivityMonitor.on('keepAlive', every);
+    ActivityMonitor.on('inactive', onInactive);
+    ActivityMonitor.on('warning', onWarn);
+
+    $scope.$on('$destroy', function () {
+      ActivityMonitor.off('keepAlive', onKeepAlive);
+      ActivityMonitor.off('inactive', onInactive);
+      ActivityMonitor.off('warning', onWarn);
+
+      if (ActivityMonitor.disable) {
+        ActivityMonitor.disable();
+      }
+    });
+  }
+
+  function OnScreenScroll($scope, $window, $timeout) {
+    var _this2 = this;
 
     var onScroll = (function () {
       this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
@@ -8862,7 +9608,7 @@ $__System.register('69', ['68'], function (_export) {
 
     if (this.initScreenScroll != null && !isNaN(Number(this.initScreenScroll))) {
       $timeout(function () {
-        return _this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
+        return _this2.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
       }, Number(this.initScreenScroll));
     }
   }
@@ -9263,154 +10009,360 @@ $__System.register('69', ['68'], function (_export) {
           controllerAs: 'ScreenScrollModelY',
           controller: ScreenScrollModelY
         };
+      }).component('userInactiveTrigger', {
+        bindings: {
+          inactiveSeconds: '=',
+          warnSeconds: '=',
+          onReactive: '&'
+        },
+        template: 'state:{{ $ctrl.state.active }}-{{ $ctrl.state.warning }}',
+        controller: UserInactiveTrigger
       }).name);
 
-      OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      UserInactiveTrigger.$inject = ['ActivityMonitor', '$scope', '$timeout'];OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
     }
   };
 });
-$__System.registerDynamic("16", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('6a', ['6b'], true, function ($__require, exports, module) {
+    /* */
+    "format cjs";
+    /*jshint -W116, -W030, latedef: false */
+    'use strict';
+
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    (function (root, factory) {
+        if (typeof module !== 'undefined' && module.exports) {
+            // CommonJS
+            if (typeof angular === 'undefined') {
+                factory($__require('6b'));
+            } else {
+                factory(angular);
+            }
+            module.exports = 'ActivityMonitor';
+        } else if (typeof define === 'function' && define.amd) {
+            // AMD
+            define(['angular'], factory);
+        } else {
+            // Global variables
+            factory(root.angular);
+        }
+    })(this, function (angular) {
+        var m = angular.module('ActivityMonitor', []).service('ActivityMonitor', ActivityMonitor);
+
+        var MILLISECOND = 1000;
+        var EVENT_KEEPALIVE = 'keepAlive';
+        var EVENT_INACTIVE = 'inactive';
+        var EVENT_WARNING = 'warning';
+        var EVENT_ACTIVITY = 'activity';
+
+        ActivityMonitor.$inject = ['$document'];
+        function ActivityMonitor($document) {
+            var service = this;
+
+            /* configuration */
+            service.options = {
+                enabled: false, /* is the ActivityMonitor enabled? */
+                keepAlive: 800, /* keepAlive ping invterval (seconds) */
+                inactive: 900, /* how long until user is considered inactive? (seconds) */
+                warning: 60, /* when to warn user when nearing inactive state (deducted from inactive in seconds) */
+                monitor: 3, /* how frequently to check if the user is inactive (seconds) */
+                disableOnInactive: true, /* by default, once user becomes inactive, all listeners are detached */
+                DOMevents: ['mousemove', 'mousedown', 'mouseup', 'keypress', 'wheel', 'touchstart', 'scroll'] /* list of DOM events to determine user's activity */
+            };
+
+            var DOMevents = service.options.DOMevents.join(' ');
+
+            /* user activity */
+            service.user = {
+                action: Date.now(), /* timestamp of the users' last action */
+                active: true, /* is the user considered active? */
+                warning: false /* is the user in warning state? */
+            };
+
+            service.activity = activity; /* method consumers can use to supply activity */
+            service.on = service.bind = subscribe; /* expose method to subscribe to events */
+            service.off = service.unbind = unsubscribe; /* expose method to unsubscribe from events */
+
+            var events = {};
+            events[EVENT_KEEPALIVE] = {}; /* functions to invoke along with ping (options.frequency) */
+            events[EVENT_INACTIVE] = {}; /* functions to invoke when user goes inactive (options.threshold) */
+            events[EVENT_WARNING] = {}; /* functions to invoke when warning user about inactivity (options.warning) */
+            events[EVENT_ACTIVITY] = {}; /* functions to invoke any time a user makes a move */
+
+            var timer = {
+                inactivity: null, /* setInterval handle to determine whether the user is inactive */
+                keepAlive: null /* setInterval handle for ping handler (options.frequency) */
+            };
+
+            enable.timer = timer;
+            service.enable = enable;
+            service.disable = disable;
+
+            return service;
+
+            ///////////////
+
+            function disable() {
+                service.options.enabled = false;
+
+                disableIntervals();
+
+                $document.off(DOMevents, activity);
+            }
+
+            function disableIntervals() {
+                clearInterval(timer.inactivity);
+                delete timer.inactivity;
+                delete timer.keepAlive;
+            }
+
+            function enable() {
+                $document.on(DOMevents, activity);
+                service.options.enabled = true;
+                service.user.warning = false;
+                if (Number(service.options.monitor) != 0) enableIntervals();
+            }
+
+            function enableIntervals() {
+                timer.keepAlive = setInterval(function () {
+                    publish(EVENT_KEEPALIVE);
+                }, service.options.keepAlive * MILLISECOND);
+
+                timer.inactivity = setInterval(function () {
+                    var now = Date.now();
+                    var warning = now - (service.options.inactive - service.options.warning) * MILLISECOND;
+                    var inactive = now - service.options.inactive * MILLISECOND;
+
+                    /* should we display warning */
+                    if (!service.user.warning && service.user.action <= warning) {
+                        service.user.warning = true;
+                        publish(EVENT_WARNING);
+                    }
+
+                    /* should user be considered inactive? */
+                    if (service.user.active && service.user.action <= inactive) {
+                        service.user.active = false;
+                        publish(EVENT_INACTIVE);
+
+                        if (service.options.disableOnInactive) {
+                            disable();
+                        } else {
+                            disableIntervals(); //user inactive is known, lets stop checking, for now
+                            dynamicActivity = reactivate; //hot swap method that handles document event watching
+                        }
+                    }
+                }, service.options.monitor * MILLISECOND);
+            }
+
+            /* function that lives in memory with the intention of being swapped out */
+            function dynamicActivity() {
+                regularActivityMonitor();
+            }
+
+            /* after user inactive, this method is hot swapped as the dynamicActivity method in-which the next user activity reactivates monitors */
+            function reactivate() {
+                enableIntervals();
+                dynamicActivity = regularActivityMonitor;
+            }
+
+            /* invoked on every user action */
+            function activity() {
+                dynamicActivity();
+            }
+
+            /* during a users active state the following method is called */
+            function regularActivityMonitor() {
+                service.user.active = true;
+                service.user.action = Date.now();
+
+                publish(EVENT_ACTIVITY);
+
+                if (service.user.warning) {
+                    service.user.warning = false;
+                    publish(EVENT_KEEPALIVE);
+                }
+            }
+
+            function publish(event) {
+                if (!service.options.enabled) return;
+                var spaces = Object.keys(events[event]);
+                if (!event || !spaces.length) return;
+                spaces.forEach(function (space) {
+                    events[event][space] && events[event][space]();
+                });
+            }
+
+            function subscribe(event, callback) {
+                if (!event || typeof callback !== 'function') return;
+                event = _namespace(event, callback);
+                events[event.name][event.space] = callback;
+                !service.options.enabled && enable();
+            }
+
+            function unsubscribe(event, callback) {
+                event = _namespace(event, callback);
+
+                if (!event.space) {
+                    events[event.name] = {};
+                    return;
+                }
+
+                events[event.name][event.space] = null;
+            }
+
+            /* method to return event namespace */
+            function _namespace(event, callback) {
+                event = event.split('.');
+
+                if (!event[1] && typeof callback === 'function') {
+                    /* if no namespace, use callback and strip all linebreaks and spaces */
+                    event[1] = callback.toString().substr(0, 150).replace(/\r?\n|\r|\s+/gm, '');
+                }
+
+                return {
+                    name: event[0],
+                    space: event[1]
+                };
+            }
+        }
+
+        return m;
+    });
+    return module.exports;
+});
+$__System.registerDynamic("6c", ["6a"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(it) {
+  module.exports = $__require("6a");
+  return module.exports;
+});
+$__System.registerDynamic('16', [], true, function ($__require, exports, module) {
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  /* */
+  module.exports = function (it) {
     return typeof it === 'object' ? it !== null : typeof it === 'function';
   };
   return module.exports;
 });
-
-$__System.registerDynamic("c", ["16"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('c', ['16'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var isObject = $__require('16');
-  module.exports = function(it) {
-    if (!isObject(it))
-      throw TypeError(it + ' is not an object!');
+  module.exports = function (it) {
+    if (!isObject(it)) throw TypeError(it + ' is not an object!');
     return it;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("14", ["2a", "f", "e", "25"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var classof = $__require('2a'),
-      ITERATOR = $__require('f')('iterator'),
-      Iterators = $__require('e');
-  module.exports = $__require('25').getIteratorMethod = function(it) {
-    if (it != undefined)
-      return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
-  };
-  return module.exports;
+$__System.registerDynamic('14', ['2a', 'f', 'e', '25'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var classof = $__require('2a'),
+        ITERATOR = $__require('f')('iterator'),
+        Iterators = $__require('e');
+    module.exports = $__require('25').getIteratorMethod = function (it) {
+        if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("6a", ["c", "14", "25"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('6d', ['c', '14', '25'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var anObject = $__require('c'),
       get = $__require('14');
-  module.exports = $__require('25').getIterator = function(it) {
+  module.exports = $__require('25').getIterator = function (it) {
     var iterFn = get(it);
-    if (typeof iterFn != 'function')
-      throw TypeError(it + ' is not iterable!');
+    if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
     return anObject(iterFn.call(it));
   };
   return module.exports;
 });
-
-$__System.registerDynamic("6b", ["2f", "2e", "6a"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('6e', ['2f', '2e', '6d'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   $__require('2f');
   $__require('2e');
-  module.exports = $__require('6a');
+  module.exports = $__require('6d');
   return module.exports;
 });
-
-$__System.registerDynamic("6c", ["6b"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("6f", ["6e"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('6b'),
-    __esModule: true
+  /* */
+  module.exports = { "default": $__require("6e"), __esModule: true };
+  return module.exports;
+});
+$__System.registerDynamic("70", [], true, function ($__require, exports, module) {
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  /* */
+  module.exports = function () {/* empty */};
+  return module.exports;
+});
+$__System.registerDynamic("71", [], true, function ($__require, exports, module) {
+  var define,
+      global = this || self,
+      GLOBAL = global;
+  /* */
+  module.exports = function (done, value) {
+    return { value: value, done: !!done };
   };
   return module.exports;
 });
-
-$__System.registerDynamic("6d", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('33', ['1f'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function() {};
-  return module.exports;
-});
-
-$__System.registerDynamic("6e", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = function(done, value) {
-    return {
-      value: value,
-      done: !!done
-    };
-  };
-  return module.exports;
-});
-
-$__System.registerDynamic("33", ["1f"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
+  /* */
   var cof = $__require('1f');
-  module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it) {
+  module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
     return cof(it) == 'String' ? it.split('') : Object(it);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("6f", ["33", "3c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('72', ['33', '3c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var IObject = $__require('33'),
       defined = $__require('3c');
-  module.exports = function(it) {
+  module.exports = function (it) {
     return IObject(defined(it));
   };
   return module.exports;
 });
+$__System.registerDynamic('73', ['70', '71', 'e', '72', '74'], true, function ($__require, exports, module) {
+  /* */
+  'use strict';
 
-$__System.registerDynamic("70", ["6d", "6e", "e", "6f", "71"], true, function($__require, exports, module) {
-  "use strict";
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var addToUnscopables = $__require('6d'),
-      step = $__require('6e'),
+  var addToUnscopables = $__require('70'),
+      step = $__require('71'),
       Iterators = $__require('e'),
-      toIObject = $__require('6f');
-  module.exports = $__require('71')(Array, 'Array', function(iterated, kind) {
+      toIObject = $__require('72');
+  module.exports = $__require('74')(Array, 'Array', function (iterated, kind) {
     this._t = toIObject(iterated);
     this._i = 0;
     this._k = kind;
-  }, function() {
+  }, function () {
     var O = this._t,
         kind = this._k,
         index = this._i++;
@@ -9418,10 +10370,8 @@ $__System.registerDynamic("70", ["6d", "6e", "e", "6f", "71"], true, function($_
       this._t = undefined;
       return step(1);
     }
-    if (kind == 'keys')
-      return step(0, index);
-    if (kind == 'values')
-      return step(0, O[index]);
+    if (kind == 'keys') return step(0, index);
+    if (kind == 'values') return step(0, O[index]);
     return step(0, [index, O[index]]);
   }, 'values');
   Iterators.Arguments = Iterators.Array;
@@ -9430,130 +10380,118 @@ $__System.registerDynamic("70", ["6d", "6e", "e", "6f", "71"], true, function($_
   addToUnscopables('entries');
   return module.exports;
 });
-
-$__System.registerDynamic("2f", ["70", "e"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('2f', ['73', 'e'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  $__require('70');
+  /* */
+  $__require('73');
   var Iterators = $__require('e');
   Iterators.NodeList = Iterators.HTMLCollection = Iterators.Array;
   return module.exports;
 });
-
-$__System.registerDynamic("11", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("11", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  // 7.1.4 ToInteger
   var ceil = Math.ceil,
       floor = Math.floor;
-  module.exports = function(it) {
+  module.exports = function (it) {
     return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("3c", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("3c", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(it) {
-    if (it == undefined)
-      throw TypeError("Can't call method on  " + it);
+  // 7.2.1 RequireObjectCoercible(argument)
+  module.exports = function (it) {
+    if (it == undefined) throw TypeError("Can't call method on  " + it);
     return it;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("72", ["11", "3c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('75', ['11', '3c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var toInteger = $__require('11'),
       defined = $__require('3c');
-  module.exports = function(TO_STRING) {
-    return function(that, pos) {
+  module.exports = function (TO_STRING) {
+    return function (that, pos) {
       var s = String(defined(that)),
           i = toInteger(pos),
           l = s.length,
           a,
           b;
-      if (i < 0 || i >= l)
-        return TO_STRING ? '' : undefined;
+      if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
       a = s.charCodeAt(i);
       return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff ? TO_STRING ? s.charAt(i) : a : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
     };
   };
   return module.exports;
 });
-
-$__System.registerDynamic("29", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("29", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   module.exports = true;
   return module.exports;
 });
-
-$__System.registerDynamic("19", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('19', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(it) {
-    if (typeof it != 'function')
-      throw TypeError(it + ' is not a function!');
+  /* */
+  module.exports = function (it) {
+    if (typeof it != 'function') throw TypeError(it + ' is not a function!');
     return it;
   };
   return module.exports;
 });
-
-$__System.registerDynamic("13", ["19"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('13', ['19'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var aFunction = $__require('19');
-  module.exports = function(fn, that, length) {
+  module.exports = function (fn, that, length) {
     aFunction(fn);
-    if (that === undefined)
-      return fn;
+    if (that === undefined) return fn;
     switch (length) {
       case 1:
-        return function(a) {
+        return function (a) {
           return fn.call(that, a);
         };
       case 2:
-        return function(a, b) {
+        return function (a, b) {
           return fn.call(that, a, b);
         };
       case 3:
-        return function(a, b, c) {
+        return function (a, b, c) {
           return fn.call(that, a, b, c);
         };
     }
-    return function() {
+    return function () {
       return fn.apply(that, arguments);
     };
   };
   return module.exports;
 });
-
-$__System.registerDynamic("2b", ["1c", "25", "13"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('2b', ['1c', '25', '13'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var global = $__require('1c'),
       core = $__require('25'),
       ctx = $__require('13'),
       PROTOTYPE = 'prototype';
-  var $export = function(type, name, source) {
+  var $export = function (type, name, source) {
     var IS_FORCED = type & $export.F,
         IS_GLOBAL = type & $export.G,
         IS_STATIC = type & $export.S,
@@ -9565,22 +10503,19 @@ $__System.registerDynamic("2b", ["1c", "25", "13"], true, function($__require, e
         key,
         own,
         out;
-    if (IS_GLOBAL)
-      source = name;
+    if (IS_GLOBAL) source = name;
     for (key in source) {
       own = !IS_FORCED && target && key in target;
-      if (own && key in exports)
-        continue;
+      if (own && key in exports) continue;
       out = own ? target[key] : source[key];
-      exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key] : IS_BIND && own ? ctx(out, global) : IS_WRAP && target[key] == out ? (function(C) {
-        var F = function(param) {
+      exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key] : IS_BIND && own ? ctx(out, global) : IS_WRAP && target[key] == out ? function (C) {
+        var F = function (param) {
           return this instanceof C ? new C(param) : C(param);
         };
         F[PROTOTYPE] = C[PROTOTYPE];
         return F;
-      })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-      if (IS_PROTO)
-        (exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
+      }(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+      if (IS_PROTO) (exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
     }
   };
   $export.F = 1;
@@ -9592,22 +10527,20 @@ $__System.registerDynamic("2b", ["1c", "25", "13"], true, function($__require, e
   module.exports = $export;
   return module.exports;
 });
-
-$__System.registerDynamic("23", ["73"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('23', ['76'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('73');
+  /* */
+  module.exports = $__require('76');
   return module.exports;
 });
-
-$__System.registerDynamic("74", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("77", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(bitmap, value) {
+  /* */
+  module.exports = function (bitmap, value) {
     return {
       enumerable: !(bitmap & 1),
       configurable: !(bitmap & 2),
@@ -9617,13 +10550,12 @@ $__System.registerDynamic("74", [], true, function($__require, exports, module) 
   };
   return module.exports;
 });
-
-$__System.registerDynamic("34", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("34", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = function(exec) {
+  /* */
+  module.exports = function (exec) {
     try {
       return !!exec();
     } catch (e) {
@@ -9632,91 +10564,85 @@ $__System.registerDynamic("34", [], true, function($__require, exports, module) 
   };
   return module.exports;
 });
-
-$__System.registerDynamic("26", ["34"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('26', ['34'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = !$__require('34')(function() {
-    return Object.defineProperty({}, 'a', {get: function() {
+  /* */
+  module.exports = !$__require('34')(function () {
+    return Object.defineProperty({}, 'a', { get: function () {
         return 7;
-      }}).a != 7;
+      } }).a != 7;
   });
   return module.exports;
 });
-
-$__System.registerDynamic("73", ["7", "74", "26"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('76', ['7', '77', '26'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var $ = $__require('7'),
-      createDesc = $__require('74');
-  module.exports = $__require('26') ? function(object, key, value) {
+      createDesc = $__require('77');
+  module.exports = $__require('26') ? function (object, key, value) {
     return $.setDesc(object, key, createDesc(1, value));
-  } : function(object, key, value) {
+  } : function (object, key, value) {
     object[key] = value;
     return object;
   };
   return module.exports;
 });
+$__System.registerDynamic('78', ['7', '77', '2c', '76', 'f'], true, function ($__require, exports, module) {
+  /* */
+  'use strict';
 
-$__System.registerDynamic("75", ["7", "74", "2c", "73", "f"], true, function($__require, exports, module) {
-  "use strict";
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
   var $ = $__require('7'),
-      descriptor = $__require('74'),
+      descriptor = $__require('77'),
       setToStringTag = $__require('2c'),
       IteratorPrototype = {};
-  $__require('73')(IteratorPrototype, $__require('f')('iterator'), function() {
+  $__require('76')(IteratorPrototype, $__require('f')('iterator'), function () {
     return this;
   });
-  module.exports = function(Constructor, NAME, next) {
-    Constructor.prototype = $.create(IteratorPrototype, {next: descriptor(1, next)});
+  module.exports = function (Constructor, NAME, next) {
+    Constructor.prototype = $.create(IteratorPrototype, { next: descriptor(1, next) });
     setToStringTag(Constructor, NAME + ' Iterator');
   };
   return module.exports;
 });
-
-$__System.registerDynamic("76", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("79", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var hasOwnProperty = {}.hasOwnProperty;
-  module.exports = function(it, key) {
+  module.exports = function (it, key) {
     return hasOwnProperty.call(it, key);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("2c", ["7", "76", "f"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('2c', ['7', '79', 'f'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var def = $__require('7').setDesc,
-      has = $__require('76'),
+      has = $__require('79'),
       TAG = $__require('f')('toStringTag');
-  module.exports = function(it, tag, stat) {
-    if (it && !has(it = stat ? it : it.prototype, TAG))
-      def(it, TAG, {
-        configurable: true,
-        value: tag
-      });
+  module.exports = function (it, tag, stat) {
+    if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, {
+      configurable: true,
+      value: tag
+    });
   };
   return module.exports;
 });
-
-$__System.registerDynamic("7", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("7", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var $Object = Object;
   module.exports = {
     create: $Object.create,
@@ -9732,20 +10658,20 @@ $__System.registerDynamic("7", [], true, function($__require, exports, module) {
   };
   return module.exports;
 });
+$__System.registerDynamic('74', ['29', '2b', '23', '76', '79', 'e', '78', '2c', '7', 'f'], true, function ($__require, exports, module) {
+  /* */
+  'use strict';
 
-$__System.registerDynamic("71", ["29", "2b", "23", "73", "76", "e", "75", "2c", "7", "f"], true, function($__require, exports, module) {
-  "use strict";
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
   var LIBRARY = $__require('29'),
       $export = $__require('2b'),
       redefine = $__require('23'),
-      hide = $__require('73'),
-      has = $__require('76'),
+      hide = $__require('76'),
+      has = $__require('79'),
       Iterators = $__require('e'),
-      $iterCreate = $__require('75'),
+      $iterCreate = $__require('78'),
       setToStringTag = $__require('2c'),
       getProto = $__require('7').getProto,
       ITERATOR = $__require('f')('iterator'),
@@ -9753,14 +10679,13 @@ $__System.registerDynamic("71", ["29", "2b", "23", "73", "76", "e", "75", "2c", 
       FF_ITERATOR = '@@iterator',
       KEYS = 'keys',
       VALUES = 'values';
-  var returnThis = function() {
+  var returnThis = function () {
     return this;
   };
-  module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
     $iterCreate(Constructor, NAME, next);
-    var getMethod = function(kind) {
-      if (!BUGGY && kind in proto)
-        return proto[kind];
+    var getMethod = function (kind) {
+      if (!BUGGY && kind in proto) return proto[kind];
       switch (kind) {
         case KEYS:
           return function keys() {
@@ -9784,10 +10709,9 @@ $__System.registerDynamic("71", ["29", "2b", "23", "73", "76", "e", "75", "2c", 
         methods,
         key;
     if ($native) {
-      var IteratorPrototype = getProto($default.call(new Base));
+      var IteratorPrototype = getProto($default.call(new Base()));
       setToStringTag(IteratorPrototype, TAG, true);
-      if (!LIBRARY && has(proto, FF_ITERATOR))
-        hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!LIBRARY && has(proto, FF_ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
       if (DEF_VALUES && $native.name !== VALUES) {
         VALUES_BUG = true;
         $default = function values() {
@@ -9806,38 +10730,33 @@ $__System.registerDynamic("71", ["29", "2b", "23", "73", "76", "e", "75", "2c", 
         keys: IS_SET ? $default : getMethod(KEYS),
         entries: !DEF_VALUES ? $default : getMethod('entries')
       };
-      if (FORCED)
-        for (key in methods) {
-          if (!(key in proto))
-            redefine(proto, key, methods[key]);
-        }
-      else
-        $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+      if (FORCED) for (key in methods) {
+        if (!(key in proto)) redefine(proto, key, methods[key]);
+      } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
     }
     return methods;
   };
   return module.exports;
 });
+$__System.registerDynamic('2e', ['75', '74'], true, function ($__require, exports, module) {
+  /* */
+  'use strict';
 
-$__System.registerDynamic("2e", ["72", "71"], true, function($__require, exports, module) {
-  "use strict";
-  ;
   var define,
       global = this || self,
       GLOBAL = global;
-  var $at = $__require('72')(true);
-  $__require('71')(String, 'String', function(iterated) {
+  var $at = $__require('75')(true);
+  $__require('74')(String, 'String', function (iterated) {
     this._t = String(iterated);
     this._i = 0;
-  }, function() {
+  }, function () {
     var O = this._t,
         index = this._i,
         point;
-    if (index >= O.length)
-      return {
-        value: undefined,
-        done: true
-      };
+    if (index >= O.length) return {
+      value: undefined,
+      done: true
+    };
     point = $at(O, index);
     this._i += point.length;
     return {
@@ -9847,158 +10766,142 @@ $__System.registerDynamic("2e", ["72", "71"], true, function($__require, exports
   });
   return module.exports;
 });
-
-$__System.registerDynamic("1f", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("1f", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var toString = {}.toString;
-  module.exports = function(it) {
+
+  module.exports = function (it) {
     return toString.call(it).slice(8, -1);
   };
   return module.exports;
 });
-
-$__System.registerDynamic("2a", ["1f", "f"], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var cof = $__require('1f'),
-      TAG = $__require('f')('toStringTag'),
-      ARG = cof(function() {
+$__System.registerDynamic('2a', ['1f', 'f'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var cof = $__require('1f'),
+        TAG = $__require('f')('toStringTag'),
+        ARG = cof(function () {
         return arguments;
-      }()) == 'Arguments';
-  module.exports = function(it) {
-    var O,
-        T,
-        B;
-    return it === undefined ? 'Undefined' : it === null ? 'Null' : typeof(T = (O = Object(it))[TAG]) == 'string' ? T : ARG ? cof(O) : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-  };
-  return module.exports;
+    }()) == 'Arguments';
+    module.exports = function (it) {
+        var O, T, B;
+        return it === undefined ? 'Undefined' : it === null ? 'Null' : typeof (T = (O = Object(it))[TAG]) == 'string' ? T : ARG ? cof(O) : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+    };
+    return module.exports;
 });
-
-$__System.registerDynamic("77", ["1c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('7a', ['1c'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var global = $__require('1c'),
+        SHARED = '__core-js_shared__',
+        store = global[SHARED] || (global[SHARED] = {});
+    module.exports = function (key) {
+        return store[key] || (store[key] = {});
+    };
+    return module.exports;
+});
+$__System.registerDynamic('7b', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  var global = $__require('1c'),
-      SHARED = '__core-js_shared__',
-      store = global[SHARED] || (global[SHARED] = {});
-  module.exports = function(key) {
-    return store[key] || (store[key] = {});
-  };
-  return module.exports;
-});
-
-$__System.registerDynamic("78", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
+  /* */
   var id = 0,
       px = Math.random();
-  module.exports = function(key) {
+  module.exports = function (key) {
     return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
   };
   return module.exports;
 });
-
-$__System.registerDynamic("1c", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('1c', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
   var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-  if (typeof __g == 'number')
-    __g = global;
+  if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
   return module.exports;
 });
-
-$__System.registerDynamic("f", ["77", "78", "1c"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('f', ['7a', '7b', '1c'], true, function ($__require, exports, module) {
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /* */
+    var store = $__require('7a')('wks'),
+        uid = $__require('7b'),
+        Symbol = $__require('1c').Symbol;
+    module.exports = function (name) {
+        return store[name] || (store[name] = Symbol && Symbol[name] || (Symbol || uid)('Symbol.' + name));
+    };
+    return module.exports;
+});
+$__System.registerDynamic("e", [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  var store = $__require('77')('wks'),
-      uid = $__require('78'),
-      Symbol = $__require('1c').Symbol;
-  module.exports = function(name) {
-    return store[name] || (store[name] = Symbol && Symbol[name] || (Symbol || uid)('Symbol.' + name));
-  };
-  return module.exports;
-});
-
-$__System.registerDynamic("e", [], true, function($__require, exports, module) {
-  ;
-  var define,
-      global = this || self,
-      GLOBAL = global;
+  /* */
   module.exports = {};
   return module.exports;
 });
-
-$__System.registerDynamic("25", [], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('25', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  var core = module.exports = {version: '1.2.6'};
-  if (typeof __e == 'number')
-    __e = core;
+  /* */
+  var core = module.exports = { version: '1.2.6' };
+  if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
   return module.exports;
 });
-
-$__System.registerDynamic("79", ["2a", "f", "e", "25"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('7c', ['2a', 'f', 'e', '25'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   var classof = $__require('2a'),
       ITERATOR = $__require('f')('iterator'),
       Iterators = $__require('e');
-  module.exports = $__require('25').isIterable = function(it) {
+  module.exports = $__require('25').isIterable = function (it) {
     var O = Object(it);
     return O[ITERATOR] !== undefined || '@@iterator' in O || Iterators.hasOwnProperty(classof(O));
   };
   return module.exports;
 });
-
-$__System.registerDynamic("7a", ["2f", "2e", "79"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic('7d', ['2f', '2e', '7c'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
+  /* */
   $__require('2f');
   $__require('2e');
-  module.exports = $__require('79');
+  module.exports = $__require('7c');
   return module.exports;
 });
-
-$__System.registerDynamic("7b", ["7a"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("7e", ["7d"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = {
-    "default": $__require('7a'),
-    __esModule: true
-  };
+  /* */
+  module.exports = { "default": $__require("7d"), __esModule: true };
   return module.exports;
 });
-
-$__System.register("7c", ["6c", "7b", "7d"], function (_export) {
+$__System.register("7f", ["6f", "7e", "6b"], function (_export) {
   var _getIterator, _isIterable, angular, _exports;
 
   return {
-    setters: [function (_c) {
-      _getIterator = _c["default"];
+    setters: [function (_f) {
+      _getIterator = _f["default"];
+    }, function (_e2) {
+      _isIterable = _e2["default"];
     }, function (_b) {
-      _isIterable = _b["default"];
-    }, function (_d) {
-      angular = _d["default"];
+      angular = _b["default"];
     }],
     execute: function () {
       "use strict";
@@ -10772,7 +11675,7 @@ $__System.register("7c", ["6c", "7b", "7d"], function (_export) {
     }
   };
 });
-$__System.registerDynamic("7e", [], false, function ($__require, $__exports, $__module) {
+$__System.registerDynamic("80", [], false, function ($__require, $__exports, $__module) {
   var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, "angular", null);
 
   (function ($__global) {
@@ -41890,16 +42793,14 @@ $__System.registerDynamic("7e", [], false, function ($__require, $__exports, $__
 
   return _retrieveGlobal();
 });
-$__System.registerDynamic("7d", ["7e"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("6b", ["80"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('7e');
+  module.exports = $__require("80");
   return module.exports;
 });
-
-$__System.registerDynamic("7f", ["7d"], false, function ($__require, $__exports, $__module) {
+$__System.registerDynamic("81", ["6b"], false, function ($__require, $__exports, $__module) {
   var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, null, null);
 
   (function ($__global) {
@@ -45987,22 +46888,20 @@ $__System.registerDynamic("7f", ["7d"], false, function ($__require, $__exports,
 
   return _retrieveGlobal();
 });
-$__System.registerDynamic("80", ["7f"], true, function($__require, exports, module) {
-  ;
+$__System.registerDynamic("82", ["81"], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = $__require('7f');
+  module.exports = $__require("81");
   return module.exports;
 });
-
-$__System.register('1', ['67', '69', '80', '3a', '7c'], function (_export) {
+$__System.register('1', ['67', '69', '82', '3a', '6c', '7f'], function (_export) {
   //import ack from 'ack-x/index-browser'
 
   //import angular from 'angular'
   'use strict';
 
-  var ackNgFilters, ackNgDirectives, ackNgServices, ngFx;
+  var ackNgFilters, ackNgDirectives, ackNgServices, ActivityMonitor, ngFx;
   return {
     setters: [function (_) {
       ackNgFilters = _['default'];
@@ -46011,10 +46910,12 @@ $__System.register('1', ['67', '69', '80', '3a', '7c'], function (_export) {
     }, function (_3) {}, function (_a) {
       ackNgServices = _a['default'];
     }, function (_c) {
-      ngFx = _c['default'];
+      ActivityMonitor = _c['default'];
+    }, function (_f) {
+      ngFx = _f['default'];
     }],
     execute: function () {
-      _export('default', angular.module('ack-angular', ['ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters, ackNgServices]).name);
+      _export('default', angular.module('ack-angular', [ActivityMonitor, 'ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters, ackNgServices]).name);
     }
   };
 });

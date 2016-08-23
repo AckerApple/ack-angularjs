@@ -173,7 +173,79 @@ export default angular.module('ack-ng-directives', [])
     controller:ScreenScrollModelY
   }
 })
+.component('userInactiveTrigger', {
+  bindings:{
+    inactiveSeconds:'=',
+    warnSeconds:'=',
+    onReactive:'&'
+  },
+  template:'state:{{ $ctrl.state.active }}-{{ $ctrl.state.warning }}',
+  controller:UserInactiveTrigger
+})
 .name
+
+
+function UserInactiveTrigger(ActivityMonitor, $scope){
+  let isActive = true
+  let isWarned = false
+
+  ActivityMonitor.options.disableOnInactive = false
+  
+  const applyOptions=()=>{  
+    ActivityMonitor.options.inactive = this.inactiveSeconds
+    ActivityMonitor.options.warning = this.warnSeconds
+  }
+  
+  function onActivity(){}
+  
+  function activityMonitor(){}
+  
+  const reactiveMonitor = function(){
+    this.onReactive()
+    isActive = true
+    isWarned = false
+    onActivity = activityMonitor
+    $scope.$parent.$digest()
+  }.bind(this)
+
+  function every(){
+    onActivity()
+  }
+
+  const onInactive = ()=>{
+    console.log(686)
+    isActive = false
+    $scope.$parent.$digest()
+    applyOptions()
+    onActivity = reactiveMonitor
+  }
+  
+  function onWarn(){
+    isWarned = true
+    $scope.$digest()
+  }
+
+  this.state = ActivityMonitor.user
+  applyOptions()
+
+  ActivityMonitor.on('keepAlive', every)
+  ActivityMonitor.on('inactive', onInactive)
+  ActivityMonitor.on('warning', onWarn)
+
+  $scope.$on('$destroy',()=>{
+    ActivityMonitor.off('keepAlive', onKeepAlive)
+    ActivityMonitor.off('inactive', onInactive)
+    ActivityMonitor.off('warning', onWarn)          
+
+    if(ActivityMonitor.disable){
+      ActivityMonitor.disable()
+    }
+  })
+}
+UserInactiveTrigger.$inject = ['ActivityMonitor','$scope','$timeout']
+
+
+
 
 function OnScreenScroll($scope, $window, $timeout){
   var onScroll = function() {

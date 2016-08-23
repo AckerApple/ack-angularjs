@@ -53,6 +53,7 @@
     "dependencies": {
       "ack-x": "npm:ack-x@^1.2.15",
       "angular": "github:angular/bower-angular@^1.5.8",
+      "angular-activity-monitor": "npm:angular-activity-monitor@^1.0.1",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.8",
       "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
       "localforage": "npm:localforage@^1.4.2"
