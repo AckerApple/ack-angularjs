@@ -13,7 +13,7 @@ System.config({
   },
 
   map: {
-    "ack-x": "npm:ack-x@1.2.17",
+    "ack-x": "npm:ack-x@1.2.18",
     "angular": "github:angular/bower-angular@1.5.8",
     "angular-activity-monitor": "npm:angular-activity-monitor@1.1.0",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
@@ -70,10 +70,11 @@ System.config({
     "npm:ack-p@1.0.6": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:ack-x@1.2.17": {
+    "npm:ack-x@1.2.18": {
       "ack-p": "npm:ack-p@1.0.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "debug": "npm:debug@2.2.0",
+      "moment": "npm:moment@2.14.1",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -622,7 +623,7 @@ System.config({
     },
     "npm:js-yaml@3.4.5": {
       "argparse": "npm:argparse@1.0.7",
-      "esprima": "npm:esprima@2.7.2",
+      "esprima": "npm:esprima@2.7.3",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.2",

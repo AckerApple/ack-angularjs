@@ -37720,7 +37720,7 @@ $__System.registerDynamic('4b', ['4a'], true, function ($__require, exports, mod
   var define,
       global = this || self,
       GLOBAL = global;
-  module.exports = System._nodeRequire ? process : $__require('4a');
+  module.exports = $__System._nodeRequire ? process : $__require('4a');
   return module.exports;
 });
 $__System.registerDynamic("38", ["4b"], true, function ($__require, exports, module) {

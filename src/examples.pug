@@ -155,9 +155,11 @@ html.font-helvetica(lang="en")
         br
         br
 
-        |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
+        p |aDate fromNow {{0|ack:'date':'now':['addMinutes',-15]:'fromNow'}}
+
+        p this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmssl'}}
         br
-        |this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
+        p this is my test on {{0|ack:'date':'mmddyy'}} @ {{0|ack:'date':'hhmmtt'}}
         br
         br
 
