@@ -1,22 +1,21 @@
 {
   "name": "ack-angular",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "Universal Angular base code suited for any web app",
-  "main": "index.js",
+  "main": "ack-angular.js",
   "private": true,
   "scripts": {
     "test": "ionic serve",
     "build:ng-fx": "node scripts/build-ng-fx",
-    "build:localforage": "node scripts/build-localforage",
-    "build": "npm run build:localforage && npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:css",
+    "build": "npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:css",
     "build:css": "node scripts/scss",
     "build:test:index": "pug ./src/test/index.pug --out ./www/",
     "build:examples": "npm run build:examples:js && pug ./src/examples.pug --out ./www/",
     "build:pug": "node ./scripts/build-pug",
     "build:test": "npm run build:test:index && npm run build:css && npm run build:test:js",
-    "build:js": "jspm bundle-sfx src/ack-angular.js dist/ack-angular.js",
-    "build:examples:js": "jspm bundle-sfx src/ack-angular.js www/ack-angular.js",
-    "build:test:js": "jspm bundle-sfx src/test/test.js www/test.js",
+    "build:js": "jspm build src/ack-angular.js dist/ack-angular.js",
+    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js",
+    "build:test:js": "jspm build src/test/test.js www/test.js",
     "watch:test": "npm run watch:test:index & npm run watch:test:js",
     "watch:test:js": "watch 'npm run build:test:js' src",
     "watch:test:index": "watch 'npm run build:test:index' src"
@@ -41,8 +40,7 @@
     "ack-pug-bundler": "^1.1.2",
     "ack-sass": "^1.0.8",
     "csshake": "^1.5.0",
-    "jspm": "^0.16.39",
-    "localforage": "^1.4.2",
+    "jspm": "^0.17.0-beta.28",
     "ng-fx": "^2.0.4",
     "node-sass": "^3.7.0",
     "pug": "^2.0.0-beta4",
@@ -61,7 +59,135 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
+      "core-js": "npm:core-js@^1.1.4",
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.13"
+    },
+    "peerDependencies": {
+      "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
+      "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
+      "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
+      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
+      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
+      "estraverse": "npm:estraverse",
+      "events": "github:jspm/nodelibs-events@^0.2.0-alpha",
+      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
+      "module": "github:jspm/nodelibs-module@^0.2.0-alpha",
+      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
+      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
+      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
+      "readline": "github:jspm/nodelibs-readline@^0.2.0-alpha",
+      "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
+      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
+      "tty": "github:jspm/nodelibs-tty@^0.2.0-alpha",
+      "uglify-js": "npm:uglify-js@^2.6",
+      "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
+      "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
+    },
+    "overrides": {
+      "github:angular/bower-angular-animate@1.5.8": {
+        "main": "angular-animate",
+        "registry": "jspm",
+        "dependencies": {
+          "angular": "^1.3.0"
+        },
+        "meta": {
+          "angular-animate.js": {
+            "deps": [
+              "angular"
+            ],
+            "format": "global"
+          }
+        }
+      },
+      "github:angular/bower-angular-mocks@1.5.8": {
+        "main": "angular-mocks",
+        "registry": "jspm",
+        "dependencies": {
+          "angular": "github:angular/bower-angular@^1.3.0"
+        },
+        "meta": {
+          "angular-mocks.js": {
+            "deps": [
+              "angular"
+            ],
+            "format": "global"
+          }
+        }
+      },
+      "github:angular/bower-angular@1.5.8": {
+        "main": "angular",
+        "meta": {
+          "angular.js": {
+            "exports": "angular",
+            "format": "global"
+          }
+        }
+      },
+      "npm:babel-core@5.8.38": {
+        "main": "browser.js",
+        "dependencies": {},
+        "jspmNodeConversion": false,
+        "map": {
+          "regenerator/runtime": "babel-runtime/regenerator/runtime"
+        },
+        "meta": {
+          "browser.js": {
+            "exports": "babel",
+            "format": "global"
+          }
+        }
+      },
+      "npm:babel-runtime@5.8.38": {
+        "main": false,
+        "dependencies": {},
+        "optionalDependencies": {
+          "core-js": "^1.2.0"
+        }
+      },
+      "npm:debug@2.2.0": {
+        "main": "browser.js",
+        "jspmNodeConversion": false,
+        "format": "cjs",
+        "map": {
+          "./browser.js": {
+            "node": "./node.js"
+          },
+          "fs": "@node/fs",
+          "net": "@node/net",
+          "tty": "@node/tty",
+          "util": "@node/util"
+        }
+      },
+      "npm:esprima@2.7.3": {
+        "jspmNodeConversion": false
+      },
+      "npm:inherits@2.0.1": {
+        "ignore": [
+          "test.js"
+        ]
+      },
+      "npm:moment@2.14.1": {
+        "jspmNodeConversion": false
+      },
+      "npm:ms@0.7.1": {
+        "jspmNodeConversion": false,
+        "format": "cjs"
+      },
+      "npm:readable-stream@1.0.34": {
+        "map": {
+          "stream": "stream-browserify/index"
+        },
+        "systemjs": {
+          "main": "readable.js"
+        },
+        "dependencies": {
+          "core-util-is": "~1.0.0",
+          "isarray": "0.0.1",
+          "string_decoder": "~0.10.0",
+          "inherits": "~2.0.1",
+          "stream-browserify": "~1.0.0"
+        }
+      }
     }
   }
 }

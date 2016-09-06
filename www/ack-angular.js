@@ -4,3179 +4,4298 @@
 var require = this.require, exports = this.exports, module = this.module;
 !function(e){function r(e,r){for(var n=e.split(".");n.length;)r=r[n.shift()];return r}function n(n){if("string"==typeof n)return r(n,e);if(!(n instanceof Array))throw new Error("Global exports must be a string or array.");for(var t={},o=!0,f=0;f<n.length;f++){var i=r(n[f],e);o&&(t["default"]=i,o=!1),t[n[f].split(".").pop()]=i}return t}function t(r){if(Object.keys)Object.keys(e).forEach(r);else for(var n in e)a.call(e,n)&&r(n)}function o(r){t(function(n){if(-1==l.call(s,n)){try{var t=e[n]}catch(o){s.push(n)}r(n,t)}})}var f,i=$__System,a=Object.prototype.hasOwnProperty,l=Array.prototype.indexOf||function(e){for(var r=0,n=this.length;n>r;r++)if(this[r]===e)return r;return-1},s=["_g","sessionStorage","localStorage","clipboardData","frames","frameElement","external","mozAnimationStartTime","webkitStorageInfo","webkitIndexedDB","mozInnerScreenY","mozInnerScreenX"];i.set("@@global-helpers",i.newModule({prepareGlobal:function(r,t,i){var a=e.define;e.define=void 0;var l;if(i){l={};for(var s in i)l[s]=e[s],e[s]=i[s]}return t||(f={},o(function(e,r){f[e]=r})),function(){var r;if(t)r=n(t);else{r={};var i,s;o(function(e,n){f[e]!==n&&"undefined"!=typeof n&&(r[e]=n,"undefined"!=typeof i?s||i===n||(s=!0):i=n)}),r=s?r:i}if(l)for(var u in l)e[u]=l[u];return e.define=a,r}}}))}("undefined"!=typeof self?self:global);
 !function(e){function n(e,n){e=e.replace(l,"");var r=e.match(u),t=(r[1].split(",")[n]||"require").replace(s,""),i=p[t]||(p[t]=new RegExp(a+t+f,"g"));i.lastIndex=0;for(var o,c=[];o=i.exec(e);)c.push(o[2]||o[3]);return c}function r(e,n,t,o){if("object"==typeof e&&!(e instanceof Array))return r.apply(null,Array.prototype.splice.call(arguments,1,arguments.length-1));if("string"==typeof e&&"function"==typeof n&&(e=[e]),!(e instanceof Array)){if("string"==typeof e){var l=i.get(e);return l.__useDefault?l["default"]:l}throw new TypeError("Invalid require")}for(var a=[],f=0;f<e.length;f++)a.push(i["import"](e[f],o));Promise.all(a).then(function(e){n&&n.apply(null,e)},t)}function t(t,l,a){"string"!=typeof t&&(a=l,l=t,t=null),l instanceof Array||(a=l,l=["require","exports","module"].splice(0,a.length)),"function"!=typeof a&&(a=function(e){return function(){return e}}(a)),void 0===l[l.length-1]&&l.pop();var f,u,s;-1!=(f=o.call(l,"require"))&&(l.splice(f,1),t||(l=l.concat(n(a.toString(),f)))),-1!=(u=o.call(l,"exports"))&&l.splice(u,1),-1!=(s=o.call(l,"module"))&&l.splice(s,1);var p={name:t,deps:l,execute:function(n,t,o){for(var p=[],c=0;c<l.length;c++)p.push(n(l[c]));o.uri=o.id,o.config=function(){},-1!=s&&p.splice(s,0,o),-1!=u&&p.splice(u,0,t),-1!=f&&p.splice(f,0,function(e,t,l){return"string"==typeof e&&"function"!=typeof t?n(e):r.call(i,e,t,l,o.id)});var d=a.apply(-1==u?e:t,p);return"undefined"==typeof d&&o&&(d=o.exports),"undefined"!=typeof d?d:void 0}};if(t)c.anonDefine||c.isBundle?c.anonDefine&&c.anonDefine.name&&(c.anonDefine=null):c.anonDefine=p,c.isBundle=!0,i.registerDynamic(p.name,p.deps,!1,p.execute);else{if(c.anonDefine&&!c.anonDefine.name)throw new Error("Multiple anonymous defines in module "+t);c.anonDefine=p}}var i=$__System,o=Array.prototype.indexOf||function(e){for(var n=0,r=this.length;r>n;n++)if(this[n]===e)return n;return-1},l=/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm,a="(?:^|[^$_a-zA-Z\\xA0-\\uFFFF.])",f="\\s*\\(\\s*(\"([^\"]+)\"|'([^']+)')\\s*\\)",u=/\(([^\)]*)\)/,s=/^\s+|\s+$/g,p={};t.amd={};var c={isBundle:!1,anonDefine:null};i.amdDefine=t,i.amdRequire=r}("undefined"!=typeof self?self:global);
-$__System.register("2", ["3", "4", "5"], function (_export) {
-  var _createClass, _classCallCheck, _Object$assign, AckApi;
-
-  return {
-    setters: [function (_) {
-      _createClass = _["default"];
-    }, function (_2) {
-      _classCallCheck = _2["default"];
-    }, function (_3) {
-      _Object$assign = _3["default"];
-    }],
-    execute: function () {
-      "use strict";
-
-      AckApi = (function () {
-        function AckApi($http, AckOffline) {
-          _classCallCheck(this, AckApi);
-
-          this.config = {
-            baseUrl: '',
-            config: {}
-          };
-          this.$http = $http;
-          this.AckOffline = AckOffline;
-        }
-
-        /** master method for sending requests and caching responses using $http requests */
-
-        _createClass(AckApi, [{
-          key: "_fetch",
-          value: function _fetch(cfg) {
-            var _this = this;
-
-            return this.$http(cfg).then(function (response) {
-              if (cfg.method === "GET" && cfg.queModel) {
-                _this.AckOffline.cacheResponse(cfg.queModel.config.name, response);
-              }
-              return response.data;
-            });
-          }
-
-          /** method all request transactions tunnel thru to instead try for cache first
-            @method:GET,POST,DELETE,PUT
-            @url
-            @config - {
-              queModel:{
-                config:{
-                  name, expires, allowExpired
-                }
-              }
-            }
-          */
-        }, {
-          key: "request",
-          value: function request(method, url, config) {
-            var _this2 = this;
-
-            var defaults = {
-              method: method,
-              url: this.config.baseUrl + url,
-              timeout: 4000 //8000
-            };
-
-            var cfg = _Object$assign(defaults, config);
-
-            _Object$assign(cfg, this.config);
-
-            if (cfg.queModel) {
-              var _ret = (function () {
-                var cacheName = cfg.queModel.config.name;
-                //const { ...cacheOptions } = cfg.queModel
-                if (method === "GET") {
-                  return {
-                    v: _this2.AckOffline.getCache(cacheName, cfg.queModel)["catch"](function () {
-                      return _this2._fetch(cfg);
-                    })
-                  };
-                  //.catch(() => this.AckOffline.getCache(cacheName))
-                }
-
-                //request is a PUT, POST, or DELETE
-                return {
-                  v: _this2._fetch(cfg)["catch"](function () {
-                    return _this2.AckOffline.enqueue(cacheName, cfg);
-                  })
-                }; //if fail, save for later
-              })();
-
-              if (typeof _ret === "object") return _ret.v;
-            }
-
-            return this._fetch(cfg);
-          }
-        }, {
-          key: "get",
-          value: function get(path, config) {
-            return this.request("GET", path, config);
-          }
-        }, {
-          key: "post",
-          value: function post(path, data, config) {
-            var cfg = _Object$assign({}, config, { data: data });
-            return this.request("POST", path, cfg);
-          }
-        }, {
-          key: "delete",
-          value: function _delete(path, config) {
-            return this.request("DELETE", path, config);
-          }
-        }, {
-          key: "put",
-          value: function put(path, data, config) {
-            var cfg = _Object$assign({}, config, { data: data });
-            return this.request("PUT", path, cfg);
-          }
-        }]);
-
-        return AckApi;
-      })();
-
-      _export("default", AckApi);
-
-      AckApi.$inject = ["$http", "AckOffline"];
-    }
-  };
-});
-$__System.registerDynamic('6', ['7'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var $ = $__require('7');
-  module.exports = function defineProperty(it, key, desc) {
-    return $.setDesc(it, key, desc);
-  };
-  return module.exports;
-});
-$__System.registerDynamic("8", ["6"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("6"), __esModule: true };
-  return module.exports;
-});
-$__System.registerDynamic("3", ["8"], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var _Object$defineProperty = $__require("8")["default"];
-  exports["default"] = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        _Object$defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-  exports.__esModule = true;
-  return module.exports;
-});
-$__System.registerDynamic("4", [], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  exports["default"] = function (instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  };
-
-  exports.__esModule = true;
-  return module.exports;
-});
-$__System.registerDynamic("9", [], true, function ($__require, exports, module) {
-  /* */
-  "format cjs";
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  return module.exports;
-});
-$__System.registerDynamic("a", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (it, Constructor, name) {
-    if (!(it instanceof Constructor)) throw TypeError(name + ": use the 'new' operator!");
-    return it;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('b', ['c'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var anObject = $__require('c');
-  module.exports = function (iterator, fn, value, entries) {
-    try {
-      return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-    } catch (e) {
-      var ret = iterator['return'];
-      if (ret !== undefined) anObject(ret.call(iterator));
-      throw e;
-    }
-  };
-  return module.exports;
-});
-$__System.registerDynamic('d', ['e', 'f'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var Iterators = $__require('e'),
-        ITERATOR = $__require('f')('iterator'),
-        ArrayProto = Array.prototype;
-    module.exports = function (it) {
-        return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-    };
-    return module.exports;
-});
-$__System.registerDynamic('10', ['11'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var toInteger = $__require('11'),
-      min = Math.min;
-  module.exports = function (it) {
-    return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('12', ['13', 'b', 'd', 'c', '10', '14'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var ctx = $__require('13'),
-      call = $__require('b'),
-      isArrayIter = $__require('d'),
-      anObject = $__require('c'),
-      toLength = $__require('10'),
-      getIterFn = $__require('14');
-  module.exports = function (iterable, entries, fn, that) {
-    var iterFn = getIterFn(iterable),
-        f = ctx(fn, that, entries ? 2 : 1),
-        index = 0,
-        length,
-        step,
-        iterator;
-    if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-    if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-      entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-      call(iterator, f, step.value, entries);
-    }
-  };
-  return module.exports;
-});
-$__System.registerDynamic('15', ['7', '16', 'c', '13'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var getDesc = $__require('7').getDesc,
-      isObject = $__require('16'),
-      anObject = $__require('c');
-  var check = function (O, proto) {
-    anObject(O);
-    if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-  };
-  module.exports = {
-    set: Object.setPrototypeOf || ('__proto__' in {} ? function (test, buggy, set) {
-      try {
-        set = $__require('13')(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) {
-        buggy = true;
-      }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-    check: check
-  };
-  return module.exports;
-});
-$__System.registerDynamic("17", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  // 7.2.9 SameValue(x, y)
-  module.exports = Object.is || function is(x, y) {
-    return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('18', ['c', '19', 'f'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var anObject = $__require('c'),
-        aFunction = $__require('19'),
-        SPECIES = $__require('f')('species');
-    module.exports = function (O, D) {
-        var C = anObject(O).constructor,
-            S;
-        return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-    };
-    return module.exports;
-});
-$__System.registerDynamic("1a", [], true, function ($__require, exports, module) {
-                  var define,
-                      global = this || self,
-                      GLOBAL = global;
-                  // fast apply, http://jsperf.lnkit.com/fast-apply/5
-                  module.exports = function (fn, args, that) {
-                                    var un = that === undefined;
-                                    switch (args.length) {
-                                                      case 0:
-                                                                        return un ? fn() : fn.call(that);
-                                                      case 1:
-                                                                        return un ? fn(args[0]) : fn.call(that, args[0]);
-                                                      case 2:
-                                                                        return un ? fn(args[0], args[1]) : fn.call(that, args[0], args[1]);
-                                                      case 3:
-                                                                        return un ? fn(args[0], args[1], args[2]) : fn.call(that, args[0], args[1], args[2]);
-                                                      case 4:
-                                                                        return un ? fn(args[0], args[1], args[2], args[3]) : fn.call(that, args[0], args[1], args[2], args[3]);
-                                    }return fn.apply(that, args);
-                  };
-                  return module.exports;
-});
-$__System.registerDynamic('1b', ['1c'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = $__require('1c').document && document.documentElement;
-  return module.exports;
-});
-$__System.registerDynamic('1d', ['16', '1c'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var isObject = $__require('16'),
-        document = $__require('1c').document,
-        is = isObject(document) && isObject(document.createElement);
-    module.exports = function (it) {
-        return is ? document.createElement(it) : {};
-    };
-    return module.exports;
-});
-$__System.registerDynamic('1e', ['13', '1a', '1b', '1d', '1c', '1f', '20'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  (function (process) {
-    var ctx = $__require('13'),
-        invoke = $__require('1a'),
-        html = $__require('1b'),
-        cel = $__require('1d'),
-        global = $__require('1c'),
-        process = global.process,
-        setTask = global.setImmediate,
-        clearTask = global.clearImmediate,
-        MessageChannel = global.MessageChannel,
-        counter = 0,
-        queue = {},
-        ONREADYSTATECHANGE = 'onreadystatechange',
-        defer,
-        channel,
-        port;
-    var run = function () {
-      var id = +this;
-      if (queue.hasOwnProperty(id)) {
-        var fn = queue[id];
-        delete queue[id];
-        fn();
-      }
-    };
-    var listner = function (event) {
-      run.call(event.data);
-    };
-    if (!setTask || !clearTask) {
-      setTask = function setImmediate(fn) {
-        var args = [],
-            i = 1;
-        while (arguments.length > i) args.push(arguments[i++]);
-        queue[++counter] = function () {
-          invoke(typeof fn == 'function' ? fn : Function(fn), args);
-        };
-        defer(counter);
-        return counter;
-      };
-      clearTask = function clearImmediate(id) {
-        delete queue[id];
-      };
-      if ($__require('1f')(process) == 'process') {
-        defer = function (id) {
-          process.nextTick(ctx(run, id, 1));
-        };
-      } else if (MessageChannel) {
-        channel = new MessageChannel();
-        port = channel.port2;
-        channel.port1.onmessage = listner;
-        defer = ctx(port.postMessage, port, 1);
-      } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-        defer = function (id) {
-          global.postMessage(id + '', '*');
-        };
-        global.addEventListener('message', listner, false);
-      } else if (ONREADYSTATECHANGE in cel('script')) {
-        defer = function (id) {
-          html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
-            html.removeChild(this);
-            run.call(id);
-          };
-        };
-      } else {
-        defer = function (id) {
-          setTimeout(ctx(run, id, 1), 0);
-        };
-      }
-    }
-    module.exports = {
-      set: setTask,
-      clear: clearTask
-    };
-  })($__require('20'));
-  return module.exports;
-});
-$__System.registerDynamic('21', ['1c', '1e', '1f', '20'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  (function (process) {
-    var global = $__require('1c'),
-        macrotask = $__require('1e').set,
-        Observer = global.MutationObserver || global.WebKitMutationObserver,
-        process = global.process,
-        Promise = global.Promise,
-        isNode = $__require('1f')(process) == 'process',
-        head,
-        last,
-        notify;
-    var flush = function () {
-      var parent, domain, fn;
-      if (isNode && (parent = process.domain)) {
-        process.domain = null;
-        parent.exit();
-      }
-      while (head) {
-        domain = head.domain;
-        fn = head.fn;
-        if (domain) domain.enter();
-        fn();
-        if (domain) domain.exit();
-        head = head.next;
-      }
-      last = undefined;
-      if (parent) parent.enter();
-    };
-    if (isNode) {
-      notify = function () {
-        process.nextTick(flush);
-      };
-    } else if (Observer) {
-      var toggle = 1,
-          node = document.createTextNode('');
-      new Observer(flush).observe(node, { characterData: true });
-      notify = function () {
-        node.data = toggle = -toggle;
-      };
-    } else if (Promise && Promise.resolve) {
-      notify = function () {
-        Promise.resolve().then(flush);
-      };
-    } else {
-      notify = function () {
-        macrotask.call(global, flush);
-      };
-    }
-    module.exports = function asap(fn) {
-      var task = {
-        fn: fn,
-        next: undefined,
-        domain: isNode && process.domain
-      };
-      if (last) last.next = task;
-      if (!head) {
-        head = task;
-        notify();
-      }
-      last = task;
-    };
-  })($__require('20'));
-  return module.exports;
-});
-$__System.registerDynamic('22', ['23'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var redefine = $__require('23');
-  module.exports = function (target, src) {
-    for (var key in src) redefine(target, key, src[key]);
-    return target;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('24', ['25', '7', '26', 'f'], true, function ($__require, exports, module) {
-  /* */
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var core = $__require('25'),
-      $ = $__require('7'),
-      DESCRIPTORS = $__require('26'),
-      SPECIES = $__require('f')('species');
-  module.exports = function (KEY) {
-    var C = core[KEY];
-    if (DESCRIPTORS && C && !C[SPECIES]) $.setDesc(C, SPECIES, {
-      configurable: true,
-      get: function () {
-        return this;
-      }
-    });
-  };
-  return module.exports;
-});
-$__System.registerDynamic('27', ['f'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var ITERATOR = $__require('f')('iterator'),
-      SAFE_CLOSING = false;
-  try {
-    var riter = [7][ITERATOR]();
-    riter['return'] = function () {
-      SAFE_CLOSING = true;
-    };
-    Array.from(riter, function () {
-      throw 2;
-    });
-  } catch (e) {}
-  module.exports = function (exec, skipClosing) {
-    if (!skipClosing && !SAFE_CLOSING) return false;
-    var safe = false;
-    try {
-      var arr = [7],
-          iter = arr[ITERATOR]();
-      iter.next = function () {
-        return { done: safe = true };
-      };
-      arr[ITERATOR] = function () {
-        return iter;
-      };
-      exec(arr);
-    } catch (e) {}
-    return safe;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('28', ['7', '29', '1c', '13', '2a', '2b', '16', 'c', '19', 'a', '12', '15', '17', 'f', '18', '21', '26', '22', '2c', '24', '25', '27', '20'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  (function (process) {
+$__System.registerDynamic('2', ['3'], true, function ($__require, exports, module) {
+    /*jshint -W116, -W030, latedef: false */
     'use strict';
 
-    var $ = $__require('7'),
-        LIBRARY = $__require('29'),
-        global = $__require('1c'),
-        ctx = $__require('13'),
-        classof = $__require('2a'),
-        $export = $__require('2b'),
-        isObject = $__require('16'),
-        anObject = $__require('c'),
-        aFunction = $__require('19'),
-        strictNew = $__require('a'),
-        forOf = $__require('12'),
-        setProto = $__require('15').set,
-        same = $__require('17'),
-        SPECIES = $__require('f')('species'),
-        speciesConstructor = $__require('18'),
-        asap = $__require('21'),
-        PROMISE = 'Promise',
-        process = global.process,
-        isNode = classof(process) == 'process',
-        P = global[PROMISE],
-        empty = function () {},
-        Wrapper;
-    var testResolve = function (sub) {
-      var test = new P(empty),
-          promise;
-      if (sub) test.constructor = function (exec) {
-        exec(empty, empty);
-      };
-      (promise = P.resolve(test))['catch'](empty);
-      return promise === test;
-    };
-    var USE_NATIVE = function () {
-      var works = false;
-      function P2(x) {
-        var self = new P(x);
-        setProto(self, P2.prototype);
-        return self;
-      }
-      try {
-        works = P && P.resolve && testResolve();
-        setProto(P2, P);
-        P2.prototype = $.create(P.prototype, { constructor: { value: P2 } });
-        if (!(P2.resolve(5).then(function () {}) instanceof P2)) {
-          works = false;
-        }
-        if (works && $__require('26')) {
-          var thenableThenGotten = false;
-          P.resolve($.setDesc({}, 'then', { get: function () {
-              thenableThenGotten = true;
-            } }));
-          works = thenableThenGotten;
-        }
-      } catch (e) {
-        works = false;
-      }
-      return works;
-    }();
-    var sameConstructor = function (a, b) {
-      if (LIBRARY && a === P && b === Wrapper) return true;
-      return same(a, b);
-    };
-    var getConstructor = function (C) {
-      var S = anObject(C)[SPECIES];
-      return S != undefined ? S : C;
-    };
-    var isThenable = function (it) {
-      var then;
-      return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-    };
-    var PromiseCapability = function (C) {
-      var resolve, reject;
-      this.promise = new C(function ($$resolve, $$reject) {
-        if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-        resolve = $$resolve;
-        reject = $$reject;
-      });
-      this.resolve = aFunction(resolve), this.reject = aFunction(reject);
-    };
-    var perform = function (exec) {
-      try {
-        exec();
-      } catch (e) {
-        return { error: e };
-      }
-    };
-    var notify = function (record, isReject) {
-      if (record.n) return;
-      record.n = true;
-      var chain = record.c;
-      asap(function () {
-        var value = record.v,
-            ok = record.s == 1,
-            i = 0;
-        var run = function (reaction) {
-          var handler = ok ? reaction.ok : reaction.fail,
-              resolve = reaction.resolve,
-              reject = reaction.reject,
-              result,
-              then;
-          try {
-            if (handler) {
-              if (!ok) record.h = true;
-              result = handler === true ? value : handler(value);
-              if (result === reaction.promise) {
-                reject(TypeError('Promise-chain cycle'));
-              } else if (then = isThenable(result)) {
-                then.call(result, resolve, reject);
-              } else resolve(result);
-            } else reject(value);
-          } catch (e) {
-            reject(e);
-          }
-        };
-        while (chain.length > i) run(chain[i++]);
-        chain.length = 0;
-        record.n = false;
-        if (isReject) setTimeout(function () {
-          var promise = record.p,
-              handler,
-              console;
-          if (isUnhandled(promise)) {
-            if (isNode) {
-              process.emit('unhandledRejection', value, promise);
-            } else if (handler = global.onunhandledrejection) {
-              handler({
-                promise: promise,
-                reason: value
-              });
-            } else if ((console = global.console) && console.error) {
-              console.error('Unhandled promise rejection', value);
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    (function (root, factory) {
+        if (typeof module !== 'undefined' && module.exports) {
+            // CommonJS
+            if (typeof angular === 'undefined') {
+                factory($__require('3'));
+            } else {
+                factory(angular);
             }
-          }
-          record.a = undefined;
-        }, 1);
-      });
-    };
-    var isUnhandled = function (promise) {
-      var record = promise._d,
-          chain = record.a || record.c,
-          i = 0,
-          reaction;
-      if (record.h) return false;
-      while (chain.length > i) {
-        reaction = chain[i++];
-        if (reaction.fail || !isUnhandled(reaction.promise)) return false;
-      }
-      return true;
-    };
-    var $reject = function (value) {
-      var record = this;
-      if (record.d) return;
-      record.d = true;
-      record = record.r || record;
-      record.v = value;
-      record.s = 2;
-      record.a = record.c.slice();
-      notify(record, true);
-    };
-    var $resolve = function (value) {
-      var record = this,
-          then;
-      if (record.d) return;
-      record.d = true;
-      record = record.r || record;
-      try {
-        if (record.p === value) throw TypeError("Promise can't be resolved itself");
-        if (then = isThenable(value)) {
-          asap(function () {
-            var wrapper = {
-              r: record,
-              d: false
+            module.exports = 'ActivityMonitor';
+        } else if (typeof define === 'function' && define.amd) {
+            // AMD
+            define(['angular'], factory);
+        } else {
+            // Global variables
+            factory(root.angular);
+        }
+    })(this, function (angular) {
+        var m = angular.module('ActivityMonitor', []).service('ActivityMonitor', ActivityMonitor);
+
+        var MILLISECOND = 1000;
+        var EVENT_KEEPALIVE = 'keepAlive';
+        var EVENT_INACTIVE = 'inactive';
+        var EVENT_WARNING = 'warning';
+        var EVENT_ACTIVITY = 'activity';
+
+        ActivityMonitor.$inject = ['$document'];
+        function ActivityMonitor($document) {
+            var service = this;
+
+            /* configuration */
+            service.options = {
+                enabled: false, /* is the ActivityMonitor enabled? */
+                keepAlive: 800, /* keepAlive ping invterval (seconds) */
+                inactive: 900, /* how long until user is considered inactive? (seconds) */
+                warning: 60, /* when to warn user when nearing inactive state (deducted from inactive in seconds) */
+                monitor: 3, /* how frequently to check if the user is inactive (seconds) */
+                disableOnInactive: true, /* by default, once user becomes inactive, all listeners are detached */
+                DOMevents: ['mousemove', 'mousedown', 'mouseup', 'keypress', 'wheel', 'touchstart', 'scroll'] /* list of DOM events to determine user's activity */
             };
-            try {
-              then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-            } catch (e) {
-              $reject.call(wrapper, e);
-            }
-          });
-        } else {
-          record.v = value;
-          record.s = 1;
-          notify(record, false);
-        }
-      } catch (e) {
-        $reject.call({
-          r: record,
-          d: false
-        }, e);
-      }
-    };
-    if (!USE_NATIVE) {
-      P = function Promise(executor) {
-        aFunction(executor);
-        var record = this._d = {
-          p: strictNew(this, P, PROMISE),
-          c: [],
-          a: undefined,
-          s: 0,
-          d: false,
-          v: undefined,
-          h: false,
-          n: false
-        };
-        try {
-          executor(ctx($resolve, record, 1), ctx($reject, record, 1));
-        } catch (err) {
-          $reject.call(record, err);
-        }
-      };
-      $__require('22')(P.prototype, {
-        then: function then(onFulfilled, onRejected) {
-          var reaction = new PromiseCapability(speciesConstructor(this, P)),
-              promise = reaction.promise,
-              record = this._d;
-          reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-          reaction.fail = typeof onRejected == 'function' && onRejected;
-          record.c.push(reaction);
-          if (record.a) record.a.push(reaction);
-          if (record.s) notify(record, false);
-          return promise;
-        },
-        'catch': function (onRejected) {
-          return this.then(undefined, onRejected);
-        }
-      });
-    }
-    $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: P });
-    $__require('2c')(P, PROMISE);
-    $__require('24')(PROMISE);
-    Wrapper = $__require('25')[PROMISE];
-    $export($export.S + $export.F * !USE_NATIVE, PROMISE, { reject: function reject(r) {
-        var capability = new PromiseCapability(this),
-            $$reject = capability.reject;
-        $$reject(r);
-        return capability.promise;
-      } });
-    $export($export.S + $export.F * (!USE_NATIVE || testResolve(true)), PROMISE, { resolve: function resolve(x) {
-        if (x instanceof P && sameConstructor(x.constructor, this)) return x;
-        var capability = new PromiseCapability(this),
-            $$resolve = capability.resolve;
-        $$resolve(x);
-        return capability.promise;
-      } });
-    $export($export.S + $export.F * !(USE_NATIVE && $__require('27')(function (iter) {
-      P.all(iter)['catch'](function () {});
-    })), PROMISE, {
-      all: function all(iterable) {
-        var C = getConstructor(this),
-            capability = new PromiseCapability(C),
-            resolve = capability.resolve,
-            reject = capability.reject,
-            values = [];
-        var abrupt = perform(function () {
-          forOf(iterable, false, values.push, values);
-          var remaining = values.length,
-              results = Array(remaining);
-          if (remaining) $.each.call(values, function (promise, index) {
-            var alreadyCalled = false;
-            C.resolve(promise).then(function (value) {
-              if (alreadyCalled) return;
-              alreadyCalled = true;
-              results[index] = value;
-              --remaining || resolve(results);
-            }, reject);
-          });else resolve(results);
-        });
-        if (abrupt) reject(abrupt.error);
-        return capability.promise;
-      },
-      race: function race(iterable) {
-        var C = getConstructor(this),
-            capability = new PromiseCapability(C),
-            reject = capability.reject;
-        var abrupt = perform(function () {
-          forOf(iterable, false, function (promise) {
-            C.resolve(promise).then(capability.resolve, reject);
-          });
-        });
-        if (abrupt) reject(abrupt.error);
-        return capability.promise;
-      }
-    });
-  })($__require('20'));
-  return module.exports;
-});
-$__System.registerDynamic('2d', ['9', '2e', '2f', '28', '25'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('9');
-  $__require('2e');
-  $__require('2f');
-  $__require('28');
-  module.exports = $__require('25').Promise;
-  return module.exports;
-});
-$__System.registerDynamic("30", ["2d"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("2d"), __esModule: true };
-  return module.exports;
-});
-$__System.registerDynamic('31', ['7', '32', '33', '34'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var $ = $__require('7'),
-      toObject = $__require('32'),
-      IObject = $__require('33');
-  module.exports = $__require('34')(function () {
-    var a = Object.assign,
-        A = {},
-        B = {},
-        S = Symbol(),
-        K = 'abcdefghijklmnopqrst';
-    A[S] = 7;
-    K.split('').forEach(function (k) {
-      B[k] = k;
-    });
-    return a({}, A)[S] != 7 || Object.keys(a({}, B)).join('') != K;
-  }) ? function assign(target, source) {
-    var T = toObject(target),
-        $$ = arguments,
-        $$len = $$.length,
-        index = 1,
-        getKeys = $.getKeys,
-        getSymbols = $.getSymbols,
-        isEnum = $.isEnum;
-    while ($$len > index) {
-      var S = IObject($$[index++]),
-          keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S),
-          length = keys.length,
-          j = 0,
-          key;
-      while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
-    }
-    return T;
-  } : Object.assign;
-  return module.exports;
-});
-$__System.registerDynamic('35', ['2b', '31'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var $export = $__require('2b');
-  $export($export.S + $export.F, 'Object', { assign: $__require('31') });
-  return module.exports;
-});
-$__System.registerDynamic('36', ['35', '25'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('35');
-  module.exports = $__require('25').Object.assign;
-  return module.exports;
-});
-$__System.registerDynamic("5", ["36"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("36"), __esModule: true };
-  return module.exports;
-});
-$__System.registerDynamic("37", ["20"], true, function ($__require, exports, module) {
-  /* */
-  "format cjs";
 
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  (function (process) {
-    (function (f) {
-      if (typeof exports === "object" && typeof module !== "undefined") {
-        module.exports = f();
-      } else if (typeof define === "function" && define.amd) {
-        define([], f);
+            /* user activity */
+            service.user = {
+                action: Date.now(), /* timestamp of the users' last action */
+                active: true, /* is the user considered active? */
+                warning: false /* is the user in warning state? */
+            };
+
+            service.activity = activity; /* method consumers can use to supply activity */
+            service.on = service.bind = subscribe; /* expose method to subscribe to events */
+            service.off = service.unbind = unsubscribe; /* expose method to unsubscribe from events */
+
+            var events = {};
+            events[EVENT_KEEPALIVE] = {}; /* functions to invoke along with ping (options.frequency) */
+            events[EVENT_INACTIVE] = {}; /* functions to invoke when user goes inactive (options.threshold) */
+            events[EVENT_WARNING] = {}; /* functions to invoke when warning user about inactivity (options.warning) */
+            events[EVENT_ACTIVITY] = {}; /* functions to invoke any time a user makes a move */
+
+            var timer = {
+                inactivity: null, /* setInterval handle to determine whether the user is inactive */
+                keepAlive: null /* setInterval handle for ping handler (options.frequency) */
+            };
+
+            enable.timer = timer;
+            service.enable = enable;
+            service.disable = disable;
+
+            return service;
+
+            ///////////////
+
+            function disable() {
+                service.options.enabled = false;
+
+                disableIntervals();
+
+                $document.off(service.options.DOMevents.join(' '), activity);
+            }
+
+            function disableIntervals() {
+                clearInterval(timer.inactivity);
+                clearInterval(timer.keepAlive);
+                delete timer.inactivity;
+                delete timer.keepAlive;
+            }
+
+            function enable() {
+                $document.on(service.options.DOMevents.join(' '), activity);
+                service.options.enabled = true;
+                service.user.warning = false;
+
+                enableIntervals();
+            }
+
+            function enableIntervals() {
+                timer.keepAlive = setInterval(function () {
+                    publish(EVENT_KEEPALIVE);
+                }, service.options.keepAlive * MILLISECOND);
+
+                timer.inactivity = setInterval(function () {
+                    var now = Date.now();
+                    var warning = now - (service.options.inactive - service.options.warning) * MILLISECOND;
+                    var inactive = now - service.options.inactive * MILLISECOND;
+
+                    /* should we display warning */
+                    if (!service.user.warning && service.user.action <= warning) {
+                        service.user.warning = true;
+                        publish(EVENT_WARNING);
+                    }
+
+                    /* should user be considered inactive? */
+                    if (service.user.active && service.user.action <= inactive) {
+                        service.user.active = false;
+                        publish(EVENT_INACTIVE);
+
+                        if (service.options.disableOnInactive) {
+                            disable();
+                        } else {
+                            disableIntervals(); //user inactive is known, lets stop checking, for now
+                            dynamicActivity = reactivate; //hot swap method that handles document event watching
+                        }
+                    }
+                }, service.options.monitor * MILLISECOND);
+            }
+
+            /* function that lives in memory with the intention of being swapped out */
+            function dynamicActivity() {
+                regularActivityMonitor();
+            }
+
+            /* after user inactive, this method is hot swapped as the dynamicActivity method in-which the next user activity reactivates monitors */
+            function reactivate() {
+                enableIntervals();
+                dynamicActivity = regularActivityMonitor;
+            }
+
+            /* invoked on every user action */
+            function activity() {
+                dynamicActivity();
+            }
+
+            /* during a users active state the following method is called */
+            function regularActivityMonitor() {
+                service.user.active = true;
+                service.user.action = Date.now();
+
+                publish(EVENT_ACTIVITY);
+
+                if (service.user.warning) {
+                    service.user.warning = false;
+                    publish(EVENT_KEEPALIVE);
+                }
+            }
+
+            function publish(event) {
+                if (!service.options.enabled) return;
+                var spaces = Object.keys(events[event]);
+                if (!event || !spaces.length) return;
+                spaces.forEach(function (space) {
+                    events[event][space] && events[event][space]();
+                });
+            }
+
+            function subscribe(event, callback) {
+                if (!event || typeof callback !== 'function') return;
+                event = _namespace(event, callback);
+                events[event.name][event.space] = callback;
+                !service.options.enabled && enable();
+            }
+
+            function unsubscribe(event, callback) {
+                event = _namespace(event, callback);
+
+                if (!event.space) {
+                    events[event.name] = {};
+                    return;
+                }
+
+                events[event.name][event.space] = null;
+            }
+
+            /* method to return event namespace */
+            function _namespace(event, callback) {
+                event = event.split('.');
+
+                if (!event[1] && typeof callback === 'function') {
+                    /* if no namespace, use callback and strip all linebreaks and spaces */
+                    event[1] = callback.toString().substr(0, 150).replace(/\r?\n|\r|\s+/gm, '');
+                }
+
+                return {
+                    name: event[0],
+                    space: event[1]
+                };
+            }
+        }
+
+        return m;
+    });
+    return module.exports;
+});
+$__System.registerDynamic('4', ['3'], false, function ($__require, $__exports, $__module) {
+  var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, null, null);
+
+  (function ($__global) {
+    /**
+     * @license AngularJS v1.5.8
+     * (c) 2010-2016 Google, Inc. http://angularjs.org
+     * License: MIT
+     */
+    (function (window, angular) {
+      'use strict';
+
+      var ELEMENT_NODE = 1;
+      var COMMENT_NODE = 8;
+
+      var ADD_CLASS_SUFFIX = '-add';
+      var REMOVE_CLASS_SUFFIX = '-remove';
+      var EVENT_CLASS_PREFIX = 'ng-';
+      var ACTIVE_CLASS_SUFFIX = '-active';
+      var PREPARE_CLASS_SUFFIX = '-prepare';
+
+      var NG_ANIMATE_CLASSNAME = 'ng-animate';
+      var NG_ANIMATE_CHILDREN_DATA = '$$ngAnimateChildren';
+
+      // Detect proper transitionend/animationend event names.
+      var CSS_PREFIX = '',
+          TRANSITION_PROP,
+          TRANSITIONEND_EVENT,
+          ANIMATION_PROP,
+          ANIMATIONEND_EVENT;
+
+      // If unprefixed events are not supported but webkit-prefixed are, use the latter.
+      // Otherwise, just use W3C names, browsers not supporting them at all will just ignore them.
+      // Note: Chrome implements `window.onwebkitanimationend` and doesn't implement `window.onanimationend`
+      // but at the same time dispatches the `animationend` event and not `webkitAnimationEnd`.
+      // Register both events in case `window.onanimationend` is not supported because of that,
+      // do the same for `transitionend` as Safari is likely to exhibit similar behavior.
+      // Also, the only modern browser that uses vendor prefixes for transitions/keyframes is webkit
+      // therefore there is no reason to test anymore for other vendor prefixes:
+      // http://caniuse.com/#search=transition
+      if (window.ontransitionend === void 0 && window.onwebkittransitionend !== void 0) {
+        CSS_PREFIX = '-webkit-';
+        TRANSITION_PROP = 'WebkitTransition';
+        TRANSITIONEND_EVENT = 'webkitTransitionEnd transitionend';
       } else {
-        var g;
-        if (typeof window !== "undefined") {
-          g = window;
-        } else if (typeof global !== "undefined") {
-          g = global;
-        } else if (typeof self !== "undefined") {
-          g = self;
-        } else {
-          g = this;
-        }
-        g.localforage = f();
+        TRANSITION_PROP = 'transition';
+        TRANSITIONEND_EVENT = 'transitionend';
       }
-    })(function () {
-      var define, module, exports;
-      return function e(t, n, r) {
-        function s(o, u) {
-          if (!n[o]) {
-            if (!t[o]) {
-              var a = typeof $__require == "function" && $__require;
-              if (!u && a) return a(o, !0);
-              if (i) return i(o, !0);
-              var f = new Error("Cannot find module '" + o + "'");
-              throw f.code = "MODULE_NOT_FOUND", f;
-            }
-            var l = n[o] = { exports: {} };
-            t[o][0].call(l.exports, function (e) {
-              var n = t[o][1][e];
-              return s(n ? n : e);
-            }, l, l.exports, e, t, n, r);
-          }
-          return n[o].exports;
+
+      if (window.onanimationend === void 0 && window.onwebkitanimationend !== void 0) {
+        CSS_PREFIX = '-webkit-';
+        ANIMATION_PROP = 'WebkitAnimation';
+        ANIMATIONEND_EVENT = 'webkitAnimationEnd animationend';
+      } else {
+        ANIMATION_PROP = 'animation';
+        ANIMATIONEND_EVENT = 'animationend';
+      }
+
+      var DURATION_KEY = 'Duration';
+      var PROPERTY_KEY = 'Property';
+      var DELAY_KEY = 'Delay';
+      var TIMING_KEY = 'TimingFunction';
+      var ANIMATION_ITERATION_COUNT_KEY = 'IterationCount';
+      var ANIMATION_PLAYSTATE_KEY = 'PlayState';
+      var SAFE_FAST_FORWARD_DURATION_VALUE = 9999;
+
+      var ANIMATION_DELAY_PROP = ANIMATION_PROP + DELAY_KEY;
+      var ANIMATION_DURATION_PROP = ANIMATION_PROP + DURATION_KEY;
+      var TRANSITION_DELAY_PROP = TRANSITION_PROP + DELAY_KEY;
+      var TRANSITION_DURATION_PROP = TRANSITION_PROP + DURATION_KEY;
+
+      var ngMinErr = angular.$$minErr('ng');
+      function assertArg(arg, name, reason) {
+        if (!arg) {
+          throw ngMinErr('areq', "Argument '{0}' is {1}", name || '?', reason || "required");
         }
-        var i = typeof $__require == "function" && $__require;
-        for (var o = 0; o < r.length; o++) s(r[o]);
-        return s;
-      }({
-        1: [function (_dereq_, module, exports) {
-          'use strict';
+        return arg;
+      }
 
-          var immediate = _dereq_(2);
-          function INTERNAL() {}
-          var handlers = {};
-          var REJECTED = ['REJECTED'];
-          var FULFILLED = ['FULFILLED'];
-          var PENDING = ['PENDING'];
-          module.exports = exports = Promise;
-          function Promise(resolver) {
-            if (typeof resolver !== 'function') {
-              throw new TypeError('resolver must be a function');
-            }
-            this.state = PENDING;
-            this.queue = [];
-            this.outcome = void 0;
-            if (resolver !== INTERNAL) {
-              safelyResolveThenable(this, resolver);
-            }
+      function mergeClasses(a, b) {
+        if (!a && !b) return '';
+        if (!a) return b;
+        if (!b) return a;
+        if (isArray(a)) a = a.join(' ');
+        if (isArray(b)) b = b.join(' ');
+        return a + ' ' + b;
+      }
+
+      function packageStyles(options) {
+        var styles = {};
+        if (options && (options.to || options.from)) {
+          styles.to = options.to;
+          styles.from = options.from;
+        }
+        return styles;
+      }
+
+      function pendClasses(classes, fix, isPrefix) {
+        var className = '';
+        classes = isArray(classes) ? classes : classes && isString(classes) && classes.length ? classes.split(/\s+/) : [];
+        forEach(classes, function (klass, i) {
+          if (klass && klass.length > 0) {
+            className += i > 0 ? ' ' : '';
+            className += isPrefix ? fix + klass : klass + fix;
           }
-          Promise.prototype["catch"] = function (onRejected) {
-            return this.then(null, onRejected);
-          };
-          Promise.prototype.then = function (onFulfilled, onRejected) {
-            if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
-              return this;
-            }
-            var promise = new this.constructor(INTERNAL);
-            if (this.state !== PENDING) {
-              var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
-              unwrap(promise, resolver, this.outcome);
-            } else {
-              this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
-            }
-            return promise;
-          };
-          function QueueItem(promise, onFulfilled, onRejected) {
-            this.promise = promise;
-            if (typeof onFulfilled === 'function') {
-              this.onFulfilled = onFulfilled;
-              this.callFulfilled = this.otherCallFulfilled;
-            }
-            if (typeof onRejected === 'function') {
-              this.onRejected = onRejected;
-              this.callRejected = this.otherCallRejected;
-            }
+        });
+        return className;
+      }
+
+      function removeFromArray(arr, val) {
+        var index = arr.indexOf(val);
+        if (val >= 0) {
+          arr.splice(index, 1);
+        }
+      }
+
+      function stripCommentsFromElement(element) {
+        if (element instanceof jqLite) {
+          switch (element.length) {
+            case 0:
+              return element;
+
+            case 1:
+              // there is no point of stripping anything if the element
+              // is the only element within the jqLite wrapper.
+              // (it's important that we retain the element instance.)
+              if (element[0].nodeType === ELEMENT_NODE) {
+                return element;
+              }
+              break;
+
+            default:
+              return jqLite(extractElementNode(element));
           }
-          QueueItem.prototype.callFulfilled = function (value) {
-            handlers.resolve(this.promise, value);
+        }
+
+        if (element.nodeType === ELEMENT_NODE) {
+          return jqLite(element);
+        }
+      }
+
+      function extractElementNode(element) {
+        if (!element[0]) return element;
+        for (var i = 0; i < element.length; i++) {
+          var elm = element[i];
+          if (elm.nodeType == ELEMENT_NODE) {
+            return elm;
+          }
+        }
+      }
+
+      function $$addClass($$jqLite, element, className) {
+        forEach(element, function (elm) {
+          $$jqLite.addClass(elm, className);
+        });
+      }
+
+      function $$removeClass($$jqLite, element, className) {
+        forEach(element, function (elm) {
+          $$jqLite.removeClass(elm, className);
+        });
+      }
+
+      function applyAnimationClassesFactory($$jqLite) {
+        return function (element, options) {
+          if (options.addClass) {
+            $$addClass($$jqLite, element, options.addClass);
+            options.addClass = null;
+          }
+          if (options.removeClass) {
+            $$removeClass($$jqLite, element, options.removeClass);
+            options.removeClass = null;
+          }
+        };
+      }
+
+      function prepareAnimationOptions(options) {
+        options = options || {};
+        if (!options.$$prepared) {
+          var domOperation = options.domOperation || noop;
+          options.domOperation = function () {
+            options.$$domOperationFired = true;
+            domOperation();
+            domOperation = noop;
           };
-          QueueItem.prototype.otherCallFulfilled = function (value) {
-            unwrap(this.promise, this.onFulfilled, value);
-          };
-          QueueItem.prototype.callRejected = function (value) {
-            handlers.reject(this.promise, value);
-          };
-          QueueItem.prototype.otherCallRejected = function (value) {
-            unwrap(this.promise, this.onRejected, value);
-          };
-          function unwrap(promise, func, value) {
-            immediate(function () {
-              var returnValue;
-              try {
-                returnValue = func(value);
-              } catch (e) {
-                return handlers.reject(promise, e);
-              }
-              if (returnValue === promise) {
-                handlers.reject(promise, new TypeError('Cannot resolve promise with itself'));
-              } else {
-                handlers.resolve(promise, returnValue);
-              }
+          options.$$prepared = true;
+        }
+        return options;
+      }
+
+      function applyAnimationStyles(element, options) {
+        applyAnimationFromStyles(element, options);
+        applyAnimationToStyles(element, options);
+      }
+
+      function applyAnimationFromStyles(element, options) {
+        if (options.from) {
+          element.css(options.from);
+          options.from = null;
+        }
+      }
+
+      function applyAnimationToStyles(element, options) {
+        if (options.to) {
+          element.css(options.to);
+          options.to = null;
+        }
+      }
+
+      function mergeAnimationDetails(element, oldAnimation, newAnimation) {
+        var target = oldAnimation.options || {};
+        var newOptions = newAnimation.options || {};
+
+        var toAdd = (target.addClass || '') + ' ' + (newOptions.addClass || '');
+        var toRemove = (target.removeClass || '') + ' ' + (newOptions.removeClass || '');
+        var classes = resolveElementClasses(element.attr('class'), toAdd, toRemove);
+
+        if (newOptions.preparationClasses) {
+          target.preparationClasses = concatWithSpace(newOptions.preparationClasses, target.preparationClasses);
+          delete newOptions.preparationClasses;
+        }
+
+        // noop is basically when there is no callback; otherwise something has been set
+        var realDomOperation = target.domOperation !== noop ? target.domOperation : null;
+
+        extend(target, newOptions);
+
+        // TODO(matsko or sreeramu): proper fix is to maintain all animation callback in array and call at last,but now only leave has the callback so no issue with this.
+        if (realDomOperation) {
+          target.domOperation = realDomOperation;
+        }
+
+        if (classes.addClass) {
+          target.addClass = classes.addClass;
+        } else {
+          target.addClass = null;
+        }
+
+        if (classes.removeClass) {
+          target.removeClass = classes.removeClass;
+        } else {
+          target.removeClass = null;
+        }
+
+        oldAnimation.addClass = target.addClass;
+        oldAnimation.removeClass = target.removeClass;
+
+        return target;
+      }
+
+      function resolveElementClasses(existing, toAdd, toRemove) {
+        var ADD_CLASS = 1;
+        var REMOVE_CLASS = -1;
+
+        var flags = {};
+        existing = splitClassesToLookup(existing);
+
+        toAdd = splitClassesToLookup(toAdd);
+        forEach(toAdd, function (value, key) {
+          flags[key] = ADD_CLASS;
+        });
+
+        toRemove = splitClassesToLookup(toRemove);
+        forEach(toRemove, function (value, key) {
+          flags[key] = flags[key] === ADD_CLASS ? null : REMOVE_CLASS;
+        });
+
+        var classes = {
+          addClass: '',
+          removeClass: ''
+        };
+
+        forEach(flags, function (val, klass) {
+          var prop, allow;
+          if (val === ADD_CLASS) {
+            prop = 'addClass';
+            allow = !existing[klass] || existing[klass + REMOVE_CLASS_SUFFIX];
+          } else if (val === REMOVE_CLASS) {
+            prop = 'removeClass';
+            allow = existing[klass] || existing[klass + ADD_CLASS_SUFFIX];
+          }
+          if (allow) {
+            if (classes[prop].length) {
+              classes[prop] += ' ';
+            }
+            classes[prop] += klass;
+          }
+        });
+
+        function splitClassesToLookup(classes) {
+          if (isString(classes)) {
+            classes = classes.split(' ');
+          }
+
+          var obj = {};
+          forEach(classes, function (klass) {
+            // sometimes the split leaves empty string values
+            // incase extra spaces were applied to the options
+            if (klass.length) {
+              obj[klass] = true;
+            }
+          });
+          return obj;
+        }
+
+        return classes;
+      }
+
+      function getDomNode(element) {
+        return element instanceof jqLite ? element[0] : element;
+      }
+
+      function applyGeneratedPreparationClasses(element, event, options) {
+        var classes = '';
+        if (event) {
+          classes = pendClasses(event, EVENT_CLASS_PREFIX, true);
+        }
+        if (options.addClass) {
+          classes = concatWithSpace(classes, pendClasses(options.addClass, ADD_CLASS_SUFFIX));
+        }
+        if (options.removeClass) {
+          classes = concatWithSpace(classes, pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX));
+        }
+        if (classes.length) {
+          options.preparationClasses = classes;
+          element.addClass(classes);
+        }
+      }
+
+      function clearGeneratedClasses(element, options) {
+        if (options.preparationClasses) {
+          element.removeClass(options.preparationClasses);
+          options.preparationClasses = null;
+        }
+        if (options.activeClasses) {
+          element.removeClass(options.activeClasses);
+          options.activeClasses = null;
+        }
+      }
+
+      function blockTransitions(node, duration) {
+        // we use a negative delay value since it performs blocking
+        // yet it doesn't kill any existing transitions running on the
+        // same element which makes this safe for class-based animations
+        var value = duration ? '-' + duration + 's' : '';
+        applyInlineStyle(node, [TRANSITION_DELAY_PROP, value]);
+        return [TRANSITION_DELAY_PROP, value];
+      }
+
+      function blockKeyframeAnimations(node, applyBlock) {
+        var value = applyBlock ? 'paused' : '';
+        var key = ANIMATION_PROP + ANIMATION_PLAYSTATE_KEY;
+        applyInlineStyle(node, [key, value]);
+        return [key, value];
+      }
+
+      function applyInlineStyle(node, styleTuple) {
+        var prop = styleTuple[0];
+        var value = styleTuple[1];
+        node.style[prop] = value;
+      }
+
+      function concatWithSpace(a, b) {
+        if (!a) return b;
+        if (!b) return a;
+        return a + ' ' + b;
+      }
+
+      var $$rAFSchedulerFactory = ['$$rAF', function ($$rAF) {
+        var queue, cancelFn;
+
+        function scheduler(tasks) {
+          // we make a copy since RAFScheduler mutates the state
+          // of the passed in array variable and this would be difficult
+          // to track down on the outside code
+          queue = queue.concat(tasks);
+          nextTick();
+        }
+
+        queue = scheduler.queue = [];
+
+        /* waitUntilQuiet does two things:
+         * 1. It will run the FINAL `fn` value only when an uncanceled RAF has passed through
+         * 2. It will delay the next wave of tasks from running until the quiet `fn` has run.
+         *
+         * The motivation here is that animation code can request more time from the scheduler
+         * before the next wave runs. This allows for certain DOM properties such as classes to
+         * be resolved in time for the next animation to run.
+         */
+        scheduler.waitUntilQuiet = function (fn) {
+          if (cancelFn) cancelFn();
+
+          cancelFn = $$rAF(function () {
+            cancelFn = null;
+            fn();
+            nextTick();
+          });
+        };
+
+        return scheduler;
+
+        function nextTick() {
+          if (!queue.length) return;
+
+          var items = queue.shift();
+          for (var i = 0; i < items.length; i++) {
+            items[i]();
+          }
+
+          if (!cancelFn) {
+            $$rAF(function () {
+              if (!cancelFn) nextTick();
             });
           }
-          handlers.resolve = function (self, value) {
-            var result = tryCatch(getThen, value);
-            if (result.status === 'error') {
-              return handlers.reject(self, result.value);
+        }
+      }];
+
+      /**
+       * @ngdoc directive
+       * @name ngAnimateChildren
+       * @restrict AE
+       * @element ANY
+       *
+       * @description
+       *
+       * ngAnimateChildren allows you to specify that children of this element should animate even if any
+       * of the children's parents are currently animating. By default, when an element has an active `enter`, `leave`, or `move`
+       * (structural) animation, child elements that also have an active structural animation are not animated.
+       *
+       * Note that even if `ngAnimteChildren` is set, no child animations will run when the parent element is removed from the DOM (`leave` animation).
+       *
+       *
+       * @param {string} ngAnimateChildren If the value is empty, `true` or `on`,
+       *     then child animations are allowed. If the value is `false`, child animations are not allowed.
+       *
+       * @example
+       * <example module="ngAnimateChildren" name="ngAnimateChildren" deps="angular-animate.js" animations="true">
+           <file name="index.html">
+             <div ng-controller="mainController as main">
+               <label>Show container? <input type="checkbox" ng-model="main.enterElement" /></label>
+               <label>Animate children? <input type="checkbox" ng-model="main.animateChildren" /></label>
+               <hr>
+               <div ng-animate-children="{{main.animateChildren}}">
+                 <div ng-if="main.enterElement" class="container">
+                   List of items:
+                   <div ng-repeat="item in [0, 1, 2, 3]" class="item">Item {{item}}</div>
+                 </div>
+               </div>
+             </div>
+           </file>
+           <file name="animations.css">
+      
+            .container.ng-enter,
+            .container.ng-leave {
+              transition: all ease 1.5s;
             }
-            var thenable = result.value;
-            if (thenable) {
-              safelyResolveThenable(self, thenable);
+      
+            .container.ng-enter,
+            .container.ng-leave-active {
+              opacity: 0;
+            }
+      
+            .container.ng-leave,
+            .container.ng-enter-active {
+              opacity: 1;
+            }
+      
+            .item {
+              background: firebrick;
+              color: #FFF;
+              margin-bottom: 10px;
+            }
+      
+            .item.ng-enter,
+            .item.ng-leave {
+              transition: transform 1.5s ease;
+            }
+      
+            .item.ng-enter {
+              transform: translateX(50px);
+            }
+      
+            .item.ng-enter-active {
+              transform: translateX(0);
+            }
+          </file>
+          <file name="script.js">
+            angular.module('ngAnimateChildren', ['ngAnimate'])
+              .controller('mainController', function() {
+                this.animateChildren = false;
+                this.enterElement = false;
+              });
+          </file>
+        </example>
+       */
+      var $$AnimateChildrenDirective = ['$interpolate', function ($interpolate) {
+        return {
+          link: function (scope, element, attrs) {
+            var val = attrs.ngAnimateChildren;
+            if (isString(val) && val.length === 0) {
+              //empty attribute
+              element.data(NG_ANIMATE_CHILDREN_DATA, true);
             } else {
-              self.state = FULFILLED;
-              self.outcome = value;
-              var i = -1;
-              var len = self.queue.length;
-              while (++i < len) {
-                self.queue[i].callFulfilled(value);
+              // Interpolate and set the value, so that it is available to
+              // animations that run right after compilation
+              setData($interpolate(val)(scope));
+              attrs.$observe('ngAnimateChildren', setData);
+            }
+
+            function setData(value) {
+              value = value === 'on' || value === 'true';
+              element.data(NG_ANIMATE_CHILDREN_DATA, value);
+            }
+          }
+        };
+      }];
+
+      var ANIMATE_TIMER_KEY = '$$animateCss';
+
+      /**
+       * @ngdoc service
+       * @name $animateCss
+       * @kind object
+       *
+       * @description
+       * The `$animateCss` service is a useful utility to trigger customized CSS-based transitions/keyframes
+       * from a JavaScript-based animation or directly from a directive. The purpose of `$animateCss` is NOT
+       * to side-step how `$animate` and ngAnimate work, but the goal is to allow pre-existing animations or
+       * directives to create more complex animations that can be purely driven using CSS code.
+       *
+       * Note that only browsers that support CSS transitions and/or keyframe animations are capable of
+       * rendering animations triggered via `$animateCss` (bad news for IE9 and lower).
+       *
+       * ## Usage
+       * Once again, `$animateCss` is designed to be used inside of a registered JavaScript animation that
+       * is powered by ngAnimate. It is possible to use `$animateCss` directly inside of a directive, however,
+       * any automatic control over cancelling animations and/or preventing animations from being run on
+       * child elements will not be handled by Angular. For this to work as expected, please use `$animate` to
+       * trigger the animation and then setup a JavaScript animation that injects `$animateCss` to trigger
+       * the CSS animation.
+       *
+       * The example below shows how we can create a folding animation on an element using `ng-if`:
+       *
+       * ```html
+       * <!-- notice the `fold-animation` CSS class -->
+       * <div ng-if="onOff" class="fold-animation">
+       *   This element will go BOOM
+       * </div>
+       * <button ng-click="onOff=true">Fold In</button>
+       * ```
+       *
+       * Now we create the **JavaScript animation** that will trigger the CSS transition:
+       *
+       * ```js
+       * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
+       *   return {
+       *     enter: function(element, doneFn) {
+       *       var height = element[0].offsetHeight;
+       *       return $animateCss(element, {
+       *         from: { height:'0px' },
+       *         to: { height:height + 'px' },
+       *         duration: 1 // one second
+       *       });
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * ## More Advanced Uses
+       *
+       * `$animateCss` is the underlying code that ngAnimate uses to power **CSS-based animations** behind the scenes. Therefore CSS hooks
+       * like `.ng-EVENT`, `.ng-EVENT-active`, `.ng-EVENT-stagger` are all features that can be triggered using `$animateCss` via JavaScript code.
+       *
+       * This also means that just about any combination of adding classes, removing classes, setting styles, dynamically setting a keyframe animation,
+       * applying a hardcoded duration or delay value, changing the animation easing or applying a stagger animation are all options that work with
+       * `$animateCss`. The service itself is smart enough to figure out the combination of options and examine the element styling properties in order
+       * to provide a working animation that will run in CSS.
+       *
+       * The example below showcases a more advanced version of the `.fold-animation` from the example above:
+       *
+       * ```js
+       * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
+       *   return {
+       *     enter: function(element, doneFn) {
+       *       var height = element[0].offsetHeight;
+       *       return $animateCss(element, {
+       *         addClass: 'red large-text pulse-twice',
+       *         easing: 'ease-out',
+       *         from: { height:'0px' },
+       *         to: { height:height + 'px' },
+       *         duration: 1 // one second
+       *       });
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * Since we're adding/removing CSS classes then the CSS transition will also pick those up:
+       *
+       * ```css
+       * /&#42; since a hardcoded duration value of 1 was provided in the JavaScript animation code,
+       * the CSS classes below will be transitioned despite them being defined as regular CSS classes &#42;/
+       * .red { background:red; }
+       * .large-text { font-size:20px; }
+       *
+       * /&#42; we can also use a keyframe animation and $animateCss will make it work alongside the transition &#42;/
+       * .pulse-twice {
+       *   animation: 0.5s pulse linear 2;
+       *   -webkit-animation: 0.5s pulse linear 2;
+       * }
+       *
+       * @keyframes pulse {
+       *   from { transform: scale(0.5); }
+       *   to { transform: scale(1.5); }
+       * }
+       *
+       * @-webkit-keyframes pulse {
+       *   from { -webkit-transform: scale(0.5); }
+       *   to { -webkit-transform: scale(1.5); }
+       * }
+       * ```
+       *
+       * Given this complex combination of CSS classes, styles and options, `$animateCss` will figure everything out and make the animation happen.
+       *
+       * ## How the Options are handled
+       *
+       * `$animateCss` is very versatile and intelligent when it comes to figuring out what configurations to apply to the element to ensure the animation
+       * works with the options provided. Say for example we were adding a class that contained a keyframe value and we wanted to also animate some inline
+       * styles using the `from` and `to` properties.
+       *
+       * ```js
+       * var animator = $animateCss(element, {
+       *   from: { background:'red' },
+       *   to: { background:'blue' }
+       * });
+       * animator.start();
+       * ```
+       *
+       * ```css
+       * .rotating-animation {
+       *   animation:0.5s rotate linear;
+       *   -webkit-animation:0.5s rotate linear;
+       * }
+       *
+       * @keyframes rotate {
+       *   from { transform: rotate(0deg); }
+       *   to { transform: rotate(360deg); }
+       * }
+       *
+       * @-webkit-keyframes rotate {
+       *   from { -webkit-transform: rotate(0deg); }
+       *   to { -webkit-transform: rotate(360deg); }
+       * }
+       * ```
+       *
+       * The missing pieces here are that we do not have a transition set (within the CSS code nor within the `$animateCss` options) and the duration of the animation is
+       * going to be detected from what the keyframe styles on the CSS class are. In this event, `$animateCss` will automatically create an inline transition
+       * style matching the duration detected from the keyframe style (which is present in the CSS class that is being added) and then prepare both the transition
+       * and keyframe animations to run in parallel on the element. Then when the animation is underway the provided `from` and `to` CSS styles will be applied
+       * and spread across the transition and keyframe animation.
+       *
+       * ## What is returned
+       *
+       * `$animateCss` works in two stages: a preparation phase and an animation phase. Therefore when `$animateCss` is first called it will NOT actually
+       * start the animation. All that is going on here is that the element is being prepared for the animation (which means that the generated CSS classes are
+       * added and removed on the element). Once `$animateCss` is called it will return an object with the following properties:
+       *
+       * ```js
+       * var animator = $animateCss(element, { ... });
+       * ```
+       *
+       * Now what do the contents of our `animator` variable look like:
+       *
+       * ```js
+       * {
+       *   // starts the animation
+       *   start: Function,
+       *
+       *   // ends (aborts) the animation
+       *   end: Function
+       * }
+       * ```
+       *
+       * To actually start the animation we need to run `animation.start()` which will then return a promise that we can hook into to detect when the animation ends.
+       * If we choose not to run the animation then we MUST run `animation.end()` to perform a cleanup on the element (since some CSS classes and styles may have been
+       * applied to the element during the preparation phase). Note that all other properties such as duration, delay, transitions and keyframes are just properties
+       * and that changing them will not reconfigure the parameters of the animation.
+       *
+       * ### runner.done() vs runner.then()
+       * It is documented that `animation.start()` will return a promise object and this is true, however, there is also an additional method available on the
+       * runner called `.done(callbackFn)`. The done method works the same as `.finally(callbackFn)`, however, it does **not trigger a digest to occur**.
+       * Therefore, for performance reasons, it's always best to use `runner.done(callback)` instead of `runner.then()`, `runner.catch()` or `runner.finally()`
+       * unless you really need a digest to kick off afterwards.
+       *
+       * Keep in mind that, to make this easier, ngAnimate has tweaked the JS animations API to recognize when a runner instance is returned from $animateCss
+       * (so there is no need to call `runner.done(doneFn)` inside of your JavaScript animation code).
+       * Check the {@link ngAnimate.$animateCss#usage animation code above} to see how this works.
+       *
+       * @param {DOMElement} element the element that will be animated
+       * @param {object} options the animation-related options that will be applied during the animation
+       *
+       * * `event` - The DOM event (e.g. enter, leave, move). When used, a generated CSS class of `ng-EVENT` and `ng-EVENT-active` will be applied
+       * to the element during the animation. Multiple events can be provided when spaces are used as a separator. (Note that this will not perform any DOM operation.)
+       * * `structural` - Indicates that the `ng-` prefix will be added to the event class. Setting to `false` or omitting will turn `ng-EVENT` and
+       * `ng-EVENT-active` in `EVENT` and `EVENT-active`. Unused if `event` is omitted.
+       * * `easing` - The CSS easing value that will be applied to the transition or keyframe animation (or both).
+       * * `transitionStyle` - The raw CSS transition style that will be used (e.g. `1s linear all`).
+       * * `keyframeStyle` - The raw CSS keyframe animation style that will be used (e.g. `1s my_animation linear`).
+       * * `from` - The starting CSS styles (a key/value object) that will be applied at the start of the animation.
+       * * `to` - The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
+       * * `addClass` - A space separated list of CSS classes that will be added to the element and spread across the animation.
+       * * `removeClass` - A space separated list of CSS classes that will be removed from the element and spread across the animation.
+       * * `duration` - A number value representing the total duration of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `0`
+       * is provided then the animation will be skipped entirely.
+       * * `delay` - A number value representing the total delay of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `true` is
+       * used then whatever delay value is detected from the CSS classes will be mirrored on the elements styles (e.g. by setting delay true then the style value
+       * of the element will be `transition-delay: DETECTED_VALUE`). Using `true` is useful when you want the CSS classes and inline styles to all share the same
+       * CSS delay value.
+       * * `stagger` - A numeric time value representing the delay between successively animated elements
+       * ({@link ngAnimate#css-staggering-animations Click here to learn how CSS-based staggering works in ngAnimate.})
+       * * `staggerIndex` - The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item in the stagger; therefore when a
+       *   `stagger` option value of `0.1` is used then there will be a stagger delay of `600ms`)
+       * * `applyClassesEarly` - Whether or not the classes being added or removed will be used when detecting the animation. This is set by `$animate` when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time. (Note that this will prevent any transitions from occurring on the classes being added and removed.)
+       * * `cleanupStyles` - Whether or not the provided `from` and `to` styles will be removed once
+       *    the animation is closed. This is useful for when the styles are used purely for the sake of
+       *    the animation and do not have a lasting visual effect on the element (e.g. a collapse and open animation).
+       *    By default this value is set to `false`.
+       *
+       * @return {object} an object with start and end methods and details about the animation.
+       *
+       * * `start` - The method to start the animation. This will return a `Promise` when called.
+       * * `end` - This method will cancel the animation and remove all applied CSS classes and styles.
+       */
+      var ONE_SECOND = 1000;
+      var BASE_TEN = 10;
+
+      var ELAPSED_TIME_MAX_DECIMAL_PLACES = 3;
+      var CLOSING_TIME_BUFFER = 1.5;
+
+      var DETECT_CSS_PROPERTIES = {
+        transitionDuration: TRANSITION_DURATION_PROP,
+        transitionDelay: TRANSITION_DELAY_PROP,
+        transitionProperty: TRANSITION_PROP + PROPERTY_KEY,
+        animationDuration: ANIMATION_DURATION_PROP,
+        animationDelay: ANIMATION_DELAY_PROP,
+        animationIterationCount: ANIMATION_PROP + ANIMATION_ITERATION_COUNT_KEY
+      };
+
+      var DETECT_STAGGER_CSS_PROPERTIES = {
+        transitionDuration: TRANSITION_DURATION_PROP,
+        transitionDelay: TRANSITION_DELAY_PROP,
+        animationDuration: ANIMATION_DURATION_PROP,
+        animationDelay: ANIMATION_DELAY_PROP
+      };
+
+      function getCssKeyframeDurationStyle(duration) {
+        return [ANIMATION_DURATION_PROP, duration + 's'];
+      }
+
+      function getCssDelayStyle(delay, isKeyframeAnimation) {
+        var prop = isKeyframeAnimation ? ANIMATION_DELAY_PROP : TRANSITION_DELAY_PROP;
+        return [prop, delay + 's'];
+      }
+
+      function computeCssStyles($window, element, properties) {
+        var styles = Object.create(null);
+        var detectedStyles = $window.getComputedStyle(element) || {};
+        forEach(properties, function (formalStyleName, actualStyleName) {
+          var val = detectedStyles[formalStyleName];
+          if (val) {
+            var c = val.charAt(0);
+
+            // only numerical-based values have a negative sign or digit as the first value
+            if (c === '-' || c === '+' || c >= 0) {
+              val = parseMaxTime(val);
+            }
+
+            // by setting this to null in the event that the delay is not set or is set directly as 0
+            // then we can still allow for negative values to be used later on and not mistake this
+            // value for being greater than any other negative value.
+            if (val === 0) {
+              val = null;
+            }
+            styles[actualStyleName] = val;
+          }
+        });
+
+        return styles;
+      }
+
+      function parseMaxTime(str) {
+        var maxValue = 0;
+        var values = str.split(/\s*,\s*/);
+        forEach(values, function (value) {
+          // it's always safe to consider only second values and omit `ms` values since
+          // getComputedStyle will always handle the conversion for us
+          if (value.charAt(value.length - 1) == 's') {
+            value = value.substring(0, value.length - 1);
+          }
+          value = parseFloat(value) || 0;
+          maxValue = maxValue ? Math.max(value, maxValue) : value;
+        });
+        return maxValue;
+      }
+
+      function truthyTimingValue(val) {
+        return val === 0 || val != null;
+      }
+
+      function getCssTransitionDurationStyle(duration, applyOnlyDuration) {
+        var style = TRANSITION_PROP;
+        var value = duration + 's';
+        if (applyOnlyDuration) {
+          style += DURATION_KEY;
+        } else {
+          value += ' linear all';
+        }
+        return [style, value];
+      }
+
+      function createLocalCacheLookup() {
+        var cache = Object.create(null);
+        return {
+          flush: function () {
+            cache = Object.create(null);
+          },
+
+          count: function (key) {
+            var entry = cache[key];
+            return entry ? entry.total : 0;
+          },
+
+          get: function (key) {
+            var entry = cache[key];
+            return entry && entry.value;
+          },
+
+          put: function (key, value) {
+            if (!cache[key]) {
+              cache[key] = { total: 1, value: value };
+            } else {
+              cache[key].total++;
+            }
+          }
+        };
+      }
+
+      // we do not reassign an already present style value since
+      // if we detect the style property value again we may be
+      // detecting styles that were added via the `from` styles.
+      // We make use of `isDefined` here since an empty string
+      // or null value (which is what getPropertyValue will return
+      // for a non-existing style) will still be marked as a valid
+      // value for the style (a falsy value implies that the style
+      // is to be removed at the end of the animation). If we had a simple
+      // "OR" statement then it would not be enough to catch that.
+      function registerRestorableStyles(backup, node, properties) {
+        forEach(properties, function (prop) {
+          backup[prop] = isDefined(backup[prop]) ? backup[prop] : node.style.getPropertyValue(prop);
+        });
+      }
+
+      var $AnimateCssProvider = ['$animateProvider', function ($animateProvider) {
+        var gcsLookup = createLocalCacheLookup();
+        var gcsStaggerLookup = createLocalCacheLookup();
+
+        this.$get = ['$window', '$$jqLite', '$$AnimateRunner', '$timeout', '$$forceReflow', '$sniffer', '$$rAFScheduler', '$$animateQueue', function ($window, $$jqLite, $$AnimateRunner, $timeout, $$forceReflow, $sniffer, $$rAFScheduler, $$animateQueue) {
+
+          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+
+          var parentCounter = 0;
+          function gcsHashFn(node, extraClasses) {
+            var KEY = "$$ngAnimateParentKey";
+            var parentNode = node.parentNode;
+            var parentID = parentNode[KEY] || (parentNode[KEY] = ++parentCounter);
+            return parentID + '-' + node.getAttribute('class') + '-' + extraClasses;
+          }
+
+          function computeCachedCssStyles(node, className, cacheKey, properties) {
+            var timings = gcsLookup.get(cacheKey);
+
+            if (!timings) {
+              timings = computeCssStyles($window, node, properties);
+              if (timings.animationIterationCount === 'infinite') {
+                timings.animationIterationCount = 1;
               }
             }
-            return self;
-          };
-          handlers.reject = function (self, error) {
-            self.state = REJECTED;
-            self.outcome = error;
-            var i = -1;
-            var len = self.queue.length;
-            while (++i < len) {
-              self.queue[i].callRejected(error);
+
+            // we keep putting this in multiple times even though the value and the cacheKey are the same
+            // because we're keeping an internal tally of how many duplicate animations are detected.
+            gcsLookup.put(cacheKey, timings);
+            return timings;
+          }
+
+          function computeCachedCssStaggerStyles(node, className, cacheKey, properties) {
+            var stagger;
+
+            // if we have one or more existing matches of matching elements
+            // containing the same parent + CSS styles (which is how cacheKey works)
+            // then staggering is possible
+            if (gcsLookup.count(cacheKey) > 0) {
+              stagger = gcsStaggerLookup.get(cacheKey);
+
+              if (!stagger) {
+                var staggerClassName = pendClasses(className, '-stagger');
+
+                $$jqLite.addClass(node, staggerClassName);
+
+                stagger = computeCssStyles($window, node, properties);
+
+                // force the conversion of a null value to zero incase not set
+                stagger.animationDuration = Math.max(stagger.animationDuration, 0);
+                stagger.transitionDuration = Math.max(stagger.transitionDuration, 0);
+
+                $$jqLite.removeClass(node, staggerClassName);
+
+                gcsStaggerLookup.put(cacheKey, stagger);
+              }
             }
-            return self;
-          };
-          function getThen(obj) {
-            var then = obj && obj.then;
-            if (obj && typeof obj === 'object' && typeof then === 'function') {
-              return function appyThen() {
-                then.apply(obj, arguments);
+
+            return stagger || {};
+          }
+
+          var cancelLastRAFRequest;
+          var rafWaitQueue = [];
+          function waitUntilQuiet(callback) {
+            rafWaitQueue.push(callback);
+            $$rAFScheduler.waitUntilQuiet(function () {
+              gcsLookup.flush();
+              gcsStaggerLookup.flush();
+
+              // DO NOT REMOVE THIS LINE OR REFACTOR OUT THE `pageWidth` variable.
+              // PLEASE EXAMINE THE `$$forceReflow` service to understand why.
+              var pageWidth = $$forceReflow();
+
+              // we use a for loop to ensure that if the queue is changed
+              // during this looping then it will consider new requests
+              for (var i = 0; i < rafWaitQueue.length; i++) {
+                rafWaitQueue[i](pageWidth);
+              }
+              rafWaitQueue.length = 0;
+            });
+          }
+
+          function computeTimings(node, className, cacheKey) {
+            var timings = computeCachedCssStyles(node, className, cacheKey, DETECT_CSS_PROPERTIES);
+            var aD = timings.animationDelay;
+            var tD = timings.transitionDelay;
+            timings.maxDelay = aD && tD ? Math.max(aD, tD) : aD || tD;
+            timings.maxDuration = Math.max(timings.animationDuration * timings.animationIterationCount, timings.transitionDuration);
+
+            return timings;
+          }
+
+          return function init(element, initialOptions) {
+            // all of the animation functions should create
+            // a copy of the options data, however, if a
+            // parent service has already created a copy then
+            // we should stick to using that
+            var options = initialOptions || {};
+            if (!options.$$prepared) {
+              options = prepareAnimationOptions(copy(options));
+            }
+
+            var restoreStyles = {};
+            var node = getDomNode(element);
+            if (!node || !node.parentNode || !$$animateQueue.enabled()) {
+              return closeAndReturnNoopAnimator();
+            }
+
+            var temporaryStyles = [];
+            var classes = element.attr('class');
+            var styles = packageStyles(options);
+            var animationClosed;
+            var animationPaused;
+            var animationCompleted;
+            var runner;
+            var runnerHost;
+            var maxDelay;
+            var maxDelayTime;
+            var maxDuration;
+            var maxDurationTime;
+            var startTime;
+            var events = [];
+
+            if (options.duration === 0 || !$sniffer.animations && !$sniffer.transitions) {
+              return closeAndReturnNoopAnimator();
+            }
+
+            var method = options.event && isArray(options.event) ? options.event.join(' ') : options.event;
+
+            var isStructural = method && options.structural;
+            var structuralClassName = '';
+            var addRemoveClassName = '';
+
+            if (isStructural) {
+              structuralClassName = pendClasses(method, EVENT_CLASS_PREFIX, true);
+            } else if (method) {
+              structuralClassName = method;
+            }
+
+            if (options.addClass) {
+              addRemoveClassName += pendClasses(options.addClass, ADD_CLASS_SUFFIX);
+            }
+
+            if (options.removeClass) {
+              if (addRemoveClassName.length) {
+                addRemoveClassName += ' ';
+              }
+              addRemoveClassName += pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX);
+            }
+
+            // there may be a situation where a structural animation is combined together
+            // with CSS classes that need to resolve before the animation is computed.
+            // However this means that there is no explicit CSS code to block the animation
+            // from happening (by setting 0s none in the class name). If this is the case
+            // we need to apply the classes before the first rAF so we know to continue if
+            // there actually is a detected transition or keyframe animation
+            if (options.applyClassesEarly && addRemoveClassName.length) {
+              applyAnimationClasses(element, options);
+            }
+
+            var preparationClasses = [structuralClassName, addRemoveClassName].join(' ').trim();
+            var fullClassName = classes + ' ' + preparationClasses;
+            var activeClasses = pendClasses(preparationClasses, ACTIVE_CLASS_SUFFIX);
+            var hasToStyles = styles.to && Object.keys(styles.to).length > 0;
+            var containsKeyframeAnimation = (options.keyframeStyle || '').length > 0;
+
+            // there is no way we can trigger an animation if no styles and
+            // no classes are being applied which would then trigger a transition,
+            // unless there a is raw keyframe value that is applied to the element.
+            if (!containsKeyframeAnimation && !hasToStyles && !preparationClasses) {
+              return closeAndReturnNoopAnimator();
+            }
+
+            var cacheKey, stagger;
+            if (options.stagger > 0) {
+              var staggerVal = parseFloat(options.stagger);
+              stagger = {
+                transitionDelay: staggerVal,
+                animationDelay: staggerVal,
+                transitionDuration: 0,
+                animationDuration: 0
+              };
+            } else {
+              cacheKey = gcsHashFn(node, fullClassName);
+              stagger = computeCachedCssStaggerStyles(node, preparationClasses, cacheKey, DETECT_STAGGER_CSS_PROPERTIES);
+            }
+
+            if (!options.$$skipPreparationClasses) {
+              $$jqLite.addClass(element, preparationClasses);
+            }
+
+            var applyOnlyDuration;
+
+            if (options.transitionStyle) {
+              var transitionStyle = [TRANSITION_PROP, options.transitionStyle];
+              applyInlineStyle(node, transitionStyle);
+              temporaryStyles.push(transitionStyle);
+            }
+
+            if (options.duration >= 0) {
+              applyOnlyDuration = node.style[TRANSITION_PROP].length > 0;
+              var durationStyle = getCssTransitionDurationStyle(options.duration, applyOnlyDuration);
+
+              // we set the duration so that it will be picked up by getComputedStyle later
+              applyInlineStyle(node, durationStyle);
+              temporaryStyles.push(durationStyle);
+            }
+
+            if (options.keyframeStyle) {
+              var keyframeStyle = [ANIMATION_PROP, options.keyframeStyle];
+              applyInlineStyle(node, keyframeStyle);
+              temporaryStyles.push(keyframeStyle);
+            }
+
+            var itemIndex = stagger ? options.staggerIndex >= 0 ? options.staggerIndex : gcsLookup.count(cacheKey) : 0;
+
+            var isFirst = itemIndex === 0;
+
+            // this is a pre-emptive way of forcing the setup classes to be added and applied INSTANTLY
+            // without causing any combination of transitions to kick in. By adding a negative delay value
+            // it forces the setup class' transition to end immediately. We later then remove the negative
+            // transition delay to allow for the transition to naturally do it's thing. The beauty here is
+            // that if there is no transition defined then nothing will happen and this will also allow
+            // other transitions to be stacked on top of each other without any chopping them out.
+            if (isFirst && !options.skipBlocking) {
+              blockTransitions(node, SAFE_FAST_FORWARD_DURATION_VALUE);
+            }
+
+            var timings = computeTimings(node, fullClassName, cacheKey);
+            var relativeDelay = timings.maxDelay;
+            maxDelay = Math.max(relativeDelay, 0);
+            maxDuration = timings.maxDuration;
+
+            var flags = {};
+            flags.hasTransitions = timings.transitionDuration > 0;
+            flags.hasAnimations = timings.animationDuration > 0;
+            flags.hasTransitionAll = flags.hasTransitions && timings.transitionProperty == 'all';
+            flags.applyTransitionDuration = hasToStyles && (flags.hasTransitions && !flags.hasTransitionAll || flags.hasAnimations && !flags.hasTransitions);
+            flags.applyAnimationDuration = options.duration && flags.hasAnimations;
+            flags.applyTransitionDelay = truthyTimingValue(options.delay) && (flags.applyTransitionDuration || flags.hasTransitions);
+            flags.applyAnimationDelay = truthyTimingValue(options.delay) && flags.hasAnimations;
+            flags.recalculateTimingStyles = addRemoveClassName.length > 0;
+
+            if (flags.applyTransitionDuration || flags.applyAnimationDuration) {
+              maxDuration = options.duration ? parseFloat(options.duration) : maxDuration;
+
+              if (flags.applyTransitionDuration) {
+                flags.hasTransitions = true;
+                timings.transitionDuration = maxDuration;
+                applyOnlyDuration = node.style[TRANSITION_PROP + PROPERTY_KEY].length > 0;
+                temporaryStyles.push(getCssTransitionDurationStyle(maxDuration, applyOnlyDuration));
+              }
+
+              if (flags.applyAnimationDuration) {
+                flags.hasAnimations = true;
+                timings.animationDuration = maxDuration;
+                temporaryStyles.push(getCssKeyframeDurationStyle(maxDuration));
+              }
+            }
+
+            if (maxDuration === 0 && !flags.recalculateTimingStyles) {
+              return closeAndReturnNoopAnimator();
+            }
+
+            if (options.delay != null) {
+              var delayStyle;
+              if (typeof options.delay !== "boolean") {
+                delayStyle = parseFloat(options.delay);
+                // number in options.delay means we have to recalculate the delay for the closing timeout
+                maxDelay = Math.max(delayStyle, 0);
+              }
+
+              if (flags.applyTransitionDelay) {
+                temporaryStyles.push(getCssDelayStyle(delayStyle));
+              }
+
+              if (flags.applyAnimationDelay) {
+                temporaryStyles.push(getCssDelayStyle(delayStyle, true));
+              }
+            }
+
+            // we need to recalculate the delay value since we used a pre-emptive negative
+            // delay value and the delay value is required for the final event checking. This
+            // property will ensure that this will happen after the RAF phase has passed.
+            if (options.duration == null && timings.transitionDuration > 0) {
+              flags.recalculateTimingStyles = flags.recalculateTimingStyles || isFirst;
+            }
+
+            maxDelayTime = maxDelay * ONE_SECOND;
+            maxDurationTime = maxDuration * ONE_SECOND;
+            if (!options.skipBlocking) {
+              flags.blockTransition = timings.transitionDuration > 0;
+              flags.blockKeyframeAnimation = timings.animationDuration > 0 && stagger.animationDelay > 0 && stagger.animationDuration === 0;
+            }
+
+            if (options.from) {
+              if (options.cleanupStyles) {
+                registerRestorableStyles(restoreStyles, node, Object.keys(options.from));
+              }
+              applyAnimationFromStyles(element, options);
+            }
+
+            if (flags.blockTransition || flags.blockKeyframeAnimation) {
+              applyBlocking(maxDuration);
+            } else if (!options.skipBlocking) {
+              blockTransitions(node, false);
+            }
+
+            // TODO(matsko): for 1.5 change this code to have an animator object for better debugging
+            return {
+              $$willAnimate: true,
+              end: endFn,
+              start: function () {
+                if (animationClosed) return;
+
+                runnerHost = {
+                  end: endFn,
+                  cancel: cancelFn,
+                  resume: null, //this will be set during the start() phase
+                  pause: null
+                };
+
+                runner = new $$AnimateRunner(runnerHost);
+
+                waitUntilQuiet(start);
+
+                // we don't have access to pause/resume the animation
+                // since it hasn't run yet. AnimateRunner will therefore
+                // set noop functions for resume and pause and they will
+                // later be overridden once the animation is triggered
+                return runner;
+              }
+            };
+
+            function endFn() {
+              close();
+            }
+
+            function cancelFn() {
+              close(true);
+            }
+
+            function close(rejected) {
+              // jshint ignore:line
+              // if the promise has been called already then we shouldn't close
+              // the animation again
+              if (animationClosed || animationCompleted && animationPaused) return;
+              animationClosed = true;
+              animationPaused = false;
+
+              if (!options.$$skipPreparationClasses) {
+                $$jqLite.removeClass(element, preparationClasses);
+              }
+              $$jqLite.removeClass(element, activeClasses);
+
+              blockKeyframeAnimations(node, false);
+              blockTransitions(node, false);
+
+              forEach(temporaryStyles, function (entry) {
+                // There is only one way to remove inline style properties entirely from elements.
+                // By using `removeProperty` this works, but we need to convert camel-cased CSS
+                // styles down to hyphenated values.
+                node.style[entry[0]] = '';
+              });
+
+              applyAnimationClasses(element, options);
+              applyAnimationStyles(element, options);
+
+              if (Object.keys(restoreStyles).length) {
+                forEach(restoreStyles, function (value, prop) {
+                  value ? node.style.setProperty(prop, value) : node.style.removeProperty(prop);
+                });
+              }
+
+              // the reason why we have this option is to allow a synchronous closing callback
+              // that is fired as SOON as the animation ends (when the CSS is removed) or if
+              // the animation never takes off at all. A good example is a leave animation since
+              // the element must be removed just after the animation is over or else the element
+              // will appear on screen for one animation frame causing an overbearing flicker.
+              if (options.onDone) {
+                options.onDone();
+              }
+
+              if (events && events.length) {
+                // Remove the transitionend / animationend listener(s)
+                element.off(events.join(' '), onAnimationProgress);
+              }
+
+              //Cancel the fallback closing timeout and remove the timer data
+              var animationTimerData = element.data(ANIMATE_TIMER_KEY);
+              if (animationTimerData) {
+                $timeout.cancel(animationTimerData[0].timer);
+                element.removeData(ANIMATE_TIMER_KEY);
+              }
+
+              // if the preparation function fails then the promise is not setup
+              if (runner) {
+                runner.complete(!rejected);
+              }
+            }
+
+            function applyBlocking(duration) {
+              if (flags.blockTransition) {
+                blockTransitions(node, duration);
+              }
+
+              if (flags.blockKeyframeAnimation) {
+                blockKeyframeAnimations(node, !!duration);
+              }
+            }
+
+            function closeAndReturnNoopAnimator() {
+              runner = new $$AnimateRunner({
+                end: endFn,
+                cancel: cancelFn
+              });
+
+              // should flush the cache animation
+              waitUntilQuiet(noop);
+              close();
+
+              return {
+                $$willAnimate: false,
+                start: function () {
+                  return runner;
+                },
+                end: endFn
               };
             }
-          }
-          function safelyResolveThenable(self, thenable) {
-            var called = false;
-            function onError(value) {
-              if (called) {
-                return;
-              }
-              called = true;
-              handlers.reject(self, value);
-            }
-            function onSuccess(value) {
-              if (called) {
-                return;
-              }
-              called = true;
-              handlers.resolve(self, value);
-            }
-            function tryToUnwrap() {
-              thenable(onSuccess, onError);
-            }
-            var result = tryCatch(tryToUnwrap);
-            if (result.status === 'error') {
-              onError(result.value);
-            }
-          }
-          function tryCatch(func, value) {
-            var out = {};
-            try {
-              out.value = func(value);
-              out.status = 'success';
-            } catch (e) {
-              out.status = 'error';
-              out.value = e;
-            }
-            return out;
-          }
-          exports.resolve = resolve;
-          function resolve(value) {
-            if (value instanceof this) {
-              return value;
-            }
-            return handlers.resolve(new this(INTERNAL), value);
-          }
-          exports.reject = reject;
-          function reject(reason) {
-            var promise = new this(INTERNAL);
-            return handlers.reject(promise, reason);
-          }
-          exports.all = all;
-          function all(iterable) {
-            var self = this;
-            if (Object.prototype.toString.call(iterable) !== '[object Array]') {
-              return this.reject(new TypeError('must be an array'));
-            }
-            var len = iterable.length;
-            var called = false;
-            if (!len) {
-              return this.resolve([]);
-            }
-            var values = new Array(len);
-            var resolved = 0;
-            var i = -1;
-            var promise = new this(INTERNAL);
-            while (++i < len) {
-              allResolver(iterable[i], i);
-            }
-            return promise;
-            function allResolver(value, i) {
-              self.resolve(value).then(resolveFromAll, function (error) {
-                if (!called) {
-                  called = true;
-                  handlers.reject(promise, error);
-                }
-              });
-              function resolveFromAll(outValue) {
-                values[i] = outValue;
-                if (++resolved === len && !called) {
-                  called = true;
-                  handlers.resolve(promise, values);
-                }
-              }
-            }
-          }
-          exports.race = race;
-          function race(iterable) {
-            var self = this;
-            if (Object.prototype.toString.call(iterable) !== '[object Array]') {
-              return this.reject(new TypeError('must be an array'));
-            }
-            var len = iterable.length;
-            var called = false;
-            if (!len) {
-              return this.resolve([]);
-            }
-            var i = -1;
-            var promise = new this(INTERNAL);
-            while (++i < len) {
-              resolver(iterable[i]);
-            }
-            return promise;
-            function resolver(value) {
-              self.resolve(value).then(function (response) {
-                if (!called) {
-                  called = true;
-                  handlers.resolve(promise, response);
-                }
-              }, function (error) {
-                if (!called) {
-                  called = true;
-                  handlers.reject(promise, error);
-                }
-              });
-            }
-          }
-        }, { "2": 2 }],
-        2: [function (_dereq_, module, exports) {
-          (function (global) {
-            'use strict';
 
-            var Mutation = global.MutationObserver || global.WebKitMutationObserver;
-            var scheduleDrain;
-            {
-              if (Mutation) {
-                var called = 0;
-                var observer = new Mutation(nextTick);
-                var element = global.document.createTextNode('');
-                observer.observe(element, { characterData: true });
-                scheduleDrain = function () {
-                  element.data = called = ++called % 2;
-                };
-              } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
-                var channel = new global.MessageChannel();
-                channel.port1.onmessage = nextTick;
-                scheduleDrain = function () {
-                  channel.port2.postMessage(0);
-                };
-              } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
-                scheduleDrain = function () {
-                  var scriptEl = global.document.createElement('script');
-                  scriptEl.onreadystatechange = function () {
-                    nextTick();
-                    scriptEl.onreadystatechange = null;
-                    scriptEl.parentNode.removeChild(scriptEl);
-                    scriptEl = null;
+            function onAnimationProgress(event) {
+              event.stopPropagation();
+              var ev = event.originalEvent || event;
+
+              // we now always use `Date.now()` due to the recent changes with
+              // event.timeStamp in Firefox, Webkit and Chrome (see #13494 for more info)
+              var timeStamp = ev.$manualTimeStamp || Date.now();
+
+              /* Firefox (or possibly just Gecko) likes to not round values up
+               * when a ms measurement is used for the animation */
+              var elapsedTime = parseFloat(ev.elapsedTime.toFixed(ELAPSED_TIME_MAX_DECIMAL_PLACES));
+
+              /* $manualTimeStamp is a mocked timeStamp value which is set
+               * within browserTrigger(). This is only here so that tests can
+               * mock animations properly. Real events fallback to event.timeStamp,
+               * or, if they don't, then a timeStamp is automatically created for them.
+               * We're checking to see if the timeStamp surpasses the expected delay,
+               * but we're using elapsedTime instead of the timeStamp on the 2nd
+               * pre-condition since animationPauseds sometimes close off early */
+              if (Math.max(timeStamp - startTime, 0) >= maxDelayTime && elapsedTime >= maxDuration) {
+                // we set this flag to ensure that if the transition is paused then, when resumed,
+                // the animation will automatically close itself since transitions cannot be paused.
+                animationCompleted = true;
+                close();
+              }
+            }
+
+            function start() {
+              if (animationClosed) return;
+              if (!node.parentNode) {
+                close();
+                return;
+              }
+
+              // even though we only pause keyframe animations here the pause flag
+              // will still happen when transitions are used. Only the transition will
+              // not be paused since that is not possible. If the animation ends when
+              // paused then it will not complete until unpaused or cancelled.
+              var playPause = function (playAnimation) {
+                if (!animationCompleted) {
+                  animationPaused = !playAnimation;
+                  if (timings.animationDuration) {
+                    var value = blockKeyframeAnimations(node, animationPaused);
+                    animationPaused ? temporaryStyles.push(value) : removeFromArray(temporaryStyles, value);
+                  }
+                } else if (animationPaused && playAnimation) {
+                  animationPaused = false;
+                  close();
+                }
+              };
+
+              // checking the stagger duration prevents an accidentally cascade of the CSS delay style
+              // being inherited from the parent. If the transition duration is zero then we can safely
+              // rely that the delay value is an intentional stagger delay style.
+              var maxStagger = itemIndex > 0 && (timings.transitionDuration && stagger.transitionDuration === 0 || timings.animationDuration && stagger.animationDuration === 0) && Math.max(stagger.animationDelay, stagger.transitionDelay);
+              if (maxStagger) {
+                $timeout(triggerAnimationStart, Math.floor(maxStagger * itemIndex * ONE_SECOND), false);
+              } else {
+                triggerAnimationStart();
+              }
+
+              // this will decorate the existing promise runner with pause/resume methods
+              runnerHost.resume = function () {
+                playPause(true);
+              };
+
+              runnerHost.pause = function () {
+                playPause(false);
+              };
+
+              function triggerAnimationStart() {
+                // just incase a stagger animation kicks in when the animation
+                // itself was cancelled entirely
+                if (animationClosed) return;
+
+                applyBlocking(false);
+
+                forEach(temporaryStyles, function (entry) {
+                  var key = entry[0];
+                  var value = entry[1];
+                  node.style[key] = value;
+                });
+
+                applyAnimationClasses(element, options);
+                $$jqLite.addClass(element, activeClasses);
+
+                if (flags.recalculateTimingStyles) {
+                  fullClassName = node.className + ' ' + preparationClasses;
+                  cacheKey = gcsHashFn(node, fullClassName);
+
+                  timings = computeTimings(node, fullClassName, cacheKey);
+                  relativeDelay = timings.maxDelay;
+                  maxDelay = Math.max(relativeDelay, 0);
+                  maxDuration = timings.maxDuration;
+
+                  if (maxDuration === 0) {
+                    close();
+                    return;
+                  }
+
+                  flags.hasTransitions = timings.transitionDuration > 0;
+                  flags.hasAnimations = timings.animationDuration > 0;
+                }
+
+                if (flags.applyAnimationDelay) {
+                  relativeDelay = typeof options.delay !== "boolean" && truthyTimingValue(options.delay) ? parseFloat(options.delay) : relativeDelay;
+
+                  maxDelay = Math.max(relativeDelay, 0);
+                  timings.animationDelay = relativeDelay;
+                  delayStyle = getCssDelayStyle(relativeDelay, true);
+                  temporaryStyles.push(delayStyle);
+                  node.style[delayStyle[0]] = delayStyle[1];
+                }
+
+                maxDelayTime = maxDelay * ONE_SECOND;
+                maxDurationTime = maxDuration * ONE_SECOND;
+
+                if (options.easing) {
+                  var easeProp,
+                      easeVal = options.easing;
+                  if (flags.hasTransitions) {
+                    easeProp = TRANSITION_PROP + TIMING_KEY;
+                    temporaryStyles.push([easeProp, easeVal]);
+                    node.style[easeProp] = easeVal;
+                  }
+                  if (flags.hasAnimations) {
+                    easeProp = ANIMATION_PROP + TIMING_KEY;
+                    temporaryStyles.push([easeProp, easeVal]);
+                    node.style[easeProp] = easeVal;
+                  }
+                }
+
+                if (timings.transitionDuration) {
+                  events.push(TRANSITIONEND_EVENT);
+                }
+
+                if (timings.animationDuration) {
+                  events.push(ANIMATIONEND_EVENT);
+                }
+
+                startTime = Date.now();
+                var timerTime = maxDelayTime + CLOSING_TIME_BUFFER * maxDurationTime;
+                var endTime = startTime + timerTime;
+
+                var animationsData = element.data(ANIMATE_TIMER_KEY) || [];
+                var setupFallbackTimer = true;
+                if (animationsData.length) {
+                  var currentTimerData = animationsData[0];
+                  setupFallbackTimer = endTime > currentTimerData.expectedEndTime;
+                  if (setupFallbackTimer) {
+                    $timeout.cancel(currentTimerData.timer);
+                  } else {
+                    animationsData.push(close);
+                  }
+                }
+
+                if (setupFallbackTimer) {
+                  var timer = $timeout(onAnimationExpired, timerTime, false);
+                  animationsData[0] = {
+                    timer: timer,
+                    expectedEndTime: endTime
                   };
-                  global.document.documentElement.appendChild(scriptEl);
-                };
-              } else {
-                scheduleDrain = function () {
-                  setTimeout(nextTick, 0);
-                };
-              }
-            }
-            var draining;
-            var queue = [];
-            function nextTick() {
-              draining = true;
-              var i, oldQueue;
-              var len = queue.length;
-              while (len) {
-                oldQueue = queue;
-                queue = [];
-                i = -1;
-                while (++i < len) {
-                  oldQueue[i]();
+                  animationsData.push(close);
+                  element.data(ANIMATE_TIMER_KEY, animationsData);
                 }
-                len = queue.length;
-              }
-              draining = false;
-            }
-            module.exports = immediate;
-            function immediate(task) {
-              if (queue.push(task) === 1 && !draining) {
-                scheduleDrain();
-              }
-            }
-          }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-        }, {}],
-        3: [function (_dereq_, module, exports) {
-          (function (global) {
-            'use strict';
 
-            if (typeof global.Promise !== 'function') {
-              global.Promise = _dereq_(1);
-            }
-          }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-        }, { "1": 1 }],
-        4: [function (_dereq_, module, exports) {
-          'use strict';
+                if (events.length) {
+                  element.on(events.join(' '), onAnimationProgress);
+                }
 
-          var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-            return typeof obj;
-          } : function (obj) {
-            return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+                if (options.to) {
+                  if (options.cleanupStyles) {
+                    registerRestorableStyles(restoreStyles, node, Object.keys(options.to));
+                  }
+                  applyAnimationToStyles(element, options);
+                }
+              }
+
+              function onAnimationExpired() {
+                var animationsData = element.data(ANIMATE_TIMER_KEY);
+
+                // this will be false in the event that the element was
+                // removed from the DOM (via a leave animation or something
+                // similar)
+                if (animationsData) {
+                  for (var i = 1; i < animationsData.length; i++) {
+                    animationsData[i]();
+                  }
+                  element.removeData(ANIMATE_TIMER_KEY);
+                }
+              }
+            }
           };
-          function _classCallCheck(instance, Constructor) {
-            if (!(instance instanceof Constructor)) {
-              throw new TypeError("Cannot call a class as a function");
-            }
-          }
-          function getIDB() {
-            if (typeof indexedDB !== 'undefined') {
-              return indexedDB;
-            }
-            if (typeof webkitIndexedDB !== 'undefined') {
-              return webkitIndexedDB;
-            }
-            if (typeof mozIndexedDB !== 'undefined') {
-              return mozIndexedDB;
-            }
-            if (typeof OIndexedDB !== 'undefined') {
-              return OIndexedDB;
-            }
-            if (typeof msIndexedDB !== 'undefined') {
-              return msIndexedDB;
-            }
-          }
-          var idb = getIDB();
-          function isIndexedDBValid() {
-            try {
-              if (!idb) {
-                return false;
-              }
-              if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' && navigator.userAgent && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-                return false;
-              }
-              return idb && typeof idb.open === 'function' && typeof IDBKeyRange !== 'undefined';
-            } catch (e) {
-              return false;
-            }
-          }
-          function isWebSQLValid() {
-            return typeof openDatabase === 'function';
-          }
-          function isLocalStorageValid() {
-            try {
-              return typeof localStorage !== 'undefined' && 'setItem' in localStorage && localStorage.setItem;
-            } catch (e) {
-              return false;
-            }
-          }
-          function createBlob(parts, properties) {
-            parts = parts || [];
-            properties = properties || {};
-            try {
-              return new Blob(parts, properties);
-            } catch (e) {
-              if (e.name !== 'TypeError') {
-                throw e;
-              }
-              var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder : typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder : typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : WebKitBlobBuilder;
-              var builder = new Builder();
-              for (var i = 0; i < parts.length; i += 1) {
-                builder.append(parts[i]);
-              }
-              return builder.getBlob(properties.type);
-            }
-          }
-          if (typeof Promise === 'undefined' && typeof _dereq_ !== 'undefined') {
-            _dereq_(3);
-          }
-          var Promise$1 = Promise;
-          function executeCallback(promise, callback) {
-            if (callback) {
-              promise.then(function (result) {
-                callback(null, result);
-              }, function (error) {
-                callback(error);
-              });
-            }
-          }
-          var DETECT_BLOB_SUPPORT_STORE = 'local-forage-detect-blob-support';
-          var supportsBlobs;
-          var dbContexts;
-          function _binStringToArrayBuffer(bin) {
-            var length = bin.length;
-            var buf = new ArrayBuffer(length);
-            var arr = new Uint8Array(buf);
-            for (var i = 0; i < length; i++) {
-              arr[i] = bin.charCodeAt(i);
-            }
-            return buf;
-          }
-          function _checkBlobSupportWithoutCaching(txn) {
-            return new Promise$1(function (resolve) {
-              var blob = createBlob(['']);
-              txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
-              txn.onabort = function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                resolve(false);
-              };
-              txn.oncomplete = function () {
-                var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
-                var matchedEdge = navigator.userAgent.match(/Edge\//);
-                resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
-              };
-            })["catch"](function () {
-              return false;
-            });
-          }
-          function _checkBlobSupport(idb) {
-            if (typeof supportsBlobs === 'boolean') {
-              return Promise$1.resolve(supportsBlobs);
-            }
-            return _checkBlobSupportWithoutCaching(idb).then(function (value) {
-              supportsBlobs = value;
-              return supportsBlobs;
-            });
-          }
-          function _deferReadiness(dbInfo) {
-            var dbContext = dbContexts[dbInfo.name];
-            var deferredOperation = {};
-            deferredOperation.promise = new Promise$1(function (resolve) {
-              deferredOperation.resolve = resolve;
-            });
-            dbContext.deferredOperations.push(deferredOperation);
-            if (!dbContext.dbReady) {
-              dbContext.dbReady = deferredOperation.promise;
-            } else {
-              dbContext.dbReady = dbContext.dbReady.then(function () {
-                return deferredOperation.promise;
-              });
-            }
-          }
-          function _advanceReadiness(dbInfo) {
-            var dbContext = dbContexts[dbInfo.name];
-            var deferredOperation = dbContext.deferredOperations.pop();
-            if (deferredOperation) {
-              deferredOperation.resolve();
-            }
-          }
-          function _getConnection(dbInfo, upgradeNeeded) {
-            return new Promise$1(function (resolve, reject) {
-              if (dbInfo.db) {
-                if (upgradeNeeded) {
-                  _deferReadiness(dbInfo);
-                  dbInfo.db.close();
-                } else {
-                  return resolve(dbInfo.db);
-                }
-              }
-              var dbArgs = [dbInfo.name];
-              if (upgradeNeeded) {
-                dbArgs.push(dbInfo.version);
-              }
-              var openreq = idb.open.apply(idb, dbArgs);
-              if (upgradeNeeded) {
-                openreq.onupgradeneeded = function (e) {
-                  var db = openreq.result;
-                  try {
-                    db.createObjectStore(dbInfo.storeName);
-                    if (e.oldVersion <= 1) {
-                      db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
-                    }
-                  } catch (ex) {
-                    if (ex.name === 'ConstraintError') {
-                      console.warn('The database "' + dbInfo.name + '"' + ' has been upgraded from version ' + e.oldVersion + ' to version ' + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
-                    } else {
-                      throw ex;
-                    }
-                  }
-                };
-              }
-              openreq.onerror = function () {
-                reject(openreq.error);
-              };
-              openreq.onsuccess = function () {
-                resolve(openreq.result);
-                _advanceReadiness(dbInfo);
-              };
-            });
-          }
-          function _getOriginalConnection(dbInfo) {
-            return _getConnection(dbInfo, false);
-          }
-          function _getUpgradedConnection(dbInfo) {
-            return _getConnection(dbInfo, true);
-          }
-          function _isUpgradeNeeded(dbInfo, defaultVersion) {
-            if (!dbInfo.db) {
-              return true;
-            }
-            var isNewStore = !dbInfo.db.objectStoreNames.contains(dbInfo.storeName);
-            var isDowngrade = dbInfo.version < dbInfo.db.version;
-            var isUpgrade = dbInfo.version > dbInfo.db.version;
-            if (isDowngrade) {
-              if (dbInfo.version !== defaultVersion) {
-                console.warn('The database "' + dbInfo.name + '"' + ' can\'t be downgraded from version ' + dbInfo.db.version + ' to version ' + dbInfo.version + '.');
-              }
-              dbInfo.version = dbInfo.db.version;
-            }
-            if (isUpgrade || isNewStore) {
-              if (isNewStore) {
-                var incVersion = dbInfo.db.version + 1;
-                if (incVersion > dbInfo.version) {
-                  dbInfo.version = incVersion;
-                }
-              }
-              return true;
-            }
-            return false;
-          }
-          function _encodeBlob(blob) {
-            return new Promise$1(function (resolve, reject) {
-              var reader = new FileReader();
-              reader.onerror = reject;
-              reader.onloadend = function (e) {
-                var base64 = btoa(e.target.result || '');
-                resolve({
-                  __local_forage_encoded_blob: true,
-                  data: base64,
-                  type: blob.type
-                });
-              };
-              reader.readAsBinaryString(blob);
-            });
-          }
-          function _decodeBlob(encodedBlob) {
-            var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
-            return createBlob([arrayBuff], { type: encodedBlob.type });
-          }
-          function _isEncodedBlob(value) {
-            return value && value.__local_forage_encoded_blob;
-          }
-          function _fullyReady(callback) {
-            var self = this;
-            var promise = self._initReady().then(function () {
-              var dbContext = dbContexts[self._dbInfo.name];
-              if (dbContext && dbContext.dbReady) {
-                return dbContext.dbReady;
-              }
-            });
-            promise.then(callback, callback);
-            return promise;
-          }
-          function _initStorage(options) {
-            var self = this;
-            var dbInfo = { db: null };
-            if (options) {
-              for (var i in options) {
-                dbInfo[i] = options[i];
-              }
-            }
-            if (!dbContexts) {
-              dbContexts = {};
-            }
-            var dbContext = dbContexts[dbInfo.name];
-            if (!dbContext) {
-              dbContext = {
-                forages: [],
-                db: null,
-                dbReady: null,
-                deferredOperations: []
-              };
-              dbContexts[dbInfo.name] = dbContext;
-            }
-            dbContext.forages.push(self);
-            if (!self._initReady) {
-              self._initReady = self.ready;
-              self.ready = _fullyReady;
-            }
-            var initPromises = [];
-            function ignoreErrors() {
-              return Promise$1.resolve();
-            }
-            for (var j = 0; j < dbContext.forages.length; j++) {
-              var forage = dbContext.forages[j];
-              if (forage !== self) {
-                initPromises.push(forage._initReady()["catch"](ignoreErrors));
-              }
-            }
-            var forages = dbContext.forages.slice(0);
-            return Promise$1.all(initPromises).then(function () {
-              dbInfo.db = dbContext.db;
-              return _getOriginalConnection(dbInfo);
-            }).then(function (db) {
-              dbInfo.db = db;
-              if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
-                return _getUpgradedConnection(dbInfo);
-              }
-              return db;
-            }).then(function (db) {
-              dbInfo.db = dbContext.db = db;
-              self._dbInfo = dbInfo;
-              for (var k = 0; k < forages.length; k++) {
-                var forage = forages[k];
-                if (forage !== self) {
-                  forage._dbInfo.db = dbInfo.db;
-                  forage._dbInfo.version = dbInfo.version;
-                }
-              }
-            });
-          }
-          function getItem(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-                var req = store.get(key);
-                req.onsuccess = function () {
-                  var value = req.result;
-                  if (value === undefined) {
-                    value = null;
-                  }
-                  if (_isEncodedBlob(value)) {
-                    value = _decodeBlob(value);
-                  }
-                  resolve(value);
-                };
-                req.onerror = function () {
-                  reject(req.error);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function iterate(iterator, callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-                var req = store.openCursor();
-                var iterationNumber = 1;
-                req.onsuccess = function () {
-                  var cursor = req.result;
-                  if (cursor) {
-                    var value = cursor.value;
-                    if (_isEncodedBlob(value)) {
-                      value = _decodeBlob(value);
-                    }
-                    var result = iterator(value, cursor.key, iterationNumber++);
-                    if (result !== void 0) {
-                      resolve(result);
-                    } else {
-                      cursor["continue"]();
-                    }
-                  } else {
-                    resolve();
-                  }
-                };
-                req.onerror = function () {
-                  reject(req.error);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function setItem(key, value, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              var dbInfo;
-              self.ready().then(function () {
-                dbInfo = self._dbInfo;
-                if (value instanceof Blob) {
-                  return _checkBlobSupport(dbInfo.db).then(function (blobSupport) {
-                    if (blobSupport) {
-                      return value;
-                    }
-                    return _encodeBlob(value);
-                  });
-                }
-                return value;
-              }).then(function (value) {
-                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-                var store = transaction.objectStore(dbInfo.storeName);
-                if (value === null) {
-                  value = undefined;
-                }
-                transaction.oncomplete = function () {
-                  if (value === undefined) {
-                    value = null;
-                  }
-                  resolve(value);
-                };
-                transaction.onabort = transaction.onerror = function () {
-                  var err = req.error ? req.error : req.transaction.error;
-                  reject(err);
-                };
-                var req = store.put(value, key);
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function removeItem(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-                var store = transaction.objectStore(dbInfo.storeName);
-                var req = store["delete"](key);
-                transaction.oncomplete = function () {
-                  resolve();
-                };
-                transaction.onerror = function () {
-                  reject(req.error);
-                };
-                transaction.onabort = function () {
-                  var err = req.error ? req.error : req.transaction.error;
-                  reject(err);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function clear(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
-                var store = transaction.objectStore(dbInfo.storeName);
-                var req = store.clear();
-                transaction.oncomplete = function () {
-                  resolve();
-                };
-                transaction.onabort = transaction.onerror = function () {
-                  var err = req.error ? req.error : req.transaction.error;
-                  reject(err);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function length(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-                var req = store.count();
-                req.onsuccess = function () {
-                  resolve(req.result);
-                };
-                req.onerror = function () {
-                  reject(req.error);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function key(n, callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              if (n < 0) {
-                resolve(null);
-                return;
-              }
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-                var advanced = false;
-                var req = store.openCursor();
-                req.onsuccess = function () {
-                  var cursor = req.result;
-                  if (!cursor) {
-                    resolve(null);
-                    return;
-                  }
-                  if (n === 0) {
-                    resolve(cursor.key);
-                  } else {
-                    if (!advanced) {
-                      advanced = true;
-                      cursor.advance(n);
-                    } else {
-                      resolve(cursor.key);
-                    }
-                  }
-                };
-                req.onerror = function () {
-                  reject(req.error);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function keys(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
-                var req = store.openCursor();
-                var keys = [];
-                req.onsuccess = function () {
-                  var cursor = req.result;
-                  if (!cursor) {
-                    resolve(keys);
-                    return;
-                  }
-                  keys.push(cursor.key);
-                  cursor["continue"]();
-                };
-                req.onerror = function () {
-                  reject(req.error);
-                };
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          var asyncStorage = {
-            _driver: 'asyncStorage',
-            _initStorage: _initStorage,
-            iterate: iterate,
-            getItem: getItem,
-            setItem: setItem,
-            removeItem: removeItem,
-            clear: clear,
-            length: length,
-            key: key,
-            keys: keys
+        }];
+      }];
+
+      var $$AnimateCssDriverProvider = ['$$animationProvider', function ($$animationProvider) {
+        $$animationProvider.drivers.push('$$animateCssDriver');
+
+        var NG_ANIMATE_SHIM_CLASS_NAME = 'ng-animate-shim';
+        var NG_ANIMATE_ANCHOR_CLASS_NAME = 'ng-anchor';
+
+        var NG_OUT_ANCHOR_CLASS_NAME = 'ng-anchor-out';
+        var NG_IN_ANCHOR_CLASS_NAME = 'ng-anchor-in';
+
+        function isDocumentFragment(node) {
+          return node.parentNode && node.parentNode.nodeType === 11;
+        }
+
+        this.$get = ['$animateCss', '$rootScope', '$$AnimateRunner', '$rootElement', '$sniffer', '$$jqLite', '$document', function ($animateCss, $rootScope, $$AnimateRunner, $rootElement, $sniffer, $$jqLite, $document) {
+
+          // only browsers that support these properties can render animations
+          if (!$sniffer.animations && !$sniffer.transitions) return noop;
+
+          var bodyNode = $document[0].body;
+          var rootNode = getDomNode($rootElement);
+
+          var rootBodyElement = jqLite(
+          // this is to avoid using something that exists outside of the body
+          // we also special case the doc fragment case because our unit test code
+          // appends the $rootElement to the body after the app has been bootstrapped
+          isDocumentFragment(rootNode) || bodyNode.contains(rootNode) ? rootNode : bodyNode);
+
+          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+
+          return function initDriverFn(animationDetails) {
+            return animationDetails.from && animationDetails.to ? prepareFromToAnchorAnimation(animationDetails.from, animationDetails.to, animationDetails.classes, animationDetails.anchors) : prepareRegularAnimation(animationDetails);
           };
-          var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-          var BLOB_TYPE_PREFIX = '~~local_forage_type~';
-          var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
-          var SERIALIZED_MARKER = '__lfsc__:';
-          var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
-          var TYPE_ARRAYBUFFER = 'arbf';
-          var TYPE_BLOB = 'blob';
-          var TYPE_INT8ARRAY = 'si08';
-          var TYPE_UINT8ARRAY = 'ui08';
-          var TYPE_UINT8CLAMPEDARRAY = 'uic8';
-          var TYPE_INT16ARRAY = 'si16';
-          var TYPE_INT32ARRAY = 'si32';
-          var TYPE_UINT16ARRAY = 'ur16';
-          var TYPE_UINT32ARRAY = 'ui32';
-          var TYPE_FLOAT32ARRAY = 'fl32';
-          var TYPE_FLOAT64ARRAY = 'fl64';
-          var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length;
-          function stringToBuffer(serializedString) {
-            var bufferLength = serializedString.length * 0.75;
-            var len = serializedString.length;
-            var i;
-            var p = 0;
-            var encoded1, encoded2, encoded3, encoded4;
-            if (serializedString[serializedString.length - 1] === '=') {
-              bufferLength--;
-              if (serializedString[serializedString.length - 2] === '=') {
-                bufferLength--;
+
+          function filterCssClasses(classes) {
+            //remove all the `ng-` stuff
+            return classes.replace(/\bng-\S+\b/g, '');
+          }
+
+          function getUniqueValues(a, b) {
+            if (isString(a)) a = a.split(' ');
+            if (isString(b)) b = b.split(' ');
+            return a.filter(function (val) {
+              return b.indexOf(val) === -1;
+            }).join(' ');
+          }
+
+          function prepareAnchoredAnimation(classes, outAnchor, inAnchor) {
+            var clone = jqLite(getDomNode(outAnchor).cloneNode(true));
+            var startingClasses = filterCssClasses(getClassVal(clone));
+
+            outAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
+            inAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
+
+            clone.addClass(NG_ANIMATE_ANCHOR_CLASS_NAME);
+
+            rootBodyElement.append(clone);
+
+            var animatorIn,
+                animatorOut = prepareOutAnimation();
+
+            // the user may not end up using the `out` animation and
+            // only making use of the `in` animation or vice-versa.
+            // In either case we should allow this and not assume the
+            // animation is over unless both animations are not used.
+            if (!animatorOut) {
+              animatorIn = prepareInAnimation();
+              if (!animatorIn) {
+                return end();
               }
             }
-            var buffer = new ArrayBuffer(bufferLength);
-            var bytes = new Uint8Array(buffer);
-            for (i = 0; i < len; i += 4) {
-              encoded1 = BASE_CHARS.indexOf(serializedString[i]);
-              encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
-              encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
-              encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
-              bytes[p++] = encoded1 << 2 | encoded2 >> 4;
-              bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
-              bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
-            }
-            return buffer;
-          }
-          function bufferToString(buffer) {
-            var bytes = new Uint8Array(buffer);
-            var base64String = '';
-            var i;
-            for (i = 0; i < bytes.length; i += 3) {
-              base64String += BASE_CHARS[bytes[i] >> 2];
-              base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
-              base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
-              base64String += BASE_CHARS[bytes[i + 2] & 63];
-            }
-            if (bytes.length % 3 === 2) {
-              base64String = base64String.substring(0, base64String.length - 1) + '=';
-            } else if (bytes.length % 3 === 1) {
-              base64String = base64String.substring(0, base64String.length - 2) + '==';
-            }
-            return base64String;
-          }
-          function serialize(value, callback) {
-            var valueString = '';
-            if (value) {
-              valueString = value.toString();
-            }
-            if (value && (value.toString() === '[object ArrayBuffer]' || value.buffer && value.buffer.toString() === '[object ArrayBuffer]')) {
-              var buffer;
-              var marker = SERIALIZED_MARKER;
-              if (value instanceof ArrayBuffer) {
-                buffer = value;
-                marker += TYPE_ARRAYBUFFER;
-              } else {
-                buffer = value.buffer;
-                if (valueString === '[object Int8Array]') {
-                  marker += TYPE_INT8ARRAY;
-                } else if (valueString === '[object Uint8Array]') {
-                  marker += TYPE_UINT8ARRAY;
-                } else if (valueString === '[object Uint8ClampedArray]') {
-                  marker += TYPE_UINT8CLAMPEDARRAY;
-                } else if (valueString === '[object Int16Array]') {
-                  marker += TYPE_INT16ARRAY;
-                } else if (valueString === '[object Uint16Array]') {
-                  marker += TYPE_UINT16ARRAY;
-                } else if (valueString === '[object Int32Array]') {
-                  marker += TYPE_INT32ARRAY;
-                } else if (valueString === '[object Uint32Array]') {
-                  marker += TYPE_UINT32ARRAY;
-                } else if (valueString === '[object Float32Array]') {
-                  marker += TYPE_FLOAT32ARRAY;
-                } else if (valueString === '[object Float64Array]') {
-                  marker += TYPE_FLOAT64ARRAY;
-                } else {
-                  callback(new Error('Failed to get type for BinaryArray'));
-                }
-              }
-              callback(marker + bufferToString(buffer));
-            } else if (valueString === '[object Blob]') {
-              var fileReader = new FileReader();
-              fileReader.onload = function () {
-                var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
-                callback(SERIALIZED_MARKER + TYPE_BLOB + str);
-              };
-              fileReader.readAsArrayBuffer(value);
-            } else {
-              try {
-                callback(JSON.stringify(value));
-              } catch (e) {
-                console.error("Couldn't convert value into a JSON string: ", value);
-                callback(null, e);
-              }
-            }
-          }
-          function deserialize(value) {
-            if (value.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
-              return JSON.parse(value);
-            }
-            var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
-            var type = value.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH);
-            var blobType;
-            if (type === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(serializedString)) {
-              var matcher = serializedString.match(BLOB_TYPE_PREFIX_REGEX);
-              blobType = matcher[1];
-              serializedString = serializedString.substring(matcher[0].length);
-            }
-            var buffer = stringToBuffer(serializedString);
-            switch (type) {
-              case TYPE_ARRAYBUFFER:
-                return buffer;
-              case TYPE_BLOB:
-                return createBlob([buffer], { type: blobType });
-              case TYPE_INT8ARRAY:
-                return new Int8Array(buffer);
-              case TYPE_UINT8ARRAY:
-                return new Uint8Array(buffer);
-              case TYPE_UINT8CLAMPEDARRAY:
-                return new Uint8ClampedArray(buffer);
-              case TYPE_INT16ARRAY:
-                return new Int16Array(buffer);
-              case TYPE_UINT16ARRAY:
-                return new Uint16Array(buffer);
-              case TYPE_INT32ARRAY:
-                return new Int32Array(buffer);
-              case TYPE_UINT32ARRAY:
-                return new Uint32Array(buffer);
-              case TYPE_FLOAT32ARRAY:
-                return new Float32Array(buffer);
-              case TYPE_FLOAT64ARRAY:
-                return new Float64Array(buffer);
-              default:
-                throw new Error('Unkown type: ' + type);
-            }
-          }
-          var localforageSerializer = {
-            serialize: serialize,
-            deserialize: deserialize,
-            stringToBuffer: stringToBuffer,
-            bufferToString: bufferToString
-          };
-          function _initStorage$1(options) {
-            var self = this;
-            var dbInfo = { db: null };
-            if (options) {
-              for (var i in options) {
-                dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
-              }
-            }
-            var dbInfoPromise = new Promise$1(function (resolve, reject) {
-              try {
-                dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
-              } catch (e) {
-                return reject(e);
-              }
-              dbInfo.db.transaction(function (t) {
-                t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function () {
-                  self._dbInfo = dbInfo;
-                  resolve();
-                }, function (t, error) {
-                  reject(error);
-                });
-              });
-            });
-            dbInfo.serializer = localforageSerializer;
-            return dbInfoPromise;
-          }
-          function getItem$1(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function (t, results) {
-                    var result = results.rows.length ? results.rows.item(0).value : null;
-                    if (result) {
-                      result = dbInfo.serializer.deserialize(result);
-                    }
-                    resolve(result);
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function iterate$1(iterator, callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function (t, results) {
-                    var rows = results.rows;
-                    var length = rows.length;
-                    for (var i = 0; i < length; i++) {
-                      var item = rows.item(i);
-                      var result = item.value;
-                      if (result) {
-                        result = dbInfo.serializer.deserialize(result);
-                      }
-                      result = iterator(result, item.key, i + 1);
-                      if (result !== void 0) {
-                        resolve(result);
-                        return;
-                      }
-                    }
-                    resolve();
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function setItem$1(key, value, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                if (value === undefined) {
-                  value = null;
-                }
-                var originalValue = value;
-                var dbInfo = self._dbInfo;
-                dbInfo.serializer.serialize(value, function (value, error) {
-                  if (error) {
-                    reject(error);
-                  } else {
-                    dbInfo.db.transaction(function (t) {
-                      t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function () {
-                        resolve(originalValue);
-                      }, function (t, error) {
-                        reject(error);
+
+            var startingAnimator = animatorOut || animatorIn;
+
+            return {
+              start: function () {
+                var runner;
+
+                var currentAnimation = startingAnimator.start();
+                currentAnimation.done(function () {
+                  currentAnimation = null;
+                  if (!animatorIn) {
+                    animatorIn = prepareInAnimation();
+                    if (animatorIn) {
+                      currentAnimation = animatorIn.start();
+                      currentAnimation.done(function () {
+                        currentAnimation = null;
+                        end();
+                        runner.complete();
                       });
-                    }, function (sqlError) {
-                      if (sqlError.code === sqlError.QUOTA_ERR) {
-                        reject(sqlError);
-                      }
-                    });
+                      return currentAnimation;
+                    }
+                  }
+                  // in the event that there is no `in` animation
+                  end();
+                  runner.complete();
+                });
+
+                runner = new $$AnimateRunner({
+                  end: endFn,
+                  cancel: endFn
+                });
+
+                return runner;
+
+                function endFn() {
+                  if (currentAnimation) {
+                    currentAnimation.end();
+                  }
+                }
+              }
+            };
+
+            function calculateAnchorStyles(anchor) {
+              var styles = {};
+
+              var coords = getDomNode(anchor).getBoundingClientRect();
+
+              // we iterate directly since safari messes up and doesn't return
+              // all the keys for the coords object when iterated
+              forEach(['width', 'height', 'top', 'left'], function (key) {
+                var value = coords[key];
+                switch (key) {
+                  case 'top':
+                    value += bodyNode.scrollTop;
+                    break;
+                  case 'left':
+                    value += bodyNode.scrollLeft;
+                    break;
+                }
+                styles[key] = Math.floor(value) + 'px';
+              });
+              return styles;
+            }
+
+            function prepareOutAnimation() {
+              var animator = $animateCss(clone, {
+                addClass: NG_OUT_ANCHOR_CLASS_NAME,
+                delay: true,
+                from: calculateAnchorStyles(outAnchor)
+              });
+
+              // read the comment within `prepareRegularAnimation` to understand
+              // why this check is necessary
+              return animator.$$willAnimate ? animator : null;
+            }
+
+            function getClassVal(element) {
+              return element.attr('class') || '';
+            }
+
+            function prepareInAnimation() {
+              var endingClasses = filterCssClasses(getClassVal(inAnchor));
+              var toAdd = getUniqueValues(endingClasses, startingClasses);
+              var toRemove = getUniqueValues(startingClasses, endingClasses);
+
+              var animator = $animateCss(clone, {
+                to: calculateAnchorStyles(inAnchor),
+                addClass: NG_IN_ANCHOR_CLASS_NAME + ' ' + toAdd,
+                removeClass: NG_OUT_ANCHOR_CLASS_NAME + ' ' + toRemove,
+                delay: true
+              });
+
+              // read the comment within `prepareRegularAnimation` to understand
+              // why this check is necessary
+              return animator.$$willAnimate ? animator : null;
+            }
+
+            function end() {
+              clone.remove();
+              outAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
+              inAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
+            }
+          }
+
+          function prepareFromToAnchorAnimation(from, to, classes, anchors) {
+            var fromAnimation = prepareRegularAnimation(from, noop);
+            var toAnimation = prepareRegularAnimation(to, noop);
+
+            var anchorAnimations = [];
+            forEach(anchors, function (anchor) {
+              var outElement = anchor['out'];
+              var inElement = anchor['in'];
+              var animator = prepareAnchoredAnimation(classes, outElement, inElement);
+              if (animator) {
+                anchorAnimations.push(animator);
+              }
+            });
+
+            // no point in doing anything when there are no elements to animate
+            if (!fromAnimation && !toAnimation && anchorAnimations.length === 0) return;
+
+            return {
+              start: function () {
+                var animationRunners = [];
+
+                if (fromAnimation) {
+                  animationRunners.push(fromAnimation.start());
+                }
+
+                if (toAnimation) {
+                  animationRunners.push(toAnimation.start());
+                }
+
+                forEach(anchorAnimations, function (animation) {
+                  animationRunners.push(animation.start());
+                });
+
+                var runner = new $$AnimateRunner({
+                  end: endFn,
+                  cancel: endFn // CSS-driven animations cannot be cancelled, only ended
+                });
+
+                $$AnimateRunner.all(animationRunners, function (status) {
+                  runner.complete(status);
+                });
+
+                return runner;
+
+                function endFn() {
+                  forEach(animationRunners, function (runner) {
+                    runner.end();
+                  });
+                }
+              }
+            };
+          }
+
+          function prepareRegularAnimation(animationDetails) {
+            var element = animationDetails.element;
+            var options = animationDetails.options || {};
+
+            if (animationDetails.structural) {
+              options.event = animationDetails.event;
+              options.structural = true;
+              options.applyClassesEarly = true;
+
+              // we special case the leave animation since we want to ensure that
+              // the element is removed as soon as the animation is over. Otherwise
+              // a flicker might appear or the element may not be removed at all
+              if (animationDetails.event === 'leave') {
+                options.onDone = options.domOperation;
+              }
+            }
+
+            // We assign the preparationClasses as the actual animation event since
+            // the internals of $animateCss will just suffix the event token values
+            // with `-active` to trigger the animation.
+            if (options.preparationClasses) {
+              options.event = concatWithSpace(options.event, options.preparationClasses);
+            }
+
+            var animator = $animateCss(element, options);
+
+            // the driver lookup code inside of $$animation attempts to spawn a
+            // driver one by one until a driver returns a.$$willAnimate animator object.
+            // $animateCss will always return an object, however, it will pass in
+            // a flag as a hint as to whether an animation was detected or not
+            return animator.$$willAnimate ? animator : null;
+          }
+        }];
+      }];
+
+      // TODO(matsko): use caching here to speed things up for detection
+      // TODO(matsko): add documentation
+      //  by the time...
+
+      var $$AnimateJsProvider = ['$animateProvider', function ($animateProvider) {
+        this.$get = ['$injector', '$$AnimateRunner', '$$jqLite', function ($injector, $$AnimateRunner, $$jqLite) {
+
+          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+          // $animateJs(element, 'enter');
+          return function (element, event, classes, options) {
+            var animationClosed = false;
+
+            // the `classes` argument is optional and if it is not used
+            // then the classes will be resolved from the element's className
+            // property as well as options.addClass/options.removeClass.
+            if (arguments.length === 3 && isObject(classes)) {
+              options = classes;
+              classes = null;
+            }
+
+            options = prepareAnimationOptions(options);
+            if (!classes) {
+              classes = element.attr('class') || '';
+              if (options.addClass) {
+                classes += ' ' + options.addClass;
+              }
+              if (options.removeClass) {
+                classes += ' ' + options.removeClass;
+              }
+            }
+
+            var classesToAdd = options.addClass;
+            var classesToRemove = options.removeClass;
+
+            // the lookupAnimations function returns a series of animation objects that are
+            // matched up with one or more of the CSS classes. These animation objects are
+            // defined via the module.animation factory function. If nothing is detected then
+            // we don't return anything which then makes $animation query the next driver.
+            var animations = lookupAnimations(classes);
+            var before, after;
+            if (animations.length) {
+              var afterFn, beforeFn;
+              if (event == 'leave') {
+                beforeFn = 'leave';
+                afterFn = 'afterLeave'; // TODO(matsko): get rid of this
+              } else {
+                beforeFn = 'before' + event.charAt(0).toUpperCase() + event.substr(1);
+                afterFn = event;
+              }
+
+              if (event !== 'enter' && event !== 'move') {
+                before = packageAnimations(element, event, options, animations, beforeFn);
+              }
+              after = packageAnimations(element, event, options, animations, afterFn);
+            }
+
+            // no matching animations
+            if (!before && !after) return;
+
+            function applyOptions() {
+              options.domOperation();
+              applyAnimationClasses(element, options);
+            }
+
+            function close() {
+              animationClosed = true;
+              applyOptions();
+              applyAnimationStyles(element, options);
+            }
+
+            var runner;
+
+            return {
+              $$willAnimate: true,
+              end: function () {
+                if (runner) {
+                  runner.end();
+                } else {
+                  close();
+                  runner = new $$AnimateRunner();
+                  runner.complete(true);
+                }
+                return runner;
+              },
+              start: function () {
+                if (runner) {
+                  return runner;
+                }
+
+                runner = new $$AnimateRunner();
+                var closeActiveAnimations;
+                var chain = [];
+
+                if (before) {
+                  chain.push(function (fn) {
+                    closeActiveAnimations = before(fn);
+                  });
+                }
+
+                if (chain.length) {
+                  chain.push(function (fn) {
+                    applyOptions();
+                    fn(true);
+                  });
+                } else {
+                  applyOptions();
+                }
+
+                if (after) {
+                  chain.push(function (fn) {
+                    closeActiveAnimations = after(fn);
+                  });
+                }
+
+                runner.setHost({
+                  end: function () {
+                    endAnimations();
+                  },
+                  cancel: function () {
+                    endAnimations(true);
                   }
                 });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function removeItem$1(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function () {
-                    resolve();
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function clear$1(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function () {
-                    resolve();
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function length$1(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function (t, results) {
-                    var result = results.rows.item(0).c;
-                    resolve(result);
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function key$1(n, callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function (t, results) {
-                    var result = results.rows.length ? results.rows.item(0).key : null;
-                    resolve(result);
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function keys$1(callback) {
-            var self = this;
-            var promise = new Promise$1(function (resolve, reject) {
-              self.ready().then(function () {
-                var dbInfo = self._dbInfo;
-                dbInfo.db.transaction(function (t) {
-                  t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function (t, results) {
-                    var keys = [];
-                    for (var i = 0; i < results.rows.length; i++) {
-                      keys.push(results.rows.item(i).key);
-                    }
-                    resolve(keys);
-                  }, function (t, error) {
-                    reject(error);
-                  });
-                });
-              })["catch"](reject);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          var webSQLStorage = {
-            _driver: 'webSQLStorage',
-            _initStorage: _initStorage$1,
-            iterate: iterate$1,
-            getItem: getItem$1,
-            setItem: setItem$1,
-            removeItem: removeItem$1,
-            clear: clear$1,
-            length: length$1,
-            key: key$1,
-            keys: keys$1
-          };
-          function _initStorage$2(options) {
-            var self = this;
-            var dbInfo = {};
-            if (options) {
-              for (var i in options) {
-                dbInfo[i] = options[i];
-              }
-            }
-            dbInfo.keyPrefix = dbInfo.name + '/';
-            if (dbInfo.storeName !== self._defaultConfig.storeName) {
-              dbInfo.keyPrefix += dbInfo.storeName + '/';
-            }
-            self._dbInfo = dbInfo;
-            dbInfo.serializer = localforageSerializer;
-            return Promise$1.resolve();
-          }
-          function clear$2(callback) {
-            var self = this;
-            var promise = self.ready().then(function () {
-              var keyPrefix = self._dbInfo.keyPrefix;
-              for (var i = localStorage.length - 1; i >= 0; i--) {
-                var key = localStorage.key(i);
-                if (key.indexOf(keyPrefix) === 0) {
-                  localStorage.removeItem(key);
+
+                $$AnimateRunner.chain(chain, onComplete);
+                return runner;
+
+                function onComplete(success) {
+                  close(success);
+                  runner.complete(success);
+                }
+
+                function endAnimations(cancelled) {
+                  if (!animationClosed) {
+                    (closeActiveAnimations || noop)(cancelled);
+                    onComplete(cancelled);
+                  }
                 }
               }
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function getItem$2(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = self.ready().then(function () {
-              var dbInfo = self._dbInfo;
-              var result = localStorage.getItem(dbInfo.keyPrefix + key);
-              if (result) {
-                result = dbInfo.serializer.deserialize(result);
+            };
+
+            function executeAnimationFn(fn, element, event, options, onDone) {
+              var args;
+              switch (event) {
+                case 'animate':
+                  args = [element, options.from, options.to, onDone];
+                  break;
+
+                case 'setClass':
+                  args = [element, classesToAdd, classesToRemove, onDone];
+                  break;
+
+                case 'addClass':
+                  args = [element, classesToAdd, onDone];
+                  break;
+
+                case 'removeClass':
+                  args = [element, classesToRemove, onDone];
+                  break;
+
+                default:
+                  args = [element, onDone];
+                  break;
               }
-              return result;
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function iterate$2(iterator, callback) {
-            var self = this;
-            var promise = self.ready().then(function () {
-              var dbInfo = self._dbInfo;
-              var keyPrefix = dbInfo.keyPrefix;
-              var keyPrefixLength = keyPrefix.length;
-              var length = localStorage.length;
-              var iterationNumber = 1;
-              for (var i = 0; i < length; i++) {
-                var key = localStorage.key(i);
-                if (key.indexOf(keyPrefix) !== 0) {
-                  continue;
+
+              args.push(options);
+
+              var value = fn.apply(fn, args);
+              if (value) {
+                if (isFunction(value.start)) {
+                  value = value.start();
                 }
-                var value = localStorage.getItem(key);
-                if (value) {
-                  value = dbInfo.serializer.deserialize(value);
-                }
-                value = iterator(value, key.substring(keyPrefixLength), iterationNumber++);
-                if (value !== void 0) {
+
+                if (value instanceof $$AnimateRunner) {
+                  value.done(onDone);
+                } else if (isFunction(value)) {
+                  // optional onEnd / onCancel callback
                   return value;
                 }
               }
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function key$2(n, callback) {
-            var self = this;
-            var promise = self.ready().then(function () {
-              var dbInfo = self._dbInfo;
-              var result;
-              try {
-                result = localStorage.key(n);
-              } catch (error) {
-                result = null;
-              }
-              if (result) {
-                result = result.substring(dbInfo.keyPrefix.length);
-              }
-              return result;
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function keys$2(callback) {
-            var self = this;
-            var promise = self.ready().then(function () {
-              var dbInfo = self._dbInfo;
-              var length = localStorage.length;
-              var keys = [];
-              for (var i = 0; i < length; i++) {
-                if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
-                  keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
-                }
-              }
-              return keys;
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function length$2(callback) {
-            var self = this;
-            var promise = self.keys().then(function (keys) {
-              return keys.length;
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function removeItem$2(key, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
+
+              return noop;
             }
-            var promise = self.ready().then(function () {
-              var dbInfo = self._dbInfo;
-              localStorage.removeItem(dbInfo.keyPrefix + key);
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          function setItem$2(key, value, callback) {
-            var self = this;
-            if (typeof key !== 'string') {
-              console.warn(key + ' used as a key, but it is not a string.');
-              key = String(key);
-            }
-            var promise = self.ready().then(function () {
-              if (value === undefined) {
-                value = null;
-              }
-              var originalValue = value;
-              return new Promise$1(function (resolve, reject) {
-                var dbInfo = self._dbInfo;
-                dbInfo.serializer.serialize(value, function (value, error) {
-                  if (error) {
-                    reject(error);
-                  } else {
-                    try {
-                      localStorage.setItem(dbInfo.keyPrefix + key, value);
-                      resolve(originalValue);
-                    } catch (e) {
-                      if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-                        reject(e);
-                      }
-                      reject(e);
+
+            function groupEventedAnimations(element, event, options, animations, fnName) {
+              var operations = [];
+              forEach(animations, function (ani) {
+                var animation = ani[fnName];
+                if (!animation) return;
+
+                // note that all of these animations will run in parallel
+                operations.push(function () {
+                  var runner;
+                  var endProgressCb;
+
+                  var resolved = false;
+                  var onAnimationComplete = function (rejected) {
+                    if (!resolved) {
+                      resolved = true;
+                      (endProgressCb || noop)(rejected);
+                      runner.complete(!rejected);
                     }
-                  }
+                  };
+
+                  runner = new $$AnimateRunner({
+                    end: function () {
+                      onAnimationComplete();
+                    },
+                    cancel: function () {
+                      onAnimationComplete(true);
+                    }
+                  });
+
+                  endProgressCb = executeAnimationFn(animation, element, event, options, function (result) {
+                    var cancelled = result === false;
+                    onAnimationComplete(cancelled);
+                  });
+
+                  return runner;
                 });
               });
-            });
-            executeCallback(promise, callback);
-            return promise;
-          }
-          var localStorageWrapper = {
-            _driver: 'localStorageWrapper',
-            _initStorage: _initStorage$2,
-            iterate: iterate$2,
-            getItem: getItem$2,
-            setItem: setItem$2,
-            removeItem: removeItem$2,
-            clear: clear$2,
-            length: length$2,
-            key: key$2,
-            keys: keys$2
-          };
-          function executeTwoCallbacks(promise, callback, errorCallback) {
-            if (typeof callback === 'function') {
-              promise.then(callback);
+
+              return operations;
             }
-            if (typeof errorCallback === 'function') {
-              promise["catch"](errorCallback);
-            }
-          }
-          var CustomDrivers = {};
-          var DriverType = {
-            INDEXEDDB: 'asyncStorage',
-            LOCALSTORAGE: 'localStorageWrapper',
-            WEBSQL: 'webSQLStorage'
-          };
-          var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
-          var LibraryMethods = ['clear', 'getItem', 'iterate', 'key', 'keys', 'length', 'removeItem', 'setItem'];
-          var DefaultConfig = {
-            description: '',
-            driver: DefaultDriverOrder.slice(),
-            name: 'localforage',
-            size: 4980736,
-            storeName: 'keyvaluepairs',
-            version: 1.0
-          };
-          var driverSupport = {};
-          driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
-          driverSupport[DriverType.WEBSQL] = isWebSQLValid();
-          driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
-          var isArray = Array.isArray || function (arg) {
-            return Object.prototype.toString.call(arg) === '[object Array]';
-          };
-          function callWhenReady(localForageInstance, libraryMethod) {
-            localForageInstance[libraryMethod] = function () {
-              var _args = arguments;
-              return localForageInstance.ready().then(function () {
-                return localForageInstance[libraryMethod].apply(localForageInstance, _args);
-              });
-            };
-          }
-          function extend() {
-            for (var i = 1; i < arguments.length; i++) {
-              var arg = arguments[i];
-              if (arg) {
-                for (var key in arg) {
-                  if (arg.hasOwnProperty(key)) {
-                    if (isArray(arg[key])) {
-                      arguments[0][key] = arg[key].slice();
-                    } else {
-                      arguments[0][key] = arg[key];
-                    }
-                  }
+
+            function packageAnimations(element, event, options, animations, fnName) {
+              var operations = groupEventedAnimations(element, event, options, animations, fnName);
+              if (operations.length === 0) {
+                var a, b;
+                if (fnName === 'beforeSetClass') {
+                  a = groupEventedAnimations(element, 'removeClass', options, animations, 'beforeRemoveClass');
+                  b = groupEventedAnimations(element, 'addClass', options, animations, 'beforeAddClass');
+                } else if (fnName === 'setClass') {
+                  a = groupEventedAnimations(element, 'removeClass', options, animations, 'removeClass');
+                  b = groupEventedAnimations(element, 'addClass', options, animations, 'addClass');
+                }
+
+                if (a) {
+                  operations = operations.concat(a);
+                }
+                if (b) {
+                  operations = operations.concat(b);
                 }
               }
+
+              if (operations.length === 0) return;
+
+              // TODO(matsko): add documentation
+              return function startAnimation(callback) {
+                var runners = [];
+                if (operations.length) {
+                  forEach(operations, function (animateFn) {
+                    runners.push(animateFn());
+                  });
+                }
+
+                runners.length ? $$AnimateRunner.all(runners, callback) : callback();
+
+                return function endFn(reject) {
+                  forEach(runners, function (runner) {
+                    reject ? runner.cancel() : runner.end();
+                  });
+                };
+              };
             }
-            return arguments[0];
-          }
-          function isLibraryDriver(driverName) {
-            for (var driver in DriverType) {
-              if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
-                return true;
+          };
+
+          function lookupAnimations(classes) {
+            classes = isArray(classes) ? classes : classes.split(' ');
+            var matches = [],
+                flagMap = {};
+            for (var i = 0; i < classes.length; i++) {
+              var klass = classes[i],
+                  animationFactory = $animateProvider.$$registeredAnimations[klass];
+              if (animationFactory && !flagMap[klass]) {
+                matches.push($injector.get(animationFactory));
+                flagMap[klass] = true;
               }
             }
+            return matches;
+          }
+        }];
+      }];
+
+      var $$AnimateJsDriverProvider = ['$$animationProvider', function ($$animationProvider) {
+        $$animationProvider.drivers.push('$$animateJsDriver');
+        this.$get = ['$$animateJs', '$$AnimateRunner', function ($$animateJs, $$AnimateRunner) {
+          return function initDriverFn(animationDetails) {
+            if (animationDetails.from && animationDetails.to) {
+              var fromAnimation = prepareAnimation(animationDetails.from);
+              var toAnimation = prepareAnimation(animationDetails.to);
+              if (!fromAnimation && !toAnimation) return;
+
+              return {
+                start: function () {
+                  var animationRunners = [];
+
+                  if (fromAnimation) {
+                    animationRunners.push(fromAnimation.start());
+                  }
+
+                  if (toAnimation) {
+                    animationRunners.push(toAnimation.start());
+                  }
+
+                  $$AnimateRunner.all(animationRunners, done);
+
+                  var runner = new $$AnimateRunner({
+                    end: endFnFactory(),
+                    cancel: endFnFactory()
+                  });
+
+                  return runner;
+
+                  function endFnFactory() {
+                    return function () {
+                      forEach(animationRunners, function (runner) {
+                        // at this point we cannot cancel animations for groups just yet. 1.5+
+                        runner.end();
+                      });
+                    };
+                  }
+
+                  function done(status) {
+                    runner.complete(status);
+                  }
+                }
+              };
+            } else {
+              return prepareAnimation(animationDetails);
+            }
+          };
+
+          function prepareAnimation(animationDetails) {
+            // TODO(matsko): make sure to check for grouped animations and delegate down to normal animations
+            var element = animationDetails.element;
+            var event = animationDetails.event;
+            var options = animationDetails.options;
+            var classes = animationDetails.classes;
+            return $$animateJs(element, event, classes, options);
+          }
+        }];
+      }];
+
+      var NG_ANIMATE_ATTR_NAME = 'data-ng-animate';
+      var NG_ANIMATE_PIN_DATA = '$ngAnimatePin';
+      var $$AnimateQueueProvider = ['$animateProvider', function ($animateProvider) {
+        var PRE_DIGEST_STATE = 1;
+        var RUNNING_STATE = 2;
+        var ONE_SPACE = ' ';
+
+        var rules = this.rules = {
+          skip: [],
+          cancel: [],
+          join: []
+        };
+
+        function makeTruthyCssClassMap(classString) {
+          if (!classString) {
+            return null;
+          }
+
+          var keys = classString.split(ONE_SPACE);
+          var map = Object.create(null);
+
+          forEach(keys, function (key) {
+            map[key] = true;
+          });
+          return map;
+        }
+
+        function hasMatchingClasses(newClassString, currentClassString) {
+          if (newClassString && currentClassString) {
+            var currentClassMap = makeTruthyCssClassMap(currentClassString);
+            return newClassString.split(ONE_SPACE).some(function (className) {
+              return currentClassMap[className];
+            });
+          }
+        }
+
+        function isAllowed(ruleType, element, currentAnimation, previousAnimation) {
+          return rules[ruleType].some(function (fn) {
+            return fn(element, currentAnimation, previousAnimation);
+          });
+        }
+
+        function hasAnimationClasses(animation, and) {
+          var a = (animation.addClass || '').length > 0;
+          var b = (animation.removeClass || '').length > 0;
+          return and ? a && b : a || b;
+        }
+
+        rules.join.push(function (element, newAnimation, currentAnimation) {
+          // if the new animation is class-based then we can just tack that on
+          return !newAnimation.structural && hasAnimationClasses(newAnimation);
+        });
+
+        rules.skip.push(function (element, newAnimation, currentAnimation) {
+          // there is no need to animate anything if no classes are being added and
+          // there is no structural animation that will be triggered
+          return !newAnimation.structural && !hasAnimationClasses(newAnimation);
+        });
+
+        rules.skip.push(function (element, newAnimation, currentAnimation) {
+          // why should we trigger a new structural animation if the element will
+          // be removed from the DOM anyway?
+          return currentAnimation.event == 'leave' && newAnimation.structural;
+        });
+
+        rules.skip.push(function (element, newAnimation, currentAnimation) {
+          // if there is an ongoing current animation then don't even bother running the class-based animation
+          return currentAnimation.structural && currentAnimation.state === RUNNING_STATE && !newAnimation.structural;
+        });
+
+        rules.cancel.push(function (element, newAnimation, currentAnimation) {
+          // there can never be two structural animations running at the same time
+          return currentAnimation.structural && newAnimation.structural;
+        });
+
+        rules.cancel.push(function (element, newAnimation, currentAnimation) {
+          // if the previous animation is already running, but the new animation will
+          // be triggered, but the new animation is structural
+          return currentAnimation.state === RUNNING_STATE && newAnimation.structural;
+        });
+
+        rules.cancel.push(function (element, newAnimation, currentAnimation) {
+          // cancel the animation if classes added / removed in both animation cancel each other out,
+          // but only if the current animation isn't structural
+
+          if (currentAnimation.structural) return false;
+
+          var nA = newAnimation.addClass;
+          var nR = newAnimation.removeClass;
+          var cA = currentAnimation.addClass;
+          var cR = currentAnimation.removeClass;
+
+          // early detection to save the global CPU shortage :)
+          if (isUndefined(nA) && isUndefined(nR) || isUndefined(cA) && isUndefined(cR)) {
             return false;
           }
-          var LocalForage = function () {
-            function LocalForage(options) {
-              _classCallCheck(this, LocalForage);
-              this.INDEXEDDB = DriverType.INDEXEDDB;
-              this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
-              this.WEBSQL = DriverType.WEBSQL;
-              this._defaultConfig = extend({}, DefaultConfig);
-              this._config = extend({}, this._defaultConfig, options);
-              this._driverSet = null;
-              this._initDriver = null;
-              this._ready = false;
-              this._dbInfo = null;
-              this._wrapLibraryMethodsWithReady();
-              this.setDriver(this._config.driver);
-            }
-            LocalForage.prototype.config = function config(options) {
-              if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-                if (this._ready) {
-                  return new Error("Can't call config() after localforage " + 'has been used.');
-                }
-                for (var i in options) {
-                  if (i === 'storeName') {
-                    options[i] = options[i].replace(/\W/g, '_');
-                  }
-                  this._config[i] = options[i];
-                }
-                if ('driver' in options && options.driver) {
-                  this.setDriver(this._config.driver);
-                }
-                return true;
-              } else if (typeof options === 'string') {
-                return this._config[options];
+
+          return hasMatchingClasses(nA, cR) || hasMatchingClasses(nR, cA);
+        });
+
+        this.$get = ['$$rAF', '$rootScope', '$rootElement', '$document', '$$HashMap', '$$animation', '$$AnimateRunner', '$templateRequest', '$$jqLite', '$$forceReflow', function ($$rAF, $rootScope, $rootElement, $document, $$HashMap, $$animation, $$AnimateRunner, $templateRequest, $$jqLite, $$forceReflow) {
+
+          var activeAnimationsLookup = new $$HashMap();
+          var disabledElementsLookup = new $$HashMap();
+          var animationsEnabled = null;
+
+          function postDigestTaskFactory() {
+            var postDigestCalled = false;
+            return function (fn) {
+              // we only issue a call to postDigest before
+              // it has first passed. This prevents any callbacks
+              // from not firing once the animation has completed
+              // since it will be out of the digest cycle.
+              if (postDigestCalled) {
+                fn();
               } else {
-                return this._config;
-              }
-            };
-            LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
-              var promise = new Promise$1(function (resolve, reject) {
-                try {
-                  var driverName = driverObject._driver;
-                  var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
-                  var namingError = new Error('Custom driver name already in use: ' + driverObject._driver);
-                  if (!driverObject._driver) {
-                    reject(complianceError);
-                    return;
-                  }
-                  if (isLibraryDriver(driverObject._driver)) {
-                    reject(namingError);
-                    return;
-                  }
-                  var customDriverMethods = LibraryMethods.concat('_initStorage');
-                  for (var i = 0; i < customDriverMethods.length; i++) {
-                    var customDriverMethod = customDriverMethods[i];
-                    if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
-                      reject(complianceError);
-                      return;
-                    }
-                  }
-                  var supportPromise = Promise$1.resolve(true);
-                  if ('_support' in driverObject) {
-                    if (driverObject._support && typeof driverObject._support === 'function') {
-                      supportPromise = driverObject._support();
-                    } else {
-                      supportPromise = Promise$1.resolve(!!driverObject._support);
-                    }
-                  }
-                  supportPromise.then(function (supportResult) {
-                    driverSupport[driverName] = supportResult;
-                    CustomDrivers[driverName] = driverObject;
-                    resolve();
-                  }, reject);
-                } catch (e) {
-                  reject(e);
-                }
-              });
-              executeTwoCallbacks(promise, callback, errorCallback);
-              return promise;
-            };
-            LocalForage.prototype.driver = function driver() {
-              return this._driver || null;
-            };
-            LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
-              var self = this;
-              var getDriverPromise = Promise$1.resolve().then(function () {
-                if (isLibraryDriver(driverName)) {
-                  switch (driverName) {
-                    case self.INDEXEDDB:
-                      return asyncStorage;
-                    case self.LOCALSTORAGE:
-                      return localStorageWrapper;
-                    case self.WEBSQL:
-                      return webSQLStorage;
-                  }
-                } else if (CustomDrivers[driverName]) {
-                  return CustomDrivers[driverName];
-                } else {
-                  throw new Error('Driver not found.');
-                }
-              });
-              executeTwoCallbacks(getDriverPromise, callback, errorCallback);
-              return getDriverPromise;
-            };
-            LocalForage.prototype.getSerializer = function getSerializer(callback) {
-              var serializerPromise = Promise$1.resolve(localforageSerializer);
-              executeTwoCallbacks(serializerPromise, callback);
-              return serializerPromise;
-            };
-            LocalForage.prototype.ready = function ready(callback) {
-              var self = this;
-              var promise = self._driverSet.then(function () {
-                if (self._ready === null) {
-                  self._ready = self._initDriver();
-                }
-                return self._ready;
-              });
-              executeTwoCallbacks(promise, callback, callback);
-              return promise;
-            };
-            LocalForage.prototype.setDriver = function setDriver(drivers, callback, errorCallback) {
-              var self = this;
-              if (!isArray(drivers)) {
-                drivers = [drivers];
-              }
-              var supportedDrivers = this._getSupportedDrivers(drivers);
-              function setDriverToConfig() {
-                self._config.driver = self.driver();
-              }
-              function initDriver(supportedDrivers) {
-                return function () {
-                  var currentDriverIndex = 0;
-                  function driverPromiseLoop() {
-                    while (currentDriverIndex < supportedDrivers.length) {
-                      var driverName = supportedDrivers[currentDriverIndex];
-                      currentDriverIndex++;
-                      self._dbInfo = null;
-                      self._ready = null;
-                      return self.getDriver(driverName).then(function (driver) {
-                        self._extend(driver);
-                        setDriverToConfig();
-                        self._ready = self._initStorage(self._config);
-                        return self._ready;
-                      })["catch"](driverPromiseLoop);
-                    }
-                    setDriverToConfig();
-                    var error = new Error('No available storage method found.');
-                    self._driverSet = Promise$1.reject(error);
-                    return self._driverSet;
-                  }
-                  return driverPromiseLoop();
-                };
-              }
-              var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function () {
-                return Promise$1.resolve();
-              }) : Promise$1.resolve();
-              this._driverSet = oldDriverSetDone.then(function () {
-                var driverName = supportedDrivers[0];
-                self._dbInfo = null;
-                self._ready = null;
-                return self.getDriver(driverName).then(function (driver) {
-                  self._driver = driver._driver;
-                  setDriverToConfig();
-                  self._wrapLibraryMethodsWithReady();
-                  self._initDriver = initDriver(supportedDrivers);
+                $rootScope.$$postDigest(function () {
+                  postDigestCalled = true;
+                  fn();
                 });
-              })["catch"](function () {
-                setDriverToConfig();
-                var error = new Error('No available storage method found.');
-                self._driverSet = Promise$1.reject(error);
-                return self._driverSet;
+              }
+            };
+          }
+
+          // Wait until all directive and route-related templates are downloaded and
+          // compiled. The $templateRequest.totalPendingRequests variable keeps track of
+          // all of the remote templates being currently downloaded. If there are no
+          // templates currently downloading then the watcher will still fire anyway.
+          var deregisterWatch = $rootScope.$watch(function () {
+            return $templateRequest.totalPendingRequests === 0;
+          }, function (isEmpty) {
+            if (!isEmpty) return;
+            deregisterWatch();
+
+            // Now that all templates have been downloaded, $animate will wait until
+            // the post digest queue is empty before enabling animations. By having two
+            // calls to $postDigest calls we can ensure that the flag is enabled at the
+            // very end of the post digest queue. Since all of the animations in $animate
+            // use $postDigest, it's important that the code below executes at the end.
+            // This basically means that the page is fully downloaded and compiled before
+            // any animations are triggered.
+            $rootScope.$$postDigest(function () {
+              $rootScope.$$postDigest(function () {
+                // we check for null directly in the event that the application already called
+                // .enabled() with whatever arguments that it provided it with
+                if (animationsEnabled === null) {
+                  animationsEnabled = true;
+                }
               });
-              executeTwoCallbacks(this._driverSet, callback, errorCallback);
-              return this._driverSet;
-            };
-            LocalForage.prototype.supports = function supports(driverName) {
-              return !!driverSupport[driverName];
-            };
-            LocalForage.prototype._extend = function _extend(libraryMethodsAndProperties) {
-              extend(this, libraryMethodsAndProperties);
-            };
-            LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
-              var supportedDrivers = [];
-              for (var i = 0, len = drivers.length; i < len; i++) {
-                var driverName = drivers[i];
-                if (this.supports(driverName)) {
-                  supportedDrivers.push(driverName);
+            });
+          });
+
+          var callbackRegistry = Object.create(null);
+
+          // remember that the classNameFilter is set during the provider/config
+          // stage therefore we can optimize here and setup a helper function
+          var classNameFilter = $animateProvider.classNameFilter();
+          var isAnimatableClassName = !classNameFilter ? function () {
+            return true;
+          } : function (className) {
+            return classNameFilter.test(className);
+          };
+
+          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+
+          function normalizeAnimationDetails(element, animation) {
+            return mergeAnimationDetails(element, animation, {});
+          }
+
+          // IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
+          var contains = window.Node.prototype.contains || function (arg) {
+            // jshint bitwise: false
+            return this === arg || !!(this.compareDocumentPosition(arg) & 16);
+            // jshint bitwise: true
+          };
+
+          function findCallbacks(parent, element, event) {
+            var targetNode = getDomNode(element);
+            var targetParentNode = getDomNode(parent);
+
+            var matches = [];
+            var entries = callbackRegistry[event];
+            if (entries) {
+              forEach(entries, function (entry) {
+                if (contains.call(entry.node, targetNode)) {
+                  matches.push(entry.callback);
+                } else if (event === 'leave' && contains.call(entry.node, targetParentNode)) {
+                  matches.push(entry.callback);
+                }
+              });
+            }
+
+            return matches;
+          }
+
+          function filterFromRegistry(list, matchContainer, matchCallback) {
+            var containerNode = extractElementNode(matchContainer);
+            return list.filter(function (entry) {
+              var isMatch = entry.node === containerNode && (!matchCallback || entry.callback === matchCallback);
+              return !isMatch;
+            });
+          }
+
+          function cleanupEventListeners(phase, element) {
+            if (phase === 'close' && !element[0].parentNode) {
+              // If the element is not attached to a parentNode, it has been removed by
+              // the domOperation, and we can safely remove the event callbacks
+              $animate.off(element);
+            }
+          }
+
+          var $animate = {
+            on: function (event, container, callback) {
+              var node = extractElementNode(container);
+              callbackRegistry[event] = callbackRegistry[event] || [];
+              callbackRegistry[event].push({
+                node: node,
+                callback: callback
+              });
+
+              // Remove the callback when the element is removed from the DOM
+              jqLite(container).on('$destroy', function () {
+                var animationDetails = activeAnimationsLookup.get(node);
+
+                if (!animationDetails) {
+                  // If there's an animation ongoing, the callback calling code will remove
+                  // the event listeners. If we'd remove here, the callbacks would be removed
+                  // before the animation ends
+                  $animate.off(event, container, callback);
+                }
+              });
+            },
+
+            off: function (event, container, callback) {
+              if (arguments.length === 1 && !isString(arguments[0])) {
+                container = arguments[0];
+                for (var eventType in callbackRegistry) {
+                  callbackRegistry[eventType] = filterFromRegistry(callbackRegistry[eventType], container);
+                }
+
+                return;
+              }
+
+              var entries = callbackRegistry[event];
+              if (!entries) return;
+
+              callbackRegistry[event] = arguments.length === 1 ? null : filterFromRegistry(entries, container, callback);
+            },
+
+            pin: function (element, parentElement) {
+              assertArg(isElement(element), 'element', 'not an element');
+              assertArg(isElement(parentElement), 'parentElement', 'not an element');
+              element.data(NG_ANIMATE_PIN_DATA, parentElement);
+            },
+
+            push: function (element, event, options, domOperation) {
+              options = options || {};
+              options.domOperation = domOperation;
+              return queueAnimation(element, event, options);
+            },
+
+            // this method has four signatures:
+            //  () - global getter
+            //  (bool) - global setter
+            //  (element) - element getter
+            //  (element, bool) - element setter<F37>
+            enabled: function (element, bool) {
+              var argCount = arguments.length;
+
+              if (argCount === 0) {
+                // () - Global getter
+                bool = !!animationsEnabled;
+              } else {
+                var hasElement = isElement(element);
+
+                if (!hasElement) {
+                  // (bool) - Global setter
+                  bool = animationsEnabled = !!element;
+                } else {
+                  var node = getDomNode(element);
+
+                  if (argCount === 1) {
+                    // (element) - Element getter
+                    bool = !disabledElementsLookup.get(node);
+                  } else {
+                    // (element, bool) - Element setter
+                    disabledElementsLookup.put(node, !bool);
+                  }
                 }
               }
-              return supportedDrivers;
+
+              return bool;
+            }
+          };
+
+          return $animate;
+
+          function queueAnimation(element, event, initialOptions) {
+            // we always make a copy of the options since
+            // there should never be any side effects on
+            // the input data when running `$animateCss`.
+            var options = copy(initialOptions);
+
+            var node, parent;
+            element = stripCommentsFromElement(element);
+            if (element) {
+              node = getDomNode(element);
+              parent = element.parent();
+            }
+
+            options = prepareAnimationOptions(options);
+
+            // we create a fake runner with a working promise.
+            // These methods will become available after the digest has passed
+            var runner = new $$AnimateRunner();
+
+            // this is used to trigger callbacks in postDigest mode
+            var runInNextPostDigestOrNow = postDigestTaskFactory();
+
+            if (isArray(options.addClass)) {
+              options.addClass = options.addClass.join(' ');
+            }
+
+            if (options.addClass && !isString(options.addClass)) {
+              options.addClass = null;
+            }
+
+            if (isArray(options.removeClass)) {
+              options.removeClass = options.removeClass.join(' ');
+            }
+
+            if (options.removeClass && !isString(options.removeClass)) {
+              options.removeClass = null;
+            }
+
+            if (options.from && !isObject(options.from)) {
+              options.from = null;
+            }
+
+            if (options.to && !isObject(options.to)) {
+              options.to = null;
+            }
+
+            // there are situations where a directive issues an animation for
+            // a jqLite wrapper that contains only comment nodes... If this
+            // happens then there is no way we can perform an animation
+            if (!node) {
+              close();
+              return runner;
+            }
+
+            var className = [node.className, options.addClass, options.removeClass].join(' ');
+            if (!isAnimatableClassName(className)) {
+              close();
+              return runner;
+            }
+
+            var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
+
+            var documentHidden = $document[0].hidden;
+
+            // this is a hard disable of all animations for the application or on
+            // the element itself, therefore  there is no need to continue further
+            // past this point if not enabled
+            // Animations are also disabled if the document is currently hidden (page is not visible
+            // to the user), because browsers slow down or do not flush calls to requestAnimationFrame
+            var skipAnimations = !animationsEnabled || documentHidden || disabledElementsLookup.get(node);
+            var existingAnimation = !skipAnimations && activeAnimationsLookup.get(node) || {};
+            var hasExistingAnimation = !!existingAnimation.state;
+
+            // there is no point in traversing the same collection of parent ancestors if a followup
+            // animation will be run on the same element that already did all that checking work
+            if (!skipAnimations && (!hasExistingAnimation || existingAnimation.state != PRE_DIGEST_STATE)) {
+              skipAnimations = !areAnimationsAllowed(element, parent, event);
+            }
+
+            if (skipAnimations) {
+              // Callbacks should fire even if the document is hidden (regression fix for issue #14120)
+              if (documentHidden) notifyProgress(runner, event, 'start');
+              close();
+              if (documentHidden) notifyProgress(runner, event, 'close');
+              return runner;
+            }
+
+            if (isStructural) {
+              closeChildAnimations(element);
+            }
+
+            var newAnimation = {
+              structural: isStructural,
+              element: element,
+              event: event,
+              addClass: options.addClass,
+              removeClass: options.removeClass,
+              close: close,
+              options: options,
+              runner: runner
             };
-            LocalForage.prototype._wrapLibraryMethodsWithReady = function _wrapLibraryMethodsWithReady() {
-              for (var i = 0; i < LibraryMethods.length; i++) {
-                callWhenReady(this, LibraryMethods[i]);
+
+            if (hasExistingAnimation) {
+              var skipAnimationFlag = isAllowed('skip', element, newAnimation, existingAnimation);
+              if (skipAnimationFlag) {
+                if (existingAnimation.state === RUNNING_STATE) {
+                  close();
+                  return runner;
+                } else {
+                  mergeAnimationDetails(element, existingAnimation, newAnimation);
+                  return existingAnimation.runner;
+                }
               }
-            };
-            LocalForage.prototype.createInstance = function createInstance(options) {
-              return new LocalForage(options);
-            };
-            return LocalForage;
-          }();
-          var localforage_js = new LocalForage();
-          module.exports = localforage_js;
-        }, { "3": 3 }]
-      }, {}, [4])(4);
-    });
-  })($__require("20"));
-  return module.exports;
-});
-$__System.registerDynamic("38", ["37"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("37");
-  return module.exports;
-});
-$__System.register("39", ["3", "4", "5", "30", "38"], function (_export) {
-  var _createClass, _classCallCheck, _Object$assign, _Promise, localForage, supportsNav, AckOffline, QueModel;
+              var cancelAnimationFlag = isAllowed('cancel', element, newAnimation, existingAnimation);
+              if (cancelAnimationFlag) {
+                if (existingAnimation.state === RUNNING_STATE) {
+                  // this will end the animation right away and it is safe
+                  // to do so since the animation is already running and the
+                  // runner callback code will run in async
+                  existingAnimation.runner.end();
+                } else if (existingAnimation.structural) {
+                  // this means that the animation is queued into a digest, but
+                  // hasn't started yet. Therefore it is safe to run the close
+                  // method which will call the runner methods in async.
+                  existingAnimation.close();
+                } else {
+                  // this will merge the new animation options into existing animation options
+                  mergeAnimationDetails(element, existingAnimation, newAnimation);
 
-  return {
-    setters: [function (_2) {
-      _createClass = _2["default"];
-    }, function (_3) {
-      _classCallCheck = _3["default"];
-    }, function (_5) {
-      _Object$assign = _5["default"];
-    }, function (_4) {
-      _Promise = _4["default"];
-    }, function (_6) {
-      localForage = _6["default"];
-    }],
-    execute: function () {
-      //import localForage from "./localforage-build"
+                  return existingAnimation.runner;
+                }
+              } else {
+                // a joined animation means that this animation will take over the existing one
+                // so an example would involve a leave animation taking over an enter. Then when
+                // the postDigest kicks in the enter will be ignored.
+                var joinAnimationFlag = isAllowed('join', element, newAnimation, existingAnimation);
+                if (joinAnimationFlag) {
+                  if (existingAnimation.state === RUNNING_STATE) {
+                    normalizeAnimationDetails(element, newAnimation);
+                  } else {
+                    applyGeneratedPreparationClasses(element, isStructural ? event : null, options);
 
-      "use strict";
+                    event = newAnimation.event = existingAnimation.event;
+                    options = mergeAnimationDetails(element, existingAnimation, newAnimation);
 
-      supportsNav = typeof navigator != 'undefined';
+                    //we return the same runner since only the option values of this animation will
+                    //be fed into the `existingAnimation`.
+                    return existingAnimation.runner;
+                  }
+                }
+              }
+            } else {
+              // normalization in this case means that it removes redundant CSS classes that
+              // already exist (addClass) or do not exist (removeClass) on the element
+              normalizeAnimationDetails(element, newAnimation);
+            }
 
-      AckOffline = (function () {
-        function AckOffline($http) {
-          _classCallCheck(this, AckOffline);
+            // when the options are merged and cleaned up we may end up not having to do
+            // an animation at all, therefore we should check this before issuing a post
+            // digest callback. Structural animations will always run no matter what.
+            var isValidAnimation = newAnimation.structural;
+            if (!isValidAnimation) {
+              // animate (from/to) can be quickly checked first, otherwise we check if any classes are present
+              isValidAnimation = newAnimation.event === 'animate' && Object.keys(newAnimation.options.to || {}).length > 0 || hasAnimationClasses(newAnimation);
+            }
 
-          this.$http = $http;
-          this.prefix = "offline";
-          this.handlers = [];
+            if (!isValidAnimation) {
+              close();
+              clearElementAnimationState(element);
+              return runner;
+            }
+
+            // the counter keeps track of cancelled animations
+            var counter = (existingAnimation.counter || 0) + 1;
+            newAnimation.counter = counter;
+
+            markElementAnimationState(element, PRE_DIGEST_STATE, newAnimation);
+
+            $rootScope.$$postDigest(function () {
+              var animationDetails = activeAnimationsLookup.get(node);
+              var animationCancelled = !animationDetails;
+              animationDetails = animationDetails || {};
+
+              // if addClass/removeClass is called before something like enter then the
+              // registered parent element may not be present. The code below will ensure
+              // that a final value for parent element is obtained
+              var parentElement = element.parent() || [];
+
+              // animate/structural/class-based animations all have requirements. Otherwise there
+              // is no point in performing an animation. The parent node must also be set.
+              var isValidAnimation = parentElement.length > 0 && (animationDetails.event === 'animate' || animationDetails.structural || hasAnimationClasses(animationDetails));
+
+              // this means that the previous animation was cancelled
+              // even if the follow-up animation is the same event
+              if (animationCancelled || animationDetails.counter !== counter || !isValidAnimation) {
+                // if another animation did not take over then we need
+                // to make sure that the domOperation and options are
+                // handled accordingly
+                if (animationCancelled) {
+                  applyAnimationClasses(element, options);
+                  applyAnimationStyles(element, options);
+                }
+
+                // if the event changed from something like enter to leave then we do
+                // it, otherwise if it's the same then the end result will be the same too
+                if (animationCancelled || isStructural && animationDetails.event !== event) {
+                  options.domOperation();
+                  runner.end();
+                }
+
+                // in the event that the element animation was not cancelled or a follow-up animation
+                // isn't allowed to animate from here then we need to clear the state of the element
+                // so that any future animations won't read the expired animation data.
+                if (!isValidAnimation) {
+                  clearElementAnimationState(element);
+                }
+
+                return;
+              }
+
+              // this combined multiple class to addClass / removeClass into a setClass event
+              // so long as a structural event did not take over the animation
+              event = !animationDetails.structural && hasAnimationClasses(animationDetails, true) ? 'setClass' : animationDetails.event;
+
+              markElementAnimationState(element, RUNNING_STATE);
+              var realRunner = $$animation(element, event, animationDetails.options);
+
+              // this will update the runner's flow-control events based on
+              // the `realRunner` object.
+              runner.setHost(realRunner);
+              notifyProgress(runner, event, 'start', {});
+
+              realRunner.done(function (status) {
+                close(!status);
+                var animationDetails = activeAnimationsLookup.get(node);
+                if (animationDetails && animationDetails.counter === counter) {
+                  clearElementAnimationState(getDomNode(element));
+                }
+                notifyProgress(runner, event, 'close', {});
+              });
+            });
+
+            return runner;
+
+            function notifyProgress(runner, event, phase, data) {
+              runInNextPostDigestOrNow(function () {
+                var callbacks = findCallbacks(parent, element, event);
+                if (callbacks.length) {
+                  // do not optimize this call here to RAF because
+                  // we don't know how heavy the callback code here will
+                  // be and if this code is buffered then this can
+                  // lead to a performance regression.
+                  $$rAF(function () {
+                    forEach(callbacks, function (callback) {
+                      callback(element, phase, data);
+                    });
+                    cleanupEventListeners(phase, element);
+                  });
+                } else {
+                  cleanupEventListeners(phase, element);
+                }
+              });
+              runner.progress(event, phase, data);
+            }
+
+            function close(reject) {
+              // jshint ignore:line
+              clearGeneratedClasses(element, options);
+              applyAnimationClasses(element, options);
+              applyAnimationStyles(element, options);
+              options.domOperation();
+              runner.complete(!reject);
+            }
+          }
+
+          function closeChildAnimations(element) {
+            var node = getDomNode(element);
+            var children = node.querySelectorAll('[' + NG_ANIMATE_ATTR_NAME + ']');
+            forEach(children, function (child) {
+              var state = parseInt(child.getAttribute(NG_ANIMATE_ATTR_NAME));
+              var animationDetails = activeAnimationsLookup.get(child);
+              if (animationDetails) {
+                switch (state) {
+                  case RUNNING_STATE:
+                    animationDetails.runner.end();
+                  /* falls through */
+                  case PRE_DIGEST_STATE:
+                    activeAnimationsLookup.remove(child);
+                    break;
+                }
+              }
+            });
+          }
+
+          function clearElementAnimationState(element) {
+            var node = getDomNode(element);
+            node.removeAttribute(NG_ANIMATE_ATTR_NAME);
+            activeAnimationsLookup.remove(node);
+          }
+
+          function isMatchingElement(nodeOrElmA, nodeOrElmB) {
+            return getDomNode(nodeOrElmA) === getDomNode(nodeOrElmB);
+          }
+
+          /**
+           * This fn returns false if any of the following is true:
+           * a) animations on any parent element are disabled, and animations on the element aren't explicitly allowed
+           * b) a parent element has an ongoing structural animation, and animateChildren is false
+           * c) the element is not a child of the body
+           * d) the element is not a child of the $rootElement
+           */
+          function areAnimationsAllowed(element, parentElement, event) {
+            var bodyElement = jqLite($document[0].body);
+            var bodyElementDetected = isMatchingElement(element, bodyElement) || element[0].nodeName === 'HTML';
+            var rootElementDetected = isMatchingElement(element, $rootElement);
+            var parentAnimationDetected = false;
+            var animateChildren;
+            var elementDisabled = disabledElementsLookup.get(getDomNode(element));
+
+            var parentHost = jqLite.data(element[0], NG_ANIMATE_PIN_DATA);
+            if (parentHost) {
+              parentElement = parentHost;
+            }
+
+            parentElement = getDomNode(parentElement);
+
+            while (parentElement) {
+              if (!rootElementDetected) {
+                // angular doesn't want to attempt to animate elements outside of the application
+                // therefore we need to ensure that the rootElement is an ancestor of the current element
+                rootElementDetected = isMatchingElement(parentElement, $rootElement);
+              }
+
+              if (parentElement.nodeType !== ELEMENT_NODE) {
+                // no point in inspecting the #document element
+                break;
+              }
+
+              var details = activeAnimationsLookup.get(parentElement) || {};
+              // either an enter, leave or move animation will commence
+              // therefore we can't allow any animations to take place
+              // but if a parent animation is class-based then that's ok
+              if (!parentAnimationDetected) {
+                var parentElementDisabled = disabledElementsLookup.get(parentElement);
+
+                if (parentElementDisabled === true && elementDisabled !== false) {
+                  // disable animations if the user hasn't explicitly enabled animations on the
+                  // current element
+                  elementDisabled = true;
+                  // element is disabled via parent element, no need to check anything else
+                  break;
+                } else if (parentElementDisabled === false) {
+                  elementDisabled = false;
+                }
+                parentAnimationDetected = details.structural;
+              }
+
+              if (isUndefined(animateChildren) || animateChildren === true) {
+                var value = jqLite.data(parentElement, NG_ANIMATE_CHILDREN_DATA);
+                if (isDefined(value)) {
+                  animateChildren = value;
+                }
+              }
+
+              // there is no need to continue traversing at this point
+              if (parentAnimationDetected && animateChildren === false) break;
+
+              if (!bodyElementDetected) {
+                // we also need to ensure that the element is or will be a part of the body element
+                // otherwise it is pointless to even issue an animation to be rendered
+                bodyElementDetected = isMatchingElement(parentElement, bodyElement);
+              }
+
+              if (bodyElementDetected && rootElementDetected) {
+                // If both body and root have been found, any other checks are pointless,
+                // as no animation data should live outside the application
+                break;
+              }
+
+              if (!rootElementDetected) {
+                // If no rootElement is detected, check if the parentElement is pinned to another element
+                parentHost = jqLite.data(parentElement, NG_ANIMATE_PIN_DATA);
+                if (parentHost) {
+                  // The pin target element becomes the next parent element
+                  parentElement = getDomNode(parentHost);
+                  continue;
+                }
+              }
+
+              parentElement = parentElement.parentNode;
+            }
+
+            var allowAnimation = (!parentAnimationDetected || animateChildren) && elementDisabled !== true;
+            return allowAnimation && rootElementDetected && bodyElementDetected;
+          }
+
+          function markElementAnimationState(element, state, details) {
+            details = details || {};
+            details.state = state;
+
+            var node = getDomNode(element);
+            node.setAttribute(NG_ANIMATE_ATTR_NAME, state);
+
+            var oldValue = activeAnimationsLookup.get(node);
+            var newValue = oldValue ? extend(oldValue, details) : details;
+            activeAnimationsLookup.put(node, newValue);
+          }
+        }];
+      }];
+
+      var $$AnimationProvider = ['$animateProvider', function ($animateProvider) {
+        var NG_ANIMATE_REF_ATTR = 'ng-animate-ref';
+
+        var drivers = this.drivers = [];
+
+        var RUNNER_STORAGE_KEY = '$$animationRunner';
+
+        function setRunner(element, runner) {
+          element.data(RUNNER_STORAGE_KEY, runner);
         }
 
-        _createClass(AckOffline, [{
-          key: "remove",
-          value: function remove(name) {
-            return localForage.removeItem(this.prefix + '-' + name);
-          }
-        }, {
-          key: "get",
-          value: function get(name) {
-            return localForage.getItem(this.prefix + '-' + name);
-          }
-        }, {
-          key: "set",
-          value: function set(name, data) {
-            return localForage.setItem(this.prefix + '-' + name, data);
-          }
-        }, {
-          key: "_validate",
-          value: function _validate(data, _ref) {
-            var expires = _ref.expires;
+        function removeRunner(element) {
+          element.removeData(RUNNER_STORAGE_KEY);
+        }
 
-            var exists = data !== null && typeof data.cache !== "undefined";
-            return exists && !this._expired(data._timestamp, expires);
-          }
-        }, {
-          key: "_expired",
-          value: function _expired(stamp, expires) {
-            var diff = Date.now() - expires;
-            var expired = stamp <= diff;
-            return expires && expired ? true : false;
-          }
+        function getRunner(element) {
+          return element.data(RUNNER_STORAGE_KEY);
+        }
 
-          /**
-            Creates que handler. Returns self. Most likely, use newQueModel
-            @options - {
-              handler : dataArray=> - overrides $http posting for que processing
-              onData : data=> - callback fired everytime data is retrieved
-              expires: Number - how many milisecs can a saved transmission live in cache
+        this.$get = ['$$jqLite', '$rootScope', '$injector', '$$AnimateRunner', '$$HashMap', '$$rAFScheduler', function ($$jqLite, $rootScope, $injector, $$AnimateRunner, $$HashMap, $$rAFScheduler) {
+
+          var animationQueue = [];
+          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+
+          function sortAnimations(animations) {
+            var tree = { children: [] };
+            var i,
+                lookup = new $$HashMap();
+
+            // this is done first beforehand so that the hashmap
+            // is filled with a list of the elements that will be animated
+            for (i = 0; i < animations.length; i++) {
+              var animation = animations[i];
+              lookup.put(animation.domNode, animations[i] = {
+                domNode: animation.domNode,
+                fn: animation.fn,
+                children: []
+              });
             }
-          */
-        }, {
-          key: "newQueModel",
-          value: function newQueModel(name) {
-            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-            options.name = name;
-            this.addQueModel(name, options);
-            return new QueModel(this, options);
+            for (i = 0; i < animations.length; i++) {
+              processNode(animations[i]);
+            }
+
+            return flatten(tree);
+
+            function processNode(entry) {
+              if (entry.processed) return entry;
+              entry.processed = true;
+
+              var elementNode = entry.domNode;
+              var parentNode = elementNode.parentNode;
+              lookup.put(elementNode, entry);
+
+              var parentEntry;
+              while (parentNode) {
+                parentEntry = lookup.get(parentNode);
+                if (parentEntry) {
+                  if (!parentEntry.processed) {
+                    parentEntry = processNode(parentEntry);
+                  }
+                  break;
+                }
+                parentNode = parentNode.parentNode;
+              }
+
+              (parentEntry || tree).children.push(entry);
+              return entry;
+            }
+
+            function flatten(tree) {
+              var result = [];
+              var queue = [];
+              var i;
+
+              for (i = 0; i < tree.children.length; i++) {
+                queue.push(tree.children[i]);
+              }
+
+              var remainingLevelEntries = queue.length;
+              var nextLevelEntries = 0;
+              var row = [];
+
+              for (i = 0; i < queue.length; i++) {
+                var entry = queue[i];
+                if (remainingLevelEntries <= 0) {
+                  remainingLevelEntries = nextLevelEntries;
+                  nextLevelEntries = 0;
+                  result.push(row);
+                  row = [];
+                }
+                row.push(entry.fn);
+                entry.children.forEach(function (childEntry) {
+                  nextLevelEntries++;
+                  queue.push(childEntry);
+                });
+                remainingLevelEntries--;
+              }
+
+              if (row.length) {
+                result.push(row);
+              }
+
+              return result;
+            }
           }
 
-          /**
-            Creates que handler. Returns self. Most likely, use newQueModel
-            @options - {
-              handler : dataArray=> - overrides $http posting for que processing
-              onData : data=> - callback fired everytime data is retrieved
+          // TODO(matsko): document the signature in a better way
+          return function (element, event, options) {
+            options = prepareAnimationOptions(options);
+            var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
+
+            // there is no animation at the current moment, however
+            // these runner methods will get later updated with the
+            // methods leading into the driver's end/cancel methods
+            // for now they just stop the animation from starting
+            var runner = new $$AnimateRunner({
+              end: function () {
+                close();
+              },
+              cancel: function () {
+                close(true);
+              }
+            });
+
+            if (!drivers.length) {
+              close();
+              return runner;
             }
-          */
-        }, {
-          key: "addQueModel",
-          value: function addQueModel(name) {
-            var _this = this;
 
-            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+            setRunner(element, runner);
 
-            return this.registerQueueHandler(name, function (trans) {
-              var prom = _this.$http(trans);
+            var classes = mergeClasses(element.attr('class'), mergeClasses(options.addClass, options.removeClass));
+            var tempClasses = options.tempClasses;
+            if (tempClasses) {
+              classes += ' ' + tempClasses;
+              options.tempClasses = null;
+            }
 
-              if (options.onData) {
-                prom = prom.then(function (response) {
-                  if (response.data) {
-                    options.onData(response.data);
+            var prepareClassName;
+            if (isStructural) {
+              prepareClassName = 'ng-' + event + PREPARE_CLASS_SUFFIX;
+              $$jqLite.addClass(element, prepareClassName);
+            }
+
+            animationQueue.push({
+              // this data is used by the postDigest code and passed into
+              // the driver step function
+              element: element,
+              classes: classes,
+              event: event,
+              structural: isStructural,
+              options: options,
+              beforeStart: beforeStart,
+              close: close
+            });
+
+            element.on('$destroy', handleDestroyedElement);
+
+            // we only want there to be one function called within the post digest
+            // block. This way we can group animations for all the animations that
+            // were apart of the same postDigest flush call.
+            if (animationQueue.length > 1) return runner;
+
+            $rootScope.$$postDigest(function () {
+              var animations = [];
+              forEach(animationQueue, function (entry) {
+                // the element was destroyed early on which removed the runner
+                // form its storage. This means we can't animate this element
+                // at all and it already has been closed due to destruction.
+                if (getRunner(entry.element)) {
+                  animations.push(entry);
+                } else {
+                  entry.close();
+                }
+              });
+
+              // now any future animations will be in another postDigest
+              animationQueue.length = 0;
+
+              var groupedAnimations = groupAnimations(animations);
+              var toBeSortedAnimations = [];
+
+              forEach(groupedAnimations, function (animationEntry) {
+                toBeSortedAnimations.push({
+                  domNode: getDomNode(animationEntry.from ? animationEntry.from.element : animationEntry.element),
+                  fn: function triggerAnimationStart() {
+                    // it's important that we apply the `ng-animate` CSS class and the
+                    // temporary classes before we do any driver invoking since these
+                    // CSS classes may be required for proper CSS detection.
+                    animationEntry.beforeStart();
+
+                    var startAnimationFn,
+                        closeFn = animationEntry.close;
+
+                    // in the event that the element was removed before the digest runs or
+                    // during the RAF sequencing then we should not trigger the animation.
+                    var targetElement = animationEntry.anchors ? animationEntry.from.element || animationEntry.to.element : animationEntry.element;
+
+                    if (getRunner(targetElement)) {
+                      var operation = invokeFirstDriver(animationEntry);
+                      if (operation) {
+                        startAnimationFn = operation.start;
+                      }
+                    }
+
+                    if (!startAnimationFn) {
+                      closeFn();
+                    } else {
+                      var animationRunner = startAnimationFn();
+                      animationRunner.done(function (status) {
+                        closeFn(!status);
+                      });
+                      updateAnimationRunners(animationEntry, animationRunner);
+                    }
                   }
                 });
-              }
-
-              return prom["catch"](function (e) {
-                return _this.ErrorHandler.record(e);
               });
+
+              // we need to sort each of the animations in order of parent to child
+              // relationships. This ensures that the child classes are applied at the
+              // right time.
+              $$rAFScheduler(sortAnimations(toBeSortedAnimations));
             });
-          }
-        }, {
-          key: "paramCache",
-          value: function paramCache(name) {
-            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-            options.param = options.param || [];
-            return this.getCache(name, options);
-          }
-        }, {
-          key: "paramSaveCache",
-          value: function paramSaveCache(name, options) {
-            var _this2 = this;
+            return runner;
 
-            return this.paramCache(name, options).then(function (items) {
-              return _this2.setCache(name, items);
-            });
-          }
-        }, {
-          key: "getCache",
-          value: function getCache(name) {
-            var _this3 = this;
-
-            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-            return this.get(name).then(function (data) {
-              if (_this3._validate(data, options)) {
-                return data.cache;
-              }
-
-              if (data) {
-                if (data.cache == null && data._timestamp == null) {
-                  return data;
+            // TODO(matsko): change to reference nodes
+            function getAnchorNodes(node) {
+              var SELECTOR = '[' + NG_ANIMATE_REF_ATTR + ']';
+              var items = node.hasAttribute(NG_ANIMATE_REF_ATTR) ? [node] : node.querySelectorAll(SELECTOR);
+              var anchors = [];
+              forEach(items, function (node) {
+                var attr = node.getAttribute(NG_ANIMATE_REF_ATTR);
+                if (attr && attr.length) {
+                  anchors.push(node);
                 }
-
-                if (!options.expires) {
-                  return data.cache;
-                }
-
-                var isCheckExpired = data && data._timestamp && options.allowExpired;
-                var expired = data && data._timestamp && _this3._expired(data._timestamp, options.expires);
-                var isAllowExpired = isCheckExpired && expired;
-                if (isAllowExpired) {
-                  return data.cache;
-                }
-
-                if (expired) {
-                  var _err = new Error('Cache expired for ' + name);
-                  _err.code = 401;
-                }
-              }
-
-              if (options.param) return options.param;
-
-              var err = new Error('No valid cache found for ' + name);
-              err.code = 404;
-
-              return new _Promise(function (res, rej) {
-                rej(err);
               });
-            });
-          }
-        }, {
-          key: "setCache",
-          value: function setCache(name, cache) {
-            var _this4 = this;
-
-            var newCache = {
-              _timestamp: Date.now() //,cache: response.data
-            };
-
-            return this.get(name).then(function (data) {
-              data = data && data.constructor != String ? data : {};
-
-              _Object$assign(data, newCache);
-              if (cache && cache.constructor == String) {
-                data.cache = cache;
-              } else if (data.cache && data.cache.constructor != String) {
-                _Object$assign(data.cache, cache);
-              } else {
-                data.cache = cache;
-              }
-
-              return data;
-            }) //paste cache over cache, leave all else alone
-            .then(function (data) {
-              return _this4.set(name, data);
-            });
-          }
-        }, {
-          key: "cacheResponse",
-          value: function cacheResponse(name, response) {
-            return this.setCache(name, response.data);
-          }
-        }, {
-          key: "getQueue",
-          value: function getQueue(name) {
-            return this.get(name).then(function (data) {
-              return data && data.queue ? data.queue : [];
-            });
-          }
-        }, {
-          key: "setQueue",
-          value: function setQueue(name, queue) {
-            var _this5 = this;
-
-            return this.get(name).then(function (data) {
-              return _Object$assign({}, data, { queue: queue });
-            }).then(function (data) {
-              return _this5.set(name, data);
-            });
-          }
-        }, {
-          key: "clearQueue",
-          value: function clearQueue(name) {
-            var _this6 = this;
-
-            return this.get(name).then(function (data) {
-              data.queue = [];
-              _this6.set(name, data);
-            });
-          }
-
-          /** post/put que */
-        }, {
-          key: "enqueue",
-          value: function enqueue(name, queueData) {
-            var _this7 = this;
-
-            if (supportsNav && navigator.onLine) {
-              var handler = this.handlers.find(function (handler) {
-                return handler.name === name;
-              });
-              if (handler) return handler(queueData);
+              return anchors;
             }
 
-            return this.get(name).then(function (data) {
-              data = data || {};
-              data.queue = data.queue || [];
+            function groupAnimations(animations) {
+              var preparedAnimations = [];
+              var refLookup = {};
+              forEach(animations, function (animation, index) {
+                var element = animation.element;
+                var node = getDomNode(element);
+                var event = animation.event;
+                var enterOrMove = ['enter', 'move'].indexOf(event) >= 0;
+                var anchorNodes = animation.structural ? getAnchorNodes(node) : [];
 
-              if (queueData.forEach) {
-                queueData.forEach(function (x) {
-                  data.queue.push(x);
-                });
-              } else {
-                data.queue.push(queueData);
-              }
-              return _this7.set(name, data);
-            });
-          }
-        }, {
-          key: "registerQueueHandler",
-          value: function registerQueueHandler(name, handler) {
-            handler = handler || this.getQueHandler.bind(this);
-            this.handlers.push({ name: name, handler: handler });
-            return this;
-          }
-        }, {
-          key: "processQueues",
-          value: function processQueues() {
-            var _this8 = this;
+                if (anchorNodes.length) {
+                  var direction = enterOrMove ? 'to' : 'from';
 
-            var x = this.handlers.length - 1,
-                promises = [];
-
-            var _loop = function () {
-              var hand = _this8.handlers[x];
-
-              var prom = _this8.getQueue(hand.name).then(function (queue) {
-                return queue.forEach(function (x) {
-                  return hand.handler(x);
-                });
-              }).then(function () {
-                return _this8.clearQueue(hand.name);
+                  forEach(anchorNodes, function (anchor) {
+                    var key = anchor.getAttribute(NG_ANIMATE_REF_ATTR);
+                    refLookup[key] = refLookup[key] || {};
+                    refLookup[key][direction] = {
+                      animationID: index,
+                      element: jqLite(anchor)
+                    };
+                  });
+                } else {
+                  preparedAnimations.push(animation);
+                }
               });
 
-              promises.push(prom);
-            };
+              var usedIndicesLookup = {};
+              var anchorGroups = {};
+              forEach(refLookup, function (operations, key) {
+                var from = operations.from;
+                var to = operations.to;
 
-            for (; x >= 0; --x) {
-              _loop();
+                if (!from || !to) {
+                  // only one of these is set therefore we can't have an
+                  // anchor animation since all three pieces are required
+                  var index = from ? from.animationID : to.animationID;
+                  var indexKey = index.toString();
+                  if (!usedIndicesLookup[indexKey]) {
+                    usedIndicesLookup[indexKey] = true;
+                    preparedAnimations.push(animations[index]);
+                  }
+                  return;
+                }
+
+                var fromAnimation = animations[from.animationID];
+                var toAnimation = animations[to.animationID];
+                var lookupKey = from.animationID.toString();
+                if (!anchorGroups[lookupKey]) {
+                  var group = anchorGroups[lookupKey] = {
+                    structural: true,
+                    beforeStart: function () {
+                      fromAnimation.beforeStart();
+                      toAnimation.beforeStart();
+                    },
+                    close: function () {
+                      fromAnimation.close();
+                      toAnimation.close();
+                    },
+                    classes: cssClassesIntersection(fromAnimation.classes, toAnimation.classes),
+                    from: fromAnimation,
+                    to: toAnimation,
+                    anchors: [] // TODO(matsko): change to reference nodes
+                  };
+
+                  // the anchor animations require that the from and to elements both have at least
+                  // one shared CSS class which effectively marries the two elements together to use
+                  // the same animation driver and to properly sequence the anchor animation.
+                  if (group.classes.length) {
+                    preparedAnimations.push(group);
+                  } else {
+                    preparedAnimations.push(fromAnimation);
+                    preparedAnimations.push(toAnimation);
+                  }
+                }
+
+                anchorGroups[lookupKey].anchors.push({
+                  'out': from.element, 'in': to.element
+                });
+              });
+
+              return preparedAnimations;
             }
 
-            return _Promise.all(promises);
-          }
-        }, {
-          key: "getQueHandler",
-          value: function getQueHandler(item) {
-            return this.$http(item);
-          }
-        }, {
-          key: "promiseNameArray",
-          value: function promiseNameArray() {
-            var _this9 = this;
+            function cssClassesIntersection(a, b) {
+              a = a.split(' ');
+              b = b.split(' ');
+              var matches = [];
 
-            var keys = [];
-            return localForage.iterate(function (_, k) {
-              if (k.startsWith(_this9.prefix)) {
-                keys.push(k.substring(_this9.prefix.length + 1, k.length));
+              for (var i = 0; i < a.length; i++) {
+                var aa = a[i];
+                if (aa.substring(0, 3) === 'ng-') continue;
+
+                for (var j = 0; j < b.length; j++) {
+                  if (aa === b[j]) {
+                    matches.push(aa);
+                    break;
+                  }
+                }
               }
-            }).then(function () {
-              return keys;
-            });
-          }
-        }, {
-          key: "clear",
-          value: function clear() {
-            var _this10 = this;
 
-            this.promiseNameArray().then(function (keys) {
-              return keys.forEach(function (name) {
-                return _this10.remove(name);
-              });
-            });
-          }
-        }]);
+              return matches.join(' ');
+            }
 
-        return AckOffline;
-      })();
+            function invokeFirstDriver(animationDetails) {
+              // we loop in reverse order since the more general drivers (like CSS and JS)
+              // may attempt more elements, but custom drivers are more particular
+              for (var i = drivers.length - 1; i >= 0; i--) {
+                var driverName = drivers[i];
+                var factory = $injector.get(driverName);
+                var driver = factory(animationDetails);
+                if (driver) {
+                  return driver;
+                }
+              }
+            }
 
-      _export("default", AckOffline);
+            function beforeStart() {
+              element.addClass(NG_ANIMATE_CLASSNAME);
+              if (tempClasses) {
+                $$jqLite.addClass(element, tempClasses);
+              }
+              if (prepareClassName) {
+                $$jqLite.removeClass(element, prepareClassName);
+                prepareClassName = null;
+              }
+            }
 
-      AckOffline.$inject = ["$http"];
+            function updateAnimationRunners(animation, newRunner) {
+              if (animation.from && animation.to) {
+                update(animation.from.element);
+                update(animation.to.element);
+              } else {
+                update(animation.element);
+              }
+
+              function update(element) {
+                var runner = getRunner(element);
+                if (runner) runner.setHost(newRunner);
+              }
+            }
+
+            function handleDestroyedElement() {
+              var runner = getRunner(element);
+              if (runner && (event !== 'leave' || !options.$$domOperationFired)) {
+                runner.end();
+              }
+            }
+
+            function close(rejected) {
+              // jshint ignore:line
+              element.off('$destroy', handleDestroyedElement);
+              removeRunner(element);
+
+              applyAnimationClasses(element, options);
+              applyAnimationStyles(element, options);
+              options.domOperation();
+
+              if (tempClasses) {
+                $$jqLite.removeClass(element, tempClasses);
+              }
+
+              element.removeClass(NG_ANIMATE_CLASSNAME);
+              runner.complete(!rejected);
+            }
+          };
+        }];
+      }];
 
       /**
-        @config {expires, allowExpired, name}
-      */
-
-      QueModel = (function () {
-        function QueModel(AckOffline, config) {
-          _classCallCheck(this, QueModel);
-
-          this.AckOffline = AckOffline;
-          this.config = config;
-        }
-
-        _createClass(QueModel, [{
-          key: "mergeConfig",
-          value: function mergeConfig(config) {
-            _Object$assign(config, this.config);
-            this.config = config;
-            return this;
+       * @ngdoc directive
+       * @name ngAnimateSwap
+       * @restrict A
+       * @scope
+       *
+       * @description
+       *
+       * ngAnimateSwap is a animation-oriented directive that allows for the container to
+       * be removed and entered in whenever the associated expression changes. A
+       * common usecase for this directive is a rotating banner or slider component which
+       * contains one image being present at a time. When the active image changes
+       * then the old image will perform a `leave` animation and the new element
+       * will be inserted via an `enter` animation.
+       *
+       * @animations
+       * | Animation                        | Occurs                               |
+       * |----------------------------------|--------------------------------------|
+       * | {@link ng.$animate#enter enter}  | when the new element is inserted to the DOM  |
+       * | {@link ng.$animate#leave leave}  | when the old element is removed from the DOM |
+       *
+       * @example
+       * <example name="ngAnimateSwap-directive" module="ngAnimateSwapExample"
+       *          deps="angular-animate.js"
+       *          animations="true" fixBase="true">
+       *   <file name="index.html">
+       *     <div class="container" ng-controller="AppCtrl">
+       *       <div ng-animate-swap="number" class="cell swap-animation" ng-class="colorClass(number)">
+       *         {{ number }}
+       *       </div>
+       *     </div>
+       *   </file>
+       *   <file name="script.js">
+       *     angular.module('ngAnimateSwapExample', ['ngAnimate'])
+       *       .controller('AppCtrl', ['$scope', '$interval', function($scope, $interval) {
+       *         $scope.number = 0;
+       *         $interval(function() {
+       *           $scope.number++;
+       *         }, 1000);
+       *
+       *         var colors = ['red','blue','green','yellow','orange'];
+       *         $scope.colorClass = function(number) {
+       *           return colors[number % colors.length];
+       *         };
+       *       }]);
+       *   </file>
+       *  <file name="animations.css">
+       *  .container {
+       *    height:250px;
+       *    width:250px;
+       *    position:relative;
+       *    overflow:hidden;
+       *    border:2px solid black;
+       *  }
+       *  .container .cell {
+       *    font-size:150px;
+       *    text-align:center;
+       *    line-height:250px;
+       *    position:absolute;
+       *    top:0;
+       *    left:0;
+       *    right:0;
+       *    border-bottom:2px solid black;
+       *  }
+       *  .swap-animation.ng-enter, .swap-animation.ng-leave {
+       *    transition:0.5s linear all;
+       *  }
+       *  .swap-animation.ng-enter {
+       *    top:-250px;
+       *  }
+       *  .swap-animation.ng-enter-active {
+       *    top:0px;
+       *  }
+       *  .swap-animation.ng-leave {
+       *    top:0px;
+       *  }
+       *  .swap-animation.ng-leave-active {
+       *    top:250px;
+       *  }
+       *  .red { background:red; }
+       *  .green { background:green; }
+       *  .blue { background:blue; }
+       *  .yellow { background:yellow; }
+       *  .orange { background:orange; }
+       *  </file>
+       * </example>
+       */
+      var ngAnimateSwapDirective = ['$animate', '$rootScope', function ($animate, $rootScope) {
+        return {
+          restrict: 'A',
+          transclude: 'element',
+          terminal: true,
+          priority: 600, // we use 600 here to ensure that the directive is caught before others
+          link: function (scope, $element, attrs, ctrl, $transclude) {
+            var previousElement, previousScope;
+            scope.$watchCollection(attrs.ngAnimateSwap || attrs['for'], function (value) {
+              if (previousElement) {
+                $animate.leave(previousElement);
+              }
+              if (previousScope) {
+                previousScope.$destroy();
+                previousScope = null;
+              }
+              if (value || value === 0) {
+                previousScope = scope.$new();
+                $transclude(previousScope, function (element) {
+                  previousElement = element;
+                  $animate.enter(element, null, $element);
+                });
+              }
+            });
           }
-        }, {
-          key: "get",
-          value: function get() {
-            return this.AckOffline.get(this.config.name);
-          }
-        }, {
-          key: "set",
-          value: function set(data) {
-            return this.AckOffline.set(this.config.name, data);
-          }
-        }]);
+        };
+      }];
 
-        return QueModel;
-      })();
-    }
-  };
+      /**
+       * @ngdoc module
+       * @name ngAnimate
+       * @description
+       *
+       * The `ngAnimate` module provides support for CSS-based animations (keyframes and transitions) as well as JavaScript-based animations via
+       * callback hooks. Animations are not enabled by default, however, by including `ngAnimate` the animation hooks are enabled for an Angular app.
+       *
+       * <div doc-module-components="ngAnimate"></div>
+       *
+       * # Usage
+       * Simply put, there are two ways to make use of animations when ngAnimate is used: by using **CSS** and **JavaScript**. The former works purely based
+       * using CSS (by using matching CSS selectors/styles) and the latter triggers animations that are registered via `module.animation()`. For
+       * both CSS and JS animations the sole requirement is to have a matching `CSS class` that exists both in the registered animation and within
+       * the HTML element that the animation will be triggered on.
+       *
+       * ## Directive Support
+       * The following directives are "animation aware":
+       *
+       * | Directive                                                                                                | Supported Animations                                                     |
+       * |----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+       * | {@link ng.directive:ngRepeat#animations ngRepeat}                                                        | enter, leave and move                                                    |
+       * | {@link ngRoute.directive:ngView#animations ngView}                                                       | enter and leave                                                          |
+       * | {@link ng.directive:ngInclude#animations ngInclude}                                                      | enter and leave                                                          |
+       * | {@link ng.directive:ngSwitch#animations ngSwitch}                                                        | enter and leave                                                          |
+       * | {@link ng.directive:ngIf#animations ngIf}                                                                | enter and leave                                                          |
+       * | {@link ng.directive:ngClass#animations ngClass}                                                          | add and remove (the CSS class(es) present)                               |
+       * | {@link ng.directive:ngShow#animations ngShow} & {@link ng.directive:ngHide#animations ngHide}            | add and remove (the ng-hide class value)                                 |
+       * | {@link ng.directive:form#animation-hooks form} & {@link ng.directive:ngModel#animation-hooks ngModel}    | add and remove (dirty, pristine, valid, invalid & all other validations) |
+       * | {@link module:ngMessages#animations ngMessages}                                                          | add and remove (ng-active & ng-inactive)                                 |
+       * | {@link module:ngMessages#animations ngMessage}                                                           | enter and leave                                                          |
+       *
+       * (More information can be found by visiting each the documentation associated with each directive.)
+       *
+       * ## CSS-based Animations
+       *
+       * CSS-based animations with ngAnimate are unique since they require no JavaScript code at all. By using a CSS class that we reference between our HTML
+       * and CSS code we can create an animation that will be picked up by Angular when an the underlying directive performs an operation.
+       *
+       * The example below shows how an `enter` animation can be made possible on an element using `ng-if`:
+       *
+       * ```html
+       * <div ng-if="bool" class="fade">
+       *    Fade me in out
+       * </div>
+       * <button ng-click="bool=true">Fade In!</button>
+       * <button ng-click="bool=false">Fade Out!</button>
+       * ```
+       *
+       * Notice the CSS class **fade**? We can now create the CSS transition code that references this class:
+       *
+       * ```css
+       * /&#42; The starting CSS styles for the enter animation &#42;/
+       * .fade.ng-enter {
+       *   transition:0.5s linear all;
+       *   opacity:0;
+       * }
+       *
+       * /&#42; The finishing CSS styles for the enter animation &#42;/
+       * .fade.ng-enter.ng-enter-active {
+       *   opacity:1;
+       * }
+       * ```
+       *
+       * The key thing to remember here is that, depending on the animation event (which each of the directives above trigger depending on what's going on) two
+       * generated CSS classes will be applied to the element; in the example above we have `.ng-enter` and `.ng-enter-active`. For CSS transitions, the transition
+       * code **must** be defined within the starting CSS class (in this case `.ng-enter`). The destination class is what the transition will animate towards.
+       *
+       * If for example we wanted to create animations for `leave` and `move` (ngRepeat triggers move) then we can do so using the same CSS naming conventions:
+       *
+       * ```css
+       * /&#42; now the element will fade out before it is removed from the DOM &#42;/
+       * .fade.ng-leave {
+       *   transition:0.5s linear all;
+       *   opacity:1;
+       * }
+       * .fade.ng-leave.ng-leave-active {
+       *   opacity:0;
+       * }
+       * ```
+       *
+       * We can also make use of **CSS Keyframes** by referencing the keyframe animation within the starting CSS class:
+       *
+       * ```css
+       * /&#42; there is no need to define anything inside of the destination
+       * CSS class since the keyframe will take charge of the animation &#42;/
+       * .fade.ng-leave {
+       *   animation: my_fade_animation 0.5s linear;
+       *   -webkit-animation: my_fade_animation 0.5s linear;
+       * }
+       *
+       * @keyframes my_fade_animation {
+       *   from { opacity:1; }
+       *   to { opacity:0; }
+       * }
+       *
+       * @-webkit-keyframes my_fade_animation {
+       *   from { opacity:1; }
+       *   to { opacity:0; }
+       * }
+       * ```
+       *
+       * Feel free also mix transitions and keyframes together as well as any other CSS classes on the same element.
+       *
+       * ### CSS Class-based Animations
+       *
+       * Class-based animations (animations that are triggered via `ngClass`, `ngShow`, `ngHide` and some other directives) have a slightly different
+       * naming convention. Class-based animations are basic enough that a standard transition or keyframe can be referenced on the class being added
+       * and removed.
+       *
+       * For example if we wanted to do a CSS animation for `ngHide` then we place an animation on the `.ng-hide` CSS class:
+       *
+       * ```html
+       * <div ng-show="bool" class="fade">
+       *   Show and hide me
+       * </div>
+       * <button ng-click="bool=!bool">Toggle</button>
+       *
+       * <style>
+       * .fade.ng-hide {
+       *   transition:0.5s linear all;
+       *   opacity:0;
+       * }
+       * </style>
+       * ```
+       *
+       * All that is going on here with ngShow/ngHide behind the scenes is the `.ng-hide` class is added/removed (when the hidden state is valid). Since
+       * ngShow and ngHide are animation aware then we can match up a transition and ngAnimate handles the rest.
+       *
+       * In addition the addition and removal of the CSS class, ngAnimate also provides two helper methods that we can use to further decorate the animation
+       * with CSS styles.
+       *
+       * ```html
+       * <div ng-class="{on:onOff}" class="highlight">
+       *   Highlight this box
+       * </div>
+       * <button ng-click="onOff=!onOff">Toggle</button>
+       *
+       * <style>
+       * .highlight {
+       *   transition:0.5s linear all;
+       * }
+       * .highlight.on-add {
+       *   background:white;
+       * }
+       * .highlight.on {
+       *   background:yellow;
+       * }
+       * .highlight.on-remove {
+       *   background:black;
+       * }
+       * </style>
+       * ```
+       *
+       * We can also make use of CSS keyframes by placing them within the CSS classes.
+       *
+       *
+       * ### CSS Staggering Animations
+       * A Staggering animation is a collection of animations that are issued with a slight delay in between each successive operation resulting in a
+       * curtain-like effect. The ngAnimate module (versions >=1.2) supports staggering animations and the stagger effect can be
+       * performed by creating a **ng-EVENT-stagger** CSS class and attaching that class to the base CSS class used for
+       * the animation. The style property expected within the stagger class can either be a **transition-delay** or an
+       * **animation-delay** property (or both if your animation contains both transitions and keyframe animations).
+       *
+       * ```css
+       * .my-animation.ng-enter {
+       *   /&#42; standard transition code &#42;/
+       *   transition: 1s linear all;
+       *   opacity:0;
+       * }
+       * .my-animation.ng-enter-stagger {
+       *   /&#42; this will have a 100ms delay between each successive leave animation &#42;/
+       *   transition-delay: 0.1s;
+       *
+       *   /&#42; As of 1.4.4, this must always be set: it signals ngAnimate
+       *     to not accidentally inherit a delay property from another CSS class &#42;/
+       *   transition-duration: 0s;
+       * }
+       * .my-animation.ng-enter.ng-enter-active {
+       *   /&#42; standard transition styles &#42;/
+       *   opacity:1;
+       * }
+       * ```
+       *
+       * Staggering animations work by default in ngRepeat (so long as the CSS class is defined). Outside of ngRepeat, to use staggering animations
+       * on your own, they can be triggered by firing multiple calls to the same event on $animate. However, the restrictions surrounding this
+       * are that each of the elements must have the same CSS className value as well as the same parent element. A stagger operation
+       * will also be reset if one or more animation frames have passed since the multiple calls to `$animate` were fired.
+       *
+       * The following code will issue the **ng-leave-stagger** event on the element provided:
+       *
+       * ```js
+       * var kids = parent.children();
+       *
+       * $animate.leave(kids[0]); //stagger index=0
+       * $animate.leave(kids[1]); //stagger index=1
+       * $animate.leave(kids[2]); //stagger index=2
+       * $animate.leave(kids[3]); //stagger index=3
+       * $animate.leave(kids[4]); //stagger index=4
+       *
+       * window.requestAnimationFrame(function() {
+       *   //stagger has reset itself
+       *   $animate.leave(kids[5]); //stagger index=0
+       *   $animate.leave(kids[6]); //stagger index=1
+       *
+       *   $scope.$digest();
+       * });
+       * ```
+       *
+       * Stagger animations are currently only supported within CSS-defined animations.
+       *
+       * ### The `ng-animate` CSS class
+       *
+       * When ngAnimate is animating an element it will apply the `ng-animate` CSS class to the element for the duration of the animation.
+       * This is a temporary CSS class and it will be removed once the animation is over (for both JavaScript and CSS-based animations).
+       *
+       * Therefore, animations can be applied to an element using this temporary class directly via CSS.
+       *
+       * ```css
+       * .zipper.ng-animate {
+       *   transition:0.5s linear all;
+       * }
+       * .zipper.ng-enter {
+       *   opacity:0;
+       * }
+       * .zipper.ng-enter.ng-enter-active {
+       *   opacity:1;
+       * }
+       * .zipper.ng-leave {
+       *   opacity:1;
+       * }
+       * .zipper.ng-leave.ng-leave-active {
+       *   opacity:0;
+       * }
+       * ```
+       *
+       * (Note that the `ng-animate` CSS class is reserved and it cannot be applied on an element directly since ngAnimate will always remove
+       * the CSS class once an animation has completed.)
+       *
+       *
+       * ### The `ng-[event]-prepare` class
+       *
+       * This is a special class that can be used to prevent unwanted flickering / flash of content before
+       * the actual animation starts. The class is added as soon as an animation is initialized, but removed
+       * before the actual animation starts (after waiting for a $digest).
+       * It is also only added for *structural* animations (`enter`, `move`, and `leave`).
+       *
+       * In practice, flickering can appear when nesting elements with structural animations such as `ngIf`
+       * into elements that have class-based animations such as `ngClass`.
+       *
+       * ```html
+       * <div ng-class="{red: myProp}">
+       *   <div ng-class="{blue: myProp}">
+       *     <div class="message" ng-if="myProp"></div>
+       *   </div>
+       * </div>
+       * ```
+       *
+       * It is possible that during the `enter` animation, the `.message` div will be briefly visible before it starts animating.
+       * In that case, you can add styles to the CSS that make sure the element stays hidden before the animation starts:
+       *
+       * ```css
+       * .message.ng-enter-prepare {
+       *   opacity: 0;
+       * }
+       *
+       * ```
+       *
+       * ## JavaScript-based Animations
+       *
+       * ngAnimate also allows for animations to be consumed by JavaScript code. The approach is similar to CSS-based animations (where there is a shared
+       * CSS class that is referenced in our HTML code) but in addition we need to register the JavaScript animation on the module. By making use of the
+       * `module.animation()` module function we can register the animation.
+       *
+       * Let's see an example of a enter/leave animation using `ngRepeat`:
+       *
+       * ```html
+       * <div ng-repeat="item in items" class="slide">
+       *   {{ item }}
+       * </div>
+       * ```
+       *
+       * See the **slide** CSS class? Let's use that class to define an animation that we'll structure in our module code by using `module.animation`:
+       *
+       * ```js
+       * myModule.animation('.slide', [function() {
+       *   return {
+       *     // make note that other events (like addClass/removeClass)
+       *     // have different function input parameters
+       *     enter: function(element, doneFn) {
+       *       jQuery(element).fadeIn(1000, doneFn);
+       *
+       *       // remember to call doneFn so that angular
+       *       // knows that the animation has concluded
+       *     },
+       *
+       *     move: function(element, doneFn) {
+       *       jQuery(element).fadeIn(1000, doneFn);
+       *     },
+       *
+       *     leave: function(element, doneFn) {
+       *       jQuery(element).fadeOut(1000, doneFn);
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * The nice thing about JS-based animations is that we can inject other services and make use of advanced animation libraries such as
+       * greensock.js and velocity.js.
+       *
+       * If our animation code class-based (meaning that something like `ngClass`, `ngHide` and `ngShow` triggers it) then we can still define
+       * our animations inside of the same registered animation, however, the function input arguments are a bit different:
+       *
+       * ```html
+       * <div ng-class="color" class="colorful">
+       *   this box is moody
+       * </div>
+       * <button ng-click="color='red'">Change to red</button>
+       * <button ng-click="color='blue'">Change to blue</button>
+       * <button ng-click="color='green'">Change to green</button>
+       * ```
+       *
+       * ```js
+       * myModule.animation('.colorful', [function() {
+       *   return {
+       *     addClass: function(element, className, doneFn) {
+       *       // do some cool animation and call the doneFn
+       *     },
+       *     removeClass: function(element, className, doneFn) {
+       *       // do some cool animation and call the doneFn
+       *     },
+       *     setClass: function(element, addedClass, removedClass, doneFn) {
+       *       // do some cool animation and call the doneFn
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * ## CSS + JS Animations Together
+       *
+       * AngularJS 1.4 and higher has taken steps to make the amalgamation of CSS and JS animations more flexible. However, unlike earlier versions of Angular,
+       * defining CSS and JS animations to work off of the same CSS class will not work anymore. Therefore the example below will only result in **JS animations taking
+       * charge of the animation**:
+       *
+       * ```html
+       * <div ng-if="bool" class="slide">
+       *   Slide in and out
+       * </div>
+       * ```
+       *
+       * ```js
+       * myModule.animation('.slide', [function() {
+       *   return {
+       *     enter: function(element, doneFn) {
+       *       jQuery(element).slideIn(1000, doneFn);
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * ```css
+       * .slide.ng-enter {
+       *   transition:0.5s linear all;
+       *   transform:translateY(-100px);
+       * }
+       * .slide.ng-enter.ng-enter-active {
+       *   transform:translateY(0);
+       * }
+       * ```
+       *
+       * Does this mean that CSS and JS animations cannot be used together? Do JS-based animations always have higher priority? We can make up for the
+       * lack of CSS animations by using the `$animateCss` service to trigger our own tweaked-out, CSS-based animations directly from
+       * our own JS-based animation code:
+       *
+       * ```js
+       * myModule.animation('.slide', ['$animateCss', function($animateCss) {
+       *   return {
+       *     enter: function(element) {
+      *        // this will trigger `.slide.ng-enter` and `.slide.ng-enter-active`.
+       *       return $animateCss(element, {
+       *         event: 'enter',
+       *         structural: true
+       *       });
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * The nice thing here is that we can save bandwidth by sticking to our CSS-based animation code and we don't need to rely on a 3rd-party animation framework.
+       *
+       * The `$animateCss` service is very powerful since we can feed in all kinds of extra properties that will be evaluated and fed into a CSS transition or
+       * keyframe animation. For example if we wanted to animate the height of an element while adding and removing classes then we can do so by providing that
+       * data into `$animateCss` directly:
+       *
+       * ```js
+       * myModule.animation('.slide', ['$animateCss', function($animateCss) {
+       *   return {
+       *     enter: function(element) {
+       *       return $animateCss(element, {
+       *         event: 'enter',
+       *         structural: true,
+       *         addClass: 'maroon-setting',
+       *         from: { height:0 },
+       *         to: { height: 200 }
+       *       });
+       *     }
+       *   }
+       * }]);
+       * ```
+       *
+       * Now we can fill in the rest via our transition CSS code:
+       *
+       * ```css
+       * /&#42; the transition tells ngAnimate to make the animation happen &#42;/
+       * .slide.ng-enter { transition:0.5s linear all; }
+       *
+       * /&#42; this extra CSS class will be absorbed into the transition
+       * since the $animateCss code is adding the class &#42;/
+       * .maroon-setting { background:red; }
+       * ```
+       *
+       * And `$animateCss` will figure out the rest. Just make sure to have the `done()` callback fire the `doneFn` function to signal when the animation is over.
+       *
+       * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss service}.
+       *
+       * ## Animation Anchoring (via `ng-animate-ref`)
+       *
+       * ngAnimate in AngularJS 1.4 comes packed with the ability to cross-animate elements between
+       * structural areas of an application (like views) by pairing up elements using an attribute
+       * called `ng-animate-ref`.
+       *
+       * Let's say for example we have two views that are managed by `ng-view` and we want to show
+       * that there is a relationship between two components situated in within these views. By using the
+       * `ng-animate-ref` attribute we can identify that the two components are paired together and we
+       * can then attach an animation, which is triggered when the view changes.
+       *
+       * Say for example we have the following template code:
+       *
+       * ```html
+       * <!-- index.html -->
+       * <div ng-view class="view-animation">
+       * </div>
+       *
+       * <!-- home.html -->
+       * <a href="#/banner-page">
+       *   <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
+       * </a>
+       *
+       * <!-- banner-page.html -->
+       * <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
+       * ```
+       *
+       * Now, when the view changes (once the link is clicked), ngAnimate will examine the
+       * HTML contents to see if there is a match reference between any components in the view
+       * that is leaving and the view that is entering. It will scan both the view which is being
+       * removed (leave) and inserted (enter) to see if there are any paired DOM elements that
+       * contain a matching ref value.
+       *
+       * The two images match since they share the same ref value. ngAnimate will now create a
+       * transport element (which is a clone of the first image element) and it will then attempt
+       * to animate to the position of the second image element in the next view. For the animation to
+       * work a special CSS class called `ng-anchor` will be added to the transported element.
+       *
+       * We can now attach a transition onto the `.banner.ng-anchor` CSS class and then
+       * ngAnimate will handle the entire transition for us as well as the addition and removal of
+       * any changes of CSS classes between the elements:
+       *
+       * ```css
+       * .banner.ng-anchor {
+       *   /&#42; this animation will last for 1 second since there are
+       *          two phases to the animation (an `in` and an `out` phase) &#42;/
+       *   transition:0.5s linear all;
+       * }
+       * ```
+       *
+       * We also **must** include animations for the views that are being entered and removed
+       * (otherwise anchoring wouldn't be possible since the new view would be inserted right away).
+       *
+       * ```css
+       * .view-animation.ng-enter, .view-animation.ng-leave {
+       *   transition:0.5s linear all;
+       *   position:fixed;
+       *   left:0;
+       *   top:0;
+       *   width:100%;
+       * }
+       * .view-animation.ng-enter {
+       *   transform:translateX(100%);
+       * }
+       * .view-animation.ng-leave,
+       * .view-animation.ng-enter.ng-enter-active {
+       *   transform:translateX(0%);
+       * }
+       * .view-animation.ng-leave.ng-leave-active {
+       *   transform:translateX(-100%);
+       * }
+       * ```
+       *
+       * Now we can jump back to the anchor animation. When the animation happens, there are two stages that occur:
+       * an `out` and an `in` stage. The `out` stage happens first and that is when the element is animated away
+       * from its origin. Once that animation is over then the `in` stage occurs which animates the
+       * element to its destination. The reason why there are two animations is to give enough time
+       * for the enter animation on the new element to be ready.
+       *
+       * The example above sets up a transition for both the in and out phases, but we can also target the out or
+       * in phases directly via `ng-anchor-out` and `ng-anchor-in`.
+       *
+       * ```css
+       * .banner.ng-anchor-out {
+       *   transition: 0.5s linear all;
+       *
+       *   /&#42; the scale will be applied during the out animation,
+       *          but will be animated away when the in animation runs &#42;/
+       *   transform: scale(1.2);
+       * }
+       *
+       * .banner.ng-anchor-in {
+       *   transition: 1s linear all;
+       * }
+       * ```
+       *
+       *
+       *
+       *
+       * ### Anchoring Demo
+       *
+        <example module="anchoringExample"
+                 name="anchoringExample"
+                 id="anchoringExample"
+                 deps="angular-animate.js;angular-route.js"
+                 animations="true">
+          <file name="index.html">
+            <a href="#/">Home</a>
+            <hr />
+            <div class="view-container">
+              <div ng-view class="view"></div>
+            </div>
+          </file>
+          <file name="script.js">
+            angular.module('anchoringExample', ['ngAnimate', 'ngRoute'])
+              .config(['$routeProvider', function($routeProvider) {
+                $routeProvider.when('/', {
+                  templateUrl: 'home.html',
+                  controller: 'HomeController as home'
+                });
+                $routeProvider.when('/profile/:id', {
+                  templateUrl: 'profile.html',
+                  controller: 'ProfileController as profile'
+                });
+              }])
+              .run(['$rootScope', function($rootScope) {
+                $rootScope.records = [
+                  { id:1, title: "Miss Beulah Roob" },
+                  { id:2, title: "Trent Morissette" },
+                  { id:3, title: "Miss Ava Pouros" },
+                  { id:4, title: "Rod Pouros" },
+                  { id:5, title: "Abdul Rice" },
+                  { id:6, title: "Laurie Rutherford Sr." },
+                  { id:7, title: "Nakia McLaughlin" },
+                  { id:8, title: "Jordon Blanda DVM" },
+                  { id:9, title: "Rhoda Hand" },
+                  { id:10, title: "Alexandrea Sauer" }
+                ];
+              }])
+              .controller('HomeController', [function() {
+                //empty
+              }])
+              .controller('ProfileController', ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
+                var index = parseInt($routeParams.id, 10);
+                var record = $rootScope.records[index - 1];
+      
+                this.title = record.title;
+                this.id = record.id;
+              }]);
+          </file>
+          <file name="home.html">
+            <h2>Welcome to the home page</h1>
+            <p>Please click on an element</p>
+            <a class="record"
+               ng-href="#/profile/{{ record.id }}"
+               ng-animate-ref="{{ record.id }}"
+               ng-repeat="record in records">
+              {{ record.title }}
+            </a>
+          </file>
+          <file name="profile.html">
+            <div class="profile record" ng-animate-ref="{{ profile.id }}">
+              {{ profile.title }}
+            </div>
+          </file>
+          <file name="animations.css">
+            .record {
+              display:block;
+              font-size:20px;
+            }
+            .profile {
+              background:black;
+              color:white;
+              font-size:100px;
+            }
+            .view-container {
+              position:relative;
+            }
+            .view-container > .view.ng-animate {
+              position:absolute;
+              top:0;
+              left:0;
+              width:100%;
+              min-height:500px;
+            }
+            .view.ng-enter, .view.ng-leave,
+            .record.ng-anchor {
+              transition:0.5s linear all;
+            }
+            .view.ng-enter {
+              transform:translateX(100%);
+            }
+            .view.ng-enter.ng-enter-active, .view.ng-leave {
+              transform:translateX(0%);
+            }
+            .view.ng-leave.ng-leave-active {
+              transform:translateX(-100%);
+            }
+            .record.ng-anchor-out {
+              background:red;
+            }
+          </file>
+        </example>
+       *
+       * ### How is the element transported?
+       *
+       * When an anchor animation occurs, ngAnimate will clone the starting element and position it exactly where the starting
+       * element is located on screen via absolute positioning. The cloned element will be placed inside of the root element
+       * of the application (where ng-app was defined) and all of the CSS classes of the starting element will be applied. The
+       * element will then animate into the `out` and `in` animations and will eventually reach the coordinates and match
+       * the dimensions of the destination element. During the entire animation a CSS class of `.ng-animate-shim` will be applied
+       * to both the starting and destination elements in order to hide them from being visible (the CSS styling for the class
+       * is: `visibility:hidden`). Once the anchor reaches its destination then it will be removed and the destination element
+       * will become visible since the shim class will be removed.
+       *
+       * ### How is the morphing handled?
+       *
+       * CSS Anchoring relies on transitions and keyframes and the internal code is intelligent enough to figure out
+       * what CSS classes differ between the starting element and the destination element. These different CSS classes
+       * will be added/removed on the anchor element and a transition will be applied (the transition that is provided
+       * in the anchor class). Long story short, ngAnimate will figure out what classes to add and remove which will
+       * make the transition of the element as smooth and automatic as possible. Be sure to use simple CSS classes that
+       * do not rely on DOM nesting structure so that the anchor element appears the same as the starting element (since
+       * the cloned element is placed inside of root element which is likely close to the body element).
+       *
+       * Note that if the root element is on the `<html>` element then the cloned node will be placed inside of body.
+       *
+       *
+       * ## Using $animate in your directive code
+       *
+       * So far we've explored how to feed in animations into an Angular application, but how do we trigger animations within our own directives in our application?
+       * By injecting the `$animate` service into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let's
+       * imagine we have a greeting box that shows and hides itself when the data changes
+       *
+       * ```html
+       * <greeting-box active="onOrOff">Hi there</greeting-box>
+       * ```
+       *
+       * ```js
+       * ngModule.directive('greetingBox', ['$animate', function($animate) {
+       *   return function(scope, element, attrs) {
+       *     attrs.$observe('active', function(value) {
+       *       value ? $animate.addClass(element, 'on') : $animate.removeClass(element, 'on');
+       *     });
+       *   });
+       * }]);
+       * ```
+       *
+       * Now the `on` CSS class is added and removed on the greeting box component. Now if we add a CSS class on top of the greeting box element
+       * in our HTML code then we can trigger a CSS or JS animation to happen.
+       *
+       * ```css
+       * /&#42; normally we would create a CSS class to reference on the element &#42;/
+       * greeting-box.on { transition:0.5s linear all; background:green; color:white; }
+       * ```
+       *
+       * The `$animate` service contains a variety of other methods like `enter`, `leave`, `animate` and `setClass`. To learn more about what's
+       * possible be sure to visit the {@link ng.$animate $animate service API page}.
+       *
+       *
+       * ## Callbacks and Promises
+       *
+       * When `$animate` is called it returns a promise that can be used to capture when the animation has ended. Therefore if we were to trigger
+       * an animation (within our directive code) then we can continue performing directive and scope related activities after the animation has
+       * ended by chaining onto the returned promise that animation method returns.
+       *
+       * ```js
+       * // somewhere within the depths of the directive
+       * $animate.enter(element, parent).then(function() {
+       *   //the animation has completed
+       * });
+       * ```
+       *
+       * (Note that earlier versions of Angular prior to v1.4 required the promise code to be wrapped using `$scope.$apply(...)`. This is not the case
+       * anymore.)
+       *
+       * In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
+       * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our view
+       * routing controller to hook into that:
+       *
+       * ```js
+       * ngModule.controller('HomePageController', ['$animate', function($animate) {
+       *   $animate.on('enter', ngViewElement, function(element) {
+       *     // the animation for this route has completed
+       *   }]);
+       * }])
+       * ```
+       *
+       * (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)
+       */
+
+      var copy;
+      var extend;
+      var forEach;
+      var isArray;
+      var isDefined;
+      var isElement;
+      var isFunction;
+      var isObject;
+      var isString;
+      var isUndefined;
+      var jqLite;
+      var noop;
+
+      /**
+       * @ngdoc service
+       * @name $animate
+       * @kind object
+       *
+       * @description
+       * The ngAnimate `$animate` service documentation is the same for the core `$animate` service.
+       *
+       * Click here {@link ng.$animate to learn more about animations with `$animate`}.
+       */
+      angular.module('ngAnimate', [], function initAngularHelpers() {
+        // Access helpers from angular core.
+        // Do it inside a `config` block to ensure `window.angular` is available.
+        noop = angular.noop;
+        copy = angular.copy;
+        extend = angular.extend;
+        jqLite = angular.element;
+        forEach = angular.forEach;
+        isArray = angular.isArray;
+        isString = angular.isString;
+        isObject = angular.isObject;
+        isUndefined = angular.isUndefined;
+        isDefined = angular.isDefined;
+        isFunction = angular.isFunction;
+        isElement = angular.isElement;
+      }).directive('ngAnimateSwap', ngAnimateSwapDirective).directive('ngAnimateChildren', $$AnimateChildrenDirective).factory('$$rAFScheduler', $$rAFSchedulerFactory).provider('$$animateQueue', $$AnimateQueueProvider).provider('$$animation', $$AnimationProvider).provider('$animateCss', $AnimateCssProvider).provider('$$animateCssDriver', $$AnimateCssDriverProvider).provider('$$animateJs', $$AnimateJsProvider).provider('$$animateJsDriver', $$AnimateJsDriverProvider);
+    })(window, window.angular);
+  })(this);
+
+  return _retrieveGlobal();
 });
-$__System.register('3a', ['2', '39', '3b'], function (_export) {
-  'use strict';
-
-  var AckApi, AckOffline, ack;
-
-  function urlVars($window) {
-    var fetcher = function fetcher() {
-      var regex = /[?&]([^=#]+)=([^&#]*)/g,
-          url = $window.location.href,
-          params = {},
-          match;
-
-      while (match = regex.exec(url)) {
-        params[match[1]] = match[2];
-      }
-      return params;
-    };
-
-    /** case in-sensative variable search */
-    fetcher.get = function (name, param) {
-      var a = ack(fetcher());
-      return a.get.apply(a, arguments);
-    };
-
-    return fetcher;
-  }
-
-  return {
-    setters: [function (_) {
-      AckApi = _['default'];
-    }, function (_2) {
-      AckOffline = _2['default'];
-    }, function (_b) {
-      ack = _b['default'];
-    }],
-    execute: function () {
-      _export('default', angular.module('ack-ng-services', []).service('ack', function () {
-        return ack;
-      }).service('AckOffline', AckOffline).service('AckApi', AckApi).service('urlVars', urlVars).name);
-
-      urlVars.$inject = ['$window'];
-    }
-  };
-});
-$__System.registerDynamic('32', ['3c'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var defined = $__require('3c');
-  module.exports = function (it) {
-    return Object(defined(it));
-  };
-  return module.exports;
-});
-$__System.registerDynamic('3d', ['2b', '25', '34'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var $export = $__require('2b'),
-        core = $__require('25'),
-        fails = $__require('34');
-    module.exports = function (KEY, exec) {
-        var fn = (core.Object || {})[KEY] || Object[KEY],
-            exp = {};
-        exp[KEY] = exec(fn);
-        $export($export.S + $export.F * fails(function () {
-            fn(1);
-        }), 'Object', exp);
-    };
-    return module.exports;
-});
-$__System.registerDynamic('3e', ['32', '3d'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var toObject = $__require('32');
-  $__require('3d')('keys', function ($keys) {
-    return function keys(it) {
-      return $keys(toObject(it));
-    };
-  });
-  return module.exports;
-});
-$__System.registerDynamic('3f', ['3e', '25'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('3e');
-  module.exports = $__require('25').Object.keys;
-  return module.exports;
-});
-$__System.registerDynamic("40", ["3f"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("3f"), __esModule: true };
-  return module.exports;
-});
-$__System.registerDynamic('41', [], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic('5', [], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
@@ -3285,926 +4404,1122 @@ $__System.registerDynamic('41', [], true, function ($__require, exports, module)
   module.exports = ackInjector;
   return module.exports;
 });
-$__System.registerDynamic('42', ['20'], true, function ($__require, exports, module) {
+$__System.registerDynamic('6', [], true, function ($__require, exports, module) {
+  "use strict";
+
   var define,
       global = this || self,
       GLOBAL = global;
-  /* */
-  (function (process) {
-    "use strict";
+  var isPromiseLike = function isPromiseLike(potentialPromise, notThisPromise) {
+    return potentialPromise && potentialPromise.then && potentialPromise != notThisPromise;
+  };
 
-    var isPromiseLike = function isPromiseLike(potentialPromise, notThisPromise) {
-      return potentialPromise && potentialPromise.then && potentialPromise != notThisPromise;
-    };
-    function objectKeys(ob) {
-      var x,
-          array = [];
-      for (x in ob) array.push(x);
-      return array;
-    }
-    function ackPromise(resolver) {
-      return new ackP().next(function (next) {
-        resolver(next, next.throw);
-      });
-    }
-    ackPromise.resolve = function (v0, v1, v2, v3) {
-      var promise = new ackP();
-      promise = promise.set.apply(promise, arguments);
-      return promise;
-    };
-    ackPromise.start = function () {
-      return new ackP();
-    };
-    ackPromise.all = function () {
-      var p = ackPromise.start();
-      return p.all.apply(p, arguments);
-    };
-    ackPromise.promisify = function (method) {
-      return function () {
-        var args = Array.prototype.slice.apply(arguments);
-        return new ackPromise(function (res, rej) {
-          args.push(function (err) {
-            if (err) return rej(err);
-            var args = Array.prototype.slice.apply(arguments);
-            args.shift(args);
-            res.apply(this, args);
-          });
-          method.apply(this, args);
+  function objectKeys(ob) {
+    var x,
+        array = [];
+    for (x in ob) array.push(x);
+    return array;
+  }
+
+  /** constructor. Invoke by new ackPromise()
+    @resolver - function(resolve,reject){}
+  */
+  function ackPromise(resolver) {
+    return new ackP().next(function (next) {
+      resolver(next, next.throw);
+    });
+  }
+
+  /** all arguments are used to jump start a thenable promise */
+  ackPromise.resolve = function (v0, v1, v2, v3) {
+    var promise = new ackP();
+    promise = promise.set.apply(promise, arguments);
+    return promise;
+  };
+
+  ackPromise.start = function () {
+    return new ackP();
+  };
+
+  ackPromise.all = function () {
+    var p = ackPromise.start();
+    return p.all.apply(p, arguments);
+  };
+
+  /** Expects a function, where that function expects that it's last argument will be a callback. Returns wrapper of defined function, that when called, returns a promise of calling defined function */
+  ackPromise.promisify = function (method) {
+    return function () {
+      var args = Array.prototype.slice.apply(arguments);
+
+      return new ackPromise(function (res, rej) {
+        args.push(function (err) {
+          if (err) return rej(err);
+          var args = Array.prototype.slice.apply(arguments);
+          args.shift(args); //remove first
+          res.apply(this, args);
         });
-      };
+        method.apply(this, args);
+      });
     };
-    ackPromise.method = function (method) {
-      return function () {
-        var Promise = new ackPromise.start();
-        return Promise.set.apply(Promise, arguments).then(method);
-      };
+  };
+
+  ackPromise.method = function (method) {
+    return function () {
+      var Promise = new ackPromise.start();
+      return Promise.set.apply(Promise, arguments).then(method);
     };
-    ackPromise.getErrorType = function (error) {
-      var isNamed = error.name && error.name.toLowerCase != null;
-      var isCode = error.code && (error.code.toLowerCase != null || Number(error.code));
-      if (isCode && error.name == 'Error') {
-        return error.code;
-      }
-      if (isNamed) {
-        return error.name;
-      }
-    };
-    ackPromise.isErrorType = function (error, type) {
-      if (error == null) return false;
-      if (error.constructor && type == error.constructor) return true;
-      var eName = ackPromise.getErrorType(error);
-      if (eName && (eName == type || eName.toLowerCase && eName.toLowerCase() == type.toLowerCase())) {
-        return true;
-      }
-      return false;
-    };
-    ackPromise.callback4callback = function (method, promise, bind) {
-      return function () {
-        var args = Array.prototype.slice.call(arguments);
-        var next = args.pop();
-        var processor = ackPromise.getNextCallback(next, promise);
-        if (method.length) {
-          args[method.length - 1] = processor;
-        } else {
-          args.push(processor);
-        }
-        method.apply(bind || this, args);
-      };
-    };
-    ackPromise.createIf = function (promise, condition, $scope, onTrue, isTruthMode) {
-      isTruthMode = isTruthMode == null ? true : isTruthMode;
-      var isMethod = condition && condition.constructor && condition.constructor == Function;
-      if (isMethod) {
-        var processCondition = function (args, next, scope) {
-          next.call(scope, condition.apply(scope, args));
-        };
-      } else {
-        var processCondition = function (args, next, scope) {
-          var result = args[0] === condition;
-          next.call(scope, result);
-        };
-      }
-      var ifMethod = function () {
-        var args = Array.prototype.slice.call(arguments);
-        var next = args.pop();
-        processCondition(args, function (result) {
-          var isVal = isTruthMode && result == true || !isTruthMode && result == false;
-          if (isVal) {
-            onTrue.call(this, args, next);
-          } else {
-            next.apply(next, args);
-          }
-        }, this);
-      };
-      return promise.next(ifMethod, $scope);
-    };
-    ackPromise.getNextCallback = function (next, promise) {
-      return function () {
-        if (arguments[0] != null) {
-          return promise['throw'].call(promise, arguments[0]);
-        }
-        var args = Array.prototype.slice.call(arguments);
-        args.shift();
-        next.apply(next, args);
-      };
-    };
-    function ackP() {
-      this._promise0 = true;
-      this.data = { waiting: 0 };
-      return this.processor();
+  };
+
+  ackPromise.getErrorType = function (error) {
+    var isNamed = error.name && error.name.toLowerCase != null;
+    var isCode = error.code && (error.code.toLowerCase != null || Number(error.code));
+
+    if (isCode && error.name == 'Error') {
+      return error.code;
     }
-    ackP.prototype.processor = function () {
-      this.values = Array.prototype.slice.apply(arguments);
-      if (!this.data || !this.data.task) {
-        return;
+
+    if (isNamed) {
+      return error.name;
+    }
+  };
+
+  ackPromise.isErrorType = function (error, type) {
+    if (error == null) return false;
+
+    if (error.constructor && type == error.constructor) return true;
+
+    var eName = ackPromise.getErrorType(error);
+    if (eName && (eName == type || eName.toLowerCase && eName.toLowerCase() == type.toLowerCase())) {
+      return true;
+    }
+
+    return false;
+  };
+
+  ackPromise.callback4callback = function (method, promise, bind) {
+    return function () {
+      var args = Array.prototype.slice.call(arguments);
+      var next = args.pop();
+      var processor = ackPromise.getNextCallback(next, promise);
+
+      if (method.length) {
+        args[method.length - 1] = processor;
+      } else {
+        args.push(processor);
       }
-      var $scope = { args: Array.prototype.slice.call(arguments) };
-      var thisTask = this.data.task;
-      var context = thisTask.context || this.data.context || this.nextContext || this;
-      this.data.waiting = 1;
-      var $this = this;
+
+      method.apply(bind || this, args);
+    };
+  };
+
+  ackPromise.createIf = function (promise, condition, $scope, onTrue, isTruthMode) {
+    isTruthMode = isTruthMode == null ? true : isTruthMode;
+    var isMethod = condition && condition.constructor && condition.constructor == Function;
+
+    if (isMethod) {
+      var processCondition = function (args, next, scope) {
+        next.call(scope, condition.apply(scope, args));
+      };
+    } else {
+      var processCondition = function (args, next, scope) {
+        var result = args[0] === condition;
+        next.call(scope, result);
+      };
+    }
+
+    var ifMethod = function () {
+      var args = Array.prototype.slice.call(arguments);
+      var next = args.pop(); //last argument will be next method to call
+
+      processCondition(args, function (result) {
+        var isVal = isTruthMode && result == true || !isTruthMode && result == false;
+        if (isVal) {
+          onTrue.call(this, args, next); //onTrue.call(this, args, next)
+        } else {
+          next.apply(next, args); //pass along args cause i didn't run
+        }
+      }, this);
+    };
+
+    return promise.next(ifMethod, $scope);
+  };
+
+  ackPromise.getNextCallback = function (next, promise) {
+    return function () {
+      if (arguments[0] != null) {
+        //1st arg is error!
+        return promise['throw'].call(promise, arguments[0]);
+      }
+      var args = Array.prototype.slice.call(arguments);
+      args.shift(); //remove error
+      next.apply(next, args);
+    };
+  };
+
+  function ackP() {
+    this._promise0 = true; //bluebird compatibility
+    this.data = { waiting: 0 };
+    return this.processor(); //fire
+  }
+
+  ackP.prototype.processor = function () {
+    this.values = Array.prototype.slice.apply(arguments);
+    if (!this.data || !this.data.task) {
+      return; // this
+    }
+
+    var $scope = {
+      args: Array.prototype.slice.call(arguments) //args that can be manipulated
+    };
+
+    var thisTask = this.data.task;
+    var context = thisTask.context || this.data.context || this.nextContext || this; //never use outside arguments.context as context can be changed by bind()
+    this.data.waiting = 1; //indicate in-process
+
+    /* async callback method */
+    var $this = this;
+    if (thisTask.isAsync === true) {
+      //if callback required, how is it defined. Pipe=last-arg-as-callback
+      var nPos = thisTask.method.length === 0 ? -1 : thisTask.method.length - 1;
+
+      var oneTimeCall = false;
+      var oneTimeMethod = function () {
+        var args = Array.prototype.slice.call(arguments);
+        var then = function () {
+          if ($this.inpass) {
+            --$this.inpass.count;
+
+            if ($this.inpass.count > 0) {
+              return; // $this
+            }
+            return $this.inpass.lastProm.runNextPromise();
+          }
+          return $this.runNextPromise();
+        };
+
+        if (arguments.length && isPromiseLike(arguments[0], $this)) {
+          //result is promise
+          $this.runSubPromise(arguments[0], thisTask, args).then(then);
+        } else {
+          if (thisTask && !thisTask.isPass) {
+            $this.values = args;
+          }
+          then();
+        }
+      };
+
+      oneTimeMethod['throw'] = function () {
+        return $this['throw'].apply($this, arguments);
+      };
+
+      if (nPos >= 0) $scope.args[nPos] = oneTimeMethod; //last argument will be next call
+      else $scope.args.push(oneTimeMethod); //last argument will be next call
+    }
+    /* end: async callback method */
+
+    if (thisTask.isPass === true) {
       if (thisTask.isAsync === true) {
-        var nPos = thisTask.method.length === 0 ? -1 : thisTask.method.length - 1;
-        var oneTimeCall = false;
-        var oneTimeMethod = function () {
-          var args = Array.prototype.slice.call(arguments);
-          var then = function () {
-            if ($this.inpass) {
-              --$this.inpass.count;
-              if ($this.inpass.count > 0) {
-                return;
-              }
-              return $this.inpass.lastProm.runNextPromise();
-            }
-            return $this.runNextPromise();
-          };
-          if (arguments.length && isPromiseLike(arguments[0], $this)) {
-            $this.runSubPromise(arguments[0], thisTask, args).then(then);
-          } else {
-            if (thisTask && !thisTask.isPass) {
-              $this.values = args;
-            }
-            then();
-          }
-        };
-        oneTimeMethod['throw'] = function () {
-          return $this['throw'].apply($this, arguments);
-        };
-        if (nPos >= 0) $scope.args[nPos] = oneTimeMethod;else $scope.args.push(oneTimeMethod);
-      }
-      if (thisTask.isPass === true) {
-        if (thisTask.isAsync === true) {
-          if (!this.inpass) {
-            this.inpass = { count: 1 };
-          } else {
-            ++this.inpass.count;
-          }
-        }
-        if (this.inpass) this.inpass.lastProm = this;
-      }
-      try {
-        var result = thisTask.method.apply(context, $scope.args);
-      } catch (e) {
-        if (e.constructor == String) {
-          var eName = e;
-          e = new Error(e);
-          e.name = eName;
-        }
-        if (!e.code && e.message) {
-          e.code = e.message;
-        }
-        try {
-          e.method = thisTask.method;
-        } catch (e) {}
-        this['throw'].call(this, e);
-        return;
-      }
-      if (thisTask.isPass === true) {
-        return this.runNextPromise();
-      }
-      if (thisTask.isAsync === true) return;
-      if (isPromiseLike(result, this)) {
-        return this.runSubPromise(result, thisTask).then(function () {
-          $this.runNextPromise();
-        });
-      }
-      if (!this.data) {
-        return;
-      }
-      if (this.inpass != null) {
-        this.inpass.count = null;
-        this.inpass.lastProm = null;
-        this.inpass = null;
-      }
-      if (result == this || result == null && typeof result === 'undefined') {
-        this.values = null;
-      } else {
-        this.values = [result];
-      }
-      if (this.data.getNextPromise != null) {
-        return this.runNextPromise();
-      }
-      this.data.waiting = 0;
-      this.clearMem();
-      return;
-    };
-    ackP.prototype['throw'] = function (err) {
-      if (err && err.constructor == String) {
-        var s = err;
-        err = new Error(err);
-        err.name = s;
-      }
-      this._rejected = err;
-      this._rejectedCaught = false;
-      if (nativePromiseThen) this.then = ackP.rejectedThen;
-      var $this = this;
-      var promiseCatcher = this.seekPromiseCatcher();
-      if (promiseCatcher) {
-        return this.throwPromiseCatcher(err, promiseCatcher);
-      }
-      if (this.data && this.data.getNextPromise) {
-        var np = this.data.getNextPromise();
-        return np['throw'].call(np, err);
-      }
-    };
-    ackP.prototype.runSubPromise = function (result, thisTask) {
-      var $this = this,
-          closingTask = function () {
-        if (thisTask && !thisTask.isPass) {
-          $this.values = Array.prototype.slice.call(arguments);
-        }
-      };
-      result = result.then(closingTask)['catch'](function (e) {
-        $this['throw'].call($this, e);
-      });
-      return result;
-    };
-    ackP.prototype.runNextPromise = function () {
-      if (this._rejected) {
-        return;
-      }
-      if (this.values && this.values.length) {
-        return this.runNextPromiseWithValueArray(this.values);
-      }
-      return this.runNextPromiseWithValueArray();
-    };
-    ackP.prototype.runNextPromiseWithValueArray = function (valueArray) {
-      if (!this.data) {
-        return;
-      }
-      var np = this.data.getNextPromise ? this.data.getNextPromise() : null;
-      if (!np) {
-        this.data.waiting = 0;
-        return;
-      }
-      if (this.inpass && this.inpass.count && np.data && np.data.task && !np.data.task.isPass) {
-        return;
-      }
-      np.data.waiting = -1;
-      np.nextContext = np.nextContext || this.nextContext;
-      np.data.context = np.data.context || this.nextContext;
-      np.inpass = this.inpass;
-      this.clearMem();
-      this.nextContext = null;
-      var r = np.processor.apply(np, valueArray);
-      return r;
-    };
-    ackP.prototype.runCatch = function (err, catcher) {
-      var caught = catcher.call(this.nextContext || this, err);
-      if (isPromiseLike(caught)) {
-        var $this = this;
-        return caught.then(function () {
-          $this.runNextPromiseWithValueArray(Array.prototype.slice.call(arguments));
-        });
-      }
-      var argArray = [];
-      if (caught !== null) {
-        argArray.push(caught);
-      }
-      this.values = argArray;
-      var r = this.runNextPromiseWithValueArray(argArray);
-      this.clearMem();
-      return r;
-    };
-    ackP.prototype.getLastPromise = function () {
-      if (!this.data || !this.data.getNextPromise) {
-        return this;
-      }
-      return this.data.getNextPromise().getLastPromise();
-    };
-    ackP.prototype['catch'] = function (typeOrMethod, method) {
-      var newProm = this.next(function () {
-        var args = Array.prototype.slice.call(arguments);
-        var next = args.pop();
-        next.apply(this, args);
-      });
-      newProm._rejected = null;
-      this.catchers = this.catchers || {};
-      if (method) {
-        switch (typeof typeOrMethod) {
-          case 'string':
-            var type = typeOrMethod.toLowerCase();
-            this.catchers['catch' + type] = method;
-            if (this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, type)) {
-              this._rejectedCaught = true;
-              this.runCatch(this._rejected, method);
-            }
-            break;
-          default:
-            {
-              this.catchers.catch_type_array = this.catchers.catch_type_array || [];
-              this.catchers.catch_type_array.push({
-                method: method,
-                type: typeOrMethod
-              });
-              if (this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, typeOrMethod)) {
-                this._rejectedCaught = true;
-                this.runCatch(this._rejected, method);
-              }
-            }
-        }
-      } else {
-        method = typeOrMethod;
-        this.catchers.catchAll = typeOrMethod;
-        if (this._rejected && !this._rejectedCaught) {
-          this._rejectedCaught = true;
-          this.runCatch(this._rejected, method);
-        }
-      }
-      if (this._rejected && !this._rejectedCaught) {
-        newProm._rejected = this._rejected;
-        if (nativePromiseThen) this.then = ackP.rejectedThen;
-      }
-      return newProm;
-    };
-    ackP.prototype.caught = ackP.prototype['catch'];
-    ackP.prototype['if'] = function (condition, method, scope) {
-      return ackPromise.createIf(this, condition, scope, function (args, next) {
-        var mr = method.apply(this, args);
-        next.call(next, mr);
-      });
-    };
-    ackP.prototype.ifNot = function (condition, method, scope) {
-      var processor = function (args, next) {
-        var mr = method.apply(this, args);
-        next.call(next, mr);
-      };
-      return ackPromise.createIf(this, condition, scope, processor, false);
-    };
-    ackP.prototype.ifNext = function (condition, method, scope) {
-      var processor = function (args, next) {
-        if (method.length) {
-          args[method.length - 1] = next;
+        if (!this.inpass) {
+          this.inpass = { count: 1 };
         } else {
-          args.push(next);
+          ++this.inpass.count;
         }
-        method.apply(this, args);
-      };
-      return ackPromise.createIf(this, condition, scope, processor);
-    };
-    ackP.prototype.ifCallback = function (condition, method, scope) {
-      return ackPromise.createIf(this, condition, scope, function (args, next) {
-        var cb = ackPromise.getNextCallback(next, this);
-        if (method.length) args[method.length - 1] = cb;else args.push(cb);
-        method.apply(this, args);
-      });
-    };
-    ackP.prototype.getNewData = function () {
-      return { waiting: 0 };
-    };
-    ackP.prototype.paramData = function () {
-      this.data = this.data || this.getNewData();
-      return this;
-    };
-    ackP.prototype.setNextPromise = function (np) {
-      this.data.getNextPromise = function () {
-        return np;
-      };
-      np.nextContext = this.nextContext;
-      if (this._rejected) {
-        np._rejected = this._rejected;
-        if (nativePromiseThen) np.then = ackP.rejectedThen;
       }
+
+      if (this.inpass) this.inpass.lastProm = this;
+    }
+
+    try {
+      var result = thisTask.method.apply(context, $scope.args); //args from last next call are directly fed in
+    } catch (e) {
+      if (e.constructor == String) {
+        var eName = e;
+        e = new Error(e);
+        e.name = eName;
+      }
+
+      if (!e.code && e.message) {
+        e.code = e.message;
+      }
+
+      //try to indicate which method has failed
+      try {
+        e.method = thisTask.method; //maybe read-only and so may error
+      } catch (e) {}
+
+      this['throw'].call(this, e);
+      return; // this
+    }
+
+    if (thisTask.isPass === true) {
+      return this.runNextPromise();
+    }
+
+    if (thisTask.isAsync === true) return;
+
+    if (isPromiseLike(result, this)) {
+      //result is promise
+      return this.runSubPromise(result, thisTask).then(function () {
+        $this.runNextPromise();
+      });
+    }
+
+    if (!this.data) {
+      return; // this
+    }
+
+    if (this.inpass != null) {
+      //pass over
+      this.inpass.count = null;
+      this.inpass.lastProm = null;
+      this.inpass = null;
+    }
+
+    if (result == this || result == null && typeof result === 'undefined') {
+      this.values = null; //if we are not passing previous result, then lets set
+    } else {
+      this.values = [result]; //if we are not passing previous result, then lets set
+    }
+
+    if (this.data.getNextPromise != null) {
+      //we need to trigger our next task
+      return this.runNextPromise();
+    }
+
+    this.data.waiting = 0; //no longer waiting for another task. This is key for a then being added to a fully exectured chain
+
+    this.clearMem();
+
+    return; // this
+  };
+
+  ackP.prototype['throw'] = function (err) {
+    if (err && err.constructor == String) {
+      var s = err;
+      err = new Error(err);
+      err.name = s;
+    }
+
+    this._rejected = err;
+    this._rejectedCaught = false;
+    if (nativePromiseThen) this.then = ackP.rejectedThen;
+
+    var $this = this;
+    var promiseCatcher = this.seekPromiseCatcher();
+
+    if (promiseCatcher) {
+      return this.throwPromiseCatcher(err, promiseCatcher);
+    }
+
+    if (this.data && this.data.getNextPromise) {
+      var np = this.data.getNextPromise();
+      return np['throw'].call(np, err); //cascade error reporting
+    }
+
+    //throw err
+    //return err
+  };
+  ackP.prototype.runSubPromise = function (result, thisTask) {
+    var $this = this,
+        closingTask = function () {
+      if (thisTask && !thisTask.isPass) {
+        $this.values = Array.prototype.slice.call(arguments);
+      }
+    };
+
+    result = result.then(closingTask)['catch'](function (e) {
+      //e = e.cause || e//bluebird may have wrapped the true error
+      $this['throw'].call($this, e); //result promise catcher
+    });
+
+    return result;
+  };
+
+  ackP.prototype.runNextPromise = function () {
+    if (this._rejected) {
+      return;
+    }
+    if (this.values && this.values.length) {
+      return this.runNextPromiseWithValueArray(this.values);
+    }
+    return this.runNextPromiseWithValueArray();
+    //this.values = null//intended to clear memory
+  };
+
+  ackP.prototype.runNextPromiseWithValueArray = function (valueArray) {
+    if (!this.data) {
+      return; // this
+    }
+    var np = this.data.getNextPromise ? this.data.getNextPromise() : null;
+    if (!np) {
+      this.data.waiting = 0;return; // this
+    }
+
+    if (this.inpass && this.inpass.count && np.data && np.data.task && !np.data.task.isPass) {
+      return; // np
+    }
+    //np.paramData()
+    //var shares
+    np.data.waiting = -1;
+    np.nextContext = np.nextContext || this.nextContext; // || this.data.context
+    np.data.context = np.data.context || this.nextContext; // || this.data.context
+    np.inpass = this.inpass;
+    this.clearMem();
+    this.nextContext = null; //clear mem
+
+    var r = np.processor.apply(np, valueArray);
+    return r;
+  };
+
+  ackP.prototype.runCatch = function (err, catcher) {
+    var caught = catcher.call(this.nextContext || this, err);
+    if (isPromiseLike(caught)) {
+      var $this = this;
+      return caught.then(function () {
+        $this.runNextPromiseWithValueArray(Array.prototype.slice.call(arguments));
+      });
+    }
+
+    var argArray = [];
+    if (caught !== null) {
+      argArray.push(caught);
+    }
+    this.values = argArray;
+    var r = this.runNextPromiseWithValueArray(argArray);
+    this.clearMem();
+    return r;
+  };
+
+  ackP.prototype.getLastPromise = function () {
+    if (!this.data || !this.data.getNextPromise) {
+      return this;
+    }
+    return this.data.getNextPromise().getLastPromise();
+  };
+
+  ackP.prototype['catch'] = function (typeOrMethod, method) {
+    var newProm = this.next(function () {
+      var args = Array.prototype.slice.call(arguments);
+      var next = args.pop();
+      next.apply(this, args);
+    });
+
+    newProm._rejected = null;
+
+    this.catchers = this.catchers || {};
+    if (method) {
+      switch (typeof typeOrMethod) {
+        case 'string':
+          var type = typeOrMethod.toLowerCase();
+          this.catchers['catch' + type] = method;
+          if (this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, type)) {
+            //error already happend
+            this._rejectedCaught = true;
+            this.runCatch(this._rejected, method); //method.call(this, this._rejected)
+          }
+          break;
+        //case 'function':break;
+        default:
+          {
+            this.catchers.catch_type_array = this.catchers.catch_type_array || [];
+            this.catchers.catch_type_array.push({ method: method, type: typeOrMethod });
+            if (this._rejected && !this._rejectedCaught && ackPromise.isErrorType(this._rejected, typeOrMethod)) {
+              this._rejectedCaught = true;
+              this.runCatch(this._rejected, method); //method.call(this, this._rejected)
+            }
+          }
+      }
+    } else {
+      method = typeOrMethod;
+      this.catchers.catchAll = typeOrMethod;
+      if (this._rejected && !this._rejectedCaught) {
+        this._rejectedCaught = true;
+        this.runCatch(this._rejected, method); //method.call(this, this._rejected)
+      }
+    }
+
+    if (this._rejected && !this._rejectedCaught) {
+      newProm._rejected = this._rejected;
+      if (nativePromiseThen) this.then = ackP.rejectedThen;
+    }
+
+    return newProm;
+  };
+  /** alias for compatibility with earlier ECMAScript version */
+  ackP.prototype.caught = ackP.prototype['catch'];
+
+  /**
+    @condition - if condition is not a method, then value must strictly match condition. If condition is method, condition only must return truthy
+  */
+  ackP.prototype['if'] = function (condition, method, scope) {
+    return ackPromise.createIf(this, condition, scope, function (args, next) {
+      var mr = method.apply(this, args);
+      next.call(next, mr);
+    });
+  };
+
+  ackP.prototype.ifNot = function (condition, method, scope) {
+    var processor = function (args, next) {
+      var mr = method.apply(this, args);
+      next.call(next, mr);
+    };
+    return ackPromise.createIf(this, condition, scope, processor, false);
+  };
+
+  ackP.prototype.ifNext = function (condition, method, scope) {
+    var processor = function (args, next) {
+      if (method.length) {
+        args[method.length - 1] = next;
+      } else {
+        args.push(next);
+      }
+
+      method.apply(this, args);
+    };
+    return ackPromise.createIf(this, condition, scope, processor);
+  };
+
+  ackP.prototype.ifCallback = function (condition, method, scope) {
+    return ackPromise.createIf(this, condition, scope, function (args, next) {
+      var cb = ackPromise.getNextCallback(next, this);
+
+      if (method.length) args[method.length - 1] = cb;else args.push(cb);
+
+      method.apply(this, args);
+    });
+  };
+
+  ackP.prototype.getNewData = function () {
+    return { waiting: 0 };
+  };
+
+  ackP.prototype.paramData = function () {
+    this.data = this.data || this.getNewData();return this;
+  };
+
+  ackP.prototype.setNextPromise = function (np) {
+    this.data.getNextPromise = function () {
       return np;
     };
-    ackP.prototype.assertMethod = function (method) {
-      if (method == null) {
-        var msg = 'Promise thenable undefined. Most likely due to a Promise.then() that is an undefined variable.';
-        this['throw'].call(this, msg);
-        var e = new Error(msg);
-        e.name = msg;
-        throw e;
-      }
-    };
-    ackP.prototype.add = function (options) {
-      this.assertMethod(options.method);
-      this.paramData();
-      if (isPromiseLike(options.method)) {
-        var nextp = options.method;
-        options.method = function () {
-          return nextp;
-        };
-        var newp = ackPromise.start().add(options);
-        return this.setNextPromise(newp);
-      }
-      if (this.data.getNextPromise) {
-        return this.data.getNextPromise().add(options);
-      } else if (this.data.task) {
-        var np = ackPromise.start();
-        this.setNextPromise(np);
-        np.data.waiting = 1;
-        np.add(options);
-        if (this.data.waiting == 0) {
-          this.runNextPromise();
-        }
-        return np;
-      }
-      this.data.task = options;
-      if (this.data.waiting === 0) {
-        this.processor.apply(this, this.values);
-      }
-      return this;
-    };
-    ackP.prototype.pass = function (method, scope) {
-      return this.add({
-        method: method,
-        context: scope,
-        isPass: true,
-        isAsync: true
-      });
-    };
-    function getMethodNameList(ob) {
-      var array = [];
-      for (var x in ob) {
-        if (ob[x] && ob[x].constructor && ob[x].constructor == Function) {
-          array.push(x);
-        }
-      }
-      return array.join(',');
+    np.nextContext = this.nextContext;
+    if (this._rejected) {
+      np._rejected = this._rejected;
+      if (nativePromiseThen) np.then = ackP.rejectedThen;
     }
-    ackP.prototype.call = function (name) {
-      var args = Array.prototype.slice.call(arguments);
-      args.shift();
+
+    return np;
+  };
+
+  ackP.prototype.assertMethod = function (method) {
+    if (method == null) {
+      var msg = 'Promise thenable undefined. Most likely due to a Promise.then() that is an undefined variable.';
+      this['throw'].call(this, msg);
+      var e = new Error(msg);
+      e.name = msg;
+      throw e;
+    }
+  };
+
+  ackP.prototype.add = function (options) {
+    this.assertMethod(options.method);
+    this.paramData();
+
+    if (isPromiseLike(options.method)) {
+      var nextp = options.method;
+      options.method = function () {
+        return nextp;
+      };
+      var newp = ackPromise.start().add(options);
+      return this.setNextPromise(newp);
+    }
+
+    if (this.data.getNextPromise) {
+      return this.data.getNextPromise().add(options);
+    } else if (this.data.task) {
+      var np = ackPromise.start();
+      this.setNextPromise(np);
+      np.data.waiting = 1;
+      np.add(options);
+
+      if (this.data.waiting == 0) {
+        this.runNextPromise();
+      }
+
+      return np;
+    }
+
+    this.data.task = options; //first added task
+
+    if (this.data.waiting === 0) {
+      //?already done process, put back into process
+      this.processor.apply(this, this.values);
+    }
+
+    return this;
+  };
+
+  //async-method whose input is passed exactly as output AFTER the last-method(callback) is called
+  ackP.prototype.pass = function (method, scope) {
+    //this.checkPassMode()
+    return this.add({ method: method, context: scope, isPass: true, isAsync: true });
+  };
+
+  function getMethodNameList(ob) {
+    var array = [];
+    for (var x in ob) {
+      if (ob[x] && ob[x].constructor && ob[x].constructor == Function) {
+        array.push(x);
+      }
+    }
+    return array.join(',');
+  }
+
+  /** (name, args0, arg1, arg2) */
+  ackP.prototype.call = function (name) {
+    var args = Array.prototype.slice.call(arguments);
+    args.shift(); //remove name argument
+    return this.then(function () {
+      if (arguments.length && arguments[0][name]) {
+        return arguments[0][name].apply(arguments[0], args);
+      }
+      var msg = 'promise.call "' + name + '" is not a function.';
+      if (arguments.length) {
+        msg += ' Function list: ' + getMethodNameList(arguments[0]);
+      }
+      var e = new Error(msg);
+      e.name = 'not-a-function';
+      throw e;
+    });
+  };
+
+  /** (name, args0, arg1, arg2) */
+  ackP.prototype.bindCall = function (name) {
+    var args = Array.prototype.slice.call(arguments);
+    args.shift(); //remove name argument
+    return this.then(function () {
+      if (this[name]) {
+        return this[name].apply(this, args);
+      }
+      var msg = 'promise.bindCall "' + name + '" is not a function.';
+      msg += ' Function list: ' + getMethodNameList(this);
+      var e = new Error(msg);
+      e.name = 'not-a-function';
+      throw e;
+    });
+  };
+
+  /** promise result will become "this" context */
+  ackP.prototype.bindResult = function () {
+    return this.then(function (v) {
+      this.bind(v);
+      return ackPromise.start().set(Array.prototype.slice.call(arguments)).spread();
+    });
+  };
+
+  ackP.prototype.bind = function ($this) {
+    if ($this != this && isPromiseLike($this)) {
+      var passon = {};
       return this.then(function () {
-        if (arguments.length && arguments[0][name]) {
-          return arguments[0][name].apply(arguments[0], args);
-        }
-        var msg = 'promise.call "' + name + '" is not a function.';
-        if (arguments.length) {
-          msg += ' Function list: ' + getMethodNameList(arguments[0]);
-        }
-        var e = new Error(msg);
-        e.name = 'not-a-function';
-        throw e;
-      });
-    };
-    ackP.prototype.bindCall = function (name) {
-      var args = Array.prototype.slice.call(arguments);
-      args.shift();
-      return this.then(function () {
-        if (this[name]) {
-          return this[name].apply(this, args);
-        }
-        var msg = 'promise.bindCall "' + name + '" is not a function.';
-        msg += ' Function list: ' + getMethodNameList(this);
-        var e = new Error(msg);
-        e.name = 'not-a-function';
-        throw e;
-      });
-    };
-    ackP.prototype.bindResult = function () {
+        passon.result = Array.prototype.slice.call(arguments);
+      }).then($this).bindResult().set(passon).get('result').spread();
+    }
+
+    this.paramData();
+    if (!this.data.task) {
+      this.data.context = $this;
+    }
+    this.nextContext = $this;
+    return this;
+  };
+
+  ackP.prototype.singleGet = function (name) {
+    if (!isNaN(name) && name < 0) {
+      //negative number array index? array[-1] = array[array.length-1]
       return this.then(function (v) {
-        this.bind(v);
-        return ackPromise.start().set(Array.prototype.slice.call(arguments)).spread();
-      });
-    };
-    ackP.prototype.bind = function ($this) {
-      if ($this != this && isPromiseLike($this)) {
-        var passon = {};
-        return this.then(function () {
-          passon.result = Array.prototype.slice.call(arguments);
-        }).then($this).bindResult().set(passon).get('result').spread();
-      }
-      this.paramData();
-      if (!this.data.task) {
-        this.data.context = $this;
-      }
-      this.nextContext = $this;
-      return this;
-    };
-    ackP.prototype.singleGet = function (name) {
-      if (!isNaN(name) && name < 0) {
-        return this.then(function (v) {
-          if (v && v.constructor == Array) {
-            return v[v.length + name];
-          }
-          return v[name];
-        });
-      }
-      return this.then(function (v) {
+        if (v && v.constructor == Array) {
+          return v[v.length + name];
+        }
         return v[name];
       });
-    };
-    ackP.prototype.get = function () {
-      var args = Array.prototype.slice.call(arguments);
-      var promise = this;
-      for (var aIndex = 0; aIndex < args.length; ++aIndex) {
-        promise = promise.singleGet(args[aIndex]);
-      }
-      return promise;
-    };
-    ackP.prototype.set = function () {
-      var args = Array.prototype.slice.call(arguments);
-      return this.next(function (next) {
+    }
+
+    return this.then(function (v) {
+      return v[name];
+    });
+  };
+
+  ackP.prototype.get = function () {
+    var args = Array.prototype.slice.call(arguments);
+    var promise = this;
+    for (var aIndex = 0; aIndex < args.length; ++aIndex) {
+      promise = promise.singleGet(args[aIndex]);
+    }
+    return promise;
+  };
+
+  ackP.prototype.set = function () {
+    var args = Array.prototype.slice.call(arguments);
+    return this.next(function (next) {
+      next.apply(next, args);
+    });
+  };
+  ackP.prototype.return = ackP.prototype.set; //respect the bluebird alias
+  ackP.prototype.resolve = ackP.prototype.set; //alias for other promise libaries
+
+  ackP.prototype.delay = function (t) {
+    return this.next(function () {
+      var args = Array.prototype.slice.call(arguments),
+          next = args.pop();
+      setTimeout(function () {
         next.apply(next, args);
+      }, t);
+    });
+  };
+
+  //sync-method whose input is passed exactly as output to the next method in chain
+  ackP.prototype.past = function (method, scope) {
+    return this.add({ method: method, context: scope, isPass: true, isAsync: false });
+  };
+  ackP.prototype.tap = ackP.prototype.past; //respect the bluebird
+
+  /** when this thenable is run, the first argument is this promise in it's current state */
+  ackP.prototype.reflect = function (method, scope) {
+    var reflect = function () {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift(this);
+      method.apply(scope || this, args);
+    };
+
+    return this.add({ method: reflect, context: this, isPass: true, isAsync: false });
+  };
+
+  //async-method
+  ackP.prototype.next = function (method, scope) {
+    return this.add({ method: method, context: scope, isAsync: true });
+  };
+
+  ackP.prototype.then = function (method, scope) {
+
+    return this.add({ method: method, context: scope, isAsync: false });
+  };
+  ackP.prototype.method = ackP.prototype.then; //respect the blue bird
+
+  /** this function will be made into ackP.prototype.then WHEN a promise error occurs. It makes catching errors flow properly between ecma6 promises and ackP */
+  ackP.rejectedThen = function (method, scope) {
+    /* !extremely important! - This connects ackP promises with native promises */
+    if (this._rejected && method.toString() == nativePromiseThen.toString()) {
+      throw this._rejected; //This will reject to the native promise. I have already been rejected and a native promise is trying to chain onto me
+    }
+
+    return this.add({ method: method, context: scope, isAsync: false });
+  };
+
+  ackP.prototype.spread = function (method, scope) {
+    if (!method) {
+      return this.add({ method: function (a, next) {
+          next.apply(next, a);
+        }, context: this, isAsync: true });
+    } else {
+      return this.add({ method: function (a) {
+          return method.apply(this, a);
+        }, context: scope, isAsync: false
       });
-    };
-    ackP.prototype.return = ackP.prototype.set;
-    ackP.prototype.resolve = ackP.prototype.set;
-    ackP.prototype.delay = function (t) {
-      return this.next(function () {
-        var args = Array.prototype.slice.call(arguments),
-            next = args.pop();
-        setTimeout(function () {
-          next.apply(next, args);
-        }, t);
-      });
-    };
-    ackP.prototype.past = function (method, scope) {
-      return this.add({
-        method: method,
-        context: scope,
-        isPass: true,
-        isAsync: false
-      });
-    };
-    ackP.prototype.tap = ackP.prototype.past;
-    ackP.prototype.reflect = function (method, scope) {
-      var reflect = function () {
-        var args = Array.prototype.slice.call(arguments);
-        args.unshift(this);
-        method.apply(scope || this, args);
-      };
-      return this.add({
-        method: reflect,
-        context: this,
-        isPass: true,
-        isAsync: false
-      });
-    };
-    ackP.prototype.next = function (method, scope) {
-      return this.add({
-        method: method,
-        context: scope,
-        isAsync: true
-      });
-    };
-    ackP.prototype.then = function (method, scope) {
-      return this.add({
-        method: method,
-        context: scope,
-        isAsync: false
-      });
-    };
-    ackP.prototype.method = ackP.prototype.then;
-    ackP.rejectedThen = function (method, scope) {
-      if (this._rejected && method.toString() == nativePromiseThen.toString()) {
-        throw this._rejected;
-      }
-      return this.add({
-        method: method,
-        context: scope,
-        isAsync: false
-      });
-    };
-    ackP.prototype.spread = function (method, scope) {
-      if (!method) {
-        return this.add({
-          method: function (a, next) {
-            next.apply(next, a);
-          },
-          context: this,
-          isAsync: true
-        });
-      } else {
-        return this.add({
-          method: function (a) {
-            return method.apply(this, a);
-          },
-          context: scope,
-          isAsync: false
-        });
-      }
-    };
-    ackP.prototype.spreadCallback = function (method, scope) {
-      return this.callback(function () {
-        var args = Array.prototype.slice.call(arguments);
-        var callback = args[args.length - 1];
-        if (args.length) {
-          switch (args[0].constructor) {
-            case String:
-            case Boolean:
-            case Object:
-              args = [args[0]];
-              break;
-            case Array:
-              args = args[0];
-              break;
-            default:
-              args = [];
-          }
-          args.push(callback);
+    }
+  };
+
+  ackP.prototype.spreadCallback = function (method, scope) {
+    return this.callback(function () {
+      var args = Array.prototype.slice.call(arguments);
+      var callback = args[args.length - 1];
+      if (args.length) {
+        switch (args[0].constructor) {
+          case String:case Boolean:case Object:
+            args = [args[0]];
+            break;
+          case Array:
+            args = args[0];
+            break;
+
+          default:
+            args = [];
         }
-        method.apply(this, args);
-      }, scope);
-    };
-    ackP.prototype.callback = function (method, scope) {
-      this.assertMethod(method);
-      var fireMethod = function () {
-        var bind = scope || this;
-        var prom = ackPromise.start();
-        prom.set.apply(prom, arguments).spread();
-        var myMethod = ackPromise.callback4callback(method, prom, bind);
-        return prom.next(function () {
-          return myMethod.apply(bind, arguments);
-        });
-        return prom;
-      };
-      return this.add({
-        method: fireMethod,
-        scope: scope,
-        isAsync: false
+
+        args.push(callback);
+      }
+      method.apply(this, args);
+    }, scope);
+  };
+
+  //async-method aka promisify
+  ackP.prototype.callback = function (method, scope) {
+    this.assertMethod(method); //since an override method is provided, lets check the one we are recieving now instead of when we need it
+
+    var fireMethod = function () {
+      var bind = scope || this;
+      var prom = ackPromise.start();
+      prom.set.apply(prom, arguments).spread();
+      var myMethod = ackPromise.callback4callback(method, prom, bind);
+      return prom.next(function () {
+        return myMethod.apply(bind, arguments);
       });
+      return prom;
     };
-    ackP.prototype.clearMem = function () {
-      this.data = null;
+    return this.add({ method: fireMethod, scope: scope, isAsync: false });
+  };
+
+  ackP.prototype.clearMem = function () {
+    this.data = null;
+    return this;
+  };
+
+  ackP.prototype.seekPromiseCatcher = function (allowSelf) {
+    if (this.catchers && allowSelf == null) {
       return this;
-    };
-    ackP.prototype.seekPromiseCatcher = function (allowSelf) {
-      if (this.catchers && allowSelf == null) {
-        return this;
-      }
-      if (this.data && this.data.getNextPromise) {
-        return this.data.getNextPromise().seekPromiseCatcher();
-      }
-    };
-    ackP.prototype.throwPromiseCatcher = function (e, promiseCatcher) {
-      if (promiseCatcher.catchers.catch_type_array) {
-        for (var i = 0; i < promiseCatcher.catchers.catch_type_array.length; ++i) {
-          var isType = ackPromise.isErrorType(e, promiseCatcher.catchers.catch_type_array[i].type);
-          if (isType) {
-            this._rejectedCaught = true;
-            var catcher = promiseCatcher.catchers.catch_type_array[i].method;
-            promiseCatcher.runCatch(e, catcher);
-            return this;
-          }
-        }
-      }
-      if (e && e.name && e.name.toLowerCase) {
-        var eName = e.name.toLowerCase();
-        if (promiseCatcher.catchers['catch' + eName]) {
+    }
+
+    if (this.data && this.data.getNextPromise) {
+      return this.data.getNextPromise().seekPromiseCatcher();
+    }
+  };
+
+  ackP.prototype.throwPromiseCatcher = function (e, promiseCatcher) {
+    if (promiseCatcher.catchers.catch_type_array) {
+      for (var i = 0; i < promiseCatcher.catchers.catch_type_array.length; ++i) {
+        var isType = ackPromise.isErrorType(e, promiseCatcher.catchers.catch_type_array[i].type);
+        if (isType) {
           this._rejectedCaught = true;
-          var catcher = promiseCatcher.catchers['catch' + eName];
+          //var r = promiseCatcher.catchers.catch_type_array[i].method.call(this,e)
+          var catcher = promiseCatcher.catchers.catch_type_array[i].method;
           promiseCatcher.runCatch(e, catcher);
           return this;
         }
       }
-      if (e && e.code) {
-        var isString = e.code.toLowerCase;
-        if (isString || Number(e.code)) {
-          var eName = isString ? e.code.toLowerCase() : e.code;
-          if (promiseCatcher.catchers['catch' + eName]) {
-            this._rejectedCaught = true;
-            var catcher = promiseCatcher.catchers['catch' + eName];
-            promiseCatcher.runCatch(e, catcher);
-            return this;
-          }
-        }
-      }
-      if (e && e.message && e.message.toLowerCase) {
-        var eName = e.message.toLowerCase();
-        if (promiseCatcher.catchers['catch' + eName]) {
-          this._rejectedCaught = true;
-          var catcher = promiseCatcher.catchers['catch' + eName];
-          promiseCatcher.runCatch(e, catcher);
-          return this;
-        }
-      }
-      if (promiseCatcher.catchers.catchAll) {
+    }
+
+    /* error string type catchers */
+    if (e && e.name && e.name.toLowerCase) {
+      var eName = e.name.toLowerCase();
+      if (promiseCatcher.catchers['catch' + eName]) {
         this._rejectedCaught = true;
-        var catcher = promiseCatcher.catchers.catchAll;
+        //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+        var catcher = promiseCatcher.catchers['catch' + eName];
         promiseCatcher.runCatch(e, catcher);
-        return this;
+        return this; //r
       }
-      var promiseCatcher = promiseCatcher.seekPromiseCatcher(false);
-      if (promiseCatcher) {
-        return this.throwPromiseCatcher(e, promiseCatcher);
+    }
+
+    if (e && e.code) {
+      var isString = e.code.toLowerCase;
+      if (isString || Number(e.code)) {
+        var eName = isString ? e.code.toLowerCase() : e.code;
+        if (promiseCatcher.catchers['catch' + eName]) {
+          this._rejectedCaught = true;
+          //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+          var catcher = promiseCatcher.catchers['catch' + eName];
+          promiseCatcher.runCatch(e, catcher);
+          return this; //r
+        }
       }
-    };
-    ackP.prototype.all = function () {
-      var args = Array.prototype.slice.call(arguments);
-      args.push(function () {
-        if (arguments.length) {
-          var args = Array.prototype.slice.call(arguments);
-          return args;
-        }
-      });
-      return this.join.apply(this, args);
-    };
-    ackP.prototype.join = function () {
-      var joinPromise,
-          next,
-          $this = this;
-      var resultArray = [],
-          count = 0,
-          argSlice = Array.prototype.slice.call(arguments),
-          isArg0Array = argSlice.length && argSlice[0] && argSlice[0].constructor == Array,
-          isPromMode = !isArg0Array && typeof argSlice[0] === 'function',
-          promiseArray = isArg0Array ? arguments[0] : argSlice;
-      if (argSlice[argSlice.length - 1] && argSlice[argSlice.length - 1].constructor == Function) {
-        var controller = argSlice.pop();
-        var done = function () {
-          var controlResult = ackPromise.start().set(resultArray).spread(controller, $this);
-          controlResult.then(function () {
-            next.apply(next, Array.prototype.slice.call(arguments));
-          });
-        };
-      } else {
-        var done = function () {
-          next.apply(next, [resultArray]);
-        };
+    }
+
+    if (e && e.message && e.message.toLowerCase) {
+      var eName = e.message.toLowerCase();
+      if (promiseCatcher.catchers['catch' + eName]) {
+        this._rejectedCaught = true;
+        //var r = promiseCatcher.catchers['catch'+eName].call(this,e)
+        var catcher = promiseCatcher.catchers['catch' + eName];
+        promiseCatcher.runCatch(e, catcher);
+        return this; //r
       }
-      var nextMethod = function () {
-        var runTimeArgs = Array.prototype.slice.call(arguments);
-        next = runTimeArgs.pop();
-        if (!isArg0Array && isPromMode) {
-          promiseArray = runTimeArgs[0];
-        }
-        if (!promiseArray.length) {
-          done();
-          return;
-        }
-        var processResult = function (i, v) {
-          resultArray[i] = v;
-          ++count;
-          if (count == promiseArray.length) {
-            done();
-          }
-        };
-        var catcher = function (e) {
-          next['throw'](e);
-        };
-        promiseArray.forEach(function (v, i) {
-          if (isPromiseLike(v)) {
-            v.then(function (v) {
-              processResult(i, v);
-            })['catch'](catcher);
-          } else {
-            processResult(i, v);
-          }
+    }
+    /* end: error string type catchers */
+
+    if (promiseCatcher.catchers.catchAll) {
+      this._rejectedCaught = true;
+      //var r = promiseCatcher.catchers.catchAll.call(this,e)
+      var catcher = promiseCatcher.catchers.catchAll;
+      promiseCatcher.runCatch(e, catcher);
+      return this; //r
+    }
+
+    var promiseCatcher = promiseCatcher.seekPromiseCatcher(false); //the current promise catcher we have didn't work out
+    if (promiseCatcher) {
+      return this.throwPromiseCatcher(e, promiseCatcher);
+    }
+  };
+
+  ackP.prototype.all = function () {
+    var args = Array.prototype.slice.call(arguments);
+    //create handler function
+    args.push(function () {
+      if (arguments.length) {
+        var args = Array.prototype.slice.call(arguments);
+        return args;
+      }
+    });
+    return this.join.apply(this, args);
+  };
+
+  //expected every argument but last is a running promise. Last argument is callback. Example: join(firePromiseA(),firePromiseB(),function(A,B){return 22}).then(function(r22){})
+  //if only one argument, then it is a single promise whos result will be passed along
+  ackP.prototype.join = function () /* promiseArrayOrPromise, promiseArrayOrPromise, joinMethod */{
+    var joinPromise,
+        next,
+        $this = this;
+
+    var resultArray = [],
+        count = 0,
+        argSlice = Array.prototype.slice.call(arguments) //mutatable arguments
+    ,
+        isArg0Array = argSlice.length && argSlice[0] && argSlice[0].constructor == Array // && typeof argSlice[0]==='undefined'
+    ,
+        isPromMode = !isArg0Array && typeof argSlice[0] === 'function',
+        promiseArray = isArg0Array ? arguments[0] : argSlice;
+
+    if (argSlice[argSlice.length - 1] && argSlice[argSlice.length - 1].constructor == Function) {
+      var controller = argSlice.pop(); //last arg is controller
+      //function that is called when this function counts all promises completed
+      var done = function () {
+        var controlResult = ackPromise.start().set(resultArray).spread(controller, $this);
+        controlResult.then(function () {
+          next.apply(next, Array.prototype.slice.call(arguments));
+          //$this.values = Array.prototype.slice.call(arguments)
+          //$this.runNextPromise()
         });
       };
-      return $this.next(nextMethod);
-    };
-    ackP.prototype.map = function () {
-      var args = Array.prototype.slice.call(arguments);
-      if (typeof args[args.length - 1] === 'object') {
-        var options = args.pop();
-      } else {
-        var options = { concurrency: 0 };
-      }
-      var conc = options.concurrency == null || isNaN(options.concurrency) ? 0 : options.concurrency;
-      var controller = args.pop();
-      var newArray = [];
-      var per = function (v, i, len) {
-        return ackPromise.start().then(function () {
-          var r = controller.call(this, v, i, len);
-          if (r && r.then) {
-            return r.then(function (newItem) {
-              newArray[i] = newItem;
-            });
-          } else {
-            newArray[i] = r;
-          }
-        }, this);
+    } else {
+      var done = function () {
+        next.apply(next, [resultArray]);
       };
-      var loopArray = function (arrOrOb, callback) {
-        if (!arrOrOb) {
-          return callback(null);
+    }
+
+    var nextMethod = function () {
+      //we will call $this instead of a next method
+      var runTimeArgs = Array.prototype.slice.call(arguments);
+      next = runTimeArgs.pop(); //last argument is next method
+
+      if (!isArg0Array && isPromMode) {
+        promiseArray = runTimeArgs[0];
+      }
+
+      if (!promiseArray.length) {
+        done();return;
+      }
+
+      var processResult = function (i, v) {
+        resultArray[i] = v;
+        ++count; //count a finishing promise
+        if (count == promiseArray.length) {
+          //all promises have been accounted for
+          done();
         }
-        var v,
-            wait = 0,
-            counter = 0;
-        if (arrOrOb.constructor === Array) {
-          var len = arrOrOb.length;
-          if (!len) {
-            callback(null, []);
+      };
+
+      var catcher = function (e) {
+        next['throw'](e);
+      };
+
+      promiseArray.forEach(function (v, i) {
+        if (isPromiseLike(v)) {
+          v.then(function (v) {
+            processResult(i, v);
+          })['catch'](catcher);
+        } else {
+          processResult(i, v);
+        }
+      });
+    };
+
+    return $this.next(nextMethod);
+  };
+
+  /**
+    (array|callback, callback, options)
+    @options {concurrency}
+  */
+  ackP.prototype.map = function () {
+    var args = Array.prototype.slice.call(arguments);
+
+    if (typeof args[args.length - 1] === 'object') {
+      //last is option
+      var options = args.pop();
+    } else {
+      var options = { concurrency: 0 }; //infinite
+    }
+
+    var conc = options.concurrency == null || isNaN(options.concurrency) ? 0 : options.concurrency;
+    var controller = args.pop(); //last is controller
+    var newArray = [];
+
+    var per = function (v, i, len) {
+      return ackPromise.start().then(function () {
+        var r = controller.call(this, v, i, len);
+        if (r && r.then) {
+          //fire controller's promise
+          return r.then(function (newItem) {
+            newArray[i] = newItem;
+          });
+        } else {
+          newArray[i] = r;
+        }
+      }, this);
+    };
+
+    var loopArray = function (arrOrOb, callback) {
+      if (!arrOrOb) {
+        return callback(null);
+      }
+
+      var v,
+          wait = 0,
+          counter = 0;
+      if (arrOrOb.constructor === Array) {
+        var len = arrOrOb.length;
+        if (!len) {
+          callback(null, []);
+        }
+
+        var next = function (nx, i, $this) {
+          if (i == len) {
+            return; //no more loop
           }
-          var next = function (nx, i, $this) {
-            if (i == len) {
-              return;
-            }
-            var prom = per.call($this, arrOrOb[i], i, len).then(function () {
-              ++counter;
-              if (counter == len) {
-                callback(null, newArray);
-              }
-            })['catch'](callback);
-            if (conc > 0) {
-              var rotation = (i + 1) % conc;
-              if (rotation == 0) {
-                return prom.then(function () {
-                  nx(nx, i + 1, $this);
-                });
-              }
-              ++wait;
-              return nx(nx, i + 1, $this).then(function () {
-                --wait;
-                if (wait == 0) {
-                  nx(nx, i + 1, $this);
-                }
-              });
-            }
-            return prom.then(function () {
-              nx(nx, i + 1, $this);
-            });
-          };
-          next(next, 0, this);
-          return;
-        }
-        var len = objectKeys(arrOrOb).length;
-        if (!len) callback(null, {});
-        for (var x in arrOrOb) {
-          v = arrOrOb[x];
-          per.call(this, v, x, len).then(function () {
+
+          var prom = per.call($this, arrOrOb[i], i, len).then(function () {
             ++counter;
             if (counter == len) {
+              //fullment by equal array.length
               callback(null, newArray);
             }
           })['catch'](callback);
-        }
-      };
-      if (args[0] && args[0].constructor !== Function) {
-        return this.callback(function (callback) {
-          loopArray.call(this, args[0], callback);
-        });
-      }
-      return this.callback(function (array, callback) {
-        loopArray.call(this, array, callback);
-      });
-    };
-    ackP.prototype.each = function (func) {
-      return this.then(function (a) {
-        var prom = ackPromise.start();
-        for (var i = 0; i < a.length; ++i) {
-          prom = prom.set(a[i], i, a).then(func);
-        }
-        return prom.set.apply(prom, arguments);
-      });
-    };
-    ackP.prototype._then = function (didFulfill, didReject, didProgress, receiver, internalData) {
-      return this.add({
-        method: function () {
-          didFulfill.apply(receiver, arguments);
-        },
-        isAsync: false
-      }).catch(function () {
-        didReject.apply(receiver, arguments);
-      });
-    };
-    if (typeof module != 'undefined') {
-      module.exports = ackPromise;
-    }
-    var toString = Object.prototype.toString;
-    var fnToString = Function.prototype.toString;
-    var reHostCtor = /^\[object .+?Constructor\]$/;
-    var reNative = RegExp('^' + String(toString).replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&').replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
-    function isNative(value) {
-      var type = typeof value;
-      return type == 'function' ? reNative.test(fnToString.call(value)) : value && type == 'object' && reHostCtor.test(toString.call(value)) || false;
-    }
-    var nativePromiseThen;
-    var isNativePromised = typeof Promise != 'undefined' && Promise && Promise.resolve;
-    if (isNativePromised) {
-      Promise.resolve().then(function () {
-        var testerP = {};
-        testerP.then = function (nativeThen) {
-          nativePromiseThen = nativeThen;
+
+          if (conc > 0) {
+            var rotation = (i + 1) % conc;
+            if (rotation == 0) {
+              return prom.then(function () {
+                nx(nx, i + 1, $this);
+              });
+            }
+            ++wait;
+            return nx(nx, i + 1, $this).then(function () {
+              --wait;
+              if (wait == 0) {
+                nx(nx, i + 1, $this);
+              }
+            });
+          }
+
+          return prom.then(function () {
+            nx(nx, i + 1, $this);
+          });
         };
-        return testerP;
-      }).then(function () {});
+
+        next(next, 0, this);
+
+        return;
+      }
+
+      //loop objects
+      var len = objectKeys(arrOrOb).length;
+      if (!len) callback(null, {});
+      for (var x in arrOrOb) {
+        v = arrOrOb[x];
+
+        per.call(this, v, x, len).then(function () {
+          ++counter;
+          if (counter == len) {
+            //fullment by equal array len
+            callback(null, newArray);
+          }
+        })['catch'](callback);
+      }
+    };
+
+    if (args[0] && args[0].constructor !== Function) {
+      //we have array
+      return this.callback(function (callback) {
+        loopArray.call(this, args[0], callback);
+      });
     }
-  })($__require('20'));
+
+    return this.callback(function (array, callback) {
+      loopArray.call(this, array, callback);
+    });
+  };
+
+  /** always returns original array */
+  ackP.prototype.each = function (func) {
+    return this.then(function (a) {
+      var prom = ackPromise.start();
+      for (var i = 0; i < a.length; ++i) {
+        prom = prom.set(a[i], i, a).then(func);
+      }
+
+      return prom.set.apply(prom, arguments);
+    });
+  };
+
+  //bluebird compatibility
+  ackP.prototype._then = function (didFulfill, didReject, didProgress, receiver, internalData) {
+    return this.add({ method: function () {
+        didFulfill.apply(receiver, arguments); //success
+      }, isAsync: false }).catch(function () {
+      didReject.apply(receiver, arguments); //reject
+    });
+  };
+
+  if (typeof module != 'undefined') {
+    module.exports = ackPromise;
+    //module.exports.__dirname = __dirname
+  }
+
+  // Used to resolve the internal `[[Class]]` of values
+  var toString = Object.prototype.toString;
+
+  // Used to resolve the decompiled source of functions
+  var fnToString = Function.prototype.toString;
+
+  // Used to detect host constructors (Safari > 4; really typed array specific)
+  var reHostCtor = /^\[object .+?Constructor\]$/;
+
+  // Compile a regexp using a common native method as a template.
+  // We chose `Object#toString` because there's a good chance it is not being mucked with.
+  var reNative = RegExp('^' +
+  // Coerce `Object#toString` to a string
+  String(toString)
+  // Escape any special regexp characters
+  .replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&')
+  // Replace mentions of `toString` with `.*?` to keep the template generic.
+  // Replace thing like `for ...` to support environments like Rhino which add extra info
+  // such as method arity.
+  .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+
+  function isNative(value) {
+    var type = typeof value;
+    return type == 'function'
+    // Use `Function#toString` to bypass the value's own `toString` method
+    // and avoid being faked out.
+    ? reNative.test(fnToString.call(value))
+    // Fallback to a host object check because some environments will represent
+    // things like typed arrays as DOM methods which may not conform to the
+    // normal native pattern.
+    : value && type == 'object' && reHostCtor.test(toString.call(value)) || false;
+  }
+
+  var nativePromiseThen;
+  var isNativePromised = typeof Promise != 'undefined' && Promise && Promise.resolve;
+  if (isNativePromised) {
+    Promise.resolve().then(function () {
+      var testerP = {};
+
+      testerP.then = function (nativeThen) {
+        nativePromiseThen = nativeThen;
+      };
+      return testerP;
+    }).then(function () {}); //triggers native promise to invoke my promise
+  }
   return module.exports;
 });
-$__System.registerDynamic("43", ["42"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("42");
-  return module.exports;
-});
-$__System.registerDynamic('44', [], true, function ($__require, exports, module) {
+$__System.registerDynamic('7', [], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
@@ -4329,14 +5644,7 @@ $__System.registerDynamic('44', [], true, function ($__require, exports, module)
   }
   return module.exports;
 });
-$__System.registerDynamic("45", ["44"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("44");
-  return module.exports;
-});
-$__System.registerDynamic('46', ['45'], true, function ($__require, exports, module) {
+$__System.registerDynamic('8', ['7'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
@@ -4353,7 +5661,7 @@ $__System.registerDynamic('46', ['45'], true, function ($__require, exports, mod
   exports.disable = disable;
   exports.enable = enable;
   exports.enabled = enabled;
-  exports.humanize = $__require('45');
+  exports.humanize = $__require('7');
 
   /**
    * The currently active debug mode names, and names to skip.
@@ -4538,7 +5846,7 @@ $__System.registerDynamic('46', ['45'], true, function ($__require, exports, mod
   }
   return module.exports;
 });
-$__System.registerDynamic('47', ['46'], true, function ($__require, exports, module) {
+$__System.registerDynamic('9', ['8'], true, function ($__require, exports, module) {
   var define,
       global = this || self,
       GLOBAL = global;
@@ -4549,7 +5857,7 @@ $__System.registerDynamic('47', ['46'], true, function ($__require, exports, mod
    * Expose `debug()` as the module.
    */
 
-  exports = module.exports = $__require('46');
+  exports = module.exports = $__require('8');
   exports.log = log;
   exports.formatArgs = formatArgs;
   exports.save = save;
@@ -4694,15 +6002,7 @@ $__System.registerDynamic('47', ['46'], true, function ($__require, exports, mod
   }
   return module.exports;
 });
-$__System.registerDynamic("48", ["47"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("47");
-  return module.exports;
-});
-$__System.registerDynamic('49', [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic('a', [], true, function ($__require, exports, module) {
 	"use strict";
 
 	var define,
@@ -4817,8 +6117,7 @@ $__System.registerDynamic('49', [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic("4a", [], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic("b", [], true, function ($__require, exports, module) {
   "use strict";
   //Helps in the goal of selecting and defining states of properties on indexable data (object & arrays). The indexable data is not to be polluted by the defined properties (data and states seperate)
 
@@ -4943,211 +6242,269 @@ $__System.registerDynamic("4a", [], true, function ($__require, exports, module)
   module.exports = IndexSelector;
   return module.exports;
 });
-$__System.registerDynamic('4b', ['4c', '41', '43', '48', '49', '4a'], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
+$__System.registerDynamic('c', ['d', '5', '6', '9', 'a', 'b'], true, function ($__require, exports, module) {
+	"use strict";
 
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jc = $__require('4c'),
-      ackInjector = $__require('41'),
-      partyModules = {
-    ackP: $__require('43'),
-    debug: $__require('48')
-  };
-  function ack($var) {
-    return new ackExpose($var);
-  }
-  ack.object = $__require('49');
-  ack.Expose = ackExpose;
-  ack.modules = new ackInjector(ack);
-  ack['class'] = function (cl, extendOrAccessors, accessors) {
-    return new jc(cl, extendOrAccessors, accessors);
-  };
-  ack.accessors = function ($scope) {
-    return new jc.Vm($scope);
-  };
-  ack.injector = function ($scope) {
-    return new ackInjector($scope);
-  };
-  ack.promise = function (var0, var1, var2, var3) {
-    var promise = partyModules.ackP.start();
-    return promise.set.apply(promise, arguments);
-  };
-  ack.Promise = function (resolver) {
-    return new partyModules.ackP(resolver);
-  };
-  var indexSelector = $__require('4a');
-  ack.indexSelector = function () {
-    var $scope = {};
-    if (arguments.length) {
-      $scope.indexes = arguments[0];
-    }
-    return new indexSelector($scope);
-  };
-  var ackDebugMap = {};
-  ack.debug = function debug(name, log0, log1, log2) {
-    var logger = partyModules.debug(name);
-    ack.debug.map[name] = logger;
-    if (arguments.length > 1) {
-      var args = Array.prototype.slice.call(arguments);
-      args.shift();
-      logger.apply(logger, args);
-    }
-    logger.debug = function (subname, log0, log1, log2) {
-      arguments[0] = name + ':' + subname;
-      return ack.debug.apply(ack, arguments);
-    };
-    logger.sublog = logger.debug;
-    return logger;
-  };
-  ack.debug.map = ackDebugMap;
-  ack.throwBy = function (ob, msg) {
-    if (ob) {
-      throw ob;
-    } else if (msg) {
-      throw new Error(msg);
-    } else {
-      throw new Error('An unexpected error has occured');
-    }
-  };
-  ack.logArrayTo = function (array, logTo) {
-    logTo.apply(logTo, array);
-  };
-  ack.logError = function (err, msg, logTo) {
-    logTo = logTo || console.log;
-    var drray = [];
-    if (msg == null && err && err.stack) {
-      msg = msg || err.stack.replace(/(\n|\t|\r)/g, '').split(/\s+at\s+/).shift();
-    }
-    if (msg != null) drray.push(msg);
-    if (err != null) drray.push(err);
-    ack.logErrorArray(drray, logTo);
-  };
-  function ackExpose($var) {
-    this.$var = $var;
-    return this;
-  }
-  ackExpose.prototype.error = function () {
-    return ack.error(this.$var);
-  };
-  ackExpose.prototype.number = function () {
-    return ack.number(this.$var);
-  };
-  ackExpose.prototype.string = function () {
-    return ack.string(this.$var);
-  };
-  ackExpose.prototype.binary = function () {
-    return ack.binary(this.$var);
-  };
-  ackExpose.prototype.base64 = function () {
-    return ack.base64(this.$var);
-  };
-  ackExpose.prototype.object = function () {
-    return new ackObject(this.$var);
-  };
-  ackExpose.prototype.method = function () {
-    return ack.method(this.$var);
-  };
-  ackExpose.prototype['function'] = function () {
-    return ack['function'](this.$var);
-  };
-  ackExpose.prototype.array = function () {
-    return ack.array(this.$var);
-  };
-  ackExpose.prototype.queryObject = function () {
-    return ack.queryObject(this.$var);
-  };
-  ackExpose.prototype.week = function () {
-    return ack.week(this.$var);
-  };
-  ackExpose.prototype.month = function () {
-    return ack.month(this.$var);
-  };
-  ackExpose.prototype.year = function () {
-    return ack.year(this.$var);
-  };
-  ackExpose.prototype.date = function () {
-    return ack.date(this.$var);
-  };
-  ackExpose.prototype.time = function () {
-    return ack.time(this.$var);
-  };
-  ackExpose.prototype.getSimpleClone = function () {
-    var target = {};
-    for (var i in this.$var) {
-      target[i] = this.$var[i];
-    }
-    return target;
-  };
-  ackExpose.prototype.get = function (name, def) {
-    if (!name) return this.$var;
-    if (this.$var && this.$var[name] != null) return this.$var[name];
-    var lcase = name.toLowerCase();
-    for (var key in this.$var) {
-      if (lcase == key.toLowerCase()) return this.$var[key];
-    }
-    return def;
-  };
-  ackExpose.prototype.byName = function (name) {
-    var v = this.get(name);
-    if (v != null) return ack(v);
-  };
-  ackExpose.prototype['throw'] = function (msg, logTo) {
-    ack.logError(this.$var, msg, logTo);
-    ack.throwBy(this.$var, msg);
-    return this;
-  };
-  ackExpose.prototype.dump = function () {
-    return JSON.stringify(this.$var, null, 2);
-  };
-  ackExpose.prototype.getBit = function () {
-    var b = this.getBoolean();
-    if (b && b.constructor == Number && b < 0) {
-      b = 0;
-    }
-    return b ? 1 : 0;
-  };
-  ackExpose.prototype.nullsToEmptyString = function () {
-    for (var key in this.$var) {
-      if (this.$var[key] == null) {
-        this.$var[key] = '';
-      }
-    }
-    return this;
-  };
-  ackExpose.prototype.getBoolean = function () {
-    if (this.$var == null || !this.$var.constructor) return false;
-    var a = this.$var;
-    if (a.constructor == String) {
-      a = a.toLowerCase();
-      if (a === 'y' || a === 'yes') {
-        return true;
-      }
-      if (a === 'no' || a === 'n') {
-        return false;
-      }
-      try {
-        a = JSON.parse(a);
-      } catch (e) {
-        return null;
-      }
-    }
-    if (a != null && (a.constructor == Number || a.constructor == Boolean)) {
-      return a;
-    }
-    return null;
-  };
-  ackExpose.prototype.isBooleanLike = function () {
-    if (this.$var == null || !this.$var.constructor) return false;
-    return this.getBoolean() !== null;
-  };
-  module.exports = ack;
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jc = $__require('d'),
+	    //old old old library for Classes and Accessors
+	ackInjector = $__require('5'),
+	    partyModules = {
+		ackP: $__require('6'),
+		debug: $__require('9')
+	};
+
+	/** calling ack() as function, will return a module to work with almost any object */
+	function ack($var) {
+		return new ackExpose($var);
+	}
+
+	ack.object = $__require('a');
+	ack.Expose = ackExpose; //Outsider's referense to expose factory
+
+	/* CORE MODULES */
+	ack.modules = new ackInjector(ack);
+
+	ack['class'] = function (cl, extendOrAccessors, accessors) {
+		return new jc(cl, extendOrAccessors, accessors);
+	};
+
+	ack.accessors = function ($scope) {
+		return new jc.Vm($scope);
+	};
+
+	ack.injector = function ($scope) {
+		return new ackInjector($scope);
+	};
+
+	ack.promise = function (var0, var1, var2, var3) {
+		var promise = partyModules.ackP.start();
+		return promise.set.apply(promise, arguments);
+	};
+
+	ack.Promise = function (resolver) {
+		return new partyModules.ackP(resolver);
+	};
+	/* end: CORE MODULES */
+
+	/* end: MODULES */
+	//?maybe deprecated and unused
+	var indexSelector = $__require('b');
+	ack.indexSelector = function () {
+		var $scope = {};
+		if (arguments.length) {
+			$scope.indexes = arguments[0];
+		}
+		return new indexSelector($scope);
+	};
+
+	/**
+ 	- Organized debug logging that can be viewed ondemand by types of debug logging
+ 	- See npm "debug" package for more information
+ */
+	var ackDebugMap = {}; //create storage of all loggers created
+	ack.debug = function debug(name, log0, log1, log2) {
+		var logger = partyModules.debug(name);
+		ack.debug.map[name] = logger; //store memory of logger for meta referencing
+
+		if (arguments.length > 1) {
+			//logging intended to go with
+			var args = Array.prototype.slice.call(arguments);
+			args.shift(); //remove first
+			logger.apply(logger, args);
+		}
+
+		logger.debug = function (subname, log0, log1, log2) {
+			arguments[0] = name + ':' + subname;
+			return ack.debug.apply(ack, arguments);
+		};
+		logger.sublog = logger.debug;
+
+		return logger;
+	};
+	ack.debug.map = ackDebugMap; //latch onto storage
+	/* END MODULES */
+
+	ack.throwBy = function (ob, msg) {
+		if (ob) {
+			throw ob;
+		} else if (msg) {
+			throw new Error(msg);
+		} else {
+			throw new Error('An unexpected error has occured');
+		}
+	};
+
+	ack.logArrayTo = function (array, logTo) {
+		logTo.apply(logTo, array);
+	};
+
+	ack.logError = function (err, msg, logTo) {
+		logTo = logTo || console.log;
+
+		var drray = [];
+
+		if (msg == null && err && err.stack) {
+			//?no message
+			msg = msg || err.stack.replace(/(\n|\t|\r)/g, '').split(/\s+at\s+/).shift(); //error stack as message
+		}
+
+		if (msg != null) drray.push(msg);
+		if (err != null) drray.push(err);
+
+		ack.logErrorArray(drray, logTo);
+	};
+
+	function ackExpose($var) {
+		this.$var = $var;
+		return this;
+	}
+
+	ackExpose.prototype.error = function () {
+		return ack.error(this.$var);
+	};
+	ackExpose.prototype.number = function () {
+		return ack.number(this.$var);
+	};
+	ackExpose.prototype.string = function () {
+		return ack.string(this.$var);
+	};
+	ackExpose.prototype.binary = function () {
+		return ack.binary(this.$var);
+	};
+	ackExpose.prototype.base64 = function () {
+		return ack.base64(this.$var);
+	};
+	ackExpose.prototype.object = function () {
+		return new ackObject(this.$var);
+	};
+	ackExpose.prototype.method = function () {
+		return ack.method(this.$var);
+	};
+	ackExpose.prototype['function'] = function () {
+		return ack['function'](this.$var);
+	};
+	ackExpose.prototype.array = function () {
+		return ack.array(this.$var);
+	};
+	ackExpose.prototype.queryObject = function () {
+		return ack.queryObject(this.$var);
+	};
+	ackExpose.prototype.week = function () {
+		return ack.week(this.$var);
+	};
+	ackExpose.prototype.month = function () {
+		return ack.month(this.$var);
+	};
+	ackExpose.prototype.year = function () {
+		return ack.year(this.$var);
+	};
+	ackExpose.prototype.date = function () {
+		return ack.date(this.$var);
+	};
+	ackExpose.prototype.time = function () {
+		return ack.time(this.$var);
+	};
+
+	ackExpose.prototype.getSimpleClone = function () {
+		var target = {};
+		for (var i in this.$var) {
+			target[i] = this.$var[i];
+		}
+		return target;
+	};
+
+	//get at raw variable within target variable with case insensativity
+	ackExpose.prototype.get = function (name, def) {
+		if (!name) return this.$var;
+
+		if (this.$var && this.$var[name] != null) //try exact match first
+			return this.$var[name];
+
+		//case insensative search
+		var lcase = name.toLowerCase();
+		for (var key in this.$var) {
+			if (lcase == key.toLowerCase()) return this.$var[key];
+		}
+
+		return def;
+	};
+
+	//$var[name] returned as ack Object. When null, null returned
+	ackExpose.prototype.byName = function (name) {
+		var v = this.get(name);
+		if (v != null) return ack(v);
+	};
+
+	ackExpose.prototype['throw'] = function (msg, logTo) {
+		ack.logError(this.$var, msg, logTo);
+		ack.throwBy(this.$var, msg);
+		return this;
+	};
+
+	ackExpose.prototype.dump = function () {
+		return JSON.stringify(this.$var, null, 2);
+	};
+
+	/** negative numbers will be 0  */
+	ackExpose.prototype.getBit = function () {
+		var b = this.getBoolean();
+		if (b && b.constructor == Number && b < 0) {
+			b = 0;
+		}
+		return b ? 1 : 0;
+	};
+
+	//!NON PROTOTYPED
+	ackExpose.prototype.nullsToEmptyString = function () {
+		for (var key in this.$var) {
+			if (this.$var[key] == null) {
+				this.$var[key] = '';
+			}
+		}
+		return this;
+	};
+
+	/** reduces variable to a true/false */
+	ackExpose.prototype.getBoolean = function () {
+		if (this.$var == null || !this.$var.constructor) return false;
+
+		var a = this.$var;
+
+		if (a.constructor == String) {
+			a = a.toLowerCase(); //makes TRUE:true and yes/no true
+			if (a === 'y' || a === 'yes') {
+				return true;
+			}
+			if (a === 'no' || a === 'n') {
+				return false;
+			}
+
+			try {
+				a = JSON.parse(a);
+			} catch (e) {
+				return null;
+			}
+		}
+
+		if (a != null && (a.constructor == Number || a.constructor == Boolean)) {
+			return a;
+		}
+
+		return null;
+	};
+
+	ackExpose.prototype.isBooleanLike = function () {
+		if (this.$var == null || !this.$var.constructor) return false;
+		return this.getBoolean() !== null;
+	};
+
+	module.exports = ack;
+	return module.exports;
 });
-$__System.registerDynamic('4d', [], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic('e', [], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
@@ -5380,8 +6737,7 @@ $__System.registerDynamic('4d', [], true, function ($__require, exports, module)
   };
   return module.exports;
 });
-$__System.registerDynamic('4e', [], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic('f', [], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
@@ -5447,1882 +6803,98 @@ $__System.registerDynamic('4e', [], true, function ($__require, exports, module)
   }
   return module.exports;
 });
-$__System.registerDynamic('4f', [], true, function ($__require, exports, module) {
+$__System.registerDynamic("10", [], true, function ($__require, exports, module) {
+	"use strict";
+
 	var define,
 	    global = this || self,
 	    GLOBAL = global;
-	/* */
-	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	var ExString = function ExString(string) {
+		this.string = string;
+		return this;
+	};
 
-	;(function (exports) {
-		'use strict';
+	ExString._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-		var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+	/** test string against email regX */
+	ExString.prototype.isEmail = function () {
+		return this.string.search(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) >= 0;
+	};
 
-		var PLUS = '+'.charCodeAt(0);
-		var SLASH = '/'.charCodeAt(0);
-		var NUMBER = '0'.charCodeAt(0);
-		var LOWER = 'a'.charCodeAt(0);
-		var UPPER = 'A'.charCodeAt(0);
-		var PLUS_URL_SAFE = '-'.charCodeAt(0);
-		var SLASH_URL_SAFE = '_'.charCodeAt(0);
+	//Node.js doesnt have .repeat as of 2/11/15
+	ExString.prototype.repeat = function (num) {
+		var x,
+		    s = '';
+		for (x = 0; x < num; ++x) s = s + this.string;
+		return s;
+	};
 
-		function decode(elt) {
-			var code = elt.charCodeAt(0);
-			if (code === PLUS || code === PLUS_URL_SAFE) return 62; // '+'
-			if (code === SLASH || code === SLASH_URL_SAFE) return 63; // '/'
-			if (code < NUMBER) return -1; //no match
-			if (code < NUMBER + 10) return code - NUMBER + 26 + 26;
-			if (code < UPPER + 26) return code - UPPER;
-			if (code < LOWER + 26) return code - LOWER + 26;
+	//escapes html brackets
+	ExString.prototype.htmlFormat = function () {
+		var v = this.string;
+		v = v.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		return v;
+	};
+
+	/** string becomes really long */
+	ExString.prototype.toBase64 = function () {
+		var e = this._utf8_encode();
+		var t = "";var n, r, i, s, o, u, a;var f = 0;
+		while (f < e.length) {
+			n = e.charCodeAt(f++);r = e.charCodeAt(f++);
+			i = e.charCodeAt(f++);s = n >> 2;o = (n & 3) << 4 | r >> 4;u = (r & 15) << 2 | i >> 6;a = i & 63;
+			if (isNaN(r)) {
+				u = a = 64;
+			} else if (isNaN(i)) {
+				a = 64;
+			}
+			t = t + ExString._keyStr.charAt(s) + ExString._keyStr.charAt(o) + ExString._keyStr.charAt(u) + ExString._keyStr.charAt(a);
 		}
+		return t;
+	};
 
-		function b64ToByteArray(b64) {
-			var i, j, l, tmp, placeHolders, arr;
-
-			if (b64.length % 4 > 0) {
-				throw new Error('Invalid string. Length must be a multiple of 4');
+	//convert string to something more safely portable
+	ExString.prototype._utf8_encode = function () {
+		var e = this.string.replace ? this.string : this.string.toString();
+		e = e.replace(/\r\n/g, "\n");var t = "";
+		for (var n = 0; n < e.length; n++) {
+			var r = e.charCodeAt(n);
+			if (r < 128) {
+				t += String.fromCharCode(r);
+			} else if (r > 127 && r < 2048) {
+				t += String.fromCharCode(r >> 6 | 192);t += String.fromCharCode(r & 63 | 128);
+			} else {
+				t += String.fromCharCode(r >> 12 | 224);t += String.fromCharCode(r >> 6 & 63 | 128);t += String.fromCharCode(r & 63 | 128);
 			}
-
-			// the number of equal signs (place holders)
-			// if there are two placeholders, than the two characters before it
-			// represent one byte
-			// if there is only one, then the three characters before it represent 2 bytes
-			// this is just a cheap hack to not do indexOf twice
-			var len = b64.length;
-			placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0;
-
-			// base64 is 4/3 + up to two characters of the original data
-			arr = new Arr(b64.length * 3 / 4 - placeHolders);
-
-			// if there are placeholders, only get up to the last complete 4 chars
-			l = placeHolders > 0 ? b64.length - 4 : b64.length;
-
-			var L = 0;
-
-			function push(v) {
-				arr[L++] = v;
-			}
-
-			for (i = 0, j = 0; i < l; i += 4, j += 3) {
-				tmp = decode(b64.charAt(i)) << 18 | decode(b64.charAt(i + 1)) << 12 | decode(b64.charAt(i + 2)) << 6 | decode(b64.charAt(i + 3));
-				push((tmp & 0xFF0000) >> 16);
-				push((tmp & 0xFF00) >> 8);
-				push(tmp & 0xFF);
-			}
-
-			if (placeHolders === 2) {
-				tmp = decode(b64.charAt(i)) << 2 | decode(b64.charAt(i + 1)) >> 4;
-				push(tmp & 0xFF);
-			} else if (placeHolders === 1) {
-				tmp = decode(b64.charAt(i)) << 10 | decode(b64.charAt(i + 1)) << 4 | decode(b64.charAt(i + 2)) >> 2;
-				push(tmp >> 8 & 0xFF);
-				push(tmp & 0xFF);
-			}
-
-			return arr;
 		}
+		return t;
+	};
+	/*
+ ExString.prototype.isBinary = function(){
+ 	return /^[01]+$/.test(this.string)
+ }
+ */
+	//NODE ONLY
+	if (typeof Buffer != 'undefined') {
+		ExString.prototype.toHex = function (encType) {
+			encType = encType || 'hex';
+			return new Buffer(this.string, encType).toString('hex');
+		};
 
-		function uint8ToBase64(uint8) {
-			var i,
-			    extraBytes = uint8.length % 3,
-			    // if we have 1 byte left, pad 2 bytes
-			output = "",
-			    temp,
-			    length;
+		ExString.prototype.toBinary = function (encType) {
+			encType = encType || 'binary';
+			return new Buffer(this.string, encType);
+		};
+	}
 
-			function encode(num) {
-				return lookup.charAt(num);
-			}
-
-			function tripletToBase64(num) {
-				return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F);
-			}
-
-			// go through the array every three bytes, we'll deal with trailing stuff later
-			for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
-				temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + uint8[i + 2];
-				output += tripletToBase64(temp);
-			}
-
-			// pad the end with zeros, but make sure to not forget the extra bytes
-			switch (extraBytes) {
-				case 1:
-					temp = uint8[uint8.length - 1];
-					output += encode(temp >> 2);
-					output += encode(temp << 4 & 0x3F);
-					output += '==';
-					break;
-				case 2:
-					temp = (uint8[uint8.length - 2] << 8) + uint8[uint8.length - 1];
-					output += encode(temp >> 10);
-					output += encode(temp >> 4 & 0x3F);
-					output += encode(temp << 2 & 0x3F);
-					output += '=';
-					break;
-			}
-
-			return output;
-		}
-
-		exports.toByteArray = b64ToByteArray;
-		exports.fromByteArray = uint8ToBase64;
-	})(typeof exports === 'undefined' ? this.base64js = {} : exports);
+	var rtn = function (path) {
+		return new ExString(path);
+	};
+	rtn.Class = ExString;
+	module.exports = rtn;
 	return module.exports;
 });
-$__System.registerDynamic("50", ["4f"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("4f");
-  return module.exports;
-});
-$__System.registerDynamic("51", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-    var e, m;
-    var eLen = nBytes * 8 - mLen - 1;
-    var eMax = (1 << eLen) - 1;
-    var eBias = eMax >> 1;
-    var nBits = -7;
-    var i = isLE ? nBytes - 1 : 0;
-    var d = isLE ? -1 : 1;
-    var s = buffer[offset + i];
-
-    i += d;
-
-    e = s & (1 << -nBits) - 1;
-    s >>= -nBits;
-    nBits += eLen;
-    for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-    m = e & (1 << -nBits) - 1;
-    e >>= -nBits;
-    nBits += mLen;
-    for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-    if (e === 0) {
-      e = 1 - eBias;
-    } else if (e === eMax) {
-      return m ? NaN : (s ? -1 : 1) * Infinity;
-    } else {
-      m = m + Math.pow(2, mLen);
-      e = e - eBias;
-    }
-    return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
-  };
-
-  exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-    var e, m, c;
-    var eLen = nBytes * 8 - mLen - 1;
-    var eMax = (1 << eLen) - 1;
-    var eBias = eMax >> 1;
-    var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-    var i = isLE ? 0 : nBytes - 1;
-    var d = isLE ? 1 : -1;
-    var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
-
-    value = Math.abs(value);
-
-    if (isNaN(value) || value === Infinity) {
-      m = isNaN(value) ? 1 : 0;
-      e = eMax;
-    } else {
-      e = Math.floor(Math.log(value) / Math.LN2);
-      if (value * (c = Math.pow(2, -e)) < 1) {
-        e--;
-        c *= 2;
-      }
-      if (e + eBias >= 1) {
-        value += rt / c;
-      } else {
-        value += rt * Math.pow(2, 1 - eBias);
-      }
-      if (value * c >= 2) {
-        e++;
-        c /= 2;
-      }
-
-      if (e + eBias >= eMax) {
-        m = 0;
-        e = eMax;
-      } else if (e + eBias >= 1) {
-        m = (value * c - 1) * Math.pow(2, mLen);
-        e = e + eBias;
-      } else {
-        m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-        e = 0;
-      }
-    }
-
-    for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-    e = e << mLen | m;
-    eLen += mLen;
-    for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-    buffer[offset + i - d] |= s * 128;
-  };
-  return module.exports;
-});
-$__System.registerDynamic("52", ["51"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("51");
-  return module.exports;
-});
-$__System.registerDynamic('53', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var toString = {}.toString;
-
-  module.exports = Array.isArray || function (arr) {
-    return toString.call(arr) == '[object Array]';
-  };
-  return module.exports;
-});
-$__System.registerDynamic("54", ["53"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("53");
-  return module.exports;
-});
-$__System.registerDynamic('55', ['50', '52', '54'], true, function ($__require, exports, module) {
-  /*!
-   * The buffer module from node.js, for the browser.
-   *
-   * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
-   * @license  MIT
-   */
-  /* eslint-disable no-proto */
-
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var base64 = $__require('50');
-  var ieee754 = $__require('52');
-  var isArray = $__require('54');
-
-  exports.Buffer = Buffer;
-  exports.SlowBuffer = SlowBuffer;
-  exports.INSPECT_MAX_BYTES = 50;
-  Buffer.poolSize = 8192; // not used by this implementation
-
-  var rootParent = {};
-
-  /**
-   * If `Buffer.TYPED_ARRAY_SUPPORT`:
-   *   === true    Use Uint8Array implementation (fastest)
-   *   === false   Use Object implementation (most compatible, even IE6)
-   *
-   * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
-   * Opera 11.6+, iOS 4.2+.
-   *
-   * Due to various browser bugs, sometimes the Object implementation will be used even
-   * when the browser supports typed arrays.
-   *
-   * Note:
-   *
-   *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
-   *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
-   *
-   *   - Safari 5-7 lacks support for changing the `Object.prototype.constructor` property
-   *     on objects.
-   *
-   *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
-   *
-   *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
-   *     incorrect length in some situations.
-  
-   * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
-   * get the Object implementation, which is slower but behaves correctly.
-   */
-  Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined ? global.TYPED_ARRAY_SUPPORT : typedArraySupport();
-
-  function typedArraySupport() {
-    function Bar() {}
-    try {
-      var arr = new Uint8Array(1);
-      arr.foo = function () {
-        return 42;
-      };
-      arr.constructor = Bar;
-      return arr.foo() === 42 && // typed array instances can be augmented
-      arr.constructor === Bar && // constructor can be set
-      typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
-      arr.subarray(1, 1).byteLength === 0; // ie10 has broken `subarray`
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function kMaxLength() {
-    return Buffer.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
-  }
-
-  /**
-   * Class: Buffer
-   * =============
-   *
-   * The Buffer constructor returns instances of `Uint8Array` that are augmented
-   * with function properties for all the node `Buffer` API functions. We use
-   * `Uint8Array` so that square bracket notation works as expected -- it returns
-   * a single octet.
-   *
-   * By augmenting the instances, we can avoid modifying the `Uint8Array`
-   * prototype.
-   */
-  function Buffer(arg) {
-    if (!(this instanceof Buffer)) {
-      // Avoid going through an ArgumentsAdaptorTrampoline in the common case.
-      if (arguments.length > 1) return new Buffer(arg, arguments[1]);
-      return new Buffer(arg);
-    }
-
-    if (!Buffer.TYPED_ARRAY_SUPPORT) {
-      this.length = 0;
-      this.parent = undefined;
-    }
-
-    // Common case.
-    if (typeof arg === 'number') {
-      return fromNumber(this, arg);
-    }
-
-    // Slightly less common case.
-    if (typeof arg === 'string') {
-      return fromString(this, arg, arguments.length > 1 ? arguments[1] : 'utf8');
-    }
-
-    // Unusual.
-    return fromObject(this, arg);
-  }
-
-  function fromNumber(that, length) {
-    that = allocate(that, length < 0 ? 0 : checked(length) | 0);
-    if (!Buffer.TYPED_ARRAY_SUPPORT) {
-      for (var i = 0; i < length; i++) {
-        that[i] = 0;
-      }
-    }
-    return that;
-  }
-
-  function fromString(that, string, encoding) {
-    if (typeof encoding !== 'string' || encoding === '') encoding = 'utf8';
-
-    // Assumption: byteLength() return value is always < kMaxLength.
-    var length = byteLength(string, encoding) | 0;
-    that = allocate(that, length);
-
-    that.write(string, encoding);
-    return that;
-  }
-
-  function fromObject(that, object) {
-    if (Buffer.isBuffer(object)) return fromBuffer(that, object);
-
-    if (isArray(object)) return fromArray(that, object);
-
-    if (object == null) {
-      throw new TypeError('must start with number, buffer, array or string');
-    }
-
-    if (typeof ArrayBuffer !== 'undefined') {
-      if (object.buffer instanceof ArrayBuffer) {
-        return fromTypedArray(that, object);
-      }
-      if (object instanceof ArrayBuffer) {
-        return fromArrayBuffer(that, object);
-      }
-    }
-
-    if (object.length) return fromArrayLike(that, object);
-
-    return fromJsonObject(that, object);
-  }
-
-  function fromBuffer(that, buffer) {
-    var length = checked(buffer.length) | 0;
-    that = allocate(that, length);
-    buffer.copy(that, 0, 0, length);
-    return that;
-  }
-
-  function fromArray(that, array) {
-    var length = checked(array.length) | 0;
-    that = allocate(that, length);
-    for (var i = 0; i < length; i += 1) {
-      that[i] = array[i] & 255;
-    }
-    return that;
-  }
-
-  // Duplicate of fromArray() to keep fromArray() monomorphic.
-  function fromTypedArray(that, array) {
-    var length = checked(array.length) | 0;
-    that = allocate(that, length);
-    // Truncating the elements is probably not what people expect from typed
-    // arrays with BYTES_PER_ELEMENT > 1 but it's compatible with the behavior
-    // of the old Buffer constructor.
-    for (var i = 0; i < length; i += 1) {
-      that[i] = array[i] & 255;
-    }
-    return that;
-  }
-
-  function fromArrayBuffer(that, array) {
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      // Return an augmented `Uint8Array` instance, for best performance
-      array.byteLength;
-      that = Buffer._augment(new Uint8Array(array));
-    } else {
-      // Fallback: Return an object instance of the Buffer class
-      that = fromTypedArray(that, new Uint8Array(array));
-    }
-    return that;
-  }
-
-  function fromArrayLike(that, array) {
-    var length = checked(array.length) | 0;
-    that = allocate(that, length);
-    for (var i = 0; i < length; i += 1) {
-      that[i] = array[i] & 255;
-    }
-    return that;
-  }
-
-  // Deserialize { type: 'Buffer', data: [1,2,3,...] } into a Buffer object.
-  // Returns a zero-length buffer for inputs that don't conform to the spec.
-  function fromJsonObject(that, object) {
-    var array;
-    var length = 0;
-
-    if (object.type === 'Buffer' && isArray(object.data)) {
-      array = object.data;
-      length = checked(array.length) | 0;
-    }
-    that = allocate(that, length);
-
-    for (var i = 0; i < length; i += 1) {
-      that[i] = array[i] & 255;
-    }
-    return that;
-  }
-
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    Buffer.prototype.__proto__ = Uint8Array.prototype;
-    Buffer.__proto__ = Uint8Array;
-  } else {
-    // pre-set for values that may exist in the future
-    Buffer.prototype.length = undefined;
-    Buffer.prototype.parent = undefined;
-  }
-
-  function allocate(that, length) {
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      // Return an augmented `Uint8Array` instance, for best performance
-      that = Buffer._augment(new Uint8Array(length));
-      that.__proto__ = Buffer.prototype;
-    } else {
-      // Fallback: Return an object instance of the Buffer class
-      that.length = length;
-      that._isBuffer = true;
-    }
-
-    var fromPool = length !== 0 && length <= Buffer.poolSize >>> 1;
-    if (fromPool) that.parent = rootParent;
-
-    return that;
-  }
-
-  function checked(length) {
-    // Note: cannot use `length < kMaxLength` here because that fails when
-    // length is NaN (which is otherwise coerced to zero.)
-    if (length >= kMaxLength()) {
-      throw new RangeError('Attempt to allocate Buffer larger than maximum ' + 'size: 0x' + kMaxLength().toString(16) + ' bytes');
-    }
-    return length | 0;
-  }
-
-  function SlowBuffer(subject, encoding) {
-    if (!(this instanceof SlowBuffer)) return new SlowBuffer(subject, encoding);
-
-    var buf = new Buffer(subject, encoding);
-    delete buf.parent;
-    return buf;
-  }
-
-  Buffer.isBuffer = function isBuffer(b) {
-    return !!(b != null && b._isBuffer);
-  };
-
-  Buffer.compare = function compare(a, b) {
-    if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
-      throw new TypeError('Arguments must be Buffers');
-    }
-
-    if (a === b) return 0;
-
-    var x = a.length;
-    var y = b.length;
-
-    var i = 0;
-    var len = Math.min(x, y);
-    while (i < len) {
-      if (a[i] !== b[i]) break;
-
-      ++i;
-    }
-
-    if (i !== len) {
-      x = a[i];
-      y = b[i];
-    }
-
-    if (x < y) return -1;
-    if (y < x) return 1;
-    return 0;
-  };
-
-  Buffer.isEncoding = function isEncoding(encoding) {
-    switch (String(encoding).toLowerCase()) {
-      case 'hex':
-      case 'utf8':
-      case 'utf-8':
-      case 'ascii':
-      case 'binary':
-      case 'base64':
-      case 'raw':
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return true;
-      default:
-        return false;
-    }
-  };
-
-  Buffer.concat = function concat(list, length) {
-    if (!isArray(list)) throw new TypeError('list argument must be an Array of Buffers.');
-
-    if (list.length === 0) {
-      return new Buffer(0);
-    }
-
-    var i;
-    if (length === undefined) {
-      length = 0;
-      for (i = 0; i < list.length; i++) {
-        length += list[i].length;
-      }
-    }
-
-    var buf = new Buffer(length);
-    var pos = 0;
-    for (i = 0; i < list.length; i++) {
-      var item = list[i];
-      item.copy(buf, pos);
-      pos += item.length;
-    }
-    return buf;
-  };
-
-  function byteLength(string, encoding) {
-    if (typeof string !== 'string') string = '' + string;
-
-    var len = string.length;
-    if (len === 0) return 0;
-
-    // Use a for loop to avoid recursion
-    var loweredCase = false;
-    for (;;) {
-      switch (encoding) {
-        case 'ascii':
-        case 'binary':
-        // Deprecated
-        case 'raw':
-        case 'raws':
-          return len;
-        case 'utf8':
-        case 'utf-8':
-          return utf8ToBytes(string).length;
-        case 'ucs2':
-        case 'ucs-2':
-        case 'utf16le':
-        case 'utf-16le':
-          return len * 2;
-        case 'hex':
-          return len >>> 1;
-        case 'base64':
-          return base64ToBytes(string).length;
-        default:
-          if (loweredCase) return utf8ToBytes(string).length; // assume utf8
-          encoding = ('' + encoding).toLowerCase();
-          loweredCase = true;
-      }
-    }
-  }
-  Buffer.byteLength = byteLength;
-
-  function slowToString(encoding, start, end) {
-    var loweredCase = false;
-
-    start = start | 0;
-    end = end === undefined || end === Infinity ? this.length : end | 0;
-
-    if (!encoding) encoding = 'utf8';
-    if (start < 0) start = 0;
-    if (end > this.length) end = this.length;
-    if (end <= start) return '';
-
-    while (true) {
-      switch (encoding) {
-        case 'hex':
-          return hexSlice(this, start, end);
-
-        case 'utf8':
-        case 'utf-8':
-          return utf8Slice(this, start, end);
-
-        case 'ascii':
-          return asciiSlice(this, start, end);
-
-        case 'binary':
-          return binarySlice(this, start, end);
-
-        case 'base64':
-          return base64Slice(this, start, end);
-
-        case 'ucs2':
-        case 'ucs-2':
-        case 'utf16le':
-        case 'utf-16le':
-          return utf16leSlice(this, start, end);
-
-        default:
-          if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
-          encoding = (encoding + '').toLowerCase();
-          loweredCase = true;
-      }
-    }
-  }
-
-  Buffer.prototype.toString = function toString() {
-    var length = this.length | 0;
-    if (length === 0) return '';
-    if (arguments.length === 0) return utf8Slice(this, 0, length);
-    return slowToString.apply(this, arguments);
-  };
-
-  Buffer.prototype.equals = function equals(b) {
-    if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer');
-    if (this === b) return true;
-    return Buffer.compare(this, b) === 0;
-  };
-
-  Buffer.prototype.inspect = function inspect() {
-    var str = '';
-    var max = exports.INSPECT_MAX_BYTES;
-    if (this.length > 0) {
-      str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
-      if (this.length > max) str += ' ... ';
-    }
-    return '<Buffer ' + str + '>';
-  };
-
-  Buffer.prototype.compare = function compare(b) {
-    if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer');
-    if (this === b) return 0;
-    return Buffer.compare(this, b);
-  };
-
-  Buffer.prototype.indexOf = function indexOf(val, byteOffset) {
-    if (byteOffset > 0x7fffffff) byteOffset = 0x7fffffff;else if (byteOffset < -0x80000000) byteOffset = -0x80000000;
-    byteOffset >>= 0;
-
-    if (this.length === 0) return -1;
-    if (byteOffset >= this.length) return -1;
-
-    // Negative offsets start from the end of the buffer
-    if (byteOffset < 0) byteOffset = Math.max(this.length + byteOffset, 0);
-
-    if (typeof val === 'string') {
-      if (val.length === 0) return -1; // special case: looking for empty string always fails
-      return String.prototype.indexOf.call(this, val, byteOffset);
-    }
-    if (Buffer.isBuffer(val)) {
-      return arrayIndexOf(this, val, byteOffset);
-    }
-    if (typeof val === 'number') {
-      if (Buffer.TYPED_ARRAY_SUPPORT && Uint8Array.prototype.indexOf === 'function') {
-        return Uint8Array.prototype.indexOf.call(this, val, byteOffset);
-      }
-      return arrayIndexOf(this, [val], byteOffset);
-    }
-
-    function arrayIndexOf(arr, val, byteOffset) {
-      var foundIndex = -1;
-      for (var i = 0; byteOffset + i < arr.length; i++) {
-        if (arr[byteOffset + i] === val[foundIndex === -1 ? 0 : i - foundIndex]) {
-          if (foundIndex === -1) foundIndex = i;
-          if (i - foundIndex + 1 === val.length) return byteOffset + foundIndex;
-        } else {
-          foundIndex = -1;
-        }
-      }
-      return -1;
-    }
-
-    throw new TypeError('val must be string, number or Buffer');
-  };
-
-  // `get` is deprecated
-  Buffer.prototype.get = function get(offset) {
-    console.log('.get() is deprecated. Access using array indexes instead.');
-    return this.readUInt8(offset);
-  };
-
-  // `set` is deprecated
-  Buffer.prototype.set = function set(v, offset) {
-    console.log('.set() is deprecated. Access using array indexes instead.');
-    return this.writeUInt8(v, offset);
-  };
-
-  function hexWrite(buf, string, offset, length) {
-    offset = Number(offset) || 0;
-    var remaining = buf.length - offset;
-    if (!length) {
-      length = remaining;
-    } else {
-      length = Number(length);
-      if (length > remaining) {
-        length = remaining;
-      }
-    }
-
-    // must be an even number of digits
-    var strLen = string.length;
-    if (strLen % 2 !== 0) throw new Error('Invalid hex string');
-
-    if (length > strLen / 2) {
-      length = strLen / 2;
-    }
-    for (var i = 0; i < length; i++) {
-      var parsed = parseInt(string.substr(i * 2, 2), 16);
-      if (isNaN(parsed)) throw new Error('Invalid hex string');
-      buf[offset + i] = parsed;
-    }
-    return i;
-  }
-
-  function utf8Write(buf, string, offset, length) {
-    return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length);
-  }
-
-  function asciiWrite(buf, string, offset, length) {
-    return blitBuffer(asciiToBytes(string), buf, offset, length);
-  }
-
-  function binaryWrite(buf, string, offset, length) {
-    return asciiWrite(buf, string, offset, length);
-  }
-
-  function base64Write(buf, string, offset, length) {
-    return blitBuffer(base64ToBytes(string), buf, offset, length);
-  }
-
-  function ucs2Write(buf, string, offset, length) {
-    return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
-  }
-
-  Buffer.prototype.write = function write(string, offset, length, encoding) {
-    // Buffer#write(string)
-    if (offset === undefined) {
-      encoding = 'utf8';
-      length = this.length;
-      offset = 0;
-      // Buffer#write(string, encoding)
-    } else if (length === undefined && typeof offset === 'string') {
-      encoding = offset;
-      length = this.length;
-      offset = 0;
-      // Buffer#write(string, offset[, length][, encoding])
-    } else if (isFinite(offset)) {
-      offset = offset | 0;
-      if (isFinite(length)) {
-        length = length | 0;
-        if (encoding === undefined) encoding = 'utf8';
-      } else {
-        encoding = length;
-        length = undefined;
-      }
-      // legacy write(string, encoding, offset, length) - remove in v0.13
-    } else {
-      var swap = encoding;
-      encoding = offset;
-      offset = length | 0;
-      length = swap;
-    }
-
-    var remaining = this.length - offset;
-    if (length === undefined || length > remaining) length = remaining;
-
-    if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length) {
-      throw new RangeError('attempt to write outside buffer bounds');
-    }
-
-    if (!encoding) encoding = 'utf8';
-
-    var loweredCase = false;
-    for (;;) {
-      switch (encoding) {
-        case 'hex':
-          return hexWrite(this, string, offset, length);
-
-        case 'utf8':
-        case 'utf-8':
-          return utf8Write(this, string, offset, length);
-
-        case 'ascii':
-          return asciiWrite(this, string, offset, length);
-
-        case 'binary':
-          return binaryWrite(this, string, offset, length);
-
-        case 'base64':
-          // Warning: maxLength not taken into account in base64Write
-          return base64Write(this, string, offset, length);
-
-        case 'ucs2':
-        case 'ucs-2':
-        case 'utf16le':
-        case 'utf-16le':
-          return ucs2Write(this, string, offset, length);
-
-        default:
-          if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
-          encoding = ('' + encoding).toLowerCase();
-          loweredCase = true;
-      }
-    }
-  };
-
-  Buffer.prototype.toJSON = function toJSON() {
-    return {
-      type: 'Buffer',
-      data: Array.prototype.slice.call(this._arr || this, 0)
-    };
-  };
-
-  function base64Slice(buf, start, end) {
-    if (start === 0 && end === buf.length) {
-      return base64.fromByteArray(buf);
-    } else {
-      return base64.fromByteArray(buf.slice(start, end));
-    }
-  }
-
-  function utf8Slice(buf, start, end) {
-    end = Math.min(buf.length, end);
-    var res = [];
-
-    var i = start;
-    while (i < end) {
-      var firstByte = buf[i];
-      var codePoint = null;
-      var bytesPerSequence = firstByte > 0xEF ? 4 : firstByte > 0xDF ? 3 : firstByte > 0xBF ? 2 : 1;
-
-      if (i + bytesPerSequence <= end) {
-        var secondByte, thirdByte, fourthByte, tempCodePoint;
-
-        switch (bytesPerSequence) {
-          case 1:
-            if (firstByte < 0x80) {
-              codePoint = firstByte;
-            }
-            break;
-          case 2:
-            secondByte = buf[i + 1];
-            if ((secondByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0x1F) << 0x6 | secondByte & 0x3F;
-              if (tempCodePoint > 0x7F) {
-                codePoint = tempCodePoint;
-              }
-            }
-            break;
-          case 3:
-            secondByte = buf[i + 1];
-            thirdByte = buf[i + 2];
-            if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | thirdByte & 0x3F;
-              if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
-                codePoint = tempCodePoint;
-              }
-            }
-            break;
-          case 4:
-            secondByte = buf[i + 1];
-            thirdByte = buf[i + 2];
-            fourthByte = buf[i + 3];
-            if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-              tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | fourthByte & 0x3F;
-              if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
-                codePoint = tempCodePoint;
-              }
-            }
-        }
-      }
-
-      if (codePoint === null) {
-        // we did not generate a valid codePoint so insert a
-        // replacement char (U+FFFD) and advance only 1 byte
-        codePoint = 0xFFFD;
-        bytesPerSequence = 1;
-      } else if (codePoint > 0xFFFF) {
-        // encode to utf16 (surrogate pair dance)
-        codePoint -= 0x10000;
-        res.push(codePoint >>> 10 & 0x3FF | 0xD800);
-        codePoint = 0xDC00 | codePoint & 0x3FF;
-      }
-
-      res.push(codePoint);
-      i += bytesPerSequence;
-    }
-
-    return decodeCodePointsArray(res);
-  }
-
-  // Based on http://stackoverflow.com/a/22747272/680742, the browser with
-  // the lowest limit is Chrome, with 0x10000 args.
-  // We go 1 magnitude less, for safety
-  var MAX_ARGUMENTS_LENGTH = 0x1000;
-
-  function decodeCodePointsArray(codePoints) {
-    var len = codePoints.length;
-    if (len <= MAX_ARGUMENTS_LENGTH) {
-      return String.fromCharCode.apply(String, codePoints); // avoid extra slice()
-    }
-
-    // Decode in chunks to avoid "call stack size exceeded".
-    var res = '';
-    var i = 0;
-    while (i < len) {
-      res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
-    }
-    return res;
-  }
-
-  function asciiSlice(buf, start, end) {
-    var ret = '';
-    end = Math.min(buf.length, end);
-
-    for (var i = start; i < end; i++) {
-      ret += String.fromCharCode(buf[i] & 0x7F);
-    }
-    return ret;
-  }
-
-  function binarySlice(buf, start, end) {
-    var ret = '';
-    end = Math.min(buf.length, end);
-
-    for (var i = start; i < end; i++) {
-      ret += String.fromCharCode(buf[i]);
-    }
-    return ret;
-  }
-
-  function hexSlice(buf, start, end) {
-    var len = buf.length;
-
-    if (!start || start < 0) start = 0;
-    if (!end || end < 0 || end > len) end = len;
-
-    var out = '';
-    for (var i = start; i < end; i++) {
-      out += toHex(buf[i]);
-    }
-    return out;
-  }
-
-  function utf16leSlice(buf, start, end) {
-    var bytes = buf.slice(start, end);
-    var res = '';
-    for (var i = 0; i < bytes.length; i += 2) {
-      res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
-    }
-    return res;
-  }
-
-  Buffer.prototype.slice = function slice(start, end) {
-    var len = this.length;
-    start = ~~start;
-    end = end === undefined ? len : ~~end;
-
-    if (start < 0) {
-      start += len;
-      if (start < 0) start = 0;
-    } else if (start > len) {
-      start = len;
-    }
-
-    if (end < 0) {
-      end += len;
-      if (end < 0) end = 0;
-    } else if (end > len) {
-      end = len;
-    }
-
-    if (end < start) end = start;
-
-    var newBuf;
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      newBuf = Buffer._augment(this.subarray(start, end));
-    } else {
-      var sliceLen = end - start;
-      newBuf = new Buffer(sliceLen, undefined);
-      for (var i = 0; i < sliceLen; i++) {
-        newBuf[i] = this[i + start];
-      }
-    }
-
-    if (newBuf.length) newBuf.parent = this.parent || this;
-
-    return newBuf;
-  };
-
-  /*
-   * Need to make sure that buffer isn't trying to write out of bounds.
-   */
-  function checkOffset(offset, ext, length) {
-    if (offset % 1 !== 0 || offset < 0) throw new RangeError('offset is not uint');
-    if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length');
-  }
-
-  Buffer.prototype.readUIntLE = function readUIntLE(offset, byteLength, noAssert) {
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-    var val = this[offset];
-    var mul = 1;
-    var i = 0;
-    while (++i < byteLength && (mul *= 0x100)) {
-      val += this[offset + i] * mul;
-    }
-
-    return val;
-  };
-
-  Buffer.prototype.readUIntBE = function readUIntBE(offset, byteLength, noAssert) {
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) {
-      checkOffset(offset, byteLength, this.length);
-    }
-
-    var val = this[offset + --byteLength];
-    var mul = 1;
-    while (byteLength > 0 && (mul *= 0x100)) {
-      val += this[offset + --byteLength] * mul;
-    }
-
-    return val;
-  };
-
-  Buffer.prototype.readUInt8 = function readUInt8(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 1, this.length);
-    return this[offset];
-  };
-
-  Buffer.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 2, this.length);
-    return this[offset] | this[offset + 1] << 8;
-  };
-
-  Buffer.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 2, this.length);
-    return this[offset] << 8 | this[offset + 1];
-  };
-
-  Buffer.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-
-    return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 0x1000000;
-  };
-
-  Buffer.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-
-    return this[offset] * 0x1000000 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
-  };
-
-  Buffer.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-    var val = this[offset];
-    var mul = 1;
-    var i = 0;
-    while (++i < byteLength && (mul *= 0x100)) {
-      val += this[offset + i] * mul;
-    }
-    mul *= 0x80;
-
-    if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-    return val;
-  };
-
-  Buffer.prototype.readIntBE = function readIntBE(offset, byteLength, noAssert) {
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-    var i = byteLength;
-    var mul = 1;
-    var val = this[offset + --i];
-    while (i > 0 && (mul *= 0x100)) {
-      val += this[offset + --i] * mul;
-    }
-    mul *= 0x80;
-
-    if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-    return val;
-  };
-
-  Buffer.prototype.readInt8 = function readInt8(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 1, this.length);
-    if (!(this[offset] & 0x80)) return this[offset];
-    return (0xff - this[offset] + 1) * -1;
-  };
-
-  Buffer.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 2, this.length);
-    var val = this[offset] | this[offset + 1] << 8;
-    return val & 0x8000 ? val | 0xFFFF0000 : val;
-  };
-
-  Buffer.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 2, this.length);
-    var val = this[offset + 1] | this[offset] << 8;
-    return val & 0x8000 ? val | 0xFFFF0000 : val;
-  };
-
-  Buffer.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-
-    return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
-  };
-
-  Buffer.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-
-    return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
-  };
-
-  Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-    return ieee754.read(this, offset, true, 23, 4);
-  };
-
-  Buffer.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 4, this.length);
-    return ieee754.read(this, offset, false, 23, 4);
-  };
-
-  Buffer.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 8, this.length);
-    return ieee754.read(this, offset, true, 52, 8);
-  };
-
-  Buffer.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
-    if (!noAssert) checkOffset(offset, 8, this.length);
-    return ieee754.read(this, offset, false, 52, 8);
-  };
-
-  function checkInt(buf, value, offset, ext, max, min) {
-    if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance');
-    if (value > max || value < min) throw new RangeError('value is out of bounds');
-    if (offset + ext > buf.length) throw new RangeError('index out of range');
-  }
-
-  Buffer.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
-
-    var mul = 1;
-    var i = 0;
-    this[offset] = value & 0xFF;
-    while (++i < byteLength && (mul *= 0x100)) {
-      this[offset + i] = value / mul & 0xFF;
-    }
-
-    return offset + byteLength;
-  };
-
-  Buffer.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    byteLength = byteLength | 0;
-    if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0);
-
-    var i = byteLength - 1;
-    var mul = 1;
-    this[offset + i] = value & 0xFF;
-    while (--i >= 0 && (mul *= 0x100)) {
-      this[offset + i] = value / mul & 0xFF;
-    }
-
-    return offset + byteLength;
-  };
-
-  Buffer.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
-    if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-    this[offset] = value & 0xff;
-    return offset + 1;
-  };
-
-  function objectWriteUInt16(buf, value, offset, littleEndian) {
-    if (value < 0) value = 0xffff + value + 1;
-    for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
-      buf[offset + i] = (value & 0xff << 8 * (littleEndian ? i : 1 - i)) >>> (littleEndian ? i : 1 - i) * 8;
-    }
-  }
-
-  Buffer.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value & 0xff;
-      this[offset + 1] = value >>> 8;
-    } else {
-      objectWriteUInt16(this, value, offset, true);
-    }
-    return offset + 2;
-  };
-
-  Buffer.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value >>> 8;
-      this[offset + 1] = value & 0xff;
-    } else {
-      objectWriteUInt16(this, value, offset, false);
-    }
-    return offset + 2;
-  };
-
-  function objectWriteUInt32(buf, value, offset, littleEndian) {
-    if (value < 0) value = 0xffffffff + value + 1;
-    for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; i++) {
-      buf[offset + i] = value >>> (littleEndian ? i : 3 - i) * 8 & 0xff;
-    }
-  }
-
-  Buffer.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset + 3] = value >>> 24;
-      this[offset + 2] = value >>> 16;
-      this[offset + 1] = value >>> 8;
-      this[offset] = value & 0xff;
-    } else {
-      objectWriteUInt32(this, value, offset, true);
-    }
-    return offset + 4;
-  };
-
-  Buffer.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value >>> 24;
-      this[offset + 1] = value >>> 16;
-      this[offset + 2] = value >>> 8;
-      this[offset + 3] = value & 0xff;
-    } else {
-      objectWriteUInt32(this, value, offset, false);
-    }
-    return offset + 4;
-  };
-
-  Buffer.prototype.writeIntLE = function writeIntLE(value, offset, byteLength, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) {
-      var limit = Math.pow(2, 8 * byteLength - 1);
-
-      checkInt(this, value, offset, byteLength, limit - 1, -limit);
-    }
-
-    var i = 0;
-    var mul = 1;
-    var sub = value < 0 ? 1 : 0;
-    this[offset] = value & 0xFF;
-    while (++i < byteLength && (mul *= 0x100)) {
-      this[offset + i] = (value / mul >> 0) - sub & 0xFF;
-    }
-
-    return offset + byteLength;
-  };
-
-  Buffer.prototype.writeIntBE = function writeIntBE(value, offset, byteLength, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) {
-      var limit = Math.pow(2, 8 * byteLength - 1);
-
-      checkInt(this, value, offset, byteLength, limit - 1, -limit);
-    }
-
-    var i = byteLength - 1;
-    var mul = 1;
-    var sub = value < 0 ? 1 : 0;
-    this[offset + i] = value & 0xFF;
-    while (--i >= 0 && (mul *= 0x100)) {
-      this[offset + i] = (value / mul >> 0) - sub & 0xFF;
-    }
-
-    return offset + byteLength;
-  };
-
-  Buffer.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
-    if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-    if (value < 0) value = 0xff + value + 1;
-    this[offset] = value & 0xff;
-    return offset + 1;
-  };
-
-  Buffer.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value & 0xff;
-      this[offset + 1] = value >>> 8;
-    } else {
-      objectWriteUInt16(this, value, offset, true);
-    }
-    return offset + 2;
-  };
-
-  Buffer.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value >>> 8;
-      this[offset + 1] = value & 0xff;
-    } else {
-      objectWriteUInt16(this, value, offset, false);
-    }
-    return offset + 2;
-  };
-
-  Buffer.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value & 0xff;
-      this[offset + 1] = value >>> 8;
-      this[offset + 2] = value >>> 16;
-      this[offset + 3] = value >>> 24;
-    } else {
-      objectWriteUInt32(this, value, offset, true);
-    }
-    return offset + 4;
-  };
-
-  Buffer.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
-    value = +value;
-    offset = offset | 0;
-    if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
-    if (value < 0) value = 0xffffffff + value + 1;
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      this[offset] = value >>> 24;
-      this[offset + 1] = value >>> 16;
-      this[offset + 2] = value >>> 8;
-      this[offset + 3] = value & 0xff;
-    } else {
-      objectWriteUInt32(this, value, offset, false);
-    }
-    return offset + 4;
-  };
-
-  function checkIEEE754(buf, value, offset, ext, max, min) {
-    if (value > max || value < min) throw new RangeError('value is out of bounds');
-    if (offset + ext > buf.length) throw new RangeError('index out of range');
-    if (offset < 0) throw new RangeError('index out of range');
-  }
-
-  function writeFloat(buf, value, offset, littleEndian, noAssert) {
-    if (!noAssert) {
-      checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38);
-    }
-    ieee754.write(buf, value, offset, littleEndian, 23, 4);
-    return offset + 4;
-  }
-
-  Buffer.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
-    return writeFloat(this, value, offset, true, noAssert);
-  };
-
-  Buffer.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
-    return writeFloat(this, value, offset, false, noAssert);
-  };
-
-  function writeDouble(buf, value, offset, littleEndian, noAssert) {
-    if (!noAssert) {
-      checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308);
-    }
-    ieee754.write(buf, value, offset, littleEndian, 52, 8);
-    return offset + 8;
-  }
-
-  Buffer.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
-    return writeDouble(this, value, offset, true, noAssert);
-  };
-
-  Buffer.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
-    return writeDouble(this, value, offset, false, noAssert);
-  };
-
-  // copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-  Buffer.prototype.copy = function copy(target, targetStart, start, end) {
-    if (!start) start = 0;
-    if (!end && end !== 0) end = this.length;
-    if (targetStart >= target.length) targetStart = target.length;
-    if (!targetStart) targetStart = 0;
-    if (end > 0 && end < start) end = start;
-
-    // Copy 0 bytes; we're done
-    if (end === start) return 0;
-    if (target.length === 0 || this.length === 0) return 0;
-
-    // Fatal error conditions
-    if (targetStart < 0) {
-      throw new RangeError('targetStart out of bounds');
-    }
-    if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds');
-    if (end < 0) throw new RangeError('sourceEnd out of bounds');
-
-    // Are we oob?
-    if (end > this.length) end = this.length;
-    if (target.length - targetStart < end - start) {
-      end = target.length - targetStart + start;
-    }
-
-    var len = end - start;
-    var i;
-
-    if (this === target && start < targetStart && targetStart < end) {
-      // descending copy from end
-      for (i = len - 1; i >= 0; i--) {
-        target[i + targetStart] = this[i + start];
-      }
-    } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
-      // ascending copy from start
-      for (i = 0; i < len; i++) {
-        target[i + targetStart] = this[i + start];
-      }
-    } else {
-      target._set(this.subarray(start, start + len), targetStart);
-    }
-
-    return len;
-  };
-
-  // fill(value, start=0, end=buffer.length)
-  Buffer.prototype.fill = function fill(value, start, end) {
-    if (!value) value = 0;
-    if (!start) start = 0;
-    if (!end) end = this.length;
-
-    if (end < start) throw new RangeError('end < start');
-
-    // Fill 0 bytes; we're done
-    if (end === start) return;
-    if (this.length === 0) return;
-
-    if (start < 0 || start >= this.length) throw new RangeError('start out of bounds');
-    if (end < 0 || end > this.length) throw new RangeError('end out of bounds');
-
-    var i;
-    if (typeof value === 'number') {
-      for (i = start; i < end; i++) {
-        this[i] = value;
-      }
-    } else {
-      var bytes = utf8ToBytes(value.toString());
-      var len = bytes.length;
-      for (i = start; i < end; i++) {
-        this[i] = bytes[i % len];
-      }
-    }
-
-    return this;
-  };
-
-  /**
-   * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
-   * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
-   */
-  Buffer.prototype.toArrayBuffer = function toArrayBuffer() {
-    if (typeof Uint8Array !== 'undefined') {
-      if (Buffer.TYPED_ARRAY_SUPPORT) {
-        return new Buffer(this).buffer;
-      } else {
-        var buf = new Uint8Array(this.length);
-        for (var i = 0, len = buf.length; i < len; i += 1) {
-          buf[i] = this[i];
-        }
-        return buf.buffer;
-      }
-    } else {
-      throw new TypeError('Buffer.toArrayBuffer not supported in this browser');
-    }
-  };
-
-  // HELPER FUNCTIONS
-  // ================
-
-  var BP = Buffer.prototype;
-
-  /**
-   * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
-   */
-  Buffer._augment = function _augment(arr) {
-    arr.constructor = Buffer;
-    arr._isBuffer = true;
-
-    // save reference to original Uint8Array set method before overwriting
-    arr._set = arr.set;
-
-    // deprecated
-    arr.get = BP.get;
-    arr.set = BP.set;
-
-    arr.write = BP.write;
-    arr.toString = BP.toString;
-    arr.toLocaleString = BP.toString;
-    arr.toJSON = BP.toJSON;
-    arr.equals = BP.equals;
-    arr.compare = BP.compare;
-    arr.indexOf = BP.indexOf;
-    arr.copy = BP.copy;
-    arr.slice = BP.slice;
-    arr.readUIntLE = BP.readUIntLE;
-    arr.readUIntBE = BP.readUIntBE;
-    arr.readUInt8 = BP.readUInt8;
-    arr.readUInt16LE = BP.readUInt16LE;
-    arr.readUInt16BE = BP.readUInt16BE;
-    arr.readUInt32LE = BP.readUInt32LE;
-    arr.readUInt32BE = BP.readUInt32BE;
-    arr.readIntLE = BP.readIntLE;
-    arr.readIntBE = BP.readIntBE;
-    arr.readInt8 = BP.readInt8;
-    arr.readInt16LE = BP.readInt16LE;
-    arr.readInt16BE = BP.readInt16BE;
-    arr.readInt32LE = BP.readInt32LE;
-    arr.readInt32BE = BP.readInt32BE;
-    arr.readFloatLE = BP.readFloatLE;
-    arr.readFloatBE = BP.readFloatBE;
-    arr.readDoubleLE = BP.readDoubleLE;
-    arr.readDoubleBE = BP.readDoubleBE;
-    arr.writeUInt8 = BP.writeUInt8;
-    arr.writeUIntLE = BP.writeUIntLE;
-    arr.writeUIntBE = BP.writeUIntBE;
-    arr.writeUInt16LE = BP.writeUInt16LE;
-    arr.writeUInt16BE = BP.writeUInt16BE;
-    arr.writeUInt32LE = BP.writeUInt32LE;
-    arr.writeUInt32BE = BP.writeUInt32BE;
-    arr.writeIntLE = BP.writeIntLE;
-    arr.writeIntBE = BP.writeIntBE;
-    arr.writeInt8 = BP.writeInt8;
-    arr.writeInt16LE = BP.writeInt16LE;
-    arr.writeInt16BE = BP.writeInt16BE;
-    arr.writeInt32LE = BP.writeInt32LE;
-    arr.writeInt32BE = BP.writeInt32BE;
-    arr.writeFloatLE = BP.writeFloatLE;
-    arr.writeFloatBE = BP.writeFloatBE;
-    arr.writeDoubleLE = BP.writeDoubleLE;
-    arr.writeDoubleBE = BP.writeDoubleBE;
-    arr.fill = BP.fill;
-    arr.inspect = BP.inspect;
-    arr.toArrayBuffer = BP.toArrayBuffer;
-
-    return arr;
-  };
-
-  var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
-
-  function base64clean(str) {
-    // Node strips out invalid characters like \n and \t from the string, base64-js does not
-    str = stringtrim(str).replace(INVALID_BASE64_RE, '');
-    // Node converts strings with length < 2 to ''
-    if (str.length < 2) return '';
-    // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
-    while (str.length % 4 !== 0) {
-      str = str + '=';
-    }
-    return str;
-  }
-
-  function stringtrim(str) {
-    if (str.trim) return str.trim();
-    return str.replace(/^\s+|\s+$/g, '');
-  }
-
-  function toHex(n) {
-    if (n < 16) return '0' + n.toString(16);
-    return n.toString(16);
-  }
-
-  function utf8ToBytes(string, units) {
-    units = units || Infinity;
-    var codePoint;
-    var length = string.length;
-    var leadSurrogate = null;
-    var bytes = [];
-
-    for (var i = 0; i < length; i++) {
-      codePoint = string.charCodeAt(i);
-
-      // is surrogate component
-      if (codePoint > 0xD7FF && codePoint < 0xE000) {
-        // last char was a lead
-        if (!leadSurrogate) {
-          // no lead yet
-          if (codePoint > 0xDBFF) {
-            // unexpected trail
-            if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-            continue;
-          } else if (i + 1 === length) {
-            // unpaired lead
-            if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-            continue;
-          }
-
-          // valid lead
-          leadSurrogate = codePoint;
-
-          continue;
-        }
-
-        // 2 leads in a row
-        if (codePoint < 0xDC00) {
-          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-          leadSurrogate = codePoint;
-          continue;
-        }
-
-        // valid surrogate pair
-        codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
-      } else if (leadSurrogate) {
-        // valid bmp char, but last char was a lead
-        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-      }
-
-      leadSurrogate = null;
-
-      // encode utf8
-      if (codePoint < 0x80) {
-        if ((units -= 1) < 0) break;
-        bytes.push(codePoint);
-      } else if (codePoint < 0x800) {
-        if ((units -= 2) < 0) break;
-        bytes.push(codePoint >> 0x6 | 0xC0, codePoint & 0x3F | 0x80);
-      } else if (codePoint < 0x10000) {
-        if ((units -= 3) < 0) break;
-        bytes.push(codePoint >> 0xC | 0xE0, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
-      } else if (codePoint < 0x110000) {
-        if ((units -= 4) < 0) break;
-        bytes.push(codePoint >> 0x12 | 0xF0, codePoint >> 0xC & 0x3F | 0x80, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
-      } else {
-        throw new Error('Invalid code point');
-      }
-    }
-
-    return bytes;
-  }
-
-  function asciiToBytes(str) {
-    var byteArray = [];
-    for (var i = 0; i < str.length; i++) {
-      // Node's code seems to be doing this and not & 0x7F..
-      byteArray.push(str.charCodeAt(i) & 0xFF);
-    }
-    return byteArray;
-  }
-
-  function utf16leToBytes(str, units) {
-    var c, hi, lo;
-    var byteArray = [];
-    for (var i = 0; i < str.length; i++) {
-      if ((units -= 2) < 0) break;
-
-      c = str.charCodeAt(i);
-      hi = c >> 8;
-      lo = c % 256;
-      byteArray.push(lo);
-      byteArray.push(hi);
-    }
-
-    return byteArray;
-  }
-
-  function base64ToBytes(str) {
-    return base64.toByteArray(base64clean(str));
-  }
-
-  function blitBuffer(src, dst, offset, length) {
-    for (var i = 0; i < length; i++) {
-      if (i + offset >= dst.length || i >= src.length) break;
-      dst[i + offset] = src[i];
-    }
-    return i;
-  }
-  return module.exports;
-});
-$__System.registerDynamic("56", ["55"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("55");
-  return module.exports;
-});
-$__System.registerDynamic('57', ['56'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = $__System._nodeRequire ? $__System._nodeRequire('buffer') : $__require('56');
-  return module.exports;
-});
-$__System.registerDynamic("58", ["57"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("57");
-  return module.exports;
-});
-$__System.registerDynamic("59", ["58"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  (function (Buffer) {
-    "use strict";
-
-    var ExString = function ExString(string) {
-      this.string = string;
-      return this;
-    };
-    ExString._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    ExString.prototype.isEmail = function () {
-      return this.string.search(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) >= 0;
-    };
-    ExString.prototype.repeat = function (num) {
-      var x,
-          s = '';
-      for (x = 0; x < num; ++x) s = s + this.string;
-      return s;
-    };
-    ExString.prototype.htmlFormat = function () {
-      var v = this.string;
-      v = v.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      return v;
-    };
-    ExString.prototype.toBase64 = function () {
-      var e = this._utf8_encode();
-      var t = "";
-      var n, r, i, s, o, u, a;
-      var f = 0;
-      while (f < e.length) {
-        n = e.charCodeAt(f++);
-        r = e.charCodeAt(f++);
-        i = e.charCodeAt(f++);
-        s = n >> 2;
-        o = (n & 3) << 4 | r >> 4;
-        u = (r & 15) << 2 | i >> 6;
-        a = i & 63;
-        if (isNaN(r)) {
-          u = a = 64;
-        } else if (isNaN(i)) {
-          a = 64;
-        }
-        t = t + ExString._keyStr.charAt(s) + ExString._keyStr.charAt(o) + ExString._keyStr.charAt(u) + ExString._keyStr.charAt(a);
-      }
-      return t;
-    };
-    ExString.prototype._utf8_encode = function () {
-      var e = this.string.replace ? this.string : this.string.toString();
-      e = e.replace(/\r\n/g, "\n");
-      var t = "";
-      for (var n = 0; n < e.length; n++) {
-        var r = e.charCodeAt(n);
-        if (r < 128) {
-          t += String.fromCharCode(r);
-        } else if (r > 127 && r < 2048) {
-          t += String.fromCharCode(r >> 6 | 192);
-          t += String.fromCharCode(r & 63 | 128);
-        } else {
-          t += String.fromCharCode(r >> 12 | 224);
-          t += String.fromCharCode(r >> 6 & 63 | 128);
-          t += String.fromCharCode(r & 63 | 128);
-        }
-      }
-      return t;
-    };
-    if (typeof Buffer != 'undefined') {
-      ExString.prototype.toHex = function (encType) {
-        encType = encType || 'hex';
-        return new Buffer(this.string, encType).toString('hex');
-      };
-      ExString.prototype.toBinary = function (encType) {
-        encType = encType || 'binary';
-        return new Buffer(this.string, encType);
-      };
-    }
-    var rtn = function (path) {
-      return new ExString(path);
-    };
-    rtn.Class = ExString;
-    module.exports = rtn;
-  })($__require("58").Buffer);
-  return module.exports;
-});
-$__System.registerDynamic('5a', [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic('11', [], true, function ($__require, exports, module) {
 	"use strict";
 
 	var define,
@@ -7349,8 +6921,7 @@ $__System.registerDynamic('5a', [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic("5b", [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic("12", [], true, function ($__require, exports, module) {
 	"use strict";
 
 	var define,
@@ -7412,301 +6983,128 @@ $__System.registerDynamic("5b", [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic('5c', [], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    // shim for using process in browser
-    var process = module.exports = {};
+$__System.registerDynamic('13', [], true, function ($__require, exports, module) {
+	"use strict";
 
-    // cached from whatever global is present so that test runners that stub it
-    // don't break things.  But we need to wrap it in a try catch in case it is
-    // wrapped in strict mode code which doesn't define any globals.  It's inside a
-    // function because try/catches deoptimize in certain engines.
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jXMethod = function jXMethod(method, name) {
+		this.method = method;this.name = name;
+		return this;
+	};
 
-    var cachedSetTimeout;
-    var cachedClearTimeout;
+	/** sets a timeout and then runs set method in milsecs */
+	jXMethod.prototype.runInMs = function (ms) {
+		setTimeout(this.method, ms);return this;
+	};
 
-    (function () {
-        try {
-            cachedSetTimeout = setTimeout;
-        } catch (e) {
-            cachedSetTimeout = function () {
-                throw new Error('setTimeout is not defined');
-            };
-        }
-        try {
-            cachedClearTimeout = clearTimeout;
-        } catch (e) {
-            cachedClearTimeout = function () {
-                throw new Error('clearTimeout is not defined');
-            };
-        }
-    })();
-    function runTimeout(fun) {
-        if (cachedSetTimeout === setTimeout) {
-            //normal enviroments in sane situations
-            return setTimeout(fun, 0);
-        }
-        try {
-            // when when somebody has screwed with setTimeout but no I.E. maddness
-            return cachedSetTimeout(fun, 0);
-        } catch (e) {
-            try {
-                // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-                return cachedSetTimeout.call(null, fun, 0);
-            } catch (e) {
-                // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-                return cachedSetTimeout.call(this, fun, 0);
-            }
-        }
-    }
-    function runClearTimeout(marker) {
-        if (cachedClearTimeout === clearTimeout) {
-            //normal enviroments in sane situations
-            return clearTimeout(marker);
-        }
-        try {
-            // when when somebody has screwed with setTimeout but no I.E. maddness
-            return cachedClearTimeout(marker);
-        } catch (e) {
-            try {
-                // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-                return cachedClearTimeout.call(null, marker);
-            } catch (e) {
-                // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-                // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-                return cachedClearTimeout.call(this, marker);
-            }
-        }
-    }
-    var queue = [];
-    var draining = false;
-    var currentQueue;
-    var queueIndex = -1;
+	if (jXMethod.name && jXMethod.name === 'jXMethod') {
+		//device supports function.name
+		/** gets name of defined function */
+		jXMethod.prototype.getName = function () {
+			return this.name || (this.method.name.length ? this.method.name : null);
+		};
+	} else {
+		/** gets name of defined function */
+		jXMethod.prototype.getName = function () {
+			var funcNameRegex = /function\s+(.{1,})\(/;
+			var results = funcNameRegex.exec(this.method.toString());
+			return this.name || (results && results.length > 1 ? results[1] : null);
+		};
+	}
 
-    function cleanUpNextTick() {
-        if (!draining || !currentQueue) {
-            return;
-        }
-        draining = false;
-        if (currentQueue.length) {
-            queue = currentQueue.concat(queue);
-        } else {
-            queueIndex = -1;
-        }
-        if (queue.length) {
-            drainQueue();
-        }
-    }
+	/** returns array of argument names defined within set function */
+	jXMethod.prototype.getArgNameArray = function () {
+		var string = this.getDefinition();
+		var argDef = /\(.+\)/.exec(string)[0];
+		argDef = argDef.substring(1, argDef.length); //remove (
+		argDef = argDef.substring(0, argDef.length - 1); //remove )
+		argDef = argDef.replace(/\s|\t|\r|\n/g, '');
+		return argDef.split(',');
+	};
 
-    function drainQueue() {
-        if (draining) {
-            return;
-        }
-        var timeout = runTimeout(cleanUpNextTick);
-        draining = true;
+	/** get set functions inner definition */
+	jXMethod.prototype.getDefinition = function () {
+		var funcNameRegex = /(.*function[^\)]+\))/;
+		var results = funcNameRegex.exec(this.method.toString());
+		return results && results.length > 1 ? results[1] : null;
+	};
 
-        var len = queue.length;
-        while (len) {
-            currentQueue = queue;
-            queue = [];
-            while (++queueIndex < len) {
-                if (currentQueue) {
-                    currentQueue[queueIndex].run();
-                }
-            }
-            queueIndex = -1;
-            len = queue.length;
-        }
-        currentQueue = null;
-        draining = false;
-        runClearTimeout(timeout);
-    }
+	/** This is an option enhanced version of expectOne */
+	jXMethod.prototype.expect = function (nameOrMap, value, requiredOrType, type) {
+		if (nameOrMap && nameOrMap.constructor == String) {
+			return this.expectOne(nameOrMap, value, requiredOrType, type);
+		}
 
-    process.nextTick = function (fun) {
-        var args = new Array(arguments.length - 1);
-        if (arguments.length > 1) {
-            for (var i = 1; i < arguments.length; i++) {
-                args[i - 1] = arguments[i];
-            }
-        }
-        queue.push(new Item(fun, args));
-        if (queue.length === 1 && !draining) {
-            runTimeout(drainQueue);
-        }
-    };
+		for (var key in nameOrMap) {
+			var define = nameOrMap[key];
+			var val = define && (define.val !== null || define.value !== null);
+			if (val) {
+				val = define.val || define.value;
+				this.expectOne(key, val, define.required, define.type);
+			} else {
+				this.expectOne(key, define, true);
+			}
+		}
 
-    // v8 likes predictible objects
-    function Item(fun, array) {
-        this.fun = fun;
-        this.array = array;
-    }
-    Item.prototype.run = function () {
-        this.fun.apply(null, this.array);
-    };
-    process.title = 'browser';
-    process.browser = true;
-    process.env = {};
-    process.argv = [];
-    process.version = ''; // empty string to avoid regexp issues
-    process.versions = {};
+		return this;
+	};
 
-    function noop() {}
+	/** Build argument validation for when set function is invoked.
+ 	@name - argument-name
+ 	@value - runtime value argument-value
+ 	@required
+ 	@type - requiredOrType - true/false or constructor validation. When constructor validatation, required is true. When undefined, required is true
+ */
+	jXMethod.prototype.expectOne = function (name, value, requiredOrType, type) {
+		var isReqDefined = requiredOrType != null && requiredOrType.constructor == Boolean;
+		var isRequired = isReqDefined ? requiredOrType : true;
+		type = type || (isReqDefined ? null : requiredOrType);
 
-    process.on = noop;
-    process.addListener = noop;
-    process.once = noop;
-    process.off = noop;
-    process.removeListener = noop;
-    process.removeAllListeners = noop;
-    process.emit = noop;
+		if (isRequired && value == null) {
+			var methodName = this.getName();
+			var methodMsg = methodName ? 'The function ' + methodName + ' recieved an invalid argument. ' : '';
+			var argTypeMsg = methodMsg + 'Argument ' + name + ' is required. ';
+			var err = new Error(argTypeMsg + ' Function definition: ' + this.getDefinition());
+			err.invalidArg = { errorType: 'undefined', name: name };
+			throw err;
+		}
 
-    process.binding = function (name) {
-        throw new Error('process.binding is not supported');
-    };
+		if (type) {
+			if (value != null && value.constructor != type) {
+				var methodName = this.getName();
+				var methodMsg = methodName ? 'The function ' + methodName + ' recieved an invalid argument. ' : '';
+				var argTypeMsg = methodMsg + 'Argument ' + name + ' is not of type ' + type.name + '. ';
+				var err = new Error(argTypeMsg + 'Received type: ' + value.constructor.name + '. Function definition: ' + this.getDefinition());
+				err.invalidArg = { errorType: 'type', name: name };
+				throw err;
+			}
+		}
+		return this;
+	};
 
-    process.cwd = function () {
-        return '/';
-    };
-    process.chdir = function (dir) {
-        throw new Error('process.chdir is not supported');
-    };
-    process.umask = function () {
-        return 0;
-    };
-    return module.exports;
+	/** for processing current arguments */
+	jXMethod.prototype.arguments = function (args) {
+		return new jXArgs(this, args);
+	};
+
+	var rtn = function (path) {
+		return new jXMethod(path);
+	};
+	if (typeof module != 'undefined' && module.exports) {
+		rtn.Class = jXMethod;
+		module.exports = rtn;
+	} else if (typeof jX != 'undefined') {
+		jX.modules.define('method', rtn);
+	}
+
+	var jXArgs = function (jXMethod, args) {
+		this.args = args;this.jXMethod = jXMethod;return this;
+	};
+	return module.exports;
 });
-$__System.registerDynamic("5d", ["5c"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("5c");
-  return module.exports;
-});
-$__System.registerDynamic('5e', ['5d'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__System._nodeRequire ? process : $__require('5d');
-  return module.exports;
-});
-$__System.registerDynamic("20", ["5e"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("5e");
-  return module.exports;
-});
-$__System.registerDynamic('5f', ['20'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  (function (process) {
-    "use strict";
-
-    var jXMethod = function jXMethod(method, name) {
-      this.method = method;
-      this.name = name;
-      return this;
-    };
-    jXMethod.prototype.runInMs = function (ms) {
-      setTimeout(this.method, ms);
-      return this;
-    };
-    if (jXMethod.name && jXMethod.name === 'jXMethod') {
-      jXMethod.prototype.getName = function () {
-        return this.name || (this.method.name.length ? this.method.name : null);
-      };
-    } else {
-      jXMethod.prototype.getName = function () {
-        var funcNameRegex = /function\s+(.{1,})\(/;
-        var results = funcNameRegex.exec(this.method.toString());
-        return this.name || (results && results.length > 1 ? results[1] : null);
-      };
-    }
-    jXMethod.prototype.getArgNameArray = function () {
-      var string = this.getDefinition();
-      var argDef = /\(.+\)/.exec(string)[0];
-      argDef = argDef.substring(1, argDef.length);
-      argDef = argDef.substring(0, argDef.length - 1);
-      argDef = argDef.replace(/\s|\t|\r|\n/g, '');
-      return argDef.split(',');
-    };
-    jXMethod.prototype.getDefinition = function () {
-      var funcNameRegex = /(.*function[^\)]+\))/;
-      var results = funcNameRegex.exec(this.method.toString());
-      return results && results.length > 1 ? results[1] : null;
-    };
-    jXMethod.prototype.expect = function (nameOrMap, value, requiredOrType, type) {
-      if (nameOrMap && nameOrMap.constructor == String) {
-        return this.expectOne(nameOrMap, value, requiredOrType, type);
-      }
-      for (var key in nameOrMap) {
-        var define = nameOrMap[key];
-        var val = define && (define.val !== null || define.value !== null);
-        if (val) {
-          val = define.val || define.value;
-          this.expectOne(key, val, define.required, define.type);
-        } else {
-          this.expectOne(key, define, true);
-        }
-      }
-      return this;
-    };
-    jXMethod.prototype.expectOne = function (name, value, requiredOrType, type) {
-      var isReqDefined = requiredOrType != null && requiredOrType.constructor == Boolean;
-      var isRequired = isReqDefined ? requiredOrType : true;
-      type = type || (isReqDefined ? null : requiredOrType);
-      if (isRequired && value == null) {
-        var methodName = this.getName();
-        var methodMsg = methodName ? 'The function ' + methodName + ' recieved an invalid argument. ' : '';
-        var argTypeMsg = methodMsg + 'Argument ' + name + ' is required. ';
-        var err = new Error(argTypeMsg + ' Function definition: ' + this.getDefinition());
-        err.invalidArg = {
-          errorType: 'undefined',
-          name: name
-        };
-        throw err;
-      }
-      if (type) {
-        if (value != null && value.constructor != type) {
-          var methodName = this.getName();
-          var methodMsg = methodName ? 'The function ' + methodName + ' recieved an invalid argument. ' : '';
-          var argTypeMsg = methodMsg + 'Argument ' + name + ' is not of type ' + type.name + '. ';
-          var err = new Error(argTypeMsg + 'Received type: ' + value.constructor.name + '. Function definition: ' + this.getDefinition());
-          err.invalidArg = {
-            errorType: 'type',
-            name: name
-          };
-          throw err;
-        }
-      }
-      return this;
-    };
-    jXMethod.prototype.arguments = function (args) {
-      return new jXArgs(this, args);
-    };
-    var rtn = function (path) {
-      return new jXMethod(path);
-    };
-    if (typeof module != 'undefined' && module.exports) {
-      rtn.Class = jXMethod;
-      module.exports = rtn;
-    } else if (typeof jX != 'undefined') {
-      jX.modules.define('method', rtn);
-    }
-    var jXArgs = function (jXMethod, args) {
-      this.args = args;
-      this.jXMethod = jXMethod;
-      return this;
-    };
-  })($__require('20'));
-  return module.exports;
-});
-$__System.registerDynamic('60', [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic('14', [], true, function ($__require, exports, module) {
 	"use strict";
 
 	var define,
@@ -7874,8 +7272,7 @@ $__System.registerDynamic('60', [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic('61', [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic('15', [], true, function ($__require, exports, module) {
 	"use strict";
 
 	var define,
@@ -8009,8 +7406,7 @@ $__System.registerDynamic('61', [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic('4c', [], true, function ($__require, exports, module) {
-	/* */
+$__System.registerDynamic('d', [], true, function ($__require, exports, module) {
 	"use strict";
 
 	//Entry point to accessors framework
@@ -8404,194 +7800,237 @@ $__System.registerDynamic('4c', [], true, function ($__require, exports, module)
 	}
 	return module.exports;
 });
-$__System.registerDynamic('62', ['4c', '63', '64'], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
+$__System.registerDynamic('16', ['d', '17', '18'], true, function ($__require, exports, module) {
+	"use strict";
 
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var jc = $__require('4c'),
-      xMonth = $__require('63'),
-      ExDate = $__require('64');
-  var Week = function Week(num) {
-    if (num != null) this.setStartDate(num);
-    return this;
-  };
-  jc(Week, xMonth.Class);
-  Week.prototype.getEndDate = function () {
-    if (this.endDate) return this.endDate;
-    this.endDate = new Date(this.getStartDate().getDate() + 6);
-    return this.endDate;
-  };
-  Week.prototype.setEndDate = function (date) {
-    if (!ExDate(date).isDate() && !isNaN(date)) endDate = ExDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
-    return this;
-  };
-  Week.prototype.setStartDate = function (date) {
-    if (!isNaN(date) && date.constructor != Date) this.date = ExDate(new Date()).gotoWeek(date).date;else this.date = date;
-    return this;
-  };
-  Week.prototype.getStartDate = function () {
-    if (!this.date) this.date = ExDate(new Date()).getDateWeekStart();
-    return this.date;
-  };
-  var rtn = function (path) {
-    return new Week(path);
-  };
-  rtn.Class = Week;
-  module.exports = rtn;
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var jc = $__require('d'),
+	    xMonth = $__require('17'),
+	    ExDate = $__require('18');
+
+	var Week = function Week(num) {
+		if (num != null) this.setStartDate(num);
+		return this;
+	};
+
+	jc(Week, xMonth.Class);
+
+	Week.prototype.getEndDate = function () {
+		if (this.endDate) return this.endDate;
+		this.endDate = new Date(this.getStartDate().getDate() + 6);
+		return this.endDate;
+	};
+
+	Week.prototype.setEndDate = function (date) {
+		if (!ExDate(date).isDate() && !isNaN(date)) //just the month number?
+			endDate = ExDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
+
+		return this;
+	};
+
+	Week.prototype.setStartDate = function (date) {
+		if (!isNaN(date) && date.constructor != Date) //just the month number?
+			this.date = ExDate(new Date()).gotoWeek(date).date;else this.date = date;
+		return this;
+	};
+
+	Week.prototype.getStartDate = function () {
+		if (!this.date) this.date = ExDate(new Date()).getDateWeekStart();
+		return this.date;
+	};
+
+	var rtn = function (path) {
+		return new Week(path);
+	};
+	rtn.Class = Week;
+	module.exports = rtn;
+	return module.exports;
 });
-$__System.registerDynamic("63", ["64"], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
+$__System.registerDynamic("17", ["18"], true, function ($__require, exports, module) {
+	"use strict";
 
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var xDate = $__require("64");
-  var xMonth = function xMonth(num) {
-    if (num != null) {
-      this.setStartDate(num);
-    }
-    return this;
-  };
-  xMonth.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-  xMonth.getMonthIndexByString = function (mon) {
-    return xMonth.monthLcaseNameArray.indexOf(mon.toLowerCase());
-  };
-  xMonth.prototype.setStartDate = function (date) {
-    var jDate = xDate();
-    if (!jDate.isDate(date)) {
-      var num = Number(date);
-      if (!isNaN(num)) {
-        date = xDate().now().setDate(1).setMonth(date).date;
-      } else {
-        var i = xMonth.getMonthIndexByString(date);
-        date = xDate(new Date()).setDate(1).setMonth(i + 1).date;
-      }
-    }
-    this.date = date;
-    return this;
-  };
-  xMonth.prototype.StartDate = function (isClone) {
-    var startDate = !isClone ? this.getStartDate() : this.getStartDate();
-    return xDate(startDate);
-  };
-  xMonth.prototype.xDate = function () {
-    return xDate(this.getStartDate());
-  };
-  xMonth.prototype.getStartDate = function () {
-    if (this.date) return this.date;
-    this.date = new Date(new Date().setDate(1));
-    return this;
-  };
-  xMonth.prototype.setEndDate = function (date) {
-    if (!xDate(v).isDate() && !isNaN(v)) this.endDate = xDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
-    return this;
-  };
-  xMonth.prototype.getEndDate = function () {
-    if (this.endDate) return this.endDate;
-    var d = '12/31/' + this.getYear();
-    this.endDate = new Date(d);
-    return this.endDate;
-  };
-  var rtn = function (num) {
-    return new xMonth(num);
-  };
-  rtn.Class = xMonth;
-  module.exports = rtn;
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var xDate = $__require("18");
+
+	var xMonth = function xMonth(num) {
+		if (num != null) {
+			this.setStartDate(num);
+		}
+		return this;
+	};
+
+	xMonth.monthLcaseNameArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+	xMonth.getMonthIndexByString = function (mon) {
+		return xMonth.monthLcaseNameArray.indexOf(mon.toLowerCase());
+	};
+
+	xMonth.prototype.setStartDate = function (date) {
+		var jDate = xDate();
+		if (!jDate.isDate(date)) {
+			var num = Number(date);
+
+			if (!isNaN(num)) {
+				//just the month number?
+				date = xDate().now().setDate(1).setMonth(date).date;
+			} else {
+				var i = xMonth.getMonthIndexByString(date);
+				date = xDate(new Date()).setDate(1).setMonth(i + 1).date;
+			}
+		}
+		this.date = date;
+		return this;
+	};
+
+	xMonth.prototype.StartDate = function (isClone) {
+		var startDate = !isClone ? this.getStartDate() : this.getStartDate();
+		return xDate(startDate);
+	};
+
+	xMonth.prototype.xDate = function () {
+		return xDate(this.getStartDate());
+	};
+
+	xMonth.prototype.getStartDate = function () {
+		if (this.date) return this.date;
+		this.date = new Date(new Date().setDate(1));
+		return this;
+	};
+
+	xMonth.prototype.setEndDate = function (date) {
+		if (!xDate(v).isDate() && !isNaN(v)) //just the month number?
+			this.endDate = xDate(new Date()).setMonth(date).getLastDateOfMonth();else this.endDate = date;
+
+		return this;
+	};
+
+	xMonth.prototype.getEndDate = function () {
+		if (this.endDate) return this.endDate;
+		var d = '12/31/' + this.getYear();
+		this.endDate = new Date(d);
+		return this.endDate;
+	};
+
+	var rtn = function (num) {
+		return new xMonth(num);
+	};
+	rtn.Class = xMonth;
+	module.exports = rtn;
+	return module.exports;
 });
-$__System.registerDynamic('65', ['64'], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
+$__System.registerDynamic('19', ['18'], true, function ($__require, exports, module) {
+	"use strict";
 
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var xDate = $__require('64');
-  var ackYear = function ackYear(yyyy) {
-    if (yyyy != null) this.setStartDate(yyyy);
-    return this;
-  };
-  ackYear.prototype.setStartDate = function (date) {
-    var isObject = typeof date == 'object',
-        isYearString = !isObject && !isNaN(Number(date)),
-        isYear = isYearString || !xDate(date).isDate() && !isNaN(date);
-    if (isYear) {
-      date = new Date(new Date('1/1/2011').setYear(date));
-    }
-    this.date = date;
-    return this;
-  };
-  ackYear.prototype.getStartDate = function () {
-    if (this.date) return this.date;
-    var d = '1/1/' + xDate(new Date()).year();
-    this.date = new Date(d);
-    return this.date;
-  };
-  ackYear.prototype.setEndDate = function (date) {
-    if (!xDate(date).isDate() && !isNaN(date)) this.date = new Date('12/31/' + date);else this.date = date;
-    return this;
-  };
-  ackYear.prototype.getEndDate = function () {
-    if (this.endDate) return this.endDate;
-    var d = '12/31/' + this.getYear();
-    this.endDate = new Date(d);
-    return this.endDate;
-  };
-  ackYear.prototype.StartDate = function (isClone) {
-    var startDate = !isClone ? this.getStartDate() : this.getStartDate();
-    return xDate(startDate);
-  };
-  ackYear.prototype.xDate = function () {
-    return xDate(this.getStartDate());
-  };
-  ackYear.prototype.month = function () {
-    return this.StartDate().month();
-  };
-  ackYear.prototype.getMonth = ackYear.prototype.month;
-  ackYear.prototype.week = function () {
-    return this.StartDate().week();
-  };
-  ackYear.prototype.getWeek = ackYear.prototype.week;
-  ackYear.prototype.getYear = function () {
-    var d = this.getStartDate();
-    return xDate(d).year();
-  };
-  ackYear.prototype.year = ackYear.prototype.getYear;
-  ackYear.prototype.setYear = function (yyyy) {
-    var ExYy = xDate(yyyy);
-    if (isNaN(yyyy) && ExYy.isDate()) yyyy = ExYy.year();
-    var date = this.getStartDate();
-    date = new Date(date.setYear(yyyy));
-    this.setStartDate(date);
-    return this;
-  };
-  ackYear.prototype.getDateOfLastWeekday = function () {
-    var d = getStartDate(),
-        addAmount = -xDate(d).dayOfWeek() + 6,
-        dateA = new Date(d.setDate(d.getDate() + addAmount));
-    dateA = new Date(dateA.setHours(23));
-    dateA = new Date(dateA.setMinutes(59));
-    dateA = new Date(dateA.setSeconds(59));
-    return dateA;
-  };
-  var rtn = function (path) {
-    return new ackYear(path);
-  };
-  rtn.Class = ackYear;
-  module.exports = rtn;
-  return module.exports;
+	var define,
+	    global = this || self,
+	    GLOBAL = global;
+	var xDate = $__require('18');
+
+	var ackYear = function ackYear(yyyy) {
+		if (yyyy != null) this.setStartDate(yyyy);
+		return this;
+	};
+
+	ackYear.prototype.setStartDate = function (date) {
+		var isObject = typeof date == 'object',
+		    isYearString = !isObject && !isNaN(Number(date)),
+		    isYear = isYearString || !xDate(date).isDate() && !isNaN(date);
+
+		if (isYear) {
+			//just the year number?
+			date = new Date(new Date('1/1/2011').setYear(date));
+		}
+
+		this.date = date;
+		return this;
+	};
+
+	ackYear.prototype.getStartDate = function () {
+		if (this.date) return this.date;
+		var d = '1/1/' + xDate(new Date()).year();
+		this.date = new Date(d);
+		return this.date;
+	};
+
+	ackYear.prototype.setEndDate = function (date) {
+		if (!xDate(date).isDate() && !isNaN(date)) //just the year number?
+			this.date = new Date('12/31/' + date);else this.date = date;
+		return this;
+	};
+
+	ackYear.prototype.getEndDate = function () {
+		if (this.endDate) return this.endDate;
+		var d = '12/31/' + this.getYear();
+		this.endDate = new Date(d);
+		return this.endDate;
+	};
+
+	ackYear.prototype.StartDate = function (isClone) {
+		var startDate = !isClone ? this.getStartDate() : this.getStartDate();
+		return xDate(startDate);
+	};
+
+	ackYear.prototype.xDate = function () {
+		return xDate(this.getStartDate());
+	};
+
+	ackYear.prototype.month = function () {
+		return this.StartDate().month();
+	};
+	ackYear.prototype.getMonth = ackYear.prototype.month; //deprecated
+
+	ackYear.prototype.week = function () {
+		return this.StartDate().week();
+	};
+	ackYear.prototype.getWeek = ackYear.prototype.week; //deprecated
+
+	//?deprecated (duplicate of Date class)
+	ackYear.prototype.getYear = function () {
+		var d = this.getStartDate();
+		return xDate(d).year();
+	};
+	ackYear.prototype.year = ackYear.prototype.getYear;
+
+	//gets startdate and changes the year
+	ackYear.prototype.setYear = function (yyyy) {
+		var ExYy = xDate(yyyy);
+		if (isNaN(yyyy) && ExYy.isDate()) yyyy = ExYy.year();
+
+		var date = this.getStartDate();
+		date = new Date(date.setYear(yyyy));
+		this.setStartDate(date);
+
+		return this;
+	};
+
+	ackYear.prototype.getDateOfLastWeekday = function () {
+		var d = getStartDate(),
+		    addAmount = -xDate(d).dayOfWeek() + 6,
+		    dateA = new Date(d.setDate(d.getDate() + addAmount));
+
+		dateA = new Date(dateA.setHours(23));
+		dateA = new Date(dateA.setMinutes(59));
+		dateA = new Date(dateA.setSeconds(59));
+
+		return dateA;
+	};
+
+	var rtn = function (path) {
+		return new ackYear(path);
+	};
+	rtn.Class = ackYear;
+	module.exports = rtn;
+	return module.exports;
 });
 (function() {
 var define = $__System.amdDefine;
-"format amd";
 ;
 (function(global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define("66", [], factory) : global.moment = factory();
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define("1a", [], factory) : global.moment = factory();
 }(this, function() {
   'use strict';
   var hookCallback;
@@ -11696,21 +11135,13 @@ var define = $__System.amdDefine;
 }));
 
 })();
-(function() {
-var define = $__System.amdDefine;
-define("67", ["66"], function(main) {
-  return main;
-});
-
-})();
-$__System.registerDynamic("64", ["67"], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic("18", ["1a"], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
       global = this || self,
       GLOBAL = global;
-  var moment = $__require("67");
+  var moment = $__require("1a");
 
   /* everything operates on a scale of 1-12 NOT 0-11 OR 1-31 NOT 0-30 ... Weeks are 1-53 */
   function ackDate(date) {
@@ -12457,2366 +11888,2553 @@ $__System.registerDynamic("64", ["67"], true, function ($__require, exports, mod
   module.exports = eackDate;
   return module.exports;
 });
-$__System.registerDynamic('68', ['64'], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic('1b', ['18'], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
       global = this || self,
       GLOBAL = global;
-  var ackDate = $__require('64');
+  var ackDate = $__require('18');
+
   function ackTime(date) {
     this.date = ackTime.toDate(date);
     return this;
   }
+
   ackTime.dateObjectBy = function (date) {
     if (date) {
       if (date.constructor == ackTime) {
         return date.date;
       }
+
       if (date.constructor == Date) return date;
+
       if (date.split) {
         return stringToDate(date);
       }
-      return new Date(date);
+
+      return new Date(date); //convert string to date object
     }
+
     return date || new Date();
   };
+
   ackTime.toDate = function (date) {
     return date != null ? ackTime.dateObjectBy(date) : null;
   };
+
   function stringToDate(date) {
     var dDate = new Date(date);
     if (dDate != 'Invalid Date') {
       return date;
     }
+
     var parsed = ackDate.parseTimeString(date);
     var newDate = new Date().setHours(parsed.hour);
     newDate = new Date(newDate).setMinutes(parsed.minute);
     return new Date(newDate);
   }
+
   var eackTime = function (date) {
     var date = new ackTime(date).date;
     return ackDate(date);
   };
+
   eackTime.Class = ackTime;
   module.exports = eackTime;
   return module.exports;
 });
-$__System.registerDynamic('3b', ['4b', '4d', '4e', '59', '5a', '5b', '5f', '60', '61', '62', '63', '65', '64', '68'], true, function ($__require, exports, module) {
-  /* */
+$__System.registerDynamic('1c', ['c', 'e', 'f', '10', '11', '12', '13', '14', '15', '16', '17', '19', '18', '1b'], true, function ($__require, exports, module) {
   "use strict";
 
   var define,
       global = this || self,
       GLOBAL = global;
-  var ack = $__require('4b');
-  ack.error = $__require('4d');
-  ack.number = $__require('4e');
-  ack.string = $__require('59');
-  ack.binary = $__require('5a');
-  ack.base64 = $__require('5b');
-  ack.method = $__require('5f');
-  ack.array = $__require('60');
-  ack.queryObject = $__require('61');
-  ack.week = $__require('62');
-  ack.month = $__require('63');
-  ack.year = $__require('65');
-  ack.date = $__require('64');
-  ack.time = $__require('68');
-  ack['function'] = $__require('5f');
+  var ack = $__require('c');
+
+  ack.error = $__require('e');
+  ack.number = $__require('f');
+  ack.string = $__require('10');
+  ack.binary = $__require('11');
+  ack.base64 = $__require('12');
+  //ack.object = require('./js/Object')
+  ack.method = $__require('13');
+  ack.array = $__require('14');
+  ack.queryObject = $__require('15');
+  ack.week = $__require('16');
+  ack.month = $__require('17');
+  ack.year = $__require('19');
+  ack.date = $__require('18');
+  ack.time = $__require('1b');
+  /*
+  ack.function = require('./js/method')
+  */
+  ack['function'] = $__require('13');
+
   module.exports = ack;
   return module.exports;
 });
-$__System.register('69', ['40', '3b'], function (_export) {
-  var _Object$keys, ack;
-
-  function a(name) {
-    function method() {
-      return invokeRotator(ack[name]);
-    }
-    //method.$inject = ['ack']
-    return method;
-  }
-
-  function invokeRotator(invoke) {
-    return function (v, call0, call1, call2) {
-      var newkey,
-          subargs,
-          key,
-          item,
-          rtn = invoke(v);
-
-      //loop extra arguments as property collectors
-      for (var x = 1; x < arguments.length; ++x) {
-        key = arguments[x];
-        subargs = [];
-
-        //array where 1st arg is method and subs are positional arguments
-        if (key.constructor == Array) {
-          newkey = key.shift();
-          subargs = key;
-          key = newkey;
-        }
-
-        item = rtn[key];
-
-        if (item && item.constructor == Function) {
-          rtn = item.apply(rtn, subargs);
-        } else {
-          rtn = item;
-        }
-      }
-
-      return rtn;
-    };
-  }
-
-  function capitalize() {
-    return function (input) {
-      input = capitalizeOne(input);
-      var reg = /[.?!][\s\r\t]+\w/g;
-      return !!input ? input.replace(reg, capitalizeAfterSentence) : '';
-    };
-  }
-
-  function capitalizeAfterSentence(input) {
-    var reg = /[\s\r\t]\w/g;
-    return !!input ? input.replace(reg, function (txt) {
-      return txt.charAt(0) + txt.charAt(1).toUpperCase() + txt.substr(2).toLowerCase();
-    }) : '';
-  }
-
-  function capitalizeOne(input) {
-    var reg = /[^\W_]+[^\s-]*/;
-    return !!input ? input.replace(reg, function (txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    }) : '';
-  }
-
-  function capitalizeWords() {
-    return function (input) {
-      var reg = /[^\W_]+[^\s-]* */g;
-      return !!input ? input.replace(reg, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }) : '';
-    };
-  }
-
-  function trustAsHtml($sce) {
-    return function (text) {
-      if (!text || !text.toLowerCase) return '';
-      return $sce.trustAsHtml(text);
-    };
-  }
+$__System.registerDynamic("@system-env", [], false, function() {
   return {
-    setters: [function (_) {
-      _Object$keys = _['default'];
-    }, function (_b) {
-      ack = _b['default'];
-    }],
-    execute: function () {
-      'use strict';
-
-      _export('default', angular.module('ack-ng-filters', []).filter('typeof', function () {
-        return function (x) {
-          return typeof x;
-        };
-      }).filter('keys', function () {
-        return function (x) {
-          if (x) {
-            return _Object$keys(x);
-          }
-        };
-      }).filter('yesNo', function () {
-        return function (input) {
-          if (input == null) return input;
-          return input ? 'yes' : 'no';
-        };
-      }).filter('aMethod', a('method')).filter('aFunction', a('method')) //alias
-      .filter('aDate', a('date')).filter('aTime', a('time')).filter('ack', function () {
-        return invokeRotator(ack);
-      }).filter('capitalize', capitalize) //first letter capitalization
-      .filter('capitalizeWords', capitalizeWords).filter('trustAsHtml', trustAsHtml) //requires use of ng-bind-html
-      .filter('trustAsHTML', trustAsHtml) //requires use of ng-bind-html
-      .name);
-
-      trustAsHtml.$inject = ['$sce'];
-    }
+    "production": true,
+    "browser": true,
+    "node": false,
+    "dev": false,
+    "default": true
   };
 });
-$__System.register("6a", [], function (_export) {
-  "use strict";
 
-  return {
-    setters: [],
-    execute: function () {
-      _export("default", "<div class=\"animate-fade\" ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;overflow:auto\" ng-style=\"{'background-color':wom.backgroundColor}\"><div style=\"position:relative\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px\">x</div></div></div></div><table style=\"height:100%\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude=\"ng-transclude\"></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>");
-    }
-  };
-});
-$__System.register('6b', ['6a'], function (_export) {
-  'use strict';
-
-  var whiteOutModalTemplate;
-
-  function UserInactiveTrigger(ActivityMonitor, $scope) {
-    var _this = this;
-
-    var isActive = true;
-    var isWarned = false;
-
-    ActivityMonitor.options.disableOnInactive = false;
-
-    var applyOptions = function applyOptions() {
-      ActivityMonitor.options.inactive = _this.inactiveSeconds;
-      ActivityMonitor.options.warning = _this.warnSeconds;
-    };
-
-    function onActivity() {}
-
-    function activityMonitor() {}
-
-    var reactiveMonitor = (function () {
-      this.onReactive();
-      isActive = true;
-      isWarned = false;
-      onActivity = activityMonitor;
-      $scope.$parent.$digest();
-    }).bind(this);
-
-    function every() {
-      onActivity();
-    }
-
-    var onInactive = function onInactive() {
-      console.log(686);
-      isActive = false;
-      $scope.$parent.$digest();
-      applyOptions();
-      onActivity = reactiveMonitor;
-    };
-
-    function onWarn() {
-      isWarned = true;
-      $scope.$digest();
-    }
-
-    this.state = ActivityMonitor.user;
-    applyOptions();
-
-    ActivityMonitor.on('keepAlive', every);
-    ActivityMonitor.on('inactive', onInactive);
-    ActivityMonitor.on('warning', onWarn);
-
-    $scope.$on('$destroy', function () {
-      ActivityMonitor.off('keepAlive', onKeepAlive);
-      ActivityMonitor.off('inactive', onInactive);
-      ActivityMonitor.off('warning', onWarn);
-
-      if (ActivityMonitor.disable) {
-        ActivityMonitor.disable();
-      }
-    });
-  }
-
-  function OnScreenScroll($scope, $window, $timeout) {
-    var _this2 = this;
-
-    var onScroll = (function () {
-      this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
-      $scope.$digest();
-    }).bind(this);
-
-    function cleanUp() {
-      angular.element($window).off("scroll", onScroll);
-    }
-
-    angular.element($window).on("scroll", onScroll);
-    $scope.$on('$destroy', cleanUp);
-
-    if (this.initScreenScroll != null && !isNaN(Number(this.initScreenScroll))) {
-      $timeout(function () {
-        return _this2.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
-      }, Number(this.initScreenScroll));
-    }
-  }
-
-  function ScreenHeightExcessModel($scope, $window, $document) {
-    var apply = (function () {
-      this.screenHeightExcessModel = $document[0].body.scrollHeight - $window.innerHeight;
-      if (this.screenHeightExcessModel < 0) this.screenHeightExcessModel = 0;
-    }).bind(this);
-
-    function on() {
-      apply();
-      $scope.$digest();
-    }
-
-    function cleanUp() {
-      angular.element($window).off("scroll", on);
-      angular.element($window).off("resize", on);
-    }
-
-    angular.element($window).on("scroll", on);
-    angular.element($window).on("resize", on);
-    $scope.$on('$destroy', cleanUp);
-    apply();
-  }
-
-  function ScreenScrollHeightModel($scope, $window, $document) {
-    var apply = (function () {
-      this.screenScrollHeightModel = $document[0].body.scrollHeight;
-    }).bind(this);
-
-    function onResize() {
-      apply();
-      $scope.$digest();
-    }
-
-    function cleanUp() {
-      angular.element($window).off("scroll", onResize);
-      angular.element($window).off("resize", onResize);
-    }
-
-    angular.element($window).on("scroll", onResize);
-    angular.element($window).on("resize", onResize);
-    $scope.$on('$destroy', cleanUp);
-    apply();
-  }
-
-  function ScreenScrollModelY($scope, $window) {
-    var onScroll = (function () {
-      this.screenScrollModelY = $window.pageYOffset;
-      $scope.$digest();
-    }).bind(this);
-
-    function cleanUp() {
-      angular.element($window).off("scroll", onScroll);
-    }
-
-    angular.element($window).on("scroll", onScroll);
-    $scope.$on('$destroy', cleanUp);
-    this.screenScrollModelY = $window.pageYOffset;
-  }
-
-  function shakeOn() {
-    this.shakeForMs = this.shakeForMs || 2000;
-    this.shakeType = this.shakeType || 'shake-slow';
-    this.shakeController = this;
-    this.shakeTypes = ['shake-hard', 'shake-slow', 'shake-little', 'shake-horizontal', 'shake-vertical', 'shake-rotate', 'shake-opacity', 'shake-crazy'];
-  }
-
-  function ScreenWidthModel($window, $scope) {
-    this.screenWidthModel = $window.innerWidth;
-
-    var onResize = (function () {
-      if (this.screenWidthModel !== $window.innerWidth) {
-        this.screenWidthModel = $window.innerWidth;
-        $scope.$digest();
-      }
-    }).bind(this);
-
-    function cleanUp() {
-      angular.element($window).off('resize', onResize);
-    }
-
-    angular.element($window).on('resize', onResize);
-    $scope.$on('$destroy', cleanUp);
-  }
-
-  function ScreenHeightModel($window, $scope) {
-    this.screenHeightModel = $window.innerHeight;
-
-    var onResize = (function () {
-      if (this.screenHeightModel !== $window.innerHeight) {
-        this.screenHeightModel = $window.innerHeight;
-        $scope.$digest();
-      }
-    }).bind(this);
-
-    function cleanUp() {
-      angular.element($window).off('resize', onResize);
-    }
-
-    angular.element($window).on('resize', onResize);
-    $scope.$on('$destroy', cleanUp);
-  }
-
-  function selectOn($timeout) {
-    return {
-      scope: {},
-      bindToController: {
-        selectOn: '&', selectOnDelay: '=?', selectThen: '&'
-      },
-      controller: function controller() {},
-      controllerAs: 'selectOnController',
-      link: function link($scope, element, attrs) {
-        $scope.selectOnController.selectOnDelay = $scope.selectOnController.selectOnDelay || 0;
-        $scope.$watch(function () {
-          return $scope.selectOnController.selectOn();
-        }, function (value) {
-          if (value === true) {
-            $timeout(function () {
-              element[0].select();
-              $scope.selectOnController.selectThen();
-            }, $scope.selectOnController.selectOnDelay);
-          }
-        });
-      }
-    };
-  }
-
-  function shakeOnDirective($timeout) {
-    return {
-      restrict: 'A',
-      scope: {},
-      bindToController: {
-        shakeOn: '=?', shakeForMs: '=?', shakeType: '=?', shakeThen: '&', shakeController: '=?'
-      },
-      controller: shakeOn,
-      controllerAs: 'shakeOnController',
-      link: function link($scope, element, attrs) {
-        function onTrue() {
-          element.addClass('shake-constant');
-          element.addClass($scope.shakeOnController.shakeType);
-
-          $timeout(function () {
-            $scope.shakeOnController.shakeThen();
-            //$scope.shakeOnController.shakeOn = false
-            element.removeClass('shake-constant');
-            element.removeClass($scope.shakeOnController.shakeType);
-            $scope.$apply();
-          }, $scope.shakeOnController.shakeForMs);
-        }
-
-        function onChange(value) {
-          if (value) {
-            onTrue();
-          } else {
-            element.removeClass('shake-constant');
-            element.removeClass($scope.shakeOnController.shakeType);
-          }
-        }
-
-        function watch() {
-          return $scope.shakeOnController.shakeOn;
-        }
-
-        $scope.$watch(watch, onChange);
-      }
-    };
-  }
-
-  function shakeModel($timeout) {
-    return {
-      restrict: 'A',
-      scope: {},
-      bindToController: {
-        shakeModel: '=?', shakeForMs: '=?', shakeType: '=?', shakeController: '=?'
-      },
-      controller: shakeOn,
-      controllerAs: 'shakeModelController',
-      link: function link($scope, element, attrs) {
-        $scope.shakeModelController.shakeForMs = $scope.shakeModelController.shakeForMs || 2000;
-        $scope.shakeModelController.shakeType = $scope.shakeModelController.shakeType || 'shake-slow';
-
-        function onTrue() {
-          element.addClass('shake-constant');
-          element.addClass($scope.shakeModelController.shakeType);
-
-          $timeout(function () {
-            $scope.shakeModelController.shakeModel = false;
-            element.removeClass('shake-constant');
-            element.removeClass($scope.shakeModelController.shakeType);
-            $scope.$apply();
-          }, $scope.shakeModelController.shakeForMs);
-        }
-
-        function onChange(value) {
-          if (value) {
-            onTrue();
-          } else {
-            element.removeClass('shake-constant');
-            element.removeClass($scope.shakeModelController.shakeType);
-          }
-        }
-
-        function watch() {
-          return $scope.shakeModelController.shakeModel;
-        }
-
-        $scope.$watch(watch, onChange);
-      }
-    };
-  }
-
-  function focusOn($timeout) {
-    return {
-      scope: {},
-      bindToController: {
-        focusOn: '&', focusOnDelay: '=?', focusThen: '&'
-      },
-      controller: function controller() {},
-      controllerAs: 'focusOnController',
-      link: function link($scope, element, attrs) {
-        $scope.focusOnController.focusOnDelay = $scope.focusOnController.focusOnDelay || 0;
-        $scope.$watch(function () {
-          return $scope.focusOnController.focusOn();
-        }, function (value) {
-          if (value === true) {
-            $timeout(function () {
-              element[0].focus();
-              $scope.focusOnController.focusThen();
-            }, $scope.focusOnController.focusOnDelay);
-          }
-        });
-      }
-    };
-  }
-  return {
-    setters: [function (_a) {
-      whiteOutModalTemplate = _a['default'];
-    }],
-    execute: function () {
-      _export('default', angular.module('ack-ng-directives', []).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
-      /** used on an input that has ng-model to display a different value */
-      .directive('modelDisplay', function () {
-        return {
-          restrict: 'A',
-          require: 'ngModel',
-          scope: {
-            modelDisplay: "@" //will be evaled
-          },
-          link: function link($scope, element, attrs, ngModelController) {
-            ngModelController.$parsers.push(function (data) {
-              return $scope.$parent.$eval($scope.modelDisplay);
-            });
-
-            ngModelController.$formatters.push(function (data) {
-              return $scope.$parent.$eval($scope.modelDisplay);
-            });
-          }
-        };
-      }).directive('onEnterKey', function () {
-        return {
-          restrict: 'A',
-          scope: {},
-          bindToController: { onEnterKey: '&' }, //onEnterKey({event}) ... event.preventDefault()
-          controller: function controller() {},
-          controllerAs: 'onEnterKeyController',
-          link: function link($scope, jElm) {
-            jElm[0].onkeydown = function (event) {
-              var yesNo = [13, 10].indexOf(event.which || event.keyCode) >= 0;
-              if (yesNo) {
-                $scope.onEnterKeyController.onEnterKey({ event: event });
-                $scope.$apply();
-              }
-            };
-          }
-        };
-      })
-
-      /** Disallow keyboard access to the backspace key */
-      .directive('preventBackKey', function () {
-        return {
-          restrict: 'AE',
-          link: function link($scope, jElm) {
-            jElm[0].onkeydown = function (event) {
-              var yesNo = [8].indexOf(event.which || event.keyCode) < 0;
-              if (!yesNo && event.preventDefault) {
-                event.preventDefault();
-              }
-              return yesNo;
-            };
-          }
-        };
-      }).directive('preventEnterKey', function () {
-        return {
-          restrict: 'AE',
-          link: function link($scope, jElm) {
-            jElm[0].onkeydown = function (event) {
-              var yesNo = [13, 10].indexOf(event.which || event.keyCode) < 0;
-              if (!yesNo && event.preventDefault) {
-                event.preventDefault();
-              }
-              return yesNo;
-            };
-          }
-        };
-      }).directive('whiteOutModal', function () {
-        //white-out-modal
-        return {
-          restrict: 'E',
-          scope: {
-            show: '=',
-            size: '=?',
-            backgroundColor: '=?' //rgba(255,255,255,.95)
-          },
-          transclude: true,
-          template: whiteOutModalTemplate,
-          bindToController: true,
-          controllerAs: 'wom',
-          controller: function controller() {
-            this.backgroundColor = this.backgroundColor || 'rgba(255,255,255,.95)';
-          },
-          link: function link($scope, jElm, attrs) {
-            var handler = function handler(event) {
-              //already showing
-              var jTar = jElm.children().eq(0);
-              var eTar = event.srcElement || event.toElement || event.target;
-              if ($scope.wom.show && eTar == jTar[0]) {
-                $scope.wom.show = null;
-                $scope.$apply();
-                jTar.off('click', handler);
-              }
-            };
-
-            var addHandler = function addHandler() {
-              jElm.children().eq(0).on('click', handler);
-            };
-
-            $scope.$watch('wom.show', function (show) {
-              if (show) {
-                setTimeout(addHandler, 301); //delay needed to prevent immediate close
-              }
-            });
-          }
-        };
-      }).directive('screenScrollHeightModel', function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            screenScrollHeightModel: '=?'
-          },
-          controllerAs: 'ScreenScrollHeightModel',
-          controller: ScreenScrollHeightModel
-        };
-      }).directive('screenHeightExcessModel', function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            screenHeightExcessModel: '=?'
-          },
-          controllerAs: 'ScreenHeightExcessModel',
-          controller: ScreenHeightExcessModel
-        };
-      }).directive('screenHeightModel', function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            screenHeightModel: '=?'
-          },
-          controllerAs: 'ScreenHeightModel',
-          controller: ScreenHeightModel
-        };
-      }).directive('screenWidthModel', function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            screenWidthModel: '=?'
-          },
-          controllerAs: 'ScreenWidthModel',
-          controller: ScreenWidthModel
-        };
-      }).directive("onScreenScroll", function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            onScreenScroll: '&', //{x,y}
-            initScreenScroll: '=' //Number. Causes onScreenScroll to be called on $scope init. Specify milisecs to wait before calling onScreenScroll after $scope init.
-          },
-          controllerAs: 'OnScreenScroll',
-          controller: OnScreenScroll
-        };
-      }).directive("screenScrollModelY", function () {
-        return {
-          restrict: 'A',
-          bindToController: {
-            screenScrollModelY: '=?'
-          },
-          controllerAs: 'ScreenScrollModelY',
-          controller: ScreenScrollModelY
-        };
-      }).component('userInactiveTrigger', {
-        bindings: {
-          inactiveSeconds: '=',
-          warnSeconds: '=',
-          onReactive: '&'
-        },
-        template: 'state:{{ $ctrl.state.active }}-{{ $ctrl.state.warning }}',
-        controller: UserInactiveTrigger
-      }).name);
-
-      UserInactiveTrigger.$inject = ['ActivityMonitor', '$scope', '$timeout'];OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
-    }
-  };
-});
-$__System.registerDynamic('6c', ['6d'], true, function ($__require, exports, module) {
-    /* */
-    "format cjs";
-    /*jshint -W116, -W030, latedef: false */
-    'use strict';
-
+$__System.registerDynamic('1d', ['@system-env'], true, function ($__require, exports, module) {
     var define,
         global = this || self,
         GLOBAL = global;
-    (function (root, factory) {
-        if (typeof module !== 'undefined' && module.exports) {
-            // CommonJS
-            if (typeof angular === 'undefined') {
-                factory($__require('6d'));
-            } else {
-                factory(angular);
-            }
-            module.exports = 'ActivityMonitor';
-        } else if (typeof define === 'function' && define.amd) {
-            // AMD
-            define(['angular'], factory);
+    // From https://github.com/defunctzombie/node-process/blob/master/browser.js
+    // shim for using process in browser
+
+    var productionEnv = $__require('@system-env').production;
+
+    var process = module.exports = {};
+    var queue = [];
+    var draining = false;
+    var currentQueue;
+    var queueIndex = -1;
+
+    function cleanUpNextTick() {
+        draining = false;
+        if (currentQueue.length) {
+            queue = currentQueue.concat(queue);
         } else {
-            // Global variables
-            factory(root.angular);
+            queueIndex = -1;
         }
-    })(this, function (angular) {
-        var m = angular.module('ActivityMonitor', []).service('ActivityMonitor', ActivityMonitor);
+        if (queue.length) {
+            drainQueue();
+        }
+    }
 
-        var MILLISECOND = 1000;
-        var EVENT_KEEPALIVE = 'keepAlive';
-        var EVENT_INACTIVE = 'inactive';
-        var EVENT_WARNING = 'warning';
-        var EVENT_ACTIVITY = 'activity';
+    function drainQueue() {
+        if (draining) {
+            return;
+        }
+        var timeout = setTimeout(cleanUpNextTick);
+        draining = true;
 
-        ActivityMonitor.$inject = ['$document'];
-        function ActivityMonitor($document) {
-            var service = this;
-
-            /* configuration */
-            service.options = {
-                enabled: false, /* is the ActivityMonitor enabled? */
-                keepAlive: 800, /* keepAlive ping invterval (seconds) */
-                inactive: 900, /* how long until user is considered inactive? (seconds) */
-                warning: 60, /* when to warn user when nearing inactive state (deducted from inactive in seconds) */
-                monitor: 3, /* how frequently to check if the user is inactive (seconds) */
-                disableOnInactive: true, /* by default, once user becomes inactive, all listeners are detached */
-                DOMevents: ['mousemove', 'mousedown', 'mouseup', 'keypress', 'wheel', 'touchstart', 'scroll'] /* list of DOM events to determine user's activity */
-            };
-
-            /* user activity */
-            service.user = {
-                action: Date.now(), /* timestamp of the users' last action */
-                active: true, /* is the user considered active? */
-                warning: false /* is the user in warning state? */
-            };
-
-            service.activity = activity; /* method consumers can use to supply activity */
-            service.on = service.bind = subscribe; /* expose method to subscribe to events */
-            service.off = service.unbind = unsubscribe; /* expose method to unsubscribe from events */
-
-            var events = {};
-            events[EVENT_KEEPALIVE] = {}; /* functions to invoke along with ping (options.frequency) */
-            events[EVENT_INACTIVE] = {}; /* functions to invoke when user goes inactive (options.threshold) */
-            events[EVENT_WARNING] = {}; /* functions to invoke when warning user about inactivity (options.warning) */
-            events[EVENT_ACTIVITY] = {}; /* functions to invoke any time a user makes a move */
-
-            var timer = {
-                inactivity: null, /* setInterval handle to determine whether the user is inactive */
-                keepAlive: null /* setInterval handle for ping handler (options.frequency) */
-            };
-
-            enable.timer = timer;
-            service.enable = enable;
-            service.disable = disable;
-
-            return service;
-
-            ///////////////
-
-            function disable() {
-                service.options.enabled = false;
-
-                disableIntervals();
-
-                $document.off(service.options.DOMevents.join(' '), activity);
+        var len = queue.length;
+        while (len) {
+            currentQueue = queue;
+            queue = [];
+            while (++queueIndex < len) {
+                if (currentQueue) {
+                    currentQueue[queueIndex].run();
+                }
             }
+            queueIndex = -1;
+            len = queue.length;
+        }
+        currentQueue = null;
+        draining = false;
+        clearTimeout(timeout);
+    }
 
-            function disableIntervals() {
-                clearInterval(timer.inactivity);
-                clearInterval(timer.keepAlive);
-                delete timer.inactivity;
-                delete timer.keepAlive;
+    process.nextTick = function (fun) {
+        var args = new Array(arguments.length - 1);
+        if (arguments.length > 1) {
+            for (var i = 1; i < arguments.length; i++) {
+                args[i - 1] = arguments[i];
             }
+        }
+        queue.push(new Item(fun, args));
+        if (queue.length === 1 && !draining) {
+            setTimeout(drainQueue, 0);
+        }
+    };
 
-            function enable() {
-                $document.on(service.options.DOMevents.join(' '), activity);
-                service.options.enabled = true;
-                service.user.warning = false;
+    // v8 likes predictible objects
+    function Item(fun, array) {
+        this.fun = fun;
+        this.array = array;
+    }
+    Item.prototype.run = function () {
+        this.fun.apply(null, this.array);
+    };
+    process.title = 'browser';
+    process.browser = true;
+    process.env = {
+        NODE_ENV: productionEnv ? 'production' : 'development'
+    };
+    process.argv = [];
+    process.version = ''; // empty string to avoid regexp issues
+    process.versions = {};
 
-                enableIntervals();
-            }
+    function noop() {}
 
-            function enableIntervals() {
-                timer.keepAlive = setInterval(function () {
-                    publish(EVENT_KEEPALIVE);
-                }, service.options.keepAlive * MILLISECOND);
+    process.on = noop;
+    process.addListener = noop;
+    process.once = noop;
+    process.off = noop;
+    process.removeListener = noop;
+    process.removeAllListeners = noop;
+    process.emit = noop;
 
-                timer.inactivity = setInterval(function () {
-                    var now = Date.now();
-                    var warning = now - (service.options.inactive - service.options.warning) * MILLISECOND;
-                    var inactive = now - service.options.inactive * MILLISECOND;
+    process.binding = function (name) {
+        throw new Error('process.binding is not supported');
+    };
 
-                    /* should we display warning */
-                    if (!service.user.warning && service.user.action <= warning) {
-                        service.user.warning = true;
-                        publish(EVENT_WARNING);
+    process.cwd = function () {
+        return '/';
+    };
+    process.chdir = function (dir) {
+        throw new Error('process.chdir is not supported');
+    };
+    process.umask = function () {
+        return 0;
+    };
+    return module.exports;
+});
+$__System.registerDynamic("1e", ["1d"], true, function ($__require, exports, module) {
+    var process = $__require("1d");
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    /*!
+        localForage -- Offline Storage, Improved
+        Version 1.4.2
+        https://mozilla.github.io/localForage
+        (c) 2013-2015 Mozilla, Apache License 2.0
+    */
+    (function (f) {
+        if (typeof exports === "object" && typeof module !== "undefined") {
+            module.exports = f();
+        } else if (typeof define === "function" && define.amd) {
+            define([], f);
+        } else {
+            var g;if (typeof window !== "undefined") {
+                g = window;
+            } else if (typeof global !== "undefined") {
+                g = global;
+            } else if (typeof self !== "undefined") {
+                g = self;
+            } else {
+                g = this;
+            }g.localforage = f();
+        }
+    })(function () {
+        var define, module, exports;return function e(t, n, r) {
+            function s(o, u) {
+                if (!n[o]) {
+                    if (!t[o]) {
+                        var a = typeof $__require == "function" && $__require;if (!u && a) return a(o, !0);if (i) return i(o, !0);var f = new Error("Cannot find module '" + o + "'");throw f.code = "MODULE_NOT_FOUND", f;
+                    }var l = n[o] = { exports: {} };t[o][0].call(l.exports, function (e) {
+                        var n = t[o][1][e];return s(n ? n : e);
+                    }, l, l.exports, e, t, n, r);
+                }return n[o].exports;
+            }var i = typeof $__require == "function" && $__require;for (var o = 0; o < r.length; o++) s(r[o]);return s;
+        }({ 1: [function (_dereq_, module, exports) {
+                'use strict';
+
+                var immediate = _dereq_(2);
+
+                /* istanbul ignore next */
+                function INTERNAL() {}
+
+                var handlers = {};
+
+                var REJECTED = ['REJECTED'];
+                var FULFILLED = ['FULFILLED'];
+                var PENDING = ['PENDING'];
+
+                module.exports = exports = Promise;
+
+                function Promise(resolver) {
+                    if (typeof resolver !== 'function') {
+                        throw new TypeError('resolver must be a function');
+                    }
+                    this.state = PENDING;
+                    this.queue = [];
+                    this.outcome = void 0;
+                    if (resolver !== INTERNAL) {
+                        safelyResolveThenable(this, resolver);
+                    }
+                }
+
+                Promise.prototype["catch"] = function (onRejected) {
+                    return this.then(null, onRejected);
+                };
+                Promise.prototype.then = function (onFulfilled, onRejected) {
+                    if (typeof onFulfilled !== 'function' && this.state === FULFILLED || typeof onRejected !== 'function' && this.state === REJECTED) {
+                        return this;
+                    }
+                    var promise = new this.constructor(INTERNAL);
+                    if (this.state !== PENDING) {
+                        var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
+                        unwrap(promise, resolver, this.outcome);
+                    } else {
+                        this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
                     }
 
-                    /* should user be considered inactive? */
-                    if (service.user.active && service.user.action <= inactive) {
-                        service.user.active = false;
-                        publish(EVENT_INACTIVE);
+                    return promise;
+                };
+                function QueueItem(promise, onFulfilled, onRejected) {
+                    this.promise = promise;
+                    if (typeof onFulfilled === 'function') {
+                        this.onFulfilled = onFulfilled;
+                        this.callFulfilled = this.otherCallFulfilled;
+                    }
+                    if (typeof onRejected === 'function') {
+                        this.onRejected = onRejected;
+                        this.callRejected = this.otherCallRejected;
+                    }
+                }
+                QueueItem.prototype.callFulfilled = function (value) {
+                    handlers.resolve(this.promise, value);
+                };
+                QueueItem.prototype.otherCallFulfilled = function (value) {
+                    unwrap(this.promise, this.onFulfilled, value);
+                };
+                QueueItem.prototype.callRejected = function (value) {
+                    handlers.reject(this.promise, value);
+                };
+                QueueItem.prototype.otherCallRejected = function (value) {
+                    unwrap(this.promise, this.onRejected, value);
+                };
 
-                        if (service.options.disableOnInactive) {
-                            disable();
+                function unwrap(promise, func, value) {
+                    immediate(function () {
+                        var returnValue;
+                        try {
+                            returnValue = func(value);
+                        } catch (e) {
+                            return handlers.reject(promise, e);
+                        }
+                        if (returnValue === promise) {
+                            handlers.reject(promise, new TypeError('Cannot resolve promise with itself'));
                         } else {
-                            disableIntervals(); //user inactive is known, lets stop checking, for now
-                            dynamicActivity = reactivate; //hot swap method that handles document event watching
+                            handlers.resolve(promise, returnValue);
+                        }
+                    });
+                }
+
+                handlers.resolve = function (self, value) {
+                    var result = tryCatch(getThen, value);
+                    if (result.status === 'error') {
+                        return handlers.reject(self, result.value);
+                    }
+                    var thenable = result.value;
+
+                    if (thenable) {
+                        safelyResolveThenable(self, thenable);
+                    } else {
+                        self.state = FULFILLED;
+                        self.outcome = value;
+                        var i = -1;
+                        var len = self.queue.length;
+                        while (++i < len) {
+                            self.queue[i].callFulfilled(value);
                         }
                     }
-                }, service.options.monitor * MILLISECOND);
-            }
-
-            /* function that lives in memory with the intention of being swapped out */
-            function dynamicActivity() {
-                regularActivityMonitor();
-            }
-
-            /* after user inactive, this method is hot swapped as the dynamicActivity method in-which the next user activity reactivates monitors */
-            function reactivate() {
-                enableIntervals();
-                dynamicActivity = regularActivityMonitor;
-            }
-
-            /* invoked on every user action */
-            function activity() {
-                dynamicActivity();
-            }
-
-            /* during a users active state the following method is called */
-            function regularActivityMonitor() {
-                service.user.active = true;
-                service.user.action = Date.now();
-
-                publish(EVENT_ACTIVITY);
-
-                if (service.user.warning) {
-                    service.user.warning = false;
-                    publish(EVENT_KEEPALIVE);
-                }
-            }
-
-            function publish(event) {
-                if (!service.options.enabled) return;
-                var spaces = Object.keys(events[event]);
-                if (!event || !spaces.length) return;
-                spaces.forEach(function (space) {
-                    events[event][space] && events[event][space]();
-                });
-            }
-
-            function subscribe(event, callback) {
-                if (!event || typeof callback !== 'function') return;
-                event = _namespace(event, callback);
-                events[event.name][event.space] = callback;
-                !service.options.enabled && enable();
-            }
-
-            function unsubscribe(event, callback) {
-                event = _namespace(event, callback);
-
-                if (!event.space) {
-                    events[event.name] = {};
-                    return;
-                }
-
-                events[event.name][event.space] = null;
-            }
-
-            /* method to return event namespace */
-            function _namespace(event, callback) {
-                event = event.split('.');
-
-                if (!event[1] && typeof callback === 'function') {
-                    /* if no namespace, use callback and strip all linebreaks and spaces */
-                    event[1] = callback.toString().substr(0, 150).replace(/\r?\n|\r|\s+/gm, '');
-                }
-
-                return {
-                    name: event[0],
-                    space: event[1]
+                    return self;
                 };
-            }
-        }
+                handlers.reject = function (self, error) {
+                    self.state = REJECTED;
+                    self.outcome = error;
+                    var i = -1;
+                    var len = self.queue.length;
+                    while (++i < len) {
+                        self.queue[i].callRejected(error);
+                    }
+                    return self;
+                };
 
-        return m;
+                function getThen(obj) {
+                    // Make sure we only access the accessor once as required by the spec
+                    var then = obj && obj.then;
+                    if (obj && typeof obj === 'object' && typeof then === 'function') {
+                        return function appyThen() {
+                            then.apply(obj, arguments);
+                        };
+                    }
+                }
+
+                function safelyResolveThenable(self, thenable) {
+                    // Either fulfill, reject or reject with error
+                    var called = false;
+                    function onError(value) {
+                        if (called) {
+                            return;
+                        }
+                        called = true;
+                        handlers.reject(self, value);
+                    }
+
+                    function onSuccess(value) {
+                        if (called) {
+                            return;
+                        }
+                        called = true;
+                        handlers.resolve(self, value);
+                    }
+
+                    function tryToUnwrap() {
+                        thenable(onSuccess, onError);
+                    }
+
+                    var result = tryCatch(tryToUnwrap);
+                    if (result.status === 'error') {
+                        onError(result.value);
+                    }
+                }
+
+                function tryCatch(func, value) {
+                    var out = {};
+                    try {
+                        out.value = func(value);
+                        out.status = 'success';
+                    } catch (e) {
+                        out.status = 'error';
+                        out.value = e;
+                    }
+                    return out;
+                }
+
+                exports.resolve = resolve;
+                function resolve(value) {
+                    if (value instanceof this) {
+                        return value;
+                    }
+                    return handlers.resolve(new this(INTERNAL), value);
+                }
+
+                exports.reject = reject;
+                function reject(reason) {
+                    var promise = new this(INTERNAL);
+                    return handlers.reject(promise, reason);
+                }
+
+                exports.all = all;
+                function all(iterable) {
+                    var self = this;
+                    if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+                        return this.reject(new TypeError('must be an array'));
+                    }
+
+                    var len = iterable.length;
+                    var called = false;
+                    if (!len) {
+                        return this.resolve([]);
+                    }
+
+                    var values = new Array(len);
+                    var resolved = 0;
+                    var i = -1;
+                    var promise = new this(INTERNAL);
+
+                    while (++i < len) {
+                        allResolver(iterable[i], i);
+                    }
+                    return promise;
+                    function allResolver(value, i) {
+                        self.resolve(value).then(resolveFromAll, function (error) {
+                            if (!called) {
+                                called = true;
+                                handlers.reject(promise, error);
+                            }
+                        });
+                        function resolveFromAll(outValue) {
+                            values[i] = outValue;
+                            if (++resolved === len && !called) {
+                                called = true;
+                                handlers.resolve(promise, values);
+                            }
+                        }
+                    }
+                }
+
+                exports.race = race;
+                function race(iterable) {
+                    var self = this;
+                    if (Object.prototype.toString.call(iterable) !== '[object Array]') {
+                        return this.reject(new TypeError('must be an array'));
+                    }
+
+                    var len = iterable.length;
+                    var called = false;
+                    if (!len) {
+                        return this.resolve([]);
+                    }
+
+                    var i = -1;
+                    var promise = new this(INTERNAL);
+
+                    while (++i < len) {
+                        resolver(iterable[i]);
+                    }
+                    return promise;
+                    function resolver(value) {
+                        self.resolve(value).then(function (response) {
+                            if (!called) {
+                                called = true;
+                                handlers.resolve(promise, response);
+                            }
+                        }, function (error) {
+                            if (!called) {
+                                called = true;
+                                handlers.reject(promise, error);
+                            }
+                        });
+                    }
+                }
+            }, { "2": 2 }], 2: [function (_dereq_, module, exports) {
+                (function (global) {
+                    'use strict';
+
+                    var Mutation = global.MutationObserver || global.WebKitMutationObserver;
+
+                    var scheduleDrain;
+
+                    {
+                        if (Mutation) {
+                            var called = 0;
+                            var observer = new Mutation(nextTick);
+                            var element = global.document.createTextNode('');
+                            observer.observe(element, {
+                                characterData: true
+                            });
+                            scheduleDrain = function () {
+                                element.data = called = ++called % 2;
+                            };
+                        } else if (!global.setImmediate && typeof global.MessageChannel !== 'undefined') {
+                            var channel = new global.MessageChannel();
+                            channel.port1.onmessage = nextTick;
+                            scheduleDrain = function () {
+                                channel.port2.postMessage(0);
+                            };
+                        } else if ('document' in global && 'onreadystatechange' in global.document.createElement('script')) {
+                            scheduleDrain = function () {
+
+                                // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+                                // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+                                var scriptEl = global.document.createElement('script');
+                                scriptEl.onreadystatechange = function () {
+                                    nextTick();
+
+                                    scriptEl.onreadystatechange = null;
+                                    scriptEl.parentNode.removeChild(scriptEl);
+                                    scriptEl = null;
+                                };
+                                global.document.documentElement.appendChild(scriptEl);
+                            };
+                        } else {
+                            scheduleDrain = function () {
+                                setTimeout(nextTick, 0);
+                            };
+                        }
+                    }
+
+                    var draining;
+                    var queue = [];
+                    //named nextTick for less confusing stack traces
+                    function nextTick() {
+                        draining = true;
+                        var i, oldQueue;
+                        var len = queue.length;
+                        while (len) {
+                            oldQueue = queue;
+                            queue = [];
+                            i = -1;
+                            while (++i < len) {
+                                oldQueue[i]();
+                            }
+                            len = queue.length;
+                        }
+                        draining = false;
+                    }
+
+                    module.exports = immediate;
+                    function immediate(task) {
+                        if (queue.push(task) === 1 && !draining) {
+                            scheduleDrain();
+                        }
+                    }
+                }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+            }, {}], 3: [function (_dereq_, module, exports) {
+                (function (global) {
+                    'use strict';
+
+                    if (typeof global.Promise !== 'function') {
+                        global.Promise = _dereq_(1);
+                    }
+                }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+            }, { "1": 1 }], 4: [function (_dereq_, module, exports) {
+                'use strict';
+
+                var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                    return typeof obj;
+                } : function (obj) {
+                    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+                };
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError("Cannot call a class as a function");
+                    }
+                }
+
+                function getIDB() {
+                    /* global indexedDB,webkitIndexedDB,mozIndexedDB,OIndexedDB,msIndexedDB */
+                    if (typeof indexedDB !== 'undefined') {
+                        return indexedDB;
+                    }
+                    if (typeof webkitIndexedDB !== 'undefined') {
+                        return webkitIndexedDB;
+                    }
+                    if (typeof mozIndexedDB !== 'undefined') {
+                        return mozIndexedDB;
+                    }
+                    if (typeof OIndexedDB !== 'undefined') {
+                        return OIndexedDB;
+                    }
+                    if (typeof msIndexedDB !== 'undefined') {
+                        return msIndexedDB;
+                    }
+                }
+
+                var idb = getIDB();
+
+                function isIndexedDBValid() {
+                    try {
+                        // Initialize IndexedDB; fall back to vendor-prefixed versions
+                        // if needed.
+                        if (!idb) {
+                            return false;
+                        }
+                        // We mimic PouchDB here; just UA test for Safari (which, as of
+                        // iOS 8/Yosemite, doesn't properly support IndexedDB).
+                        // IndexedDB support is broken and different from Blink's.
+                        // This is faster than the test case (and it's sync), so we just
+                        // do this. *SIGH*
+                        // http://bl.ocks.org/nolanlawson/raw/c83e9039edf2278047e9/
+                        //
+                        // We test for openDatabase because IE Mobile identifies itself
+                        // as Safari. Oh the lulz...
+                        if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' && navigator.userAgent && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+                            return false;
+                        }
+
+                        return idb && typeof idb.open === 'function' &&
+                        // Some Samsung/HTC Android 4.0-4.3 devices
+                        // have older IndexedDB specs; if this isn't available
+                        // their IndexedDB is too old for us to use.
+                        // (Replaces the onupgradeneeded test.)
+                        typeof IDBKeyRange !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
+                }
+
+                function isWebSQLValid() {
+                    return typeof openDatabase === 'function';
+                }
+
+                function isLocalStorageValid() {
+                    try {
+                        return typeof localStorage !== 'undefined' && 'setItem' in localStorage && localStorage.setItem;
+                    } catch (e) {
+                        return false;
+                    }
+                }
+
+                // Abstracts constructing a Blob object, so it also works in older
+                // browsers that don't support the native Blob constructor. (i.e.
+                // old QtWebKit versions, at least).
+                // Abstracts constructing a Blob object, so it also works in older
+                // browsers that don't support the native Blob constructor. (i.e.
+                // old QtWebKit versions, at least).
+                function createBlob(parts, properties) {
+                    /* global BlobBuilder,MSBlobBuilder,MozBlobBuilder,WebKitBlobBuilder */
+                    parts = parts || [];
+                    properties = properties || {};
+                    try {
+                        return new Blob(parts, properties);
+                    } catch (e) {
+                        if (e.name !== 'TypeError') {
+                            throw e;
+                        }
+                        var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder : typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder : typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : WebKitBlobBuilder;
+                        var builder = new Builder();
+                        for (var i = 0; i < parts.length; i += 1) {
+                            builder.append(parts[i]);
+                        }
+                        return builder.getBlob(properties.type);
+                    }
+                }
+
+                // This is CommonJS because lie is an external dependency, so Rollup
+                // can just ignore it.
+                if (typeof Promise === 'undefined' && typeof _dereq_ !== 'undefined') {
+                    _dereq_(3);
+                }
+                var Promise$1 = Promise;
+
+                function executeCallback(promise, callback) {
+                    if (callback) {
+                        promise.then(function (result) {
+                            callback(null, result);
+                        }, function (error) {
+                            callback(error);
+                        });
+                    }
+                }
+
+                // Some code originally from async_storage.js in
+                // [Gaia](https://github.com/mozilla-b2g/gaia).
+
+                var DETECT_BLOB_SUPPORT_STORE = 'local-forage-detect-blob-support';
+                var supportsBlobs;
+                var dbContexts;
+
+                // Transform a binary string to an array buffer, because otherwise
+                // weird stuff happens when you try to work with the binary string directly.
+                // It is known.
+                // From http://stackoverflow.com/questions/14967647/ (continues on next line)
+                // encode-decode-image-with-base64-breaks-image (2013-04-21)
+                function _binStringToArrayBuffer(bin) {
+                    var length = bin.length;
+                    var buf = new ArrayBuffer(length);
+                    var arr = new Uint8Array(buf);
+                    for (var i = 0; i < length; i++) {
+                        arr[i] = bin.charCodeAt(i);
+                    }
+                    return buf;
+                }
+
+                //
+                // Blobs are not supported in all versions of IndexedDB, notably
+                // Chrome <37 and Android <5. In those versions, storing a blob will throw.
+                //
+                // Various other blob bugs exist in Chrome v37-42 (inclusive).
+                // Detecting them is expensive and confusing to users, and Chrome 37-42
+                // is at very low usage worldwide, so we do a hacky userAgent check instead.
+                //
+                // content-type bug: https://code.google.com/p/chromium/issues/detail?id=408120
+                // 404 bug: https://code.google.com/p/chromium/issues/detail?id=447916
+                // FileReader bug: https://code.google.com/p/chromium/issues/detail?id=447836
+                //
+                // Code borrowed from PouchDB. See:
+                // https://github.com/pouchdb/pouchdb/blob/9c25a23/src/adapters/idb/blobSupport.js
+                //
+                function _checkBlobSupportWithoutCaching(txn) {
+                    return new Promise$1(function (resolve) {
+                        var blob = createBlob(['']);
+                        txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, 'key');
+
+                        txn.onabort = function (e) {
+                            // If the transaction aborts now its due to not being able to
+                            // write to the database, likely due to the disk being full
+                            e.preventDefault();
+                            e.stopPropagation();
+                            resolve(false);
+                        };
+
+                        txn.oncomplete = function () {
+                            var matchedChrome = navigator.userAgent.match(/Chrome\/(\d+)/);
+                            var matchedEdge = navigator.userAgent.match(/Edge\//);
+                            // MS Edge pretends to be Chrome 42:
+                            // https://msdn.microsoft.com/en-us/library/hh869301%28v=vs.85%29.aspx
+                            resolve(matchedEdge || !matchedChrome || parseInt(matchedChrome[1], 10) >= 43);
+                        };
+                    })["catch"](function () {
+                        return false; // error, so assume unsupported
+                    });
+                }
+
+                function _checkBlobSupport(idb) {
+                    if (typeof supportsBlobs === 'boolean') {
+                        return Promise$1.resolve(supportsBlobs);
+                    }
+                    return _checkBlobSupportWithoutCaching(idb).then(function (value) {
+                        supportsBlobs = value;
+                        return supportsBlobs;
+                    });
+                }
+
+                function _deferReadiness(dbInfo) {
+                    var dbContext = dbContexts[dbInfo.name];
+
+                    // Create a deferred object representing the current database operation.
+                    var deferredOperation = {};
+
+                    deferredOperation.promise = new Promise$1(function (resolve) {
+                        deferredOperation.resolve = resolve;
+                    });
+
+                    // Enqueue the deferred operation.
+                    dbContext.deferredOperations.push(deferredOperation);
+
+                    // Chain its promise to the database readiness.
+                    if (!dbContext.dbReady) {
+                        dbContext.dbReady = deferredOperation.promise;
+                    } else {
+                        dbContext.dbReady = dbContext.dbReady.then(function () {
+                            return deferredOperation.promise;
+                        });
+                    }
+                }
+
+                function _advanceReadiness(dbInfo) {
+                    var dbContext = dbContexts[dbInfo.name];
+
+                    // Dequeue a deferred operation.
+                    var deferredOperation = dbContext.deferredOperations.pop();
+
+                    // Resolve its promise (which is part of the database readiness
+                    // chain of promises).
+                    if (deferredOperation) {
+                        deferredOperation.resolve();
+                    }
+                }
+
+                function _getConnection(dbInfo, upgradeNeeded) {
+                    return new Promise$1(function (resolve, reject) {
+
+                        if (dbInfo.db) {
+                            if (upgradeNeeded) {
+                                _deferReadiness(dbInfo);
+                                dbInfo.db.close();
+                            } else {
+                                return resolve(dbInfo.db);
+                            }
+                        }
+
+                        var dbArgs = [dbInfo.name];
+
+                        if (upgradeNeeded) {
+                            dbArgs.push(dbInfo.version);
+                        }
+
+                        var openreq = idb.open.apply(idb, dbArgs);
+
+                        if (upgradeNeeded) {
+                            openreq.onupgradeneeded = function (e) {
+                                var db = openreq.result;
+                                try {
+                                    db.createObjectStore(dbInfo.storeName);
+                                    if (e.oldVersion <= 1) {
+                                        // Added when support for blob shims was added
+                                        db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
+                                    }
+                                } catch (ex) {
+                                    if (ex.name === 'ConstraintError') {
+                                        console.warn('The database "' + dbInfo.name + '"' + ' has been upgraded from version ' + e.oldVersion + ' to version ' + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
+                                    } else {
+                                        throw ex;
+                                    }
+                                }
+                            };
+                        }
+
+                        openreq.onerror = function () {
+                            reject(openreq.error);
+                        };
+
+                        openreq.onsuccess = function () {
+                            resolve(openreq.result);
+                            _advanceReadiness(dbInfo);
+                        };
+                    });
+                }
+
+                function _getOriginalConnection(dbInfo) {
+                    return _getConnection(dbInfo, false);
+                }
+
+                function _getUpgradedConnection(dbInfo) {
+                    return _getConnection(dbInfo, true);
+                }
+
+                function _isUpgradeNeeded(dbInfo, defaultVersion) {
+                    if (!dbInfo.db) {
+                        return true;
+                    }
+
+                    var isNewStore = !dbInfo.db.objectStoreNames.contains(dbInfo.storeName);
+                    var isDowngrade = dbInfo.version < dbInfo.db.version;
+                    var isUpgrade = dbInfo.version > dbInfo.db.version;
+
+                    if (isDowngrade) {
+                        // If the version is not the default one
+                        // then warn for impossible downgrade.
+                        if (dbInfo.version !== defaultVersion) {
+                            console.warn('The database "' + dbInfo.name + '"' + ' can\'t be downgraded from version ' + dbInfo.db.version + ' to version ' + dbInfo.version + '.');
+                        }
+                        // Align the versions to prevent errors.
+                        dbInfo.version = dbInfo.db.version;
+                    }
+
+                    if (isUpgrade || isNewStore) {
+                        // If the store is new then increment the version (if needed).
+                        // This will trigger an "upgradeneeded" event which is required
+                        // for creating a store.
+                        if (isNewStore) {
+                            var incVersion = dbInfo.db.version + 1;
+                            if (incVersion > dbInfo.version) {
+                                dbInfo.version = incVersion;
+                            }
+                        }
+
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                // encode a blob for indexeddb engines that don't support blobs
+                function _encodeBlob(blob) {
+                    return new Promise$1(function (resolve, reject) {
+                        var reader = new FileReader();
+                        reader.onerror = reject;
+                        reader.onloadend = function (e) {
+                            var base64 = btoa(e.target.result || '');
+                            resolve({
+                                __local_forage_encoded_blob: true,
+                                data: base64,
+                                type: blob.type
+                            });
+                        };
+                        reader.readAsBinaryString(blob);
+                    });
+                }
+
+                // decode an encoded blob
+                function _decodeBlob(encodedBlob) {
+                    var arrayBuff = _binStringToArrayBuffer(atob(encodedBlob.data));
+                    return createBlob([arrayBuff], { type: encodedBlob.type });
+                }
+
+                // is this one of our fancy encoded blobs?
+                function _isEncodedBlob(value) {
+                    return value && value.__local_forage_encoded_blob;
+                }
+
+                // Specialize the default `ready()` function by making it dependent
+                // on the current database operations. Thus, the driver will be actually
+                // ready when it's been initialized (default) *and* there are no pending
+                // operations on the database (initiated by some other instances).
+                function _fullyReady(callback) {
+                    var self = this;
+
+                    var promise = self._initReady().then(function () {
+                        var dbContext = dbContexts[self._dbInfo.name];
+
+                        if (dbContext && dbContext.dbReady) {
+                            return dbContext.dbReady;
+                        }
+                    });
+
+                    promise.then(callback, callback);
+                    return promise;
+                }
+
+                // Open the IndexedDB database (automatically creates one if one didn't
+                // previously exist), using any options set in the config.
+                function _initStorage(options) {
+                    var self = this;
+                    var dbInfo = {
+                        db: null
+                    };
+
+                    if (options) {
+                        for (var i in options) {
+                            dbInfo[i] = options[i];
+                        }
+                    }
+
+                    // Initialize a singleton container for all running localForages.
+                    if (!dbContexts) {
+                        dbContexts = {};
+                    }
+
+                    // Get the current context of the database;
+                    var dbContext = dbContexts[dbInfo.name];
+
+                    // ...or create a new context.
+                    if (!dbContext) {
+                        dbContext = {
+                            // Running localForages sharing a database.
+                            forages: [],
+                            // Shared database.
+                            db: null,
+                            // Database readiness (promise).
+                            dbReady: null,
+                            // Deferred operations on the database.
+                            deferredOperations: []
+                        };
+                        // Register the new context in the global container.
+                        dbContexts[dbInfo.name] = dbContext;
+                    }
+
+                    // Register itself as a running localForage in the current context.
+                    dbContext.forages.push(self);
+
+                    // Replace the default `ready()` function with the specialized one.
+                    if (!self._initReady) {
+                        self._initReady = self.ready;
+                        self.ready = _fullyReady;
+                    }
+
+                    // Create an array of initialization states of the related localForages.
+                    var initPromises = [];
+
+                    function ignoreErrors() {
+                        // Don't handle errors here,
+                        // just makes sure related localForages aren't pending.
+                        return Promise$1.resolve();
+                    }
+
+                    for (var j = 0; j < dbContext.forages.length; j++) {
+                        var forage = dbContext.forages[j];
+                        if (forage !== self) {
+                            // Don't wait for itself...
+                            initPromises.push(forage._initReady()["catch"](ignoreErrors));
+                        }
+                    }
+
+                    // Take a snapshot of the related localForages.
+                    var forages = dbContext.forages.slice(0);
+
+                    // Initialize the connection process only when
+                    // all the related localForages aren't pending.
+                    return Promise$1.all(initPromises).then(function () {
+                        dbInfo.db = dbContext.db;
+                        // Get the connection or open a new one without upgrade.
+                        return _getOriginalConnection(dbInfo);
+                    }).then(function (db) {
+                        dbInfo.db = db;
+                        if (_isUpgradeNeeded(dbInfo, self._defaultConfig.version)) {
+                            // Reopen the database for upgrading.
+                            return _getUpgradedConnection(dbInfo);
+                        }
+                        return db;
+                    }).then(function (db) {
+                        dbInfo.db = dbContext.db = db;
+                        self._dbInfo = dbInfo;
+                        // Share the final connection amongst related localForages.
+                        for (var k = 0; k < forages.length; k++) {
+                            var forage = forages[k];
+                            if (forage !== self) {
+                                // Self is already up-to-date.
+                                forage._dbInfo.db = dbInfo.db;
+                                forage._dbInfo.version = dbInfo.version;
+                            }
+                        }
+                    });
+                }
+
+                function getItem(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                            var req = store.get(key);
+
+                            req.onsuccess = function () {
+                                var value = req.result;
+                                if (value === undefined) {
+                                    value = null;
+                                }
+                                if (_isEncodedBlob(value)) {
+                                    value = _decodeBlob(value);
+                                }
+                                resolve(value);
+                            };
+
+                            req.onerror = function () {
+                                reject(req.error);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Iterate over all items stored in database.
+                function iterate(iterator, callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+
+                            var req = store.openCursor();
+                            var iterationNumber = 1;
+
+                            req.onsuccess = function () {
+                                var cursor = req.result;
+
+                                if (cursor) {
+                                    var value = cursor.value;
+                                    if (_isEncodedBlob(value)) {
+                                        value = _decodeBlob(value);
+                                    }
+                                    var result = iterator(value, cursor.key, iterationNumber++);
+
+                                    if (result !== void 0) {
+                                        resolve(result);
+                                    } else {
+                                        cursor["continue"]();
+                                    }
+                                } else {
+                                    resolve();
+                                }
+                            };
+
+                            req.onerror = function () {
+                                reject(req.error);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+
+                    return promise;
+                }
+
+                function setItem(key, value, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        var dbInfo;
+                        self.ready().then(function () {
+                            dbInfo = self._dbInfo;
+                            if (value instanceof Blob) {
+                                return _checkBlobSupport(dbInfo.db).then(function (blobSupport) {
+                                    if (blobSupport) {
+                                        return value;
+                                    }
+                                    return _encodeBlob(value);
+                                });
+                            }
+                            return value;
+                        }).then(function (value) {
+                            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                            var store = transaction.objectStore(dbInfo.storeName);
+
+                            // The reason we don't _save_ null is because IE 10 does
+                            // not support saving the `null` type in IndexedDB. How
+                            // ironic, given the bug below!
+                            // See: https://github.com/mozilla/localForage/issues/161
+                            if (value === null) {
+                                value = undefined;
+                            }
+
+                            transaction.oncomplete = function () {
+                                // Cast to undefined so the value passed to
+                                // callback/promise is the same as what one would get out
+                                // of `getItem()` later. This leads to some weirdness
+                                // (setItem('foo', undefined) will return `null`), but
+                                // it's not my fault localStorage is our baseline and that
+                                // it's weird.
+                                if (value === undefined) {
+                                    value = null;
+                                }
+
+                                resolve(value);
+                            };
+                            transaction.onabort = transaction.onerror = function () {
+                                var err = req.error ? req.error : req.transaction.error;
+                                reject(err);
+                            };
+
+                            var req = store.put(value, key);
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function removeItem(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                            var store = transaction.objectStore(dbInfo.storeName);
+
+                            // We use a Grunt task to make this safe for IE and some
+                            // versions of Android (including those used by Cordova).
+                            // Normally IE won't like `.delete()` and will insist on
+                            // using `['delete']()`, but we have a build step that
+                            // fixes this for us now.
+                            var req = store["delete"](key);
+                            transaction.oncomplete = function () {
+                                resolve();
+                            };
+
+                            transaction.onerror = function () {
+                                reject(req.error);
+                            };
+
+                            // The request will be also be aborted if we've exceeded our storage
+                            // space.
+                            transaction.onabort = function () {
+                                var err = req.error ? req.error : req.transaction.error;
+                                reject(err);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function clear(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                            var store = transaction.objectStore(dbInfo.storeName);
+                            var req = store.clear();
+
+                            transaction.oncomplete = function () {
+                                resolve();
+                            };
+
+                            transaction.onabort = transaction.onerror = function () {
+                                var err = req.error ? req.error : req.transaction.error;
+                                reject(err);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function length(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+                            var req = store.count();
+
+                            req.onsuccess = function () {
+                                resolve(req.result);
+                            };
+
+                            req.onerror = function () {
+                                reject(req.error);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function key(n, callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        if (n < 0) {
+                            resolve(null);
+
+                            return;
+                        }
+
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+
+                            var advanced = false;
+                            var req = store.openCursor();
+                            req.onsuccess = function () {
+                                var cursor = req.result;
+                                if (!cursor) {
+                                    // this means there weren't enough keys
+                                    resolve(null);
+
+                                    return;
+                                }
+
+                                if (n === 0) {
+                                    // We have the first key, return it if that's what they
+                                    // wanted.
+                                    resolve(cursor.key);
+                                } else {
+                                    if (!advanced) {
+                                        // Otherwise, ask the cursor to skip ahead n
+                                        // records.
+                                        advanced = true;
+                                        cursor.advance(n);
+                                    } else {
+                                        // When we get here, we've got the nth key.
+                                        resolve(cursor.key);
+                                    }
+                                }
+                            };
+
+                            req.onerror = function () {
+                                reject(req.error);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function keys(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly').objectStore(dbInfo.storeName);
+
+                            var req = store.openCursor();
+                            var keys = [];
+
+                            req.onsuccess = function () {
+                                var cursor = req.result;
+
+                                if (!cursor) {
+                                    resolve(keys);
+                                    return;
+                                }
+
+                                keys.push(cursor.key);
+                                cursor["continue"]();
+                            };
+
+                            req.onerror = function () {
+                                reject(req.error);
+                            };
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                var asyncStorage = {
+                    _driver: 'asyncStorage',
+                    _initStorage: _initStorage,
+                    iterate: iterate,
+                    getItem: getItem,
+                    setItem: setItem,
+                    removeItem: removeItem,
+                    clear: clear,
+                    length: length,
+                    key: key,
+                    keys: keys
+                };
+
+                // Sadly, the best way to save binary data in WebSQL/localStorage is serializing
+                // it to Base64, so this is how we store it to prevent very strange errors with less
+                // verbose ways of binary <-> string data storage.
+                var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+                var BLOB_TYPE_PREFIX = '~~local_forage_type~';
+                var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
+
+                var SERIALIZED_MARKER = '__lfsc__:';
+                var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
+
+                // OMG the serializations!
+                var TYPE_ARRAYBUFFER = 'arbf';
+                var TYPE_BLOB = 'blob';
+                var TYPE_INT8ARRAY = 'si08';
+                var TYPE_UINT8ARRAY = 'ui08';
+                var TYPE_UINT8CLAMPEDARRAY = 'uic8';
+                var TYPE_INT16ARRAY = 'si16';
+                var TYPE_INT32ARRAY = 'si32';
+                var TYPE_UINT16ARRAY = 'ur16';
+                var TYPE_UINT32ARRAY = 'ui32';
+                var TYPE_FLOAT32ARRAY = 'fl32';
+                var TYPE_FLOAT64ARRAY = 'fl64';
+                var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length;
+
+                function stringToBuffer(serializedString) {
+                    // Fill the string into a ArrayBuffer.
+                    var bufferLength = serializedString.length * 0.75;
+                    var len = serializedString.length;
+                    var i;
+                    var p = 0;
+                    var encoded1, encoded2, encoded3, encoded4;
+
+                    if (serializedString[serializedString.length - 1] === '=') {
+                        bufferLength--;
+                        if (serializedString[serializedString.length - 2] === '=') {
+                            bufferLength--;
+                        }
+                    }
+
+                    var buffer = new ArrayBuffer(bufferLength);
+                    var bytes = new Uint8Array(buffer);
+
+                    for (i = 0; i < len; i += 4) {
+                        encoded1 = BASE_CHARS.indexOf(serializedString[i]);
+                        encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
+                        encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
+                        encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
+
+                        /*jslint bitwise: true */
+                        bytes[p++] = encoded1 << 2 | encoded2 >> 4;
+                        bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
+                        bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
+                    }
+                    return buffer;
+                }
+
+                // Converts a buffer to a string to store, serialized, in the backend
+                // storage library.
+                function bufferToString(buffer) {
+                    // base64-arraybuffer
+                    var bytes = new Uint8Array(buffer);
+                    var base64String = '';
+                    var i;
+
+                    for (i = 0; i < bytes.length; i += 3) {
+                        /*jslint bitwise: true */
+                        base64String += BASE_CHARS[bytes[i] >> 2];
+                        base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
+                        base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
+                        base64String += BASE_CHARS[bytes[i + 2] & 63];
+                    }
+
+                    if (bytes.length % 3 === 2) {
+                        base64String = base64String.substring(0, base64String.length - 1) + '=';
+                    } else if (bytes.length % 3 === 1) {
+                        base64String = base64String.substring(0, base64String.length - 2) + '==';
+                    }
+
+                    return base64String;
+                }
+
+                // Serialize a value, afterwards executing a callback (which usually
+                // instructs the `setItem()` callback/promise to be executed). This is how
+                // we store binary data with localStorage.
+                function serialize(value, callback) {
+                    var valueString = '';
+                    if (value) {
+                        valueString = value.toString();
+                    }
+
+                    // Cannot use `value instanceof ArrayBuffer` or such here, as these
+                    // checks fail when running the tests using casper.js...
+                    //
+                    // TODO: See why those tests fail and use a better solution.
+                    if (value && (value.toString() === '[object ArrayBuffer]' || value.buffer && value.buffer.toString() === '[object ArrayBuffer]')) {
+                        // Convert binary arrays to a string and prefix the string with
+                        // a special marker.
+                        var buffer;
+                        var marker = SERIALIZED_MARKER;
+
+                        if (value instanceof ArrayBuffer) {
+                            buffer = value;
+                            marker += TYPE_ARRAYBUFFER;
+                        } else {
+                            buffer = value.buffer;
+
+                            if (valueString === '[object Int8Array]') {
+                                marker += TYPE_INT8ARRAY;
+                            } else if (valueString === '[object Uint8Array]') {
+                                marker += TYPE_UINT8ARRAY;
+                            } else if (valueString === '[object Uint8ClampedArray]') {
+                                marker += TYPE_UINT8CLAMPEDARRAY;
+                            } else if (valueString === '[object Int16Array]') {
+                                marker += TYPE_INT16ARRAY;
+                            } else if (valueString === '[object Uint16Array]') {
+                                marker += TYPE_UINT16ARRAY;
+                            } else if (valueString === '[object Int32Array]') {
+                                marker += TYPE_INT32ARRAY;
+                            } else if (valueString === '[object Uint32Array]') {
+                                marker += TYPE_UINT32ARRAY;
+                            } else if (valueString === '[object Float32Array]') {
+                                marker += TYPE_FLOAT32ARRAY;
+                            } else if (valueString === '[object Float64Array]') {
+                                marker += TYPE_FLOAT64ARRAY;
+                            } else {
+                                callback(new Error('Failed to get type for BinaryArray'));
+                            }
+                        }
+
+                        callback(marker + bufferToString(buffer));
+                    } else if (valueString === '[object Blob]') {
+                        // Conver the blob to a binaryArray and then to a string.
+                        var fileReader = new FileReader();
+
+                        fileReader.onload = function () {
+                            // Backwards-compatible prefix for the blob type.
+                            var str = BLOB_TYPE_PREFIX + value.type + '~' + bufferToString(this.result);
+
+                            callback(SERIALIZED_MARKER + TYPE_BLOB + str);
+                        };
+
+                        fileReader.readAsArrayBuffer(value);
+                    } else {
+                        try {
+                            callback(JSON.stringify(value));
+                        } catch (e) {
+                            console.error("Couldn't convert value into a JSON string: ", value);
+
+                            callback(null, e);
+                        }
+                    }
+                }
+
+                // Deserialize data we've inserted into a value column/field. We place
+                // special markers into our strings to mark them as encoded; this isn't
+                // as nice as a meta field, but it's the only sane thing we can do whilst
+                // keeping localStorage support intact.
+                //
+                // Oftentimes this will just deserialize JSON content, but if we have a
+                // special marker (SERIALIZED_MARKER, defined above), we will extract
+                // some kind of arraybuffer/binary data/typed array out of the string.
+                function deserialize(value) {
+                    // If we haven't marked this string as being specially serialized (i.e.
+                    // something other than serialized JSON), we can just return it and be
+                    // done with it.
+                    if (value.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
+                        return JSON.parse(value);
+                    }
+
+                    // The following code deals with deserializing some kind of Blob or
+                    // TypedArray. First we separate out the type of data we're dealing
+                    // with from the data itself.
+                    var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
+                    var type = value.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH);
+
+                    var blobType;
+                    // Backwards-compatible blob type serialization strategy.
+                    // DBs created with older versions of localForage will simply not have the blob type.
+                    if (type === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(serializedString)) {
+                        var matcher = serializedString.match(BLOB_TYPE_PREFIX_REGEX);
+                        blobType = matcher[1];
+                        serializedString = serializedString.substring(matcher[0].length);
+                    }
+                    var buffer = stringToBuffer(serializedString);
+
+                    // Return the right type based on the code/type set during
+                    // serialization.
+                    switch (type) {
+                        case TYPE_ARRAYBUFFER:
+                            return buffer;
+                        case TYPE_BLOB:
+                            return createBlob([buffer], { type: blobType });
+                        case TYPE_INT8ARRAY:
+                            return new Int8Array(buffer);
+                        case TYPE_UINT8ARRAY:
+                            return new Uint8Array(buffer);
+                        case TYPE_UINT8CLAMPEDARRAY:
+                            return new Uint8ClampedArray(buffer);
+                        case TYPE_INT16ARRAY:
+                            return new Int16Array(buffer);
+                        case TYPE_UINT16ARRAY:
+                            return new Uint16Array(buffer);
+                        case TYPE_INT32ARRAY:
+                            return new Int32Array(buffer);
+                        case TYPE_UINT32ARRAY:
+                            return new Uint32Array(buffer);
+                        case TYPE_FLOAT32ARRAY:
+                            return new Float32Array(buffer);
+                        case TYPE_FLOAT64ARRAY:
+                            return new Float64Array(buffer);
+                        default:
+                            throw new Error('Unkown type: ' + type);
+                    }
+                }
+
+                var localforageSerializer = {
+                    serialize: serialize,
+                    deserialize: deserialize,
+                    stringToBuffer: stringToBuffer,
+                    bufferToString: bufferToString
+                };
+
+                /*
+                 * Includes code from:
+                 *
+                 * base64-arraybuffer
+                 * https://github.com/niklasvh/base64-arraybuffer
+                 *
+                 * Copyright (c) 2012 Niklas von Hertzen
+                 * Licensed under the MIT license.
+                 */
+                // Open the WebSQL database (automatically creates one if one didn't
+                // previously exist), using any options set in the config.
+                function _initStorage$1(options) {
+                    var self = this;
+                    var dbInfo = {
+                        db: null
+                    };
+
+                    if (options) {
+                        for (var i in options) {
+                            dbInfo[i] = typeof options[i] !== 'string' ? options[i].toString() : options[i];
+                        }
+                    }
+
+                    var dbInfoPromise = new Promise$1(function (resolve, reject) {
+                        // Open the database; the openDatabase API will automatically
+                        // create it for us if it doesn't exist.
+                        try {
+                            dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
+                        } catch (e) {
+                            return reject(e);
+                        }
+
+                        // Create our key/value table if it doesn't exist.
+                        dbInfo.db.transaction(function (t) {
+                            t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName + ' (id INTEGER PRIMARY KEY, key unique, value)', [], function () {
+                                self._dbInfo = dbInfo;
+                                resolve();
+                            }, function (t, error) {
+                                reject(error);
+                            });
+                        });
+                    });
+
+                    dbInfo.serializer = localforageSerializer;
+                    return dbInfoPromise;
+                }
+
+                function getItem$1(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function (t, results) {
+                                    var result = results.rows.length ? results.rows.item(0).value : null;
+
+                                    // Check to see if this is serialized content we need to
+                                    // unpack.
+                                    if (result) {
+                                        result = dbInfo.serializer.deserialize(result);
+                                    }
+
+                                    resolve(result);
+                                }, function (t, error) {
+
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function iterate$1(iterator, callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function (t, results) {
+                                    var rows = results.rows;
+                                    var length = rows.length;
+
+                                    for (var i = 0; i < length; i++) {
+                                        var item = rows.item(i);
+                                        var result = item.value;
+
+                                        // Check to see if this is serialized content
+                                        // we need to unpack.
+                                        if (result) {
+                                            result = dbInfo.serializer.deserialize(result);
+                                        }
+
+                                        result = iterator(result, item.key, i + 1);
+
+                                        // void(0) prevents problems with redefinition
+                                        // of `undefined`.
+                                        if (result !== void 0) {
+                                            resolve(result);
+                                            return;
+                                        }
+                                    }
+
+                                    resolve();
+                                }, function (t, error) {
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function setItem$1(key, value, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            // The localStorage API doesn't return undefined values in an
+                            // "expected" way, so undefined is always cast to null in all
+                            // drivers. See: https://github.com/mozilla/localForage/pull/42
+                            if (value === undefined) {
+                                value = null;
+                            }
+
+                            // Save the original value to pass to the callback.
+                            var originalValue = value;
+
+                            var dbInfo = self._dbInfo;
+                            dbInfo.serializer.serialize(value, function (value, error) {
+                                if (error) {
+                                    reject(error);
+                                } else {
+                                    dbInfo.db.transaction(function (t) {
+                                        t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function () {
+                                            resolve(originalValue);
+                                        }, function (t, error) {
+                                            reject(error);
+                                        });
+                                    }, function (sqlError) {
+                                        // The transaction failed; check
+                                        // to see if it's a quota error.
+                                        if (sqlError.code === sqlError.QUOTA_ERR) {
+                                            // We reject the callback outright for now, but
+                                            // it's worth trying to re-run the transaction.
+                                            // Even if the user accepts the prompt to use
+                                            // more storage on Safari, this error will
+                                            // be called.
+                                            //
+                                            // TODO: Try to re-run the transaction.
+                                            reject(sqlError);
+                                        }
+                                    });
+                                }
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function removeItem$1(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function () {
+                                    resolve();
+                                }, function (t, error) {
+
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Deletes every item in the table.
+                // TODO: Find out if this resets the AUTO_INCREMENT number.
+                function clear$1(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function () {
+                                    resolve();
+                                }, function (t, error) {
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Does a simple `COUNT(key)` to get the number of items stored in
+                // localForage.
+                function length$1(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                // Ahhh, SQL makes this one soooooo easy.
+                                t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function (t, results) {
+                                    var result = results.rows.item(0).c;
+
+                                    resolve(result);
+                                }, function (t, error) {
+
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Return the key located at key index X; essentially gets the key from a
+                // `WHERE id = ?`. This is the most efficient way I can think to implement
+                // this rarely-used (in my experience) part of the API, but it can seem
+                // inconsistent, because we do `INSERT OR REPLACE INTO` on `setItem()`, so
+                // the ID of each key will change every time it's updated. Perhaps a stored
+                // procedure for the `setItem()` SQL would solve this problem?
+                // TODO: Don't change ID on `setItem()`.
+                function key$1(n, callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function (t, results) {
+                                    var result = results.rows.length ? results.rows.item(0).key : null;
+                                    resolve(result);
+                                }, function (t, error) {
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function keys$1(callback) {
+                    var self = this;
+
+                    var promise = new Promise$1(function (resolve, reject) {
+                        self.ready().then(function () {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.db.transaction(function (t) {
+                                t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function (t, results) {
+                                    var keys = [];
+
+                                    for (var i = 0; i < results.rows.length; i++) {
+                                        keys.push(results.rows.item(i).key);
+                                    }
+
+                                    resolve(keys);
+                                }, function (t, error) {
+
+                                    reject(error);
+                                });
+                            });
+                        })["catch"](reject);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                var webSQLStorage = {
+                    _driver: 'webSQLStorage',
+                    _initStorage: _initStorage$1,
+                    iterate: iterate$1,
+                    getItem: getItem$1,
+                    setItem: setItem$1,
+                    removeItem: removeItem$1,
+                    clear: clear$1,
+                    length: length$1,
+                    key: key$1,
+                    keys: keys$1
+                };
+
+                // Config the localStorage backend, using options set in the config.
+                function _initStorage$2(options) {
+                    var self = this;
+                    var dbInfo = {};
+                    if (options) {
+                        for (var i in options) {
+                            dbInfo[i] = options[i];
+                        }
+                    }
+
+                    dbInfo.keyPrefix = dbInfo.name + '/';
+
+                    if (dbInfo.storeName !== self._defaultConfig.storeName) {
+                        dbInfo.keyPrefix += dbInfo.storeName + '/';
+                    }
+
+                    self._dbInfo = dbInfo;
+                    dbInfo.serializer = localforageSerializer;
+
+                    return Promise$1.resolve();
+                }
+
+                // Remove all keys from the datastore, effectively destroying all data in
+                // the app's key/value store!
+                function clear$2(callback) {
+                    var self = this;
+                    var promise = self.ready().then(function () {
+                        var keyPrefix = self._dbInfo.keyPrefix;
+
+                        for (var i = localStorage.length - 1; i >= 0; i--) {
+                            var key = localStorage.key(i);
+
+                            if (key.indexOf(keyPrefix) === 0) {
+                                localStorage.removeItem(key);
+                            }
+                        }
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Retrieve an item from the store. Unlike the original async_storage
+                // library in Gaia, we don't modify return values at all. If a key's value
+                // is `undefined`, we pass that value to the callback function.
+                function getItem$2(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = self.ready().then(function () {
+                        var dbInfo = self._dbInfo;
+                        var result = localStorage.getItem(dbInfo.keyPrefix + key);
+
+                        // If a result was found, parse it from the serialized
+                        // string into a JS object. If result isn't truthy, the key
+                        // is likely undefined and we'll pass it straight to the
+                        // callback.
+                        if (result) {
+                            result = dbInfo.serializer.deserialize(result);
+                        }
+
+                        return result;
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Iterate over all items in the store.
+                function iterate$2(iterator, callback) {
+                    var self = this;
+
+                    var promise = self.ready().then(function () {
+                        var dbInfo = self._dbInfo;
+                        var keyPrefix = dbInfo.keyPrefix;
+                        var keyPrefixLength = keyPrefix.length;
+                        var length = localStorage.length;
+
+                        // We use a dedicated iterator instead of the `i` variable below
+                        // so other keys we fetch in localStorage aren't counted in
+                        // the `iterationNumber` argument passed to the `iterate()`
+                        // callback.
+                        //
+                        // See: github.com/mozilla/localForage/pull/435#discussion_r38061530
+                        var iterationNumber = 1;
+
+                        for (var i = 0; i < length; i++) {
+                            var key = localStorage.key(i);
+                            if (key.indexOf(keyPrefix) !== 0) {
+                                continue;
+                            }
+                            var value = localStorage.getItem(key);
+
+                            // If a result was found, parse it from the serialized
+                            // string into a JS object. If result isn't truthy, the
+                            // key is likely undefined and we'll pass it straight
+                            // to the iterator.
+                            if (value) {
+                                value = dbInfo.serializer.deserialize(value);
+                            }
+
+                            value = iterator(value, key.substring(keyPrefixLength), iterationNumber++);
+
+                            if (value !== void 0) {
+                                return value;
+                            }
+                        }
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Same as localStorage's key() method, except takes a callback.
+                function key$2(n, callback) {
+                    var self = this;
+                    var promise = self.ready().then(function () {
+                        var dbInfo = self._dbInfo;
+                        var result;
+                        try {
+                            result = localStorage.key(n);
+                        } catch (error) {
+                            result = null;
+                        }
+
+                        // Remove the prefix from the key, if a key is found.
+                        if (result) {
+                            result = result.substring(dbInfo.keyPrefix.length);
+                        }
+
+                        return result;
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                function keys$2(callback) {
+                    var self = this;
+                    var promise = self.ready().then(function () {
+                        var dbInfo = self._dbInfo;
+                        var length = localStorage.length;
+                        var keys = [];
+
+                        for (var i = 0; i < length; i++) {
+                            if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
+                                keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
+                            }
+                        }
+
+                        return keys;
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Supply the number of keys in the datastore to the callback function.
+                function length$2(callback) {
+                    var self = this;
+                    var promise = self.keys().then(function (keys) {
+                        return keys.length;
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Remove an item from the store, nice and simple.
+                function removeItem$2(key, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = self.ready().then(function () {
+                        var dbInfo = self._dbInfo;
+                        localStorage.removeItem(dbInfo.keyPrefix + key);
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                // Set a key's value and run an optional callback once the value is set.
+                // Unlike Gaia's implementation, the callback function is passed the value,
+                // in case you want to operate on that value only after you're sure it
+                // saved, or something like that.
+                function setItem$2(key, value, callback) {
+                    var self = this;
+
+                    // Cast the key to a string, as that's all we can set as a key.
+                    if (typeof key !== 'string') {
+                        console.warn(key + ' used as a key, but it is not a string.');
+                        key = String(key);
+                    }
+
+                    var promise = self.ready().then(function () {
+                        // Convert undefined values to null.
+                        // https://github.com/mozilla/localForage/pull/42
+                        if (value === undefined) {
+                            value = null;
+                        }
+
+                        // Save the original value to pass to the callback.
+                        var originalValue = value;
+
+                        return new Promise$1(function (resolve, reject) {
+                            var dbInfo = self._dbInfo;
+                            dbInfo.serializer.serialize(value, function (value, error) {
+                                if (error) {
+                                    reject(error);
+                                } else {
+                                    try {
+                                        localStorage.setItem(dbInfo.keyPrefix + key, value);
+                                        resolve(originalValue);
+                                    } catch (e) {
+                                        // localStorage capacity exceeded.
+                                        // TODO: Make this a specific error/event.
+                                        if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                                            reject(e);
+                                        }
+                                        reject(e);
+                                    }
+                                }
+                            });
+                        });
+                    });
+
+                    executeCallback(promise, callback);
+                    return promise;
+                }
+
+                var localStorageWrapper = {
+                    _driver: 'localStorageWrapper',
+                    _initStorage: _initStorage$2,
+                    // Default API, from Gaia/localStorage.
+                    iterate: iterate$2,
+                    getItem: getItem$2,
+                    setItem: setItem$2,
+                    removeItem: removeItem$2,
+                    clear: clear$2,
+                    length: length$2,
+                    key: key$2,
+                    keys: keys$2
+                };
+
+                function executeTwoCallbacks(promise, callback, errorCallback) {
+                    if (typeof callback === 'function') {
+                        promise.then(callback);
+                    }
+
+                    if (typeof errorCallback === 'function') {
+                        promise["catch"](errorCallback);
+                    }
+                }
+
+                // Custom drivers are stored here when `defineDriver()` is called.
+                // They are shared across all instances of localForage.
+                var CustomDrivers = {};
+
+                var DriverType = {
+                    INDEXEDDB: 'asyncStorage',
+                    LOCALSTORAGE: 'localStorageWrapper',
+                    WEBSQL: 'webSQLStorage'
+                };
+
+                var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
+
+                var LibraryMethods = ['clear', 'getItem', 'iterate', 'key', 'keys', 'length', 'removeItem', 'setItem'];
+
+                var DefaultConfig = {
+                    description: '',
+                    driver: DefaultDriverOrder.slice(),
+                    name: 'localforage',
+                    // Default DB size is _JUST UNDER_ 5MB, as it's the highest size
+                    // we can use without a prompt.
+                    size: 4980736,
+                    storeName: 'keyvaluepairs',
+                    version: 1.0
+                };
+
+                var driverSupport = {};
+                // Check to see if IndexedDB is available and if it is the latest
+                // implementation; it's our preferred backend library. We use "_spec_test"
+                // as the name of the database because it's not the one we'll operate on,
+                // but it's useful to make sure its using the right spec.
+                // See: https://github.com/mozilla/localForage/issues/128
+                driverSupport[DriverType.INDEXEDDB] = isIndexedDBValid();
+
+                driverSupport[DriverType.WEBSQL] = isWebSQLValid();
+
+                driverSupport[DriverType.LOCALSTORAGE] = isLocalStorageValid();
+
+                var isArray = Array.isArray || function (arg) {
+                    return Object.prototype.toString.call(arg) === '[object Array]';
+                };
+
+                function callWhenReady(localForageInstance, libraryMethod) {
+                    localForageInstance[libraryMethod] = function () {
+                        var _args = arguments;
+                        return localForageInstance.ready().then(function () {
+                            return localForageInstance[libraryMethod].apply(localForageInstance, _args);
+                        });
+                    };
+                }
+
+                function extend() {
+                    for (var i = 1; i < arguments.length; i++) {
+                        var arg = arguments[i];
+
+                        if (arg) {
+                            for (var key in arg) {
+                                if (arg.hasOwnProperty(key)) {
+                                    if (isArray(arg[key])) {
+                                        arguments[0][key] = arg[key].slice();
+                                    } else {
+                                        arguments[0][key] = arg[key];
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return arguments[0];
+                }
+
+                function isLibraryDriver(driverName) {
+                    for (var driver in DriverType) {
+                        if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+
+                var LocalForage = function () {
+                    function LocalForage(options) {
+                        _classCallCheck(this, LocalForage);
+
+                        this.INDEXEDDB = DriverType.INDEXEDDB;
+                        this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
+                        this.WEBSQL = DriverType.WEBSQL;
+
+                        this._defaultConfig = extend({}, DefaultConfig);
+                        this._config = extend({}, this._defaultConfig, options);
+                        this._driverSet = null;
+                        this._initDriver = null;
+                        this._ready = false;
+                        this._dbInfo = null;
+
+                        this._wrapLibraryMethodsWithReady();
+                        this.setDriver(this._config.driver);
+                    }
+
+                    // Set any config values for localForage; can be called anytime before
+                    // the first API call (e.g. `getItem`, `setItem`).
+                    // We loop through options so we don't overwrite existing config
+                    // values.
+
+
+                    LocalForage.prototype.config = function config(options) {
+                        // If the options argument is an object, we use it to set values.
+                        // Otherwise, we return either a specified config value or all
+                        // config values.
+                        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+                            // If localforage is ready and fully initialized, we can't set
+                            // any new configuration values. Instead, we return an error.
+                            if (this._ready) {
+                                return new Error("Can't call config() after localforage " + 'has been used.');
+                            }
+
+                            for (var i in options) {
+                                if (i === 'storeName') {
+                                    options[i] = options[i].replace(/\W/g, '_');
+                                }
+
+                                this._config[i] = options[i];
+                            }
+
+                            // after all config options are set and
+                            // the driver option is used, try setting it
+                            if ('driver' in options && options.driver) {
+                                this.setDriver(this._config.driver);
+                            }
+
+                            return true;
+                        } else if (typeof options === 'string') {
+                            return this._config[options];
+                        } else {
+                            return this._config;
+                        }
+                    };
+
+                    // Used to define a custom driver, shared across all instances of
+                    // localForage.
+
+
+                    LocalForage.prototype.defineDriver = function defineDriver(driverObject, callback, errorCallback) {
+                        var promise = new Promise$1(function (resolve, reject) {
+                            try {
+                                var driverName = driverObject._driver;
+                                var complianceError = new Error('Custom driver not compliant; see ' + 'https://mozilla.github.io/localForage/#definedriver');
+                                var namingError = new Error('Custom driver name already in use: ' + driverObject._driver);
+
+                                // A driver name should be defined and not overlap with the
+                                // library-defined, default drivers.
+                                if (!driverObject._driver) {
+                                    reject(complianceError);
+                                    return;
+                                }
+                                if (isLibraryDriver(driverObject._driver)) {
+                                    reject(namingError);
+                                    return;
+                                }
+
+                                var customDriverMethods = LibraryMethods.concat('_initStorage');
+                                for (var i = 0; i < customDriverMethods.length; i++) {
+                                    var customDriverMethod = customDriverMethods[i];
+                                    if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
+                                        reject(complianceError);
+                                        return;
+                                    }
+                                }
+
+                                var supportPromise = Promise$1.resolve(true);
+                                if ('_support' in driverObject) {
+                                    if (driverObject._support && typeof driverObject._support === 'function') {
+                                        supportPromise = driverObject._support();
+                                    } else {
+                                        supportPromise = Promise$1.resolve(!!driverObject._support);
+                                    }
+                                }
+
+                                supportPromise.then(function (supportResult) {
+                                    driverSupport[driverName] = supportResult;
+                                    CustomDrivers[driverName] = driverObject;
+                                    resolve();
+                                }, reject);
+                            } catch (e) {
+                                reject(e);
+                            }
+                        });
+
+                        executeTwoCallbacks(promise, callback, errorCallback);
+                        return promise;
+                    };
+
+                    LocalForage.prototype.driver = function driver() {
+                        return this._driver || null;
+                    };
+
+                    LocalForage.prototype.getDriver = function getDriver(driverName, callback, errorCallback) {
+                        var self = this;
+                        var getDriverPromise = Promise$1.resolve().then(function () {
+                            if (isLibraryDriver(driverName)) {
+                                switch (driverName) {
+                                    case self.INDEXEDDB:
+                                        return asyncStorage;
+                                    case self.LOCALSTORAGE:
+                                        return localStorageWrapper;
+                                    case self.WEBSQL:
+                                        return webSQLStorage;
+                                }
+                            } else if (CustomDrivers[driverName]) {
+                                return CustomDrivers[driverName];
+                            } else {
+                                throw new Error('Driver not found.');
+                            }
+                        });
+                        executeTwoCallbacks(getDriverPromise, callback, errorCallback);
+                        return getDriverPromise;
+                    };
+
+                    LocalForage.prototype.getSerializer = function getSerializer(callback) {
+                        var serializerPromise = Promise$1.resolve(localforageSerializer);
+                        executeTwoCallbacks(serializerPromise, callback);
+                        return serializerPromise;
+                    };
+
+                    LocalForage.prototype.ready = function ready(callback) {
+                        var self = this;
+
+                        var promise = self._driverSet.then(function () {
+                            if (self._ready === null) {
+                                self._ready = self._initDriver();
+                            }
+
+                            return self._ready;
+                        });
+
+                        executeTwoCallbacks(promise, callback, callback);
+                        return promise;
+                    };
+
+                    LocalForage.prototype.setDriver = function setDriver(drivers, callback, errorCallback) {
+                        var self = this;
+
+                        if (!isArray(drivers)) {
+                            drivers = [drivers];
+                        }
+
+                        var supportedDrivers = this._getSupportedDrivers(drivers);
+
+                        function setDriverToConfig() {
+                            self._config.driver = self.driver();
+                        }
+
+                        function initDriver(supportedDrivers) {
+                            return function () {
+                                var currentDriverIndex = 0;
+
+                                function driverPromiseLoop() {
+                                    while (currentDriverIndex < supportedDrivers.length) {
+                                        var driverName = supportedDrivers[currentDriverIndex];
+                                        currentDriverIndex++;
+
+                                        self._dbInfo = null;
+                                        self._ready = null;
+
+                                        return self.getDriver(driverName).then(function (driver) {
+                                            self._extend(driver);
+                                            setDriverToConfig();
+
+                                            self._ready = self._initStorage(self._config);
+                                            return self._ready;
+                                        })["catch"](driverPromiseLoop);
+                                    }
+
+                                    setDriverToConfig();
+                                    var error = new Error('No available storage method found.');
+                                    self._driverSet = Promise$1.reject(error);
+                                    return self._driverSet;
+                                }
+
+                                return driverPromiseLoop();
+                            };
+                        }
+
+                        // There might be a driver initialization in progress
+                        // so wait for it to finish in order to avoid a possible
+                        // race condition to set _dbInfo
+                        var oldDriverSetDone = this._driverSet !== null ? this._driverSet["catch"](function () {
+                            return Promise$1.resolve();
+                        }) : Promise$1.resolve();
+
+                        this._driverSet = oldDriverSetDone.then(function () {
+                            var driverName = supportedDrivers[0];
+                            self._dbInfo = null;
+                            self._ready = null;
+
+                            return self.getDriver(driverName).then(function (driver) {
+                                self._driver = driver._driver;
+                                setDriverToConfig();
+                                self._wrapLibraryMethodsWithReady();
+                                self._initDriver = initDriver(supportedDrivers);
+                            });
+                        })["catch"](function () {
+                            setDriverToConfig();
+                            var error = new Error('No available storage method found.');
+                            self._driverSet = Promise$1.reject(error);
+                            return self._driverSet;
+                        });
+
+                        executeTwoCallbacks(this._driverSet, callback, errorCallback);
+                        return this._driverSet;
+                    };
+
+                    LocalForage.prototype.supports = function supports(driverName) {
+                        return !!driverSupport[driverName];
+                    };
+
+                    LocalForage.prototype._extend = function _extend(libraryMethodsAndProperties) {
+                        extend(this, libraryMethodsAndProperties);
+                    };
+
+                    LocalForage.prototype._getSupportedDrivers = function _getSupportedDrivers(drivers) {
+                        var supportedDrivers = [];
+                        for (var i = 0, len = drivers.length; i < len; i++) {
+                            var driverName = drivers[i];
+                            if (this.supports(driverName)) {
+                                supportedDrivers.push(driverName);
+                            }
+                        }
+                        return supportedDrivers;
+                    };
+
+                    LocalForage.prototype._wrapLibraryMethodsWithReady = function _wrapLibraryMethodsWithReady() {
+                        // Add a stub for each driver API method that delays the call to the
+                        // corresponding driver method until localForage is ready. These stubs
+                        // will be replaced by the driver methods as soon as the driver is
+                        // loaded, so there is no performance impact.
+                        for (var i = 0; i < LibraryMethods.length; i++) {
+                            callWhenReady(this, LibraryMethods[i]);
+                        }
+                    };
+
+                    LocalForage.prototype.createInstance = function createInstance(options) {
+                        return new LocalForage(options);
+                    };
+
+                    return LocalForage;
+                }();
+
+                // The actual localForage object that we expose as a module or via a
+                // global. It's extended by pulling in one of our other libraries.
+
+
+                var localforage_js = new LocalForage();
+
+                module.exports = localforage_js;
+            }, { "3": 3 }] }, {}, [4])(4);
     });
     return module.exports;
 });
-$__System.registerDynamic("6e", ["6c"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("6c");
-  return module.exports;
-});
-$__System.registerDynamic('16', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (it) {
-    return typeof it === 'object' ? it !== null : typeof it === 'function';
-  };
-  return module.exports;
-});
-$__System.registerDynamic('c', ['16'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var isObject = $__require('16');
-  module.exports = function (it) {
-    if (!isObject(it)) throw TypeError(it + ' is not an object!');
-    return it;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('14', ['2a', 'f', 'e', '25'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var classof = $__require('2a'),
-        ITERATOR = $__require('f')('iterator'),
-        Iterators = $__require('e');
-    module.exports = $__require('25').getIteratorMethod = function (it) {
-        if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
-    };
-    return module.exports;
-});
-$__System.registerDynamic('6f', ['c', '14', '25'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var anObject = $__require('c'),
-      get = $__require('14');
-  module.exports = $__require('25').getIterator = function (it) {
-    var iterFn = get(it);
-    if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-    return anObject(iterFn.call(it));
-  };
-  return module.exports;
-});
-$__System.registerDynamic('70', ['2f', '2e', '6f'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('2f');
-  $__require('2e');
-  module.exports = $__require('6f');
-  return module.exports;
-});
-$__System.registerDynamic("71", ["70"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("70"), __esModule: true };
-  return module.exports;
-});
-$__System.registerDynamic("72", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function () {/* empty */};
-  return module.exports;
-});
-$__System.registerDynamic("73", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (done, value) {
-    return { value: value, done: !!done };
-  };
-  return module.exports;
-});
-$__System.registerDynamic('33', ['1f'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var cof = $__require('1f');
-  module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-    return cof(it) == 'String' ? it.split('') : Object(it);
-  };
-  return module.exports;
-});
-$__System.registerDynamic('74', ['33', '3c'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var IObject = $__require('33'),
-      defined = $__require('3c');
-  module.exports = function (it) {
-    return IObject(defined(it));
-  };
-  return module.exports;
-});
-$__System.registerDynamic('75', ['72', '73', 'e', '74', '76'], true, function ($__require, exports, module) {
-  /* */
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var addToUnscopables = $__require('72'),
-      step = $__require('73'),
-      Iterators = $__require('e'),
-      toIObject = $__require('74');
-  module.exports = $__require('76')(Array, 'Array', function (iterated, kind) {
-    this._t = toIObject(iterated);
-    this._i = 0;
-    this._k = kind;
-  }, function () {
-    var O = this._t,
-        kind = this._k,
-        index = this._i++;
-    if (!O || index >= O.length) {
-      this._t = undefined;
-      return step(1);
-    }
-    if (kind == 'keys') return step(0, index);
-    if (kind == 'values') return step(0, O[index]);
-    return step(0, [index, O[index]]);
-  }, 'values');
-  Iterators.Arguments = Iterators.Array;
-  addToUnscopables('keys');
-  addToUnscopables('values');
-  addToUnscopables('entries');
-  return module.exports;
-});
-$__System.registerDynamic('2f', ['75', 'e'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('75');
-  var Iterators = $__require('e');
-  Iterators.NodeList = Iterators.HTMLCollection = Iterators.Array;
-  return module.exports;
-});
-$__System.registerDynamic("11", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  // 7.1.4 ToInteger
-  var ceil = Math.ceil,
-      floor = Math.floor;
-  module.exports = function (it) {
-    return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-  };
-  return module.exports;
-});
-$__System.registerDynamic("3c", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  // 7.2.1 RequireObjectCoercible(argument)
-  module.exports = function (it) {
-    if (it == undefined) throw TypeError("Can't call method on  " + it);
-    return it;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('77', ['11', '3c'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var toInteger = $__require('11'),
-      defined = $__require('3c');
-  module.exports = function (TO_STRING) {
-    return function (that, pos) {
-      var s = String(defined(that)),
-          i = toInteger(pos),
-          l = s.length,
-          a,
-          b;
-      if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-      a = s.charCodeAt(i);
-      return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff ? TO_STRING ? s.charAt(i) : a : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-    };
-  };
-  return module.exports;
-});
-$__System.registerDynamic("29", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = true;
-  return module.exports;
-});
-$__System.registerDynamic('19', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (it) {
-    if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-    return it;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('13', ['19'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var aFunction = $__require('19');
-  module.exports = function (fn, that, length) {
-    aFunction(fn);
-    if (that === undefined) return fn;
-    switch (length) {
-      case 1:
-        return function (a) {
-          return fn.call(that, a);
-        };
-      case 2:
-        return function (a, b) {
-          return fn.call(that, a, b);
-        };
-      case 3:
-        return function (a, b, c) {
-          return fn.call(that, a, b, c);
-        };
-    }
-    return function () {
-      return fn.apply(that, arguments);
-    };
-  };
-  return module.exports;
-});
-$__System.registerDynamic('2b', ['1c', '25', '13'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var global = $__require('1c'),
-      core = $__require('25'),
-      ctx = $__require('13'),
-      PROTOTYPE = 'prototype';
-  var $export = function (type, name, source) {
-    var IS_FORCED = type & $export.F,
-        IS_GLOBAL = type & $export.G,
-        IS_STATIC = type & $export.S,
-        IS_PROTO = type & $export.P,
-        IS_BIND = type & $export.B,
-        IS_WRAP = type & $export.W,
-        exports = IS_GLOBAL ? core : core[name] || (core[name] = {}),
-        target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE],
-        key,
-        own,
-        out;
-    if (IS_GLOBAL) source = name;
-    for (key in source) {
-      own = !IS_FORCED && target && key in target;
-      if (own && key in exports) continue;
-      out = own ? target[key] : source[key];
-      exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key] : IS_BIND && own ? ctx(out, global) : IS_WRAP && target[key] == out ? function (C) {
-        var F = function (param) {
-          return this instanceof C ? new C(param) : C(param);
-        };
-        F[PROTOTYPE] = C[PROTOTYPE];
-        return F;
-      }(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-      if (IS_PROTO) (exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
-    }
-  };
-  $export.F = 1;
-  $export.G = 2;
-  $export.S = 4;
-  $export.P = 8;
-  $export.B = 16;
-  $export.W = 32;
-  module.exports = $export;
-  return module.exports;
-});
-$__System.registerDynamic('23', ['78'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = $__require('78');
-  return module.exports;
-});
-$__System.registerDynamic("79", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (bitmap, value) {
-    return {
-      enumerable: !(bitmap & 1),
-      configurable: !(bitmap & 2),
-      writable: !(bitmap & 4),
-      value: value
-    };
-  };
-  return module.exports;
-});
-$__System.registerDynamic("34", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = function (exec) {
-    try {
-      return !!exec();
-    } catch (e) {
-      return true;
-    }
-  };
-  return module.exports;
-});
-$__System.registerDynamic('26', ['34'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = !$__require('34')(function () {
-    return Object.defineProperty({}, 'a', { get: function () {
-        return 7;
-      } }).a != 7;
-  });
-  return module.exports;
-});
-$__System.registerDynamic('78', ['7', '79', '26'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var $ = $__require('7'),
-      createDesc = $__require('79');
-  module.exports = $__require('26') ? function (object, key, value) {
-    return $.setDesc(object, key, createDesc(1, value));
-  } : function (object, key, value) {
-    object[key] = value;
-    return object;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('7a', ['7', '79', '2c', '78', 'f'], true, function ($__require, exports, module) {
-  /* */
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var $ = $__require('7'),
-      descriptor = $__require('79'),
-      setToStringTag = $__require('2c'),
-      IteratorPrototype = {};
-  $__require('78')(IteratorPrototype, $__require('f')('iterator'), function () {
-    return this;
-  });
-  module.exports = function (Constructor, NAME, next) {
-    Constructor.prototype = $.create(IteratorPrototype, { next: descriptor(1, next) });
-    setToStringTag(Constructor, NAME + ' Iterator');
-  };
-  return module.exports;
-});
-$__System.registerDynamic("7b", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var hasOwnProperty = {}.hasOwnProperty;
-  module.exports = function (it, key) {
-    return hasOwnProperty.call(it, key);
-  };
-  return module.exports;
-});
-$__System.registerDynamic('2c', ['7', '7b', 'f'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var def = $__require('7').setDesc,
-      has = $__require('7b'),
-      TAG = $__require('f')('toStringTag');
-  module.exports = function (it, tag, stat) {
-    if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, {
-      configurable: true,
-      value: tag
-    });
-  };
-  return module.exports;
-});
-$__System.registerDynamic("7", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var $Object = Object;
-  module.exports = {
-    create: $Object.create,
-    getProto: $Object.getPrototypeOf,
-    isEnum: {}.propertyIsEnumerable,
-    getDesc: $Object.getOwnPropertyDescriptor,
-    setDesc: $Object.defineProperty,
-    setDescs: $Object.defineProperties,
-    getKeys: $Object.keys,
-    getNames: $Object.getOwnPropertyNames,
-    getSymbols: $Object.getOwnPropertySymbols,
-    each: [].forEach
-  };
-  return module.exports;
-});
-$__System.registerDynamic('76', ['29', '2b', '23', '78', '7b', 'e', '7a', '2c', '7', 'f'], true, function ($__require, exports, module) {
-  /* */
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var LIBRARY = $__require('29'),
-      $export = $__require('2b'),
-      redefine = $__require('23'),
-      hide = $__require('78'),
-      has = $__require('7b'),
-      Iterators = $__require('e'),
-      $iterCreate = $__require('7a'),
-      setToStringTag = $__require('2c'),
-      getProto = $__require('7').getProto,
-      ITERATOR = $__require('f')('iterator'),
-      BUGGY = !([].keys && 'next' in [].keys()),
-      FF_ITERATOR = '@@iterator',
-      KEYS = 'keys',
-      VALUES = 'values';
-  var returnThis = function () {
-    return this;
-  };
-  module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-    $iterCreate(Constructor, NAME, next);
-    var getMethod = function (kind) {
-      if (!BUGGY && kind in proto) return proto[kind];
-      switch (kind) {
-        case KEYS:
-          return function keys() {
-            return new Constructor(this, kind);
-          };
-        case VALUES:
-          return function values() {
-            return new Constructor(this, kind);
-          };
-      }
-      return function entries() {
-        return new Constructor(this, kind);
-      };
-    };
-    var TAG = NAME + ' Iterator',
-        DEF_VALUES = DEFAULT == VALUES,
-        VALUES_BUG = false,
-        proto = Base.prototype,
-        $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT],
-        $default = $native || getMethod(DEFAULT),
-        methods,
-        key;
-    if ($native) {
-      var IteratorPrototype = getProto($default.call(new Base()));
-      setToStringTag(IteratorPrototype, TAG, true);
-      if (!LIBRARY && has(proto, FF_ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
-      if (DEF_VALUES && $native.name !== VALUES) {
-        VALUES_BUG = true;
-        $default = function values() {
-          return $native.call(this);
-        };
-      }
-    }
-    if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-      hide(proto, ITERATOR, $default);
-    }
-    Iterators[NAME] = $default;
-    Iterators[TAG] = returnThis;
-    if (DEFAULT) {
-      methods = {
-        values: DEF_VALUES ? $default : getMethod(VALUES),
-        keys: IS_SET ? $default : getMethod(KEYS),
-        entries: !DEF_VALUES ? $default : getMethod('entries')
-      };
-      if (FORCED) for (key in methods) {
-        if (!(key in proto)) redefine(proto, key, methods[key]);
-      } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-    }
-    return methods;
-  };
-  return module.exports;
-});
-$__System.registerDynamic('2e', ['77', '76'], true, function ($__require, exports, module) {
-  /* */
-  'use strict';
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  var $at = $__require('77')(true);
-  $__require('76')(String, 'String', function (iterated) {
-    this._t = String(iterated);
-    this._i = 0;
-  }, function () {
-    var O = this._t,
-        index = this._i,
-        point;
-    if (index >= O.length) return {
-      value: undefined,
-      done: true
-    };
-    point = $at(O, index);
-    this._i += point.length;
-    return {
-      value: point,
-      done: false
-    };
-  });
-  return module.exports;
-});
-$__System.registerDynamic("1f", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var toString = {}.toString;
-
-  module.exports = function (it) {
-    return toString.call(it).slice(8, -1);
-  };
-  return module.exports;
-});
-$__System.registerDynamic('2a', ['1f', 'f'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var cof = $__require('1f'),
-        TAG = $__require('f')('toStringTag'),
-        ARG = cof(function () {
-        return arguments;
-    }()) == 'Arguments';
-    module.exports = function (it) {
-        var O, T, B;
-        return it === undefined ? 'Undefined' : it === null ? 'Null' : typeof (T = (O = Object(it))[TAG]) == 'string' ? T : ARG ? cof(O) : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-    };
-    return module.exports;
-});
-$__System.registerDynamic('7c', ['1c'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var global = $__require('1c'),
-        SHARED = '__core-js_shared__',
-        store = global[SHARED] || (global[SHARED] = {});
-    module.exports = function (key) {
-        return store[key] || (store[key] = {});
-    };
-    return module.exports;
-});
-$__System.registerDynamic('7d', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var id = 0,
-      px = Math.random();
-  module.exports = function (key) {
-    return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-  };
-  return module.exports;
-});
-$__System.registerDynamic('1c', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-  if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-  return module.exports;
-});
-$__System.registerDynamic('f', ['7c', '7d', '1c'], true, function ($__require, exports, module) {
-    var define,
-        global = this || self,
-        GLOBAL = global;
-    /* */
-    var store = $__require('7c')('wks'),
-        uid = $__require('7d'),
-        Symbol = $__require('1c').Symbol;
-    module.exports = function (name) {
-        return store[name] || (store[name] = Symbol && Symbol[name] || (Symbol || uid)('Symbol.' + name));
-    };
-    return module.exports;
-});
-$__System.registerDynamic("e", [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = {};
-  return module.exports;
-});
-$__System.registerDynamic('25', [], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var core = module.exports = { version: '1.2.6' };
-  if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-  return module.exports;
-});
-$__System.registerDynamic('7e', ['2a', 'f', 'e', '25'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  var classof = $__require('2a'),
-      ITERATOR = $__require('f')('iterator'),
-      Iterators = $__require('e');
-  module.exports = $__require('25').isIterable = function (it) {
-    var O = Object(it);
-    return O[ITERATOR] !== undefined || '@@iterator' in O || Iterators.hasOwnProperty(classof(O));
-  };
-  return module.exports;
-});
-$__System.registerDynamic('7f', ['2f', '2e', '7e'], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  $__require('2f');
-  $__require('2e');
-  module.exports = $__require('7e');
-  return module.exports;
-});
-$__System.registerDynamic("80", ["7f"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  /* */
-  module.exports = { "default": $__require("7f"), __esModule: true };
-  return module.exports;
-});
-$__System.register("81", ["71", "80", "6d"], function (_export) {
-  var _getIterator, _isIterable, angular, _exports;
-
-  return {
-    setters: [function (_2) {
-      _getIterator = _2["default"];
-    }, function (_3) {
-      _isIterable = _3["default"];
-    }, function (_d) {
-      angular = _d["default"];
-    }],
-    execute: function () {
-      "use strict";
-
-      _exports = {};
-
-      !(function (t, r) {
-        "object" == typeof _exports && "object" == typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define([], r) : "object" == typeof _exports ? _exports.ngFx = r() : t.ngFx = r();
-      })(undefined, function () {
-        return (function (t) {
-          function r(a) {
-            if (e[a]) return e[a].exports;var o = e[a] = { exports: {}, id: a, loaded: !1 };return t[a].call(o.exports, o, o.exports, r), o.loaded = !0, o.exports;
-          }var e = {};return r.m = t, r.c = e, r.p = "", r(0);
-        })([function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var a = e(1),
-              o = e(80);angular.module("ng-fx", [a.animations, o.utils]), r["default"] = "ng-fx", t.exports = r["default"];
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var a = e(2),
-              o = e(7),
-              n = angular.module("ngFx.animations", [o.element, a.view]).name;r.animations = n;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(3);var a = angular.module("ngFx.animations.view", []),
-              o = a.name;r.view = o;
-        }, function (t, r, e) {
-          var a = e(4);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, ".fx-view-container{position:relative;min-height:1px}.fx-view{position:absolute;width:100%;z-index:10;left:0;right:0}", ""]);
-        }, function (t, r) {
-          t.exports = function () {
-            var t = [];return t.toString = function () {
-              for (var t = [], r = 0; r < this.length; r++) {
-                var e = this[r];e[2] ? t.push("@media " + e[2] + "{" + e[1] + "}") : t.push(e[1]);
-              }return t.join("");
-            }, t.i = function (r, e) {
-              "string" == typeof r && (r = [[null, r, ""]]);for (var a = {}, o = 0; o < this.length; o++) {
-                var n = this[o][0];"number" == typeof n && (a[n] = !0);
-              }for (o = 0; o < r.length; o++) {
-                var i = r[o];"number" == typeof i[0] && a[i[0]] || (e && !i[2] ? i[2] = e : e && (i[2] = "(" + i[2] + ") and (" + e + ")"), t.push(i));
-              }
-            }, t;
-          };
-        }, function (t, r, e) {
-          function a(t, r) {
-            for (var e = 0; e < t.length; e++) {
-              var a = t[e],
-                  o = p[a.id];if (o) {
-                o.refs++;for (var n = 0; n < o.parts.length; n++) o.parts[n](a.parts[n]);for (; n < a.parts.length; n++) o.parts.push(s(a.parts[n], r));
-              } else {
-                for (var i = [], n = 0; n < a.parts.length; n++) i.push(s(a.parts[n], r));p[a.id] = { id: a.id, refs: 1, parts: i };
-              }
-            }
-          }function o(t) {
-            for (var r = [], e = {}, a = 0; a < t.length; a++) {
-              var o = t[a],
-                  n = o[0],
-                  i = o[1],
-                  s = o[2],
-                  f = o[3],
-                  c = { css: i, media: s, sourceMap: f };e[n] ? e[n].parts.push(c) : r.push(e[n] = { id: n, parts: [c] });
-            }return r;
-          }function n() {
-            var t = document.createElement("style"),
-                r = y();return t.type = "text/css", r.appendChild(t), t;
-          }function i() {
-            var t = document.createElement("link"),
-                r = y();return t.rel = "stylesheet", r.appendChild(t), t;
-          }function s(t, r) {
-            var e, a, o;if (r.singleton) {
-              var s = g++;e = d || (d = n()), a = f.bind(null, e, s, !1), o = f.bind(null, e, s, !0);
-            } else t.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (e = i(), a = m.bind(null, e), o = function () {
-              e.parentNode.removeChild(e), e.href && URL.revokeObjectURL(e.href);
-            }) : (e = n(), a = c.bind(null, e), o = function () {
-              e.parentNode.removeChild(e);
-            });return a(t), function (r) {
-              if (r) {
-                if (r.css === t.css && r.media === t.media && r.sourceMap === t.sourceMap) return;a(t = r);
-              } else o();
-            };
-          }function f(t, r, e, a) {
-            var o = e ? "" : a.css;if (t.styleSheet) t.styleSheet.cssText = b(r, o);else {
-              var n = document.createTextNode(o),
-                  i = t.childNodes;i[r] && t.removeChild(i[r]), i.length ? t.insertBefore(n, i[r]) : t.appendChild(n);
-            }
-          }function c(t, r) {
-            var e = r.css,
-                a = r.media;r.sourceMap;if ((a && t.setAttribute("media", a), t.styleSheet)) t.styleSheet.cssText = e;else {
-              for (; t.firstChild;) t.removeChild(t.firstChild);t.appendChild(document.createTextNode(e));
-            }
-          }function m(t, r) {
-            var e = r.css,
-                a = (r.media, r.sourceMap);a && (e += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(a)))) + " */");var o = new Blob([e], { type: "text/css" }),
-                n = t.href;t.href = URL.createObjectURL(o), n && URL.revokeObjectURL(n);
-          }var p = {},
-              u = function u(t) {
-            var r;return function () {
-              return "undefined" == typeof r && (r = t.apply(this, arguments)), r;
-            };
-          },
-              l = u(function () {
-            return (/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())
-            );
-          }),
-              y = u(function () {
-            return document.head || document.getElementsByTagName("head")[0];
-          }),
-              d = null,
-              g = 0;t.exports = function (t, r) {
-            r = r || {}, "undefined" == typeof r.singleton && (r.singleton = l());var e = o(t);return a(e, r), function (t) {
-              for (var n = [], i = 0; i < e.length; i++) {
-                var s = e[i],
-                    f = p[s.id];f.refs--, n.push(f);
-              }if (t) {
-                var c = o(t);a(c, r);
-              }for (var i = 0; i < n.length; i++) {
-                var f = n[i];if (0 === f.refs) {
-                  for (var m = 0; m < f.parts.length; m++) f.parts[m]();delete p[f.id];
-                }
-              }
-            };
-          };var b = (function () {
-            var t = [];return function (r, e) {
-              return t[r] = e, t.filter(Boolean).join("\n");
-            };
-          })();
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var a = e(8),
-              o = e(16),
-              n = e(61),
-              i = e(69),
-              s = e(73),
-              f = angular.module("ngFx.animations.element", []);[a.bounces, o.fades, n.zooms, i.lightSpeeds, s.rotates].forEach(function (t) {
-            t.forEach(function (t) {
-              f.animation(t.classname, t.creator);
-            });
-          });var c = f.name;r.element = c;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(9);var a = e(11),
-              o = e(12),
-              n = e(13),
-              i = e(14),
-              s = e(15),
-              f = [a.bounceNormal, o.bounceDown, n.bounceLeft, i.bounceRight, s.bounceUp];r.bounces = f;
-        }, function (t, r, e) {
-          var a = e(10);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-webkit-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-o-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-moz-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-webkit-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-o-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-moz-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-webkit-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-o-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-moz-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-webkit-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-o-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-moz-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-webkit-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-o-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-moz-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-webkit-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-o-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-moz-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-webkit-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-o-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-moz-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-webkit-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-o-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-moz-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-webkit-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-o-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-moz-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-webkit-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-o-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}", ""]);
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s bounceNormalIn" },
-                e = { keyframeStyle: ".1s bounceNormalOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-normal",
-              o = { creator: e, classname: a };r.bounceNormal = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s bounceDownIn" },
-                e = { keyframeStyle: ".1s bounceDownOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-down",
-              o = { creator: e, classname: a };r.bounceDown = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s bounceLeftIn" },
-                e = { keyframeStyle: ".1s bounceLeftOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-left",
-              o = { creator: e, classname: a };r.bounceLeft = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s bounceRightIn" },
-                e = { keyframeStyle: ".1s bounceRightOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-right",
-              o = { creator: e, classname: a };r.bounceRight = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s bounceUpIn" },
-                e = { keyframeStyle: ".1s bounceUpOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-up",
-              o = { creator: e, classname: a };r.bounceUp = o;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(17);var a = e(19),
-              o = e(53),
-              n = e(54),
-              i = e(55),
-              s = e(56),
-              f = e(57),
-              c = e(58),
-              m = e(59),
-              p = e(60),
-              u = [a.fadeNormal, o.fadeDown, n.fadeDownBig, i.fadeLeft, s.fadeLeftBig, f.fadeRight, c.fadeRightBig, m.fadeUp, p.fadeUpBig];r.fades = u;
-        }, function (t, r, e) {
-          var a = e(18);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-o-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-moz-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-webkit-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-o-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-moz-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-webkit-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-o-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-moz-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-webkit-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-o-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-moz-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-webkit-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-o-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-moz-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-webkit-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-o-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-moz-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-webkit-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-o-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-moz-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-webkit-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-o-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-moz-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-webkit-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-o-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-moz-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-webkit-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-o-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}", ""]);
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeNormalIn" },
-                e = { keyframeStyle: ".1s fadeNormalOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-normal",
-              s = { creator: n, classname: i };r.fadeNormal = s;
-        }, function (t, r, e) {
-          var a = e(21),
-              o = e(48),
-              n = o(a);t.exports = n;
-        }, function (t, r, e) {
-          function a(t, r, e, u, l) {
-            if (!f(t)) return t;var y = s(r) && (i(r) || m(r)),
-                d = y ? void 0 : p(r);return o(d || r, function (o, i) {
-              if ((d && (i = o, o = r[i]), c(o))) u || (u = []), l || (l = []), n(t, r, i, a, e, u, l);else {
-                var s = t[i],
-                    f = e ? e(s, o, i, t, r) : void 0,
-                    m = void 0 === f;m && (f = o), void 0 === f && (!y || i in t) || !m && (f === f ? f === s : s !== s) || (t[i] = f);
-              }
-            }), t;
-          }var o = e(22),
-              n = e(23),
-              i = e(31),
-              s = e(26),
-              f = e(35),
-              c = e(30),
-              m = e(43),
-              p = e(46);t.exports = a;
-        }, function (t, r) {
-          function e(t, r) {
-            for (var e = -1, a = t.length; ++e < a && r(t[e], e, t) !== !1;);return t;
-          }t.exports = e;
-        }, function (t, r, e) {
-          function a(t, r, e, a, p, u, l) {
-            for (var y = u.length, d = r[e]; y--;) if (u[y] == d) return void (t[e] = l[y]);var g = t[e],
-                b = p ? p(g, d, e, t, r) : void 0,
-                x = void 0 === b;x && (b = d, s(d) && (i(d) || c(d)) ? b = i(g) ? g : s(g) ? o(g) : [] : f(d) || n(d) ? b = n(g) ? m(g) : f(g) ? g : {} : x = !1), u.push(d), l.push(b), x ? t[e] = a(b, d, p, u, l) : (b === b ? b !== g : g === g) && (t[e] = b);
-          }var o = e(24),
-              n = e(25),
-              i = e(31),
-              s = e(26),
-              f = e(36),
-              c = e(43),
-              m = e(44);t.exports = a;
-        }, function (t, r) {
-          function e(t, r) {
-            var e = -1,
-                a = t.length;for (r || (r = Array(a)); ++e < a;) r[e] = t[e];return r;
-          }t.exports = e;
-        }, function (t, r, e) {
-          function a(t) {
-            return n(t) && o(t) && s.call(t, "callee") && !f.call(t, "callee");
-          }var o = e(26),
-              n = e(30),
-              i = Object.prototype,
-              s = i.hasOwnProperty,
-              f = i.propertyIsEnumerable;t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return null != t && n(o(t));
-          }var o = e(27),
-              n = e(29);t.exports = a;
-        }, function (t, r, e) {
-          var a = e(28),
-              o = a("length");t.exports = o;
-        }, function (t, r) {
-          function e(t) {
-            return function (r) {
-              return null == r ? void 0 : r[t];
-            };
-          }t.exports = e;
-        }, function (t, r) {
-          function e(t) {
-            return "number" == typeof t && t > -1 && t % 1 == 0 && a >= t;
-          }var a = 9007199254740991;t.exports = e;
-        }, function (t, r) {
-          function e(t) {
-            return !!t && "object" == typeof t;
-          }t.exports = e;
-        }, function (t, r, e) {
-          var a = e(32),
-              o = e(29),
-              n = e(30),
-              i = "[object Array]",
-              s = Object.prototype,
-              f = s.toString,
-              c = a(Array, "isArray"),
-              m = c || function (t) {
-            return n(t) && o(t.length) && f.call(t) == i;
-          };t.exports = m;
-        }, function (t, r, e) {
-          function a(t, r) {
-            var e = null == t ? void 0 : t[r];return o(e) ? e : void 0;
-          }var o = e(33);t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return null == t ? !1 : o(t) ? m.test(f.call(t)) : n(t) && i.test(t);
-          }var o = e(34),
-              n = e(30),
-              i = /^\[object .+?Constructor\]$/,
-              s = Object.prototype,
-              f = Function.prototype.toString,
-              c = s.hasOwnProperty,
-              m = RegExp("^" + f.call(c).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return o(t) && s.call(t) == n;
-          }var o = e(35),
-              n = "[object Function]",
-              i = Object.prototype,
-              s = i.toString;t.exports = a;
-        }, function (t, r) {
-          function e(t) {
-            var r = typeof t;return !!t && ("object" == r || "function" == r);
-          }t.exports = e;
-        }, function (t, r, e) {
-          function a(t) {
-            var r;if (!i(t) || m.call(t) != s || n(t) || !c.call(t, "constructor") && (r = t.constructor, "function" == typeof r && !(r instanceof r))) return !1;var e;return o(t, function (t, r) {
-              e = r;
-            }), void 0 === e || c.call(t, e);
-          }var o = e(37),
-              n = e(25),
-              i = e(30),
-              s = "[object Object]",
-              f = Object.prototype,
-              c = f.hasOwnProperty,
-              m = f.toString;t.exports = a;
-        }, function (t, r, e) {
-          function a(t, r) {
-            return o(t, r, n);
-          }var o = e(38),
-              n = e(41);t.exports = a;
-        }, function (t, r, e) {
-          var a = e(39),
-              o = a();t.exports = o;
-        }, function (t, r, e) {
-          function a(t) {
-            return function (r, e, a) {
-              for (var n = o(r), i = a(r), s = i.length, f = t ? s : -1; t ? f-- : ++f < s;) {
-                var c = i[f];if (e(n[c], c, n) === !1) break;
-              }return r;
-            };
-          }var o = e(40);t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return o(t) ? t : Object(t);
-          }var o = e(35);t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            if (null == t) return [];f(t) || (t = Object(t));var r = t.length;r = r && s(r) && (n(t) || o(t)) && r || 0;for (var e = t.constructor, a = -1, c = "function" == typeof e && e.prototype === t, p = Array(r), u = r > 0; ++a < r;) p[a] = a + "";for (var l in t) u && i(l, r) || "constructor" == l && (c || !m.call(t, l)) || p.push(l);return p;
-          }var o = e(25),
-              n = e(31),
-              i = e(42),
-              s = e(29),
-              f = e(35),
-              c = Object.prototype,
-              m = c.hasOwnProperty;t.exports = a;
-        }, function (t, r) {
-          function e(t, r) {
-            return t = "number" == typeof t || a.test(t) ? +t : -1, r = null == r ? o : r, t > -1 && t % 1 == 0 && r > t;
-          }var a = /^\d+$/,
-              o = 9007199254740991;t.exports = e;
-        }, function (t, r, e) {
-          function a(t) {
-            return n(t) && o(t.length) && !!U[M.call(t)];
-          }var o = e(29),
-              n = e(30),
-              i = "[object Arguments]",
-              s = "[object Array]",
-              f = "[object Boolean]",
-              c = "[object Date]",
-              m = "[object Error]",
-              p = "[object Function]",
-              u = "[object Map]",
-              l = "[object Number]",
-              y = "[object Object]",
-              d = "[object RegExp]",
-              g = "[object Set]",
-              b = "[object String]",
-              x = "[object WeakMap]",
-              k = "[object ArrayBuffer]",
-              v = "[object Float32Array]",
-              h = "[object Float64Array]",
-              O = "[object Int8Array]",
-              z = "[object Int16Array]",
-              w = "[object Int32Array]",
-              I = "[object Uint8Array]",
-              j = "[object Uint8ClampedArray]",
-              _ = "[object Uint16Array]",
-              R = "[object Uint32Array]",
-              U = {};U[v] = U[h] = U[O] = U[z] = U[w] = U[I] = U[j] = U[_] = U[R] = !0, U[i] = U[s] = U[k] = U[f] = U[c] = U[m] = U[p] = U[u] = U[l] = U[y] = U[d] = U[g] = U[b] = U[x] = !1;var L = Object.prototype,
-              M = L.toString;t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return o(t, n(t));
-          }var o = e(45),
-              n = e(41);t.exports = a;
-        }, function (t, r) {
-          function e(t, r, e) {
-            e || (e = {});for (var a = -1, o = r.length; ++a < o;) {
-              var n = r[a];e[n] = t[n];
-            }return e;
-          }t.exports = e;
-        }, function (t, r, e) {
-          var a = e(32),
-              o = e(26),
-              n = e(35),
-              i = e(47),
-              s = a(Object, "keys"),
-              f = s ? function (t) {
-            var r = null == t ? void 0 : t.constructor;return "function" == typeof r && r.prototype === t || "function" != typeof t && o(t) ? i(t) : n(t) ? s(t) : [];
-          } : i;t.exports = f;
-        }, function (t, r, e) {
-          function a(t) {
-            for (var r = f(t), e = r.length, a = e && t.length, c = !!a && s(a) && (n(t) || o(t)), p = -1, u = []; ++p < e;) {
-              var l = r[p];(c && i(l, a) || m.call(t, l)) && u.push(l);
-            }return u;
-          }var o = e(25),
-              n = e(31),
-              i = e(42),
-              s = e(29),
-              f = e(41),
-              c = Object.prototype,
-              m = c.hasOwnProperty;t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return i(function (r, e) {
-              var a = -1,
-                  i = null == r ? 0 : e.length,
-                  s = i > 2 ? e[i - 2] : void 0,
-                  f = i > 2 ? e[2] : void 0,
-                  c = i > 1 ? e[i - 1] : void 0;for ("function" == typeof s ? (s = o(s, c, 5), i -= 2) : (s = "function" == typeof c ? c : void 0, i -= s ? 1 : 0), f && n(e[0], e[1], f) && (s = 3 > i ? void 0 : s, i = 1); ++a < i;) {
-                var m = e[a];m && t(r, m, s);
-              }return r;
-            });
-          }var o = e(49),
-              n = e(51),
-              i = e(52);t.exports = a;
-        }, function (t, r, e) {
-          function a(t, r, e) {
-            if ("function" != typeof t) return o;if (void 0 === r) return t;switch (e) {case 1:
-                return function (e) {
-                  return t.call(r, e);
-                };case 3:
-                return function (e, a, o) {
-                  return t.call(r, e, a, o);
-                };case 4:
-                return function (e, a, o, n) {
-                  return t.call(r, e, a, o, n);
-                };case 5:
-                return function (e, a, o, n, i) {
-                  return t.call(r, e, a, o, n, i);
-                };}return function () {
-              return t.apply(r, arguments);
-            };
-          }var o = e(50);t.exports = a;
-        }, function (t, r) {
-          function e(t) {
-            return t;
-          }t.exports = e;
-        }, function (t, r, e) {
-          function a(t, r, e) {
-            if (!i(e)) return !1;var a = typeof r;if ("number" == a ? o(e) && n(r, e.length) : "string" == a && r in e) {
-              var s = e[r];return t === t ? t === s : s !== s;
-            }return !1;
-          }var o = e(26),
-              n = e(42),
-              i = e(35);t.exports = a;
-        }, function (t, r) {
-          function e(t, r) {
-            if ("function" != typeof t) throw new TypeError(a);return r = o(void 0 === r ? t.length - 1 : +r || 0, 0), function () {
-              for (var e = arguments, a = -1, n = o(e.length - r, 0), i = Array(n); ++a < n;) i[a] = e[r + a];switch (r) {case 0:
-                  return t.call(this, i);case 1:
-                  return t.call(this, e[0], i);case 2:
-                  return t.call(this, e[0], e[1], i);}var s = Array(r + 1);for (a = -1; ++a < r;) s[a] = e[a];return s[r] = i, t.apply(this, s);
-            };
-          }var a = "Expected a function",
-              o = Math.max;t.exports = e;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeDownIn" },
-                e = { keyframeStyle: ".1s fadeDownOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-down",
-              s = { creator: n, classname: i };r.fadeDown = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeDownBigIn" },
-                e = { keyframeStyle: ".1s fadeDownBigOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-down-big",
-              s = { creator: n, classname: i };r.fadeDownBig = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeLeftIn" },
-                e = { keyframeStyle: ".1s fadeLeftOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-left",
-              s = { creator: n, classname: i };r.fadeLeft = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeLeftBigIn" },
-                e = { keyframeStyle: ".1s fadeLeftBigOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-left-big",
-              s = { creator: n, classname: i };r.fadeLeftBig = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeRightIn" },
-                e = { keyframeStyle: ".1s fadeRightOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-right",
-              s = { creator: n, classname: i };r.fadeRight = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeRightBigIn" },
-                e = { keyframeStyle: ".1s fadeRightBigOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-right-big",
-              s = { creator: n, classname: i };r.fadeRightBig = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeUpIn" },
-                e = { keyframeStyle: ".1s fadeUpOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-up",
-              s = { creator: n, classname: i };r.fadeUp = s;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = (a(o), function (t) {
-            var r = { keyframeStyle: ".1s fadeUpBigIn" },
-                e = { keyframeStyle: ".1s fadeUpBigOut" };return t.create(r, e);
-          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-up-big",
-              s = { creator: n, classname: i };r.fadeUpBig = s;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(62);var a = e(64),
-              o = e(65),
-              n = e(66),
-              i = e(67),
-              s = e(68),
-              f = [a.zoomNormal, o.zoomDown, n.zoomUp, i.zoomRight, s.zoomLeft];
-          r.zooms = f;
-        }, function (t, r, e) {
-          var a = e(63);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-webkit-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-o-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-moz-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-webkit-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-o-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-moz-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-webkit-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-o-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-moz-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-webkit-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-o-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-moz-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@-webkit-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@-o-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}", ""]);
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s zoomNormalIn" },
-                e = { keyframeStyle: ".1s zoomNormalOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-normal",
-              o = { creator: e, classname: a };r.zoomNormal = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s zoomDownIn" },
-                e = { keyframeStyle: ".1s zoomDownOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-down",
-              o = { creator: e, classname: a };r.zoomDown = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s zoomUpIn" },
-                e = { keyframeStyle: ".1s zoomUpOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-up",
-              o = { creator: e, classname: a };r.zoomUp = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s zoomRightIn" },
-                e = { keyframeStyle: ".1s zoomRightOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-right",
-              o = { creator: e, classname: a };r.zoomRight = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s zoomLeftIn" },
-                e = { keyframeStyle: ".1s zoomLeftOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-left",
-              o = { creator: e, classname: a };r.zoomLeft = o;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(70);var a = e(72),
-              o = [a.lightSpeed];r.lightSpeeds = o;
-        }, function (t, r, e) {
-          var a = e(71);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-webkit-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-o-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-moz-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@-webkit-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@-o-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}", ""]);
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s lightSpeedNormalIn" },
-                e = { keyframeStyle: ".1s lightSpeedNormalOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-light-speed",
-              o = { creator: e, classname: a };r.lightSpeed = o;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 }), e(74);var a = e(76),
-              o = e(77),
-              n = e(78),
-              i = e(79),
-              s = [a.rotateDownLeft, o.rotateDownRight, n.rotateUpLeft, i.rotateUpRight];r.rotates = s;
-        }, function (t, r, e) {
-          var a = e(75);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
-        }, function (t, r, e) {
-          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-webkit-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-o-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-moz-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-webkit-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-o-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-moz-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-webkit-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-o-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-moz-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-webkit-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-o-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-moz-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-webkit-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-o-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-moz-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-webkit-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-o-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-moz-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-webkit-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-o-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-moz-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@-webkit-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@-o-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}", ""]);
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s rotateDownLeftIn" },
-                e = { keyframeStyle: ".1s rotateDownLeftOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-down-left",
-              o = { creator: e, classname: a };r.rotateDownLeft = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s rotateDownRightIn" },
-                e = { keyframeStyle: ".1s rotateDownRightOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-down-right",
-              o = { creator: e, classname: a };r.rotateDownRight = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s rotateUpLeftIn" },
-                e = { keyframeStyle: ".1s rotateUpLeftOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-up-left",
-              o = { creator: e, classname: a };r.rotateUpLeft = o;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
-            var r = { keyframeStyle: ".1s rotateUpRightIn" },
-                e = { keyframeStyle: ".1s rotateUpRightOut" };return t.create(r, e);
-          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-up-right",
-              o = { creator: e, classname: a };r.rotateUpRight = o;
-        }, function (t, r, e) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var a = e(81),
-              o = e(86),
-              n = function n(t) {
-            t.classNameFilter(/fx-/);
-          };n.$inject = ["$animateProvider"];var i = angular.module("ngFx.utils", []).factory("$$fx", a.fxHelp).factory("$fxMakeAnimation", o.fxMakeAnimation).name;r.utils = i;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = (function () {
-            function t(t, r) {
-              var e = [],
-                  a = !0,
-                  o = !1,
-                  n = void 0;try {
-                for (var i, s = _getIterator(t); !(a = (i = s.next()).done) && (e.push(i.value), !r || e.length !== r); a = !0);
-              } catch (f) {
-                o = !0, n = f;
-              } finally {
-                try {
-                  !a && s["return"] && s["return"]();
-                } finally {
-                  if (o) throw n;
-                }
-              }return e;
-            }return function (r, e) {
-              if (Array.isArray(r)) return r;if (_isIterable(Object(r))) return t(r, e);throw new TypeError("Invalid attempt to destructure non-iterable instance");
-            };
-          })(),
-              n = e(82),
-              i = a(n),
-              s = e(20),
-              f = a(s),
-              c = e(85),
-              m = function m(t) {
-            var r = ["enter", "leave", "move"],
-                e = ["addClass", "setClass", "removeClass"],
-                a = "(\\d+)",
-                n = new RegExp(a),
-                s = function s(t, r) {
-              var e = r ? "[A-Za-z]" : a;return new RegExp("fx\\-" + t + "\\-" + e);
-            },
-                m = function m(t) {
-              var r = 500;if (s("(speed|dur|duration)").test(t)) try {
-                r = parseInt(t.match(n)[0]);
-              } catch (e) {}return r / 1e3;
-            },
-                p = function p(t) {
-              if (s("stagger").test(t)) {
-                var r = void 0;try {
-                  r = parseInt(t.match(n)[0]);
-                } catch (e) {
-                  return;
-                }return r / 1e3;
-              }
-            },
-                u = function u(t) {
-              if (s("ease", !0).test(t)) {
-                var r = t.slice(8),
-                    e = r.split("-"),
-                    a = o(e, 3),
-                    n = a[0],
-                    i = a[1],
-                    f = a[2],
-                    m = void 0 === f ? "" : f,
-                    p = c.curves[n.trim()];if (!p) return;if (i) {
-                  var u = ("" + i + m).trim();return p[u];
-                }return p.inout;
-              }
-            },
-                l = function l(t) {
-              var r = i["default"](t[0].classList),
-                  e = r.join(" "),
-                  a = /(fx\-\w+\-(.*?)(\s|$))/g,
-                  o = e.match(a),
-                  n = o.reduce(function (t, r) {
-                if (/stagger/.test(r)) {
-                  var e = p(r);t.stagger = e ? e : void 0;
-                } else if (/ease/.test(r)) {
-                  var a = u(r);a && (t.easing = "cubic-bezier(" + a.join() + ")");
-                } else /(speed|dur|duration)/.test(r) && (t.duration = m(r));return t;
-              }, { duration: .5 });return n;
-            },
-                y = function y(r, e) {
-              var a = l(r),
-                  o = f["default"](e, a);return t(r, o);
-            },
-                d = function d(t) {
-              return r.reduce(function (r, e) {
-                var a = t[e];return a && (r[e] = function (t, r) {
-                  return y(t, a);
-                }), r;
-              }, {});
-            },
-                g = function g(t) {
-              return e.reduce(function (r, e) {
-                var a = t[e];return a && (r[e] = function (t, r, o) {
-                  return (/(addClass|removeClass)/.test(e) ? y(t, a) : void o()
-                  );
-                }), r;
-              }, {});
-            };return { getStagger: p, getDuration: m, getEase: u, parseClassList: l, buildAnimation: y, createAnimationsForSimilarEvents: d, createClassAnimations: g };
-          };m.$inject = ["$animateCss"], r.fxHelp = m;
-        }, function (t, r, e) {
-          function a(t) {
-            var r = t ? n(t) : 0;return i(r) ? r ? o(t) : [] : s(t);
-          }var o = e(24),
-              n = e(27),
-              i = e(29),
-              s = e(83);t.exports = a;
-        }, function (t, r, e) {
-          function a(t) {
-            return o(t, n(t));
-          }var o = e(84),
-              n = e(46);t.exports = a;
-        }, function (t, r) {
-          function e(t, r) {
-            for (var e = -1, a = r.length, o = Array(a); ++e < a;) o[e] = t[r[e]];return o;
-          }t.exports = e;
-        }, function (t, r) {
-          "use strict";Object.defineProperty(r, "__esModule", { value: !0 });var e = { back: { "in": [.6, -.28, .735, .045], out: [.175, .885, .32, 1.275], inout: [.68, -.55, .265, 1.55] }, expo: { "in": [.95, .05, .795, .035], out: [.19, 1, .22, 1], inout: [1, 0, 0, 1] }, circ: { "in": [.6, .04, .98, .335], out: [.075, .82, .165, 1], inout: [.785, .135, .15, .86] }, quint: { "in": [.755, .05, .855, .06], out: [.23, 1, .32, 1], inout: [.86, 0, .07, 1] }, quart: { "in": [.895, .03, .685, .22], out: [.165, .84, .44, 1], inout: [.77, 0, .175, 1] }, cubic: { "in": [.55, .055, .675, .19], out: [.215, .61, .355, 1], inout: [.645, .045, .355, 1] }, quad: { "in": [.55, .085, .68, .53], out: [.25, .46, .45, .94], inout: [.455, .03, .515, .955] }, sine: { "in": [.47, 0, .745, .715], out: [.39, .575, .565, 1], inout: [.445, .05, .55, .95] } };r.curves = e;
-        }, function (t, r, e) {
-          "use strict";function a(t) {
-            return t && t.__esModule ? t : { "default": t };
-          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
-              n = a(o),
-              i = function i(t, r) {
-            var e = function e(t, _e, a) {
-              var o = n["default"]({}, t),
-                  i = n["default"]({}, _e),
-                  s = n["default"]({}, t),
-                  f = r.createAnimationsForSimilarEvents({ enter: t, leave: _e, move: o }),
-                  c = r.createClassAnimations({ addClass: i, removeClass: s });return f = n["default"](f, c);
-            };return { create: e };
-          };i.$inject = ["$animateCss", "$$fx"], r.fxMakeAnimation = i;
-        }]);
-      });
-    }
-  };
-});
-$__System.registerDynamic("82", [], false, function ($__require, $__exports, $__module) {
-  var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, "angular", null);
+$__System.registerDynamic('3', [], false, function ($__require, $__exports, $__module) {
+  var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, 'angular', null);
 
   (function ($__global) {
-    /* */
-    "format global";
-    "exports angular";
     /**
      * @license AngularJS v1.5.8
      * (c) 2010-2016 Google, Inc. http://angularjs.org
      * License: MIT
      */
-
     (function (window) {
       'use strict';
 
@@ -45922,4134 +45540,2009 @@ $__System.registerDynamic("82", [], false, function ($__require, $__exports, $__
 
   return _retrieveGlobal();
 });
-$__System.registerDynamic("6d", ["82"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("82");
-  return module.exports;
-});
-$__System.registerDynamic("83", ["6d"], false, function ($__require, $__exports, $__module) {
-  var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, null, null);
+$__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context) {
+  "use strict";
 
-  (function ($__global) {
-    /* */
-    "format global";
-    "deps angular";
-    /**
-     * @license AngularJS v1.5.8
-     * (c) 2010-2016 Google, Inc. http://angularjs.org
-     * License: MIT
-     */
+  var ack, localForage, ActivityMonitor, angular$1, _classCallCheck, _createClass, AckApi, supportsNav, AckOffline, QueModel, ackNgServices, ackNgFilters, whiteOutModalTemplate, ackNgDirectives, exports$1, ackAngular;
 
-    (function (window, angular) {
-      'use strict';
+  function urlVars($window) {
+    var fetcher = function fetcher() {
+      var regex = /[?&]([^=#]+)=([^&#]*)/g,
+          url = $window.location.href,
+          params = {},
+          match;
 
-      var ELEMENT_NODE = 1;
-      var COMMENT_NODE = 8;
-
-      var ADD_CLASS_SUFFIX = '-add';
-      var REMOVE_CLASS_SUFFIX = '-remove';
-      var EVENT_CLASS_PREFIX = 'ng-';
-      var ACTIVE_CLASS_SUFFIX = '-active';
-      var PREPARE_CLASS_SUFFIX = '-prepare';
-
-      var NG_ANIMATE_CLASSNAME = 'ng-animate';
-      var NG_ANIMATE_CHILDREN_DATA = '$$ngAnimateChildren';
-
-      // Detect proper transitionend/animationend event names.
-      var CSS_PREFIX = '',
-          TRANSITION_PROP,
-          TRANSITIONEND_EVENT,
-          ANIMATION_PROP,
-          ANIMATIONEND_EVENT;
-
-      // If unprefixed events are not supported but webkit-prefixed are, use the latter.
-      // Otherwise, just use W3C names, browsers not supporting them at all will just ignore them.
-      // Note: Chrome implements `window.onwebkitanimationend` and doesn't implement `window.onanimationend`
-      // but at the same time dispatches the `animationend` event and not `webkitAnimationEnd`.
-      // Register both events in case `window.onanimationend` is not supported because of that,
-      // do the same for `transitionend` as Safari is likely to exhibit similar behavior.
-      // Also, the only modern browser that uses vendor prefixes for transitions/keyframes is webkit
-      // therefore there is no reason to test anymore for other vendor prefixes:
-      // http://caniuse.com/#search=transition
-      if (window.ontransitionend === void 0 && window.onwebkittransitionend !== void 0) {
-        CSS_PREFIX = '-webkit-';
-        TRANSITION_PROP = 'WebkitTransition';
-        TRANSITIONEND_EVENT = 'webkitTransitionEnd transitionend';
-      } else {
-        TRANSITION_PROP = 'transition';
-        TRANSITIONEND_EVENT = 'transitionend';
+      while (match = regex.exec(url)) {
+        params[match[1]] = match[2];
       }
+      return params;
+    };
 
-      if (window.onanimationend === void 0 && window.onwebkitanimationend !== void 0) {
-        CSS_PREFIX = '-webkit-';
-        ANIMATION_PROP = 'WebkitAnimation';
-        ANIMATIONEND_EVENT = 'webkitAnimationEnd animationend';
-      } else {
-        ANIMATION_PROP = 'animation';
-        ANIMATIONEND_EVENT = 'animationend';
-      }
+    /** case in-sensative variable search */
+    fetcher.get = function (name, param) {
+      var a = ack(fetcher());
+      return a.get.apply(a, arguments);
+    };
 
-      var DURATION_KEY = 'Duration';
-      var PROPERTY_KEY = 'Property';
-      var DELAY_KEY = 'Delay';
-      var TIMING_KEY = 'TimingFunction';
-      var ANIMATION_ITERATION_COUNT_KEY = 'IterationCount';
-      var ANIMATION_PLAYSTATE_KEY = 'PlayState';
-      var SAFE_FAST_FORWARD_DURATION_VALUE = 9999;
+    return fetcher;
+  }
 
-      var ANIMATION_DELAY_PROP = ANIMATION_PROP + DELAY_KEY;
-      var ANIMATION_DURATION_PROP = ANIMATION_PROP + DURATION_KEY;
-      var TRANSITION_DELAY_PROP = TRANSITION_PROP + DELAY_KEY;
-      var TRANSITION_DURATION_PROP = TRANSITION_PROP + DURATION_KEY;
+  function a(name) {
+    function method() {
+      return invokeRotator(ack[name]);
+    }
+    //method.$inject = ['ack']
+    return method;
+  }
 
-      var ngMinErr = angular.$$minErr('ng');
-      function assertArg(arg, name, reason) {
-        if (!arg) {
-          throw ngMinErr('areq', "Argument '{0}' is {1}", name || '?', reason || "required");
-        }
-        return arg;
-      }
+  function invokeRotator(invoke) {
+    return function (v, call0, call1, call2) {
+      var newkey,
+          subargs,
+          key,
+          item,
+          rtn = invoke(v);
 
-      function mergeClasses(a, b) {
-        if (!a && !b) return '';
-        if (!a) return b;
-        if (!b) return a;
-        if (isArray(a)) a = a.join(' ');
-        if (isArray(b)) b = b.join(' ');
-        return a + ' ' + b;
-      }
+      //loop extra arguments as property collectors
+      for (var x = 1; x < arguments.length; ++x) {
+        key = arguments[x];
+        subargs = [];
 
-      function packageStyles(options) {
-        var styles = {};
-        if (options && (options.to || options.from)) {
-          styles.to = options.to;
-          styles.from = options.from;
-        }
-        return styles;
-      }
-
-      function pendClasses(classes, fix, isPrefix) {
-        var className = '';
-        classes = isArray(classes) ? classes : classes && isString(classes) && classes.length ? classes.split(/\s+/) : [];
-        forEach(classes, function (klass, i) {
-          if (klass && klass.length > 0) {
-            className += i > 0 ? ' ' : '';
-            className += isPrefix ? fix + klass : klass + fix;
-          }
-        });
-        return className;
-      }
-
-      function removeFromArray(arr, val) {
-        var index = arr.indexOf(val);
-        if (val >= 0) {
-          arr.splice(index, 1);
-        }
-      }
-
-      function stripCommentsFromElement(element) {
-        if (element instanceof jqLite) {
-          switch (element.length) {
-            case 0:
-              return element;
-
-            case 1:
-              // there is no point of stripping anything if the element
-              // is the only element within the jqLite wrapper.
-              // (it's important that we retain the element instance.)
-              if (element[0].nodeType === ELEMENT_NODE) {
-                return element;
-              }
-              break;
-
-            default:
-              return jqLite(extractElementNode(element));
-          }
+        //array where 1st arg is method and subs are positional arguments
+        if (key.constructor == Array) {
+          newkey = key.shift();
+          subargs = key;
+          key = newkey;
         }
 
-        if (element.nodeType === ELEMENT_NODE) {
-          return jqLite(element);
-        }
-      }
+        item = rtn[key];
 
-      function extractElementNode(element) {
-        if (!element[0]) return element;
-        for (var i = 0; i < element.length; i++) {
-          var elm = element[i];
-          if (elm.nodeType == ELEMENT_NODE) {
-            return elm;
-          }
-        }
-      }
-
-      function $$addClass($$jqLite, element, className) {
-        forEach(element, function (elm) {
-          $$jqLite.addClass(elm, className);
-        });
-      }
-
-      function $$removeClass($$jqLite, element, className) {
-        forEach(element, function (elm) {
-          $$jqLite.removeClass(elm, className);
-        });
-      }
-
-      function applyAnimationClassesFactory($$jqLite) {
-        return function (element, options) {
-          if (options.addClass) {
-            $$addClass($$jqLite, element, options.addClass);
-            options.addClass = null;
-          }
-          if (options.removeClass) {
-            $$removeClass($$jqLite, element, options.removeClass);
-            options.removeClass = null;
-          }
-        };
-      }
-
-      function prepareAnimationOptions(options) {
-        options = options || {};
-        if (!options.$$prepared) {
-          var domOperation = options.domOperation || noop;
-          options.domOperation = function () {
-            options.$$domOperationFired = true;
-            domOperation();
-            domOperation = noop;
-          };
-          options.$$prepared = true;
-        }
-        return options;
-      }
-
-      function applyAnimationStyles(element, options) {
-        applyAnimationFromStyles(element, options);
-        applyAnimationToStyles(element, options);
-      }
-
-      function applyAnimationFromStyles(element, options) {
-        if (options.from) {
-          element.css(options.from);
-          options.from = null;
-        }
-      }
-
-      function applyAnimationToStyles(element, options) {
-        if (options.to) {
-          element.css(options.to);
-          options.to = null;
-        }
-      }
-
-      function mergeAnimationDetails(element, oldAnimation, newAnimation) {
-        var target = oldAnimation.options || {};
-        var newOptions = newAnimation.options || {};
-
-        var toAdd = (target.addClass || '') + ' ' + (newOptions.addClass || '');
-        var toRemove = (target.removeClass || '') + ' ' + (newOptions.removeClass || '');
-        var classes = resolveElementClasses(element.attr('class'), toAdd, toRemove);
-
-        if (newOptions.preparationClasses) {
-          target.preparationClasses = concatWithSpace(newOptions.preparationClasses, target.preparationClasses);
-          delete newOptions.preparationClasses;
-        }
-
-        // noop is basically when there is no callback; otherwise something has been set
-        var realDomOperation = target.domOperation !== noop ? target.domOperation : null;
-
-        extend(target, newOptions);
-
-        // TODO(matsko or sreeramu): proper fix is to maintain all animation callback in array and call at last,but now only leave has the callback so no issue with this.
-        if (realDomOperation) {
-          target.domOperation = realDomOperation;
-        }
-
-        if (classes.addClass) {
-          target.addClass = classes.addClass;
+        if (item && item.constructor == Function) {
+          rtn = item.apply(rtn, subargs);
         } else {
-          target.addClass = null;
+          rtn = item;
         }
-
-        if (classes.removeClass) {
-          target.removeClass = classes.removeClass;
-        } else {
-          target.removeClass = null;
-        }
-
-        oldAnimation.addClass = target.addClass;
-        oldAnimation.removeClass = target.removeClass;
-
-        return target;
       }
 
-      function resolveElementClasses(existing, toAdd, toRemove) {
-        var ADD_CLASS = 1;
-        var REMOVE_CLASS = -1;
+      return rtn;
+    };
+  }
 
-        var flags = {};
-        existing = splitClassesToLookup(existing);
+  function capitalize() {
+    return function (input) {
+      input = capitalizeOne(input);
+      var reg = /[.?!][\s\r\t]+\w/g;
+      return !!input ? input.replace(reg, capitalizeAfterSentence) : '';
+    };
+  }
 
-        toAdd = splitClassesToLookup(toAdd);
-        forEach(toAdd, function (value, key) {
-          flags[key] = ADD_CLASS;
+  function capitalizeAfterSentence(input) {
+    var reg = /[\s\r\t]\w/g;
+    return !!input ? input.replace(reg, function (txt) {
+      return txt.charAt(0) + txt.charAt(1).toUpperCase() + txt.substr(2).toLowerCase();
+    }) : '';
+  }
+
+  function capitalizeOne(input) {
+    var reg = /[^\W_]+[^\s-]*/;
+    return !!input ? input.replace(reg, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }) : '';
+  }
+
+  function capitalizeWords() {
+    return function (input) {
+      var reg = /[^\W_]+[^\s-]* */g;
+      return !!input ? input.replace(reg, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }) : '';
+    };
+  }
+
+  function trustAsHtml($sce) {
+    return function (text) {
+      if (!text || !text.toLowerCase) return '';
+      return $sce.trustAsHtml(text);
+    };
+  }
+
+
+  function UserInactiveTrigger(ActivityMonitor, $scope) {
+    var _this = this;
+
+    var isActive = true;
+    var isWarned = false;
+
+    ActivityMonitor.options.disableOnInactive = false;
+
+    var applyOptions = function applyOptions() {
+      ActivityMonitor.options.inactive = _this.inactiveSeconds;
+      ActivityMonitor.options.warning = _this.warnSeconds;
+    };
+
+    function onActivity() {}
+
+    function activityMonitor() {}
+
+    var reactiveMonitor = function () {
+      this.onReactive();
+      isActive = true;
+      isWarned = false;
+      onActivity = activityMonitor;
+      $scope.$parent.$digest();
+    }.bind(this);
+
+    function every() {
+      onActivity();
+    }
+
+    var onInactive = function onInactive() {
+      console.log(686);
+      isActive = false;
+      $scope.$parent.$digest();
+      applyOptions();
+      onActivity = reactiveMonitor;
+    };
+
+    function onWarn() {
+      isWarned = true;
+      $scope.$digest();
+    }
+
+    this.state = ActivityMonitor.user;
+    applyOptions();
+
+    ActivityMonitor.on('keepAlive', every);
+    ActivityMonitor.on('inactive', onInactive);
+    ActivityMonitor.on('warning', onWarn);
+
+    $scope.$on('$destroy', function () {
+      ActivityMonitor.off('keepAlive', onKeepAlive);
+      ActivityMonitor.off('inactive', onInactive);
+      ActivityMonitor.off('warning', onWarn);
+
+      if (ActivityMonitor.disable) {
+        ActivityMonitor.disable();
+      }
+    });
+  }
+
+
+  function OnScreenScroll($scope, $window, $timeout) {
+    var _this2 = this;
+
+    var onScroll = function () {
+      this.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
+      $scope.$digest();
+    }.bind(this);
+
+    function cleanUp() {
+      angular.element($window).off("scroll", onScroll);
+    }
+
+    angular.element($window).on("scroll", onScroll);
+    $scope.$on('$destroy', cleanUp);
+
+    if (this.initScreenScroll != null && !isNaN(Number(this.initScreenScroll))) {
+      $timeout(function () {
+        return _this2.onScreenScroll({ x: $window.pageXOffset, y: $window.pageYOffset });
+      }, Number(this.initScreenScroll));
+    }
+  }
+
+
+  function ScreenHeightExcessModel($scope, $window, $document) {
+    var apply = function () {
+      this.screenHeightExcessModel = $document[0].body.scrollHeight - $window.innerHeight;
+      if (this.screenHeightExcessModel < 0) this.screenHeightExcessModel = 0;
+    }.bind(this);
+
+    function on() {
+      apply();
+      $scope.$digest();
+    }
+
+    function cleanUp() {
+      angular.element($window).off("scroll", on);
+      angular.element($window).off("resize", on);
+    }
+
+    angular.element($window).on("scroll", on);
+    angular.element($window).on("resize", on);
+    $scope.$on('$destroy', cleanUp);
+    apply();
+  }
+
+
+  function ScreenScrollHeightModel($scope, $window, $document) {
+    var apply = function () {
+      this.screenScrollHeightModel = $document[0].body.scrollHeight;
+    }.bind(this);
+
+    function onResize() {
+      apply();
+      $scope.$digest();
+    }
+
+    function cleanUp() {
+      angular.element($window).off("scroll", onResize);
+      angular.element($window).off("resize", onResize);
+    }
+
+    angular.element($window).on("scroll", onResize);
+    angular.element($window).on("resize", onResize);
+    $scope.$on('$destroy', cleanUp);
+    apply();
+  }
+
+
+  function ScreenScrollModelY($scope, $window) {
+    var onScroll = function () {
+      this.screenScrollModelY = $window.pageYOffset;
+      $scope.$digest();
+    }.bind(this);
+
+    function cleanUp() {
+      angular.element($window).off("scroll", onScroll);
+    }
+
+    angular.element($window).on("scroll", onScroll);
+    $scope.$on('$destroy', cleanUp);
+    this.screenScrollModelY = $window.pageYOffset;
+  }
+
+
+  function shakeOn() {
+    this.shakeForMs = this.shakeForMs || 2000;
+    this.shakeType = this.shakeType || 'shake-slow';
+    this.shakeController = this;
+    this.shakeTypes = ['shake-hard', 'shake-slow', 'shake-little', 'shake-horizontal', 'shake-vertical', 'shake-rotate', 'shake-opacity', 'shake-crazy'];
+  }
+
+  function ScreenWidthModel($window, $scope) {
+    this.screenWidthModel = $window.innerWidth;
+
+    var onResize = function () {
+      if (this.screenWidthModel !== $window.innerWidth) {
+        this.screenWidthModel = $window.innerWidth;
+        $scope.$digest();
+      }
+    }.bind(this);
+
+    function cleanUp() {
+      angular.element($window).off('resize', onResize);
+    }
+
+    angular.element($window).on('resize', onResize);
+    $scope.$on('$destroy', cleanUp);
+  }
+
+
+  function ScreenHeightModel($window, $scope) {
+    this.screenHeightModel = $window.innerHeight;
+
+    var onResize = function () {
+      if (this.screenHeightModel !== $window.innerHeight) {
+        this.screenHeightModel = $window.innerHeight;
+        $scope.$digest();
+      }
+    }.bind(this);
+
+    function cleanUp() {
+      angular.element($window).off('resize', onResize);
+    }
+
+    angular.element($window).on('resize', onResize);
+    $scope.$on('$destroy', cleanUp);
+  }
+
+
+  function selectOn($timeout) {
+    return {
+      scope: {},
+      bindToController: {
+        selectOn: '&', selectOnDelay: '=?', selectThen: '&'
+      },
+      controller: function controller() {},
+      controllerAs: 'selectOnController',
+      link: function link($scope, element, attrs) {
+        $scope.selectOnController.selectOnDelay = $scope.selectOnController.selectOnDelay || 0;
+        $scope.$watch(function () {
+          return $scope.selectOnController.selectOn();
+        }, function (value) {
+          if (value === true) {
+            $timeout(function () {
+              element[0].select();
+              $scope.selectOnController.selectThen();
+            }, $scope.selectOnController.selectOnDelay);
+          }
         });
+      }
+    };
+  }
 
-        toRemove = splitClassesToLookup(toRemove);
-        forEach(toRemove, function (value, key) {
-          flags[key] = flags[key] === ADD_CLASS ? null : REMOVE_CLASS;
+
+  function shakeOnDirective($timeout) {
+    return {
+      restrict: 'A',
+      scope: {},
+      bindToController: {
+        shakeOn: '=?', shakeForMs: '=?', shakeType: '=?', shakeThen: '&', shakeController: '=?'
+      },
+      controller: shakeOn,
+      controllerAs: 'shakeOnController',
+      link: function link($scope, element, attrs) {
+        function onTrue() {
+          element.addClass('shake-constant');
+          element.addClass($scope.shakeOnController.shakeType);
+
+          $timeout(function () {
+            $scope.shakeOnController.shakeThen();
+            //$scope.shakeOnController.shakeOn = false
+            element.removeClass('shake-constant');
+            element.removeClass($scope.shakeOnController.shakeType);
+            $scope.$apply();
+          }, $scope.shakeOnController.shakeForMs);
+        }
+
+        function onChange(value) {
+          if (value) {
+            onTrue();
+          } else {
+            element.removeClass('shake-constant');
+            element.removeClass($scope.shakeOnController.shakeType);
+          }
+        }
+
+        function watch() {
+          return $scope.shakeOnController.shakeOn;
+        }
+
+        $scope.$watch(watch, onChange);
+      }
+    };
+  }
+
+
+  function shakeModel($timeout) {
+    return {
+      restrict: 'A',
+      scope: {},
+      bindToController: {
+        shakeModel: '=?', shakeForMs: '=?', shakeType: '=?', shakeController: '=?'
+      },
+      controller: shakeOn,
+      controllerAs: 'shakeModelController',
+      link: function link($scope, element, attrs) {
+        $scope.shakeModelController.shakeForMs = $scope.shakeModelController.shakeForMs || 2000;
+        $scope.shakeModelController.shakeType = $scope.shakeModelController.shakeType || 'shake-slow';
+
+        function onTrue() {
+          element.addClass('shake-constant');
+          element.addClass($scope.shakeModelController.shakeType);
+
+          $timeout(function () {
+            $scope.shakeModelController.shakeModel = false;
+            element.removeClass('shake-constant');
+            element.removeClass($scope.shakeModelController.shakeType);
+            $scope.$apply();
+          }, $scope.shakeModelController.shakeForMs);
+        }
+
+        function onChange(value) {
+          if (value) {
+            onTrue();
+          } else {
+            element.removeClass('shake-constant');
+            element.removeClass($scope.shakeModelController.shakeType);
+          }
+        }
+
+        function watch() {
+          return $scope.shakeModelController.shakeModel;
+        }
+
+        $scope.$watch(watch, onChange);
+      }
+    };
+  }
+
+
+  function focusOn($timeout) {
+    return {
+      scope: {},
+      bindToController: {
+        focusOn: '&', focusOnDelay: '=?', focusThen: '&'
+      },
+      controller: function controller() {},
+      controllerAs: 'focusOnController',
+      link: function link($scope, element, attrs) {
+        $scope.focusOnController.focusOnDelay = $scope.focusOnController.focusOnDelay || 0;
+        $scope.$watch(function () {
+          return $scope.focusOnController.focusOn();
+        }, function (value) {
+          if (value === true) {
+            $timeout(function () {
+              element[0].focus();
+              $scope.focusOnController.focusThen();
+            }, $scope.focusOnController.focusOnDelay);
+          }
         });
-
-        var classes = {
-          addClass: '',
-          removeClass: ''
-        };
-
-        forEach(flags, function (val, klass) {
-          var prop, allow;
-          if (val === ADD_CLASS) {
-            prop = 'addClass';
-            allow = !existing[klass] || existing[klass + REMOVE_CLASS_SUFFIX];
-          } else if (val === REMOVE_CLASS) {
-            prop = 'removeClass';
-            allow = existing[klass] || existing[klass + ADD_CLASS_SUFFIX];
-          }
-          if (allow) {
-            if (classes[prop].length) {
-              classes[prop] += ' ';
-            }
-            classes[prop] += klass;
-          }
-        });
-
-        function splitClassesToLookup(classes) {
-          if (isString(classes)) {
-            classes = classes.split(' ');
-          }
-
-          var obj = {};
-          forEach(classes, function (klass) {
-            // sometimes the split leaves empty string values
-            // incase extra spaces were applied to the options
-            if (klass.length) {
-              obj[klass] = true;
-            }
-          });
-          return obj;
-        }
-
-        return classes;
       }
-
-      function getDomNode(element) {
-        return element instanceof jqLite ? element[0] : element;
-      }
-
-      function applyGeneratedPreparationClasses(element, event, options) {
-        var classes = '';
-        if (event) {
-          classes = pendClasses(event, EVENT_CLASS_PREFIX, true);
+    };
+  }
+  return {
+    setters: [function (_2) {
+      ActivityMonitor = _2.default;
+    }, function (_3) {
+      angular$1 = _3.default;
+    }, function (_4) {}, function (_c) {
+      ack = _c.default;
+    }, function (_e2) {
+      localForage = _e2.default;
+    }],
+    execute: function () {
+      _classCallCheck = function (instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+          throw new TypeError("Cannot call a class as a function");
         }
-        if (options.addClass) {
-          classes = concatWithSpace(classes, pendClasses(options.addClass, ADD_CLASS_SUFFIX));
-        }
-        if (options.removeClass) {
-          classes = concatWithSpace(classes, pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX));
-        }
-        if (classes.length) {
-          options.preparationClasses = classes;
-          element.addClass(classes);
-        }
-      }
-
-      function clearGeneratedClasses(element, options) {
-        if (options.preparationClasses) {
-          element.removeClass(options.preparationClasses);
-          options.preparationClasses = null;
-        }
-        if (options.activeClasses) {
-          element.removeClass(options.activeClasses);
-          options.activeClasses = null;
-        }
-      }
-
-      function blockTransitions(node, duration) {
-        // we use a negative delay value since it performs blocking
-        // yet it doesn't kill any existing transitions running on the
-        // same element which makes this safe for class-based animations
-        var value = duration ? '-' + duration + 's' : '';
-        applyInlineStyle(node, [TRANSITION_DELAY_PROP, value]);
-        return [TRANSITION_DELAY_PROP, value];
-      }
-
-      function blockKeyframeAnimations(node, applyBlock) {
-        var value = applyBlock ? 'paused' : '';
-        var key = ANIMATION_PROP + ANIMATION_PLAYSTATE_KEY;
-        applyInlineStyle(node, [key, value]);
-        return [key, value];
-      }
-
-      function applyInlineStyle(node, styleTuple) {
-        var prop = styleTuple[0];
-        var value = styleTuple[1];
-        node.style[prop] = value;
-      }
-
-      function concatWithSpace(a, b) {
-        if (!a) return b;
-        if (!b) return a;
-        return a + ' ' + b;
-      }
-
-      var $$rAFSchedulerFactory = ['$$rAF', function ($$rAF) {
-        var queue, cancelFn;
-
-        function scheduler(tasks) {
-          // we make a copy since RAFScheduler mutates the state
-          // of the passed in array variable and this would be difficult
-          // to track down on the outside code
-          queue = queue.concat(tasks);
-          nextTick();
-        }
-
-        queue = scheduler.queue = [];
-
-        /* waitUntilQuiet does two things:
-         * 1. It will run the FINAL `fn` value only when an uncanceled RAF has passed through
-         * 2. It will delay the next wave of tasks from running until the quiet `fn` has run.
-         *
-         * The motivation here is that animation code can request more time from the scheduler
-         * before the next wave runs. This allows for certain DOM properties such as classes to
-         * be resolved in time for the next animation to run.
-         */
-        scheduler.waitUntilQuiet = function (fn) {
-          if (cancelFn) cancelFn();
-
-          cancelFn = $$rAF(function () {
-            cancelFn = null;
-            fn();
-            nextTick();
-          });
-        };
-
-        return scheduler;
-
-        function nextTick() {
-          if (!queue.length) return;
-
-          var items = queue.shift();
-          for (var i = 0; i < items.length; i++) {
-            items[i]();
-          }
-
-          if (!cancelFn) {
-            $$rAF(function () {
-              if (!cancelFn) nextTick();
-            });
-          }
-        }
-      }];
-
-      /**
-       * @ngdoc directive
-       * @name ngAnimateChildren
-       * @restrict AE
-       * @element ANY
-       *
-       * @description
-       *
-       * ngAnimateChildren allows you to specify that children of this element should animate even if any
-       * of the children's parents are currently animating. By default, when an element has an active `enter`, `leave`, or `move`
-       * (structural) animation, child elements that also have an active structural animation are not animated.
-       *
-       * Note that even if `ngAnimteChildren` is set, no child animations will run when the parent element is removed from the DOM (`leave` animation).
-       *
-       *
-       * @param {string} ngAnimateChildren If the value is empty, `true` or `on`,
-       *     then child animations are allowed. If the value is `false`, child animations are not allowed.
-       *
-       * @example
-       * <example module="ngAnimateChildren" name="ngAnimateChildren" deps="angular-animate.js" animations="true">
-           <file name="index.html">
-             <div ng-controller="mainController as main">
-               <label>Show container? <input type="checkbox" ng-model="main.enterElement" /></label>
-               <label>Animate children? <input type="checkbox" ng-model="main.animateChildren" /></label>
-               <hr>
-               <div ng-animate-children="{{main.animateChildren}}">
-                 <div ng-if="main.enterElement" class="container">
-                   List of items:
-                   <div ng-repeat="item in [0, 1, 2, 3]" class="item">Item {{item}}</div>
-                 </div>
-               </div>
-             </div>
-           </file>
-           <file name="animations.css">
-      
-            .container.ng-enter,
-            .container.ng-leave {
-              transition: all ease 1.5s;
-            }
-      
-            .container.ng-enter,
-            .container.ng-leave-active {
-              opacity: 0;
-            }
-      
-            .container.ng-leave,
-            .container.ng-enter-active {
-              opacity: 1;
-            }
-      
-            .item {
-              background: firebrick;
-              color: #FFF;
-              margin-bottom: 10px;
-            }
-      
-            .item.ng-enter,
-            .item.ng-leave {
-              transition: transform 1.5s ease;
-            }
-      
-            .item.ng-enter {
-              transform: translateX(50px);
-            }
-      
-            .item.ng-enter-active {
-              transform: translateX(0);
-            }
-          </file>
-          <file name="script.js">
-            angular.module('ngAnimateChildren', ['ngAnimate'])
-              .controller('mainController', function() {
-                this.animateChildren = false;
-                this.enterElement = false;
-              });
-          </file>
-        </example>
-       */
-      var $$AnimateChildrenDirective = ['$interpolate', function ($interpolate) {
-        return {
-          link: function (scope, element, attrs) {
-            var val = attrs.ngAnimateChildren;
-            if (isString(val) && val.length === 0) {
-              //empty attribute
-              element.data(NG_ANIMATE_CHILDREN_DATA, true);
-            } else {
-              // Interpolate and set the value, so that it is available to
-              // animations that run right after compilation
-              setData($interpolate(val)(scope));
-              attrs.$observe('ngAnimateChildren', setData);
-            }
-
-            function setData(value) {
-              value = value === 'on' || value === 'true';
-              element.data(NG_ANIMATE_CHILDREN_DATA, value);
-            }
-          }
-        };
-      }];
-
-      var ANIMATE_TIMER_KEY = '$$animateCss';
-
-      /**
-       * @ngdoc service
-       * @name $animateCss
-       * @kind object
-       *
-       * @description
-       * The `$animateCss` service is a useful utility to trigger customized CSS-based transitions/keyframes
-       * from a JavaScript-based animation or directly from a directive. The purpose of `$animateCss` is NOT
-       * to side-step how `$animate` and ngAnimate work, but the goal is to allow pre-existing animations or
-       * directives to create more complex animations that can be purely driven using CSS code.
-       *
-       * Note that only browsers that support CSS transitions and/or keyframe animations are capable of
-       * rendering animations triggered via `$animateCss` (bad news for IE9 and lower).
-       *
-       * ## Usage
-       * Once again, `$animateCss` is designed to be used inside of a registered JavaScript animation that
-       * is powered by ngAnimate. It is possible to use `$animateCss` directly inside of a directive, however,
-       * any automatic control over cancelling animations and/or preventing animations from being run on
-       * child elements will not be handled by Angular. For this to work as expected, please use `$animate` to
-       * trigger the animation and then setup a JavaScript animation that injects `$animateCss` to trigger
-       * the CSS animation.
-       *
-       * The example below shows how we can create a folding animation on an element using `ng-if`:
-       *
-       * ```html
-       * <!-- notice the `fold-animation` CSS class -->
-       * <div ng-if="onOff" class="fold-animation">
-       *   This element will go BOOM
-       * </div>
-       * <button ng-click="onOff=true">Fold In</button>
-       * ```
-       *
-       * Now we create the **JavaScript animation** that will trigger the CSS transition:
-       *
-       * ```js
-       * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
-       *   return {
-       *     enter: function(element, doneFn) {
-       *       var height = element[0].offsetHeight;
-       *       return $animateCss(element, {
-       *         from: { height:'0px' },
-       *         to: { height:height + 'px' },
-       *         duration: 1 // one second
-       *       });
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * ## More Advanced Uses
-       *
-       * `$animateCss` is the underlying code that ngAnimate uses to power **CSS-based animations** behind the scenes. Therefore CSS hooks
-       * like `.ng-EVENT`, `.ng-EVENT-active`, `.ng-EVENT-stagger` are all features that can be triggered using `$animateCss` via JavaScript code.
-       *
-       * This also means that just about any combination of adding classes, removing classes, setting styles, dynamically setting a keyframe animation,
-       * applying a hardcoded duration or delay value, changing the animation easing or applying a stagger animation are all options that work with
-       * `$animateCss`. The service itself is smart enough to figure out the combination of options and examine the element styling properties in order
-       * to provide a working animation that will run in CSS.
-       *
-       * The example below showcases a more advanced version of the `.fold-animation` from the example above:
-       *
-       * ```js
-       * ngModule.animation('.fold-animation', ['$animateCss', function($animateCss) {
-       *   return {
-       *     enter: function(element, doneFn) {
-       *       var height = element[0].offsetHeight;
-       *       return $animateCss(element, {
-       *         addClass: 'red large-text pulse-twice',
-       *         easing: 'ease-out',
-       *         from: { height:'0px' },
-       *         to: { height:height + 'px' },
-       *         duration: 1 // one second
-       *       });
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * Since we're adding/removing CSS classes then the CSS transition will also pick those up:
-       *
-       * ```css
-       * /&#42; since a hardcoded duration value of 1 was provided in the JavaScript animation code,
-       * the CSS classes below will be transitioned despite them being defined as regular CSS classes &#42;/
-       * .red { background:red; }
-       * .large-text { font-size:20px; }
-       *
-       * /&#42; we can also use a keyframe animation and $animateCss will make it work alongside the transition &#42;/
-       * .pulse-twice {
-       *   animation: 0.5s pulse linear 2;
-       *   -webkit-animation: 0.5s pulse linear 2;
-       * }
-       *
-       * @keyframes pulse {
-       *   from { transform: scale(0.5); }
-       *   to { transform: scale(1.5); }
-       * }
-       *
-       * @-webkit-keyframes pulse {
-       *   from { -webkit-transform: scale(0.5); }
-       *   to { -webkit-transform: scale(1.5); }
-       * }
-       * ```
-       *
-       * Given this complex combination of CSS classes, styles and options, `$animateCss` will figure everything out and make the animation happen.
-       *
-       * ## How the Options are handled
-       *
-       * `$animateCss` is very versatile and intelligent when it comes to figuring out what configurations to apply to the element to ensure the animation
-       * works with the options provided. Say for example we were adding a class that contained a keyframe value and we wanted to also animate some inline
-       * styles using the `from` and `to` properties.
-       *
-       * ```js
-       * var animator = $animateCss(element, {
-       *   from: { background:'red' },
-       *   to: { background:'blue' }
-       * });
-       * animator.start();
-       * ```
-       *
-       * ```css
-       * .rotating-animation {
-       *   animation:0.5s rotate linear;
-       *   -webkit-animation:0.5s rotate linear;
-       * }
-       *
-       * @keyframes rotate {
-       *   from { transform: rotate(0deg); }
-       *   to { transform: rotate(360deg); }
-       * }
-       *
-       * @-webkit-keyframes rotate {
-       *   from { -webkit-transform: rotate(0deg); }
-       *   to { -webkit-transform: rotate(360deg); }
-       * }
-       * ```
-       *
-       * The missing pieces here are that we do not have a transition set (within the CSS code nor within the `$animateCss` options) and the duration of the animation is
-       * going to be detected from what the keyframe styles on the CSS class are. In this event, `$animateCss` will automatically create an inline transition
-       * style matching the duration detected from the keyframe style (which is present in the CSS class that is being added) and then prepare both the transition
-       * and keyframe animations to run in parallel on the element. Then when the animation is underway the provided `from` and `to` CSS styles will be applied
-       * and spread across the transition and keyframe animation.
-       *
-       * ## What is returned
-       *
-       * `$animateCss` works in two stages: a preparation phase and an animation phase. Therefore when `$animateCss` is first called it will NOT actually
-       * start the animation. All that is going on here is that the element is being prepared for the animation (which means that the generated CSS classes are
-       * added and removed on the element). Once `$animateCss` is called it will return an object with the following properties:
-       *
-       * ```js
-       * var animator = $animateCss(element, { ... });
-       * ```
-       *
-       * Now what do the contents of our `animator` variable look like:
-       *
-       * ```js
-       * {
-       *   // starts the animation
-       *   start: Function,
-       *
-       *   // ends (aborts) the animation
-       *   end: Function
-       * }
-       * ```
-       *
-       * To actually start the animation we need to run `animation.start()` which will then return a promise that we can hook into to detect when the animation ends.
-       * If we choose not to run the animation then we MUST run `animation.end()` to perform a cleanup on the element (since some CSS classes and styles may have been
-       * applied to the element during the preparation phase). Note that all other properties such as duration, delay, transitions and keyframes are just properties
-       * and that changing them will not reconfigure the parameters of the animation.
-       *
-       * ### runner.done() vs runner.then()
-       * It is documented that `animation.start()` will return a promise object and this is true, however, there is also an additional method available on the
-       * runner called `.done(callbackFn)`. The done method works the same as `.finally(callbackFn)`, however, it does **not trigger a digest to occur**.
-       * Therefore, for performance reasons, it's always best to use `runner.done(callback)` instead of `runner.then()`, `runner.catch()` or `runner.finally()`
-       * unless you really need a digest to kick off afterwards.
-       *
-       * Keep in mind that, to make this easier, ngAnimate has tweaked the JS animations API to recognize when a runner instance is returned from $animateCss
-       * (so there is no need to call `runner.done(doneFn)` inside of your JavaScript animation code).
-       * Check the {@link ngAnimate.$animateCss#usage animation code above} to see how this works.
-       *
-       * @param {DOMElement} element the element that will be animated
-       * @param {object} options the animation-related options that will be applied during the animation
-       *
-       * * `event` - The DOM event (e.g. enter, leave, move). When used, a generated CSS class of `ng-EVENT` and `ng-EVENT-active` will be applied
-       * to the element during the animation. Multiple events can be provided when spaces are used as a separator. (Note that this will not perform any DOM operation.)
-       * * `structural` - Indicates that the `ng-` prefix will be added to the event class. Setting to `false` or omitting will turn `ng-EVENT` and
-       * `ng-EVENT-active` in `EVENT` and `EVENT-active`. Unused if `event` is omitted.
-       * * `easing` - The CSS easing value that will be applied to the transition or keyframe animation (or both).
-       * * `transitionStyle` - The raw CSS transition style that will be used (e.g. `1s linear all`).
-       * * `keyframeStyle` - The raw CSS keyframe animation style that will be used (e.g. `1s my_animation linear`).
-       * * `from` - The starting CSS styles (a key/value object) that will be applied at the start of the animation.
-       * * `to` - The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
-       * * `addClass` - A space separated list of CSS classes that will be added to the element and spread across the animation.
-       * * `removeClass` - A space separated list of CSS classes that will be removed from the element and spread across the animation.
-       * * `duration` - A number value representing the total duration of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `0`
-       * is provided then the animation will be skipped entirely.
-       * * `delay` - A number value representing the total delay of the transition and/or keyframe (note that a value of 1 is 1000ms). If a value of `true` is
-       * used then whatever delay value is detected from the CSS classes will be mirrored on the elements styles (e.g. by setting delay true then the style value
-       * of the element will be `transition-delay: DETECTED_VALUE`). Using `true` is useful when you want the CSS classes and inline styles to all share the same
-       * CSS delay value.
-       * * `stagger` - A numeric time value representing the delay between successively animated elements
-       * ({@link ngAnimate#css-staggering-animations Click here to learn how CSS-based staggering works in ngAnimate.})
-       * * `staggerIndex` - The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item in the stagger; therefore when a
-       *   `stagger` option value of `0.1` is used then there will be a stagger delay of `600ms`)
-       * * `applyClassesEarly` - Whether or not the classes being added or removed will be used when detecting the animation. This is set by `$animate` when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time. (Note that this will prevent any transitions from occurring on the classes being added and removed.)
-       * * `cleanupStyles` - Whether or not the provided `from` and `to` styles will be removed once
-       *    the animation is closed. This is useful for when the styles are used purely for the sake of
-       *    the animation and do not have a lasting visual effect on the element (e.g. a collapse and open animation).
-       *    By default this value is set to `false`.
-       *
-       * @return {object} an object with start and end methods and details about the animation.
-       *
-       * * `start` - The method to start the animation. This will return a `Promise` when called.
-       * * `end` - This method will cancel the animation and remove all applied CSS classes and styles.
-       */
-      var ONE_SECOND = 1000;
-      var BASE_TEN = 10;
-
-      var ELAPSED_TIME_MAX_DECIMAL_PLACES = 3;
-      var CLOSING_TIME_BUFFER = 1.5;
-
-      var DETECT_CSS_PROPERTIES = {
-        transitionDuration: TRANSITION_DURATION_PROP,
-        transitionDelay: TRANSITION_DELAY_PROP,
-        transitionProperty: TRANSITION_PROP + PROPERTY_KEY,
-        animationDuration: ANIMATION_DURATION_PROP,
-        animationDelay: ANIMATION_DELAY_PROP,
-        animationIterationCount: ANIMATION_PROP + ANIMATION_ITERATION_COUNT_KEY
       };
 
-      var DETECT_STAGGER_CSS_PROPERTIES = {
-        transitionDuration: TRANSITION_DURATION_PROP,
-        transitionDelay: TRANSITION_DELAY_PROP,
-        animationDuration: ANIMATION_DURATION_PROP,
-        animationDelay: ANIMATION_DELAY_PROP
-      };
-
-      function getCssKeyframeDurationStyle(duration) {
-        return [ANIMATION_DURATION_PROP, duration + 's'];
-      }
-
-      function getCssDelayStyle(delay, isKeyframeAnimation) {
-        var prop = isKeyframeAnimation ? ANIMATION_DELAY_PROP : TRANSITION_DELAY_PROP;
-        return [prop, delay + 's'];
-      }
-
-      function computeCssStyles($window, element, properties) {
-        var styles = Object.create(null);
-        var detectedStyles = $window.getComputedStyle(element) || {};
-        forEach(properties, function (formalStyleName, actualStyleName) {
-          var val = detectedStyles[formalStyleName];
-          if (val) {
-            var c = val.charAt(0);
-
-            // only numerical-based values have a negative sign or digit as the first value
-            if (c === '-' || c === '+' || c >= 0) {
-              val = parseMaxTime(val);
-            }
-
-            // by setting this to null in the event that the delay is not set or is set directly as 0
-            // then we can still allow for negative values to be used later on and not mistake this
-            // value for being greater than any other negative value.
-            if (val === 0) {
-              val = null;
-            }
-            styles[actualStyleName] = val;
+      _createClass = function () {
+        function defineProperties(target, props) {
+          for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
           }
-        });
-
-        return styles;
-      }
-
-      function parseMaxTime(str) {
-        var maxValue = 0;
-        var values = str.split(/\s*,\s*/);
-        forEach(values, function (value) {
-          // it's always safe to consider only second values and omit `ms` values since
-          // getComputedStyle will always handle the conversion for us
-          if (value.charAt(value.length - 1) == 's') {
-            value = value.substring(0, value.length - 1);
-          }
-          value = parseFloat(value) || 0;
-          maxValue = maxValue ? Math.max(value, maxValue) : value;
-        });
-        return maxValue;
-      }
-
-      function truthyTimingValue(val) {
-        return val === 0 || val != null;
-      }
-
-      function getCssTransitionDurationStyle(duration, applyOnlyDuration) {
-        var style = TRANSITION_PROP;
-        var value = duration + 's';
-        if (applyOnlyDuration) {
-          style += DURATION_KEY;
-        } else {
-          value += ' linear all';
         }
-        return [style, value];
-      }
 
-      function createLocalCacheLookup() {
-        var cache = Object.create(null);
-        return {
-          flush: function () {
-            cache = Object.create(null);
-          },
-
-          count: function (key) {
-            var entry = cache[key];
-            return entry ? entry.total : 0;
-          },
-
-          get: function (key) {
-            var entry = cache[key];
-            return entry && entry.value;
-          },
-
-          put: function (key, value) {
-            if (!cache[key]) {
-              cache[key] = { total: 1, value: value };
-            } else {
-              cache[key].total++;
-            }
-          }
+        return function (Constructor, protoProps, staticProps) {
+          if (protoProps) defineProperties(Constructor.prototype, protoProps);
+          if (staticProps) defineProperties(Constructor, staticProps);
+          return Constructor;
         };
-      }
+      }();
 
-      // we do not reassign an already present style value since
-      // if we detect the style property value again we may be
-      // detecting styles that were added via the `from` styles.
-      // We make use of `isDefined` here since an empty string
-      // or null value (which is what getPropertyValue will return
-      // for a non-existing style) will still be marked as a valid
-      // value for the style (a falsy value implies that the style
-      // is to be removed at the end of the animation). If we had a simple
-      // "OR" statement then it would not be enough to catch that.
-      function registerRestorableStyles(backup, node, properties) {
-        forEach(properties, function (prop) {
-          backup[prop] = isDefined(backup[prop]) ? backup[prop] : node.style.getPropertyValue(prop);
-        });
-      }
+      AckApi = function () {
+        function AckApi($http, AckOffline) {
+          _classCallCheck(this, AckApi);
 
-      var $AnimateCssProvider = ['$animateProvider', function ($animateProvider) {
-        var gcsLookup = createLocalCacheLookup();
-        var gcsStaggerLookup = createLocalCacheLookup();
+          this.config = {
+            baseUrl: '',
+            config: {}
+          };
+          this.$http = $http;
+          this.AckOffline = AckOffline;
+        }
 
-        this.$get = ['$window', '$$jqLite', '$$AnimateRunner', '$timeout', '$$forceReflow', '$sniffer', '$$rAFScheduler', '$$animateQueue', function ($window, $$jqLite, $$AnimateRunner, $timeout, $$forceReflow, $sniffer, $$rAFScheduler, $$animateQueue) {
+        /** master method for sending requests and caching responses using $http requests */
 
-          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
+        _createClass(AckApi, [{
+          key: "_fetch",
+          value: function _fetch(cfg) {
+            var _this = this;
 
-          var parentCounter = 0;
-          function gcsHashFn(node, extraClasses) {
-            var KEY = "$$ngAnimateParentKey";
-            var parentNode = node.parentNode;
-            var parentID = parentNode[KEY] || (parentNode[KEY] = ++parentCounter);
-            return parentID + '-' + node.getAttribute('class') + '-' + extraClasses;
-          }
-
-          function computeCachedCssStyles(node, className, cacheKey, properties) {
-            var timings = gcsLookup.get(cacheKey);
-
-            if (!timings) {
-              timings = computeCssStyles($window, node, properties);
-              if (timings.animationIterationCount === 'infinite') {
-                timings.animationIterationCount = 1;
+            return this.$http(cfg).then(function (response) {
+              if (cfg.method === "GET" && cfg.queModel) {
+                _this.AckOffline.cacheResponse(cfg.queModel.config.name, response);
               }
-            }
-
-            // we keep putting this in multiple times even though the value and the cacheKey are the same
-            // because we're keeping an internal tally of how many duplicate animations are detected.
-            gcsLookup.put(cacheKey, timings);
-            return timings;
-          }
-
-          function computeCachedCssStaggerStyles(node, className, cacheKey, properties) {
-            var stagger;
-
-            // if we have one or more existing matches of matching elements
-            // containing the same parent + CSS styles (which is how cacheKey works)
-            // then staggering is possible
-            if (gcsLookup.count(cacheKey) > 0) {
-              stagger = gcsStaggerLookup.get(cacheKey);
-
-              if (!stagger) {
-                var staggerClassName = pendClasses(className, '-stagger');
-
-                $$jqLite.addClass(node, staggerClassName);
-
-                stagger = computeCssStyles($window, node, properties);
-
-                // force the conversion of a null value to zero incase not set
-                stagger.animationDuration = Math.max(stagger.animationDuration, 0);
-                stagger.transitionDuration = Math.max(stagger.transitionDuration, 0);
-
-                $$jqLite.removeClass(node, staggerClassName);
-
-                gcsStaggerLookup.put(cacheKey, stagger);
-              }
-            }
-
-            return stagger || {};
-          }
-
-          var cancelLastRAFRequest;
-          var rafWaitQueue = [];
-          function waitUntilQuiet(callback) {
-            rafWaitQueue.push(callback);
-            $$rAFScheduler.waitUntilQuiet(function () {
-              gcsLookup.flush();
-              gcsStaggerLookup.flush();
-
-              // DO NOT REMOVE THIS LINE OR REFACTOR OUT THE `pageWidth` variable.
-              // PLEASE EXAMINE THE `$$forceReflow` service to understand why.
-              var pageWidth = $$forceReflow();
-
-              // we use a for loop to ensure that if the queue is changed
-              // during this looping then it will consider new requests
-              for (var i = 0; i < rafWaitQueue.length; i++) {
-                rafWaitQueue[i](pageWidth);
-              }
-              rafWaitQueue.length = 0;
+              return response.data;
             });
           }
 
-          function computeTimings(node, className, cacheKey) {
-            var timings = computeCachedCssStyles(node, className, cacheKey, DETECT_CSS_PROPERTIES);
-            var aD = timings.animationDelay;
-            var tD = timings.transitionDelay;
-            timings.maxDelay = aD && tD ? Math.max(aD, tD) : aD || tD;
-            timings.maxDuration = Math.max(timings.animationDuration * timings.animationIterationCount, timings.transitionDuration);
-
-            return timings;
-          }
-
-          return function init(element, initialOptions) {
-            // all of the animation functions should create
-            // a copy of the options data, however, if a
-            // parent service has already created a copy then
-            // we should stick to using that
-            var options = initialOptions || {};
-            if (!options.$$prepared) {
-              options = prepareAnimationOptions(copy(options));
-            }
-
-            var restoreStyles = {};
-            var node = getDomNode(element);
-            if (!node || !node.parentNode || !$$animateQueue.enabled()) {
-              return closeAndReturnNoopAnimator();
-            }
-
-            var temporaryStyles = [];
-            var classes = element.attr('class');
-            var styles = packageStyles(options);
-            var animationClosed;
-            var animationPaused;
-            var animationCompleted;
-            var runner;
-            var runnerHost;
-            var maxDelay;
-            var maxDelayTime;
-            var maxDuration;
-            var maxDurationTime;
-            var startTime;
-            var events = [];
-
-            if (options.duration === 0 || !$sniffer.animations && !$sniffer.transitions) {
-              return closeAndReturnNoopAnimator();
-            }
-
-            var method = options.event && isArray(options.event) ? options.event.join(' ') : options.event;
-
-            var isStructural = method && options.structural;
-            var structuralClassName = '';
-            var addRemoveClassName = '';
-
-            if (isStructural) {
-              structuralClassName = pendClasses(method, EVENT_CLASS_PREFIX, true);
-            } else if (method) {
-              structuralClassName = method;
-            }
-
-            if (options.addClass) {
-              addRemoveClassName += pendClasses(options.addClass, ADD_CLASS_SUFFIX);
-            }
-
-            if (options.removeClass) {
-              if (addRemoveClassName.length) {
-                addRemoveClassName += ' ';
-              }
-              addRemoveClassName += pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX);
-            }
-
-            // there may be a situation where a structural animation is combined together
-            // with CSS classes that need to resolve before the animation is computed.
-            // However this means that there is no explicit CSS code to block the animation
-            // from happening (by setting 0s none in the class name). If this is the case
-            // we need to apply the classes before the first rAF so we know to continue if
-            // there actually is a detected transition or keyframe animation
-            if (options.applyClassesEarly && addRemoveClassName.length) {
-              applyAnimationClasses(element, options);
-            }
-
-            var preparationClasses = [structuralClassName, addRemoveClassName].join(' ').trim();
-            var fullClassName = classes + ' ' + preparationClasses;
-            var activeClasses = pendClasses(preparationClasses, ACTIVE_CLASS_SUFFIX);
-            var hasToStyles = styles.to && Object.keys(styles.to).length > 0;
-            var containsKeyframeAnimation = (options.keyframeStyle || '').length > 0;
-
-            // there is no way we can trigger an animation if no styles and
-            // no classes are being applied which would then trigger a transition,
-            // unless there a is raw keyframe value that is applied to the element.
-            if (!containsKeyframeAnimation && !hasToStyles && !preparationClasses) {
-              return closeAndReturnNoopAnimator();
-            }
-
-            var cacheKey, stagger;
-            if (options.stagger > 0) {
-              var staggerVal = parseFloat(options.stagger);
-              stagger = {
-                transitionDelay: staggerVal,
-                animationDelay: staggerVal,
-                transitionDuration: 0,
-                animationDuration: 0
-              };
-            } else {
-              cacheKey = gcsHashFn(node, fullClassName);
-              stagger = computeCachedCssStaggerStyles(node, preparationClasses, cacheKey, DETECT_STAGGER_CSS_PROPERTIES);
-            }
-
-            if (!options.$$skipPreparationClasses) {
-              $$jqLite.addClass(element, preparationClasses);
-            }
-
-            var applyOnlyDuration;
-
-            if (options.transitionStyle) {
-              var transitionStyle = [TRANSITION_PROP, options.transitionStyle];
-              applyInlineStyle(node, transitionStyle);
-              temporaryStyles.push(transitionStyle);
-            }
-
-            if (options.duration >= 0) {
-              applyOnlyDuration = node.style[TRANSITION_PROP].length > 0;
-              var durationStyle = getCssTransitionDurationStyle(options.duration, applyOnlyDuration);
-
-              // we set the duration so that it will be picked up by getComputedStyle later
-              applyInlineStyle(node, durationStyle);
-              temporaryStyles.push(durationStyle);
-            }
-
-            if (options.keyframeStyle) {
-              var keyframeStyle = [ANIMATION_PROP, options.keyframeStyle];
-              applyInlineStyle(node, keyframeStyle);
-              temporaryStyles.push(keyframeStyle);
-            }
-
-            var itemIndex = stagger ? options.staggerIndex >= 0 ? options.staggerIndex : gcsLookup.count(cacheKey) : 0;
-
-            var isFirst = itemIndex === 0;
-
-            // this is a pre-emptive way of forcing the setup classes to be added and applied INSTANTLY
-            // without causing any combination of transitions to kick in. By adding a negative delay value
-            // it forces the setup class' transition to end immediately. We later then remove the negative
-            // transition delay to allow for the transition to naturally do it's thing. The beauty here is
-            // that if there is no transition defined then nothing will happen and this will also allow
-            // other transitions to be stacked on top of each other without any chopping them out.
-            if (isFirst && !options.skipBlocking) {
-              blockTransitions(node, SAFE_FAST_FORWARD_DURATION_VALUE);
-            }
-
-            var timings = computeTimings(node, fullClassName, cacheKey);
-            var relativeDelay = timings.maxDelay;
-            maxDelay = Math.max(relativeDelay, 0);
-            maxDuration = timings.maxDuration;
-
-            var flags = {};
-            flags.hasTransitions = timings.transitionDuration > 0;
-            flags.hasAnimations = timings.animationDuration > 0;
-            flags.hasTransitionAll = flags.hasTransitions && timings.transitionProperty == 'all';
-            flags.applyTransitionDuration = hasToStyles && (flags.hasTransitions && !flags.hasTransitionAll || flags.hasAnimations && !flags.hasTransitions);
-            flags.applyAnimationDuration = options.duration && flags.hasAnimations;
-            flags.applyTransitionDelay = truthyTimingValue(options.delay) && (flags.applyTransitionDuration || flags.hasTransitions);
-            flags.applyAnimationDelay = truthyTimingValue(options.delay) && flags.hasAnimations;
-            flags.recalculateTimingStyles = addRemoveClassName.length > 0;
-
-            if (flags.applyTransitionDuration || flags.applyAnimationDuration) {
-              maxDuration = options.duration ? parseFloat(options.duration) : maxDuration;
-
-              if (flags.applyTransitionDuration) {
-                flags.hasTransitions = true;
-                timings.transitionDuration = maxDuration;
-                applyOnlyDuration = node.style[TRANSITION_PROP + PROPERTY_KEY].length > 0;
-                temporaryStyles.push(getCssTransitionDurationStyle(maxDuration, applyOnlyDuration));
-              }
-
-              if (flags.applyAnimationDuration) {
-                flags.hasAnimations = true;
-                timings.animationDuration = maxDuration;
-                temporaryStyles.push(getCssKeyframeDurationStyle(maxDuration));
+          /** method all request transactions tunnel thru to instead try for cache first
+            @method:GET,POST,DELETE,PUT
+            @url
+            @config - {
+              queModel:{
+                config:{
+                  name, expires, allowExpired
+                }
               }
             }
+          */
 
-            if (maxDuration === 0 && !flags.recalculateTimingStyles) {
-              return closeAndReturnNoopAnimator();
-            }
+        }, {
+          key: "request",
+          value: function request(method, url, config) {
+            var _this2 = this;
 
-            if (options.delay != null) {
-              var delayStyle;
-              if (typeof options.delay !== "boolean") {
-                delayStyle = parseFloat(options.delay);
-                // number in options.delay means we have to recalculate the delay for the closing timeout
-                maxDelay = Math.max(delayStyle, 0);
-              }
-
-              if (flags.applyTransitionDelay) {
-                temporaryStyles.push(getCssDelayStyle(delayStyle));
-              }
-
-              if (flags.applyAnimationDelay) {
-                temporaryStyles.push(getCssDelayStyle(delayStyle, true));
-              }
-            }
-
-            // we need to recalculate the delay value since we used a pre-emptive negative
-            // delay value and the delay value is required for the final event checking. This
-            // property will ensure that this will happen after the RAF phase has passed.
-            if (options.duration == null && timings.transitionDuration > 0) {
-              flags.recalculateTimingStyles = flags.recalculateTimingStyles || isFirst;
-            }
-
-            maxDelayTime = maxDelay * ONE_SECOND;
-            maxDurationTime = maxDuration * ONE_SECOND;
-            if (!options.skipBlocking) {
-              flags.blockTransition = timings.transitionDuration > 0;
-              flags.blockKeyframeAnimation = timings.animationDuration > 0 && stagger.animationDelay > 0 && stagger.animationDuration === 0;
-            }
-
-            if (options.from) {
-              if (options.cleanupStyles) {
-                registerRestorableStyles(restoreStyles, node, Object.keys(options.from));
-              }
-              applyAnimationFromStyles(element, options);
-            }
-
-            if (flags.blockTransition || flags.blockKeyframeAnimation) {
-              applyBlocking(maxDuration);
-            } else if (!options.skipBlocking) {
-              blockTransitions(node, false);
-            }
-
-            // TODO(matsko): for 1.5 change this code to have an animator object for better debugging
-            return {
-              $$willAnimate: true,
-              end: endFn,
-              start: function () {
-                if (animationClosed) return;
-
-                runnerHost = {
-                  end: endFn,
-                  cancel: cancelFn,
-                  resume: null, //this will be set during the start() phase
-                  pause: null
-                };
-
-                runner = new $$AnimateRunner(runnerHost);
-
-                waitUntilQuiet(start);
-
-                // we don't have access to pause/resume the animation
-                // since it hasn't run yet. AnimateRunner will therefore
-                // set noop functions for resume and pause and they will
-                // later be overridden once the animation is triggered
-                return runner;
-              }
+            var defaults = {
+              method: method,
+              url: this.config.baseUrl + url,
+              timeout: 4000 //8000
             };
 
-            function endFn() {
-              close();
-            }
+            var cfg = Object.assign(defaults, config);
 
-            function cancelFn() {
-              close(true);
-            }
+            Object.assign(cfg, this.config);
 
-            function close(rejected) {
-              // jshint ignore:line
-              // if the promise has been called already then we shouldn't close
-              // the animation again
-              if (animationClosed || animationCompleted && animationPaused) return;
-              animationClosed = true;
-              animationPaused = false;
-
-              if (!options.$$skipPreparationClasses) {
-                $$jqLite.removeClass(element, preparationClasses);
-              }
-              $$jqLite.removeClass(element, activeClasses);
-
-              blockKeyframeAnimations(node, false);
-              blockTransitions(node, false);
-
-              forEach(temporaryStyles, function (entry) {
-                // There is only one way to remove inline style properties entirely from elements.
-                // By using `removeProperty` this works, but we need to convert camel-cased CSS
-                // styles down to hyphenated values.
-                node.style[entry[0]] = '';
-              });
-
-              applyAnimationClasses(element, options);
-              applyAnimationStyles(element, options);
-
-              if (Object.keys(restoreStyles).length) {
-                forEach(restoreStyles, function (value, prop) {
-                  value ? node.style.setProperty(prop, value) : node.style.removeProperty(prop);
-                });
-              }
-
-              // the reason why we have this option is to allow a synchronous closing callback
-              // that is fired as SOON as the animation ends (when the CSS is removed) or if
-              // the animation never takes off at all. A good example is a leave animation since
-              // the element must be removed just after the animation is over or else the element
-              // will appear on screen for one animation frame causing an overbearing flicker.
-              if (options.onDone) {
-                options.onDone();
-              }
-
-              if (events && events.length) {
-                // Remove the transitionend / animationend listener(s)
-                element.off(events.join(' '), onAnimationProgress);
-              }
-
-              //Cancel the fallback closing timeout and remove the timer data
-              var animationTimerData = element.data(ANIMATE_TIMER_KEY);
-              if (animationTimerData) {
-                $timeout.cancel(animationTimerData[0].timer);
-                element.removeData(ANIMATE_TIMER_KEY);
-              }
-
-              // if the preparation function fails then the promise is not setup
-              if (runner) {
-                runner.complete(!rejected);
-              }
-            }
-
-            function applyBlocking(duration) {
-              if (flags.blockTransition) {
-                blockTransitions(node, duration);
-              }
-
-              if (flags.blockKeyframeAnimation) {
-                blockKeyframeAnimations(node, !!duration);
-              }
-            }
-
-            function closeAndReturnNoopAnimator() {
-              runner = new $$AnimateRunner({
-                end: endFn,
-                cancel: cancelFn
-              });
-
-              // should flush the cache animation
-              waitUntilQuiet(noop);
-              close();
-
-              return {
-                $$willAnimate: false,
-                start: function () {
-                  return runner;
-                },
-                end: endFn
-              };
-            }
-
-            function onAnimationProgress(event) {
-              event.stopPropagation();
-              var ev = event.originalEvent || event;
-
-              // we now always use `Date.now()` due to the recent changes with
-              // event.timeStamp in Firefox, Webkit and Chrome (see #13494 for more info)
-              var timeStamp = ev.$manualTimeStamp || Date.now();
-
-              /* Firefox (or possibly just Gecko) likes to not round values up
-               * when a ms measurement is used for the animation */
-              var elapsedTime = parseFloat(ev.elapsedTime.toFixed(ELAPSED_TIME_MAX_DECIMAL_PLACES));
-
-              /* $manualTimeStamp is a mocked timeStamp value which is set
-               * within browserTrigger(). This is only here so that tests can
-               * mock animations properly. Real events fallback to event.timeStamp,
-               * or, if they don't, then a timeStamp is automatically created for them.
-               * We're checking to see if the timeStamp surpasses the expected delay,
-               * but we're using elapsedTime instead of the timeStamp on the 2nd
-               * pre-condition since animationPauseds sometimes close off early */
-              if (Math.max(timeStamp - startTime, 0) >= maxDelayTime && elapsedTime >= maxDuration) {
-                // we set this flag to ensure that if the transition is paused then, when resumed,
-                // the animation will automatically close itself since transitions cannot be paused.
-                animationCompleted = true;
-                close();
-              }
-            }
-
-            function start() {
-              if (animationClosed) return;
-              if (!node.parentNode) {
-                close();
-                return;
-              }
-
-              // even though we only pause keyframe animations here the pause flag
-              // will still happen when transitions are used. Only the transition will
-              // not be paused since that is not possible. If the animation ends when
-              // paused then it will not complete until unpaused or cancelled.
-              var playPause = function (playAnimation) {
-                if (!animationCompleted) {
-                  animationPaused = !playAnimation;
-                  if (timings.animationDuration) {
-                    var value = blockKeyframeAnimations(node, animationPaused);
-                    animationPaused ? temporaryStyles.push(value) : removeFromArray(temporaryStyles, value);
-                  }
-                } else if (animationPaused && playAnimation) {
-                  animationPaused = false;
-                  close();
-                }
-              };
-
-              // checking the stagger duration prevents an accidentally cascade of the CSS delay style
-              // being inherited from the parent. If the transition duration is zero then we can safely
-              // rely that the delay value is an intentional stagger delay style.
-              var maxStagger = itemIndex > 0 && (timings.transitionDuration && stagger.transitionDuration === 0 || timings.animationDuration && stagger.animationDuration === 0) && Math.max(stagger.animationDelay, stagger.transitionDelay);
-              if (maxStagger) {
-                $timeout(triggerAnimationStart, Math.floor(maxStagger * itemIndex * ONE_SECOND), false);
-              } else {
-                triggerAnimationStart();
-              }
-
-              // this will decorate the existing promise runner with pause/resume methods
-              runnerHost.resume = function () {
-                playPause(true);
-              };
-
-              runnerHost.pause = function () {
-                playPause(false);
-              };
-
-              function triggerAnimationStart() {
-                // just incase a stagger animation kicks in when the animation
-                // itself was cancelled entirely
-                if (animationClosed) return;
-
-                applyBlocking(false);
-
-                forEach(temporaryStyles, function (entry) {
-                  var key = entry[0];
-                  var value = entry[1];
-                  node.style[key] = value;
-                });
-
-                applyAnimationClasses(element, options);
-                $$jqLite.addClass(element, activeClasses);
-
-                if (flags.recalculateTimingStyles) {
-                  fullClassName = node.className + ' ' + preparationClasses;
-                  cacheKey = gcsHashFn(node, fullClassName);
-
-                  timings = computeTimings(node, fullClassName, cacheKey);
-                  relativeDelay = timings.maxDelay;
-                  maxDelay = Math.max(relativeDelay, 0);
-                  maxDuration = timings.maxDuration;
-
-                  if (maxDuration === 0) {
-                    close();
-                    return;
-                  }
-
-                  flags.hasTransitions = timings.transitionDuration > 0;
-                  flags.hasAnimations = timings.animationDuration > 0;
-                }
-
-                if (flags.applyAnimationDelay) {
-                  relativeDelay = typeof options.delay !== "boolean" && truthyTimingValue(options.delay) ? parseFloat(options.delay) : relativeDelay;
-
-                  maxDelay = Math.max(relativeDelay, 0);
-                  timings.animationDelay = relativeDelay;
-                  delayStyle = getCssDelayStyle(relativeDelay, true);
-                  temporaryStyles.push(delayStyle);
-                  node.style[delayStyle[0]] = delayStyle[1];
-                }
-
-                maxDelayTime = maxDelay * ONE_SECOND;
-                maxDurationTime = maxDuration * ONE_SECOND;
-
-                if (options.easing) {
-                  var easeProp,
-                      easeVal = options.easing;
-                  if (flags.hasTransitions) {
-                    easeProp = TRANSITION_PROP + TIMING_KEY;
-                    temporaryStyles.push([easeProp, easeVal]);
-                    node.style[easeProp] = easeVal;
-                  }
-                  if (flags.hasAnimations) {
-                    easeProp = ANIMATION_PROP + TIMING_KEY;
-                    temporaryStyles.push([easeProp, easeVal]);
-                    node.style[easeProp] = easeVal;
-                  }
-                }
-
-                if (timings.transitionDuration) {
-                  events.push(TRANSITIONEND_EVENT);
-                }
-
-                if (timings.animationDuration) {
-                  events.push(ANIMATIONEND_EVENT);
-                }
-
-                startTime = Date.now();
-                var timerTime = maxDelayTime + CLOSING_TIME_BUFFER * maxDurationTime;
-                var endTime = startTime + timerTime;
-
-                var animationsData = element.data(ANIMATE_TIMER_KEY) || [];
-                var setupFallbackTimer = true;
-                if (animationsData.length) {
-                  var currentTimerData = animationsData[0];
-                  setupFallbackTimer = endTime > currentTimerData.expectedEndTime;
-                  if (setupFallbackTimer) {
-                    $timeout.cancel(currentTimerData.timer);
-                  } else {
-                    animationsData.push(close);
-                  }
-                }
-
-                if (setupFallbackTimer) {
-                  var timer = $timeout(onAnimationExpired, timerTime, false);
-                  animationsData[0] = {
-                    timer: timer,
-                    expectedEndTime: endTime
+            if (cfg.queModel) {
+              var _ret = function () {
+                var cacheName = cfg.queModel.config.name;
+                //const { ...cacheOptions } = cfg.queModel
+                if (method === "GET") {
+                  return {
+                    v: _this2.AckOffline.getCache(cacheName, cfg.queModel).catch(function () {
+                      return _this2._fetch(cfg);
+                    })
                   };
-                  animationsData.push(close);
-                  element.data(ANIMATE_TIMER_KEY, animationsData);
+                  //.catch(() => this.AckOffline.getCache(cacheName))
                 }
 
-                if (events.length) {
-                  element.on(events.join(' '), onAnimationProgress);
-                }
+                //request is a PUT, POST, or DELETE
+                return {
+                  v: _this2._fetch(cfg).catch(function () {
+                    return _this2.AckOffline.enqueue(cacheName, cfg);
+                  })
+                }; //if fail, save for later
+              }();
 
-                if (options.to) {
-                  if (options.cleanupStyles) {
-                    registerRestorableStyles(restoreStyles, node, Object.keys(options.to));
-                  }
-                  applyAnimationToStyles(element, options);
-                }
-              }
-
-              function onAnimationExpired() {
-                var animationsData = element.data(ANIMATE_TIMER_KEY);
-
-                // this will be false in the event that the element was
-                // removed from the DOM (via a leave animation or something
-                // similar)
-                if (animationsData) {
-                  for (var i = 1; i < animationsData.length; i++) {
-                    animationsData[i]();
-                  }
-                  element.removeData(ANIMATE_TIMER_KEY);
-                }
-              }
+              if (typeof _ret === "object") return _ret.v;
             }
-          };
-        }];
-      }];
 
-      var $$AnimateCssDriverProvider = ['$$animationProvider', function ($$animationProvider) {
-        $$animationProvider.drivers.push('$$animateCssDriver');
+            return this._fetch(cfg);
+          }
+        }, {
+          key: "get",
+          value: function get(path, config) {
+            return this.request("GET", path, config);
+          }
+        }, {
+          key: "post",
+          value: function post(path, data, config) {
+            var cfg = Object.assign({}, config, { data: data });
+            return this.request("POST", path, cfg);
+          }
+        }, {
+          key: "delete",
+          value: function _delete(path, config) {
+            return this.request("DELETE", path, config);
+          }
+        }, {
+          key: "put",
+          value: function put(path, data, config) {
+            var cfg = Object.assign({}, config, { data: data });
+            return this.request("PUT", path, cfg);
+          }
+        }]);
 
-        var NG_ANIMATE_SHIM_CLASS_NAME = 'ng-animate-shim';
-        var NG_ANIMATE_ANCHOR_CLASS_NAME = 'ng-anchor';
+        return AckApi;
+      }();
 
-        var NG_OUT_ANCHOR_CLASS_NAME = 'ng-anchor-out';
-        var NG_IN_ANCHOR_CLASS_NAME = 'ng-anchor-in';
+      AckApi.$inject = ["$http", "AckOffline"];
 
-        function isDocumentFragment(node) {
-          return node.parentNode && node.parentNode.nodeType === 11;
+      //import localForage from "./localforage-build"
+
+      supportsNav = typeof navigator != 'undefined';
+
+      AckOffline = function () {
+        function AckOffline($http) {
+          _classCallCheck(this, AckOffline);
+
+          this.$http = $http;
+          this.prefix = "offline";
+          this.handlers = [];
         }
 
-        this.$get = ['$animateCss', '$rootScope', '$$AnimateRunner', '$rootElement', '$sniffer', '$$jqLite', '$document', function ($animateCss, $rootScope, $$AnimateRunner, $rootElement, $sniffer, $$jqLite, $document) {
-
-          // only browsers that support these properties can render animations
-          if (!$sniffer.animations && !$sniffer.transitions) return noop;
-
-          var bodyNode = $document[0].body;
-          var rootNode = getDomNode($rootElement);
-
-          var rootBodyElement = jqLite(
-          // this is to avoid using something that exists outside of the body
-          // we also special case the doc fragment case because our unit test code
-          // appends the $rootElement to the body after the app has been bootstrapped
-          isDocumentFragment(rootNode) || bodyNode.contains(rootNode) ? rootNode : bodyNode);
-
-          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
-
-          return function initDriverFn(animationDetails) {
-            return animationDetails.from && animationDetails.to ? prepareFromToAnchorAnimation(animationDetails.from, animationDetails.to, animationDetails.classes, animationDetails.anchors) : prepareRegularAnimation(animationDetails);
-          };
-
-          function filterCssClasses(classes) {
-            //remove all the `ng-` stuff
-            return classes.replace(/\bng-\S+\b/g, '');
+        _createClass(AckOffline, [{
+          key: "remove",
+          value: function remove(name) {
+            return localForage.removeItem(this.prefix + '-' + name);
           }
-
-          function getUniqueValues(a, b) {
-            if (isString(a)) a = a.split(' ');
-            if (isString(b)) b = b.split(' ');
-            return a.filter(function (val) {
-              return b.indexOf(val) === -1;
-            }).join(' ');
+        }, {
+          key: "get",
+          value: function get(name) {
+            return localForage.getItem(this.prefix + '-' + name);
           }
-
-          function prepareAnchoredAnimation(classes, outAnchor, inAnchor) {
-            var clone = jqLite(getDomNode(outAnchor).cloneNode(true));
-            var startingClasses = filterCssClasses(getClassVal(clone));
-
-            outAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
-            inAnchor.addClass(NG_ANIMATE_SHIM_CLASS_NAME);
-
-            clone.addClass(NG_ANIMATE_ANCHOR_CLASS_NAME);
-
-            rootBodyElement.append(clone);
-
-            var animatorIn,
-                animatorOut = prepareOutAnimation();
-
-            // the user may not end up using the `out` animation and
-            // only making use of the `in` animation or vice-versa.
-            // In either case we should allow this and not assume the
-            // animation is over unless both animations are not used.
-            if (!animatorOut) {
-              animatorIn = prepareInAnimation();
-              if (!animatorIn) {
-                return end();
-              }
-            }
-
-            var startingAnimator = animatorOut || animatorIn;
-
-            return {
-              start: function () {
-                var runner;
-
-                var currentAnimation = startingAnimator.start();
-                currentAnimation.done(function () {
-                  currentAnimation = null;
-                  if (!animatorIn) {
-                    animatorIn = prepareInAnimation();
-                    if (animatorIn) {
-                      currentAnimation = animatorIn.start();
-                      currentAnimation.done(function () {
-                        currentAnimation = null;
-                        end();
-                        runner.complete();
-                      });
-                      return currentAnimation;
-                    }
-                  }
-                  // in the event that there is no `in` animation
-                  end();
-                  runner.complete();
-                });
-
-                runner = new $$AnimateRunner({
-                  end: endFn,
-                  cancel: endFn
-                });
-
-                return runner;
-
-                function endFn() {
-                  if (currentAnimation) {
-                    currentAnimation.end();
-                  }
-                }
-              }
-            };
-
-            function calculateAnchorStyles(anchor) {
-              var styles = {};
-
-              var coords = getDomNode(anchor).getBoundingClientRect();
-
-              // we iterate directly since safari messes up and doesn't return
-              // all the keys for the coords object when iterated
-              forEach(['width', 'height', 'top', 'left'], function (key) {
-                var value = coords[key];
-                switch (key) {
-                  case 'top':
-                    value += bodyNode.scrollTop;
-                    break;
-                  case 'left':
-                    value += bodyNode.scrollLeft;
-                    break;
-                }
-                styles[key] = Math.floor(value) + 'px';
-              });
-              return styles;
-            }
-
-            function prepareOutAnimation() {
-              var animator = $animateCss(clone, {
-                addClass: NG_OUT_ANCHOR_CLASS_NAME,
-                delay: true,
-                from: calculateAnchorStyles(outAnchor)
-              });
-
-              // read the comment within `prepareRegularAnimation` to understand
-              // why this check is necessary
-              return animator.$$willAnimate ? animator : null;
-            }
-
-            function getClassVal(element) {
-              return element.attr('class') || '';
-            }
-
-            function prepareInAnimation() {
-              var endingClasses = filterCssClasses(getClassVal(inAnchor));
-              var toAdd = getUniqueValues(endingClasses, startingClasses);
-              var toRemove = getUniqueValues(startingClasses, endingClasses);
-
-              var animator = $animateCss(clone, {
-                to: calculateAnchorStyles(inAnchor),
-                addClass: NG_IN_ANCHOR_CLASS_NAME + ' ' + toAdd,
-                removeClass: NG_OUT_ANCHOR_CLASS_NAME + ' ' + toRemove,
-                delay: true
-              });
-
-              // read the comment within `prepareRegularAnimation` to understand
-              // why this check is necessary
-              return animator.$$willAnimate ? animator : null;
-            }
-
-            function end() {
-              clone.remove();
-              outAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
-              inAnchor.removeClass(NG_ANIMATE_SHIM_CLASS_NAME);
-            }
+        }, {
+          key: "set",
+          value: function set(name, data) {
+            return localForage.setItem(this.prefix + '-' + name, data);
           }
+        }, {
+          key: "_validate",
+          value: function _validate(data, _ref) {
+            var expires = _ref.expires;
 
-          function prepareFromToAnchorAnimation(from, to, classes, anchors) {
-            var fromAnimation = prepareRegularAnimation(from, noop);
-            var toAnimation = prepareRegularAnimation(to, noop);
-
-            var anchorAnimations = [];
-            forEach(anchors, function (anchor) {
-              var outElement = anchor['out'];
-              var inElement = anchor['in'];
-              var animator = prepareAnchoredAnimation(classes, outElement, inElement);
-              if (animator) {
-                anchorAnimations.push(animator);
-              }
-            });
-
-            // no point in doing anything when there are no elements to animate
-            if (!fromAnimation && !toAnimation && anchorAnimations.length === 0) return;
-
-            return {
-              start: function () {
-                var animationRunners = [];
-
-                if (fromAnimation) {
-                  animationRunners.push(fromAnimation.start());
-                }
-
-                if (toAnimation) {
-                  animationRunners.push(toAnimation.start());
-                }
-
-                forEach(anchorAnimations, function (animation) {
-                  animationRunners.push(animation.start());
-                });
-
-                var runner = new $$AnimateRunner({
-                  end: endFn,
-                  cancel: endFn // CSS-driven animations cannot be cancelled, only ended
-                });
-
-                $$AnimateRunner.all(animationRunners, function (status) {
-                  runner.complete(status);
-                });
-
-                return runner;
-
-                function endFn() {
-                  forEach(animationRunners, function (runner) {
-                    runner.end();
-                  });
-                }
-              }
-            };
+            var exists = data !== null && typeof data.cache !== "undefined";
+            return exists && !this._expired(data._timestamp, expires);
           }
-
-          function prepareRegularAnimation(animationDetails) {
-            var element = animationDetails.element;
-            var options = animationDetails.options || {};
-
-            if (animationDetails.structural) {
-              options.event = animationDetails.event;
-              options.structural = true;
-              options.applyClassesEarly = true;
-
-              // we special case the leave animation since we want to ensure that
-              // the element is removed as soon as the animation is over. Otherwise
-              // a flicker might appear or the element may not be removed at all
-              if (animationDetails.event === 'leave') {
-                options.onDone = options.domOperation;
-              }
-            }
-
-            // We assign the preparationClasses as the actual animation event since
-            // the internals of $animateCss will just suffix the event token values
-            // with `-active` to trigger the animation.
-            if (options.preparationClasses) {
-              options.event = concatWithSpace(options.event, options.preparationClasses);
-            }
-
-            var animator = $animateCss(element, options);
-
-            // the driver lookup code inside of $$animation attempts to spawn a
-            // driver one by one until a driver returns a.$$willAnimate animator object.
-            // $animateCss will always return an object, however, it will pass in
-            // a flag as a hint as to whether an animation was detected or not
-            return animator.$$willAnimate ? animator : null;
-          }
-        }];
-      }];
-
-      // TODO(matsko): use caching here to speed things up for detection
-      // TODO(matsko): add documentation
-      //  by the time...
-
-      var $$AnimateJsProvider = ['$animateProvider', function ($animateProvider) {
-        this.$get = ['$injector', '$$AnimateRunner', '$$jqLite', function ($injector, $$AnimateRunner, $$jqLite) {
-
-          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
-          // $animateJs(element, 'enter');
-          return function (element, event, classes, options) {
-            var animationClosed = false;
-
-            // the `classes` argument is optional and if it is not used
-            // then the classes will be resolved from the element's className
-            // property as well as options.addClass/options.removeClass.
-            if (arguments.length === 3 && isObject(classes)) {
-              options = classes;
-              classes = null;
-            }
-
-            options = prepareAnimationOptions(options);
-            if (!classes) {
-              classes = element.attr('class') || '';
-              if (options.addClass) {
-                classes += ' ' + options.addClass;
-              }
-              if (options.removeClass) {
-                classes += ' ' + options.removeClass;
-              }
-            }
-
-            var classesToAdd = options.addClass;
-            var classesToRemove = options.removeClass;
-
-            // the lookupAnimations function returns a series of animation objects that are
-            // matched up with one or more of the CSS classes. These animation objects are
-            // defined via the module.animation factory function. If nothing is detected then
-            // we don't return anything which then makes $animation query the next driver.
-            var animations = lookupAnimations(classes);
-            var before, after;
-            if (animations.length) {
-              var afterFn, beforeFn;
-              if (event == 'leave') {
-                beforeFn = 'leave';
-                afterFn = 'afterLeave'; // TODO(matsko): get rid of this
-              } else {
-                beforeFn = 'before' + event.charAt(0).toUpperCase() + event.substr(1);
-                afterFn = event;
-              }
-
-              if (event !== 'enter' && event !== 'move') {
-                before = packageAnimations(element, event, options, animations, beforeFn);
-              }
-              after = packageAnimations(element, event, options, animations, afterFn);
-            }
-
-            // no matching animations
-            if (!before && !after) return;
-
-            function applyOptions() {
-              options.domOperation();
-              applyAnimationClasses(element, options);
-            }
-
-            function close() {
-              animationClosed = true;
-              applyOptions();
-              applyAnimationStyles(element, options);
-            }
-
-            var runner;
-
-            return {
-              $$willAnimate: true,
-              end: function () {
-                if (runner) {
-                  runner.end();
-                } else {
-                  close();
-                  runner = new $$AnimateRunner();
-                  runner.complete(true);
-                }
-                return runner;
-              },
-              start: function () {
-                if (runner) {
-                  return runner;
-                }
-
-                runner = new $$AnimateRunner();
-                var closeActiveAnimations;
-                var chain = [];
-
-                if (before) {
-                  chain.push(function (fn) {
-                    closeActiveAnimations = before(fn);
-                  });
-                }
-
-                if (chain.length) {
-                  chain.push(function (fn) {
-                    applyOptions();
-                    fn(true);
-                  });
-                } else {
-                  applyOptions();
-                }
-
-                if (after) {
-                  chain.push(function (fn) {
-                    closeActiveAnimations = after(fn);
-                  });
-                }
-
-                runner.setHost({
-                  end: function () {
-                    endAnimations();
-                  },
-                  cancel: function () {
-                    endAnimations(true);
-                  }
-                });
-
-                $$AnimateRunner.chain(chain, onComplete);
-                return runner;
-
-                function onComplete(success) {
-                  close(success);
-                  runner.complete(success);
-                }
-
-                function endAnimations(cancelled) {
-                  if (!animationClosed) {
-                    (closeActiveAnimations || noop)(cancelled);
-                    onComplete(cancelled);
-                  }
-                }
-              }
-            };
-
-            function executeAnimationFn(fn, element, event, options, onDone) {
-              var args;
-              switch (event) {
-                case 'animate':
-                  args = [element, options.from, options.to, onDone];
-                  break;
-
-                case 'setClass':
-                  args = [element, classesToAdd, classesToRemove, onDone];
-                  break;
-
-                case 'addClass':
-                  args = [element, classesToAdd, onDone];
-                  break;
-
-                case 'removeClass':
-                  args = [element, classesToRemove, onDone];
-                  break;
-
-                default:
-                  args = [element, onDone];
-                  break;
-              }
-
-              args.push(options);
-
-              var value = fn.apply(fn, args);
-              if (value) {
-                if (isFunction(value.start)) {
-                  value = value.start();
-                }
-
-                if (value instanceof $$AnimateRunner) {
-                  value.done(onDone);
-                } else if (isFunction(value)) {
-                  // optional onEnd / onCancel callback
-                  return value;
-                }
-              }
-
-              return noop;
-            }
-
-            function groupEventedAnimations(element, event, options, animations, fnName) {
-              var operations = [];
-              forEach(animations, function (ani) {
-                var animation = ani[fnName];
-                if (!animation) return;
-
-                // note that all of these animations will run in parallel
-                operations.push(function () {
-                  var runner;
-                  var endProgressCb;
-
-                  var resolved = false;
-                  var onAnimationComplete = function (rejected) {
-                    if (!resolved) {
-                      resolved = true;
-                      (endProgressCb || noop)(rejected);
-                      runner.complete(!rejected);
-                    }
-                  };
-
-                  runner = new $$AnimateRunner({
-                    end: function () {
-                      onAnimationComplete();
-                    },
-                    cancel: function () {
-                      onAnimationComplete(true);
-                    }
-                  });
-
-                  endProgressCb = executeAnimationFn(animation, element, event, options, function (result) {
-                    var cancelled = result === false;
-                    onAnimationComplete(cancelled);
-                  });
-
-                  return runner;
-                });
-              });
-
-              return operations;
-            }
-
-            function packageAnimations(element, event, options, animations, fnName) {
-              var operations = groupEventedAnimations(element, event, options, animations, fnName);
-              if (operations.length === 0) {
-                var a, b;
-                if (fnName === 'beforeSetClass') {
-                  a = groupEventedAnimations(element, 'removeClass', options, animations, 'beforeRemoveClass');
-                  b = groupEventedAnimations(element, 'addClass', options, animations, 'beforeAddClass');
-                } else if (fnName === 'setClass') {
-                  a = groupEventedAnimations(element, 'removeClass', options, animations, 'removeClass');
-                  b = groupEventedAnimations(element, 'addClass', options, animations, 'addClass');
-                }
-
-                if (a) {
-                  operations = operations.concat(a);
-                }
-                if (b) {
-                  operations = operations.concat(b);
-                }
-              }
-
-              if (operations.length === 0) return;
-
-              // TODO(matsko): add documentation
-              return function startAnimation(callback) {
-                var runners = [];
-                if (operations.length) {
-                  forEach(operations, function (animateFn) {
-                    runners.push(animateFn());
-                  });
-                }
-
-                runners.length ? $$AnimateRunner.all(runners, callback) : callback();
-
-                return function endFn(reject) {
-                  forEach(runners, function (runner) {
-                    reject ? runner.cancel() : runner.end();
-                  });
-                };
-              };
-            }
-          };
-
-          function lookupAnimations(classes) {
-            classes = isArray(classes) ? classes : classes.split(' ');
-            var matches = [],
-                flagMap = {};
-            for (var i = 0; i < classes.length; i++) {
-              var klass = classes[i],
-                  animationFactory = $animateProvider.$$registeredAnimations[klass];
-              if (animationFactory && !flagMap[klass]) {
-                matches.push($injector.get(animationFactory));
-                flagMap[klass] = true;
-              }
-            }
-            return matches;
-          }
-        }];
-      }];
-
-      var $$AnimateJsDriverProvider = ['$$animationProvider', function ($$animationProvider) {
-        $$animationProvider.drivers.push('$$animateJsDriver');
-        this.$get = ['$$animateJs', '$$AnimateRunner', function ($$animateJs, $$AnimateRunner) {
-          return function initDriverFn(animationDetails) {
-            if (animationDetails.from && animationDetails.to) {
-              var fromAnimation = prepareAnimation(animationDetails.from);
-              var toAnimation = prepareAnimation(animationDetails.to);
-              if (!fromAnimation && !toAnimation) return;
-
-              return {
-                start: function () {
-                  var animationRunners = [];
-
-                  if (fromAnimation) {
-                    animationRunners.push(fromAnimation.start());
-                  }
-
-                  if (toAnimation) {
-                    animationRunners.push(toAnimation.start());
-                  }
-
-                  $$AnimateRunner.all(animationRunners, done);
-
-                  var runner = new $$AnimateRunner({
-                    end: endFnFactory(),
-                    cancel: endFnFactory()
-                  });
-
-                  return runner;
-
-                  function endFnFactory() {
-                    return function () {
-                      forEach(animationRunners, function (runner) {
-                        // at this point we cannot cancel animations for groups just yet. 1.5+
-                        runner.end();
-                      });
-                    };
-                  }
-
-                  function done(status) {
-                    runner.complete(status);
-                  }
-                }
-              };
-            } else {
-              return prepareAnimation(animationDetails);
-            }
-          };
-
-          function prepareAnimation(animationDetails) {
-            // TODO(matsko): make sure to check for grouped animations and delegate down to normal animations
-            var element = animationDetails.element;
-            var event = animationDetails.event;
-            var options = animationDetails.options;
-            var classes = animationDetails.classes;
-            return $$animateJs(element, event, classes, options);
-          }
-        }];
-      }];
-
-      var NG_ANIMATE_ATTR_NAME = 'data-ng-animate';
-      var NG_ANIMATE_PIN_DATA = '$ngAnimatePin';
-      var $$AnimateQueueProvider = ['$animateProvider', function ($animateProvider) {
-        var PRE_DIGEST_STATE = 1;
-        var RUNNING_STATE = 2;
-        var ONE_SPACE = ' ';
-
-        var rules = this.rules = {
-          skip: [],
-          cancel: [],
-          join: []
-        };
-
-        function makeTruthyCssClassMap(classString) {
-          if (!classString) {
-            return null;
-          }
-
-          var keys = classString.split(ONE_SPACE);
-          var map = Object.create(null);
-
-          forEach(keys, function (key) {
-            map[key] = true;
-          });
-          return map;
-        }
-
-        function hasMatchingClasses(newClassString, currentClassString) {
-          if (newClassString && currentClassString) {
-            var currentClassMap = makeTruthyCssClassMap(currentClassString);
-            return newClassString.split(ONE_SPACE).some(function (className) {
-              return currentClassMap[className];
-            });
-          }
-        }
-
-        function isAllowed(ruleType, element, currentAnimation, previousAnimation) {
-          return rules[ruleType].some(function (fn) {
-            return fn(element, currentAnimation, previousAnimation);
-          });
-        }
-
-        function hasAnimationClasses(animation, and) {
-          var a = (animation.addClass || '').length > 0;
-          var b = (animation.removeClass || '').length > 0;
-          return and ? a && b : a || b;
-        }
-
-        rules.join.push(function (element, newAnimation, currentAnimation) {
-          // if the new animation is class-based then we can just tack that on
-          return !newAnimation.structural && hasAnimationClasses(newAnimation);
-        });
-
-        rules.skip.push(function (element, newAnimation, currentAnimation) {
-          // there is no need to animate anything if no classes are being added and
-          // there is no structural animation that will be triggered
-          return !newAnimation.structural && !hasAnimationClasses(newAnimation);
-        });
-
-        rules.skip.push(function (element, newAnimation, currentAnimation) {
-          // why should we trigger a new structural animation if the element will
-          // be removed from the DOM anyway?
-          return currentAnimation.event == 'leave' && newAnimation.structural;
-        });
-
-        rules.skip.push(function (element, newAnimation, currentAnimation) {
-          // if there is an ongoing current animation then don't even bother running the class-based animation
-          return currentAnimation.structural && currentAnimation.state === RUNNING_STATE && !newAnimation.structural;
-        });
-
-        rules.cancel.push(function (element, newAnimation, currentAnimation) {
-          // there can never be two structural animations running at the same time
-          return currentAnimation.structural && newAnimation.structural;
-        });
-
-        rules.cancel.push(function (element, newAnimation, currentAnimation) {
-          // if the previous animation is already running, but the new animation will
-          // be triggered, but the new animation is structural
-          return currentAnimation.state === RUNNING_STATE && newAnimation.structural;
-        });
-
-        rules.cancel.push(function (element, newAnimation, currentAnimation) {
-          // cancel the animation if classes added / removed in both animation cancel each other out,
-          // but only if the current animation isn't structural
-
-          if (currentAnimation.structural) return false;
-
-          var nA = newAnimation.addClass;
-          var nR = newAnimation.removeClass;
-          var cA = currentAnimation.addClass;
-          var cR = currentAnimation.removeClass;
-
-          // early detection to save the global CPU shortage :)
-          if (isUndefined(nA) && isUndefined(nR) || isUndefined(cA) && isUndefined(cR)) {
-            return false;
-          }
-
-          return hasMatchingClasses(nA, cR) || hasMatchingClasses(nR, cA);
-        });
-
-        this.$get = ['$$rAF', '$rootScope', '$rootElement', '$document', '$$HashMap', '$$animation', '$$AnimateRunner', '$templateRequest', '$$jqLite', '$$forceReflow', function ($$rAF, $rootScope, $rootElement, $document, $$HashMap, $$animation, $$AnimateRunner, $templateRequest, $$jqLite, $$forceReflow) {
-
-          var activeAnimationsLookup = new $$HashMap();
-          var disabledElementsLookup = new $$HashMap();
-          var animationsEnabled = null;
-
-          function postDigestTaskFactory() {
-            var postDigestCalled = false;
-            return function (fn) {
-              // we only issue a call to postDigest before
-              // it has first passed. This prevents any callbacks
-              // from not firing once the animation has completed
-              // since it will be out of the digest cycle.
-              if (postDigestCalled) {
-                fn();
-              } else {
-                $rootScope.$$postDigest(function () {
-                  postDigestCalled = true;
-                  fn();
-                });
-              }
-            };
-          }
-
-          // Wait until all directive and route-related templates are downloaded and
-          // compiled. The $templateRequest.totalPendingRequests variable keeps track of
-          // all of the remote templates being currently downloaded. If there are no
-          // templates currently downloading then the watcher will still fire anyway.
-          var deregisterWatch = $rootScope.$watch(function () {
-            return $templateRequest.totalPendingRequests === 0;
-          }, function (isEmpty) {
-            if (!isEmpty) return;
-            deregisterWatch();
-
-            // Now that all templates have been downloaded, $animate will wait until
-            // the post digest queue is empty before enabling animations. By having two
-            // calls to $postDigest calls we can ensure that the flag is enabled at the
-            // very end of the post digest queue. Since all of the animations in $animate
-            // use $postDigest, it's important that the code below executes at the end.
-            // This basically means that the page is fully downloaded and compiled before
-            // any animations are triggered.
-            $rootScope.$$postDigest(function () {
-              $rootScope.$$postDigest(function () {
-                // we check for null directly in the event that the application already called
-                // .enabled() with whatever arguments that it provided it with
-                if (animationsEnabled === null) {
-                  animationsEnabled = true;
-                }
-              });
-            });
-          });
-
-          var callbackRegistry = Object.create(null);
-
-          // remember that the classNameFilter is set during the provider/config
-          // stage therefore we can optimize here and setup a helper function
-          var classNameFilter = $animateProvider.classNameFilter();
-          var isAnimatableClassName = !classNameFilter ? function () {
-            return true;
-          } : function (className) {
-            return classNameFilter.test(className);
-          };
-
-          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
-
-          function normalizeAnimationDetails(element, animation) {
-            return mergeAnimationDetails(element, animation, {});
-          }
-
-          // IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
-          var contains = window.Node.prototype.contains || function (arg) {
-            // jshint bitwise: false
-            return this === arg || !!(this.compareDocumentPosition(arg) & 16);
-            // jshint bitwise: true
-          };
-
-          function findCallbacks(parent, element, event) {
-            var targetNode = getDomNode(element);
-            var targetParentNode = getDomNode(parent);
-
-            var matches = [];
-            var entries = callbackRegistry[event];
-            if (entries) {
-              forEach(entries, function (entry) {
-                if (contains.call(entry.node, targetNode)) {
-                  matches.push(entry.callback);
-                } else if (event === 'leave' && contains.call(entry.node, targetParentNode)) {
-                  matches.push(entry.callback);
-                }
-              });
-            }
-
-            return matches;
-          }
-
-          function filterFromRegistry(list, matchContainer, matchCallback) {
-            var containerNode = extractElementNode(matchContainer);
-            return list.filter(function (entry) {
-              var isMatch = entry.node === containerNode && (!matchCallback || entry.callback === matchCallback);
-              return !isMatch;
-            });
-          }
-
-          function cleanupEventListeners(phase, element) {
-            if (phase === 'close' && !element[0].parentNode) {
-              // If the element is not attached to a parentNode, it has been removed by
-              // the domOperation, and we can safely remove the event callbacks
-              $animate.off(element);
-            }
-          }
-
-          var $animate = {
-            on: function (event, container, callback) {
-              var node = extractElementNode(container);
-              callbackRegistry[event] = callbackRegistry[event] || [];
-              callbackRegistry[event].push({
-                node: node,
-                callback: callback
-              });
-
-              // Remove the callback when the element is removed from the DOM
-              jqLite(container).on('$destroy', function () {
-                var animationDetails = activeAnimationsLookup.get(node);
-
-                if (!animationDetails) {
-                  // If there's an animation ongoing, the callback calling code will remove
-                  // the event listeners. If we'd remove here, the callbacks would be removed
-                  // before the animation ends
-                  $animate.off(event, container, callback);
-                }
-              });
-            },
-
-            off: function (event, container, callback) {
-              if (arguments.length === 1 && !isString(arguments[0])) {
-                container = arguments[0];
-                for (var eventType in callbackRegistry) {
-                  callbackRegistry[eventType] = filterFromRegistry(callbackRegistry[eventType], container);
-                }
-
-                return;
-              }
-
-              var entries = callbackRegistry[event];
-              if (!entries) return;
-
-              callbackRegistry[event] = arguments.length === 1 ? null : filterFromRegistry(entries, container, callback);
-            },
-
-            pin: function (element, parentElement) {
-              assertArg(isElement(element), 'element', 'not an element');
-              assertArg(isElement(parentElement), 'parentElement', 'not an element');
-              element.data(NG_ANIMATE_PIN_DATA, parentElement);
-            },
-
-            push: function (element, event, options, domOperation) {
-              options = options || {};
-              options.domOperation = domOperation;
-              return queueAnimation(element, event, options);
-            },
-
-            // this method has four signatures:
-            //  () - global getter
-            //  (bool) - global setter
-            //  (element) - element getter
-            //  (element, bool) - element setter<F37>
-            enabled: function (element, bool) {
-              var argCount = arguments.length;
-
-              if (argCount === 0) {
-                // () - Global getter
-                bool = !!animationsEnabled;
-              } else {
-                var hasElement = isElement(element);
-
-                if (!hasElement) {
-                  // (bool) - Global setter
-                  bool = animationsEnabled = !!element;
-                } else {
-                  var node = getDomNode(element);
-
-                  if (argCount === 1) {
-                    // (element) - Element getter
-                    bool = !disabledElementsLookup.get(node);
-                  } else {
-                    // (element, bool) - Element setter
-                    disabledElementsLookup.put(node, !bool);
-                  }
-                }
-              }
-
-              return bool;
-            }
-          };
-
-          return $animate;
-
-          function queueAnimation(element, event, initialOptions) {
-            // we always make a copy of the options since
-            // there should never be any side effects on
-            // the input data when running `$animateCss`.
-            var options = copy(initialOptions);
-
-            var node, parent;
-            element = stripCommentsFromElement(element);
-            if (element) {
-              node = getDomNode(element);
-              parent = element.parent();
-            }
-
-            options = prepareAnimationOptions(options);
-
-            // we create a fake runner with a working promise.
-            // These methods will become available after the digest has passed
-            var runner = new $$AnimateRunner();
-
-            // this is used to trigger callbacks in postDigest mode
-            var runInNextPostDigestOrNow = postDigestTaskFactory();
-
-            if (isArray(options.addClass)) {
-              options.addClass = options.addClass.join(' ');
-            }
-
-            if (options.addClass && !isString(options.addClass)) {
-              options.addClass = null;
-            }
-
-            if (isArray(options.removeClass)) {
-              options.removeClass = options.removeClass.join(' ');
-            }
-
-            if (options.removeClass && !isString(options.removeClass)) {
-              options.removeClass = null;
-            }
-
-            if (options.from && !isObject(options.from)) {
-              options.from = null;
-            }
-
-            if (options.to && !isObject(options.to)) {
-              options.to = null;
-            }
-
-            // there are situations where a directive issues an animation for
-            // a jqLite wrapper that contains only comment nodes... If this
-            // happens then there is no way we can perform an animation
-            if (!node) {
-              close();
-              return runner;
-            }
-
-            var className = [node.className, options.addClass, options.removeClass].join(' ');
-            if (!isAnimatableClassName(className)) {
-              close();
-              return runner;
-            }
-
-            var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
-
-            var documentHidden = $document[0].hidden;
-
-            // this is a hard disable of all animations for the application or on
-            // the element itself, therefore  there is no need to continue further
-            // past this point if not enabled
-            // Animations are also disabled if the document is currently hidden (page is not visible
-            // to the user), because browsers slow down or do not flush calls to requestAnimationFrame
-            var skipAnimations = !animationsEnabled || documentHidden || disabledElementsLookup.get(node);
-            var existingAnimation = !skipAnimations && activeAnimationsLookup.get(node) || {};
-            var hasExistingAnimation = !!existingAnimation.state;
-
-            // there is no point in traversing the same collection of parent ancestors if a followup
-            // animation will be run on the same element that already did all that checking work
-            if (!skipAnimations && (!hasExistingAnimation || existingAnimation.state != PRE_DIGEST_STATE)) {
-              skipAnimations = !areAnimationsAllowed(element, parent, event);
-            }
-
-            if (skipAnimations) {
-              // Callbacks should fire even if the document is hidden (regression fix for issue #14120)
-              if (documentHidden) notifyProgress(runner, event, 'start');
-              close();
-              if (documentHidden) notifyProgress(runner, event, 'close');
-              return runner;
-            }
-
-            if (isStructural) {
-              closeChildAnimations(element);
-            }
-
-            var newAnimation = {
-              structural: isStructural,
-              element: element,
-              event: event,
-              addClass: options.addClass,
-              removeClass: options.removeClass,
-              close: close,
-              options: options,
-              runner: runner
-            };
-
-            if (hasExistingAnimation) {
-              var skipAnimationFlag = isAllowed('skip', element, newAnimation, existingAnimation);
-              if (skipAnimationFlag) {
-                if (existingAnimation.state === RUNNING_STATE) {
-                  close();
-                  return runner;
-                } else {
-                  mergeAnimationDetails(element, existingAnimation, newAnimation);
-                  return existingAnimation.runner;
-                }
-              }
-              var cancelAnimationFlag = isAllowed('cancel', element, newAnimation, existingAnimation);
-              if (cancelAnimationFlag) {
-                if (existingAnimation.state === RUNNING_STATE) {
-                  // this will end the animation right away and it is safe
-                  // to do so since the animation is already running and the
-                  // runner callback code will run in async
-                  existingAnimation.runner.end();
-                } else if (existingAnimation.structural) {
-                  // this means that the animation is queued into a digest, but
-                  // hasn't started yet. Therefore it is safe to run the close
-                  // method which will call the runner methods in async.
-                  existingAnimation.close();
-                } else {
-                  // this will merge the new animation options into existing animation options
-                  mergeAnimationDetails(element, existingAnimation, newAnimation);
-
-                  return existingAnimation.runner;
-                }
-              } else {
-                // a joined animation means that this animation will take over the existing one
-                // so an example would involve a leave animation taking over an enter. Then when
-                // the postDigest kicks in the enter will be ignored.
-                var joinAnimationFlag = isAllowed('join', element, newAnimation, existingAnimation);
-                if (joinAnimationFlag) {
-                  if (existingAnimation.state === RUNNING_STATE) {
-                    normalizeAnimationDetails(element, newAnimation);
-                  } else {
-                    applyGeneratedPreparationClasses(element, isStructural ? event : null, options);
-
-                    event = newAnimation.event = existingAnimation.event;
-                    options = mergeAnimationDetails(element, existingAnimation, newAnimation);
-
-                    //we return the same runner since only the option values of this animation will
-                    //be fed into the `existingAnimation`.
-                    return existingAnimation.runner;
-                  }
-                }
-              }
-            } else {
-              // normalization in this case means that it removes redundant CSS classes that
-              // already exist (addClass) or do not exist (removeClass) on the element
-              normalizeAnimationDetails(element, newAnimation);
-            }
-
-            // when the options are merged and cleaned up we may end up not having to do
-            // an animation at all, therefore we should check this before issuing a post
-            // digest callback. Structural animations will always run no matter what.
-            var isValidAnimation = newAnimation.structural;
-            if (!isValidAnimation) {
-              // animate (from/to) can be quickly checked first, otherwise we check if any classes are present
-              isValidAnimation = newAnimation.event === 'animate' && Object.keys(newAnimation.options.to || {}).length > 0 || hasAnimationClasses(newAnimation);
-            }
-
-            if (!isValidAnimation) {
-              close();
-              clearElementAnimationState(element);
-              return runner;
-            }
-
-            // the counter keeps track of cancelled animations
-            var counter = (existingAnimation.counter || 0) + 1;
-            newAnimation.counter = counter;
-
-            markElementAnimationState(element, PRE_DIGEST_STATE, newAnimation);
-
-            $rootScope.$$postDigest(function () {
-              var animationDetails = activeAnimationsLookup.get(node);
-              var animationCancelled = !animationDetails;
-              animationDetails = animationDetails || {};
-
-              // if addClass/removeClass is called before something like enter then the
-              // registered parent element may not be present. The code below will ensure
-              // that a final value for parent element is obtained
-              var parentElement = element.parent() || [];
-
-              // animate/structural/class-based animations all have requirements. Otherwise there
-              // is no point in performing an animation. The parent node must also be set.
-              var isValidAnimation = parentElement.length > 0 && (animationDetails.event === 'animate' || animationDetails.structural || hasAnimationClasses(animationDetails));
-
-              // this means that the previous animation was cancelled
-              // even if the follow-up animation is the same event
-              if (animationCancelled || animationDetails.counter !== counter || !isValidAnimation) {
-                // if another animation did not take over then we need
-                // to make sure that the domOperation and options are
-                // handled accordingly
-                if (animationCancelled) {
-                  applyAnimationClasses(element, options);
-                  applyAnimationStyles(element, options);
-                }
-
-                // if the event changed from something like enter to leave then we do
-                // it, otherwise if it's the same then the end result will be the same too
-                if (animationCancelled || isStructural && animationDetails.event !== event) {
-                  options.domOperation();
-                  runner.end();
-                }
-
-                // in the event that the element animation was not cancelled or a follow-up animation
-                // isn't allowed to animate from here then we need to clear the state of the element
-                // so that any future animations won't read the expired animation data.
-                if (!isValidAnimation) {
-                  clearElementAnimationState(element);
-                }
-
-                return;
-              }
-
-              // this combined multiple class to addClass / removeClass into a setClass event
-              // so long as a structural event did not take over the animation
-              event = !animationDetails.structural && hasAnimationClasses(animationDetails, true) ? 'setClass' : animationDetails.event;
-
-              markElementAnimationState(element, RUNNING_STATE);
-              var realRunner = $$animation(element, event, animationDetails.options);
-
-              // this will update the runner's flow-control events based on
-              // the `realRunner` object.
-              runner.setHost(realRunner);
-              notifyProgress(runner, event, 'start', {});
-
-              realRunner.done(function (status) {
-                close(!status);
-                var animationDetails = activeAnimationsLookup.get(node);
-                if (animationDetails && animationDetails.counter === counter) {
-                  clearElementAnimationState(getDomNode(element));
-                }
-                notifyProgress(runner, event, 'close', {});
-              });
-            });
-
-            return runner;
-
-            function notifyProgress(runner, event, phase, data) {
-              runInNextPostDigestOrNow(function () {
-                var callbacks = findCallbacks(parent, element, event);
-                if (callbacks.length) {
-                  // do not optimize this call here to RAF because
-                  // we don't know how heavy the callback code here will
-                  // be and if this code is buffered then this can
-                  // lead to a performance regression.
-                  $$rAF(function () {
-                    forEach(callbacks, function (callback) {
-                      callback(element, phase, data);
-                    });
-                    cleanupEventListeners(phase, element);
-                  });
-                } else {
-                  cleanupEventListeners(phase, element);
-                }
-              });
-              runner.progress(event, phase, data);
-            }
-
-            function close(reject) {
-              // jshint ignore:line
-              clearGeneratedClasses(element, options);
-              applyAnimationClasses(element, options);
-              applyAnimationStyles(element, options);
-              options.domOperation();
-              runner.complete(!reject);
-            }
-          }
-
-          function closeChildAnimations(element) {
-            var node = getDomNode(element);
-            var children = node.querySelectorAll('[' + NG_ANIMATE_ATTR_NAME + ']');
-            forEach(children, function (child) {
-              var state = parseInt(child.getAttribute(NG_ANIMATE_ATTR_NAME));
-              var animationDetails = activeAnimationsLookup.get(child);
-              if (animationDetails) {
-                switch (state) {
-                  case RUNNING_STATE:
-                    animationDetails.runner.end();
-                  /* falls through */
-                  case PRE_DIGEST_STATE:
-                    activeAnimationsLookup.remove(child);
-                    break;
-                }
-              }
-            });
-          }
-
-          function clearElementAnimationState(element) {
-            var node = getDomNode(element);
-            node.removeAttribute(NG_ANIMATE_ATTR_NAME);
-            activeAnimationsLookup.remove(node);
-          }
-
-          function isMatchingElement(nodeOrElmA, nodeOrElmB) {
-            return getDomNode(nodeOrElmA) === getDomNode(nodeOrElmB);
+        }, {
+          key: "_expired",
+          value: function _expired(stamp, expires) {
+            var diff = Date.now() - expires;
+            var expired = stamp <= diff;
+            return expires && expired ? true : false;
           }
 
           /**
-           * This fn returns false if any of the following is true:
-           * a) animations on any parent element are disabled, and animations on the element aren't explicitly allowed
-           * b) a parent element has an ongoing structural animation, and animateChildren is false
-           * c) the element is not a child of the body
-           * d) the element is not a child of the $rootElement
-           */
-          function areAnimationsAllowed(element, parentElement, event) {
-            var bodyElement = jqLite($document[0].body);
-            var bodyElementDetected = isMatchingElement(element, bodyElement) || element[0].nodeName === 'HTML';
-            var rootElementDetected = isMatchingElement(element, $rootElement);
-            var parentAnimationDetected = false;
-            var animateChildren;
-            var elementDisabled = disabledElementsLookup.get(getDomNode(element));
-
-            var parentHost = jqLite.data(element[0], NG_ANIMATE_PIN_DATA);
-            if (parentHost) {
-              parentElement = parentHost;
+            Creates que handler. Returns self. Most likely, use newQueModel
+            @options - {
+              handler : dataArray=> - overrides $http posting for que processing
+              onData : data=> - callback fired everytime data is retrieved
+              expires: Number - how many milisecs can a saved transmission live in cache
             }
+          */
 
-            parentElement = getDomNode(parentElement);
+        }, {
+          key: "newQueModel",
+          value: function newQueModel(name) {
+            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-            while (parentElement) {
-              if (!rootElementDetected) {
-                // angular doesn't want to attempt to animate elements outside of the application
-                // therefore we need to ensure that the rootElement is an ancestor of the current element
-                rootElementDetected = isMatchingElement(parentElement, $rootElement);
-              }
-
-              if (parentElement.nodeType !== ELEMENT_NODE) {
-                // no point in inspecting the #document element
-                break;
-              }
-
-              var details = activeAnimationsLookup.get(parentElement) || {};
-              // either an enter, leave or move animation will commence
-              // therefore we can't allow any animations to take place
-              // but if a parent animation is class-based then that's ok
-              if (!parentAnimationDetected) {
-                var parentElementDisabled = disabledElementsLookup.get(parentElement);
-
-                if (parentElementDisabled === true && elementDisabled !== false) {
-                  // disable animations if the user hasn't explicitly enabled animations on the
-                  // current element
-                  elementDisabled = true;
-                  // element is disabled via parent element, no need to check anything else
-                  break;
-                } else if (parentElementDisabled === false) {
-                  elementDisabled = false;
-                }
-                parentAnimationDetected = details.structural;
-              }
-
-              if (isUndefined(animateChildren) || animateChildren === true) {
-                var value = jqLite.data(parentElement, NG_ANIMATE_CHILDREN_DATA);
-                if (isDefined(value)) {
-                  animateChildren = value;
-                }
-              }
-
-              // there is no need to continue traversing at this point
-              if (parentAnimationDetected && animateChildren === false) break;
-
-              if (!bodyElementDetected) {
-                // we also need to ensure that the element is or will be a part of the body element
-                // otherwise it is pointless to even issue an animation to be rendered
-                bodyElementDetected = isMatchingElement(parentElement, bodyElement);
-              }
-
-              if (bodyElementDetected && rootElementDetected) {
-                // If both body and root have been found, any other checks are pointless,
-                // as no animation data should live outside the application
-                break;
-              }
-
-              if (!rootElementDetected) {
-                // If no rootElement is detected, check if the parentElement is pinned to another element
-                parentHost = jqLite.data(parentElement, NG_ANIMATE_PIN_DATA);
-                if (parentHost) {
-                  // The pin target element becomes the next parent element
-                  parentElement = getDomNode(parentHost);
-                  continue;
-                }
-              }
-
-              parentElement = parentElement.parentNode;
-            }
-
-            var allowAnimation = (!parentAnimationDetected || animateChildren) && elementDisabled !== true;
-            return allowAnimation && rootElementDetected && bodyElementDetected;
+            options.name = name;
+            this.addQueModel(name, options);
+            return new QueModel(this, options);
           }
 
-          function markElementAnimationState(element, state, details) {
-            details = details || {};
-            details.state = state;
+          /**
+            Creates que handler. Returns self. Most likely, use newQueModel
+            @options - {
+              handler : dataArray=> - overrides $http posting for que processing
+              onData : data=> - callback fired everytime data is retrieved
+            }
+          */
 
-            var node = getDomNode(element);
-            node.setAttribute(NG_ANIMATE_ATTR_NAME, state);
+        }, {
+          key: "addQueModel",
+          value: function addQueModel(name) {
+            var _this = this;
 
-            var oldValue = activeAnimationsLookup.get(node);
-            var newValue = oldValue ? extend(oldValue, details) : details;
-            activeAnimationsLookup.put(node, newValue);
+            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+            return this.registerQueueHandler(name, function (trans) {
+              var prom = _this.$http(trans);
+
+              if (options.onData) {
+                prom = prom.then(function (response) {
+                  if (response.data) {
+                    options.onData(response.data);
+                  }
+                });
+              }
+
+              return prom.catch(function (e) {
+                return _this.ErrorHandler.record(e);
+              });
+            });
           }
-        }];
-      }];
+        }, {
+          key: "paramCache",
+          value: function paramCache(name) {
+            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-      var $$AnimationProvider = ['$animateProvider', function ($animateProvider) {
-        var NG_ANIMATE_REF_ATTR = 'ng-animate-ref';
-
-        var drivers = this.drivers = [];
-
-        var RUNNER_STORAGE_KEY = '$$animationRunner';
-
-        function setRunner(element, runner) {
-          element.data(RUNNER_STORAGE_KEY, runner);
-        }
-
-        function removeRunner(element) {
-          element.removeData(RUNNER_STORAGE_KEY);
-        }
-
-        function getRunner(element) {
-          return element.data(RUNNER_STORAGE_KEY);
-        }
-
-        this.$get = ['$$jqLite', '$rootScope', '$injector', '$$AnimateRunner', '$$HashMap', '$$rAFScheduler', function ($$jqLite, $rootScope, $injector, $$AnimateRunner, $$HashMap, $$rAFScheduler) {
-
-          var animationQueue = [];
-          var applyAnimationClasses = applyAnimationClassesFactory($$jqLite);
-
-          function sortAnimations(animations) {
-            var tree = { children: [] };
-            var i,
-                lookup = new $$HashMap();
-
-            // this is done first beforehand so that the hashmap
-            // is filled with a list of the elements that will be animated
-            for (i = 0; i < animations.length; i++) {
-              var animation = animations[i];
-              lookup.put(animation.domNode, animations[i] = {
-                domNode: animation.domNode,
-                fn: animation.fn,
-                children: []
-              });
-            }
-
-            for (i = 0; i < animations.length; i++) {
-              processNode(animations[i]);
-            }
-
-            return flatten(tree);
-
-            function processNode(entry) {
-              if (entry.processed) return entry;
-              entry.processed = true;
-
-              var elementNode = entry.domNode;
-              var parentNode = elementNode.parentNode;
-              lookup.put(elementNode, entry);
-
-              var parentEntry;
-              while (parentNode) {
-                parentEntry = lookup.get(parentNode);
-                if (parentEntry) {
-                  if (!parentEntry.processed) {
-                    parentEntry = processNode(parentEntry);
-                  }
-                  break;
-                }
-                parentNode = parentNode.parentNode;
-              }
-
-              (parentEntry || tree).children.push(entry);
-              return entry;
-            }
-
-            function flatten(tree) {
-              var result = [];
-              var queue = [];
-              var i;
-
-              for (i = 0; i < tree.children.length; i++) {
-                queue.push(tree.children[i]);
-              }
-
-              var remainingLevelEntries = queue.length;
-              var nextLevelEntries = 0;
-              var row = [];
-
-              for (i = 0; i < queue.length; i++) {
-                var entry = queue[i];
-                if (remainingLevelEntries <= 0) {
-                  remainingLevelEntries = nextLevelEntries;
-                  nextLevelEntries = 0;
-                  result.push(row);
-                  row = [];
-                }
-                row.push(entry.fn);
-                entry.children.forEach(function (childEntry) {
-                  nextLevelEntries++;
-                  queue.push(childEntry);
-                });
-                remainingLevelEntries--;
-              }
-
-              if (row.length) {
-                result.push(row);
-              }
-
-              return result;
-            }
+            options.param = options.param || [];
+            return this.getCache(name, options);
           }
+        }, {
+          key: "paramSaveCache",
+          value: function paramSaveCache(name, options) {
+            var _this2 = this;
 
-          // TODO(matsko): document the signature in a better way
-          return function (element, event, options) {
-            options = prepareAnimationOptions(options);
-            var isStructural = ['enter', 'move', 'leave'].indexOf(event) >= 0;
-
-            // there is no animation at the current moment, however
-            // these runner methods will get later updated with the
-            // methods leading into the driver's end/cancel methods
-            // for now they just stop the animation from starting
-            var runner = new $$AnimateRunner({
-              end: function () {
-                close();
-              },
-              cancel: function () {
-                close(true);
-              }
+            return this.paramCache(name, options).then(function (items) {
+              return _this2.setCache(name, items);
             });
+          }
+        }, {
+          key: "getCache",
+          value: function getCache(name) {
+            var _this3 = this;
 
-            if (!drivers.length) {
-              close();
-              return runner;
-            }
+            var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-            setRunner(element, runner);
+            return this.get(name).then(function (data) {
+              if (_this3._validate(data, options)) {
+                return data.cache;
+              }
 
-            var classes = mergeClasses(element.attr('class'), mergeClasses(options.addClass, options.removeClass));
-            var tempClasses = options.tempClasses;
-            if (tempClasses) {
-              classes += ' ' + tempClasses;
-              options.tempClasses = null;
-            }
+              if (data) {
+                if (data.cache == null && data._timestamp == null) {
+                  return data;
+                }
 
-            var prepareClassName;
-            if (isStructural) {
-              prepareClassName = 'ng-' + event + PREPARE_CLASS_SUFFIX;
-              $$jqLite.addClass(element, prepareClassName);
-            }
+                if (!options.expires) {
+                  return data.cache;
+                }
 
-            animationQueue.push({
-              // this data is used by the postDigest code and passed into
-              // the driver step function
-              element: element,
-              classes: classes,
-              event: event,
-              structural: isStructural,
-              options: options,
-              beforeStart: beforeStart,
-              close: close
+                var isCheckExpired = data && data._timestamp && options.allowExpired;
+                var expired = data && data._timestamp && _this3._expired(data._timestamp, options.expires);
+                var isAllowExpired = isCheckExpired && expired;
+                if (isAllowExpired) {
+                  return data.cache;
+                }
+
+                if (expired) {
+                  var _err = new Error('Cache expired for ' + name);
+                  _err.code = 401;
+                }
+              }
+
+              if (options.param) return options.param;
+
+              var err = new Error('No valid cache found for ' + name);
+              err.code = 404;
+
+              return new Promise(function (res, rej) {
+                rej(err);
+              });
             });
+          }
+        }, {
+          key: "setCache",
+          value: function setCache(name, cache) {
+            var _this4 = this;
 
-            element.on('$destroy', handleDestroyedElement);
+            var newCache = {
+              _timestamp: Date.now() //,cache: response.data
+            };
 
-            // we only want there to be one function called within the post digest
-            // block. This way we can group animations for all the animations that
-            // were apart of the same postDigest flush call.
-            if (animationQueue.length > 1) return runner;
+            return this.get(name).then(function (data) {
+              data = data && data.constructor != String ? data : {};
 
-            $rootScope.$$postDigest(function () {
-              var animations = [];
-              forEach(animationQueue, function (entry) {
-                // the element was destroyed early on which removed the runner
-                // form its storage. This means we can't animate this element
-                // at all and it already has been closed due to destruction.
-                if (getRunner(entry.element)) {
-                  animations.push(entry);
-                } else {
-                  entry.close();
-                }
-              });
-
-              // now any future animations will be in another postDigest
-              animationQueue.length = 0;
-
-              var groupedAnimations = groupAnimations(animations);
-              var toBeSortedAnimations = [];
-
-              forEach(groupedAnimations, function (animationEntry) {
-                toBeSortedAnimations.push({
-                  domNode: getDomNode(animationEntry.from ? animationEntry.from.element : animationEntry.element),
-                  fn: function triggerAnimationStart() {
-                    // it's important that we apply the `ng-animate` CSS class and the
-                    // temporary classes before we do any driver invoking since these
-                    // CSS classes may be required for proper CSS detection.
-                    animationEntry.beforeStart();
-
-                    var startAnimationFn,
-                        closeFn = animationEntry.close;
-
-                    // in the event that the element was removed before the digest runs or
-                    // during the RAF sequencing then we should not trigger the animation.
-                    var targetElement = animationEntry.anchors ? animationEntry.from.element || animationEntry.to.element : animationEntry.element;
-
-                    if (getRunner(targetElement)) {
-                      var operation = invokeFirstDriver(animationEntry);
-                      if (operation) {
-                        startAnimationFn = operation.start;
-                      }
-                    }
-
-                    if (!startAnimationFn) {
-                      closeFn();
-                    } else {
-                      var animationRunner = startAnimationFn();
-                      animationRunner.done(function (status) {
-                        closeFn(!status);
-                      });
-                      updateAnimationRunners(animationEntry, animationRunner);
-                    }
-                  }
-                });
-              });
-
-              // we need to sort each of the animations in order of parent to child
-              // relationships. This ensures that the child classes are applied at the
-              // right time.
-              $$rAFScheduler(sortAnimations(toBeSortedAnimations));
-            });
-
-            return runner;
-
-            // TODO(matsko): change to reference nodes
-            function getAnchorNodes(node) {
-              var SELECTOR = '[' + NG_ANIMATE_REF_ATTR + ']';
-              var items = node.hasAttribute(NG_ANIMATE_REF_ATTR) ? [node] : node.querySelectorAll(SELECTOR);
-              var anchors = [];
-              forEach(items, function (node) {
-                var attr = node.getAttribute(NG_ANIMATE_REF_ATTR);
-                if (attr && attr.length) {
-                  anchors.push(node);
-                }
-              });
-              return anchors;
-            }
-
-            function groupAnimations(animations) {
-              var preparedAnimations = [];
-              var refLookup = {};
-              forEach(animations, function (animation, index) {
-                var element = animation.element;
-                var node = getDomNode(element);
-                var event = animation.event;
-                var enterOrMove = ['enter', 'move'].indexOf(event) >= 0;
-                var anchorNodes = animation.structural ? getAnchorNodes(node) : [];
-
-                if (anchorNodes.length) {
-                  var direction = enterOrMove ? 'to' : 'from';
-
-                  forEach(anchorNodes, function (anchor) {
-                    var key = anchor.getAttribute(NG_ANIMATE_REF_ATTR);
-                    refLookup[key] = refLookup[key] || {};
-                    refLookup[key][direction] = {
-                      animationID: index,
-                      element: jqLite(anchor)
-                    };
-                  });
-                } else {
-                  preparedAnimations.push(animation);
-                }
-              });
-
-              var usedIndicesLookup = {};
-              var anchorGroups = {};
-              forEach(refLookup, function (operations, key) {
-                var from = operations.from;
-                var to = operations.to;
-
-                if (!from || !to) {
-                  // only one of these is set therefore we can't have an
-                  // anchor animation since all three pieces are required
-                  var index = from ? from.animationID : to.animationID;
-                  var indexKey = index.toString();
-                  if (!usedIndicesLookup[indexKey]) {
-                    usedIndicesLookup[indexKey] = true;
-                    preparedAnimations.push(animations[index]);
-                  }
-                  return;
-                }
-
-                var fromAnimation = animations[from.animationID];
-                var toAnimation = animations[to.animationID];
-                var lookupKey = from.animationID.toString();
-                if (!anchorGroups[lookupKey]) {
-                  var group = anchorGroups[lookupKey] = {
-                    structural: true,
-                    beforeStart: function () {
-                      fromAnimation.beforeStart();
-                      toAnimation.beforeStart();
-                    },
-                    close: function () {
-                      fromAnimation.close();
-                      toAnimation.close();
-                    },
-                    classes: cssClassesIntersection(fromAnimation.classes, toAnimation.classes),
-                    from: fromAnimation,
-                    to: toAnimation,
-                    anchors: [] // TODO(matsko): change to reference nodes
-                  };
-
-                  // the anchor animations require that the from and to elements both have at least
-                  // one shared CSS class which effectively marries the two elements together to use
-                  // the same animation driver and to properly sequence the anchor animation.
-                  if (group.classes.length) {
-                    preparedAnimations.push(group);
-                  } else {
-                    preparedAnimations.push(fromAnimation);
-                    preparedAnimations.push(toAnimation);
-                  }
-                }
-
-                anchorGroups[lookupKey].anchors.push({
-                  'out': from.element, 'in': to.element
-                });
-              });
-
-              return preparedAnimations;
-            }
-
-            function cssClassesIntersection(a, b) {
-              a = a.split(' ');
-              b = b.split(' ');
-              var matches = [];
-
-              for (var i = 0; i < a.length; i++) {
-                var aa = a[i];
-                if (aa.substring(0, 3) === 'ng-') continue;
-
-                for (var j = 0; j < b.length; j++) {
-                  if (aa === b[j]) {
-                    matches.push(aa);
-                    break;
-                  }
-                }
-              }
-
-              return matches.join(' ');
-            }
-
-            function invokeFirstDriver(animationDetails) {
-              // we loop in reverse order since the more general drivers (like CSS and JS)
-              // may attempt more elements, but custom drivers are more particular
-              for (var i = drivers.length - 1; i >= 0; i--) {
-                var driverName = drivers[i];
-                var factory = $injector.get(driverName);
-                var driver = factory(animationDetails);
-                if (driver) {
-                  return driver;
-                }
-              }
-            }
-
-            function beforeStart() {
-              element.addClass(NG_ANIMATE_CLASSNAME);
-              if (tempClasses) {
-                $$jqLite.addClass(element, tempClasses);
-              }
-              if (prepareClassName) {
-                $$jqLite.removeClass(element, prepareClassName);
-                prepareClassName = null;
-              }
-            }
-
-            function updateAnimationRunners(animation, newRunner) {
-              if (animation.from && animation.to) {
-                update(animation.from.element);
-                update(animation.to.element);
+              Object.assign(data, newCache);
+              if (cache && cache.constructor == String) {
+                data.cache = cache;
+              } else if (data.cache && data.cache.constructor != String) {
+                Object.assign(data.cache, cache);
               } else {
-                update(animation.element);
+                data.cache = cache;
               }
 
-              function update(element) {
-                var runner = getRunner(element);
-                if (runner) runner.setHost(newRunner);
-              }
+              return data;
+            }) //paste cache over cache, leave all else alone
+            .then(function (data) {
+              return _this4.set(name, data);
+            });
+          }
+        }, {
+          key: "cacheResponse",
+          value: function cacheResponse(name, response) {
+            return this.setCache(name, response.data);
+          }
+        }, {
+          key: "getQueue",
+          value: function getQueue(name) {
+            return this.get(name).then(function (data) {
+              return data && data.queue ? data.queue : [];
+            });
+          }
+        }, {
+          key: "setQueue",
+          value: function setQueue(name, queue) {
+            var _this5 = this;
+
+            return this.get(name).then(function (data) {
+              return Object.assign({}, data, { queue: queue });
+            }).then(function (data) {
+              return _this5.set(name, data);
+            });
+          }
+        }, {
+          key: "clearQueue",
+          value: function clearQueue(name) {
+            var _this6 = this;
+
+            return this.get(name).then(function (data) {
+              data.queue = [];
+              _this6.set(name, data);
+            });
+          }
+
+          /** post/put que */
+
+        }, {
+          key: "enqueue",
+          value: function enqueue(name, queueData) {
+            var _this7 = this;
+
+            if (supportsNav && navigator.onLine) {
+              var handler = this.handlers.find(function (handler) {
+                return handler.name === name;
+              });
+              if (handler) return handler(queueData);
             }
 
-            function handleDestroyedElement() {
-              var runner = getRunner(element);
-              if (runner && (event !== 'leave' || !options.$$domOperationFired)) {
-                runner.end();
+            return this.get(name).then(function (data) {
+              data = data || {};
+              data.queue = data.queue || [];
+
+              if (queueData.forEach) {
+                queueData.forEach(function (x) {
+                  data.queue.push(x);
+                });
+              } else {
+                data.queue.push(queueData);
               }
+              return _this7.set(name, data);
+            });
+          }
+        }, {
+          key: "registerQueueHandler",
+          value: function registerQueueHandler(name, handler) {
+            handler = handler || this.getQueHandler.bind(this);
+            this.handlers.push({ name: name, handler: handler });
+            return this;
+          }
+        }, {
+          key: "processQueues",
+          value: function processQueues() {
+            var _this8 = this;
+
+            var x = this.handlers.length - 1,
+                promises = [];
+
+            var _loop = function _loop() {
+              var hand = _this8.handlers[x];
+
+              var prom = _this8.getQueue(hand.name).then(function (queue) {
+                return queue.forEach(function (x) {
+                  return hand.handler(x);
+                });
+              }).then(function () {
+                return _this8.clearQueue(hand.name);
+              });
+
+              promises.push(prom);
+            };
+
+            for (; x >= 0; --x) {
+              _loop();
             }
 
-            function close(rejected) {
-              // jshint ignore:line
-              element.off('$destroy', handleDestroyedElement);
-              removeRunner(element);
+            return Promise.all(promises);
+          }
+        }, {
+          key: "getQueHandler",
+          value: function getQueHandler(item) {
+            return this.$http(item);
+          }
+        }, {
+          key: "promiseNameArray",
+          value: function promiseNameArray() {
+            var _this9 = this;
 
-              applyAnimationClasses(element, options);
-              applyAnimationStyles(element, options);
-              options.domOperation();
-
-              if (tempClasses) {
-                $$jqLite.removeClass(element, tempClasses);
+            var keys = [];
+            return localForage.iterate(function (_, k) {
+              if (k.startsWith(_this9.prefix)) {
+                keys.push(k.substring(_this9.prefix.length + 1, k.length));
               }
+            }).then(function () {
+              return keys;
+            });
+          }
+        }, {
+          key: "clear",
+          value: function clear() {
+            var _this10 = this;
 
-              element.removeClass(NG_ANIMATE_CLASSNAME);
-              runner.complete(!rejected);
-            }
-          };
-        }];
-      }];
+            this.promiseNameArray().then(function (keys) {
+              return keys.forEach(function (name) {
+                return _this10.remove(name);
+              });
+            });
+          }
+        }]);
+
+        return AckOffline;
+      }();
+
+      AckOffline.$inject = ["$http"];
 
       /**
-       * @ngdoc directive
-       * @name ngAnimateSwap
-       * @restrict A
-       * @scope
-       *
-       * @description
-       *
-       * ngAnimateSwap is a animation-oriented directive that allows for the container to
-       * be removed and entered in whenever the associated expression changes. A
-       * common usecase for this directive is a rotating banner or slider component which
-       * contains one image being present at a time. When the active image changes
-       * then the old image will perform a `leave` animation and the new element
-       * will be inserted via an `enter` animation.
-       *
-       * @animations
-       * | Animation                        | Occurs                               |
-       * |----------------------------------|--------------------------------------|
-       * | {@link ng.$animate#enter enter}  | when the new element is inserted to the DOM  |
-       * | {@link ng.$animate#leave leave}  | when the old element is removed from the DOM |
-       *
-       * @example
-       * <example name="ngAnimateSwap-directive" module="ngAnimateSwapExample"
-       *          deps="angular-animate.js"
-       *          animations="true" fixBase="true">
-       *   <file name="index.html">
-       *     <div class="container" ng-controller="AppCtrl">
-       *       <div ng-animate-swap="number" class="cell swap-animation" ng-class="colorClass(number)">
-       *         {{ number }}
-       *       </div>
-       *     </div>
-       *   </file>
-       *   <file name="script.js">
-       *     angular.module('ngAnimateSwapExample', ['ngAnimate'])
-       *       .controller('AppCtrl', ['$scope', '$interval', function($scope, $interval) {
-       *         $scope.number = 0;
-       *         $interval(function() {
-       *           $scope.number++;
-       *         }, 1000);
-       *
-       *         var colors = ['red','blue','green','yellow','orange'];
-       *         $scope.colorClass = function(number) {
-       *           return colors[number % colors.length];
-       *         };
-       *       }]);
-       *   </file>
-       *  <file name="animations.css">
-       *  .container {
-       *    height:250px;
-       *    width:250px;
-       *    position:relative;
-       *    overflow:hidden;
-       *    border:2px solid black;
-       *  }
-       *  .container .cell {
-       *    font-size:150px;
-       *    text-align:center;
-       *    line-height:250px;
-       *    position:absolute;
-       *    top:0;
-       *    left:0;
-       *    right:0;
-       *    border-bottom:2px solid black;
-       *  }
-       *  .swap-animation.ng-enter, .swap-animation.ng-leave {
-       *    transition:0.5s linear all;
-       *  }
-       *  .swap-animation.ng-enter {
-       *    top:-250px;
-       *  }
-       *  .swap-animation.ng-enter-active {
-       *    top:0px;
-       *  }
-       *  .swap-animation.ng-leave {
-       *    top:0px;
-       *  }
-       *  .swap-animation.ng-leave-active {
-       *    top:250px;
-       *  }
-       *  .red { background:red; }
-       *  .green { background:green; }
-       *  .blue { background:blue; }
-       *  .yellow { background:yellow; }
-       *  .orange { background:orange; }
-       *  </file>
-       * </example>
-       */
-      var ngAnimateSwapDirective = ['$animate', '$rootScope', function ($animate, $rootScope) {
+        @config {expires, allowExpired, name}
+      */
+
+      QueModel = function () {
+        function QueModel(AckOffline, config) {
+          _classCallCheck(this, QueModel);
+
+          this.AckOffline = AckOffline;
+          this.config = config;
+        }
+
+        _createClass(QueModel, [{
+          key: "mergeConfig",
+          value: function mergeConfig(config) {
+            Object.assign(config, this.config);
+            this.config = config;
+            return this;
+          }
+        }, {
+          key: "get",
+          value: function get() {
+            return this.AckOffline.get(this.config.name);
+          }
+        }, {
+          key: "set",
+          value: function set(data) {
+            return this.AckOffline.set(this.config.name, data);
+          }
+        }]);
+
+        return QueModel;
+      }();
+
+      ackNgServices = angular.module('ack-ng-services', []).service('ack', function () {
+        return ack;
+      }).service('AckOffline', AckOffline).service('AckApi', AckApi).service('urlVars', urlVars).name;
+      urlVars.$inject = ['$window'];
+
+      ackNgFilters = angular.module('ack-ng-filters', []).filter('typeof', function () {
+        return function (x) {
+          return typeof x;
+        };
+      }).filter('keys', function () {
+        return function (x) {
+          if (x) {
+            return Object.keys(x);
+          }
+        };
+      }).filter('yesNo', function () {
+        return function (input) {
+          if (input == null) return input;
+          return input ? 'yes' : 'no';
+        };
+      }).filter('aMethod', a('method')).filter('aFunction', a('method')) //alias
+      .filter('aDate', a('date')).filter('aTime', a('time')).filter('ack', function () {
+        return invokeRotator(ack);
+      }).filter('capitalize', capitalize) //first letter capitalization
+      .filter('capitalizeWords', capitalizeWords).filter('trustAsHtml', trustAsHtml) //requires use of ng-bind-html
+      .filter('trustAsHTML', trustAsHtml) //requires use of ng-bind-html
+      .name;
+      trustAsHtml.$inject = ['$sce'];
+
+      whiteOutModalTemplate = "<div class=\"animate-fade\" ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;overflow:auto\" ng-style=\"{'background-color':wom.backgroundColor}\"><div style=\"position:relative\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px\">x</div></div></div></div><table style=\"height:100%\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude=\"ng-transclude\"></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>";
+      ackNgDirectives = angular.module('ack-ng-directives', []).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
+      /** used on an input that has ng-model to display a different value */
+      .directive('modelDisplay', function () {
         return {
           restrict: 'A',
-          transclude: 'element',
-          terminal: true,
-          priority: 600, // we use 600 here to ensure that the directive is caught before others
-          link: function (scope, $element, attrs, ctrl, $transclude) {
-            var previousElement, previousScope;
-            scope.$watchCollection(attrs.ngAnimateSwap || attrs['for'], function (value) {
-              if (previousElement) {
-                $animate.leave(previousElement);
+          require: 'ngModel',
+          scope: {
+            modelDisplay: "@" //will be evaled
+          },
+          link: function link($scope, element, attrs, ngModelController) {
+            ngModelController.$parsers.push(function (data) {
+              return $scope.$parent.$eval($scope.modelDisplay);
+            });
+
+            ngModelController.$formatters.push(function (data) {
+              return $scope.$parent.$eval($scope.modelDisplay);
+            });
+          }
+        };
+      }).directive('onEnterKey', function () {
+        return {
+          restrict: 'A',
+          scope: {},
+          bindToController: { onEnterKey: '&' }, //onEnterKey({event}) ... event.preventDefault()
+          controller: function controller() {},
+          controllerAs: 'onEnterKeyController',
+          link: function link($scope, jElm) {
+            jElm[0].onkeydown = function (event) {
+              var yesNo = [13, 10].indexOf(event.which || event.keyCode) >= 0;
+              if (yesNo) {
+                $scope.onEnterKeyController.onEnterKey({ event: event });
+                $scope.$apply();
               }
-              if (previousScope) {
-                previousScope.$destroy();
-                previousScope = null;
+            };
+          }
+        };
+      })
+
+      /** Disallow keyboard access to the backspace key */
+      .directive('preventBackKey', function () {
+        return {
+          restrict: 'AE',
+          link: function link($scope, jElm) {
+            jElm[0].onkeydown = function (event) {
+              var yesNo = [8].indexOf(event.which || event.keyCode) < 0;
+              if (!yesNo && event.preventDefault) {
+                event.preventDefault();
               }
-              if (value || value === 0) {
-                previousScope = scope.$new();
-                $transclude(previousScope, function (element) {
-                  previousElement = element;
-                  $animate.enter(element, null, $element);
-                });
+              return yesNo;
+            };
+          }
+        };
+      }).directive('preventEnterKey', function () {
+        return {
+          restrict: 'AE',
+          link: function link($scope, jElm) {
+            jElm[0].onkeydown = function (event) {
+              var yesNo = [13, 10].indexOf(event.which || event.keyCode) < 0;
+              if (!yesNo && event.preventDefault) {
+                event.preventDefault();
+              }
+              return yesNo;
+            };
+          }
+        };
+      }).directive('whiteOutModal', function () {
+        //white-out-modal
+        return {
+          restrict: 'E',
+          scope: {
+            show: '=',
+            size: '=?',
+            backgroundColor: '=?' //rgba(255,255,255,.95)
+          },
+          transclude: true,
+          template: whiteOutModalTemplate,
+          bindToController: true,
+          controllerAs: 'wom',
+          controller: function controller() {
+            this.backgroundColor = this.backgroundColor || 'rgba(255,255,255,.95)';
+          },
+          link: function link($scope, jElm, attrs) {
+            var handler = function handler(event) {
+              //already showing
+              var jTar = jElm.children().eq(0);
+              var eTar = event.srcElement || event.toElement || event.target;
+              if ($scope.wom.show && eTar == jTar[0]) {
+                $scope.wom.show = null;
+                $scope.$apply();
+                jTar.off('click', handler);
+              }
+            };
+
+            var addHandler = function addHandler() {
+              jElm.children().eq(0).on('click', handler);
+            };
+
+            $scope.$watch('wom.show', function (show) {
+              if (show) {
+                setTimeout(addHandler, 301); //delay needed to prevent immediate close
               }
             });
           }
         };
-      }];
+      }).directive('screenScrollHeightModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenScrollHeightModel: '=?'
+          },
+          controllerAs: 'ScreenScrollHeightModel',
+          controller: ScreenScrollHeightModel
+        };
+      }).directive('screenHeightExcessModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenHeightExcessModel: '=?'
+          },
+          controllerAs: 'ScreenHeightExcessModel',
+          controller: ScreenHeightExcessModel
+        };
+      }).directive('screenHeightModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenHeightModel: '=?'
+          },
+          controllerAs: 'ScreenHeightModel',
+          controller: ScreenHeightModel
+        };
+      }).directive('screenWidthModel', function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenWidthModel: '=?'
+          },
+          controllerAs: 'ScreenWidthModel',
+          controller: ScreenWidthModel
+        };
+      }).directive("onScreenScroll", function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            onScreenScroll: '&' //{x,y}
+            , initScreenScroll: '=' //Number. Causes onScreenScroll to be called on $scope init. Specify milisecs to wait before calling onScreenScroll after $scope init.
+          },
+          controllerAs: 'OnScreenScroll',
+          controller: OnScreenScroll
+        };
+      }).directive("screenScrollModelY", function () {
+        return {
+          restrict: 'A',
+          bindToController: {
+            screenScrollModelY: '=?'
+          },
+          controllerAs: 'ScreenScrollModelY',
+          controller: ScreenScrollModelY
+        };
+      }).component('userInactiveTrigger', {
+        bindings: {
+          inactiveSeconds: '=',
+          warnSeconds: '=',
+          onReactive: '&'
+        },
+        template: 'state:{{ $ctrl.state.active }}-{{ $ctrl.state.warning }}',
+        controller: UserInactiveTrigger
+      }).name;
+      UserInactiveTrigger.$inject = ['ActivityMonitor', '$scope', '$timeout'];OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
 
-      /**
-       * @ngdoc module
-       * @name ngAnimate
-       * @description
-       *
-       * The `ngAnimate` module provides support for CSS-based animations (keyframes and transitions) as well as JavaScript-based animations via
-       * callback hooks. Animations are not enabled by default, however, by including `ngAnimate` the animation hooks are enabled for an Angular app.
-       *
-       * <div doc-module-components="ngAnimate"></div>
-       *
-       * # Usage
-       * Simply put, there are two ways to make use of animations when ngAnimate is used: by using **CSS** and **JavaScript**. The former works purely based
-       * using CSS (by using matching CSS selectors/styles) and the latter triggers animations that are registered via `module.animation()`. For
-       * both CSS and JS animations the sole requirement is to have a matching `CSS class` that exists both in the registered animation and within
-       * the HTML element that the animation will be triggered on.
-       *
-       * ## Directive Support
-       * The following directives are "animation aware":
-       *
-       * | Directive                                                                                                | Supported Animations                                                     |
-       * |----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-       * | {@link ng.directive:ngRepeat#animations ngRepeat}                                                        | enter, leave and move                                                    |
-       * | {@link ngRoute.directive:ngView#animations ngView}                                                       | enter and leave                                                          |
-       * | {@link ng.directive:ngInclude#animations ngInclude}                                                      | enter and leave                                                          |
-       * | {@link ng.directive:ngSwitch#animations ngSwitch}                                                        | enter and leave                                                          |
-       * | {@link ng.directive:ngIf#animations ngIf}                                                                | enter and leave                                                          |
-       * | {@link ng.directive:ngClass#animations ngClass}                                                          | add and remove (the CSS class(es) present)                               |
-       * | {@link ng.directive:ngShow#animations ngShow} & {@link ng.directive:ngHide#animations ngHide}            | add and remove (the ng-hide class value)                                 |
-       * | {@link ng.directive:form#animation-hooks form} & {@link ng.directive:ngModel#animation-hooks ngModel}    | add and remove (dirty, pristine, valid, invalid & all other validations) |
-       * | {@link module:ngMessages#animations ngMessages}                                                          | add and remove (ng-active & ng-inactive)                                 |
-       * | {@link module:ngMessages#animations ngMessage}                                                           | enter and leave                                                          |
-       *
-       * (More information can be found by visiting each the documentation associated with each directive.)
-       *
-       * ## CSS-based Animations
-       *
-       * CSS-based animations with ngAnimate are unique since they require no JavaScript code at all. By using a CSS class that we reference between our HTML
-       * and CSS code we can create an animation that will be picked up by Angular when an the underlying directive performs an operation.
-       *
-       * The example below shows how an `enter` animation can be made possible on an element using `ng-if`:
-       *
-       * ```html
-       * <div ng-if="bool" class="fade">
-       *    Fade me in out
-       * </div>
-       * <button ng-click="bool=true">Fade In!</button>
-       * <button ng-click="bool=false">Fade Out!</button>
-       * ```
-       *
-       * Notice the CSS class **fade**? We can now create the CSS transition code that references this class:
-       *
-       * ```css
-       * /&#42; The starting CSS styles for the enter animation &#42;/
-       * .fade.ng-enter {
-       *   transition:0.5s linear all;
-       *   opacity:0;
-       * }
-       *
-       * /&#42; The finishing CSS styles for the enter animation &#42;/
-       * .fade.ng-enter.ng-enter-active {
-       *   opacity:1;
-       * }
-       * ```
-       *
-       * The key thing to remember here is that, depending on the animation event (which each of the directives above trigger depending on what's going on) two
-       * generated CSS classes will be applied to the element; in the example above we have `.ng-enter` and `.ng-enter-active`. For CSS transitions, the transition
-       * code **must** be defined within the starting CSS class (in this case `.ng-enter`). The destination class is what the transition will animate towards.
-       *
-       * If for example we wanted to create animations for `leave` and `move` (ngRepeat triggers move) then we can do so using the same CSS naming conventions:
-       *
-       * ```css
-       * /&#42; now the element will fade out before it is removed from the DOM &#42;/
-       * .fade.ng-leave {
-       *   transition:0.5s linear all;
-       *   opacity:1;
-       * }
-       * .fade.ng-leave.ng-leave-active {
-       *   opacity:0;
-       * }
-       * ```
-       *
-       * We can also make use of **CSS Keyframes** by referencing the keyframe animation within the starting CSS class:
-       *
-       * ```css
-       * /&#42; there is no need to define anything inside of the destination
-       * CSS class since the keyframe will take charge of the animation &#42;/
-       * .fade.ng-leave {
-       *   animation: my_fade_animation 0.5s linear;
-       *   -webkit-animation: my_fade_animation 0.5s linear;
-       * }
-       *
-       * @keyframes my_fade_animation {
-       *   from { opacity:1; }
-       *   to { opacity:0; }
-       * }
-       *
-       * @-webkit-keyframes my_fade_animation {
-       *   from { opacity:1; }
-       *   to { opacity:0; }
-       * }
-       * ```
-       *
-       * Feel free also mix transitions and keyframes together as well as any other CSS classes on the same element.
-       *
-       * ### CSS Class-based Animations
-       *
-       * Class-based animations (animations that are triggered via `ngClass`, `ngShow`, `ngHide` and some other directives) have a slightly different
-       * naming convention. Class-based animations are basic enough that a standard transition or keyframe can be referenced on the class being added
-       * and removed.
-       *
-       * For example if we wanted to do a CSS animation for `ngHide` then we place an animation on the `.ng-hide` CSS class:
-       *
-       * ```html
-       * <div ng-show="bool" class="fade">
-       *   Show and hide me
-       * </div>
-       * <button ng-click="bool=!bool">Toggle</button>
-       *
-       * <style>
-       * .fade.ng-hide {
-       *   transition:0.5s linear all;
-       *   opacity:0;
-       * }
-       * </style>
-       * ```
-       *
-       * All that is going on here with ngShow/ngHide behind the scenes is the `.ng-hide` class is added/removed (when the hidden state is valid). Since
-       * ngShow and ngHide are animation aware then we can match up a transition and ngAnimate handles the rest.
-       *
-       * In addition the addition and removal of the CSS class, ngAnimate also provides two helper methods that we can use to further decorate the animation
-       * with CSS styles.
-       *
-       * ```html
-       * <div ng-class="{on:onOff}" class="highlight">
-       *   Highlight this box
-       * </div>
-       * <button ng-click="onOff=!onOff">Toggle</button>
-       *
-       * <style>
-       * .highlight {
-       *   transition:0.5s linear all;
-       * }
-       * .highlight.on-add {
-       *   background:white;
-       * }
-       * .highlight.on {
-       *   background:yellow;
-       * }
-       * .highlight.on-remove {
-       *   background:black;
-       * }
-       * </style>
-       * ```
-       *
-       * We can also make use of CSS keyframes by placing them within the CSS classes.
-       *
-       *
-       * ### CSS Staggering Animations
-       * A Staggering animation is a collection of animations that are issued with a slight delay in between each successive operation resulting in a
-       * curtain-like effect. The ngAnimate module (versions >=1.2) supports staggering animations and the stagger effect can be
-       * performed by creating a **ng-EVENT-stagger** CSS class and attaching that class to the base CSS class used for
-       * the animation. The style property expected within the stagger class can either be a **transition-delay** or an
-       * **animation-delay** property (or both if your animation contains both transitions and keyframe animations).
-       *
-       * ```css
-       * .my-animation.ng-enter {
-       *   /&#42; standard transition code &#42;/
-       *   transition: 1s linear all;
-       *   opacity:0;
-       * }
-       * .my-animation.ng-enter-stagger {
-       *   /&#42; this will have a 100ms delay between each successive leave animation &#42;/
-       *   transition-delay: 0.1s;
-       *
-       *   /&#42; As of 1.4.4, this must always be set: it signals ngAnimate
-       *     to not accidentally inherit a delay property from another CSS class &#42;/
-       *   transition-duration: 0s;
-       * }
-       * .my-animation.ng-enter.ng-enter-active {
-       *   /&#42; standard transition styles &#42;/
-       *   opacity:1;
-       * }
-       * ```
-       *
-       * Staggering animations work by default in ngRepeat (so long as the CSS class is defined). Outside of ngRepeat, to use staggering animations
-       * on your own, they can be triggered by firing multiple calls to the same event on $animate. However, the restrictions surrounding this
-       * are that each of the elements must have the same CSS className value as well as the same parent element. A stagger operation
-       * will also be reset if one or more animation frames have passed since the multiple calls to `$animate` were fired.
-       *
-       * The following code will issue the **ng-leave-stagger** event on the element provided:
-       *
-       * ```js
-       * var kids = parent.children();
-       *
-       * $animate.leave(kids[0]); //stagger index=0
-       * $animate.leave(kids[1]); //stagger index=1
-       * $animate.leave(kids[2]); //stagger index=2
-       * $animate.leave(kids[3]); //stagger index=3
-       * $animate.leave(kids[4]); //stagger index=4
-       *
-       * window.requestAnimationFrame(function() {
-       *   //stagger has reset itself
-       *   $animate.leave(kids[5]); //stagger index=0
-       *   $animate.leave(kids[6]); //stagger index=1
-       *
-       *   $scope.$digest();
-       * });
-       * ```
-       *
-       * Stagger animations are currently only supported within CSS-defined animations.
-       *
-       * ### The `ng-animate` CSS class
-       *
-       * When ngAnimate is animating an element it will apply the `ng-animate` CSS class to the element for the duration of the animation.
-       * This is a temporary CSS class and it will be removed once the animation is over (for both JavaScript and CSS-based animations).
-       *
-       * Therefore, animations can be applied to an element using this temporary class directly via CSS.
-       *
-       * ```css
-       * .zipper.ng-animate {
-       *   transition:0.5s linear all;
-       * }
-       * .zipper.ng-enter {
-       *   opacity:0;
-       * }
-       * .zipper.ng-enter.ng-enter-active {
-       *   opacity:1;
-       * }
-       * .zipper.ng-leave {
-       *   opacity:1;
-       * }
-       * .zipper.ng-leave.ng-leave-active {
-       *   opacity:0;
-       * }
-       * ```
-       *
-       * (Note that the `ng-animate` CSS class is reserved and it cannot be applied on an element directly since ngAnimate will always remove
-       * the CSS class once an animation has completed.)
-       *
-       *
-       * ### The `ng-[event]-prepare` class
-       *
-       * This is a special class that can be used to prevent unwanted flickering / flash of content before
-       * the actual animation starts. The class is added as soon as an animation is initialized, but removed
-       * before the actual animation starts (after waiting for a $digest).
-       * It is also only added for *structural* animations (`enter`, `move`, and `leave`).
-       *
-       * In practice, flickering can appear when nesting elements with structural animations such as `ngIf`
-       * into elements that have class-based animations such as `ngClass`.
-       *
-       * ```html
-       * <div ng-class="{red: myProp}">
-       *   <div ng-class="{blue: myProp}">
-       *     <div class="message" ng-if="myProp"></div>
-       *   </div>
-       * </div>
-       * ```
-       *
-       * It is possible that during the `enter` animation, the `.message` div will be briefly visible before it starts animating.
-       * In that case, you can add styles to the CSS that make sure the element stays hidden before the animation starts:
-       *
-       * ```css
-       * .message.ng-enter-prepare {
-       *   opacity: 0;
-       * }
-       *
-       * ```
-       *
-       * ## JavaScript-based Animations
-       *
-       * ngAnimate also allows for animations to be consumed by JavaScript code. The approach is similar to CSS-based animations (where there is a shared
-       * CSS class that is referenced in our HTML code) but in addition we need to register the JavaScript animation on the module. By making use of the
-       * `module.animation()` module function we can register the animation.
-       *
-       * Let's see an example of a enter/leave animation using `ngRepeat`:
-       *
-       * ```html
-       * <div ng-repeat="item in items" class="slide">
-       *   {{ item }}
-       * </div>
-       * ```
-       *
-       * See the **slide** CSS class? Let's use that class to define an animation that we'll structure in our module code by using `module.animation`:
-       *
-       * ```js
-       * myModule.animation('.slide', [function() {
-       *   return {
-       *     // make note that other events (like addClass/removeClass)
-       *     // have different function input parameters
-       *     enter: function(element, doneFn) {
-       *       jQuery(element).fadeIn(1000, doneFn);
-       *
-       *       // remember to call doneFn so that angular
-       *       // knows that the animation has concluded
-       *     },
-       *
-       *     move: function(element, doneFn) {
-       *       jQuery(element).fadeIn(1000, doneFn);
-       *     },
-       *
-       *     leave: function(element, doneFn) {
-       *       jQuery(element).fadeOut(1000, doneFn);
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * The nice thing about JS-based animations is that we can inject other services and make use of advanced animation libraries such as
-       * greensock.js and velocity.js.
-       *
-       * If our animation code class-based (meaning that something like `ngClass`, `ngHide` and `ngShow` triggers it) then we can still define
-       * our animations inside of the same registered animation, however, the function input arguments are a bit different:
-       *
-       * ```html
-       * <div ng-class="color" class="colorful">
-       *   this box is moody
-       * </div>
-       * <button ng-click="color='red'">Change to red</button>
-       * <button ng-click="color='blue'">Change to blue</button>
-       * <button ng-click="color='green'">Change to green</button>
-       * ```
-       *
-       * ```js
-       * myModule.animation('.colorful', [function() {
-       *   return {
-       *     addClass: function(element, className, doneFn) {
-       *       // do some cool animation and call the doneFn
-       *     },
-       *     removeClass: function(element, className, doneFn) {
-       *       // do some cool animation and call the doneFn
-       *     },
-       *     setClass: function(element, addedClass, removedClass, doneFn) {
-       *       // do some cool animation and call the doneFn
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * ## CSS + JS Animations Together
-       *
-       * AngularJS 1.4 and higher has taken steps to make the amalgamation of CSS and JS animations more flexible. However, unlike earlier versions of Angular,
-       * defining CSS and JS animations to work off of the same CSS class will not work anymore. Therefore the example below will only result in **JS animations taking
-       * charge of the animation**:
-       *
-       * ```html
-       * <div ng-if="bool" class="slide">
-       *   Slide in and out
-       * </div>
-       * ```
-       *
-       * ```js
-       * myModule.animation('.slide', [function() {
-       *   return {
-       *     enter: function(element, doneFn) {
-       *       jQuery(element).slideIn(1000, doneFn);
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * ```css
-       * .slide.ng-enter {
-       *   transition:0.5s linear all;
-       *   transform:translateY(-100px);
-       * }
-       * .slide.ng-enter.ng-enter-active {
-       *   transform:translateY(0);
-       * }
-       * ```
-       *
-       * Does this mean that CSS and JS animations cannot be used together? Do JS-based animations always have higher priority? We can make up for the
-       * lack of CSS animations by using the `$animateCss` service to trigger our own tweaked-out, CSS-based animations directly from
-       * our own JS-based animation code:
-       *
-       * ```js
-       * myModule.animation('.slide', ['$animateCss', function($animateCss) {
-       *   return {
-       *     enter: function(element) {
-      *        // this will trigger `.slide.ng-enter` and `.slide.ng-enter-active`.
-       *       return $animateCss(element, {
-       *         event: 'enter',
-       *         structural: true
-       *       });
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * The nice thing here is that we can save bandwidth by sticking to our CSS-based animation code and we don't need to rely on a 3rd-party animation framework.
-       *
-       * The `$animateCss` service is very powerful since we can feed in all kinds of extra properties that will be evaluated and fed into a CSS transition or
-       * keyframe animation. For example if we wanted to animate the height of an element while adding and removing classes then we can do so by providing that
-       * data into `$animateCss` directly:
-       *
-       * ```js
-       * myModule.animation('.slide', ['$animateCss', function($animateCss) {
-       *   return {
-       *     enter: function(element) {
-       *       return $animateCss(element, {
-       *         event: 'enter',
-       *         structural: true,
-       *         addClass: 'maroon-setting',
-       *         from: { height:0 },
-       *         to: { height: 200 }
-       *       });
-       *     }
-       *   }
-       * }]);
-       * ```
-       *
-       * Now we can fill in the rest via our transition CSS code:
-       *
-       * ```css
-       * /&#42; the transition tells ngAnimate to make the animation happen &#42;/
-       * .slide.ng-enter { transition:0.5s linear all; }
-       *
-       * /&#42; this extra CSS class will be absorbed into the transition
-       * since the $animateCss code is adding the class &#42;/
-       * .maroon-setting { background:red; }
-       * ```
-       *
-       * And `$animateCss` will figure out the rest. Just make sure to have the `done()` callback fire the `doneFn` function to signal when the animation is over.
-       *
-       * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss service}.
-       *
-       * ## Animation Anchoring (via `ng-animate-ref`)
-       *
-       * ngAnimate in AngularJS 1.4 comes packed with the ability to cross-animate elements between
-       * structural areas of an application (like views) by pairing up elements using an attribute
-       * called `ng-animate-ref`.
-       *
-       * Let's say for example we have two views that are managed by `ng-view` and we want to show
-       * that there is a relationship between two components situated in within these views. By using the
-       * `ng-animate-ref` attribute we can identify that the two components are paired together and we
-       * can then attach an animation, which is triggered when the view changes.
-       *
-       * Say for example we have the following template code:
-       *
-       * ```html
-       * <!-- index.html -->
-       * <div ng-view class="view-animation">
-       * </div>
-       *
-       * <!-- home.html -->
-       * <a href="#/banner-page">
-       *   <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
-       * </a>
-       *
-       * <!-- banner-page.html -->
-       * <img src="./banner.jpg" class="banner" ng-animate-ref="banner">
-       * ```
-       *
-       * Now, when the view changes (once the link is clicked), ngAnimate will examine the
-       * HTML contents to see if there is a match reference between any components in the view
-       * that is leaving and the view that is entering. It will scan both the view which is being
-       * removed (leave) and inserted (enter) to see if there are any paired DOM elements that
-       * contain a matching ref value.
-       *
-       * The two images match since they share the same ref value. ngAnimate will now create a
-       * transport element (which is a clone of the first image element) and it will then attempt
-       * to animate to the position of the second image element in the next view. For the animation to
-       * work a special CSS class called `ng-anchor` will be added to the transported element.
-       *
-       * We can now attach a transition onto the `.banner.ng-anchor` CSS class and then
-       * ngAnimate will handle the entire transition for us as well as the addition and removal of
-       * any changes of CSS classes between the elements:
-       *
-       * ```css
-       * .banner.ng-anchor {
-       *   /&#42; this animation will last for 1 second since there are
-       *          two phases to the animation (an `in` and an `out` phase) &#42;/
-       *   transition:0.5s linear all;
-       * }
-       * ```
-       *
-       * We also **must** include animations for the views that are being entered and removed
-       * (otherwise anchoring wouldn't be possible since the new view would be inserted right away).
-       *
-       * ```css
-       * .view-animation.ng-enter, .view-animation.ng-leave {
-       *   transition:0.5s linear all;
-       *   position:fixed;
-       *   left:0;
-       *   top:0;
-       *   width:100%;
-       * }
-       * .view-animation.ng-enter {
-       *   transform:translateX(100%);
-       * }
-       * .view-animation.ng-leave,
-       * .view-animation.ng-enter.ng-enter-active {
-       *   transform:translateX(0%);
-       * }
-       * .view-animation.ng-leave.ng-leave-active {
-       *   transform:translateX(-100%);
-       * }
-       * ```
-       *
-       * Now we can jump back to the anchor animation. When the animation happens, there are two stages that occur:
-       * an `out` and an `in` stage. The `out` stage happens first and that is when the element is animated away
-       * from its origin. Once that animation is over then the `in` stage occurs which animates the
-       * element to its destination. The reason why there are two animations is to give enough time
-       * for the enter animation on the new element to be ready.
-       *
-       * The example above sets up a transition for both the in and out phases, but we can also target the out or
-       * in phases directly via `ng-anchor-out` and `ng-anchor-in`.
-       *
-       * ```css
-       * .banner.ng-anchor-out {
-       *   transition: 0.5s linear all;
-       *
-       *   /&#42; the scale will be applied during the out animation,
-       *          but will be animated away when the in animation runs &#42;/
-       *   transform: scale(1.2);
-       * }
-       *
-       * .banner.ng-anchor-in {
-       *   transition: 1s linear all;
-       * }
-       * ```
-       *
-       *
-       *
-       *
-       * ### Anchoring Demo
-       *
-        <example module="anchoringExample"
-                 name="anchoringExample"
-                 id="anchoringExample"
-                 deps="angular-animate.js;angular-route.js"
-                 animations="true">
-          <file name="index.html">
-            <a href="#/">Home</a>
-            <hr />
-            <div class="view-container">
-              <div ng-view class="view"></div>
-            </div>
-          </file>
-          <file name="script.js">
-            angular.module('anchoringExample', ['ngAnimate', 'ngRoute'])
-              .config(['$routeProvider', function($routeProvider) {
-                $routeProvider.when('/', {
-                  templateUrl: 'home.html',
-                  controller: 'HomeController as home'
-                });
-                $routeProvider.when('/profile/:id', {
-                  templateUrl: 'profile.html',
-                  controller: 'ProfileController as profile'
-                });
-              }])
-              .run(['$rootScope', function($rootScope) {
-                $rootScope.records = [
-                  { id:1, title: "Miss Beulah Roob" },
-                  { id:2, title: "Trent Morissette" },
-                  { id:3, title: "Miss Ava Pouros" },
-                  { id:4, title: "Rod Pouros" },
-                  { id:5, title: "Abdul Rice" },
-                  { id:6, title: "Laurie Rutherford Sr." },
-                  { id:7, title: "Nakia McLaughlin" },
-                  { id:8, title: "Jordon Blanda DVM" },
-                  { id:9, title: "Rhoda Hand" },
-                  { id:10, title: "Alexandrea Sauer" }
-                ];
-              }])
-              .controller('HomeController', [function() {
-                //empty
-              }])
-              .controller('ProfileController', ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
-                var index = parseInt($routeParams.id, 10);
-                var record = $rootScope.records[index - 1];
-      
-                this.title = record.title;
-                this.id = record.id;
-              }]);
-          </file>
-          <file name="home.html">
-            <h2>Welcome to the home page</h1>
-            <p>Please click on an element</p>
-            <a class="record"
-               ng-href="#/profile/{{ record.id }}"
-               ng-animate-ref="{{ record.id }}"
-               ng-repeat="record in records">
-              {{ record.title }}
-            </a>
-          </file>
-          <file name="profile.html">
-            <div class="profile record" ng-animate-ref="{{ profile.id }}">
-              {{ profile.title }}
-            </div>
-          </file>
-          <file name="animations.css">
-            .record {
-              display:block;
-              font-size:20px;
-            }
-            .profile {
-              background:black;
-              color:white;
-              font-size:100px;
-            }
-            .view-container {
-              position:relative;
-            }
-            .view-container > .view.ng-animate {
-              position:absolute;
-              top:0;
-              left:0;
-              width:100%;
-              min-height:500px;
-            }
-            .view.ng-enter, .view.ng-leave,
-            .record.ng-anchor {
-              transition:0.5s linear all;
-            }
-            .view.ng-enter {
-              transform:translateX(100%);
-            }
-            .view.ng-enter.ng-enter-active, .view.ng-leave {
-              transform:translateX(0%);
-            }
-            .view.ng-leave.ng-leave-active {
-              transform:translateX(-100%);
-            }
-            .record.ng-anchor-out {
-              background:red;
-            }
-          </file>
-        </example>
-       *
-       * ### How is the element transported?
-       *
-       * When an anchor animation occurs, ngAnimate will clone the starting element and position it exactly where the starting
-       * element is located on screen via absolute positioning. The cloned element will be placed inside of the root element
-       * of the application (where ng-app was defined) and all of the CSS classes of the starting element will be applied. The
-       * element will then animate into the `out` and `in` animations and will eventually reach the coordinates and match
-       * the dimensions of the destination element. During the entire animation a CSS class of `.ng-animate-shim` will be applied
-       * to both the starting and destination elements in order to hide them from being visible (the CSS styling for the class
-       * is: `visibility:hidden`). Once the anchor reaches its destination then it will be removed and the destination element
-       * will become visible since the shim class will be removed.
-       *
-       * ### How is the morphing handled?
-       *
-       * CSS Anchoring relies on transitions and keyframes and the internal code is intelligent enough to figure out
-       * what CSS classes differ between the starting element and the destination element. These different CSS classes
-       * will be added/removed on the anchor element and a transition will be applied (the transition that is provided
-       * in the anchor class). Long story short, ngAnimate will figure out what classes to add and remove which will
-       * make the transition of the element as smooth and automatic as possible. Be sure to use simple CSS classes that
-       * do not rely on DOM nesting structure so that the anchor element appears the same as the starting element (since
-       * the cloned element is placed inside of root element which is likely close to the body element).
-       *
-       * Note that if the root element is on the `<html>` element then the cloned node will be placed inside of body.
-       *
-       *
-       * ## Using $animate in your directive code
-       *
-       * So far we've explored how to feed in animations into an Angular application, but how do we trigger animations within our own directives in our application?
-       * By injecting the `$animate` service into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let's
-       * imagine we have a greeting box that shows and hides itself when the data changes
-       *
-       * ```html
-       * <greeting-box active="onOrOff">Hi there</greeting-box>
-       * ```
-       *
-       * ```js
-       * ngModule.directive('greetingBox', ['$animate', function($animate) {
-       *   return function(scope, element, attrs) {
-       *     attrs.$observe('active', function(value) {
-       *       value ? $animate.addClass(element, 'on') : $animate.removeClass(element, 'on');
-       *     });
-       *   });
-       * }]);
-       * ```
-       *
-       * Now the `on` CSS class is added and removed on the greeting box component. Now if we add a CSS class on top of the greeting box element
-       * in our HTML code then we can trigger a CSS or JS animation to happen.
-       *
-       * ```css
-       * /&#42; normally we would create a CSS class to reference on the element &#42;/
-       * greeting-box.on { transition:0.5s linear all; background:green; color:white; }
-       * ```
-       *
-       * The `$animate` service contains a variety of other methods like `enter`, `leave`, `animate` and `setClass`. To learn more about what's
-       * possible be sure to visit the {@link ng.$animate $animate service API page}.
-       *
-       *
-       * ## Callbacks and Promises
-       *
-       * When `$animate` is called it returns a promise that can be used to capture when the animation has ended. Therefore if we were to trigger
-       * an animation (within our directive code) then we can continue performing directive and scope related activities after the animation has
-       * ended by chaining onto the returned promise that animation method returns.
-       *
-       * ```js
-       * // somewhere within the depths of the directive
-       * $animate.enter(element, parent).then(function() {
-       *   //the animation has completed
-       * });
-       * ```
-       *
-       * (Note that earlier versions of Angular prior to v1.4 required the promise code to be wrapped using `$scope.$apply(...)`. This is not the case
-       * anymore.)
-       *
-       * In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
-       * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our view
-       * routing controller to hook into that:
-       *
-       * ```js
-       * ngModule.controller('HomePageController', ['$animate', function($animate) {
-       *   $animate.on('enter', ngViewElement, function(element) {
-       *     // the animation for this route has completed
-       *   }]);
-       * }])
-       * ```
-       *
-       * (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)
-       */
+      exports$1 = {};
 
-      var copy;
-      var extend;
-      var forEach;
-      var isArray;
-      var isDefined;
-      var isElement;
-      var isFunction;
-      var isObject;
-      var isString;
-      var isUndefined;
-      var jqLite;
-      var noop;
+      !function (t, r) {
+        "object" == typeof exports$1 && "object" == typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define([], r) : "object" == typeof exports$1 ? exports$1.ngFx = r() : t.ngFx = r();
+      }(undefined, function () {
+        return function (t) {
+          function r(a) {
+            if (e[a]) return e[a].exports;var o = e[a] = { exports: {}, id: a, loaded: !1 };return t[a].call(o.exports, o, o.exports, r), o.loaded = !0, o.exports;
+          }var e = {};return r.m = t, r.c = e, r.p = "", r(0);
+        }([function (t, r, e) {
+          "use strict";
 
-      /**
-       * @ngdoc service
-       * @name $animate
-       * @kind object
-       *
-       * @description
-       * The ngAnimate `$animate` service documentation is the same for the core `$animate` service.
-       *
-       * Click here {@link ng.$animate to learn more about animations with `$animate`}.
-       */
-      angular.module('ngAnimate', [], function initAngularHelpers() {
-        // Access helpers from angular core.
-        // Do it inside a `config` block to ensure `window.angular` is available.
-        noop = angular.noop;
-        copy = angular.copy;
-        extend = angular.extend;
-        jqLite = angular.element;
-        forEach = angular.forEach;
-        isArray = angular.isArray;
-        isString = angular.isString;
-        isObject = angular.isObject;
-        isUndefined = angular.isUndefined;
-        isDefined = angular.isDefined;
-        isFunction = angular.isFunction;
-        isElement = angular.isElement;
-      }).directive('ngAnimateSwap', ngAnimateSwapDirective).directive('ngAnimateChildren', $$AnimateChildrenDirective).factory('$$rAFScheduler', $$rAFSchedulerFactory).provider('$$animateQueue', $$AnimateQueueProvider).provider('$$animation', $$AnimationProvider).provider('$animateCss', $AnimateCssProvider).provider('$$animateCssDriver', $$AnimateCssDriverProvider).provider('$$animateJs', $$AnimateJsProvider).provider('$$animateJsDriver', $$AnimateJsDriverProvider);
-    })(window, window.angular);
-  })(this);
+          Object.defineProperty(r, "__esModule", { value: !0 });var a = e(1),
+              o = e(80);angular$1.module("ng-fx", [a.animations, o.utils]), r["default"] = "ng-fx", t.exports = r["default"];
+        }, function (t, r, e) {
+          "use strict";
 
-  return _retrieveGlobal();
-});
-$__System.registerDynamic("84", ["83"], true, function ($__require, exports, module) {
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  module.exports = $__require("83");
-  return module.exports;
-});
-$__System.register('1', ['69', '81', '84', '3a', '6b', '6e'], function (_export) {
-  //import ack from 'ack-x/index-browser'
+          Object.defineProperty(r, "__esModule", { value: !0 });var a = e(2),
+              o = e(7),
+              n = angular$1.module("ngFx.animations", [o.element, a.view]).name;r.animations = n;
+        }, function (t, r, e) {
+          "use strict";
 
-  //import angular from 'angular'
-  'use strict';
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(3);var a = angular$1.module("ngFx.animations.view", []),
+              o = a.name;r.view = o;
+        }, function (t, r, e) {
+          var a = e(4);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, ".fx-view-container{position:relative;min-height:1px}.fx-view{position:absolute;width:100%;z-index:10;left:0;right:0}", ""]);
+        }, function (t, r) {
+          t.exports = function () {
+            var t = [];return t.toString = function () {
+              for (var t = [], r = 0; r < this.length; r++) {
+                var e = this[r];e[2] ? t.push("@media " + e[2] + "{" + e[1] + "}") : t.push(e[1]);
+              }return t.join("");
+            }, t.i = function (r, e) {
+              "string" == typeof r && (r = [[null, r, ""]]);for (var a = {}, o = 0; o < this.length; o++) {
+                var n = this[o][0];"number" == typeof n && (a[n] = !0);
+              }for (o = 0; o < r.length; o++) {
+                var i = r[o];"number" == typeof i[0] && a[i[0]] || (e && !i[2] ? i[2] = e : e && (i[2] = "(" + i[2] + ") and (" + e + ")"), t.push(i));
+              }
+            }, t;
+          };
+        }, function (t, r, e) {
+          function a(t, r) {
+            for (var e = 0; e < t.length; e++) {
+              var a = t[e],
+                  o = p[a.id];if (o) {
+                o.refs++;for (var n = 0; n < o.parts.length; n++) {
+                  o.parts[n](a.parts[n]);
+                }for (; n < a.parts.length; n++) {
+                  o.parts.push(s(a.parts[n], r));
+                }
+              } else {
+                for (var i = [], n = 0; n < a.parts.length; n++) {
+                  i.push(s(a.parts[n], r));
+                }p[a.id] = { id: a.id, refs: 1, parts: i };
+              }
+            }
+          }function o(t) {
+            for (var r = [], e = {}, a = 0; a < t.length; a++) {
+              var o = t[a],
+                  n = o[0],
+                  i = o[1],
+                  s = o[2],
+                  f = o[3],
+                  c = { css: i, media: s, sourceMap: f };e[n] ? e[n].parts.push(c) : r.push(e[n] = { id: n, parts: [c] });
+            }return r;
+          }function n() {
+            var t = document.createElement("style"),
+                r = y();return t.type = "text/css", r.appendChild(t), t;
+          }function i() {
+            var t = document.createElement("link"),
+                r = y();return t.rel = "stylesheet", r.appendChild(t), t;
+          }function s(t, r) {
+            var e, a, o;if (r.singleton) {
+              var s = g++;e = d || (d = n()), a = f.bind(null, e, s, !1), o = f.bind(null, e, s, !0);
+            } else t.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (e = i(), a = m.bind(null, e), o = function o() {
+              e.parentNode.removeChild(e), e.href && URL.revokeObjectURL(e.href);
+            }) : (e = n(), a = c.bind(null, e), o = function o() {
+              e.parentNode.removeChild(e);
+            });return a(t), function (r) {
+              if (r) {
+                if (r.css === t.css && r.media === t.media && r.sourceMap === t.sourceMap) return;a(t = r);
+              } else o();
+            };
+          }function f(t, r, e, a) {
+            var o = e ? "" : a.css;if (t.styleSheet) t.styleSheet.cssText = b(r, o);else {
+              var n = document.createTextNode(o),
+                  i = t.childNodes;i[r] && t.removeChild(i[r]), i.length ? t.insertBefore(n, i[r]) : t.appendChild(n);
+            }
+          }function c(t, r) {
+            var e = r.css,
+                a = r.media;r.sourceMap;if (a && t.setAttribute("media", a), t.styleSheet) t.styleSheet.cssText = e;else {
+              for (; t.firstChild;) {
+                t.removeChild(t.firstChild);
+              }t.appendChild(document.createTextNode(e));
+            }
+          }function m(t, r) {
+            var e = r.css,
+                a = (r.media, r.sourceMap);a && (e += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(a)))) + " */");var o = new Blob([e], { type: "text/css" }),
+                n = t.href;t.href = URL.createObjectURL(o), n && URL.revokeObjectURL(n);
+          }var p = {},
+              u = function u(t) {
+            var r;return function () {
+              return "undefined" == typeof r && (r = t.apply(this, arguments)), r;
+            };
+          },
+              l = u(function () {
+            return (/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())
+            );
+          }),
+              y = u(function () {
+            return document.head || document.getElementsByTagName("head")[0];
+          }),
+              d = null,
+              g = 0;t.exports = function (t, r) {
+            r = r || {}, "undefined" == typeof r.singleton && (r.singleton = l());var e = o(t);return a(e, r), function (t) {
+              for (var n = [], i = 0; i < e.length; i++) {
+                var s = e[i],
+                    f = p[s.id];f.refs--, n.push(f);
+              }if (t) {
+                var c = o(t);a(c, r);
+              }for (var i = 0; i < n.length; i++) {
+                var f = n[i];if (0 === f.refs) {
+                  for (var m = 0; m < f.parts.length; m++) {
+                    f.parts[m]();
+                  }delete p[f.id];
+                }
+              }
+            };
+          };var b = function () {
+            var t = [];return function (r, e) {
+              return t[r] = e, t.filter(Boolean).join("\n");
+            };
+          }();
+        }, function (t, r, e) {
+          "use strict";
 
-  var ackNgFilters, ngFx, ackNgServices, ackNgDirectives, ActivityMonitor;
-  return {
-    setters: [function (_) {
-      ackNgFilters = _['default'];
-    }, function (_2) {
-      ngFx = _2['default'];
-    }, function (_3) {}, function (_a) {
-      ackNgServices = _a['default'];
-    }, function (_b) {
-      ackNgDirectives = _b['default'];
-    }, function (_e) {
-      ActivityMonitor = _e['default'];
-    }],
-    execute: function () {
-      _export('default', angular.module('ack-angular', [ActivityMonitor, 'ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters, ackNgServices]).name);
+          Object.defineProperty(r, "__esModule", { value: !0 });var a = e(8),
+              o = e(16),
+              n = e(61),
+              i = e(69),
+              s = e(73),
+              f = angular$1.module("ngFx.animations.element", []);[a.bounces, o.fades, n.zooms, i.lightSpeeds, s.rotates].forEach(function (t) {
+            t.forEach(function (t) {
+              f.animation(t.classname, t.creator);
+            });
+          });var c = f.name;r.element = c;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(9);var a = e(11),
+              o = e(12),
+              n = e(13),
+              i = e(14),
+              s = e(15),
+              f = [a.bounceNormal, o.bounceDown, n.bounceLeft, i.bounceRight, s.bounceUp];r.bounces = f;
+        }, function (t, r, e) {
+          var a = e(10);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-webkit-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-o-keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@keyframes bounceNormalIn{0%{opacity:0;transform:scale(.3)}33%{opacity:1;transform:scale(1.05)}66%{transform:scale(.9)}100%{transform:scale(1)}}@-moz-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-webkit-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-o-keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@keyframes bounceNormalOut{100%{opacity:0;transform:scale(.3)}66%{transform:scale(1.05)}33%{transform:scale(.9)}0%{opacity:1}}@-moz-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-webkit-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-o-keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@keyframes bounceDownIn{0%,100%,60%,75%,90%{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}100%{transform:none}}@-moz-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-webkit-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-o-keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@keyframes bounceDownOut{20%{transform:translate3d(0,10px,0)}40%,45%{opacity:1;transform:translate3d(0,-20px,0)}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-moz-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-webkit-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-o-keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@keyframes bounceLeftIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}100%{transform:none}}@-moz-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-webkit-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-o-keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@keyframes bounceLeftOut{20%{opacity:1;transform:translate3d(20px,0,0)}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-moz-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-webkit-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-o-keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@keyframes bounceRightOut{20%{opacity:1;transform:translate3d(-20px,0,0)}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-moz-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-webkit-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-o-keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@keyframes bounceRightIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}100%{transform:none}}@-moz-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-webkit-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-o-keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@keyframes bounceUpIn{100%,60%,75%,90%,from{animation-timing-function:cubic-bezier(.215,.61,.355,1)}from{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}100%{transform:translate3d(0,0,0)}}@-moz-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-webkit-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-o-keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes bounceUpOut{20%{transform:translate3d(0,-10px,0)}40%,45%{opacity:1;transform:translate3d(0,20px,0)}100%{opacity:0;transform:translate3d(0,-2000px,0)}}", ""]);
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s bounceNormalIn" },
+                e = { keyframeStyle: ".1s bounceNormalOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-normal",
+              o = { creator: e, classname: a };r.bounceNormal = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s bounceDownIn" },
+                e = { keyframeStyle: ".1s bounceDownOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-down",
+              o = { creator: e, classname: a };r.bounceDown = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s bounceLeftIn" },
+                e = { keyframeStyle: ".1s bounceLeftOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-left",
+              o = { creator: e, classname: a };r.bounceLeft = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s bounceRightIn" },
+                e = { keyframeStyle: ".1s bounceRightOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-right",
+              o = { creator: e, classname: a };r.bounceRight = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s bounceUpIn" },
+                e = { keyframeStyle: ".1s bounceUpOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-bounce-up",
+              o = { creator: e, classname: a };r.bounceUp = o;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(17);var a = e(19),
+              o = e(53),
+              n = e(54),
+              i = e(55),
+              s = e(56),
+              f = e(57),
+              c = e(58),
+              m = e(59),
+              p = e(60),
+              u = [a.fadeNormal, o.fadeDown, n.fadeDownBig, i.fadeLeft, s.fadeLeftBig, f.fadeRight, c.fadeRightBig, m.fadeUp, p.fadeUpBig];r.fades = u;
+        }, function (t, r, e) {
+          var a = e(18);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-o-keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@keyframes fadeNormalIn{from{opacity:0}to{opacity:1}}@-moz-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-webkit-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-o-keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@keyframes fadeNormalOut{from{opacity:1}to{opacity:0}}@-moz-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@keyframes fadeDownIn{0%{opacity:0;transform:translate3d(0,-100%,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-webkit-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-o-keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@keyframes fadeDownOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,100%,0)}}@-moz-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@keyframes fadeDownBigIn{0%{opacity:0;transform:translate3d(0,-2000px,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-webkit-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-o-keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@keyframes fadeDownBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,2000px,0)}}@-moz-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@keyframes fadeUpIn{0%{opacity:0;transform:translate3d(0,100%,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-webkit-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-o-keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@keyframes fadeUpOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-100%,0)}}@-moz-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@keyframes fadeUpBigIn{0%{opacity:0;transform:translate3d(0,2000px,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-webkit-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-o-keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes fadeUpBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(0,-2000px,0)}}@-moz-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@keyframes fadeLeftIn{0%{opacity:0;transform:translate3d(-100%,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-webkit-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-o-keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@keyframes fadeLeftOut{0%{opacity:1}100%{opacity:0;transform:translate3d(100%,0,0)}}@-moz-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@keyframes fadeLeftBigIn{0%{opacity:0;transform:translate3d(-2000px,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-webkit-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-o-keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@keyframes fadeLeftBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(2000px,0,0)}}@-moz-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@keyframes fadeRightIn{0%{opacity:0;transform:translate3d(100%,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-webkit-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-o-keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@keyframes fadeRightOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-100%,0,0)}}@-moz-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-webkit-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-o-keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@keyframes fadeRightBigIn{0%{opacity:0;transform:translate3d(2000px,0,0)}100%{opacity:1;transform:none}}@-moz-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-webkit-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@-o-keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}@keyframes fadeRightBigOut{0%{opacity:1}100%{opacity:0;transform:translate3d(-2000px,0,0)}}", ""]);
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeNormalIn" },
+                e = { keyframeStyle: ".1s fadeNormalOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-normal",
+              s = { creator: n, classname: i };r.fadeNormal = s;
+        }, function (t, r, e) {
+          var a = e(21),
+              o = e(48),
+              n = o(a);t.exports = n;
+        }, function (t, r, e) {
+          function a(t, r, e, u, l) {
+            if (!f(t)) return t;var y = s(r) && (i(r) || m(r)),
+                d = y ? void 0 : p(r);return o(d || r, function (o, i) {
+              if (d && (i = o, o = r[i]), c(o)) u || (u = []), l || (l = []), n(t, r, i, a, e, u, l);else {
+                var s = t[i],
+                    f = e ? e(s, o, i, t, r) : void 0,
+                    m = void 0 === f;m && (f = o), void 0 === f && (!y || i in t) || !m && (f === f ? f === s : s !== s) || (t[i] = f);
+              }
+            }), t;
+          }var o = e(22),
+              n = e(23),
+              i = e(31),
+              s = e(26),
+              f = e(35),
+              c = e(30),
+              m = e(43),
+              p = e(46);t.exports = a;
+        }, function (t, r) {
+          function e(t, r) {
+            for (var e = -1, a = t.length; ++e < a && r(t[e], e, t) !== !1;) {}return t;
+          }t.exports = e;
+        }, function (t, r, e) {
+          function a(t, r, e, a, p, u, l) {
+            for (var y = u.length, d = r[e]; y--;) {
+              if (u[y] == d) return void (t[e] = l[y]);
+            }var g = t[e],
+                b = p ? p(g, d, e, t, r) : void 0,
+                x = void 0 === b;x && (b = d, s(d) && (i(d) || c(d)) ? b = i(g) ? g : s(g) ? o(g) : [] : f(d) || n(d) ? b = n(g) ? m(g) : f(g) ? g : {} : x = !1), u.push(d), l.push(b), x ? t[e] = a(b, d, p, u, l) : (b === b ? b !== g : g === g) && (t[e] = b);
+          }var o = e(24),
+              n = e(25),
+              i = e(31),
+              s = e(26),
+              f = e(36),
+              c = e(43),
+              m = e(44);t.exports = a;
+        }, function (t, r) {
+          function e(t, r) {
+            var e = -1,
+                a = t.length;for (r || (r = Array(a)); ++e < a;) {
+              r[e] = t[e];
+            }return r;
+          }t.exports = e;
+        }, function (t, r, e) {
+          function a(t) {
+            return n(t) && o(t) && s.call(t, "callee") && !f.call(t, "callee");
+          }var o = e(26),
+              n = e(30),
+              i = Object.prototype,
+              s = i.hasOwnProperty,
+              f = i.propertyIsEnumerable;t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return null != t && n(o(t));
+          }var o = e(27),
+              n = e(29);t.exports = a;
+        }, function (t, r, e) {
+          var a = e(28),
+              o = a("length");t.exports = o;
+        }, function (t, r) {
+          function e(t) {
+            return function (r) {
+              return null == r ? void 0 : r[t];
+            };
+          }t.exports = e;
+        }, function (t, r) {
+          function e(t) {
+            return "number" == typeof t && t > -1 && t % 1 == 0 && a >= t;
+          }var a = 9007199254740991;t.exports = e;
+        }, function (t, r) {
+          function e(t) {
+            return !!t && "object" == typeof t;
+          }t.exports = e;
+        }, function (t, r, e) {
+          var a = e(32),
+              o = e(29),
+              n = e(30),
+              i = "[object Array]",
+              s = Object.prototype,
+              f = s.toString,
+              c = a(Array, "isArray"),
+              m = c || function (t) {
+            return n(t) && o(t.length) && f.call(t) == i;
+          };t.exports = m;
+        }, function (t, r, e) {
+          function a(t, r) {
+            var e = null == t ? void 0 : t[r];return o(e) ? e : void 0;
+          }var o = e(33);t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return null == t ? !1 : o(t) ? m.test(f.call(t)) : n(t) && i.test(t);
+          }var o = e(34),
+              n = e(30),
+              i = /^\[object .+?Constructor\]$/,
+              s = Object.prototype,
+              f = Function.prototype.toString,
+              c = s.hasOwnProperty,
+              m = RegExp("^" + f.call(c).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return o(t) && s.call(t) == n;
+          }var o = e(35),
+              n = "[object Function]",
+              i = Object.prototype,
+              s = i.toString;t.exports = a;
+        }, function (t, r) {
+          function e(t) {
+            var r = typeof t;return !!t && ("object" == r || "function" == r);
+          }t.exports = e;
+        }, function (t, r, e) {
+          function a(t) {
+            var r;if (!i(t) || m.call(t) != s || n(t) || !c.call(t, "constructor") && (r = t.constructor, "function" == typeof r && !(r instanceof r))) return !1;var e;return o(t, function (t, r) {
+              e = r;
+            }), void 0 === e || c.call(t, e);
+          }var o = e(37),
+              n = e(25),
+              i = e(30),
+              s = "[object Object]",
+              f = Object.prototype,
+              c = f.hasOwnProperty,
+              m = f.toString;t.exports = a;
+        }, function (t, r, e) {
+          function a(t, r) {
+            return o(t, r, n);
+          }var o = e(38),
+              n = e(41);t.exports = a;
+        }, function (t, r, e) {
+          var a = e(39),
+              o = a();t.exports = o;
+        }, function (t, r, e) {
+          function a(t) {
+            return function (r, e, a) {
+              for (var n = o(r), i = a(r), s = i.length, f = t ? s : -1; t ? f-- : ++f < s;) {
+                var c = i[f];if (e(n[c], c, n) === !1) break;
+              }return r;
+            };
+          }var o = e(40);t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return o(t) ? t : Object(t);
+          }var o = e(35);t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            if (null == t) return [];f(t) || (t = Object(t));var r = t.length;r = r && s(r) && (n(t) || o(t)) && r || 0;for (var e = t.constructor, a = -1, c = "function" == typeof e && e.prototype === t, p = Array(r), u = r > 0; ++a < r;) {
+              p[a] = a + "";
+            }for (var l in t) {
+              u && i(l, r) || "constructor" == l && (c || !m.call(t, l)) || p.push(l);
+            }return p;
+          }var o = e(25),
+              n = e(31),
+              i = e(42),
+              s = e(29),
+              f = e(35),
+              c = Object.prototype,
+              m = c.hasOwnProperty;t.exports = a;
+        }, function (t, r) {
+          function e(t, r) {
+            return t = "number" == typeof t || a.test(t) ? +t : -1, r = null == r ? o : r, t > -1 && t % 1 == 0 && r > t;
+          }var a = /^\d+$/,
+              o = 9007199254740991;t.exports = e;
+        }, function (t, r, e) {
+          function a(t) {
+            return n(t) && o(t.length) && !!U[M.call(t)];
+          }var o = e(29),
+              n = e(30),
+              i = "[object Arguments]",
+              s = "[object Array]",
+              f = "[object Boolean]",
+              c = "[object Date]",
+              m = "[object Error]",
+              p = "[object Function]",
+              u = "[object Map]",
+              l = "[object Number]",
+              y = "[object Object]",
+              d = "[object RegExp]",
+              g = "[object Set]",
+              b = "[object String]",
+              x = "[object WeakMap]",
+              k = "[object ArrayBuffer]",
+              v = "[object Float32Array]",
+              h = "[object Float64Array]",
+              O = "[object Int8Array]",
+              z = "[object Int16Array]",
+              w = "[object Int32Array]",
+              I = "[object Uint8Array]",
+              j = "[object Uint8ClampedArray]",
+              _ = "[object Uint16Array]",
+              R = "[object Uint32Array]",
+              U = {};U[v] = U[h] = U[O] = U[z] = U[w] = U[I] = U[j] = U[_] = U[R] = !0, U[i] = U[s] = U[k] = U[f] = U[c] = U[m] = U[p] = U[u] = U[l] = U[y] = U[d] = U[g] = U[b] = U[x] = !1;var L = Object.prototype,
+              M = L.toString;t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return o(t, n(t));
+          }var o = e(45),
+              n = e(41);t.exports = a;
+        }, function (t, r) {
+          function e(t, r, e) {
+            e || (e = {});for (var a = -1, o = r.length; ++a < o;) {
+              var n = r[a];e[n] = t[n];
+            }return e;
+          }t.exports = e;
+        }, function (t, r, e) {
+          var a = e(32),
+              o = e(26),
+              n = e(35),
+              i = e(47),
+              s = a(Object, "keys"),
+              f = s ? function (t) {
+            var r = null == t ? void 0 : t.constructor;return "function" == typeof r && r.prototype === t || "function" != typeof t && o(t) ? i(t) : n(t) ? s(t) : [];
+          } : i;t.exports = f;
+        }, function (t, r, e) {
+          function a(t) {
+            for (var r = f(t), e = r.length, a = e && t.length, c = !!a && s(a) && (n(t) || o(t)), p = -1, u = []; ++p < e;) {
+              var l = r[p];(c && i(l, a) || m.call(t, l)) && u.push(l);
+            }return u;
+          }var o = e(25),
+              n = e(31),
+              i = e(42),
+              s = e(29),
+              f = e(41),
+              c = Object.prototype,
+              m = c.hasOwnProperty;t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return i(function (r, e) {
+              var a = -1,
+                  i = null == r ? 0 : e.length,
+                  s = i > 2 ? e[i - 2] : void 0,
+                  f = i > 2 ? e[2] : void 0,
+                  c = i > 1 ? e[i - 1] : void 0;for ("function" == typeof s ? (s = o(s, c, 5), i -= 2) : (s = "function" == typeof c ? c : void 0, i -= s ? 1 : 0), f && n(e[0], e[1], f) && (s = 3 > i ? void 0 : s, i = 1); ++a < i;) {
+                var m = e[a];m && t(r, m, s);
+              }return r;
+            });
+          }var o = e(49),
+              n = e(51),
+              i = e(52);t.exports = a;
+        }, function (t, r, e) {
+          function a(t, r, e) {
+            if ("function" != typeof t) return o;if (void 0 === r) return t;switch (e) {case 1:
+                return function (e) {
+                  return t.call(r, e);
+                };case 3:
+                return function (e, a, o) {
+                  return t.call(r, e, a, o);
+                };case 4:
+                return function (e, a, o, n) {
+                  return t.call(r, e, a, o, n);
+                };case 5:
+                return function (e, a, o, n, i) {
+                  return t.call(r, e, a, o, n, i);
+                };}return function () {
+              return t.apply(r, arguments);
+            };
+          }var o = e(50);t.exports = a;
+        }, function (t, r) {
+          function e(t) {
+            return t;
+          }t.exports = e;
+        }, function (t, r, e) {
+          function a(t, r, e) {
+            if (!i(e)) return !1;var a = typeof r;if ("number" == a ? o(e) && n(r, e.length) : "string" == a && r in e) {
+              var s = e[r];return t === t ? t === s : s !== s;
+            }return !1;
+          }var o = e(26),
+              n = e(42),
+              i = e(35);t.exports = a;
+        }, function (t, r) {
+          function e(t, r) {
+            if ("function" != typeof t) throw new TypeError(a);return r = o(void 0 === r ? t.length - 1 : +r || 0, 0), function () {
+              for (var e = arguments, a = -1, n = o(e.length - r, 0), i = Array(n); ++a < n;) {
+                i[a] = e[r + a];
+              }switch (r) {case 0:
+                  return t.call(this, i);case 1:
+                  return t.call(this, e[0], i);case 2:
+                  return t.call(this, e[0], e[1], i);}var s = Array(r + 1);for (a = -1; ++a < r;) {
+                s[a] = e[a];
+              }return s[r] = i, t.apply(this, s);
+            };
+          }var a = "Expected a function",
+              o = Math.max;t.exports = e;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeDownIn" },
+                e = { keyframeStyle: ".1s fadeDownOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-down",
+              s = { creator: n, classname: i };r.fadeDown = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeDownBigIn" },
+                e = { keyframeStyle: ".1s fadeDownBigOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-down-big",
+              s = { creator: n, classname: i };r.fadeDownBig = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeLeftIn" },
+                e = { keyframeStyle: ".1s fadeLeftOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-left",
+              s = { creator: n, classname: i };r.fadeLeft = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeLeftBigIn" },
+                e = { keyframeStyle: ".1s fadeLeftBigOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-left-big",
+              s = { creator: n, classname: i };r.fadeLeftBig = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeRightIn" },
+                e = { keyframeStyle: ".1s fadeRightOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-right",
+              s = { creator: n, classname: i };r.fadeRight = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeRightBigIn" },
+                e = { keyframeStyle: ".1s fadeRightBigOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-right-big",
+              s = { creator: n, classname: i };r.fadeRightBig = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeUpIn" },
+                e = { keyframeStyle: ".1s fadeUpOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-up",
+              s = { creator: n, classname: i };r.fadeUp = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = (a(o), function (t) {
+            var r = { keyframeStyle: ".1s fadeUpBigIn" },
+                e = { keyframeStyle: ".1s fadeUpBigOut" };return t.create(r, e);
+          });n.$inject = ["$fxMakeAnimation"];var i = ".fx-fade-up-big",
+              s = { creator: n, classname: i };r.fadeUpBig = s;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(62);var a = e(64),
+              o = e(65),
+              n = e(66),
+              i = e(67),
+              s = e(68),
+              f = [a.zoomNormal, o.zoomDown, n.zoomUp, i.zoomRight, s.zoomLeft];
+          r.zooms = f;
+        }, function (t, r, e) {
+          var a = e(63);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-webkit-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-o-keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes zoomNormalIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-moz-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-webkit-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-o-keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@keyframes zoomNormalOut{0%{opacity:1}50%{opacity:0;transform:scale3d(.3,.3,.3)}100%{opacity:0}}@-moz-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-webkit-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-o-keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@keyframes zoomDownIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-1000px,0)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0)}}@-moz-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomDownOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomUpIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,1000px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,-60px,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomUpOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(0,60px,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}100%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(0,-2000px,0);transform-origin:center bottom;animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomRightIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-webkit-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-o-keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@keyframes zoomRightOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(-42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(2000px,0,0);transform-origin:right center}}@-moz-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-webkit-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-o-keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@keyframes zoomLeftIn{0%{opacity:0;transform:scale3d(.1,.1,.1) translate3d(-1000px,0,0);animation-timing-function:cubic-bezier(.55,.055,.675,.19)}60%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(10px,0,0);animation-timing-function:cubic-bezier(.175,.885,.32,1)}}@-moz-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@-webkit-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@-o-keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}@keyframes zoomLeftOut{40%{opacity:1;transform:scale3d(.475,.475,.475) translate3d(42px,0,0)}100%{opacity:0;transform:scale(.1) translate3d(-2000px,0,0);transform-origin:left center}}", ""]);
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s zoomNormalIn" },
+                e = { keyframeStyle: ".1s zoomNormalOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-normal",
+              o = { creator: e, classname: a };r.zoomNormal = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s zoomDownIn" },
+                e = { keyframeStyle: ".1s zoomDownOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-down",
+              o = { creator: e, classname: a };r.zoomDown = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s zoomUpIn" },
+                e = { keyframeStyle: ".1s zoomUpOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-up",
+              o = { creator: e, classname: a };r.zoomUp = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s zoomRightIn" },
+                e = { keyframeStyle: ".1s zoomRightOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-right",
+              o = { creator: e, classname: a };r.zoomRight = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s zoomLeftIn" },
+                e = { keyframeStyle: ".1s zoomLeftOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-zoom-left",
+              o = { creator: e, classname: a };r.zoomLeft = o;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(70);var a = e(72),
+              o = [a.lightSpeed];r.lightSpeeds = o;
+        }, function (t, r, e) {
+          var a = e(71);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-webkit-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-o-keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@keyframes lightSpeedNormalIn{from{transform:translate3d(100%,0,0) skewX(-30deg);opacity:0}60%{transform:skewX(20deg);opacity:1}80%{transform:skewX(-5deg);opacity:1}to{transform:none;opacity:1}}@-moz-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@-webkit-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@-o-keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}@keyframes lightSpeedNormalOut{from{opacity:1}to{transform:translate3d(100%,0,0) skewX(30deg);opacity:0}}", ""]);
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s lightSpeedNormalIn" },
+                e = { keyframeStyle: ".1s lightSpeedNormalOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-light-speed",
+              o = { creator: e, classname: a };r.lightSpeed = o;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 }), e(74);var a = e(76),
+              o = e(77),
+              n = e(78),
+              i = e(79),
+              s = [a.rotateDownLeft, o.rotateDownRight, n.rotateUpLeft, i.rotateUpRight];r.rotates = s;
+        }, function (t, r, e) {
+          var a = e(75);"string" == typeof a && (a = [[t.id, a, ""]]);e(6)(a, {});a.locals && (t.exports = a.locals);
+        }, function (t, r, e) {
+          r = t.exports = e(5)(), r.push([t.id, "@-moz-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-webkit-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-o-keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@keyframes rotateDownLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-moz-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-webkit-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-o-keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@keyframes rotateDownLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}}@-moz-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-webkit-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-o-keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@keyframes rotateDownRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-moz-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-webkit-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-o-keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@keyframes rotateDownRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-moz-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-webkit-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-o-keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@keyframes rotateUpLeftIn{from{transform-origin:left bottom;transform:rotate3d(0,0,1,45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}@-moz-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-webkit-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-o-keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@keyframes rotateUpLeftOut{from{transform-origin:left bottom;opacity:1}to{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}}@-moz-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-webkit-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-o-keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@keyframes rotateUpRightIn{from{transform-origin:right bottom;transform:rotate3d(0,0,1,-90deg);opacity:0}to{transform-origin:right bottom;transform:none;opacity:1}}@-moz-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@-webkit-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@-o-keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}@keyframes rotateUpRightOut{from{transform-origin:right bottom;opacity:1}to{transform-origin:right bottom;transform:rotate3d(0,0,1,90deg);opacity:0}}", ""]);
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s rotateDownLeftIn" },
+                e = { keyframeStyle: ".1s rotateDownLeftOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-down-left",
+              o = { creator: e, classname: a };r.rotateDownLeft = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s rotateDownRightIn" },
+                e = { keyframeStyle: ".1s rotateDownRightOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-down-right",
+              o = { creator: e, classname: a };r.rotateDownRight = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s rotateUpLeftIn" },
+                e = { keyframeStyle: ".1s rotateUpLeftOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-up-left",
+              o = { creator: e, classname: a };r.rotateUpLeft = o;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = function e(t) {
+            var r = { keyframeStyle: ".1s rotateUpRightIn" },
+                e = { keyframeStyle: ".1s rotateUpRightOut" };return t.create(r, e);
+          };e.$inject = ["$fxMakeAnimation"];var a = ".fx-rotate-up-right",
+              o = { creator: e, classname: a };r.rotateUpRight = o;
+        }, function (t, r, e) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var a = e(81),
+              o = e(86),
+              n = function n(t) {
+            t.classNameFilter(/fx-/);
+          };n.$inject = ["$animateProvider"];var i = angular$1.module("ngFx.utils", []).factory("$$fx", a.fxHelp).factory("$fxMakeAnimation", o.fxMakeAnimation).name;r.utils = i;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = function () {
+            function t(t, r) {
+              var e = [],
+                  a = !0,
+                  o = !1,
+                  n = void 0;try {
+                for (var i, s = t[Symbol.iterator](); !(a = (i = s.next()).done) && (e.push(i.value), !r || e.length !== r); a = !0) {}
+              } catch (f) {
+                o = !0, n = f;
+              } finally {
+                try {
+                  !a && s["return"] && s["return"]();
+                } finally {
+                  if (o) throw n;
+                }
+              }return e;
+            }return function (r, e) {
+              if (Array.isArray(r)) return r;if (Symbol.iterator in Object(r)) return t(r, e);throw new TypeError("Invalid attempt to destructure non-iterable instance");
+            };
+          }(),
+              n = e(82),
+              i = a(n),
+              s = e(20),
+              f = a(s),
+              c = e(85),
+              m = function m(t) {
+            var r = ["enter", "leave", "move"],
+                e = ["addClass", "setClass", "removeClass"],
+                a = "(\\d+)",
+                n = new RegExp(a),
+                s = function s(t, r) {
+              var e = r ? "[A-Za-z]" : a;return new RegExp("fx\\-" + t + "\\-" + e);
+            },
+                m = function m(t) {
+              var r = 500;if (s("(speed|dur|duration)").test(t)) try {
+                r = parseInt(t.match(n)[0]);
+              } catch (e) {}return r / 1e3;
+            },
+                p = function p(t) {
+              if (s("stagger").test(t)) {
+                var r = void 0;try {
+                  r = parseInt(t.match(n)[0]);
+                } catch (e) {
+                  return;
+                }return r / 1e3;
+              }
+            },
+                u = function u(t) {
+              if (s("ease", !0).test(t)) {
+                var r = t.slice(8),
+                    e = r.split("-"),
+                    a = o(e, 3),
+                    n = a[0],
+                    i = a[1],
+                    f = a[2],
+                    m = void 0 === f ? "" : f,
+                    p = c.curves[n.trim()];if (!p) return;if (i) {
+                  var u = ("" + i + m).trim();return p[u];
+                }return p.inout;
+              }
+            },
+                l = function l(t) {
+              var r = i["default"](t[0].classList),
+                  e = r.join(" "),
+                  a = /(fx\-\w+\-(.*?)(\s|$))/g,
+                  o = e.match(a),
+                  n = o.reduce(function (t, r) {
+                if (/stagger/.test(r)) {
+                  var e = p(r);t.stagger = e ? e : void 0;
+                } else if (/ease/.test(r)) {
+                  var a = u(r);a && (t.easing = "cubic-bezier(" + a.join() + ")");
+                } else /(speed|dur|duration)/.test(r) && (t.duration = m(r));return t;
+              }, { duration: .5 });return n;
+            },
+                y = function y(r, e) {
+              var a = l(r),
+                  o = f["default"](e, a);return t(r, o);
+            },
+                d = function d(t) {
+              return r.reduce(function (r, e) {
+                var a = t[e];return a && (r[e] = function (t, r) {
+                  return y(t, a);
+                }), r;
+              }, {});
+            },
+                g = function g(t) {
+              return e.reduce(function (r, e) {
+                var a = t[e];return a && (r[e] = function (t, r, o) {
+                  return (/(addClass|removeClass)/.test(e) ? y(t, a) : void o()
+                  );
+                }), r;
+              }, {});
+            };return { getStagger: p, getDuration: m, getEase: u, parseClassList: l, buildAnimation: y, createAnimationsForSimilarEvents: d, createClassAnimations: g };
+          };m.$inject = ["$animateCss"], r.fxHelp = m;
+        }, function (t, r, e) {
+          function a(t) {
+            var r = t ? n(t) : 0;return i(r) ? r ? o(t) : [] : s(t);
+          }var o = e(24),
+              n = e(27),
+              i = e(29),
+              s = e(83);t.exports = a;
+        }, function (t, r, e) {
+          function a(t) {
+            return o(t, n(t));
+          }var o = e(84),
+              n = e(46);t.exports = a;
+        }, function (t, r) {
+          function e(t, r) {
+            for (var e = -1, a = r.length, o = Array(a); ++e < a;) {
+              o[e] = t[r[e]];
+            }return o;
+          }t.exports = e;
+        }, function (t, r) {
+          "use strict";
+
+          Object.defineProperty(r, "__esModule", { value: !0 });var e = { back: { "in": [.6, -.28, .735, .045], out: [.175, .885, .32, 1.275], inout: [.68, -.55, .265, 1.55] }, expo: { "in": [.95, .05, .795, .035], out: [.19, 1, .22, 1], inout: [1, 0, 0, 1] }, circ: { "in": [.6, .04, .98, .335], out: [.075, .82, .165, 1], inout: [.785, .135, .15, .86] }, quint: { "in": [.755, .05, .855, .06], out: [.23, 1, .32, 1], inout: [.86, 0, .07, 1] }, quart: { "in": [.895, .03, .685, .22], out: [.165, .84, .44, 1], inout: [.77, 0, .175, 1] }, cubic: { "in": [.55, .055, .675, .19], out: [.215, .61, .355, 1], inout: [.645, .045, .355, 1] }, quad: { "in": [.55, .085, .68, .53], out: [.25, .46, .45, .94], inout: [.455, .03, .515, .955] }, sine: { "in": [.47, 0, .745, .715], out: [.39, .575, .565, 1], inout: [.445, .05, .55, .95] } };r.curves = e;
+        }, function (t, r, e) {
+          "use strict";
+
+          function a(t) {
+            return t && t.__esModule ? t : { "default": t };
+          }Object.defineProperty(r, "__esModule", { value: !0 });var o = e(20),
+              n = a(o),
+              i = function i(t, r) {
+            var e = function e(t, _e, a) {
+              var o = n["default"]({}, t),
+                  i = n["default"]({}, _e),
+                  s = n["default"]({}, t),
+                  f = r.createAnimationsForSimilarEvents({ enter: t, leave: _e, move: o }),
+                  c = r.createClassAnimations({ addClass: i, removeClass: s });return f = n["default"](f, c);
+            };return { create: e };
+          };i.$inject = ["$animateCss", "$$fx"], r.fxMakeAnimation = i;
+        }]);
+      });
+
+      ackAngular = angular.module('ack-angular', [ActivityMonitor, 'ngAnimate', 'ng-fx', ackNgDirectives, ackNgFilters, ackNgServices]).name;
+
+      _export('default', ackAngular);
     }
   };
 });
 })
 (function(factory) {
-  factory();
+  if (typeof define == 'function' && define.amd)
+    define([], factory);
+  else if (typeof module == 'object' && module.exports && typeof require == 'function')
+    module.exports = factory();
+  else
+    factory();
 });
 //# sourceMappingURL=ack-angular.js.map

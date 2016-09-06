@@ -1,6 +1,10 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.6.0] - 2016-09-06
+### Breaking Change
+- moved to jspm 0.17 beta
+
 ## [1.5.3] - 2016-08-09
 ### Added
 - module structure
