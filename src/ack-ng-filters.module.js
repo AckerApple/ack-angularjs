@@ -1,6 +1,12 @@
 import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
+.filter('confirm', function(){
+  return function(x){
+      return confirm(x)
+  }
+})
+
 .filter('typeof', function(){
   return function(x){
       return typeof(x)
