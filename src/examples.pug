@@ -117,6 +117,20 @@ html.font-helvetica(lang="en")
                   h3 Awesomeness
 
       .margin-bottom-lg
+        h2 Filters
+        table.table-lines.table-pad-xs.border-collapse
+          thead
+            tr
+              th name
+              th unfiltered
+              th filtered
+          tbody
+            tr
+              td capitalize-words
+              td FULL NAME
+              td {{'FULL NAME'|capitalizeWords}}
+
+      .margin-bottom-lg
         h2 CSS Examples
 
         h3 Form Examples

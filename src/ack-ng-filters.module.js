@@ -72,6 +72,7 @@ function invokeRotator(invoke){
   }
 }
 
+/** each sentence word is capitalized */
 function capitalize() {
   return function(input) {
     input = capitalizeOne(input)

@@ -58,6 +58,12 @@ export default class AckApi {
     return this._fetch(cfg)
   }
 
+  /**
+    @path:url
+    @config:{
+      params:{}//url parameters
+    }
+  */
   get(path, config) {
     return this.request("GET", path, config)
   }

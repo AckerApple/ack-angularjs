@@ -99,11 +99,26 @@ export function promiseject(args, callback){
         var prom = callback.apply(null, args)
 
         if(prom.then && prom.catch){
-          prom.then(done).catch(done.fail||done)
+          prom.then(done).catch(e=>{
+            if(e && e.data && e.data.error){
+              let error = new RequestError()
+              console.log(77, error, e)
+              for(let x in e.data.error){
+                error[x] = e.data.error[x]
+              }
+              console.log(88, error)
+              if(error && error.detail && !error.message){
+                error.message = error.detail
+              }
+              e = error
+            }
+
+            done.fail?done.fail(e):done(e)
+          })
         }else{
           throw new Error('Expected promise in return from mock-injects.promiseject callback')
         }
-        
+
         $rs.$apply()
       }catch(e){
         done.fail ? done.fail(e) : done(e)
@@ -132,3 +147,13 @@ export default {
   module: mocks.module,
   inject: mocks.inject
 }
+
+
+function RequestError(message){
+  this.name = this.constructor.name;
+  //this.status = 400;
+  //this.code = "bad_request";
+  this.message = message || "RequestError";
+  return this
+}
+RequestError.prototype = Object.create(Error.prototype)

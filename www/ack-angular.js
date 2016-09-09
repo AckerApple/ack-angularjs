@@ -45608,6 +45608,7 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
     };
   }
 
+  /** each sentence word is capitalized */
   function capitalize() {
     return function (input) {
       input = capitalizeOne(input);
@@ -46086,6 +46087,14 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
 
             return this._fetch(cfg);
           }
+
+          /**
+            @path:url
+            @config:{
+              params:{}//url parameters
+            }
+          */
+
         }, {
           key: "get",
           value: function get(path, config) {
