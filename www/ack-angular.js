@@ -46479,7 +46479,11 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
       }).service('AckOffline', AckOffline).service('AckApi', AckApi).service('urlVars', urlVars).name;
       urlVars.$inject = ['$window'];
 
-      ackNgFilters = angular.module('ack-ng-filters', []).filter('typeof', function () {
+      ackNgFilters = angular.module('ack-ng-filters', []).filter('confirm', function () {
+        return function (x) {
+          return confirm(x);
+        };
+      }).filter('typeof', function () {
         return function (x) {
           return typeof x;
         };
