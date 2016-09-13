@@ -1,7 +1,7 @@
 import mocks from "angular-mocks"
 
 export function createDepject(args, callback){
-  var depjection = eval('(function('+args+'){const args=Array.prototype.slice.call(arguments);callback(args)})')
+  var depjection = eval('(function('+args+'){var args=Array.prototype.slice.call(arguments);callback(args)})')
   return depjection
 }
 
