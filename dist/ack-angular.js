@@ -46013,7 +46013,9 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
 
           this.config = {
             baseUrl: '',
-            config: {}
+            $http: {
+              headers: {}
+            }
           };
           this.$http = $http;
           this.AckOffline = AckOffline;
@@ -46054,12 +46056,13 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
             var defaults = {
               method: method,
               url: this.config.baseUrl + url,
-              timeout: 4000 //8000
+              headers: {},
+              timeout: 6500 //4000//8000
             };
 
             var cfg = Object.assign(defaults, config);
 
-            Object.assign(cfg, this.config);
+            Object.assign(cfg.headers, this.config.$http.headers); //enforced config/defaults
 
             if (cfg.queModel) {
               var _ret = function () {

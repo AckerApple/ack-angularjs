@@ -2,7 +2,9 @@ export default class AckApi {
   constructor($http, AckOffline){
     this.config = {
       baseUrl:'',
-      config:{}
+      $http:{
+        headers:{}
+      }
     }
     this.$http = $http
     this.AckOffline = AckOffline
@@ -34,12 +36,13 @@ export default class AckApi {
     const defaults = {
       method,
       url:this.config.baseUrl+url,
-      timeout: 4000//8000
+      headers:{},
+      timeout: 6500//4000//8000
     }
 
     const cfg = Object.assign(defaults, config)
 
-    Object.assign(cfg, this.config)
+    Object.assign(cfg.headers, this.config.$http.headers)//enforced config/defaults
 
     if (cfg.queModel) {
       const cacheName = cfg.queModel.config.name
