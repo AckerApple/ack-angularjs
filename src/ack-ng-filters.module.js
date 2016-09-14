@@ -7,6 +7,12 @@ export default angular.module('ack-ng-filters', [])
   }
 })
 
+.filter('now', function(){
+  return function(){
+      return Date.now()
+  }
+})
+
 .filter('typeof', function(){
   return function(x){
       return typeof(x)

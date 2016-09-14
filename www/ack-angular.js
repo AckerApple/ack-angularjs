@@ -46486,6 +46486,10 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
         return function (x) {
           return confirm(x);
         };
+      }).filter('now', function () {
+        return function () {
+          return Date.now();
+        };
       }).filter('typeof', function () {
         return function (x) {
           return typeof x;
