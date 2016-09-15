@@ -25,6 +25,55 @@ export default angular.module('ack-ng-directives', [])
   }
 })
 
+/** used on an input that has ng-model to display a different value */
+.directive('modelFilter', function($filter) {
+  return {
+    restrict:'A',
+    require: 'ngModel',
+    scope: {
+      modelFilter: "@"
+    },
+    link: function($scope, element, attrs, ngModelController) {
+      ngModelController.$parsers.push(function(data) {
+        return $filter(attrs.modelFilter)(data)
+      })
+
+      ngModelController.$formatters.push(function(data) {
+        return $filter(attrs.modelFilter)(data)
+      })
+    }
+  }
+})
+
+.directive('modelInputFilter', function($filter) {
+  return {
+    restrict:'A',
+    require: 'ngModel',
+    controller:function(){},
+    controllerAs:'modelInputFilter',
+    bindToController: {
+      modelInputFilter: "@"
+    },
+    link: function($scope, element, attrs, ngModelController) {
+      const action = function(){
+        element[0].value = $filter(attrs.modelInputFilter)(element[0].value)
+      }
+
+      ngModelController.$parsers.push(function(data) {
+        if(document.activeElement!=element[0])setTimeout(action, 1)
+        return data
+      })
+
+      ngModelController.$formatters.push(function(data) {
+        if(document.activeElement!=element[0])setTimeout(action, 1)
+        return data
+      })
+
+      element[0].addEventListener('change', action)
+      $scope.$on('$destroy',()=>element[0].removeEventListener('change', action))
+    }
+  }
+})
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
@@ -213,7 +262,6 @@ function UserInactiveTrigger(ActivityMonitor, $scope){
   }
 
   const onInactive = ()=>{
-    console.log(686)
     isActive = false
     $scope.$parent.$digest()
     applyOptions()

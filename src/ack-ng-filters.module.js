@@ -1,6 +1,11 @@
 import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
+.filter('alert', function(){
+  return function(x){
+    alert(x)
+  }
+})
 .filter('confirm', function(){
   return function(x){
       return confirm(x)
@@ -31,6 +36,19 @@ export default angular.module('ack-ng-filters', [])
   return function(input){
     if(input==null)return input
     return input ? 'yes' : 'no';
+  }
+})
+
+.filter('numbers', function(){
+  return function(input){
+    return input ? String(input).replace(/[^0-9]/g,'') : input
+  }
+})
+
+/** any input received is simply run through the Number function. Best used to cast a Date to Number */
+.filter('Number', function(){
+  return function(input){
+    return Number(input)
   }
 })
 

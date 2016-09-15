@@ -31,6 +31,8 @@ export default class AckApi {
         }
       }
     }
+
+    @config.queModel - When supplied, POST and PUTS goto que if they fail. GET responses are cached
   */
   request(method, url, config) {
     const defaults = {
