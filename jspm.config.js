@@ -84,7 +84,7 @@ SystemJS.config({
         "esutils": "npm:esutils@2.0.2",
         "globals": "npm:globals@8.18.0",
         "handlebars": "npm:handlebars@4.0.5",
-        "is-my-json-valid": "npm:is-my-json-valid@2.13.1",
+        "is-my-json-valid": "npm:is-my-json-valid@2.14.0",
         "inquirer": "npm:inquirer@0.11.4",
         "json-stable-stringify": "npm:json-stable-stringify@1.0.1",
         "mkdirp": "npm:mkdirp@0.5.1",
@@ -183,14 +183,6 @@ SystemJS.config({
       "map": {
         "object-assign": "npm:object-assign@4.1.0",
         "flat-cache": "npm:flat-cache@1.2.1"
-      }
-    },
-    "npm:is-my-json-valid@2.13.1": {
-      "map": {
-        "generate-function": "npm:generate-function@2.0.0",
-        "generate-object-property": "npm:generate-object-property@1.2.0",
-        "xtend": "npm:xtend@4.0.1",
-        "jsonpointer": "npm:jsonpointer@2.0.0"
       }
     },
     "npm:concat-stream@1.5.2": {
@@ -751,7 +743,7 @@ SystemJS.config({
         "randombytes": "npm:randombytes@2.0.3",
         "browserify-cipher": "npm:browserify-cipher@1.0.0",
         "diffie-hellman": "npm:diffie-hellman@5.0.2",
-        "pbkdf2": "npm:pbkdf2@3.0.6",
+        "pbkdf2": "npm:pbkdf2@3.0.7",
         "browserify-sign": "npm:browserify-sign@4.0.0",
         "create-hmac": "npm:create-hmac@1.1.4",
         "public-encrypt": "npm:public-encrypt@4.0.0"
@@ -863,9 +855,9 @@ SystemJS.config({
       "map": {
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
-        "pbkdf2": "npm:pbkdf2@3.0.6",
+        "pbkdf2": "npm:pbkdf2@3.0.7",
         "browserify-aes": "npm:browserify-aes@1.0.6",
-        "asn1.js": "npm:asn1.js@4.8.0"
+        "asn1.js": "npm:asn1.js@4.8.1"
       }
     },
     "npm:des.js@1.0.0": {
@@ -877,13 +869,6 @@ SystemJS.config({
     "npm:hash.js@1.0.3": {
       "map": {
         "inherits": "npm:inherits@2.0.3"
-      }
-    },
-    "npm:asn1.js@4.8.0": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.6",
-        "inherits": "npm:inherits@2.0.3",
-        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     },
     "github:jspm/nodelibs-string_decoder@0.2.0-alpha": {
@@ -931,11 +916,6 @@ SystemJS.config({
         "ack-p": "npm:ack-p@1.0.6"
       }
     },
-    "npm:pbkdf2@3.0.6": {
-      "map": {
-        "create-hmac": "npm:create-hmac@1.1.4"
-      }
-    },
     "npm:cipher-base@1.0.3": {
       "map": {
         "inherits": "npm:inherits@2.0.3"
@@ -947,6 +927,26 @@ SystemJS.config({
         "inherits": "npm:inherits@2.0.3",
         "brorand": "npm:brorand@1.0.6",
         "hash.js": "npm:hash.js@1.0.3"
+      }
+    },
+    "npm:pbkdf2@3.0.7": {
+      "map": {
+        "create-hmac": "npm:create-hmac@1.1.4"
+      }
+    },
+    "npm:is-my-json-valid@2.14.0": {
+      "map": {
+        "xtend": "npm:xtend@4.0.1",
+        "generate-function": "npm:generate-function@2.0.0",
+        "generate-object-property": "npm:generate-object-property@1.2.0",
+        "jsonpointer": "npm:jsonpointer@2.0.0"
+      }
+    },
+    "npm:asn1.js@4.8.1": {
+      "map": {
+        "bn.js": "npm:bn.js@4.11.6",
+        "inherits": "npm:inherits@2.0.3",
+        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     }
   }
