@@ -14,11 +14,11 @@ module.exports = injector
 */
 function injector(jsClass, depArray){
   jsClass.$inject = depArray
-  return function(args, ths){
-    ths = ths || {}
+  return jsClass.inject = function(args, thIs){
+    thIs = thIs || {}
     for(var x=depArray.length-1; x >= 0; --x){
-      if(args[x])ths[ depArray[x] ] = args[x]
+      if(args[x])thIs[ depArray[x] ] = args[x]
     }
-    return ths
+    return thIs
   }
 }
