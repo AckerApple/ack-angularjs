@@ -102,14 +102,18 @@ export function promiseject(args, callback){
           prom.then(done).catch(e=>{
             if(e && e.data && e.data.error){
               let error = new RequestError()
-              console.log(77, error, e)
+
               for(let x in e.data.error){
                 error[x] = e.data.error[x]
               }
-              console.log(88, error)
+
               if(error && error.detail && !error.message){
                 error.message = error.detail
               }
+
+              error.code = error.code || e.status
+              error.status = error.status || e.status
+              
               e = error
             }
 
