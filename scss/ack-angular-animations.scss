@@ -1,6 +1,11 @@
-  .ng-animate.ng-animate-pos-abs{
-    position:absolute;
-  }
+.ng-animate.ng-animate-pos-abs{
+  position:absolute;
+}
+
+/** primarly used to animate ng-animate-swap */
+.ng-animate-first-child-pos-abs > .ng-animate:first-child{
+  position:absolute;
+}
 
 
 
