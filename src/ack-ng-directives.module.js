@@ -6,7 +6,7 @@ export default angular.module('ack-ng-directives', [])
 .directive('selectOn', selectOn)
 .directive('focusOn', focusOn)
 .component('interpolate', {
-  bindings:{string:'='}
+  bindings:{string:'=', scope:'='}
   ,template:'<span ng-bind-html="$ctrl.rendered"></span>'
   ,controller:InterpolateString 
 })
@@ -568,7 +568,7 @@ function modelDisplay() {
 
 function InterpolateString($interpolate, $sce){
   const build = function(string){
-    string = $interpolate(string)(this)
+    string = $interpolate(string)(this||this.scope)
     string = $sce.trustAsHtml(string)
     return string
   }.bind(this)
