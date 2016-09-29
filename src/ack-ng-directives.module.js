@@ -5,25 +5,14 @@ export default angular.module('ack-ng-directives', [])
 .directive('shakeModel', shakeModel)
 .directive('selectOn', selectOn)
 .directive('focusOn', focusOn)
-/** used on an input that has ng-model to display a different value */
-.directive('modelDisplay', function() {
-  return {
-    restrict:'A',
-    require: 'ngModel',
-    scope: {
-      modelDisplay: "@"//will be evaled
-    },
-    link: function($scope, element, attrs, ngModelController) {
-      ngModelController.$parsers.push(function(data) {
-        return $scope.$parent.$eval( $scope.modelDisplay )
-      });
-
-      ngModelController.$formatters.push(function(data) {
-        return $scope.$parent.$eval( $scope.modelDisplay )
-      });
-    }
-  }
+.component('interpolate', {
+  bindings:{string:'='}
+  ,template:'<span ng-bind-html="$ctrl.rendered"></span>'
+  ,controller:InterpolateString 
 })
+
+/** used on an input that has ng-model to display a different value */
+.directive('modelDisplay', modelDisplay)
 
 /** used on an input that has ng-model to display a different value */
 .directive('modelFilter', function($filter) {
@@ -557,3 +546,47 @@ function focusOn($timeout) {
   };
 }
 focusOn.$inject = ['$timeout']
+
+function modelDisplay() {
+  return {
+    restrict:'A',
+    require: 'ngModel',
+    scope: {
+      modelDisplay: "@"//will be evaled
+    },
+    link: function($scope, element, attrs, ngModelController) {
+      ngModelController.$parsers.push(function(data) {
+        return $scope.$parent.$eval( $scope.modelDisplay )
+      });
+
+      ngModelController.$formatters.push(function(data) {
+        return $scope.$parent.$eval( $scope.modelDisplay )
+      });
+    }
+  }
+}
+
+function InterpolateString($interpolate, $sce){
+  const build = function(string){
+    string = $interpolate(string)(this)
+    string = $sce.trustAsHtml(string)
+    return string
+  }.bind(this)
+
+  const run = function(changes){
+    if(changes){
+      if(!changes.string || changes.string.currentValue==changes.string.previousValue){
+        return
+      }
+      var string = changes.string.currentValue
+    }else{
+      var string = this.string ? this.string : ''
+    }
+
+    this.rendered = build(string)
+  }.bind(this)
+
+  this.$onInit = run
+  this.$onChanges = run
+}
+InterpolateString.$inject = ['$interpolate','$sce']

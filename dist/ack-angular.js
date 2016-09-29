@@ -46019,6 +46019,50 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
       }
     };
   }
+
+
+  function modelDisplay() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      scope: {
+        modelDisplay: "@" //will be evaled
+      },
+      link: function link($scope, element, attrs, ngModelController) {
+        ngModelController.$parsers.push(function (data) {
+          return $scope.$parent.$eval($scope.modelDisplay);
+        });
+
+        ngModelController.$formatters.push(function (data) {
+          return $scope.$parent.$eval($scope.modelDisplay);
+        });
+      }
+    };
+  }
+
+  function InterpolateString($interpolate, $sce) {
+    var build = function (string) {
+      string = $interpolate(string)(this);
+      string = $sce.trustAsHtml(string);
+      return string;
+    }.bind(this);
+
+    var run = function (changes) {
+      if (changes) {
+        if (!changes.string || changes.string.currentValue == changes.string.previousValue) {
+          return;
+        }
+        var string = changes.string.currentValue;
+      } else {
+        var string = this.string ? this.string : '';
+      }
+
+      this.rendered = build(string);
+    }.bind(this);
+
+    this.$onInit = run;
+    this.$onChanges = run;
+  }
   return {
     setters: [function (_2) {
       ActivityMonitor = _2.default;
@@ -46578,26 +46622,14 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
       trustAsHtml.$inject = ['$sce'];
 
       whiteOutModalTemplate = "<div class=\"animate-fade\" ng-show=\"wom.show\" style=\"position:fixed;top:0;left:0;z-index:20;height:100%;width:100%;overflow:auto\" ng-style=\"{'background-color':wom.backgroundColor}\"><div style=\"position:relative\"><div style=\"position:absolute;top:.2em;right:.2em;border:1px solid #DDD;border-radius:50%\"><div ng-click=\"wom.show=null\" style=\"cursor:pointer;border:3px solid white;border-radius:50%;background-color:black;color:white;text-align:center;font-family:Arial\"><div style=\"line-height:22px;font-size:23px;height:25px;width:25px\">x</div></div></div></div><table style=\"height:100%\" border=\"0\" align=\"center\" ng-style=\"{width:wom.size=='full'?'100%':null}\"><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr><tr><td ng-transclude=\"ng-transclude\"></td></tr><tr ng-hide=\"wom.size=='full'\"><td ng-click=\"wom.show=null\"></td></tr></table></div>";
-      ackNgDirectives = angular.module('ack-ng-directives', []).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn)
-      /** used on an input that has ng-model to display a different value */
-      .directive('modelDisplay', function () {
-        return {
-          restrict: 'A',
-          require: 'ngModel',
-          scope: {
-            modelDisplay: "@" //will be evaled
-          },
-          link: function link($scope, element, attrs, ngModelController) {
-            ngModelController.$parsers.push(function (data) {
-              return $scope.$parent.$eval($scope.modelDisplay);
-            });
-
-            ngModelController.$formatters.push(function (data) {
-              return $scope.$parent.$eval($scope.modelDisplay);
-            });
-          }
-        };
+      ackNgDirectives = angular.module('ack-ng-directives', []).directive('shakeOn', shakeOnDirective).directive('shakeModel', shakeModel).directive('selectOn', selectOn).directive('focusOn', focusOn).component('interpolate', {
+        bindings: { string: '=' },
+        template: '<span ng-bind-html="$ctrl.rendered"></span>',
+        controller: InterpolateString
       })
+
+      /** used on an input that has ng-model to display a different value */
+      .directive('modelDisplay', modelDisplay)
 
       /** used on an input that has ng-model to display a different value */
       .directive('modelFilter', function ($filter) {
@@ -46796,7 +46828,7 @@ $__System.register('1', ['2', '3', '4', '1c', '1e'], function (_export, _context
         template: 'state:{{ $ctrl.state.active }}-{{ $ctrl.state.warning }}',
         controller: UserInactiveTrigger
       }).name;
-      UserInactiveTrigger.$inject = ['ActivityMonitor', '$scope', '$timeout'];OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];
+      UserInactiveTrigger.$inject = ['ActivityMonitor', '$scope', '$timeout'];OnScreenScroll.$inject = ['$scope', '$window', '$timeout'];ScreenHeightExcessModel.$inject = ['$scope', '$window', '$document'];ScreenScrollHeightModel.$inject = ['$scope', '$window', '$document'];ScreenScrollModelY.$inject = ['$scope', '$window'];ScreenWidthModel.$inject = ['$window', '$scope'];ScreenHeightModel.$inject = ['$window', '$scope'];selectOn.$inject = ['$timeout'];shakeOnDirective.$inject = ['$timeout'];shakeModel.$inject = ['$timeout'];focusOn.$inject = ['$timeout'];InterpolateString.$inject = ['$interpolate', '$sce'];
 
       exports$1 = {};
 
