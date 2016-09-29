@@ -566,7 +566,7 @@ function modelDisplay() {
   }
 }
 
-function InterpolateString($interpolate, $sce, $element, $compile){
+function InterpolateString($interpolate, $sce, $element, $compile, $scope){
   const compile = function(string){
     string = $interpolate(string)(this.scope||this)
     string = $sce.trustAsHtml(string)
@@ -576,7 +576,6 @@ function InterpolateString($interpolate, $sce, $element, $compile){
   const build = function(string){
     //if(this.building)return
     //$element[0].innerHTML = string
-    //console.log('string', string, $element[0], $element[0].innerHTML)
     //this.building=true
     string = $interpolate(string)(this.scope||this)
     $element[0].innerHTML='<span>'+string+'</span>'
