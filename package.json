@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "private": true,
@@ -54,6 +54,7 @@
       "angular-activity-monitor": "npm:angular-activity-monitor@^1.0.1",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.8",
       "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
+      "angular-ui-router": "github:angular-ui/angular-ui-router-bower@^0.3.1",
       "localforage": "npm:localforage@^1.4.2"
     },
     "devDependencies": {
@@ -84,6 +85,19 @@
       "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
     },
     "overrides": {
+      "github:angular-ui/angular-ui-router-bower@0.3.1": {
+        "dependencies": {
+          "angular": "*"
+        },
+        "meta": {
+          "release/angular-ui-router.js.js": {
+            "deps": [
+              "angular"
+            ],
+            "format": "global"
+          }
+        }
+      },
       "github:angular/bower-angular-animate@1.5.8": {
         "main": "angular-animate",
         "registry": "jspm",

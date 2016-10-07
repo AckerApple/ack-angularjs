@@ -46,6 +46,7 @@ SystemJS.config({
     "angular-activity-monitor": "npm:angular-activity-monitor@1.1.0",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.8",
+    "angular-ui-router": "github:angular-ui/angular-ui-router-bower@0.3.1",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
@@ -947,6 +948,11 @@ SystemJS.config({
         "bn.js": "npm:bn.js@4.11.6",
         "inherits": "npm:inherits@2.0.3",
         "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
+      }
+    },
+    "github:angular-ui/angular-ui-router-bower@0.3.1": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.8"
       }
     }
   }
