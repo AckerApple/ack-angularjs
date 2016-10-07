@@ -1,6 +1,6 @@
 import injector from "../injector"
 
-const deps = ['StateManagerService','$state','$rootScope','$document', '$scope']
+const deps = ['StateManagerService','$state','$rootScope','$document', '$scope', '$timeout']
 
 export class StateDocWatcher{
   constructor(){
@@ -15,14 +15,20 @@ export class StateDocWatcher{
 
     this.$rootScope.$on('$stateChangeStart', ()=>this.StateManagerService.stateChange())
 
-    this.$rootScope.$on('$stateChangeSuccess', (event, toState)=>{
-      setTimeout(()=>{
+    this.$rootScope.$on('$stateChangeSuccess', (event, toState, toParams)=>{
+      this.$timeout(()=>{
         if(!this.isMouseOut){
           this.StateManagerService.isNextBackMode = false
           this.StateManagerService.isOsAction=true
         }
-        this.onStateChange({state:toState, toState:toState, current:this.StateManagerService.$state.current})
-      },1)//allow model digest to occur
+
+        this.onStateChange({
+          state:toState,
+          toState:toState,
+          params:toParams,
+          current:this.StateManagerService.$state.current
+        })
+      },1)//allow a digest to occur to ng-model population
     })
 
     this.$document[0].addEventListener('mouseout',isBackButton)
