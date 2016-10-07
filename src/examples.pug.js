@@ -1,5 +1,5 @@
-export default "<!DOCTYPE html><html class=\"font-helvetica\" lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, user-scalable=0\"><script src=\"ack-angular.js\" type=\"text/javascript\"></script><link href=\"styles.css\" type=\"text/css\" rel=\"stylesheet\"><style>html,body{margin:0;padding:0;}"+
-"\n</style><script>angular.module('demoApp',['ack-angular'])"+
+export default "<!DOCTYPE html><html class=\"font-helvetica\" lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, user-scalable=0\"><script src=\"ack-angular.js\" type=\"text/javascript\"></script><script src=\"ack-state.js\" type=\"text/javascript\"></script><link href=\"styles.css\" type=\"text/css\" rel=\"stylesheet\"><style>html,body{margin:0;padding:0;}"+
+"\n</style><script>angular.module('demoApp',['ack-angular','ack-state'])"+
 "\n.component('x', {template:'X'})"+
 "\n.component('testLab', {"+
 "\n  transclude:true"+

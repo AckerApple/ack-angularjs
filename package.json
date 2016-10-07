@@ -14,7 +14,7 @@
     "build:pug": "node ./scripts/build-pug",
     "build:test": "npm run build:test:index && npm run build:css && npm run build:test:js",
     "build:js": "jspm build src/ack-angular.js dist/ack-angular.js",
-    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js",
+    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js && jspm build src/ack-state.module.js www/ack-state.js",
     "build:test:js": "jspm build src/test/test.js www/test.js",
     "watch:test": "npm run watch:test:index & npm run watch:test:js",
     "watch:test:js": "watch 'npm run build:test:js' src",

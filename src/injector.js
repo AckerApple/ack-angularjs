@@ -1,7 +1,3 @@
-"use strict"
-
-module.exports = injector
-
 /**
   Greatly reduces steps required to properly satisfy angular dependency injections
 
@@ -12,7 +8,7 @@ module.exports = injector
       console.log(this.$scope, this.$http)
     }
 */
-function injector(jsClass, depArray){
+export default function injector(jsClass, depArray){
   jsClass.$inject = depArray
   return jsClass.inject = function(args, thIs){
     thIs = thIs || {}
