@@ -4888,7 +4888,7 @@ $__System.register("1", ["2"], function (_export, _context) {
         bindings: { as: '=?', onStateChange: '&' },
         controller: StateManager
       };
-      deps$2 = ['StateManagerService', '$state', '$rootScope', '$document', '$scope'];
+      deps$2 = ['StateManagerService', '$state', '$rootScope', '$document', '$scope', '$timeout'];
 
       StateDocWatcher = function () {
         function StateDocWatcher() {
@@ -4913,14 +4913,20 @@ $__System.register("1", ["2"], function (_export, _context) {
             return _this.StateManagerService.stateChange();
           });
 
-          this.$rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            setTimeout(function () {
+          this.$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+            _this.$timeout(function () {
               if (!_this.isMouseOut) {
                 _this.StateManagerService.isNextBackMode = false;
                 _this.StateManagerService.isOsAction = true;
               }
-              _this.onStateChange({ state: toState, toState: toState, current: _this.StateManagerService.$state.current });
-            }, 1); //allow model digest to occur
+
+              _this.onStateChange({
+                state: toState,
+                toState: toState,
+                params: toParams,
+                current: _this.StateManagerService.$state.current
+              });
+            }, 1); //allow a digest to occur to ng-model population
           });
 
           this.$document[0].addEventListener('mouseout', isBackButton);
