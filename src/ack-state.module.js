@@ -1,4 +1,4 @@
-import angular from "angular"
+import "angular"
 import ngUiRouter from "angular-ui-router"
 
 import StateManagerService from "./services/StateManager.service"
