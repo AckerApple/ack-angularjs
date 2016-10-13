@@ -60,6 +60,11 @@ Result
   </white-out-modal>
 ```
 
+> optional "full" size. Default is a minimum centering width/height
+```
+<white-out-modal size="'full'">
+```
+
 ## Directive Examples
 ```
 <input focus-on="true==true" />

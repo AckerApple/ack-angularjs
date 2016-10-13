@@ -6,9 +6,13 @@ export default angular.module('ack-ng-directives', [])
 .directive('selectOn', selectOn)
 .directive('focusOn', focusOn)
 .component('interpolate', {
-  bindings:{string:'=', scope:'='}
+  bindings:{
+    as:'=?',
+    string:'=?',
+    scope:'='
+  },
+  controller:InterpolateString 
   //,template:'<span ng-bind-html="$ctrl.rendered"></span>'
-  ,controller:InterpolateString 
 })
 
 /** used on an input that has ng-model to display a different value */
@@ -567,6 +571,8 @@ function modelDisplay() {
 }
 
 function InterpolateString($interpolate, $sce, $element, $compile, $scope){
+  this.as = this.as || this
+
   const compile = function(string){
     string = $interpolate(string)(this.scope||this)
     string = $sce.trustAsHtml(string)
@@ -598,6 +604,10 @@ function InterpolateString($interpolate, $sce, $element, $compile, $scope){
 
   this.$onInit = run
   this.$onChanges = run
+  this.build = function(string){
+    this.string = string
+    build(string)
+  }
   //run()
 }
 InterpolateString.$inject = ['$interpolate', '$sce', '$element', '$compile', '$scope']
