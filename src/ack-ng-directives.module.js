@@ -9,7 +9,7 @@ export default angular.module('ack-ng-directives', [])
   bindings:{
     as:'=?',
     string:'=?',
-    scope:'='
+    scope:'=?'
   },
   controller:InterpolateString 
   //,template:'<span ng-bind-html="$ctrl.rendered"></span>'
@@ -580,12 +580,8 @@ function InterpolateString($interpolate, $sce, $element, $compile, $scope){
   }.bind(this)
 
   const build = function(string){
-    //if(this.building)return
-    //$element[0].innerHTML = string
-    //this.building=true
-    string = $interpolate(string)(this.scope||this)
     $element[0].innerHTML='<span>'+string+'</span>'
-    $compile($element[0].childNodes[0])($scope)
+    $compile($element[0].childNodes[0])(this.scope || $scope.$parent)
   }.bind(this)
 
   const run = function(changes){
