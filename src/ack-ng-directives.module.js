@@ -7,9 +7,7 @@ export default angular.module('ack-ng-directives', [])
 .directive('focusOn', focusOn)
 .component('interpolate', {
   bindings:{
-    as:'=?',
-    string:'=?',
-    scope:'=?'
+    as:'=?', string:'=?', scope:'=?', afterBuild:'&'
   },
   controller:InterpolateString 
   //,template:'<span ng-bind-html="$ctrl.rendered"></span>'
@@ -572,38 +570,37 @@ function modelDisplay() {
 
 function InterpolateString($interpolate, $sce, $element, $compile, $scope){
   this.as = this.as || this
-
+/*
   const compile = function(string){
     string = $interpolate(string)(this.scope||this)
     string = $sce.trustAsHtml(string)
     return string
   }.bind(this)
-
+*/
   const build = function(string){
     $element[0].innerHTML='<span>'+string+'</span>'
     $compile($element[0].childNodes[0])(this.scope || $scope.$parent)
+    this.afterBuild()
   }.bind(this)
 
   const run = function(changes){
-    if(changes){
-      if(!changes.string || changes.string.currentValue==changes.string.previousValue){
-        return
-      }
-      var string = changes.string.currentValue
-    }else{
-      var string = this.string ? this.string : ''
+    if(!changes.string || changes.string.currentValue==changes.string.previousValue){
+      return
     }
-
-    //this.rendered = compile(string)
+    var string = changes.string.currentValue
     build(string)
   }.bind(this)
 
-  this.$onInit = run
+  this.$onInit = function(){
+    var string = this.string ? this.string : ''
+    build(string)
+    //$scope.$watch(()=>this.string, run)
+  }
   this.$onChanges = run
+
   this.build = function(string){
     this.string = string
     build(string)
   }
-  //run()
 }
 InterpolateString.$inject = ['$interpolate', '$sce', '$element', '$compile', '$scope']
