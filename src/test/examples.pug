@@ -93,6 +93,17 @@ html.font-helvetica(lang="en")
               .pad
                 textarea(prevent-enter-key value="you cant use enter key")
 
+            .flex-1.pad.margin.border-info.nowrap(ng-init="formChangedTimes=0")
+              h3 &lt;form form-changed=""&gt;
+              form.pad(form-changed="++formChangedTimes")
+                div form has changed {{formChangedTimes}} times
+                input(type="radio" name="form-changed-radio" value="0")
+                |&nbsp;
+                input(type="radio" name="form-changed-radio" value="1")
+                |&nbsp;
+                input(type="radio" name="form-changed-radio" value="2")
+                
+
           h2 Animation Examples
           .flex.flex-wrap
             .flex-1.pad.margin.border-info.nowrap

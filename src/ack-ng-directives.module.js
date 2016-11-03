@@ -13,6 +13,23 @@ export default angular.module('ack-ng-directives', [])
   //,template:'<span ng-bind-html="$ctrl.rendered"></span>'
 })
 
+.directive('formChanged',function(){
+  return {
+    restrict:'A'
+    ,bindToController:{formChanged:'&'}
+    ,controllerAs:'$ctrl'
+    ,controller:['$element','$scope',function($element, $scope){
+      this.$onInit = ()=>{
+        $element[0].addEventListener('change',()=>{
+          this.formChanged({form:$element[0]})
+          $scope.$parent.$digest()
+        })
+      }
+    }]
+  }
+})
+
+
 /** used on an input that has ng-model to display a different value */
 .directive('modelDisplay', modelDisplay)
 

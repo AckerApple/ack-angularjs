@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "private": true,
@@ -10,14 +10,15 @@
     "build": "npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:css",
     "build:css": "node scripts/scss",
     "build:test:index": "pug ./src/test/index.pug --out ./www/",
-    "build:examples": "npm run build:examples:js && pug ./src/examples.pug --out ./www/",
-    "build:pug": "node ./scripts/build-pug",
+    "build:examples": "npm run build:examples:js && npm run build:examples:pug",
+    "build:examples:pug": "ack-pug-bundler ./src/test/examples.pug ./www/examples.html --oneHtmlFile",
+    "build:pug": "ack-pug-bundler src",
     "build:test": "npm run build:test:index && npm run build:css && npm run build:test:js",
-    "build:js": "jspm build src/ack-angular.js dist/ack-angular.js",
-    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js && jspm build src/ack-state.module.js www/ack-state.js",
+    "build:js": "jspm build src/ack-angular.js dist/ack-angular.js --minify --skip-source-maps",
+    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js --minify --skip-source-maps && jspm build src/ack-state.module.js www/ack-state.js --minify --skip-source-maps",
     "build:test:js": "jspm build src/test/test.js www/test.js",
     "watch:test": "npm run watch:test:index & npm run watch:test:js",
-    "watch:test:js": "watch 'npm run build:test:js' src",
+    "watch:test:js": "jspm build src/test/test.js www/test.js --watch",
     "watch:test:index": "watch 'npm run build:test:index' src"
   },
   "repository": {
