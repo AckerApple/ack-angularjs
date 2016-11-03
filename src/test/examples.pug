@@ -95,7 +95,7 @@ html.font-helvetica(lang="en")
 
             .flex-1.pad.margin.border-info.nowrap(ng-init="formChangedTimes=0")
               h3 &lt;form form-changed=""&gt;
-              form.pad(form-changed="++formChangedTimes")
+              form.pad(form-changed="formChangedTimes=formChangedTimes+1")
                 div form has changed {{formChangedTimes}} times
                 input(type="radio" name="form-changed-radio" value="0")
                 |&nbsp;

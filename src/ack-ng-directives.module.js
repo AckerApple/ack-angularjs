@@ -13,15 +13,15 @@ export default angular.module('ack-ng-directives', [])
   //,template:'<span ng-bind-html="$ctrl.rendered"></span>'
 })
 
+/** adds form element onchange listener via addEventListener('change') that calls formChanged scope argument */
 .directive('formChanged',function(){
   return {
     restrict:'A'
-    ,bindToController:{formChanged:'&'}
-    ,controllerAs:'$ctrl'
+    ,scope:{formChanged:'&'}
     ,controller:['$element','$scope',function($element, $scope){
       this.$onInit = ()=>{
         $element[0].addEventListener('change',()=>{
-          this.formChanged({form:$element[0]})
+          $scope.formChanged({form:$element[0]})
           $scope.$parent.$digest()
         })
       }
