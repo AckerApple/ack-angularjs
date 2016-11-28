@@ -10,14 +10,21 @@ export default class AckApi {
     this.AckOffline = AckOffline
   }
 
-  /** master method for sending requests and caching responses using $http requests */
+  /** master method for sending requests and caching responses using $http requests
+    @cfg{
+      promise:'data'//typically only data is returned, but if promise!='data' then entire response is returned
+    }
+  */
   _fetch(cfg) {
     return this.$http(cfg)
     .then(response => {
+      response = !cfg.promise || cfg.promise=='data' ? response.data : response
+
       if (cfg.method === "GET" && cfg.queModel) {
         this.AckOffline.cacheResponse(cfg.queModel.config.name, response)
       }
-      return response.data
+
+      return response
     })
   }
 
@@ -46,6 +53,7 @@ export default class AckApi {
 
     Object.assign(cfg.headers, this.config.$http.headers)//enforced config/defaults
 
+    //has cache instructions?
     if (cfg.queModel) {
       const cacheName = cfg.queModel.config.name
       //const { ...cacheOptions } = cfg.queModel
@@ -86,7 +94,6 @@ export default class AckApi {
     const cfg = Object.assign({}, config, {data})
     return this.request("PUT", path, cfg)
   }
-
 }
 
 AckApi.$inject = ["$http", "AckOffline"]
