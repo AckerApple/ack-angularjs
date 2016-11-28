@@ -13,6 +13,7 @@ export default class AckApi {
   /** master method for sending requests and caching responses using $http requests
     @cfg{
       promise:'data'//typically only data is returned, but if promise!='data' then entire response is returned
+      headers:{}//when sending a file 'Content-Type':undefined so that no content-type header is sent
     }
   */
   _fetch(cfg) {

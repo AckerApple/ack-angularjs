@@ -1,4 +1,4 @@
-!function(e){function r(e,r,o){return 4===arguments.length?t.apply(this,arguments):void n(e,{declarative:!0,deps:r,declare:o})}function t(e,r,t,o){n(e,{declarative:!1,deps:r,executingRequire:t,execute:o})}function n(e,r){r.name=e,e in v||(v[e]=r),r.normalizedDeps=r.deps}function o(e,r){if(r[e.groupIndex]=r[e.groupIndex]||[],-1==g.call(r[e.groupIndex],e)){r[e.groupIndex].push(e);for(var t=0,n=e.normalizedDeps.length;n>t;t++){var a=e.normalizedDeps[t],u=v[a];if(u&&!u.evaluated){var d=e.groupIndex+(u.declarative!=e.declarative);if(void 0===u.groupIndex||u.groupIndex<d){if(void 0!==u.groupIndex&&(r[u.groupIndex].splice(g.call(r[u.groupIndex],u),1),0==r[u.groupIndex].length))throw new TypeError("Mixed dependency cycle detected");u.groupIndex=d}o(u,r)}}}}function a(e){var r=v[e];r.groupIndex=0;var t=[];o(r,t);for(var n=!!r.declarative==t.length%2,a=t.length-1;a>=0;a--){for(var u=t[a],i=0;i<u.length;i++){var s=u[i];n?d(s):l(s)}n=!n}}function u(e){return y[e]||(y[e]={name:e,dependencies:[],exports:{},importers:[]})}function d(r){if(!r.module){var t=r.module=u(r.name),n=r.module.exports,o=r.declare.call(e,function(e,r){if(t.locked=!0,"object"==typeof e)for(var o in e)n[o]=e[o];else n[e]=r;for(var a=0,u=t.importers.length;u>a;a++){var d=t.importers[a];if(!d.locked)for(var i=0;i<d.dependencies.length;++i)d.dependencies[i]===t&&d.setters[i](n)}return t.locked=!1,r},{id:r.name});t.setters=o.setters,t.execute=o.execute;for(var a=0,i=r.normalizedDeps.length;i>a;a++){var l,s=r.normalizedDeps[a],c=v[s],f=y[s];f?l=f.exports:c&&!c.declarative?l=c.esModule:c?(d(c),f=c.module,l=f.exports):l=p(s),f&&f.importers?(f.importers.push(t),t.dependencies.push(f)):t.dependencies.push(null),t.setters[a]&&t.setters[a](l)}}}function i(e){var r,t=v[e];if(t)t.declarative?f(e,[]):t.evaluated||l(t),r=t.module.exports;else if(r=p(e),!r)throw new Error("Unable to load dependency "+e+".");return(!t||t.declarative)&&r&&r.__useDefault?r["default"]:r}function l(r){if(!r.module){var t={},n=r.module={exports:t,id:r.name};if(!r.executingRequire)for(var o=0,a=r.normalizedDeps.length;a>o;o++){var u=r.normalizedDeps[o],d=v[u];d&&l(d)}r.evaluated=!0;var c=r.execute.call(e,function(e){for(var t=0,n=r.deps.length;n>t;t++)if(r.deps[t]==e)return i(r.normalizedDeps[t]);throw new TypeError("Module "+e+" not declared as a dependency.")},t,n);c&&(n.exports=c),t=n.exports,t&&t.__esModule?r.esModule=t:r.esModule=s(t)}}function s(r){var t={};if(("object"==typeof r||"function"==typeof r)&&r!==e)if(m)for(var n in r)"default"!==n&&c(t,r,n);else{var o=r&&r.hasOwnProperty;for(var n in r)"default"===n||o&&!r.hasOwnProperty(n)||(t[n]=r[n])}return t["default"]=r,x(t,"__useDefault",{value:!0}),t}function c(e,r,t){try{var n;(n=Object.getOwnPropertyDescriptor(r,t))&&x(e,t,n)}catch(o){return e[t]=r[t],!1}}function f(r,t){var n=v[r];if(n&&!n.evaluated&&n.declarative){t.push(r);for(var o=0,a=n.normalizedDeps.length;a>o;o++){var u=n.normalizedDeps[o];-1==g.call(t,u)&&(v[u]?f(u,t):p(u))}n.evaluated||(n.evaluated=!0,n.module.execute.call(e))}}function p(e){if(I[e])return I[e];if("@node/"==e.substr(0,6))return I[e]=s(D(e.substr(6)));var r=v[e];if(!r)throw"Module "+e+" not present.";return a(e),f(e,[]),v[e]=void 0,r.declarative&&x(r.module.exports,"__esModule",{value:!0}),I[e]=r.declarative?r.module.exports:r.esModule}var v={},g=Array.prototype.indexOf||function(e){for(var r=0,t=this.length;t>r;r++)if(this[r]===e)return r;return-1},m=!0;try{Object.getOwnPropertyDescriptor({a:0},"a")}catch(h){m=!1}var x;!function(){try{Object.defineProperty({},"a",{})&&(x=Object.defineProperty)}catch(e){x=function(e,r,t){try{e[r]=t.value||t.get.call(e)}catch(n){}}}}();var y={},D="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&require.resolve&&"undefined"!=typeof process&&require,I={"@empty":{}};return function(e,n,o,a){return function(u){u(function(u){for(var d={_nodeRequire:D,register:r,registerDynamic:t,get:p,set:function(e,r){I[e]=r},newModule:function(e){return e}},i=0;i<n.length;i++)(function(e,r){r&&r.__esModule?I[e]=r:I[e]=s(r)})(n[i],arguments[i]);a(d);var l=p(e[0]);if(e.length>1)for(var i=1;i<e.length;i++)p(e[i]);return o?l["default"]:l})}}}("undefined"!=typeof self?self:global)
+!function(e){function r(e,r,o){return 4===arguments.length?t.apply(this,arguments):void n(e,{declarative:!0,deps:r,declare:o})}function t(e,r,t,o){n(e,{declarative:!1,deps:r,executingRequire:t,execute:o})}function n(e,r){r.name=e,e in v||(v[e]=r),r.normalizedDeps=r.deps}function o(e,r){if(r[e.groupIndex]=r[e.groupIndex]||[],-1==g.call(r[e.groupIndex],e)){r[e.groupIndex].push(e);for(var t=0,n=e.normalizedDeps.length;n>t;t++){var a=e.normalizedDeps[t],u=v[a];if(u&&!u.evaluated){var d=e.groupIndex+(u.declarative!=e.declarative);if(void 0===u.groupIndex||u.groupIndex<d){if(void 0!==u.groupIndex&&(r[u.groupIndex].splice(g.call(r[u.groupIndex],u),1),0==r[u.groupIndex].length))throw new TypeError("Mixed dependency cycle detected");u.groupIndex=d}o(u,r)}}}}function a(e){var r=v[e];r.groupIndex=0;var t=[];o(r,t);for(var n=!!r.declarative==t.length%2,a=t.length-1;a>=0;a--){for(var u=t[a],i=0;i<u.length;i++){var s=u[i];n?d(s):l(s)}n=!n}}function u(e){return y[e]||(y[e]={name:e,dependencies:[],exports:{},importers:[]})}function d(r){if(!r.module){var t=r.module=u(r.name),n=r.module.exports,o=r.declare.call(e,function(e,r){if(t.locked=!0,"object"==typeof e)for(var o in e)n[o]=e[o];else n[e]=r;for(var a=0,u=t.importers.length;u>a;a++){var d=t.importers[a];if(!d.locked)for(var i=0;i<d.dependencies.length;++i)d.dependencies[i]===t&&d.setters[i](n)}return t.locked=!1,r},{id:r.name});t.setters=o.setters,t.execute=o.execute;for(var a=0,i=r.normalizedDeps.length;i>a;a++){var l,s=r.normalizedDeps[a],c=v[s],f=y[s];f?l=f.exports:c&&!c.declarative?l=c.esModule:c?(d(c),f=c.module,l=f.exports):l=p(s),f&&f.importers?(f.importers.push(t),t.dependencies.push(f)):t.dependencies.push(null),t.setters[a]&&t.setters[a](l)}}}function i(e){var r,t=v[e];if(t)t.declarative?f(e,[]):t.evaluated||l(t),r=t.module.exports;else if(r=p(e),!r)throw new Error("Unable to load dependency "+e+".");return(!t||t.declarative)&&r&&r.__useDefault?r["default"]:r}function l(r){if(!r.module){var t={},n=r.module={exports:t,id:r.name};if(!r.executingRequire)for(var o=0,a=r.normalizedDeps.length;a>o;o++){var u=r.normalizedDeps[o],d=v[u];d&&l(d)}r.evaluated=!0;var c=r.execute.call(e,function(e){for(var t=0,n=r.deps.length;n>t;t++)if(r.deps[t]==e)return i(r.normalizedDeps[t]);throw new TypeError("Module "+e+" not declared as a dependency.")},t,n);void 0!==typeof c&&(n.exports=c),t=n.exports,t&&t.__esModule?r.esModule=t:r.esModule=s(t)}}function s(r){var t={};if(("object"==typeof r||"function"==typeof r)&&r!==e)if(m)for(var n in r)"default"!==n&&c(t,r,n);else{var o=r&&r.hasOwnProperty;for(var n in r)"default"===n||o&&!r.hasOwnProperty(n)||(t[n]=r[n])}return t["default"]=r,x(t,"__useDefault",{value:!0}),t}function c(e,r,t){try{var n;(n=Object.getOwnPropertyDescriptor(r,t))&&x(e,t,n)}catch(o){return e[t]=r[t],!1}}function f(r,t){var n=v[r];if(n&&!n.evaluated&&n.declarative){t.push(r);for(var o=0,a=n.normalizedDeps.length;a>o;o++){var u=n.normalizedDeps[o];-1==g.call(t,u)&&(v[u]?f(u,t):p(u))}n.evaluated||(n.evaluated=!0,n.module.execute.call(e))}}function p(e){if(I[e])return I[e];if("@node/"==e.substr(0,6))return I[e]=s(D(e.substr(6)));var r=v[e];if(!r)throw"Module "+e+" not present.";return a(e),f(e,[]),v[e]=void 0,r.declarative&&x(r.module.exports,"__esModule",{value:!0}),I[e]=r.declarative?r.module.exports:r.esModule}var v={},g=Array.prototype.indexOf||function(e){for(var r=0,t=this.length;t>r;r++)if(this[r]===e)return r;return-1},m=!0;try{Object.getOwnPropertyDescriptor({a:0},"a")}catch(h){m=!1}var x;!function(){try{Object.defineProperty({},"a",{})&&(x=Object.defineProperty)}catch(e){x=function(e,r,t){try{e[r]=t.value||t.get.call(e)}catch(n){}}}}();var y={},D="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&require.resolve&&"undefined"!=typeof process&&require,I={"@empty":{}};return function(e,n,o,a){return function(u){u(function(u){for(var d={_nodeRequire:D,register:r,registerDynamic:t,get:p,set:function(e,r){I[e]=r},newModule:function(e){return e}},i=0;i<n.length;i++)(function(e,r){r&&r.__esModule?I[e]=r:I[e]=s(r)})(n[i],arguments[i]);a(d);var l=p(e[0]);if(e.length>1)for(var i=1;i<e.length;i++)p(e[i]);return o?l["default"]:l})}}}("undefined"!=typeof self?self:global)
 
 (["1"], [], false, function($__System) {
 var require = this.require, exports = this.exports, module = this.module;
@@ -34195,10 +34195,6 @@ $__System.registerDynamic('3', ['2'], false, function ($__require, $__exports, $
 });
 $__System.registerDynamic("@system-env", [], false, function() {
   return {
-    "production": true,
-    "browser": true,
-    "node": false,
-    "dev": false,
     "default": true
   };
 });
@@ -36648,7 +36644,12 @@ $__System.registerDynamic("5", ["4"], true, function ($__require, exports, modul
 $__System.register('1', ['3', '5'], function (_export, _context) {
   "use strict";
 
-  var mocks, localForage, module$1, _classCallCheck, _createClass, supportsNav, AckOffline, QueModel, testApp;
+  var mocks, localForage, module$1, _classCallCheck, _createClass, supportsNav, AckOffline, QueModel, testOfflineStorage, testApp;
+
+  function createDepject(args, callback) {
+    var depjection = eval('(function(' + args + '){var args=Array.prototype.slice.call(arguments);callback(args)})');
+    return depjection;
+  }
 
   function sync(callback) {
     return function (done) {
@@ -36680,331 +36681,19 @@ $__System.register('1', ['3', '5'], function (_export, _context) {
     };
   }
 
+  function RequestError(message) {
+    this.name = this.constructor.name;
+    //this.status = 400;
+    //this.code = "bad_request";
+    this.message = message || "RequestError";
+    return this;
+  }
+
+
+  //import localForage from "../localforage-build"
   function testBasicSetCache(data) {
     expect(typeof data).toEqual('object');
     expect(typeof data._timestamp).toEqual('number');
-  }
-
-  function testOfflineStorage() {
-    var ackOffline = void 0,
-        $http = void 0;
-
-    beforeEach(inject(function (_$http_) {
-      $http = _$http_;
-      localForage.setItem("offline-foo");
-    }));
-
-    beforeEach(function () {
-      ackOffline = new AckOffline($http);
-    });
-
-    describe("#setItem", function () {
-      it("gets offline data from local storage", promise(function () {
-        return localForage.setItem("offline-foo", "bar").then(function () {
-          return ackOffline.get("foo");
-        }).then(function (data) {
-          return expect(data).toEqual("bar");
-        });
-      }));
-    });
-
-    describe("#set", function () {
-      it("sets data into cache", promise(function () {
-        return ackOffline.set("foo", "bar").then(function () {
-          return ackOffline.get("foo");
-        }).then(function (data) {
-          return expect(data).toEqual("bar");
-        });
-      }));
-    });
-
-    describe("#getCache", function () {
-      it("retrieves cache from local storage", promise(function () {
-        return localForage.setItem("offline-foo", "bar").then(function () {
-          return localForage.getItem("offline-foo");
-        }).then(function (cache) {
-          expect(cache).toEqual("bar");
-        }).then(function () {
-          return ackOffline.getCache("foo");
-        }).then(function (cache) {
-          expect(cache).toEqual("bar");
-        });
-      }));
-
-      describe("when cache data is a collection", function () {
-        it("considers an 0-length cache valid", promise(function () {
-          return ackOffline.setCache('foo', 'bar').then(function () {
-            return localForage.getItem("offline-foo");
-          }).then(function (data) {
-            expect(typeof data).toEqual('object');
-            expect(typeof data._timestamp).toEqual('number');
-            expect(typeof data.cache).toEqual('string');
-            expect(data.cache).toEqual('bar');
-          }).then(function () {
-            return ackOffline.getCache("foo");
-          }).then(function (cache) {
-            return expect(cache).toEqual("bar");
-          });
-        }));
-      });
-
-      describe("when cache data is an object", function () {
-        it("considers an empty object valid", promise(function () {
-          return ackOffline.setCache("foo").then(function (data) {
-            testBasicSetCache(data);
-            expect(typeof data.cache).toEqual('undefined');
-          }).then(function () {
-            return ackOffline.getCache("foo");
-          }).then(function (cache) {
-            return expect(typeof cache).toEqual("undefined");
-          });
-        }));
-      });
-
-      it("handles empty data storage", promise(function () {
-        return localForage.setItem("offline-foo").then(function (d) {
-          return expect(d).toBe(null);
-        }).then(function () {
-          return ackOffline.getCache("foos");
-        }).catch(function (e) {
-          expect(e.message).toBe('No valid cache found for foos');
-        });
-      }));
-
-      describe("with expiration", function () {
-        it("returns cache if not expired", promise(function () {
-          return ackOffline.setCache("foo", "bar").then(function () {
-            return localForage.getItem("offline-foo");
-          }).then(function (data) {
-            var timeDiff = Date.now() - data._timestamp;
-            expect(timeDiff).toBeLessThan(200);
-            expect(data.cache).toBe("bar");
-          }).then(function () {
-            return ackOffline.getCache("foo");
-          }).then(function (cache) {
-            return expect(cache).toBeDefined();
-          });
-        }));
-
-        it("errors if expired", promise(function () {
-          return localForage.setItem("offline-foo", {
-            _timestamp: Date.now() - 100,
-            cache: "foo"
-          }).then(function () {
-            return ackOffline.getCache("foo", { expires: 100 });
-          }).then(function () {
-            throw new Error('not supposed to succeed here');
-          }).catch(function (e) {
-            return expect(e.message).toBe('No valid cache found for foo');
-          });
-        }));
-      });
-    });
-
-    describe("#setCache", function () {
-      /*
-      let clock
-      beforeEach(() => clock = sinon.useFakeTimers())
-      afterEach(() => clock.restore())
-      */
-
-      it("sets data into cache", promise(function () {
-        return ackOffline.setCache("foo", { data: "bar8" }).then(function (data) {
-          testBasicSetCache(data);
-          expect(data.cache.data).toEqual("bar8");
-        });
-      }));
-
-      it("does not overwrite non-cache data", promise(function () {
-        return localForage.setItem("offline-foo", {
-          _timestamp: 1234,
-          cache: { data0: "old-bar" },
-          queue: [1, 2, 3]
-        }).then(function () {
-          return ackOffline.setCache("foo", { data: "bar" });
-        }).then(function (data) {
-          expect(typeof data.queue).toBe('object');
-          expect(data.queue.constructor).toBe(Array);
-          expect(data.queue.length).toBe(3);
-          expect(typeof data.cache).toBe('object');
-          expect(data.cache.data0).toBe('old-bar');
-          expect(data.cache.data).toBe('bar');
-        });
-      }));
-    });
-
-    describe("#cacheResponse", function () {
-      /*
-      let clock
-      beforeEach(() => clock = sinon.useFakeTimers())
-      afterEach(() => clock.restore())
-      */
-
-      it("sets data into cache", promise(function () {
-        return ackOffline.cacheResponse("foo", { data: "bar" }).then(function (data) {
-          expect(typeof data).toBe('object');
-          expect(typeof data._timestamp).toBe('number');
-          expect(typeof data.cache).toBe('string');
-          expect(data.cache).toBe('bar');
-        });
-      }));
-
-      it("does not overwrite non-cache data", promise(function () {
-        return localForage.setItem("offline-foo", {
-          _timestamp: 1234,
-          cache: "old foo",
-          queue: [1, 2, 3]
-        }).then(function () {
-          return ackOffline.cacheResponse("foo", { data: "bar" });
-        }).then(function (data) {
-          expect(typeof data.queue).toBe('object');
-          expect(data.queue.constructor).toBe(Array);
-          expect(data.queue.length).toBe(3);
-          expect(typeof data.cache).toBe('string');
-          expect(data.cache).toBe('bar');
-        });
-      }));
-    });
-
-    describe("#getQueue", function () {
-      it("retrieves queue from local storage", promise(function () {
-        return localForage.setItem("offline-foo", {
-          queue: [{ data: "bar" }]
-        }).then(function () {
-          return ackOffline.getQueue("foo");
-        }).then(function (data) {
-          expect(typeof data).toBe('object');
-          expect(data.constructor).toBe(Array);
-          expect(data.length).toBe(1);
-          expect(typeof data[0]).toBe('object');
-          expect(typeof data[0].data).toBe('string');
-          expect(data[0].data).toBe('bar');
-        });
-      }));
-    });
-
-    describe("#enqueue", function () {
-      it("sets data into queue", promise(function () {
-        return localForage.setItem("offline-foo").then(function () {
-          return ackOffline.enqueue("foo", { data: "bar" });
-        }).then(function () {
-          return ackOffline.getCache("foo");
-        }).then(function (data) {
-          expect(typeof data.queue).toBe('object');
-          expect(data.queue.length).toBe(1);
-          expect(typeof data.queue[0].data).toBe('string');
-          expect(data.queue[0].data).toBe('bar');
-        });
-      }));
-
-      it("sets array of data into queue", promise(function () {
-        return localForage.setItem("offline-foo", {
-          queue: [{ data: "bar" }]
-        }).then(function () {
-          return ackOffline.enqueue("foo", [{ data: "baz" }, { data: "qux" }]);
-        }).then(function (data) {
-          expect(data.queue.length).toBe(3);
-          expect(data.queue[0].data).toBe('bar');
-          expect(data.queue[1].data).toBe('baz');
-          expect(data.queue[2].data).toBe('qux');
-        });
-      }));
-
-      it("does not overwrite data", promise(function () {
-        return localForage.setItem("offline-foo", {
-          _timestamp: 1234,
-          cache: "old foo",
-          queue: [{ data: "foo" }]
-        }).then(function () {
-          return ackOffline.enqueue("foo", { data: "bar" });
-        }).then(function (data) {
-          expect(data._timestamp).toBe(1234);
-          expect(data.cache).toBe("old foo");
-          expect(data.queue.length).toBe(2);
-          expect(data.queue[0].data).toBe('foo');
-          expect(data.queue[1].data).toBe('bar');
-        });
-      }));
-    });
-
-    describe("#clearQueue", function () {
-      it("clears queue", promise(function () {
-        return localForage.setItem("offline-foo", {
-          _timestamp: 1234,
-          cache: "foo",
-          queue: [1, 2, 3]
-        }).then(function () {
-          return ackOffline.clearQueue("foo");
-        }).then(function () {
-          return ackOffline.get("foo");
-        }).then(function (data) {
-          expect(typeof data).toBe('object');
-          expect(typeof data.queue).toBe('object');
-          expect(data.queue.constructor).toBe(Array);
-          expect(data.queue.length).toBe(0);
-        });
-      }));
-    });
-
-    describe("#registerQueueHandler", function () {
-      it("registers handler", sync(function () {
-        expect(ackOffline.handlers.length).toBe(0);
-
-        var spy = function spy() {};
-        spy.extraName = 'registers-handler';
-
-        ackOffline.registerQueueHandler("foo", spy);
-
-        expect(ackOffline.handlers.length).toBe(1);
-        expect(typeof ackOffline.handlers[0]).toBe('object');
-        expect(ackOffline.handlers[0].name).toBe('foo');
-        expect(ackOffline.handlers[0].handler.extraName).toBe(spy.extraName);
-      }));
-    });
-
-    describe("#processQueues", function () {
-      it("iterates over all handlers", promise(function () {
-        var fooSpy = function fooSpy(a) {
-          fooSpy.callLog.push(a);
-        };
-        fooSpy.extraName = 'foo-spy';
-        fooSpy.callLog = [];
-
-        var barSpy = function barSpy(b) {
-          barSpy.callLog.push(b);
-        };
-        barSpy.extraName = 'bar-spy';
-        barSpy.callLog = [];
-
-        ackOffline.handlers = [{ name: "foo", handler: fooSpy }, { name: "bar", handler: barSpy }];
-
-        return localForage.setItem("offline-foo", { queue: [1, 2] }).then(function () {
-          return localForage.setItem("offline-bar", { queue: [3, 4] });
-        }).then(function () {
-          return ackOffline.processQueues();
-        }).then(function () {
-          expect(fooSpy.callLog.length).toBe(2);
-          expect(fooSpy.callLog[0]).toBe(1);
-          expect(fooSpy.callLog[1]).toBe(2);
-
-          expect(barSpy.callLog.length).toBe(2);
-          expect(barSpy.callLog[0]).toBe(3);
-          expect(barSpy.callLog[1]).toBe(4);
-        });
-      }));
-
-      it("empties queues when complete", promise(function () {
-        ackOffline.handlers = [{ name: "foo", handler: function handler() {} }];
-
-        return localForage.setItem("offline-foo", { queue: [1, 2] }).then(function () {
-          return ackOffline.processQueues();
-        }).then(function () {
-          return ackOffline.getQueue('foo');
-        }).then(function (data) {
-          expect(data.length).toBe(0);
-        });
-      }));
-    });
   }
 
   return {
@@ -37015,6 +36704,7 @@ $__System.register('1', ['3', '5'], function (_export, _context) {
     }],
     execute: function () {
       module$1 = mocks.module;
+      RequestError.prototype = Object.create(Error.prototype);
 
       _classCallCheck = function (instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -37387,6 +37077,328 @@ $__System.register('1', ['3', '5'], function (_export, _context) {
 
         return QueModel;
       }();
+
+      testOfflineStorage = function () {
+        var ackOffline = void 0,
+            $http = void 0;
+
+        beforeEach(inject(function (_$http_) {
+          $http = _$http_;
+          localForage.setItem("offline-foo");
+        }));
+
+        beforeEach(function () {
+          ackOffline = new AckOffline($http);
+        });
+
+        describe("#setItem", function () {
+          it("gets offline data from local storage", promise(function () {
+            return localForage.setItem("offline-foo", "bar").then(function () {
+              return ackOffline.get("foo");
+            }).then(function (data) {
+              return expect(data).toEqual("bar");
+            });
+          }));
+        });
+
+        describe("#set", function () {
+          it("sets data into cache", promise(function () {
+            return ackOffline.set("foo", "bar").then(function () {
+              return ackOffline.get("foo");
+            }).then(function (data) {
+              return expect(data).toEqual("bar");
+            });
+          }));
+        });
+
+        describe("#getCache", function () {
+          it("retrieves cache from local storage", promise(function () {
+            return localForage.setItem("offline-foo", "bar").then(function () {
+              return localForage.getItem("offline-foo");
+            }).then(function (cache) {
+              expect(cache).toEqual("bar");
+            }).then(function () {
+              return ackOffline.getCache("foo");
+            }).then(function (cache) {
+              expect(cache).toEqual("bar");
+            });
+          }));
+
+          describe("when cache data is a collection", function () {
+            it("considers an 0-length cache valid", promise(function () {
+              return ackOffline.setCache('foo', 'bar').then(function () {
+                return localForage.getItem("offline-foo");
+              }).then(function (data) {
+                expect(typeof data).toEqual('object');
+                expect(typeof data._timestamp).toEqual('number');
+                expect(typeof data.cache).toEqual('string');
+                expect(data.cache).toEqual('bar');
+              }).then(function () {
+                return ackOffline.getCache("foo");
+              }).then(function (cache) {
+                return expect(cache).toEqual("bar");
+              });
+            }));
+          });
+
+          describe("when cache data is an object", function () {
+            it("considers an empty object valid", promise(function () {
+              return ackOffline.setCache("foo").then(function (data) {
+                testBasicSetCache(data);
+                expect(typeof data.cache).toEqual('undefined');
+              }).then(function () {
+                return ackOffline.getCache("foo");
+              }).then(function (cache) {
+                return expect(typeof cache).toEqual("undefined");
+              });
+            }));
+          });
+
+          it("handles empty data storage", promise(function () {
+            return localForage.setItem("offline-foo").then(function (d) {
+              return expect(d).toBe(null);
+            }).then(function () {
+              return ackOffline.getCache("foos");
+            }).catch(function (e) {
+              expect(e.message).toBe('No valid cache found for foos');
+            });
+          }));
+
+          describe("with expiration", function () {
+            it("returns cache if not expired", promise(function () {
+              return ackOffline.setCache("foo", "bar").then(function () {
+                return localForage.getItem("offline-foo");
+              }).then(function (data) {
+                var timeDiff = Date.now() - data._timestamp;
+                expect(timeDiff).toBeLessThan(200);
+                expect(data.cache).toBe("bar");
+              }).then(function () {
+                return ackOffline.getCache("foo");
+              }).then(function (cache) {
+                return expect(cache).toBeDefined();
+              });
+            }));
+
+            it("errors if expired", promise(function () {
+              return localForage.setItem("offline-foo", {
+                _timestamp: Date.now() - 100,
+                cache: "foo"
+              }).then(function () {
+                return ackOffline.getCache("foo", { expires: 100 });
+              }).then(function () {
+                throw new Error('not supposed to succeed here');
+              }).catch(function (e) {
+                return expect(e.message).toBe('No valid cache found for foo');
+              });
+            }));
+          });
+        });
+
+        describe("#setCache", function () {
+          /*
+          let clock
+          beforeEach(() => clock = sinon.useFakeTimers())
+          afterEach(() => clock.restore())
+          */
+
+          it("sets data into cache", promise(function () {
+            return ackOffline.setCache("foo", { data: "bar8" }).then(function (data) {
+              testBasicSetCache(data);
+              expect(data.cache.data).toEqual("bar8");
+            });
+          }));
+
+          it("does not overwrite non-cache data", promise(function () {
+            return localForage.setItem("offline-foo", {
+              _timestamp: 1234,
+              cache: { data0: "old-bar" },
+              queue: [1, 2, 3]
+            }).then(function () {
+              return ackOffline.setCache("foo", { data: "bar" });
+            }).then(function (data) {
+              expect(typeof data.queue).toBe('object');
+              expect(data.queue.constructor).toBe(Array);
+              expect(data.queue.length).toBe(3);
+              expect(typeof data.cache).toBe('object');
+              expect(data.cache.data0).toBe('old-bar');
+              expect(data.cache.data).toBe('bar');
+            });
+          }));
+        });
+
+        describe("#cacheResponse", function () {
+          /*
+          let clock
+          beforeEach(() => clock = sinon.useFakeTimers())
+          afterEach(() => clock.restore())
+          */
+
+          it("sets data into cache", promise(function () {
+            return ackOffline.cacheResponse("foo", { data: "bar" }).then(function (data) {
+              expect(typeof data).toBe('object');
+              expect(typeof data._timestamp).toBe('number');
+              expect(typeof data.cache).toBe('string');
+              expect(data.cache).toBe('bar');
+            });
+          }));
+
+          it("does not overwrite non-cache data", promise(function () {
+            return localForage.setItem("offline-foo", {
+              _timestamp: 1234,
+              cache: "old foo",
+              queue: [1, 2, 3]
+            }).then(function () {
+              return ackOffline.cacheResponse("foo", { data: "bar" });
+            }).then(function (data) {
+              expect(typeof data.queue).toBe('object');
+              expect(data.queue.constructor).toBe(Array);
+              expect(data.queue.length).toBe(3);
+              expect(typeof data.cache).toBe('string');
+              expect(data.cache).toBe('bar');
+            });
+          }));
+        });
+
+        describe("#getQueue", function () {
+          it("retrieves queue from local storage", promise(function () {
+            return localForage.setItem("offline-foo", {
+              queue: [{ data: "bar" }]
+            }).then(function () {
+              return ackOffline.getQueue("foo");
+            }).then(function (data) {
+              expect(typeof data).toBe('object');
+              expect(data.constructor).toBe(Array);
+              expect(data.length).toBe(1);
+              expect(typeof data[0]).toBe('object');
+              expect(typeof data[0].data).toBe('string');
+              expect(data[0].data).toBe('bar');
+            });
+          }));
+        });
+
+        describe("#enqueue", function () {
+          it("sets data into queue", promise(function () {
+            return localForage.setItem("offline-foo").then(function () {
+              return ackOffline.enqueue("foo", { data: "bar" });
+            }).then(function () {
+              return ackOffline.getCache("foo");
+            }).then(function (data) {
+              expect(typeof data.queue).toBe('object');
+              expect(data.queue.length).toBe(1);
+              expect(typeof data.queue[0].data).toBe('string');
+              expect(data.queue[0].data).toBe('bar');
+            });
+          }));
+
+          it("sets array of data into queue", promise(function () {
+            return localForage.setItem("offline-foo", {
+              queue: [{ data: "bar" }]
+            }).then(function () {
+              return ackOffline.enqueue("foo", [{ data: "baz" }, { data: "qux" }]);
+            }).then(function (data) {
+              expect(data.queue.length).toBe(3);
+              expect(data.queue[0].data).toBe('bar');
+              expect(data.queue[1].data).toBe('baz');
+              expect(data.queue[2].data).toBe('qux');
+            });
+          }));
+
+          it("does not overwrite data", promise(function () {
+            return localForage.setItem("offline-foo", {
+              _timestamp: 1234,
+              cache: "old foo",
+              queue: [{ data: "foo" }]
+            }).then(function () {
+              return ackOffline.enqueue("foo", { data: "bar" });
+            }).then(function (data) {
+              expect(data._timestamp).toBe(1234);
+              expect(data.cache).toBe("old foo");
+              expect(data.queue.length).toBe(2);
+              expect(data.queue[0].data).toBe('foo');
+              expect(data.queue[1].data).toBe('bar');
+            });
+          }));
+        });
+
+        describe("#clearQueue", function () {
+          it("clears queue", promise(function () {
+            return localForage.setItem("offline-foo", {
+              _timestamp: 1234,
+              cache: "foo",
+              queue: [1, 2, 3]
+            }).then(function () {
+              return ackOffline.clearQueue("foo");
+            }).then(function () {
+              return ackOffline.get("foo");
+            }).then(function (data) {
+              expect(typeof data).toBe('object');
+              expect(typeof data.queue).toBe('object');
+              expect(data.queue.constructor).toBe(Array);
+              expect(data.queue.length).toBe(0);
+            });
+          }));
+        });
+
+        describe("#registerQueueHandler", function () {
+          it("registers handler", sync(function () {
+            expect(ackOffline.handlers.length).toBe(0);
+
+            var spy = function spy() {};
+            spy.extraName = 'registers-handler';
+
+            ackOffline.registerQueueHandler("foo", spy);
+
+            expect(ackOffline.handlers.length).toBe(1);
+            expect(typeof ackOffline.handlers[0]).toBe('object');
+            expect(ackOffline.handlers[0].name).toBe('foo');
+            expect(ackOffline.handlers[0].handler.extraName).toBe(spy.extraName);
+          }));
+        });
+
+        describe("#processQueues", function () {
+          it("iterates over all handlers", promise(function () {
+            var fooSpy = function fooSpy(a) {
+              fooSpy.callLog.push(a);
+            };
+            fooSpy.extraName = 'foo-spy';
+            fooSpy.callLog = [];
+
+            var barSpy = function barSpy(b) {
+              barSpy.callLog.push(b);
+            };
+            barSpy.extraName = 'bar-spy';
+            barSpy.callLog = [];
+
+            ackOffline.handlers = [{ name: "foo", handler: fooSpy }, { name: "bar", handler: barSpy }];
+
+            return localForage.setItem("offline-foo", { queue: [1, 2] }).then(function () {
+              return localForage.setItem("offline-bar", { queue: [3, 4] });
+            }).then(function () {
+              return ackOffline.processQueues();
+            }).then(function () {
+              expect(fooSpy.callLog.length).toBe(2);
+              expect(fooSpy.callLog[0]).toBe(1);
+              expect(fooSpy.callLog[1]).toBe(2);
+
+              expect(barSpy.callLog.length).toBe(2);
+              expect(barSpy.callLog[0]).toBe(3);
+              expect(barSpy.callLog[1]).toBe(4);
+            });
+          }));
+
+          it("empties queues when complete", promise(function () {
+            ackOffline.handlers = [{ name: "foo", handler: function handler() {} }];
+
+            return localForage.setItem("offline-foo", { queue: [1, 2] }).then(function () {
+              return ackOffline.processQueues();
+            }).then(function () {
+              return ackOffline.getQueue('foo');
+            }).then(function (data) {
+              expect(data.length).toBe(0);
+            });
+          }));
+        });
+      };
 
       testApp = angular.module('test-ack-angular', ['ngMockE2E']).name;
 

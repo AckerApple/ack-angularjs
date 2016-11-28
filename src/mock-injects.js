@@ -131,10 +131,10 @@ export function promiseject(args, callback){
 
     var depjection = createDepject(args, loaded)
     
-    mocks.inject($rootScope=>{
+    mocks.inject(['$rootScope',$rootScope=>{
       $rs = $rootScope
       mocks.inject(depjection)
-    })
+    }])
   }
 }
 
