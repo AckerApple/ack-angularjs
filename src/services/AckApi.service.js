@@ -17,6 +17,8 @@ export default class AckApi {
     }
   */
   _fetch(cfg) {
+    upgradeConfig(cfg)
+
     return this.$http(cfg)
     .then(response => {
       response = !cfg.promise || cfg.promise=='data' ? response.data : response
@@ -94,6 +96,18 @@ export default class AckApi {
   put(path, data, config) {
     const cfg = Object.assign({}, config, {data})
     return this.request("PUT", path, cfg)
+  }
+}
+
+/** prevent angular1 from assuming the header to send is application/json */
+function upgradeConfig(cfg){
+  const isFormData = cfg.data && FormData && cfg.data.constructor==FormData
+  if(isFormData){
+    const preventAutoContentType =  !cfg.headers || Object.keys(cfg.headers).filter(h=>h.search(/content-type/i)<0)
+    
+    if(preventAutoContentType){
+      cfg.headers['Content-Type'] = 'multipart/form-data;'
+    }
   }
 }
 

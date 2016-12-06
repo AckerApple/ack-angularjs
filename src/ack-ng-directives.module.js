@@ -1,7 +1,9 @@
 import whiteOutModalTemplate from './white-out-modal.pug'
 
 export default angular.module('ack-ng-directives', [])
+/** runs shake instructions when condition returns a truthy value */
 .directive('shakeOn', shakeOnDirective)
+/** runs shake instructions when model changes to a truthy value */
 .directive('shakeModel', shakeModel)
 .directive('selectOn', selectOn)
 .directive('focusOn', focusOn)
@@ -455,6 +457,7 @@ function selectOn($timeout) {
 }
 selectOn.$inject = ['$timeout']
 
+/** runs shake instructions when condition returns a truthy value */
 function shakeOnDirective($timeout) {
   return {
     restrict:'A',
@@ -497,6 +500,7 @@ function shakeOnDirective($timeout) {
 }
 shakeOnDirective.$inject=['$timeout']
 
+/** runs shake instructions when model changes to a truthy value */
 function shakeModel($timeout) {
   return {
     restrict:'A',

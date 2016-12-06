@@ -82,7 +82,22 @@ Result
 
 
 ##Currently Included Directives
-- whiteOutModal{show:'=', size:'=?'}
+
+- whiteOutModal
+    - show:'='
+    - size:'=?'
+- shakeOn
+    -shakeOn:'=?'
+    -shakeForMs:'=?'
+    -shakeType:'=?'
+    -shakeThen:'&'
+    -shakeController:'=?'
+- shakeModel
+    -shakeModel:'=?'
+    -shakeForMs:'=?'
+    -shakeType:'=?'
+    -shakeController:'=?'
+
 
 ##Currently Included Filters
 - |ack:'type':property-or-function:property-or-function:property-or-function

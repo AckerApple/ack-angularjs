@@ -11,7 +11,7 @@
 export default function injector(jsClass, depArray){
   jsClass.$inject = depArray
   return jsClass.inject = function(args, thIs){
-    thIs = thIs || {}
+    thIs = thIs || this || {}
     for(var x=depArray.length-1; x >= 0; --x){
       if(args[x])thIs[ depArray[x] ] = args[x]
     }
