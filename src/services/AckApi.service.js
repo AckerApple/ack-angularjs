@@ -12,6 +12,7 @@ export default class AckApi {
 
   /** master method for sending requests and caching responses using $http requests
     @cfg{
+      catch:'data'//typically only error data is returned, but if catch!='data' then entire response is returned for a caught error
       promise:'data'//typically only data is returned, but if promise!='data' then entire response is returned
       headers:{}//when sending a file 'Content-Type':undefined so that no content-type header is sent
     }
@@ -28,6 +29,18 @@ export default class AckApi {
       }
 
       return response
+    })
+    .catch(e=>{
+      const isReduceData = cfg.catch==null||cfg.catch=='data'
+      const isCatchData = isReduceData && e.data && e.data.error
+
+      //find JSON error object and reduce to
+      if(isCatchData){
+        const newError = new Error()
+        Object.assign(newError, e.data.error)
+        e = newError
+      }
+      throw e
     })
   }
 
@@ -106,7 +119,7 @@ function upgradeConfig(cfg){
     const preventAutoContentType =  !cfg.headers || Object.keys(cfg.headers).filter(h=>h.search(/content-type/i)<0)
     
     if(preventAutoContentType){
-      cfg.headers['Content-Type'] = 'multipart/form-data;'
+      cfg.headers['Content-Type'] = undefined//'multipart/form-data;'
     }
   }
 }
