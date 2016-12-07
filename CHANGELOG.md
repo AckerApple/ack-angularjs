@@ -4,6 +4,8 @@ All notable changes to this project will be documented here.
 ## [1.6.2] - 2016-10-07
 ### Added
 - ack-state.module
+### Changed
+- onEnterKey is no longer scoped
 
 ## [1.6.0] - 2016-09-06
 ### Breaking Change

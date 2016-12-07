@@ -84,18 +84,21 @@ export default angular.module('ack-ng-directives', [])
     }
   }
 })
+/** onEnterKey - on-enter-key attribute will be evaluated when element event onkeydown fires with enter-key */
 .directive('onEnterKey', function() {
   return {
     restrict:'A',
-    scope:{},
-    bindToController:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
-    controller:function(){},
-    controllerAs:'onEnterKeyController',
-    link: function($scope, jElm) {
+    //scope:{},
+    //bindToController:{onEnterKey:'&'},//onEnterKey({event}) ... event.preventDefault()
+    //controller:function(){},
+    //controllerAs:'onEnterKeyController',
+    link: function($scope, jElm, attrs) {
       jElm[0].onkeydown = function(event){
         var yesNo = [13,10].indexOf(event.which||event.keyCode)>=0
         if(yesNo){
-          $scope.onEnterKeyController.onEnterKey({event:event})
+          $scope.$eval(attrs.onEnterKey,{event:event})
+          //$scope.onEnterKey({event:event})
+          //$scope.onEnterKeyController.onEnterKey({event:event})
           $scope.$apply()
         }
       }

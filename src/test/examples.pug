@@ -89,9 +89,14 @@ html.font-helvetica(lang="en")
                 input(prevent-back-key value="you cant backspace")
 
             .flex-1.pad.margin.border-info.nowrap
+              h3 on-enter-key
+              .pad
+                textarea(on-enter-key="('enter key'|alert)") alert on enter key
+
+            .flex-1.pad.margin.border-info.nowrap
               h3 prevent-enter-key
               .pad
-                textarea(prevent-enter-key value="you cant use enter key")
+                textarea(prevent-enter-key) you cant use enter key
 
             .flex-1.pad.margin.border-info.nowrap(ng-init="formChangedTimes=0")
               h3 &lt;form form-changed=""&gt;
