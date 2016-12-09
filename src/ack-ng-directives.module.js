@@ -1,4 +1,4 @@
-import whiteOutModalTemplate from './white-out-modal.pug'
+import whiteOutModalTemplate from './white-out-modal.pug.js'
 
 export default angular.module('ack-ng-directives', [])
 /** runs shake instructions when condition returns a truthy value */
