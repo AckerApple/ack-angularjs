@@ -224,6 +224,8 @@
     "angular-activity-monitor": "^1.1.0",
     "angular-animate": "github:angular/bower-angular-animate",
     "angular-mocks": "github:angular/bower-angular-mocks",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015-loose": "^8.0.0",
     "localforage": "^1.4.3"
   }
 }

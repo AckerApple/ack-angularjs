@@ -1,4 +1,5 @@
-import localForage from "localforage"
+import localForage from "localforage/dist/localforage.js"
+//import localForage from "localforage"
 //import localForage from "./localforage-build"
 
 const supportsNav = typeof(navigator)!='undefined'
