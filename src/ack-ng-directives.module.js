@@ -605,7 +605,6 @@ function modelDisplay() {
 }
 
 function InterpolateString($interpolate, $sce, $element, $compile, $scope){
-  this.as = this.as || this
 /*
   const compile = function(string){
     string = $interpolate(string)(this.scope||this)
@@ -628,6 +627,7 @@ function InterpolateString($interpolate, $sce, $element, $compile, $scope){
   }.bind(this)
 
   this.$onInit = function(){
+    this.as = this.as || this
     var string = this.string ? this.string : ''
     build(string)
     //$scope.$watch(()=>this.string, run)

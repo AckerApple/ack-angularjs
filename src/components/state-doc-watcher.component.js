@@ -5,7 +5,6 @@ const deps = ['StateManagerService','$state','$rootScope','$document', '$scope',
 export class StateDocWatcher{
   constructor(){
     inject(arguments, this)
-    this.as = this.StateManagerService
 
     const isBackButton = ()=>{this.isMouseOut=true;this.StateManagerService.isOsAction=true}
     const isNotBackButton = ()=>{this.StateManagerService.isOsAction=false}
@@ -43,6 +42,15 @@ export class StateDocWatcher{
 
   }
 
+  $onInit(){
+    this.as = this.StateManagerService
+    this.onLoad({
+      state:this.StateManagerService.$state.current,
+      params:this.StateManagerService.$state.params,
+      current:this.StateManagerService.$state.current
+    })
+  }
+
   goBackTo(name, params){
     this.StateManagerService.goBackTo(name, params)
   }
@@ -54,6 +62,6 @@ export class StateDocWatcher{
 const inject = injector(StateDocWatcher, deps)
 
 export default {
-  bindings:{as:'=?', onStateChange:'&'}
+  bindings:{as:'=?', onStateChange:'&', onLoad:'&'}
   ,controller:StateDocWatcher
 }
