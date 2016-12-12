@@ -11,3 +11,4 @@ var write = 'import angular from "angular";\n'
 write += 'var exports = {};\n' + read
 */
 fs.writeFileSync(outPath, write)
+console.log('done creating localforage', outPath)

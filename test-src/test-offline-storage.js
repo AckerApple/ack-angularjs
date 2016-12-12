@@ -1,7 +1,7 @@
 //import localForage from "../localforage-build"
 import localForage from "localforage"
-import {sync, promise} from "../mock-injects"
-import AckOffline from "../ack-offline.service"
+import {sync, promise} from "../src/mock-injects"
+import AckOffline from "../src/ack-offline.service"
 
 function testBasicSetCache(data){
   expect(typeof data).toEqual('object')

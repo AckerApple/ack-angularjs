@@ -1,5 +1,6 @@
 //import ack from 'ack-x/index-browser'
 
+import 'angular'
 //import angular from 'angular'
 import ackNgServices from './ack-ng-services.module'
 import ackNgFilters from './ack-ng-filters.module'

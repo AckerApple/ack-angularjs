@@ -1,3 +1,4 @@
+import 'angular'
 import ack from 'ack-x/index-browser'
 import AckApi from './ack-api.service'
 import AckOffline from './ack-offline.service'

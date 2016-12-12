@@ -346,7 +346,8 @@ function ScreenHeightExcessModel($scope, $window, $document){
   angular.element($window).on("scroll", on)
   angular.element($window).on("resize", on)
   $scope.$on('$destroy', cleanUp)
-  apply()
+  
+  this.$onInit = apply
 }
 ScreenHeightExcessModel.$inject = ['$scope','$window','$document']
 
@@ -368,7 +369,8 @@ function ScreenScrollHeightModel($scope, $window, $document){
   angular.element($window).on("scroll", onResize)
   angular.element($window).on("resize", onResize)
   $scope.$on('$destroy', cleanUp)
-  apply()
+  
+  this.$onInit = apply
 }
 ScreenScrollHeightModel.$inject = ['$scope','$window','$document']
 
@@ -384,6 +386,12 @@ function ScreenScrollModelY($scope, $window){
 
   angular.element($window).on("scroll", onScroll)
   $scope.$on('$destroy', cleanUp)
+  
+  this.$onInit = function(){
+    this.screenScrollModelY = $window.pageYOffset
+  }
+}
+ScreenScrollModelY.prototype.$onInit = function(){
   this.screenScrollModelY = $window.pageYOffset
 }
 ScreenScrollModelY.$inject = ['$scope','$window']
@@ -396,7 +404,9 @@ function shakeOn(){
 }
 
 function ScreenWidthModel($window, $scope){
-  this.screenWidthModel = $window.innerWidth
+  this.$onInit = function(){
+    this.screenWidthModel = $window.innerWidth
+  }
 
   const onResize = function(){
     if(this.screenWidthModel !== $window.innerWidth){
@@ -416,7 +426,9 @@ function ScreenWidthModel($window, $scope){
 ScreenWidthModel.$inject = ['$window', '$scope']
 
 function ScreenHeightModel($window, $scope){
-  this.screenHeightModel = $window.innerHeight
+  this.$onInit = function(){
+    this.screenHeightModel = $window.innerHeight
+  }
 
   const onResize = function(){
     if(this.screenHeightModel !== $window.innerHeight){

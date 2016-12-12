@@ -1,25 +1,32 @@
 {
   "name": "ack-angular",
-  "version": "1.6.5",
+  "version": "1.7.0",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "private": true,
   "scripts": {
+    "build:js:ack-angular": "webpack src/ack-angular.js www/ack-angular.js --optimize-minimize --production",
+    "build:js:ack-state": "webpack src/ack-state.module.js www/ack-state.js --optimize-minimize --production",
+    "build:js": "npm run build:js:ack-angular && npm run build:js:ack-state",
+    "watch:js": "npm run watch:js:ack-angular & npm run watch:js:ack-state",
+    "watch:js:ack-angular": "webpack src/ack-angular.js www/ack-angular.js --watch",
+    "watch:js:ack-state": "webpack src/ack-state.module.js www/ack-state.js --watch",
     "test": "ionic serve",
     "build:ng-fx": "node scripts/build-ng-fx",
-    "build": "npm run build:ng-fx && npm run build:pug && npm run build:js && npm run build:examples && npm run build:test && npm run build:css",
+    "build": "npm run build:ng-fx && npm run build:pug && npm run build:examples && npm run build:test && npm run build:css",
     "build:css": "node scripts/scss",
-    "build:test:index": "pug ./src/test/index.pug --out ./www/",
-    "build:examples": "npm run build:examples:js && npm run build:examples:pug",
-    "build:examples:pug": "ack-pug-bundler ./src/test/examples.pug ./www/examples.html --oneHtmlFile",
+    "build:test:index": "pug ./test-src/index.pug --out ./www/",
+    "build:examples": "npm run build:js && npm run build:examples:pug",
+    "build:examples:pug": "ack-pug-bundler ./test-src/examples.pug ./www/examples.html --oneHtmlFile",
     "build:pug": "ack-pug-bundler src",
     "build:test": "npm run build:test:index && npm run build:css && npm run build:test:js",
-    "build:js": "jspm build src/ack-angular.js dist/ack-angular.js --minify --skip-source-maps",
-    "build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js --minify --skip-source-maps && jspm build src/ack-state.module.js www/ack-state.js --minify --skip-source-maps",
-    "build:test:js": "jspm build src/test/test.js www/test.js",
     "watch:test": "npm run watch:test:index & npm run watch:test:js",
-    "watch:test:js": "jspm build src/test/test.js www/test.js --watch",
-    "watch:test:index": "watch 'npm run build:test:index' src"
+    "watch:test:index": "watch 'npm run build:test:index' src",
+    "jspm:build:js": "jspm build src/ack-angular.js dist/ack-angular.js --minify --skip-source-maps",
+    "jspm:build:examples:js": "jspm build src/ack-angular.js www/ack-angular.js --minify --skip-source-maps",
+    "jspm:build:test:js": "jspm build test-src/test.js www/test.js",
+    "build:test:js": "webpack test-src/test.js www/test.js",
+    "jspm:watch:test:js": "jspm build test-src/test.js www/test.js --watch"
   },
   "repository": {
     "type": "git",
@@ -31,7 +38,7 @@
     "directives"
   ],
   "author": "Acker Apple",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AckerApple/ack-angular/issues"
   },
@@ -225,10 +232,12 @@
     }
   },
   "dependencies": {
-    "angular": "github:angular/bower-angular",
+    "ack-x": "^1.2.20",
+    "angular": "^1.6.0",
     "angular-activity-monitor": "^1.1.0",
-    "angular-animate": "github:angular/bower-angular-animate",
+    "angular-animate": "^1.6.0",
     "angular-mocks": "github:angular/bower-angular-mocks",
+    "angular-ui-router": "^0.3.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015-loose": "^8.0.0",
     "localforage": "^1.4.3"
