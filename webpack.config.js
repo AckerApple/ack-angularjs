@@ -6,7 +6,7 @@ const config = {
   //output: path.join(__dirname,'www','ack-angular.js'),
   module:{
     preLoaders: [
-      { test: /\.json$/, loader: 'json'},
+      { test: /\.json$/, loader: "json-loader" },
     ],
     loaders: [
       {
