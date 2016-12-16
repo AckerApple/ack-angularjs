@@ -1,53 +1,40 @@
 import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
-.filter('alert', function(){
-  return function(x){
-    alert(x)
-  }
-})
-.filter('confirm', function(){
-  return function(x){
-      return confirm(x)
-  }
-})
-
-.filter('now', function(){
-  return function(){
-      return Date.now()
-  }
-})
-
-.filter('typeof', function(){
-  return function(x){
+.filter('Array', ()=>x=>Array(x))
+.filter('alert', ()=>x=>alert(x))
+.filter('confirm', ()=>x=>confirm(x))
+.filter('now', ()=>()=>Date.now())
+.filter('typeof', ()=>{
+  return x=>{
       return typeof(x)
   }
 })
 
-.filter('keys', function(){
-  return function(x){
+.filter('keys', ()=>{
+  return x=>{
       if(x){
         return Object.keys(x)
       }
   }
 })
 
-.filter('yesNo', function(){
-  return function(input){
+.filter('yesNo', ()=>{
+  return input=>{
     if(input==null)return input
     return input ? 'yes' : 'no';
   }
 })
 
-.filter('numbers', function(){
-  return function(input){
+.filter('numbers', ()=>{
+  return input=>{
     return input ? String(input).replace(/[^0-9]/g,'') : input
   }
 })
 
 /** any input received is simply run through the Number function. Best used to cast a Date to Number */
-.filter('Number', function(){
-  return function(input){
+.filter('Number', ()=>{
+  return input=>{
     return Number(input)
   }
 })
@@ -56,7 +43,7 @@ export default angular.module('ack-ng-filters', [])
 .filter('aFunction',a('method'))//alias
 .filter('aDate',a('date'))
 .filter('aTime',a('time'))
-.filter('ack', function(){
+.filter('ack', ()=>{
   return invokeRotator(ack)
 })
 .filter('capitalize', capitalize)//first letter capitalization
@@ -104,7 +91,7 @@ function invokeRotator(invoke){
 
 /** each sentence word is capitalized */
 function capitalize() {
-  return function(input) {
+  return input=> {
     input = capitalizeOne(input)
     var reg = /[.?!][\s\r\t]+\w/g
     return (!!input) ? input.replace(reg, capitalizeAfterSentence) : ''
@@ -122,7 +109,7 @@ function capitalizeOne(input) {
 }
 
 function capitalizeWords() {
-  return function(input) {
+  return input=> {
     var reg = /[^\W_]+[^\s-]* */g
     return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) : ''
   }
