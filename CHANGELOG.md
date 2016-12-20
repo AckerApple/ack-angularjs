@@ -1,6 +1,10 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.7.2] - 2016-12-12 (UNRELEASED)
+### Added
+- directive inputChanged
+
 ## [1.7.0] - 2016-12-12
 ### Enhanced
 - angular 1.6 requires more use of $onInit for setting initial model values

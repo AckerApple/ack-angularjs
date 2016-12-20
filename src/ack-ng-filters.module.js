@@ -1,6 +1,7 @@
 import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
+.filter('trustAsResourceUrl', ['$sce',$sce=>url=>$sce.trustAsResourceUrl(url)])
 .filter('Array', ()=>x=>Array(x))
 .filter('alert', ()=>x=>alert(x))
 .filter('confirm', ()=>x=>confirm(x))

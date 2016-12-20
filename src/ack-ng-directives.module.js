@@ -31,6 +31,17 @@ export default angular.module('ack-ng-directives', [])
   }
 })
 
+.directive('inputChanged', function() {
+  return {
+    restrict:'A',
+    link: function($scope, jElm, attrs) {
+      jElm[0].addEventListener('change',function(event){
+        $scope.$eval(attrs.inputChanged,{input:this, value:this.value})
+      })
+    }
+  }
+})
+
 
 /** used on an input that has ng-model to display a different value */
 .directive('modelDisplay', modelDisplay)
