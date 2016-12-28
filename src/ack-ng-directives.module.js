@@ -1,6 +1,19 @@
 import whiteOutModalTemplate from './white-out-modal.pug.js'
 
 export default angular.module('ack-ng-directives', [])
+
+/** needed when type="date" and ng-model is mocking up the model value because its trying to format it */
+.directive('ngModelFormatIgnore', function() {
+  return {
+    restrict:'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ngModelCtrl) {
+      ngModelCtrl.$formatters.length = 0;
+      ngModelCtrl.$parsers.length = 0;
+    }
+  }
+})
+
 /** runs shake instructions when condition returns a truthy value */
 .directive('shakeOn', shakeOnDirective)
 /** runs shake instructions when model changes to a truthy value */
@@ -55,12 +68,18 @@ export default angular.module('ack-ng-directives', [])
       modelFilter: "@"
     },
     link: function($scope, element, attrs, ngModelController) {
+      var filterDef = attrs.modelFilter.split(':')
+
+      filterDef = filterDef.map(item=>{
+        return item.replace(/(^('|")|('|")$)/g,'')
+      })
+
       ngModelController.$parsers.push(function(data) {
-        return $filter(attrs.modelFilter)(data)
+        return $filter.apply($filter,filterDef)(data)
       })
 
       ngModelController.$formatters.push(function(data) {
-        return $filter(attrs.modelFilter)(data)
+        return $filter.apply($filter,filterDef)(data)
       })
     }
   }

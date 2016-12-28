@@ -5,6 +5,7 @@ export default angular.module('ack-ng-filters', [])
 .filter('Array', ()=>x=>Array(x))
 .filter('alert', ()=>x=>alert(x))
 .filter('confirm', ()=>x=>confirm(x))
+.filter('console', ()=>x=>console.log(x))
 .filter('now', ()=>()=>Date.now())
 .filter('typeof', ()=>{
   return x=>{
