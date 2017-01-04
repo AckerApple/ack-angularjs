@@ -2,11 +2,19 @@ import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
 .filter('trustAsResourceUrl', ['$sce',$sce=>url=>$sce.trustAsResourceUrl(url)])
-.filter('Array', ()=>x=>Array(x))
 .filter('alert', ()=>x=>alert(x))
 .filter('confirm', ()=>x=>confirm(x))
 .filter('console', ()=>x=>console.log(x))
 .filter('now', ()=>()=>Date.now())
+.filter('stringify', ()=>(x,y)=>JSON.stringify(x, null, y))
+.filter('Array', ()=>x=>{
+  const rtn = []
+  while(x>=0){
+    rtn.unshift(x)
+    --x
+  }
+  return rtn
+})
 .filter('typeof', ()=>{
   return x=>{
       return typeof(x)
