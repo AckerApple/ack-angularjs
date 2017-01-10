@@ -1,9 +1,10 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
-## [1.7.2] - 2016-12-12 (UNRELEASED)
+## [1.7.2] - 2016-01-10
 ### Added
 - directive inputChanged
+- anchorScroll filter
 
 ## [1.7.0] - 2016-12-12
 ### Enhanced

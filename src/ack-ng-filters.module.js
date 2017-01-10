@@ -1,6 +1,7 @@
 import ack from 'ack-x/index-browser'
 
 export default angular.module('ack-ng-filters', [])
+.filter('anchorScroll',['$anchorScroll',($anchorScroll)=>anchor=>$anchorScroll(anchor)])
 .filter('trustAsResourceUrl', ['$sce',$sce=>url=>$sce.trustAsResourceUrl(url)])
 .filter('alert', ()=>x=>alert(x))
 .filter('confirm', ()=>x=>confirm(x))
