@@ -259,8 +259,8 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	/**
-	 * @license AngularJS v1.6.1-build.5200+sha.29f3bf4
-	 * (c) 2010-2016 Google, Inc. http://angularjs.org
+	 * @license AngularJS v1.6.2-build.5236+sha.74e232d
+	 * (c) 2010-2017 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
 	(function (window, angular) {
@@ -305,9 +305,32 @@
 	    self.$$lastUrl = self.$$url; // used by url polling fn
 	    self.pollFns = [];
 	
-	    // TODO(vojta): remove this temporary api
-	    self.$$completeOutstandingRequest = angular.noop;
-	    self.$$incOutstandingRequestCount = angular.noop;
+	    // Testability API
+	
+	    var outstandingRequestCount = 0;
+	    var outstandingRequestCallbacks = [];
+	    self.$$incOutstandingRequestCount = function () {
+	      outstandingRequestCount++;
+	    };
+	    self.$$completeOutstandingRequest = function (fn) {
+	      try {
+	        fn();
+	      } finally {
+	        outstandingRequestCount--;
+	        if (!outstandingRequestCount) {
+	          while (outstandingRequestCallbacks.length) {
+	            outstandingRequestCallbacks.pop()();
+	          }
+	        }
+	      }
+	    };
+	    self.notifyWhenNoOutstandingRequests = function (callback) {
+	      if (outstandingRequestCount) {
+	        outstandingRequestCallbacks.push(callback);
+	      } else {
+	        callback();
+	      }
+	    };
 	
 	    // register url polling fn
 	
@@ -330,6 +353,8 @@
 	    self.deferredNextId = 0;
 	
 	    self.defer = function (fn, delay) {
+	      // Note that we do not use `$$incOutstandingRequestCount` or `$$completeOutstandingRequest`
+	      // in this mock implementation.
 	      delay = delay || 0;
 	      self.deferredFns.push({ time: self.defer.now + delay, fn: fn, id: self.deferredNextId });
 	      self.deferredFns.sort(function (a, b) {
@@ -430,10 +455,6 @@
 	
 	    state: function state() {
 	      return this.$$state;
-	    },
-	
-	    notifyWhenNoOutstandingRequests: function notifyWhenNoOutstandingRequests(fn) {
-	      fn();
 	    }
 	  };
 	
@@ -1542,9 +1563,7 @@
 	        });
 	    ```
 	   */
-	  angular.mock.$HttpBackendProvider = function () {
-	    this.$get = ['$rootScope', '$timeout', createHttpBackendMock];
-	  };
+	  angular.mock.$httpBackendDecorator = ['$rootScope', '$timeout', '$delegate', createHttpBackendMock];
 	
 	  /**
 	   * General factory function for $httpBackend mock.
@@ -1565,7 +1584,11 @@
 	        expectations = [],
 	        responses = [],
 	        responsesPush = angular.bind(responses, responses.push),
-	        copy = angular.copy;
+	        copy = angular.copy,
+	
+	    // We cache the original backend so that if both ngMock and ngMockE2E override the
+	    // service the ngMockE2E version can pass through to the real backend
+	    originalHttpBackend = $delegate.$$originalHttpBackend || $delegate;
 	
 	    function createResponse(status, data, headers, statusText) {
 	      if (angular.isFunction(status)) return status;
@@ -1643,7 +1666,7 @@
 	            // if $browser specified, we do auto flush all requests
 	            ($browser ? $browser.defer : responsesPush)(wrapResponse(definition));
 	          } else if (definition.passThrough) {
-	            $delegate(method, url, data, callback, headers, timeout, withCredentials, responseType, eventHandlers, uploadEventHandlers);
+	            originalHttpBackend(method, url, data, callback, headers, timeout, withCredentials, responseType, eventHandlers, uploadEventHandlers);
 	          } else throw new Error('No response defined !');
 	          return;
 	        }
@@ -2101,6 +2124,8 @@
 	      expectations.length = 0;
 	      responses.length = 0;
 	    };
+	
+	    $httpBackend.$$originalHttpBackend = originalHttpBackend;
 	
 	    return $httpBackend;
 	
@@ -2592,7 +2617,6 @@
 	    $exceptionHandler: angular.mock.$ExceptionHandlerProvider,
 	    $log: angular.mock.$LogProvider,
 	    $interval: angular.mock.$IntervalProvider,
-	    $httpBackend: angular.mock.$HttpBackendProvider,
 	    $rootElement: angular.mock.$RootElementProvider,
 	    $componentController: angular.mock.$ComponentControllerProvider
 	  }).config(['$provide', '$compileProvider', function ($provide, $compileProvider) {
@@ -2600,6 +2624,7 @@
 	    $provide.decorator('$$rAF', angular.mock.$RAFDecorator);
 	    $provide.decorator('$rootScope', angular.mock.$RootScopeDecorator);
 	    $provide.decorator('$controller', createControllerDecorator($compileProvider));
+	    $provide.decorator('$httpBackend', angular.mock.$httpBackendDecorator);
 	  }]);
 	
 	  /**
@@ -2614,7 +2639,6 @@
 	   * the {@link ngMockE2E.$httpBackend e2e $httpBackend} mock.
 	   */
 	  angular.module('ngMockE2E', ['ng']).config(['$provide', function ($provide) {
-	    $provide.value('$httpBackend', angular.injector(['ng']).get('$httpBackend'));
 	    $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
 	  }]);
 	
