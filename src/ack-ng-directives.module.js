@@ -643,9 +643,9 @@ function InterpolateString($interpolate, $sce, $element, $compile, $scope){
   }.bind(this)
 */
   const build = function(string){
-    $element[0].innerHTML='<span>'+string+'</span>'
+    $element[0].innerHTML='<span ng-init="$ctrl.afterBuild()">'+string+'</span>'
     $compile($element[0].childNodes[0])(this.scope || $scope.$parent)
-    this.afterBuild()
+    //this.afterBuild()
   }.bind(this)
 
   const run = function(changes){

@@ -1,7 +1,11 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
-## [1.7.2] - 2016-01-10
+## [1.7.3] - 2017-01-24
+### Enhanced
+- afterBuild callback for interpolate, is now fired via ng-init to ensure elements are on stage
+
+## [1.7.2] - 2017-01-10
 ### Added
 - directive inputChanged
 - anchorScroll filter
