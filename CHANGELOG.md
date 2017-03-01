@@ -1,6 +1,10 @@
 # ack-angular - Change Log
 All notable changes to this project will be documented here.
 
+## [1.7.4] - 2017-03-01
+### Added
+- BEGAN co-existence of ng1 and ng2
+
 ## [1.7.3] - 2017-01-24
 ### Enhanced
 - afterBuild callback for interpolate, is now fired via ng-init to ensure elements are on stage

@@ -1,6 +1,6 @@
 {
   "name": "ack-angular",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
   "private": true,
@@ -55,11 +55,11 @@
     "node-sass": "^3.7.0",
     "pug": "^2.0.0-beta4",
     "watch": "^0.19.1",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "angular": "^1.6.0"
   },
   "dependencies": {
     "ack-x": "^1.2.20",
-    "angular": "^1.6.0",
     "angular-activity-monitor": "^1.1.0",
     "angular-animate": "^1.6.0",
     "angular-mocks": "github:angular/bower-angular-mocks",
