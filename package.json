@@ -1,5 +1,5 @@
 {
-  "name": "ack-angular",
+  "name": "ack-angularjs",
   "version": "1.7.4",
   "description": "Universal Angular base code suited for any web app",
   "main": "ack-angular.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AckerApple/ack-angular.git"
+    "url": "https://github.com/AckerApple/ack-angularjs.git"
   },
   "keywords": [
     "acker",
@@ -40,9 +40,9 @@
   "author": "Acker Apple",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AckerApple/ack-angular/issues"
+    "url": "https://github.com/AckerApple/ack-angularjs/issues"
   },
-  "homepage": "https://github.com/AckerApple/ack-angular",
+  "homepage": "https://github.com/AckerApple/ack-angularjs",
   "devDependencies": {
     "ack-css-boot": "^1.2.0",
     "ack-pug-bundler": "^1.1.2",
