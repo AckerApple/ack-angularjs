@@ -1,3 +1,4 @@
+import 'angular'
 import mocks from "angular-mocks"
 
 export function createDepject(args, callback){

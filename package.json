@@ -5,6 +5,7 @@
   "main": "ack-angular.js",
   "private": true,
   "scripts": {
+    "build:localforage":"node scripts/build-localforage.js",
     "build:js:ack-angular": "webpack src/ack-angular.js www/ack-angular.js --optimize-minimize --production",
     "build:js:ack-state": "webpack src/ack-state.module.js www/ack-state.js --optimize-minimize --production",
     "build:js": "npm run build:js:ack-angular && npm run build:js:ack-state",

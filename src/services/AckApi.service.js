@@ -10,40 +10,6 @@ export default class AckApi {
     this.AckOffline = AckOffline
   }
 
-  /** master method for sending requests and caching responses using $http requests
-    @cfg{
-      catch:'data'//typically only error data is returned, but if catch!='data' then entire response is returned for a caught error
-      promise:'data'//typically only data is returned, but if promise!='data' then entire response is returned
-      headers:{}//when sending a file 'Content-Type':undefined so that no content-type header is sent
-    }
-  */
-  _fetch(cfg) {
-    upgradeConfig(cfg)
-
-    return this.$http(cfg)
-    .then(response => {
-      response = !cfg.promise || cfg.promise=='data' ? response.data : response
-
-      if (cfg.method === "GET" && cfg.queModel) {
-        this.AckOffline.cacheResponse(cfg.queModel.config.name, response)
-      }
-
-      return response
-    })
-    .catch(e=>{
-      const isReduceData = cfg.catch==null||cfg.catch=='data'
-      const isCatchData = isReduceData && e.data && e.data.error
-
-      //find JSON error object and reduce to
-      if(isCatchData){
-        const newError = new Error()
-        Object.assign(newError, e.data.error)
-        e = newError
-      }
-      throw e
-    })
-  }
-
   /** method all request transactions tunnel thru to instead try for cache first
     @method:GET,POST,DELETE,PUT
     @url
@@ -87,6 +53,40 @@ export default class AckApi {
     return this._fetch(cfg)
   }
 
+  /** master method for sending requests and caching responses using $http requests
+    @cfg{
+      catch:'data'//typically only error data is returned, but if catch!='data' then entire response is returned for a caught error
+      promise:'data'//typically only data is returned, but if promise!='data' then entire response is returned
+      headers:{}//when sending a file 'Content-Type':undefined so that no content-type header is sent
+    }
+  */
+  _fetch(cfg) {
+    upgradeConfig(cfg)
+
+    return this.$http(cfg)
+    .then(response => {
+      response = !cfg.promise || cfg.promise=='data' ? response.data : response
+
+      if (cfg.method === "GET" && cfg.queModel) {
+        this.AckOffline.setCache(cfg.queModel.config.name, response.data)
+      }
+
+      return response
+    })
+    .catch(e=>{
+      const isReduceData = cfg.catch==null||cfg.catch=='data'
+      const isCatchData = isReduceData && e.data && e.data.error
+
+      //find JSON error object and reduce to
+      if(isCatchData){
+        const newError = new Error()
+        Object.assign(newError, e.data.error)
+        e = newError
+      }
+      throw e
+    })
+  }
+  
   /**
     @path:url
     @config:{

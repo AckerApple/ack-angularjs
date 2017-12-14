@@ -1,5 +1,5 @@
 import injector from "../injector"
-import StateManagerService from "./StateManagerService.class"
+import StateManagerService from "./StateManager.class"
 
 const deps = ['$state','$window']
 

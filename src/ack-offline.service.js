@@ -5,8 +5,8 @@ import localForage from "localforage"
 const supportsNav = typeof(navigator)!='undefined'
 
 export default class AckOffline{
-  constructor($http){
-    this.$http = $http
+  constructor(/*$http*/){
+    //this.$http = $http
     this.prefix = "offline"
     this.handlers = []
   }
@@ -43,11 +43,11 @@ export default class AckOffline{
       expires: Number - how many milisecs can a saved transmission live in cache
     }
   */
-  newQueModel(name,options={}){
+  /*newQueModel(name,options={}){
     options.name = name
     this.addQueModel(name, options)
     return new QueModel(this, options)
-  }
+  }*/
 
   /**
     Creates que handler. Returns self. Most likely, use newQueModel
@@ -56,7 +56,7 @@ export default class AckOffline{
       onData : data=> - callback fired everytime data is retrieved
     }
   */
-  addQueModel(name,options={}){
+  /*addQueModel(name,options={}){
     return this.registerQueueHandler(name, trans=>{
       let prom = this.$http(trans)
 
@@ -70,7 +70,7 @@ export default class AckOffline{
 
       return prom.catch(e=>this.ErrorHandler.record(e))
     })
-  }
+  }*/
 
   paramCache(name, options={}){
     options.param = options.param || []
@@ -192,7 +192,7 @@ export default class AckOffline{
   }
 
   registerQueueHandler(name, handler) {
-    handler = handler || this.getQueHandler.bind(this)
+    //handler = handler || this.getQueHandler.bind(this)
     this.handlers.push({name, handler})
     return this
   }
@@ -212,12 +212,12 @@ export default class AckOffline{
 
     return Promise.all(promises)
   }
-
-  getQueHandler(item) {
+  
+  /*getQueHandler(item) {
     return this.$http(item)
-  }
+  }*/
 
-  promiseNameArray(){
+  /*promiseNameArray(){
     let keys = []
     return localForage.iterate((_, k) => {
       if (k.startsWith(this.prefix)) {
@@ -229,16 +229,16 @@ export default class AckOffline{
 
   clear() {
     this.promiseNameArray().then((keys) => keys.forEach(name=>this.remove(name)))
-  }
-
+  }*/
 }
 
-AckOffline.$inject = ["$http"]
+//AckOffline.$inject = ["$http"]
 
 
 /**
   @config {expires, allowExpired, name}
 */
+/*
 class QueModel{
   constructor(AckOffline, config){
     this.AckOffline = AckOffline
@@ -258,4 +258,4 @@ class QueModel{
   set(data){
     return this.AckOffline.set(this.config.name, data)
   }
-}
+}*/
