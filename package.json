@@ -57,9 +57,7 @@
     "pug": "^2.0.0-beta4",
     "watch": "^0.19.1",
     "webpack": "^1.14.0",
-    "angular": "^1.6.0"
-  },
-  "dependencies": {
+    "angular": "^1.6.0",
     "ack-x": "^1.2.20",
     "angular-activity-monitor": "^1.1.0",
     "angular-animate": "^1.6.0",
